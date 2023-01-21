@@ -9,6 +9,7 @@ const inter = Inter({ subsets: ['latin'] })
 
 export default function Home() {
   const { data: session } = useSession()
+  console.log(session);
   return (
     <div className='styles.container'>
       <Head>
@@ -17,7 +18,7 @@ export default function Home() {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-    <h1 className={styles.red}>Wellcome</h1>
+    <h1 className={styles.red}>Wellcome me</h1>
     {session? "you are logged in": "you are not logged in"}
     </div>
   )
