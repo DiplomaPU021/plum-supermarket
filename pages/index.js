@@ -6,6 +6,7 @@ import Header from '@/components/header'
 import Footer from '@/components/footer'
 import ProductCard from "@/components/productCard";
 
+
 const inter = Inter({ subsets: ["latin"] });
 
 const products = [
