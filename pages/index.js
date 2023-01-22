@@ -210,7 +210,8 @@ const products = [
 ];
 
 export default function Home() {
-  const { data: session } = useSession();
+  const { data: session } = useSession()
+  console.log(session);
   return (
     <div className="styles.container">
       <Head>
@@ -221,12 +222,12 @@ export default function Home() {
       </Head>
       <h1 className={styles.red}>Wellcome</h1>
       {session ? "you are logged in" : "you are not logged in"}
-
       <div className={styles.products}>
         {products.map((product) => (
           <ProductCard product={product} key={product._id} />
         ))}
       </div>
+
     </div>
   );
 }
