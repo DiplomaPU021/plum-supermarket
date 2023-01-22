@@ -9,6 +9,7 @@ import Head from 'next/head';
 let persistor = persistStore(store);
 
 function MyApp({ Component, pageProps: { session, ...pageProps } }) {
+function MyApp({ Component, pageProps: { session, ...pageProps } }) {
   return (
     <>
     <Head>
