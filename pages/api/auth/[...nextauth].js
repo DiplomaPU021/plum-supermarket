@@ -15,8 +15,6 @@ import db from "../../../utils/db";
 db.connectDb();
 export default NextAuth({
   adapter: MongoDBAdapter(clientPromise),
-
-
   providers: [
     CredentialsProvider({
       // The name to display on the sign in form (e.g. "Sign in with...")
@@ -39,7 +37,6 @@ export default NextAuth({
         if (user) {
           // Any object returned will be saved in `user` property of the JWT
           return SingnInUser({ password, user });
-          return SingnInUser({ password, user });
         } else {
           // If you return null then an error will be displayed advising the user to check their details.
           throw new Error("Incorrect email or password")
@@ -49,11 +46,6 @@ export default NextAuth({
           // You can also Reject this callback with an Error thus the user will be sent to the error page with the error message as a query parameter
         }
       }
-    }),
-    // OAuth authentication providers...
-    TwitterProvider({
-      clientId: process.env.TWITTER_ID,
-      clientSecret: process.env.TWITTER_SECRET
     }),
     FacebookProvider({
       clientId: process.env.FACEBOOK_ID,
@@ -72,15 +64,10 @@ export default NextAuth({
       clientSecret: process.env.AUTH0_CLIENT_SECRET,
       issuer: process.env.AUTH0_ISSUER
     }),
-
-
-
   ],
   callbacks: {
-
     async session({ session, token }) {
       let user = await User.findbyId(token.sub);
-
       // if (token) {
       //   session.user = token.user;
       //   session.accessToken = token.accessToken;
@@ -89,23 +76,17 @@ export default NextAuth({
       // }
       session.user.id = token.sub || user._id.toString();
       session.user.role = user.role || "user";
-      session.user.id = token.sub || user._id.toString();
-      session.user.role = user.role || "user";
-
       return session;
     },
-
-
   },
   pages: {
-      signIn: '/signin',
-      // signOut: '/signout',
-    },
-    session:{
-      strategy: 'jwt',
-    },
-    secret:process.env.JWT_SECRET,
-
+    signIn: '/signin',
+    // signOut: '/signout',
+  },
+  session: {
+    strategy: 'jwt',
+  },
+  secret: process.env.JWT_SECRET,
 });
 
 const SingnInUser = async ({ password, user }) => {
@@ -113,11 +94,8 @@ const SingnInUser = async ({ password, user }) => {
     throw new Error("Please enter your password");
   }
   const testPassword = await bcrypt.compare(password, user.password);
-
   if (!testPassword) {
     throw new Error("Incorrect email or password");
   }
   return user;
-
-
 };
