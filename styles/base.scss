@@ -1,3 +1,5 @@
+$shadow-1: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+$shadow-2: rgba (99, 99, 99, 0.1) 0px 0px 4px 0px;
 $blue-color: #2f82ff;
 $yellow-color:#fac80f;
 $violet-color:#5a31f4;
@@ -7,5 +9,34 @@ $light-error-color:#fd810169;
 $error-color:#ed4397;
 $success-color:#6cc070;
 $red-color: red;
-$shadow-1: rgba(99, 99, 99, 6.2) 0px 2px 8px 0px;
-$shadow-2: rgba (99, 99, 99, 0.1) 0px 0px 4px 0px;
+
+.btn_primary {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 5px;
+    background: $blue-color;
+    color: #fff;
+    font-weight: 600;
+    width: 100%;
+    cursor: pointer;
+    border-radius: 2px;
+}
+
+.btn_outlined {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 5px;
+    background: $grey-color;
+    color: $blue-color;
+    font-weight: 600;
+    width: 100%;
+    cursor: pointer;
+    border-radius: 2px;
+}
+.flex{
+    display:flex;
+    align-items: center;
+    gap: 5px;
+}
