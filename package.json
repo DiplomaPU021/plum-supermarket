@@ -27,10 +27,23 @@
     "redux-devtools-extension": "^2.13.9",
     "redux-persist": "^6.0.0",
     "redux-thunk": "^2.4.2",
-    "sass": "^1.57.1"
+    "sass": "^1.57.1",
+    "swiper": "^8.4.6"
   },
   "devDependencies": {
     "eslint": "8.32.0",
     "eslint-config-next": "13.1.2"
-  }
+  },
+  "description": "This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).",
+  "main": "next.config.js",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/OxyFoxy10/plum-supermarket.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/OxyFoxy10/plum-supermarket/issues"
+  },
+  "homepage": "https://github.com/OxyFoxy10/plum-supermarket#readme"
 }
