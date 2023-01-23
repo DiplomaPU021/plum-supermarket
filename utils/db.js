@@ -23,15 +23,15 @@ export async function connectDb() {
     connection.isConnected = db.connections[0].readyState;
 }
 export async function disconnectDb() {
-    if(connection.isConnected){
-        if(process.env.NODE_ENV === "production"){
+    if (connection.isConnected) {
+        if (process.env.NODE_ENV === "production") {
 
-        await mongoose.disconnect();
-        connection.isConnected = false;
-    } else {
-        console.log("Not disconnecting from database");
+            await mongoose.disconnect();
+            connection.isConnected = false;
+        } else {
+            console.log("Not disconnecting from database");
+        }
     }
 }
-}
-const db = {connectDb, disconnectDb};
+const db = { connectDb, disconnectDb };
 export default db;

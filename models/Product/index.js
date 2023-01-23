@@ -1,6 +1,6 @@
 export default [
   {
-    _id: 0,
+    _id: 0, 
     name: "product0",
     slug: "product0",
     category: "pants",
