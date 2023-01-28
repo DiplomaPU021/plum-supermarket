@@ -1,4 +1,4 @@
-import React from 'react';
+import * as React from 'react';
 import Header from "../components/header"
 import Footer from "../components/footer"
 import styles from "../styles/signin.module.scss"
@@ -6,12 +6,14 @@ import { BiLeftArrowAlt } from "react-icons/bi"
 import Link from "next/link"
 import { Formik, Form, prepareDataForValidation } from "formik"
 import * as Yup from "yup"
-import { getProviders, signIn } from "next-auth/react"
+import { getProviders, getSession, signIn, getCsrfToken } from "next-auth/react"
+import axios from "axios";
 import LoginInput from "../components/inputs/loginInput"
 import CircledIconBtn from "../components/buttons/circledIconBtn"
-import DotLoaderSpinner from '@/components/loaders/dotLoader';
+import DotLoaderSpinner from '../components/loaders/dotLoader';
 import Router from "next/router"
 import { SiNumpy } from 'react-icons/si';
+
 
 const initialvalues = {
     login_email: "",
@@ -20,22 +22,31 @@ const initialvalues = {
     email: "",
     password: "",
     conf_password: "",
-    success: "register success",
-    error: "error from backend",
+    success: "",
+    error: "",
+    login_error: "",
 }
 
-export default function signin({ providers }) {
+export default function signin({ providers, callbackUrl, csrfToken }) {
     const [loading, setLoading] = React.useState(false)
     const [user, setUser] = React.useState(initialvalues);
-    const { login_email, login_password, name,
+    const {
+        login_email,
+        login_password,
+        name,
         email,
         password,
-        conf_password } = user;
+        conf_password,
+        success,
+        error,
+        login_error,
+    } = user;
 
-    const handleChange = (e) => {
+    const handleChange =  (e) => {
         const { name, value } = e.target
         setUser({ ...user, [name]: value })
-    }
+    };
+
     const loginValidation = Yup.object({
         login_email: Yup.string().required("Email address is required.").email("Please enter a valid email address"),
         login_password: Yup.string().required("Please enter a password")
@@ -48,12 +59,30 @@ export default function signin({ providers }) {
         email: Yup.string().required("You will need this when you log in and for reset password.")
             .email("Enter a valid email address."),
         password: Yup.string().required("Enter a combination of at least 6 numbers, letters and punctuation marks.")
-            .min("Password must be at least 6 characters.")
+            .min(6, "Password must be at least 6 characters.")
             .max(36, "Password can't be more then 36 characters."),
         conf_password: Yup.string().required("Confirm your password")
             .oneOf([Yup.ref("password")], "Password must match.")
-    })
-    const SignUpHandler = async () => {
+    });
+
+    const signInHandler = async () => {
+        setLoading(true);
+        let options = {
+            redirect: false,
+            email: login_email,
+            password: login_password,
+        };
+        const res = await signIn('credentials', options);
+        setUser({ ...user, error: "", success: "" });
+        setLoading(false);
+        if (res?.error) {
+            setLoading(false);
+            setUser({ ...user, login_error: res?.error });
+        } else {
+            return Router.push(callbackUrl || "/");
+        }
+    };
+    const signUpHandler = async () => {
         try {
             setLoading(true);
             const { data } = await axios.post('/api/auth/signup', {
@@ -63,6 +92,15 @@ export default function signin({ providers }) {
             });
             setUser({ ...user, error: "", success: data.message });
             setLoading(false);
+            setTimeout(async () => {
+                let options = {
+                    redirect: false,
+                    email: email,
+                    password: password,
+                };
+                const res = await signIn('credentials', options);
+                Router.push("/");
+            }, 2000);
         } catch (error) {
             setLoading(false);
             setUser({ ...user, success: "", error: error.response.data.message });
@@ -91,9 +129,17 @@ export default function signin({ providers }) {
                                 login_email,
                                 login_password,
                             }}
-                            validationSchema={loginValidation}>
+                            validationSchema={loginValidation}
+                            onSubmit={() => {
+                                signInHandler();
+                            }}>
                             {(form) => (
-                                <Form>
+                                <Form method="post" action="/api/auth/signin/email">
+                                    <input
+                                        type="hidden"
+                                        name="csrfToken"
+                                        value={csrfToken}
+                                    />
                                     <LoginInput
                                         type="text"
                                         icon="email"
@@ -107,31 +153,38 @@ export default function signin({ providers }) {
                                         placeholder="Password"
                                         onChange={handleChange} />
                                     <CircledIconBtn type="submit" text="Sign in" />
+                                    {login_error && (
+                                        <span className={styles.error}>{login_error}</span>
+                                    )}
                                     <div className={styles.forgot}>
                                         <Link href="/forget">Forgot password ?</Link>
                                     </div>
                                 </Form>
-                            )
-                            }
+                            )}
+
                         </Formik>
                         <div className={styles.login_socials}>
                             <span className={styles.login_or}>Or continue with</span>
                             <div className={styles.login_socials_wrap}>
-                                {providers.map((provider) => (
-                                    <div key={provider.name}>
-                                        <button className={styles.social_btn}
-                                            onClick={() => signIn(provider.id)}>
-                                            <img src={`../../icons/${provider.name}.png`} alt="provider" />
-                                            Sign in with {provider.name}
-                                        </button>
-                                    </div>
-                                ))}
+                                {providers.map((provider) => {
+                                    if (provider.name == "Credentials") {
+                                        return;
+                                    }
+                                    return (
+                                        <div key={provider.name}>
+                                            <button className={styles.social_btn}
+                                                onClick={() => signIn(provider.id)}>
+                                                <img src={`../../icons/${provider.name}.png`} alt="provider" />
+                                                Sign in with {provider.name}
+                                            </button>
+                                        </div>
+                                    );
+                                })}
                             </div>
                         </div>
                     </div>
                 </div>
                 <div className={styles.login_container}>
-
                     <div className={styles.login_form}>
                         <h1>Sign up</h1>
                         <p>Get access to one of the best E-Shopping services in the world.</p>
@@ -143,10 +196,10 @@ export default function signin({ providers }) {
                                 password,
                                 conf_password,
                             }}
-                            validationSchema={registerValidation}>
-                            onSubmit={() => {
-                                SignUpHandler();
-                            }}
+                            validationSchema={registerValidation}
+                            onSubmit={ () => {
+                                signUpHandler();
+                            }}>
                             {(form) => (
                                 <Form>
                                     <LoginInput
@@ -172,11 +225,11 @@ export default function signin({ providers }) {
                                         icon="password"
                                         name="conf_password"
                                         placeholder="Re-Type Password"
-                                        onChange={handleChange} />
+                                        onChange={handleChange}
+                                    />
                                     <CircledIconBtn type="submit" text="Sign up" />
                                 </Form>
-                            )
-                            }
+                            )}
                         </Formik>
                         <div>
                             {success && <span className={styles.success}>{success}</span>}
@@ -193,8 +246,20 @@ export default function signin({ providers }) {
 }
 
 export async function getServerSideProps(context) {
+    const { req, query } = context;
+    const session = await getSession({req});
+    const { callbackUrl } = query;
+    if (session) {
+        return {
+            redirect: {
+                destination: callbackUrl,
+
+            },
+        };
+    };
+    const csrfToken = await getCsrfToken(context);
     const providers = Object.values(await getProviders())
     return {
-        props: { providers }
-    }
+        props: { providers, csrfToken, callbackUrl },
+    };
 }

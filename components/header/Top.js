@@ -3,21 +3,23 @@ import { MdSecurity } from "react-icons/md"
 import { BsSuitHeart } from "react-icons/bs"
 import { RiAccountPinCircleLine, RiArrowDropDownFill } from "react-icons/ri"
 import Link from "next/link"
-import * as React from "react"
+import {useState} from "react"
 import UserMenu from "./UserMenu"
+import{useSession} from "next-auth/react"
 
-export default function Top() {
-    const [loggedIn, setLoggedIn] = React.useState(false);
-    const [visible, setVisible] = React.useState(false)
+export default function Top({country}) {
+    const{data:session} = useSession();
+
+    const [loggedIn, setLoggedIn] = useState(false);
+    const [visible, setVisible] = useState(false)
     return (
-
         <div className={styles.top}>
             <div className={styles.top_container}>
                 <div></div>
                 <ul className={styles.top_list}>
                     <li className={styles.li}>
                         <img src="https://cdn2.iconfinder.com/data/icons/world-flag-2/30/18-512.png" alt="ua-flag" />
-                        <span>Ukraine / hrn</span>
+                        <span>Ukraine / UAH</span>
                     </li>
                     <li className={styles.li}>
                         <MdSecurity />
@@ -39,13 +41,12 @@ export default function Top() {
                     onMouseOver={()=>setVisible(true)}
                     onMouseLeave={()=>setVisible(false)}
                     >
-                    {loggedIn ? (
+                    {session ? (
                         <li className={styles.li}>
                             <div className={styles.flex}>
-                               <img src="https://st3.depositphotos.com/1007566/12989/v/450/depositphotos_129895474-stock-illustration-hacker-character-avatar-icon.jpg" alt="profile"/>
-                                <span>USER NAME</span>
+                               <img src={session.user.image} alt="profile"/>
+                                <span>{session.user.name}</span>
                                 <RiArrowDropDownFill />
-
                             </div>
                         </li>
                     ) : (
@@ -58,7 +59,7 @@ export default function Top() {
                             </div>
                         </li>
                     )}
-                    {visible && <UserMenu loggedIn={loggedIn}/>}
+                    {visible && <UserMenu session={session}/>}
                    
                     </li>
 
