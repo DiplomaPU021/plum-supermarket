@@ -5,6 +5,7 @@ import { useSession, signIn, signOut } from "next-auth/react"
 import Header from '@/components/header'
 import Footer from '@/components/footer'
 import ProductCard from "@/components/productCard";
+import axios from 'axios';
 
 
 const inter = Inter({ subsets: ["latin"] });
@@ -215,8 +216,7 @@ export default function Home() {
   console.log(session);
   return (
     <div className="styles.container">
-    <Header/>
-     
+    <Header/>  
       {session ? "you are logged in" : "you are not logged in"}
       <div className={styles.products}>
         {products.map((product) => (
