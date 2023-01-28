@@ -3,15 +3,15 @@ import { MdSecurity } from "react-icons/md"
 import { BsSuitHeart } from "react-icons/bs"
 import { RiAccountPinCircleLine, RiArrowDropDownFill } from "react-icons/ri"
 import Link from "next/link"
-import {useState} from "react"
+import * as React from "react"
 import UserMenu from "./UserMenu"
 import{useSession} from "next-auth/react"
 
 export default function Top({country}) {
     const{data:session} = useSession();
 
-    const [loggedIn, setLoggedIn] = useState(false);
-    const [visible, setVisible] = useState(false)
+    const [loggedIn, setLoggedIn] = React.useState(false);
+    const [visible, setVisible] = React.useState(false)
     return (
         <div className={styles.top}>
             <div className={styles.top_container}>
