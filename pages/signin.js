@@ -47,7 +47,7 @@ export default function signin({ providers }) {
         email: Yup.string().required("You will need this when you log in and for reset password.")
             .email("Enter a valid email address."),
         password: Yup.string().required("Enter a combination of at least 6 numbers, letters and punctuation marks.")
-            .min("Password must be at least 6 characters.")
+            .min(6,"Password must be at least 6 characters.")
             .max(36, "Password can't be more then 36 characters."),
         conf_password: Yup.string().required("Confirm your password")
             .oneOf([Yup.ref("password")], "Password must match.")
@@ -92,7 +92,7 @@ export default function signin({ providers }) {
                                         onChange={handleChange} />
                                     <CircledIconBtn type="submit" text="Sign in" />
                                     <div className={styles.forgot}>
-                                        <Link href="/forget">Forgot password ?</Link>
+                                        <Link href="/auth/forgot">Forgot password ?</Link>
                                     </div>
                                 </Form>
                             )

@@ -42,3 +42,11 @@ $signin-error-color:#ed4337;
     align-items: center;
     gap: 5px;
 }
+.error{
+    padding: 10px;
+    color: $light-error-color;
+}
+.success{
+    padding: 10px;
+    color: $success-color;
+}
