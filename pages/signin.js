@@ -11,6 +11,7 @@ import LoginInput from "../components/inputs/loginInput"
 import CircledIconBtn from "../components/buttons/circledIconBtn"
 import DotLoaderSpinner from '@/components/loaders/dotLoader';
 import Router from "next/router"
+import { SiNumpy } from 'react-icons/si';
 
 const initialvalues = {
     login_email: "",
@@ -52,6 +53,21 @@ export default function signin({ providers }) {
         conf_password: Yup.string().required("Confirm your password")
             .oneOf([Yup.ref("password")], "Password must match.")
     })
+    const SignUpHandler = async () => {
+        try {
+            setLoading(true);
+            const { data } = await axios.post('/api/auth/signup', {
+                name,
+                email,
+                password,
+            });
+            setUser({ ...user, error: "", success: data.message });
+            setLoading(false);
+        } catch (error) {
+            setLoading(false);
+            setUser({ ...user, success: "", error: error.response.data.message });
+        }
+    };
     return (
         <>
             {
@@ -128,6 +144,9 @@ export default function signin({ providers }) {
                                 conf_password,
                             }}
                             validationSchema={registerValidation}>
+                            onSubmit={() => {
+                                SignUpHandler();
+                            }}
                             {(form) => (
                                 <Form>
                                     <LoginInput
@@ -159,12 +178,12 @@ export default function signin({ providers }) {
                             )
                             }
                         </Formik>
-                        {/* <div>
+                        <div>
                             {success && <span className={styles.success}>{success}</span>}
                         </div>
                         <div>
                             {error && <span className={styles.error}>{error}</span>}
-                        </div> */}
+                        </div>
                     </div>
                 </div>
             </div>
