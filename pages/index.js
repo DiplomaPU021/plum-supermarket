@@ -4,7 +4,9 @@ import styles from '../styles/Home.module.scss'
 import { useSession, signIn, signOut } from "next-auth/react"
 import Header from '@/components/header'
 import Footer from '@/components/footer'
+
 import ProductCard from "@/components/productCard/index_copy";
+import axios from 'axios';
 
 import {products} from "../models/Product/index";
 
@@ -15,9 +17,8 @@ export default function Home() {
   console.log(session);
   return (
     <div className="styles.container">
-    <Header/>
-     
-      {session ? "you are logged in" : "you are not logged in"}
+    <Header/>  
+      {/* {session ? "you are logged in" : "you are not logged in"} */}
       <div className={styles.products}>
         {products.map((product) => (
           <ProductCard product={product} key={product._id} />

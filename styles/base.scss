@@ -10,12 +10,13 @@ $error-color:#ed4397;
 $success-color:#6cc070;
 $red-color: red;
 $green-color: #70BF63;
-
 .container{
     max-width: 1600px;
     margin: 0 auto;
     padding: 1rem;
 }
+$light-error-color: #fd010169;
+$signin-error-color:#ed4337;
 
 .btn_primary {
     display: flex;
@@ -47,6 +48,7 @@ $green-color: #70BF63;
     align-items: center;
     gap: 5px;
 }
+
 .wrap{
     flex-wrap: wrap;
 }
@@ -79,4 +81,13 @@ $green-color: #70BF63;
             height: 200px;
         }
     }
+
+.error{
+    padding: 10px;
+    color: $light-error-color;
+}
+.success{
+    padding: 10px;
+    color: $success-color;
+
 }

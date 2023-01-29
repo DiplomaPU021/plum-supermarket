@@ -1,5 +1,4 @@
 import NextAuth from 'next-auth'
-import TwitterProvider from 'next-auth/providers/twitter'
 import FacebookProvider from 'next-auth/providers/facebook'
 import GoogleProvider from 'next-auth/providers/google'
 import Auth0Provider from "next-auth/providers/auth0";
@@ -29,7 +28,6 @@ export default NextAuth({
       },
       async authorize(credentials, req) {
         // Add logic here to look up the user from the credentials supplied
-        //  const user = { id: "1", name: "J Smith", email: "jsmith@example.com" }
         const email = credentials.email;
         const password = credentials.password;
         //const user = await client.db("mydb").collection("users").findOne({email:email}); 
@@ -64,7 +62,7 @@ export default NextAuth({
   ],
   callbacks: {
     async session({ session, token }) {
-      let user = await User.findbyId(token.sub);
+      let user = await User.findById(token.sub);
       // if (token) {
       //   session.user = token.user;
       //   session.accessToken = token.accessToken;
@@ -78,7 +76,7 @@ export default NextAuth({
   },
   pages: {
     signIn: '/signin',
-    // signOut: '/signout',
+    signOut: '/signout',
   },
   session: {
     strategy: 'jwt',

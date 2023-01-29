@@ -7,8 +7,8 @@ if (!process.env.MONGODB_URL) {
 
 const uri = process.env.MONGODB_URL
 const options = {
-    useUnifiedTopology: true,
-useNewUrlParser: true,
+  useUnifiedTopology: true,
+  useNewUrlParser: true,
 
 }
 

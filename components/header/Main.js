@@ -12,7 +12,7 @@ export default function Main() {
             <div className={styles.main_container}>
                 <Link href="/">
                 <div className={styles.logo}>
-                    <img  src="https://logovectorseek.com/wp-content/uploads/2021/09/plum-io-inc-logo-vector.png" alt="logo" />
+                    <img  src="/logodark.png" alt="logo" />
                     </div>
                 </Link>
                 <div className={styles.search}>

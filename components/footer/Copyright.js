@@ -29,7 +29,7 @@ export default function Ad() {
 
 const data = [
     {
-        name: "Privacy Canter",
+        name: "Privacy Center",
         link: ""
     }, {
         name: "Privacy & Cookie Policy",

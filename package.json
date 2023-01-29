@@ -17,6 +17,7 @@
     "@next/font": "13.1.2",
     "@react-native-async-storage/async-storage": "^1.17.11",
     "@reduxjs/toolkit": "^1.9.1",
+    "axios": "^1.2.5",
     "bcryptjs": "^2.4.3",
     "bootstrap": "^5.2.3",
     "formik": "^2.2.9",
@@ -36,12 +37,14 @@
     "react-image-magnify": "^2.1.1",
     "react-redux": "^8.0.5",
     "react-share": "^4.4.1",
+    "react-spinners": "^0.13.8",
     "redux": "^4.2.0",
     "redux-devtools-extension": "^2.13.9",
     "redux-persist": "^6.0.0",
     "redux-thunk": "^2.4.2",
     "sass": "^1.57.1",
-    "swiper": "^8.4.6"
+    "swiper": "^8.4.6",
+    "yup": "^0.32.11"
   },
   "devDependencies": {
     "eslint": "8.32.0",
