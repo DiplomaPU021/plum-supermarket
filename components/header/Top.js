@@ -37,14 +37,14 @@ export default function Top({country}) {
                             <span>Wishlist</span>
                         </Link>
                     </li>
-                    <li className={styles.li}
+                    <ul className={styles.li}
                     onMouseOver={()=>setVisible(true)}
                     onMouseLeave={()=>setVisible(false)}
                     >
                     {session ? (
                         <li className={styles.li}>
                             <div className={styles.flex}>
-                               <img src={session.user.image} alt="profile"/>
+                               <img src={"/"+session.user.image} alt="profile"/>
                                 <span>{session.user.name}</span>
                                 <RiArrowDropDownFill />
                             </div>
@@ -61,7 +61,7 @@ export default function Top({country}) {
                     )}
                     {visible && <UserMenu session={session}/>}
                    
-                    </li>
+                    </ul>
 
                 </ul>
             </div>

@@ -8,7 +8,7 @@ export default function UserMenu({ session }) {
             <h4>Welcome to Plum!</h4>
             {session ? (
                 <div className={styles.flex}>
-                    <img src={session.user.image}
+                    <img src={"/"+session.user.image}
                         alt="profile"
                         className={styles.menu_image} />
                     <div className={styles.col}>
