@@ -1,27 +1,32 @@
-.product{
+.product {
     position: relative;
     width: 290px;
     height: 500px;
-    &__infos{
+
+    &__infos {
         width: 100px;
         margin-top: 1px;
-        h1{
+
+        h1 {
             font-size: 13px;
             font-weight: normal;
             color: #222;
         }
-        span{
+
+        span {
             color: $redish-color;
             font-weight: 600;
         }
     }
-    &__colors{
+
+    &__colors {
         position: relative;
         display: flex;
         align-items: center;
         gap: 10px;
         margin-top: 5px;
-        img{
+
+        img {
             width: 20px;
             height: 20px;
             border-radius: 50%;
@@ -29,15 +34,18 @@
             box-shadow: $shadow-1;
             cursor: pointer;
             outline-offset: 2px;
-            &:hover{
+
+            &:hover {
                 outline: 1px solid #000;
             }
         }
-        .active{
-            
+
+        .active {
+
             outline: 1px solid #000;
         }
-        span{
+
+        span {
             width: 21px;
             height: 21px;
             border-radius: 50%;
@@ -45,28 +53,30 @@
             overflow: hidden;
         }
     }
-    &__discount{
+
+    &__discount {
         position: absolute;
-        top: -10px;
-        right: -10px;
+        top: 24px;
+        left: 0px;
         z-index: 1;
-        background: $yellow-color;
-        color: #333;
-        width: 50px;
-        height: 50px;
-        border-radius: 50%;
+        color: white;
+        width: 104px;
+        height: 46px;
+        border-radius: 0px 23px 23px 0px;
         display: grid;
         place-items: center;
-        font-size: 15px;
+        font-size: 20px;
         font-weight: 600;
+        background: linear-gradient(90deg, #70BF63 0%, #8AE37C 100%);
     }
-} 
+}
 
-.swiper{
+.swiper {
     position: relative;
     cursor: pointer;
     background: #fff;
-    img{
+
+    img {
         height: 390px;
         display: block;
         border-radius: 10px;

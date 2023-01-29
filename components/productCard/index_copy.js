@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import styles from "./styles.module.scss";
-import ProductSwiper from "./ProductSwiper
+import ProductSwiper from "./ProductSwiper";
 import Link from "next/link";
 
 export default function ProductCard({ product }) {
@@ -36,11 +36,13 @@ export default function ProductCard({ product }) {
   return (
     <div className={styles.product}>
       <div className={styles.product__container}>
+        <div className={styles.product__photo}>
         <Link href={`/product/${product.slug}?style=${active}`}>
           <div>
             <ProductSwiper images={images} />
           </div>
         </Link>
+        </div>
         {product.subProducts[active].discount ? (
           <div className={styles.product__discount}>
             -{product.subProducts[active].discount}%
