@@ -27,7 +27,7 @@ export default function reset({ user_id }) {
             .min(6, "Password must be at least 6 characters.")
             .max(36, "Password can't be more then 36 characters."),
         conf_password: Yup.string().required("Confirm your password")
-            .oneOf([Yup.ref("password")], "Password must match.")
+            .oneOf([Yup.ref("password")], "Password must match."),
     });
     const resetHandler = async () => {
         try {
@@ -41,6 +41,7 @@ export default function reset({ user_id }) {
                 email: data.email,
                 password: password,
             };
+            console.log(options);
             await signIn('credentials', options);
             window.location.reload(true);
         } catch (error) {
@@ -61,14 +62,14 @@ export default function reset({ user_id }) {
                         <div className={styles.back_svg}>
                             <BiLeftArrowAlt />
                         </div>
-                        <span>Reset your password ?<Link href="/">Login instred</Link></span>
+                        <span>Reset your password? <Link href="/">Login instead</Link></span>
                     </div>
 
                     <Formik
                         enableReinitialize
                         initialValues={{
                             password,
-                            conf_password
+                            conf_password,
                         }}
                         validationSchema={passwordValidation}
                         onSubmit={() => { resetHandler() }}>
@@ -92,10 +93,8 @@ export default function reset({ user_id }) {
                                         <span className={styles.error}>{error}</span>
                                     )}
                                 </div>
-
                             </Form>
-                        )
-                        }
+                        )}
                     </Formik>
 
 
@@ -118,10 +117,9 @@ export async function getServerSideProps(context) {
     }
     const token = query.token;
     const user_id = jwt.verify(token, process.env.RESET_TOKEN_SECRET);
-
     return {
         props: {
             user_id: user_id.id,
-        }
+        },
     };
 }

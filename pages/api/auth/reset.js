@@ -1,22 +1,25 @@
 import nc from 'next-connect';
 import bcrypt from "bcryptjs";
-import { validateEmail } from "../../utils/validation";
 import db from "../../../utils/db";
 import User from "../../../models/User";
-import { createResetToken } from '../../utils/tokens';
-import { sendEmail } from '../../utils/sendEmails';
-import { resetEmailTemplate } from '@/emails/resetEmailTemplate';
 
 
 const handler = nc();
 handler.put(async (req, res) => {
     try {
+        console.log("hello from reset server");
         await db.connectDb();
         const { user_id, password } = req.body;
+        console.log("user_id: " + user_id + " password: " + password);
+
         const user = await User.findById(user_id);
-        if (!user) return res.status(404).json({ message: 'User not found' });
+        console.log(user.email);
+        if (!user) {
+            return res.status(404).json({ message: 'User not found' });
+        }
         const cryptedPassword = await bcrypt.hash(password, 12);
         await user.updateOne({ password: cryptedPassword, });
+
         res.json({ email: user.email });
         await db.disconnectDb();
     } catch (error) {

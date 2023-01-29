@@ -48,14 +48,12 @@ export default function forgot() {
                         <div className={styles.back_svg}>
                             <BiLeftArrowAlt />
                         </div>
-                        <span>Forgot your password ?<Link href="/auth/forgot">Login instred</Link></span>
+                        <span>Forgot your password? <Link href="/auth/forgot">Login instead</Link></span>
                     </div>
-
                     <Formik
                         enableReinitialize
                         initialValues={{
                             email,
-
                         }}
                         validationSchema={emailValidation}
                         onSubmit={() => { forgotHandler() }}>
@@ -68,21 +66,17 @@ export default function forgot() {
                                     placeholder="Email Address"
                                     onChange={(e) => setEmail(e.target.value)} />
                                 <CircledIconBtn type="submit" text="Send link" />
-                                <div style={{marginTop:"10px"}}>
-                                     {error && (
-                                    <span className={styles.error}>{error}</span>
-                                )}
-                                {success && (
-                                    <span className={styles.success}>{success}</span>
-                                )}
+                                <div style={{ marginTop: "10px" }}>
+                                    {error && (
+                                        <span className={styles.error}>{error}</span>
+                                    )}
+                                    {success && (
+                                        <span className={styles.success}>{success}</span>
+                                    )}
                                 </div>
-                               
                             </Form>
-                        )
-                        }
+                        )}
                     </Formik>
-
-
                 </div>
             </div>
             <Footer country="" />
