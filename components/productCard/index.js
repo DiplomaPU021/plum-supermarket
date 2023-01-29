@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import styles from "./styles.module.scss";
-import ProductSwiper from "./ProductSwiper
+import ProductSwiper from "./ProductSwiper";
 import Link from "next/link";
 
 export default function ProductCard({ product }) {
