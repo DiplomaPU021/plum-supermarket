@@ -3,20 +3,19 @@ import Link from "next/link"
 import { useState } from "react"
 import Header from "../../../components/header"
 import Footer from "../../../components/footer"
+import axios from "axios";
 import { BiLeftArrowAlt } from "react-icons/bi"
 import CircledIconBtn from "../../../components/buttons/circledIconBtn"
 import LoginInput from "../../../components/inputs/loginInput"
 import { Formik, Form } from "formik"
 import * as Yup from "yup"
-import axios from "axios";
 import jwt from "jsonwebtoken";
 import DotLoaderSpinner from "@/components/loaders/dotLoader"
 import { Router } from "next/router"
-import { getSession } from "next-auth/react"
+import { getSession, signIn } from "next-auth/react"
 
 
 export default function reset({ user_id }) {
-    console.log("user_id", user_id);
     const [password, setPassword] = useState("")
     const [conf_password, setConf_password] = useState("")
     const [loading, setLoading] = useState("")
@@ -41,7 +40,6 @@ export default function reset({ user_id }) {
                 email: data.email,
                 password: password,
             };
-            console.log(options);
             await signIn('credentials', options);
             window.location.reload(true);
         } catch (error) {
