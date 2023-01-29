@@ -12,7 +12,7 @@ export default function Main() {
             <div className={styles.main_container}>
                 <Link href="/">
                 <div className={styles.logo}>
-                    <img  src="logo dark.png" alt="logo" />
+                    <img  src="/logodark.png" alt="logo" />
                     </div>
                 </Link>
                 <div className={styles.search}>

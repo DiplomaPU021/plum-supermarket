@@ -217,7 +217,7 @@ export default function Home() {
   return (
     <div className="styles.container">
     <Header/>  
-      {session ? "you are logged in" : "you are not logged in"}
+      {/* {session ? "you are logged in" : "you are not logged in"} */}
       <div className={styles.products}>
         {products.map((product) => (
           <ProductCard product={product} key={product._id} />
