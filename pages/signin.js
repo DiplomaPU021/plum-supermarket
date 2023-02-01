@@ -13,6 +13,7 @@ import CircledIconBtn from "../components/buttons/circledIconBtn"
 import DotLoaderSpinner from '../components/loaders/dotLoader';
 import Router from "next/router"
 import { SiNumpy } from 'react-icons/si';
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 
 const initialvalues = {

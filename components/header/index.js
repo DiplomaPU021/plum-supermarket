@@ -9,8 +9,10 @@ import ThemeIcon from '../icons/ThemeIcon'
 import HeartIcon from '../icons/HeartIcon'
 import CartIcon from '../icons/CartIcon'
 import AccountIcon from '../icons/AccountIcon'
+import{useSession} from "next-auth/react"
 
 export default function Header() {
+    const{data:session} = useSession();
     const { cart } = useSelector((state) => ({ ...state }))
     const [loggedIn, setLoggedIn] = React.useState(false);
     const [visible, setVisible] = React.useState(false)
@@ -43,20 +45,29 @@ export default function Header() {
                         </button>
                         <span>0</span>
                     </div>
-                    {loggedIn ? (
+                    
+                    <div
+                    onMouseOver={()=>setVisible(true)}
+                    onMouseLeave={()=>setVisible(false)}
+                    >
+                     {session ? (
                         //TODO change
                         <div className={styles.cart}>
-                            <button >
+                            <button>
                                 <HeartIcon fillColor={"#220F4B"} />
+                                {/* <img src={"/"+session.user.image} alt="profile"/> */}
+                                {/* {session.user.name} */}
                             </button>
                         </div>
                     ) : (
-                        <button onMouseOver={() => setVisible(true)} onMouseLeave={() => setVisible(false)}>
+                        <button>
                             <AccountIcon fillColor={"#220F4B"} />
                         </button>
                     )}
-                </div>
-                {visible && <UserMenu loggedIn={loggedIn} />}
+                     {visible && <UserMenu session={session} />}
+                     </div>
+                     </div>
+               
             </div>
         </div>
     )

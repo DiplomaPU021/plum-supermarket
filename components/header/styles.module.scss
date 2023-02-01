@@ -64,6 +64,11 @@
         }
     }
 
+    &_logbtn{
+        width: 30px;
+        border: 1px solid grey;
+    }
+
 }
 // Menu-------------------------
 
@@ -98,6 +103,10 @@
         gap: 10px !important;
         width: 100%;
         padding: 0 1rem;
+
+        button{
+            width: 80px;
+        }
     }
 
     ul {
@@ -133,3 +142,4 @@
         }
     }
 }
+
