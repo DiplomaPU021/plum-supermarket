@@ -9,6 +9,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import YoutubeVideo from '@/components/youtube'
 import RecomendedVideo from '@/components/recomendedVideo'
 
+
 const inter = Inter({ subsets: ["latin"] });
 
 const products = [

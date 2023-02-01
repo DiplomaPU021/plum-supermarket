@@ -11,20 +11,20 @@ let persistor = persistStore(store);
 function MyApp({ Component, pageProps: { session, ...pageProps } }) {
   return (
     <>
-    <Head>
-      <title>Plum</title>
-      <meta name="description" content="Plum internet-hypermarket" />
-      <link rel="icon" href="/favicon.ico" />
-    </Head>
-    <SessionProvider session={session}> 
-    <Provider store={store}>
-      <PersistGate loading={null} persistor={persistor}>
-        <Component {...pageProps} />
-      </PersistGate>
-    </Provider>
-    </SessionProvider>
+      <Head>
+        <title>Plum</title>
+        <meta name="description" content="Plum internet-hypermarket" />
+        <link rel="icon" href="/favicon.ico" />
+      </Head>
+      <SessionProvider session={session}>
+        <Provider store={store}>
+          <PersistGate loading={null} persistor={persistor}>
+            <Component {...pageProps} />
+          </PersistGate>
+        </Provider>
+      </SessionProvider>
     </>
-   
+
   );
 }
 // MyApp.propTypes = {
