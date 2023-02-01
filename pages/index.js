@@ -1,11 +1,13 @@
-import Image from 'next/image'
 import { Inter } from '@next/font/google'
 import styles from '../styles/Home.module.scss'
 import { useSession, signIn, signOut } from "next-auth/react"
 import Header from '@/components/header'
 import Footer from '@/components/footer'
 import ProductCard from "@/components/productCard";
-import axios from 'axios';
+import HomeCarousel from '@/components/carousel'
+import 'bootstrap/dist/css/bootstrap.min.css';
+import YoutubeVideo from '@/components/youtube'
+import RecomendedVideo from '@/components/recomendedVideo'
 
 
 const inter = Inter({ subsets: ["latin"] });
@@ -59,7 +61,7 @@ const products = [
           },
           {
             size: "S",
-            price:22,
+            price: 22,
           },
           {
             size: "XS",
@@ -215,15 +217,18 @@ export default function Home() {
   const { data: session } = useSession()
   console.log(session);
   return (
-    <div className="styles.container">
-    <Header/>  
+    <div className={styles.container}>
+      <Header />
+      <HomeCarousel />
       {/* {session ? "you are logged in" : "you are not logged in"} */}
       <div className={styles.products}>
         {products.map((product) => (
           <ProductCard product={product} key={product._id} />
         ))}
       </div>
-      <Footer/> 
+      <YoutubeVideo/>
+      <RecomendedVideo/>
+      <Footer />
     </div>
   );
 }

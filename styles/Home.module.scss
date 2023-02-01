@@ -1,10 +1,10 @@
 
-
-.red{
-    color:$red-color;
+.container{
+    justify-content: center;
 }
 .products{
     margin-top: 2rem;
+    margin-left: 3rem;
     display: flex;
     align-items: center;
     flex-wrap: wrap;

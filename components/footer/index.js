@@ -7,18 +7,15 @@ import NewsLetter from "./NewsLetter"
 import Payment from "./Payment"
 import Copyright from "./Copyright"
 
-export default function Footer({country}) {
+export default function Footer({ country }) {
     return (
-
         <footer className={styles.footer}>
             <div className={styles.footer_container}>
                 <Links />
                 <Socials />
-                <NewsLetter/>
-                <Payment/>
-                <Copyright/>
+                <NewsLetter />
+                <Copyright />
             </div>
         </footer>
-
     )
 }
