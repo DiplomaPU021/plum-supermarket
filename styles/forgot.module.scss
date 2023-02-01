@@ -19,10 +19,10 @@
             place-items: center;
 
             &:hover {
-                border-color: $blue-color;
+                border-color: $plum-violet-color;
 
                 svg {
-                    fill: $blue-color;
+                    fill: $plum-violet-color;
                 }
             }
 
@@ -37,9 +37,9 @@
             font-weight: 600;
             font-size: 14px;
             a {
-                color: $blue-color;
+                color: $plum-violet-color;
                 cursor: pointer;
-                border-bottom: 1px solid $blue-color;
+                border-bottom: 1px solid $plum-violet-color;
                 padding-bottom: 5px;
             }
         }

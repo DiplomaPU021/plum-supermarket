@@ -1,6 +1,6 @@
 import styles from "./styles.module.scss"
 import Link from "next/link"
-import {IoLocationSharp} from "react-icons/io5"
+import { IoLocationSharp } from "react-icons/io5"
 
 export default function Ad() {
     return (
@@ -9,20 +9,20 @@ export default function Ad() {
             <section>©2023 PLUM All Right Reserved</section>
             <section>
                 <ul>
-                    {data.map((link)=>(
-                            <li>
-                                <Link href={link.link}>{link.name}</Link>
-                            </li>
-                        ))
+                    {data.map((link) => (
+                        <li>
+                            <Link href={link.link}>{link.name}</Link>
+                        </li>
+                    ))
                     }
                     <li>
                         <a>
-                            <IoLocationSharp/> Ukraine
+                            <IoLocationSharp /> Ukraine
                         </a>
                     </li>
                 </ul>
             </section>
-       </div>
+        </div>
 
     )
 }
