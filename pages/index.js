@@ -1,12 +1,11 @@
-import Image from 'next/image'
 import { Inter } from '@next/font/google'
 import styles from '../styles/Home.module.scss'
 import { useSession, signIn, signOut } from "next-auth/react"
 import Header from '@/components/header'
 import Footer from '@/components/footer'
-
-import ProductCard from "@/components/productCard/index_copy";
-import axios from 'axios';
+import "bootstrap/dist/css/bootstrap.min.css"
+import ProductCard from "@/components/productCard";
+//import axios from 'axios';
 
 import {products} from "../models/Product/index";
 

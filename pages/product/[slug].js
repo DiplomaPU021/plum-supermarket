@@ -1,39 +1,69 @@
+import "bootstrap/dist/css/bootstrap.min.css";
 import styles from "../../styles/product.module.scss";
 //import db from "../../utils/db";
 import { products } from "../../models/Product/index";
 //import Product from "../../models/Product";
 //import Category from "../../models/Category";
 //import SubCategory from "../../models/SubCategory";
-import Head from "next/head";
+//import user from "../../models/User";
+//import Head from "next/head";
 import Header from "../../components/header";
 import Footer from "../../components/footer";
-import MainSwiper from "../../components/productPage/mainSwiper";
-import Infos from "../../components/productPage/infos";
-import Reviews from "../../components/productPage/reviews";
+// import MainSwiper from "../../components/productPage/mainSwiper";
+// import Infos from "../../components/productPage/infos";
+// import Reviews from "../../components/productPage/reviews";
 import { useState } from "react";
-import ProductCard from "@/components/productCard/index_copy";
+// import Container from "react-bootstrap/Container";
+// import Row from "react-bootstrap/Row";
+// import Col from "react-bootstrap/Col";
+import LightPlumIcon from "@/components/icons/LightPlumIcon";
+import GreenChevronRight from "@/components/icons/GreenChevronRight";
 
 export default function product({ product }) {
   const [activeImg, setActiveImg] = useState("");
   return (
-    <div>
-      <Head>
-        <title>{product.name}</title>
-      </Head>
+    <div className={styles.product}>
       <Header country="" />
-      <div className={styles.product}>
-        <div className={styles.product__container}>
-          <div className={styles.path}>
-            Home / {product.category.name}
-            {product.subCategories.map((sub, i) => (
-              <span key={i}> / {sub.name}</span>
-            ))}
+      <div className={styles.product__container}>
+        <div className={styles.product__container_path}>
+          <LightPlumIcon />
+          <div className={styles.product__container_path_chevronRight}>
+            <GreenChevronRight />
           </div>
-          <div className={styles.product__main}>
-            <MainSwiper images={product.images} activeImg={activeImg} />
-            <Infos product={product} setActiveImg={setActiveImg} />
+          <span>{product.category.name}</span>
+          <div className={styles.product__container_path_chevronRight}>
+            <GreenChevronRight />
           </div>
-          <Reviews product={product} />
+          {product.subCategories.map((sub, i) => (
+            <span key={i}> {sub.name}</span>
+          ))}
+        </div>
+        <div className={styles.product__container_nameCode}>
+          <div className={styles.product__container_nameCode_name}>
+            <span>
+              {product.name.length > 60
+                ? `${product.name.substring(0, 60)}...`
+                : product.name}
+            </span>
+          </div>
+          <div className={styles.product__container_nameCode_code}>
+            {/* below have to be code of product (NOT _ID)!!! */}
+            <span>Code: {product._id}</span>
+          </div>
+        </div>
+        <div>
+          <div>
+            Photo + Description
+            {/*  className={styles.product__main} */}
+            {/* <MainSwiper images={product.images} activeImg={activeImg} />
+            <Infos product={product} setActiveImg={setActiveImg} /> */}
+          </div>
+        </div>
+        <div>
+          <div>
+            Others
+            {/* <Reviews product={product} /> */}
+          </div>
         </div>
       </div>
       <Footer />
@@ -51,6 +81,7 @@ export async function getServerSideProps(context) {
   //let product = await Product.findOne({slug})
   //.populate({path: "category", model: Category})
   //.populate({path: "subCategories._id", model: SubCategory})
+  //.populate({path: "reviews.reviewBy", model: User})
   //.lean();
   let product = products.find((el) => el.slug == slug);
   let subProduct = product.subProducts[style];

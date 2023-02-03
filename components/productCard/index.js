@@ -2,6 +2,14 @@ import { useEffect, useState } from "react";
 import styles from "./styles.module.scss";
 import ProductSwiper from "./ProductSwiper";
 import Link from "next/link";
+import Card from "react-bootstrap/Card";
+import Button from "react-bootstrap/Button";
+import Container from "react-bootstrap/Container";
+import Row from "react-bootstrap/Row";
+import Col from "react-bootstrap/Col";
+import HeartIcon from "../icons/HeartIcon";
+import CartIcon from "../icons/CartIcon";
+import ScalesIcon from "../icons/ScalesIcon";
 
 export default function ProductCard({ product }) {
   const [active, setActive] = useState(0);
@@ -15,11 +23,7 @@ export default function ProductCard({ product }) {
         return a - b;
       })
   );
-  const [styless, setStyless] = useState(
-    product.subProducts.map((p) => {
-      return p.color;
-    })
-  );
+
   useEffect(() => {
     setImages(product.subProducts[active].images);
     setPrices(
@@ -34,59 +38,81 @@ export default function ProductCard({ product }) {
   }, [active]);
 
   return (
-    <div className={styles.product}>
+    <Card className={styles.product}>
       <div className={styles.product__container}>
         <Link href={`/product/${product.slug}?style=${active}`}>
-          <div>
+          <div className={styles.product__container_photobox}>
             <ProductSwiper images={images} />
           </div>
+          {product.subProducts[active].discount ? (
+            <div className={styles.product__discount}>
+              -{product.subProducts[active].discount}%
+            </div>
+          ) : (
+            ""
+          )}
+           {/* TODO onClick */}
+          <Button className={styles.btnheart}>
+            <HeartIcon fillColor={"#220F4B"} />
+          </Button>
         </Link>
-        {product.subProducts[active].discount ? (
-          <div className={styles.product__discount}>
-            -{product.subProducts[active].discount}%
-          </div>
-        ):(
-          ""
-        )}
-        <div className={styles.product__infos}>
-          <h1>
-            {product.name.length > 45
-              ? `${product.name.substring(0, 45)}...`
-              : product.name}
-          </h1>
-          <span>
-            {prices.length === 1
-              ? `USD${prices[0]}$`
-              : `USD${prices[0]}-${prices[prices.length - 1]}$`}
-          </span>
-          <div className={styles.product__colors}>
-            {styless &&
-              styless.map((style, i) =>
-                style.image ? (
-                  <img
-                    key={i}
-                    src={style.image}
-                    className={i == active && styles.active}
-                    onMouseOver={() => {
-                      setImages(product.subProducts[i].images);
-                      setActive(i);
-                    }}
-                    alt={style.image}
-                  />
-                ) : (
-                  <span
-                    key={i}
-                    style={{ bacgroundColor: `${style.color}` }}
-                    onMouseOver={() => {
-                      setImages(product.subProducts[i].images);
-                      setActive(i);
-                    }}
-                  ></span>
-                )
+        <Container className={styles.product__container_infos}>
+          <Row>
+            <Col>
+              <Card.Title className={styles.product__container_infos_title}>
+                {product.name.length > 55
+                  ? `${product.name.substring(0, 55)}...`
+                  : product.name}
+              </Card.Title>
+            </Col>
+          </Row>
+          <Row>
+            <Col className={styles.product__container_infos_line} />
+          </Row>
+          <Row className={styles.product__container_infos_pricebtn}>
+            <Col>
+              {product.subProducts[active].discount > 0 ? (
+                <Row className={styles.product__container_infos_pricebtn_price}>
+                  <Col>
+                    <span
+                      className={styles.pricediscount}
+                    >{`${prices[0]} $`}</span>
+                  </Col>
+                  <Col>
+                    <span className={styles.priceregular}>
+                      {`${(
+                        prices[0] -
+                        prices[0] / product.subProducts[active].discount
+                      ).toFixed(2)}`}{" "}
+                      $
+                    </span>
+                  </Col>
+                </Row>
+              ) : (
+                <Row className={styles.product__container_infos_pricebtn_price}>
+                  <Col>
+                    <span
+                      className={styles.priceregular}
+                    >{`${prices[0]} $`}</span>
+                  </Col>
+                </Row>
               )}
-          </div>
-        </div>
+            </Col>
+            <Col>
+              <Row className={styles.product__container_infos_pricebtn_btn}>
+                {/* TODO onClick */}
+                <Button className={styles.btnscales}>
+                  <ScalesIcon fillColor={"#220F4B"} />
+                </Button>
+                 {/* TODO onClick */}
+                <Button className={styles.btncart}>
+                  <CartIcon fillColor={"#FAF8FF"}/>
+                </Button>
+              </Row>
+            </Col>
+          </Row>
+        </Container>
       </div>
-    </div>
+    </Card>
   );
 }

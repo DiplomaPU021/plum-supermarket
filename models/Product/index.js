@@ -112,12 +112,13 @@ const products = [
         parent: 22,
       },
     ],
-    description: "More concentrated laundry detergent for more cleaning power per drop *vs. 4.43L bottle"+
-    "Shipping-safe packaging to prevent laundry detergent liquid leaks on the way to your home"+
-    "No-drip tap and stand to raise the box and allow for clean, easy detergent dispensing"+
-    "Ramp inside the box to help you use every last drop of detergent"+
-    "Tide EcoBox is created with 60% less plastic and less water than the 4.43L bottle"+
-    "Compatible with both HE and non-HE machines",
+    description:
+      "More concentrated laundry detergent for more cleaning power per drop *vs. 4.43L bottle" +
+      "Shipping-safe packaging to prevent laundry detergent liquid leaks on the way to your home" +
+      "No-drip tap and stand to raise the box and allow for clean, easy detergent dispensing" +
+      "Ramp inside the box to help you use every last drop of detergent" +
+      "Tide EcoBox is created with 60% less plastic and less water than the 4.43L bottle" +
+      "Compatible with both HE and non-HE machines",
     shipping: 0,
     refundPolicy: "30 days",
     rating: 0,
@@ -300,6 +301,89 @@ const products = [
       {
         name: "style",
         value: "style1",
+      },
+    ],
+  },
+  {
+    _id: 3,
+    name: 'ASUS 24" Monitor',
+    slug: "ASUS_24_Monitor",
+    category: {
+      name: "Computers",
+      slug: "Computers",
+    },
+    subCategories: [
+      {
+        name: "monitors",
+        slug: "monitors",
+        parent: 1,
+      },
+    ],
+    description:
+      'ASUS 24" Monitor - Comes with HDMI Cable & Charging Cable - Perfect Working Condition.',
+    shipping: 25,
+    refundPolicy: "14 days",
+    rating: 0,
+    numReviews: 0,
+    reviews: [
+      {
+        reviewBy: {
+          name: "Hanna",
+          image: "profile.gif",
+          ref: "User",
+        },
+        rating: 3,
+        review:
+          "jslfkjas;lroiwujnvsa rcuwoij reiew nf ireuyef nsfkhfoe wef!!!!!!!!!!",
+        size: '24"',
+        style: {
+          color: "black",
+          image: "photos/black.jpg",
+        },
+        fit: "fit",
+        images: [
+          { url: "photos/20230126_164620.jpg" },
+          { url: "photos/20230126_164719.jpg" },
+        ],
+        //likes: [],
+        updatedAt: "2023-02-1",
+      },
+    ],
+    subProducts: [
+      {
+        discount: 12,
+        color: {
+          color: "black",
+          image: "photos/black.jpg",
+        },
+        sizes: [
+          {
+            size: '24"',
+            qty: 1,
+            price: 100,
+          },
+        ],
+        images: [
+          {
+            url: "photos/20230126_164620.jpg",
+          },
+          {
+            url: "photos/20230126_164703.jpg",
+          },
+          {
+            url: "photos/20230126_164719.jpg",
+          },
+        ],
+      },
+    ],
+    details: [
+      {
+        name: "color",
+        value: "blcack",
+      },
+      {
+        name: "brand",
+        value: "asus",
       },
     ],
   },
