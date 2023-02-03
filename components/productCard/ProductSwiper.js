@@ -1,6 +1,7 @@
 import styles from "./styles.module.scss";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef } from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
+import Card from 'react-bootstrap/Card';
 
 // import Swiper and modules styles
 import "swiper/css";
@@ -33,10 +34,9 @@ export default function ProductSwiper({ images }) {
         speed={500}
         modules={[Autoplay]}
       >
-        {images.map((img) => (
-          //does't works without key?
-          <SwiperSlide key={img.url}>
-            <img src={img.url} alt={img.url} />
+        {images.map((img, i) => (
+          <SwiperSlide key={i}>
+            <Card.Img src={img.url} alt=""/>
           </SwiperSlide>
         ))}
       </Swiper>
