@@ -7,15 +7,15 @@
     border-radius: 55px;
     font-weight: 600;
     color: #fff;
-    background: $blue-color;
+    background: $plum-violet-color;
     display: block;
     cursor: pointer;
     &:hover{
         background: #fff;
-        color: $blue-color;
+        color: $plum-violet-color;
         .svg_wrap{
         svg{
-            fill: $blue-color;
+            fill: $plum-violet-color;
         }
     }
     }
@@ -30,7 +30,7 @@
         right: 5px;
         top: 7.5px;
         svg{
-            fill: $blue-color;
+            fill: $plum-violet-color;
         }
     }
 

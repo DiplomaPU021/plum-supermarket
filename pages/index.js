@@ -5,25 +5,34 @@ import Header from '@/components/header'
 import Footer from '@/components/footer'
 import "bootstrap/dist/css/bootstrap.min.css"
 import ProductCard from "@/components/productCard";
-//import axios from 'axios';
+
+import HomeCarousel from '@/components/carousel'
+import 'bootstrap/dist/css/bootstrap.min.css';
+import YoutubeVideo from '@/components/youtube'
+import RecomendedVideo from '@/components/recomendedVideo'
+
 
 import {products} from "../models/Product/index";
 
 const inter = Inter({ subsets: ["latin"] });
 
+
 export default function Home() {
   const { data: session } = useSession()
   console.log(session);
   return (
-    <div className="styles.container">
-    <Header/>  
+    <div className={styles.container}>
+      <Header />
+      <HomeCarousel />
       {/* {session ? "you are logged in" : "you are not logged in"} */}
       <div className={styles.products}>
         {products.map((product) => (
           <ProductCard product={product} key={product._id} />
         ))}
       </div>
-      <Footer/> 
+      <YoutubeVideo/>
+      <RecomendedVideo/>
+      <Footer />
     </div>
   );
 }
