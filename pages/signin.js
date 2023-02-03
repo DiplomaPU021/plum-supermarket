@@ -4,7 +4,7 @@ import Footer from "../components/footer"
 import styles from "../styles/signin.module.scss"
 import { BiLeftArrowAlt } from "react-icons/bi"
 import Link from "next/link"
-import { Formik, Form, prepareDataForValidation } from "formik"
+import { Formik, Form } from "formik"
 import * as Yup from "yup"
 import { getProviders, getSession, signIn, getCsrfToken } from "next-auth/react"
 import axios from "axios";
@@ -13,6 +13,7 @@ import CircledIconBtn from "../components/buttons/circledIconBtn"
 import DotLoaderSpinner from '../components/loaders/dotLoader';
 import Router from "next/router"
 import { SiNumpy } from 'react-icons/si';
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 
 const initialvalues = {

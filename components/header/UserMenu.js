@@ -17,11 +17,11 @@ export default function UserMenu({ session }) {
                         <span onClick={()=>signOut()}>Sign out</span>
                     </div>
                 </div>) : (
-                <div className={styles.flex}>
-                    <button className={styles.btn_primary}
+                <div className={styles.flexmenu}>
+                    <button className={styles.btn_plum}
                     onClick={()=>signIn()}
                     >Register</button>
-                    <button className={styles.btn_outlined}
+                    <button className={styles.btn_plum}
                     onClick={()=>signIn()}>Login</button>                  
                 </div>
             )}

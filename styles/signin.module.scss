@@ -4,16 +4,19 @@
     overflow: hidden;
     display: flex;
     justify-content: center;
-@media(max-width: 790px){
-    flex-direction: column;
-    align-items: center;
-}
+
+    @media(max-width: 790px) {
+        flex-direction: column;
+        align-items: center;
+    }
+
     &_container {
         padding: 3rem;
 
         &:last-of-type {
             margin-top: 3rem;
-            @media(max-width: 790px){
+
+            @media(max-width: 790px) {
                 margin-top: 0;
             }
         }
@@ -35,10 +38,10 @@
             place-items: center;
 
             &:hover {
-                border-color: $blue-color;
+                border-color: $plum-violet-color;
 
                 svg {
-                    fill: $blue-color;
+                    fill: $plum-violet-color;
                 }
             }
 
@@ -53,11 +56,10 @@
             font-weight: 600;
             font-size: 14px;
 
-            // padding-left: 10px;
             a {
-                color: $blue-color;
+                color: $plum-violet-color;
                 cursor: pointer;
-                border-bottom: 1px solid $blue-color;
+                border-bottom: 1px solid $plum-violet-color;
                 padding-bottom: 5px;
             }
         }
@@ -89,32 +91,29 @@
             height: 40px;
 
             &:hover {
-                color: $blue-color;
-                border-bottom: 1px solid $blue-color;
+                color: $plum-violet-color;
+                border-bottom: 1px solid $plum-violet-color;
             }
         }
     }
 
     &_socials {
         margin-top: 1rem;
-    
 
-    
+        &_wrap {
+            margin-top: 1rem;
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+            padding-left: 3rem;
 
-    &_wrap {
-        margin-top: 1rem;
-        display: flex;
-        flex-direction: column;
-        gap: 1rem;
-        padding-left: 3rem;
-
-        img {
-            width: 36px;
-            cursor: pointer;
+            img {
+                width: 36px;
+                cursor: pointer;
+            }
         }
-
     }
-}
+
     &_or {
         position: relative;
         color: #666;
@@ -156,4 +155,3 @@
     cursor: pointer;
     color: #343333;
 }
-

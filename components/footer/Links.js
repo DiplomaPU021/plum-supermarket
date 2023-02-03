@@ -1,27 +1,31 @@
 import styles from "./styles.module.scss"
 import Link from "next/link"
 import React from 'react'
+import Payment from './Payment'
 
 export default function Links() {
     return (
         <div className={styles.footer_links}>
             {links.map((link, i) => (
-                    <ul>
-                        {i === 0 ? (
-                            <img src="https://logovectorseek.com/wp-content/uploads/2021/09/plum-io-inc-logo-vector.png" alt=""/>
-                        ) : (
-                            <b>{link.heading}</b>
-                        )}
-                       
-                        {
-                            link.links.map((link)=>(
-                                <li>
-                                    <Link href={link.link}>{link.name}</Link>
-                                </li>
-                            ))
-                        }
-                    </ul>
-                ))
+                <ul>
+                    {i === 0 ? (
+                        <div>
+                            <img className={styles.imglogo} src="../../../logo/logo_dark.png" alt="" />
+                            <h5>Some text here about our motivation</h5>
+                            <Payment />
+                        </div>
+                    ) : (
+                        <h3>{link.heading}</h3>
+                    )}
+                    {
+                        link.links.map((link) => (
+                            <li>
+                                <Link href={link.link}>{link.name}</Link>
+                            </li>
+                        ))
+                    }
+                </ul>
+            ))
             }
         </div>
     )
@@ -30,24 +34,29 @@ export default function Links() {
 const links = [
     {
         heading: "PLUM",
+        links: []
+    },
+    {
+        heading: "About company",
         links: [
             {
                 name: "About us",
                 link: ""
             },
             {
-                name: "Contact us",
+                name: "Terms and Conditions",
                 link: ""
             }, {
-                name: "Social Responsibility",
+                name: "Contacts",
                 link: ""
             }, {
-                name: "About us",
+                name: "All Categories",
                 link: ""
-            }
+            },
         ]
-    }, {
-        heading: "HELP & SUPPORT",
+    },
+    {
+        heading: "Help & Support",
         links: [
             {
                 name: "Shipping Info",
@@ -67,8 +76,9 @@ const links = [
                 name: "Size Guide",
                 link: ""
             }
-        ] 
-    }, {
+        ]
+    },
+    {
         heading: "Customer service",
         links: [
             {
@@ -76,15 +86,34 @@ const links = [
                 link: ""
             },
             {
-                name: "Terms and Conditions",
+                name: "PLUM Premium ",
                 link: ""
             }, {
-                name: "Consumers (Transactions)",
+                name: "Bonus",
                 link: ""
             }, {
                 name: "Take our feedback survay",
                 link: ""
             },
-        ] 
+        ]
+    },
+    {
+        heading: "Partners",
+        links: [
+            {
+                name: "Sell with PLUM",
+                link: ""
+            },
+            {
+                name: "Work with us",
+                link: ""
+            }, {
+                name: "Rent",
+                link: ""
+            }, {
+                name: "FAQ",
+                link: ""
+            },
+        ]
     }
 ]

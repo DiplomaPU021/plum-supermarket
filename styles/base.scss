@@ -1,6 +1,8 @@
 $shadow-1: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
 $shadow-2: rgba (99, 99, 99, 0.1) 0px 0px 4px 0px;
-$blue-color: #2f82ff;
+$plum-violet-color: #81528C;
+$plum-dark-color: #220F4B;
+$light-wheet-color: #FAF8FF;
 $yellow-color:#fac80f;
 $violet-color:#5a31f4;
 $redish-color:#f15f6f;
@@ -18,14 +20,16 @@ $green-color-light: #8AE37C;
 }
 $light-error-color: #fd010169;
 $signin-error-color:#ed4337;
+$green-color: #70BF63;
+$green-color-light: #8AE37C;
 
-.btn_primary {
+.btn_plum {
     display: flex;
     align-items: center;
     justify-content: center;
     gap: 5px;
-    background: $blue-color;
-    color: #fff;
+    background: $plum-violet-color;
+    color: $plum-dark-color;
     font-weight: 600;
     width: 100%;
     cursor: pointer;
@@ -38,7 +42,7 @@ $signin-error-color:#ed4337;
     justify-content: center;
     gap: 5px;
     background: $grey-color;
-    color: $blue-color;
+    color: $plum-violet-color;
     font-weight: 600;
     width: 100%;
     cursor: pointer;
@@ -90,5 +94,3 @@ $signin-error-color:#ed4337;
 .success{
     padding: 10px;
     color: $success-color;
-
-}
