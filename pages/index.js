@@ -10,6 +10,11 @@ import HomeCarousel from '@/components/carousel'
 import 'bootstrap/dist/css/bootstrap.min.css';
 import YoutubeVideo from '@/components/youtube'
 import RecomendedVideo from '@/components/recomendedVideo'
+import Categories from '@/components/categories'
+import TopSales from '@/components/topsales'
+import Popular from '@/components/popular'
+import AppDownload from '@/components/appdownload'
+import FAQ from '@/components/faq'
 
 
 import {products} from "../models/Product/index";
@@ -24,14 +29,19 @@ export default function Home() {
     <div className={styles.container}>
       <Header />
       <HomeCarousel />
+      <Categories />
+      <TopSales />
       {/* {session ? "you are logged in" : "you are not logged in"} */}
-      <div className={styles.products}>
+      {/* <div className={styles.products}>
         {products.map((product) => (
           <ProductCard product={product} key={product._id} />
         ))}
-      </div>
-      <YoutubeVideo/>
-      <RecomendedVideo/>
+      </div> */}
+      <YoutubeVideo />
+      <RecomendedVideo />
+      <Popular />
+      <AppDownload />
+      <FAQ />
       <Footer />
     </div>
   );
