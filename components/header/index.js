@@ -1,6 +1,6 @@
 import styles from './styles.module.scss'
 import { useSelector } from "react-redux"
-import { Button, Form, Image, InputGroup } from 'react-bootstrap';
+import { Image, InputGroup } from 'react-bootstrap';
 import * as React from "react"
 import UserMenu from "./UserMenu"
 import Link from "next/link"
@@ -9,10 +9,10 @@ import ThemeIcon from '../icons/ThemeIcon'
 import HeartIcon from '../icons/HeartIcon'
 import CartIcon from '../icons/CartIcon'
 import AccountIcon from '../icons/AccountIcon'
-import{useSession} from "next-auth/react"
+import { useSession } from "next-auth/react"
 
 export default function Header() {
-    const{data:session} = useSession();
+    const { data: session } = useSession();
     const { cart } = useSelector((state) => ({ ...state }))
     const [loggedIn, setLoggedIn] = React.useState(false);
     const [visible, setVisible] = React.useState(false)
@@ -25,11 +25,11 @@ export default function Header() {
                     </div>
                 </Link>
                 <div className={styles.search}>
-                    <InputGroup >
-                        <Form.Control aria-describedby="basic-addon2" placeholder="Search..." className={styles.forminput} />
-                        <Button className={styles.formbtn} id="button-addon2">
+                    <InputGroup style={{ width: '712px',minWidth: '312px' }}>
+                        <input className={styles.forminput} placeholder="Search..." />
+                        <button className={styles.formbtn} id="button-addon2" >
                             <LoopIcon fillColor={"#FAF8FF"} />
-                        </Button>
+                        </button>
                     </InputGroup>
                 </div>
                 <div className={styles.btnpannel}>
@@ -45,29 +45,29 @@ export default function Header() {
                         </button>
                         <span>0</span>
                     </div>
-                    
+
                     <div
-                    onMouseOver={()=>setVisible(true)}
-                    onMouseLeave={()=>setVisible(false)}
+                        onMouseOver={() => setVisible(true)}
+                        onMouseLeave={() => setVisible(false)}
                     >
-                     {session ? (
-                        //TODO change
-                        <div className={styles.cart}>
+                        {session ? (
+                            //TODO change
+                            <div className={styles.cart}>
+                                <button>
+                                    <HeartIcon fillColor={"#220F4B"} />
+                                    {/* <img src={"/"+session.user.image} alt="profile"/> */}
+                                    {/* {session.user.name} */}
+                                </button>
+                            </div>
+                        ) : (
                             <button>
-                                <HeartIcon fillColor={"#220F4B"} />
-                                {/* <img src={"/"+session.user.image} alt="profile"/> */}
-                                {/* {session.user.name} */}
+                                <AccountIcon fillColor={"#220F4B"} />
                             </button>
-                        </div>
-                    ) : (
-                        <button>
-                            <AccountIcon fillColor={"#220F4B"} />
-                        </button>
-                    )}
-                     {visible && <UserMenu session={session} />}
-                     </div>
-                     </div>
-               
+                        )}
+                        {visible && <UserMenu session={session} />}
+                    </div>
+                </div>
+
             </div>
         </div>
     )

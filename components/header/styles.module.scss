@@ -22,9 +22,8 @@
         align-items: center;
         flex: 2;
         height: 46px;
-        width: 620px;
-        padding-left: 60px;
-        min-width: 230px;
+         min-width: 230px;
+        justify-content: right;
     }
 }
 
@@ -80,6 +79,7 @@
     font-size: 18px;
     color: $plum-dark-color;
     font-weight: 550;
+    width: 633px;
 
     &:focus {
         border: 2px solid #220F4B;
@@ -89,14 +89,14 @@
 
 .formbtn {
     border-radius: 23px;
-    width: 72px;
+    width: 82px;
     height: 46px;
+    right: 0;
     position: absolute;
     border: 2px solid #220F4B;
     background-color: #220F4B;
     &:hover{
-
-       opacity: 0.9;
+        opacity: 0.9;
         border: 2px solid #220F4B;
         background-color: #220F4B;
     }

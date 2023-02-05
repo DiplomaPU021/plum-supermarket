@@ -1,88 +1,94 @@
- .topsales {
-     display: flex;
-     margin: 60px;
-     justify-content: content;
-     flex-direction: column;
- }
+.topsales {
+    display: flex;
+    margin: 0px 60px 60px 60px;
+    justify-content: content;
+    flex-direction: column;
+}
 
- .row {
-     height: 54px;
-     align-items: center;
-     display: flex;
-     justify-content: center;
- }
+.row {
+    height: 54px;
+    align-items: center;
+    display: flex;
+    justify-content: center;
+}
 
- .container {
-     height: 54px;
-     margin: 0px;
- }
+.container {
+    height: 54px;
+    margin: 0px;
+}
 
- .leftsale {
-     width: 427px;
-     height: 54px;
-     background: linear-gradient(90deg, #70BF63 0%, #8AE37C 100%);
-     border-radius: 0px 23px 23px 0px;
-     font-weight: 600;
-     font-size: 25px;
-     line-height: 34px;
-     color: #FAF8FF;
-     align-items: center;
-     justify-content: flex-start;
-     display: flex;
-     padding-left: 20px;
- }
+.coltext {
+    color: #573C90;
+    font-weight: 500;
+    font-size: 21px;
+}
 
- .col {
-     padding-left: 0px;
- }
-
- .products_container {
-     padding: 0;
-     margin: 40px 0px 0px 0px;
+.leftsale {
+    width: 427px;
+    height: 54px;
+    background: linear-gradient(90deg, #70BF63 0%, #8AE37C 100%);
+    border-radius: 0px 23px 23px 0px;
+    font-weight: 600;
+    font-size: 25px;
+    line-height: 34px;
+    color: #FAF8FF;
+    align-items: center;
+    justify-content: flex-start;
+    display: flex;
+    padding-left: 20px;
+}
 
 
- }
 
- .products_row {
-     margin-bottom: 20px;
-     width: 107%;
- }
+.products_container {
+    margin: 40px 0px 0px 0px;
+}
 
- .morevideo {
-     border: none;
- }
+.products_row {
+    margin-bottom: 20px;
+    width: 110%;
+    gap: 1rem;
+}
 
- .textcard {
-     width: 300px;
-     height: 68px;
-     font-family: 'Noto Sans';
-     font-style: normal;
-     font-weight: 540;
-     font-size: 25px;
-     line-height: 34px;
-     text-align: center;
-     color: #220F4B;
- }
+.colcard{
+  flex: 0;
+}
 
- .lastcardbody {
-     width: "267px";
-     display: flex;
-     flex-direction: column;
-     justify-content: center;
-     align-items: center;
-     padding: 0px;
-     gap: 15px;
-     width: 300px;
-     height: 299px;
- }
+.morevideo {
+    border: none;
+}
 
- .ytbtn {
-     width: 243px;
-     height: 48px !important;
-     font-family: 'Noto Sans';
-     font-weight: 320;
-     font-size: 23px;
-     border-radius: 30px !important;
-     color: #FAF8FF;
-     background-color: #220F4B;
- }
+.textcard {
+    width: 300px;
+    height: 68px;
+    font-family: 'Noto Sans';
+    font-style: normal;
+    font-weight: 540;
+    font-size: 25px;
+    line-height: 34px;
+    text-align: center;
+    color: #220F4B;
+}
+
+.lastcardbody {
+    width: "267px";
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 0px;
+    gap: 15px;
+    width: 300px;
+    height: 299px;
+}
+
+.ytbtn {
+    width: 243px;
+    height: 48px !important;
+    font-family: 'Noto Sans';
+    font-weight: 320;
+    font-size: 23px;
+    border-radius: 30px !important;
+    color: #FAF8FF;
+    background-color: #220F4B;
+}
