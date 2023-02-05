@@ -26,8 +26,8 @@ export default function Header() {
                 </Link>
                 <div className={styles.search}>
                     <InputGroup >
-                        <Form.Control aria-describedby="basic-addon2" placeholder="Search..." style={{ borderRadius: "23px", borderWidth: "2px", borderColor: "#220F4B", position: "relative", height: "46px" }} />
-                        <Button style={{ borderRadius: "23px", width: "72px", height: "46px", position: "absolute", backgroundColor: "#220F4B", right: 0, border: "none" }} id="button-addon2">
+                        <Form.Control aria-describedby="basic-addon2" placeholder="Search..." className={styles.forminput} />
+                        <Button className={styles.formbtn} id="button-addon2">
                             <LoopIcon fillColor={"#FAF8FF"} />
                         </Button>
                     </InputGroup>

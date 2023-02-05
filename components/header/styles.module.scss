@@ -22,7 +22,7 @@
         align-items: center;
         flex: 2;
         height: 46px;
-        width: 650px;
+        width: 620px;
         padding-left: 60px;
         min-width: 230px;
     }
@@ -35,7 +35,7 @@
         position: absolute;
         top: -5px;
         right: -7px;
-        background: #220F4B;
+        background: $green-color;
         width: 23px;
         height: 23px;
         border-radius: 50%;
@@ -64,12 +64,45 @@
         }
     }
 
-    &_logbtn{
+    &_logbtn {
         width: 30px;
         border: 1px solid grey;
     }
 
 }
+
+.forminput {
+    border-radius: 23px;
+    border: 2px solid #220F4B;
+    position: relative;
+    height: 46px;
+    padding: 20px;
+    font-size: 18px;
+    color: $plum-dark-color;
+    font-weight: 550;
+
+    &:focus {
+        border: 2px solid #220F4B;
+        box-shadow: none;
+    }
+}
+
+.formbtn {
+    border-radius: 23px;
+    width: 72px;
+    height: 46px;
+    position: absolute;
+    border: 2px solid #220F4B;
+    background-color: #220F4B;
+    &:hover{
+
+       opacity: 0.9;
+        border: 2px solid #220F4B;
+        background-color: #220F4B;
+    }
+   
+}
+
 // Menu-------------------------
 
 .menu {
@@ -98,13 +131,13 @@
         padding: 0 1rem;
     }
 
-    .flexmenu{
+    .flexmenu {
         display: flex !important;
         gap: 10px !important;
         width: 100%;
         padding: 0 1rem;
 
-        button{
+        button {
             width: 80px;
         }
     }
@@ -142,4 +175,3 @@
         }
     }
 }
-
