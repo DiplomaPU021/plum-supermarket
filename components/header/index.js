@@ -10,12 +10,14 @@ import HeartIcon from '../icons/HeartIcon'
 import CartIcon from '../icons/CartIcon'
 import AccountIcon from '../icons/AccountIcon'
 import { useSession } from "next-auth/react"
+import Cart from '../cart'
 
 export default function Header() {
     const { data: session } = useSession();
     const { cart } = useSelector((state) => ({ ...state }))
     const [loggedIn, setLoggedIn] = React.useState(false);
     const [visible, setVisible] = React.useState(false)
+    const [cartShow, setCartShow] = React.useState(false);
     return (
         <div className={styles.main}>
             <div className={styles.main_container}>
@@ -25,7 +27,7 @@ export default function Header() {
                     </div>
                 </Link>
                 <div className={styles.search}>
-                    <InputGroup style={{ width: '712px',minWidth: '312px' }}>
+                    <InputGroup style={{ width: '712px', minWidth: '312px' }}>
                         <input className={styles.forminput} placeholder="Search..." />
                         <button className={styles.formbtn} id="button-addon2" >
                             <LoopIcon fillColor={"#FAF8FF"} />
@@ -37,14 +39,19 @@ export default function Header() {
                         <ThemeIcon fillColor={"#220F4B"} />
                     </button>
                     <button>
-                        <HeartIcon fillColor={"#220F4B"} />
+                    {/* <Image width="24px" height="24px" src="../../../images/categories/heart2.png" /> */}
+                         <HeartIcon fillColor={"#220F4B"} /> 
                     </button>
                     <div className={styles.cart}>
-                        <button >
+                        <button onClick={() => setCartShow(true)}>
                             <CartIcon fillColor={"#220F4B"} />
                         </button>
                         <span>0</span>
                     </div>
+                    <Cart
+                        show={cartShow}
+                        onHide={() => setCartShow(false)}
+                    />
 
                     <div
                         onMouseOver={() => setVisible(true)}
