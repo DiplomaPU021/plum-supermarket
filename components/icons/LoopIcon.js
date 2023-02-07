@@ -9,8 +9,8 @@ export default function LoopIcon({fillColor}) {
                 <path d="M14.0592 10.406L13.7602 10.7573L14.0864 11.0836L14.3564 11.3536L14.5029 11.5H14.71H15.2929L19.7929 16L19 16.7929L14.5 12.2929V11.71V11.5029L14.3536 11.3564L14.0836 11.0864L13.7573 10.7602L13.406 11.0592C12.3522 11.9558 10.9859 12.5 9.5 12.5C7.9087 12.5 6.38258 11.8679 5.25736 10.7426C4.13214 9.61742 3.5 8.0913 3.5 6.5C3.5 4.9087 4.13214 3.38258 5.25736 2.25736C6.38258 1.13214 7.9087 0.5 9.5 0.5C11.0913 0.5 12.6174 1.13214 13.7426 2.25736C14.8679 3.38258 15.5 4.9087 15.5 6.5C15.5 7.98592 14.9558 9.35225 14.0592 10.406ZM9.5 1.5C6.72386 1.5 4.5 3.72386 4.5 6.5C4.5 9.27614 6.72386 11.5 9.5 11.5C12.2761 11.5 14.5 9.27614 14.5 6.5C14.5 3.72386 12.2761 1.5 9.5 1.5Z" stroke="black" stroke-opacity="0.2" />
             </g>
             <defs>
-                <filter id="filter0_dd_185_381" x="-1" y="0" width="25.5" height="25.5" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
-                    <feFlood flood-opacity="0" result="BackgroundImageFix" />
+                <filter id="filter0_dd_185_381" x="-1" y="0" width="25.5" height="25.5" filterUnits="userSpaceOnUse" colorInterpolationFilters="sRGB">
+                    <feFlood floodOpacity="0" result="BackgroundImageFix" />
                     <feColorMatrix in="SourceAlpha" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0" result="hardAlpha" />
                     <feOffset dy="4" />
                     <feGaussianBlur stdDeviation="2" />

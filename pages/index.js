@@ -31,12 +31,6 @@ export default function Home() {
       <HomeCarousel />
       <Categories />
       <TopSales />
-      {/* {session ? "you are logged in" : "you are not logged in"} */}
-      {/* <div className={styles.products}>
-        {products.map((product) => (
-          <ProductCard product={product} key={product._id} />
-        ))}
-      </div> */}
       <YoutubeVideo />
       <RecomendedVideo />
       <Popular />
