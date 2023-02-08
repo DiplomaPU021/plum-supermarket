@@ -26,7 +26,7 @@ export default function RecomendedVideo({ title, link }) {
             </Card>
             <Card className={styles.cartst}>
                 <iframe width="267" height="190"
-                    src="https://www.youtube.com/embed/dPMTD7ifzcQ?autoplay=1&mute=1&controls=0">
+                    src="https://www.youtube.com/embed/8paaoWp2OeY?autoplay=1&mute=1&controls=0">
                 </iframe>
                 <Card.Body style={{ display: 'flex', width: "267px", paddingBottom: "0px" }}>
                     <p>Some advertising about our products</p>
