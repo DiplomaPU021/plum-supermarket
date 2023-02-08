@@ -14,10 +14,10 @@ const reviewSchema = new mongoose.Schema({
     },
     review: {
         type: String,
-        required: true,        
+        required: true,
     },
     size: {
-        type: String,              
+        type: String,
     },
     style: {
         color: String,
@@ -34,25 +34,29 @@ const productSchema = new mongoose.Schema(
     {
         name: {
             type: String,
-            required: true,        
+            required: true,
+        },
+        code:{
+            type: String,
+            required: true,
         },
         description: {
             type: String,
-            required: true,        
+            required: true,
         },
         brand: {
-            type: String,        
+            type: String,
         },
         slug: {
             type: String,
-            required: true,  
-            unique: true,     
-            lowercase: true, 
+            required: true,
+            unique: true,
+            lowercase: true,
         },
         category: {
             type: ObjectId,
             required: true,
-            ref: "Category",        
+            ref: "Category",
         },
         subCategories: [
             {
@@ -92,36 +96,56 @@ const productSchema = new mongoose.Schema(
             required: true,
             default: 0,
         },
-        subProducts: [
-            {
-                images: [],
-                description_images: [],
-                color: {
-                    color: {
-                        type: String,
-                    },
-                    image: {
-                        type: String,
-                    },    
-                },
-                sizes: [
-                    {
-                        size: String,
-                        qty: Number,
-                        price: Number,
-                    },
-                ],
-                discount: {
-                    type: Number,
-                    default: 0,
-                },
-                sold: {
-                    type: Number,
-                    default: 0,
-                },
-            },
-        ],
-    }, 
+        price: {
+            type: Number,
+        },
+        price_unit: {
+            type: String
+        },
+        discount:{
+            type: Number,
+            default: 0
+        },
+        cart_min: {
+            type: Number,
+            default: 0
+        },
+        cart_max: {
+            type: Number,
+            default: 0
+        },
+        images: [],
+
+        // subProducts: [
+        //     {
+        //         images: [],
+        //         description_images: [],
+        //         color: {
+        //             color: {
+        //                 type: String,
+        //             },
+        //             image: {
+        //                 type: String,
+        //             },    
+        //         },
+        //         sizes: [
+        //             {
+        //                 size: String,
+        //                 qty: Number,
+        //                 price: Number,
+        //             },
+        //         ],
+        //         discount: {
+        //             type: Number,
+        //             default: 0,
+        //         },
+        //         sold: {
+        //             type: Number,
+        //             default: 0,
+        //         },
+        //     },
+        //],
+    },
     {
         timestamps: true,
     }

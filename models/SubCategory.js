@@ -16,10 +16,15 @@ const subSchema = new mongoose.Schema(
             lowercase: true,
             index: true,
         },
-        parent: {
+       top_parent: {
             type: ObjectId,
             ref: "Category",
             required: true,
+        },
+        parent: {
+            type: ObjectId,
+            ref: "SubCategory",
+            required: false,
         },
     }
 );

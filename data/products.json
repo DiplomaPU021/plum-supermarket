@@ -1,0 +1,137 @@
+[{
+  "_id": {
+    "$oid": "63e16c622c2a6482d698d972"
+  },
+  "name": "Ноутбук Apple MacBook Air 13\" M1 256GB 2020 (MGN93) Silver",
+  "code": 245161903,
+  "description": "Найтонший і найлегший ноутбук від Apple стає надпотужним завдяки чипу Apple M1.\nЛегко виконуйте будь-які завдання завдяки надшвидкісному 8-ядерному центральному процесору. Графічний процесор із щонайбільше 8 ядрами забезпечує відмінне зображення в додатках та іграх зі складною графікою. 16-ядерна система Neural Engine прискорює виконання всіх операцій, у яких використовується машинне навчання. Конструкція без вентилятора гарантує безшумну роботу. А ще новий MacBook Air побив власний рекорд роботи від акумулятора — тепер він працює без підзарядки до 18 годин. Досі ідеально портативний. А тепер ще й набагато потужніший.",
+  "brand": "Apple",
+  "slug": "Apple_MacBook_Air_13_M1_256GB_20",
+  "category": {
+    "$oid": "63e370145ba7e472e6726ca2"
+  },
+  "subCategories": [
+    {
+      "$oid": "63e3a0b95ba7e472e6726cfe"
+    }
+  ],
+  "details": [
+    {
+      "name": "Серія",
+      "value": "Apple MacBook",
+      "_id": {
+        "$oid": "63e377505ba7e472e6726cb6"
+      }
+    },
+    {
+      "name": "Діагональ",
+      "value": "13.3\" (2560x1600) WQXGA",
+      "_id": {
+        "$oid": "63e37dcd5ba7e472e6726cd1"
+      }
+    },
+    {
+      "name": "Тип екрану",
+      "value": "Retina"
+    }
+  ],
+  "questions": [],
+  "reviews": [],
+  "refundPolicy": "30 днів",
+  "rating": 0,
+  "shipping": 2,
+  "price": 39999,
+  "price_unit": "грн",
+  "discount":0,
+  "cart_min": 0,
+  "cart_max": 0,
+  "images": [
+    {
+      "url": "https://res.cloudinary.com/dzctqbi3o/image/upload/v1675855901/Diploma/Notebooks/gdlhuigfbwqdgd0gx8g5.png",
+      "public_url": "/Diploma/Notebooks/gdlhuigfbwqdgd0gx8g5.png"
+    },
+    {
+      "url": "https://res.cloudinary.com/dzctqbi3o/image/upload/v1675856380/Diploma/Notebooks/macbook_air_2_qxlofa.png",
+      "public_url": "/Diploma/Notebooks/macbook_air_2_qxlofa.png"
+    },
+    {
+      "url": "https://res.cloudinary.com/dzctqbi3o/image/upload/v1675856381/Diploma/Notebooks/macbook_air_12_tekzbn.png",
+      "public_url": "/Diploma/Notebooks/macbook_air_12_tekzbn.png"
+    }
+  ],
+  "created_at": {
+    "$date": {
+      "$numberLong": "1674203278251"
+    }
+  },
+  "updated_at": {
+    "$date": {
+      "$numberLong": "1674203278251"
+    }
+  }
+},{
+  "_id": {
+    "$oid": "63e3a79f5ba7e472e6726d0f"
+  },
+  "name": "Капсули для прання Tide Все-в-1 Color 45 шт. (8001841582160)",
+  "code": 200300509,
+  "description": "Tide Все в 1 Color — це приголомшлива ефективність усього в одній капсулі. Кришталева чистота та жодних слідів. Спробуйте інноваційний засіб для прання від Tide — Tide Все в 1 Pods. Кожна капсула складається з 3 секцій — у такий спосіб її інгредієнти не змішуються до початку прання. Під час контакту з водою спеціальна інноваційна плівка розчиняється, і капсула починає свою дію: очищає, видаляє плями, надає яскравості й освіжає; вона ефективна вже за 20 °C. Однієї капсули вистачає, щоб повністю випрати повний барабан брудних речей. Tide Все в 1 Pods — це надійний вибір для напрочуд ефективного прання. Використовуйте разом із кондиціонерами Lenor, які надають білизні ще більше м'якості та свіжості. УВАГА. Продукт може бути небезпечний. Бережіть капсули Tide від дітей.",
+  "brand": "Tide",
+  "slug": "tide_8001841582160",
+  "category": {
+    "$oid": "63e39c465ba7e472e6726ce6"
+  },
+  "subCategories": [
+    {
+      "$oid": "63e3a76e5ba7e472e6726d0d"
+    }
+  ],
+  "details": [
+    {
+      "name": "Вид прання",
+      "value": "Автоматичне"
+    },
+    {
+      "name": "Призначення типу білизни",
+      "value": "Всі види білизни"
+    },
+    {
+      "name": "Тип засобу",
+      "value": "Капсули"
+    }
+  ],
+  "questions": [],
+  "reviews": [],
+  "refundPolicy": "30 днів",
+  "rating": 0,
+  "shipping": 2,
+  "price": 779,
+  "price_unit": "грн",
+  "discount":0,
+  "cart_min": 0,
+  "cart_max": 0,
+  "images": [
+    {
+      "url": "https://res.cloudinary.com/dzctqbi3o/image/upload/v1675855901/Diploma/Notebooks/gdlhuigfbwqdgd0gx8g5.png",
+      "public_url": "/Diploma/Notebooks/gdlhuigfbwqdgd0gx8g5.png"
+    },
+    {
+      "url": "https://res.cloudinary.com/dzctqbi3o/image/upload/v1675856380/Diploma/Notebooks/macbook_air_2_qxlofa.png",
+      "public_url": "/Diploma/Notebooks/macbook_air_2_qxlofa.png"
+    },
+    {
+      "url": "https://res.cloudinary.com/dzctqbi3o/image/upload/v1675856381/Diploma/Notebooks/macbook_air_12_tekzbn.png",
+      "public_url": "/Diploma/Notebooks/macbook_air_12_tekzbn.png"
+    }
+  ],
+  "created_at": {
+    "$date": {
+      "$numberLong": "1674203278251"
+    }
+  },
+  "updated_at": {
+    "$date": {
+      "$numberLong": "1674203278251"
+    }
+  }
+}]

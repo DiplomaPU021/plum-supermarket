@@ -10,15 +10,15 @@ const cartSchema = new mongoose.Schema(
                     type: ObjectId,
                     ref: "Product",
                 },
-                name: {
-                    type: String,
-                },
-                image: {
-                    type: String,
-                },
-                size: {
-                    type: String,
-                },
+                // name: {
+                //     type: String,
+                // },
+                // image: {
+                //     type: String,
+                // },
+                // size: {
+                //     type: String,
+                // },
                 // style: {
                 //     style: String,
                 //     color: String,
@@ -27,16 +27,20 @@ const cartSchema = new mongoose.Schema(
                 qty: {
                     type: Number,
                 },
-                color: {
-                    color: String,
-                    image: String,
+                // color: {
+                //     color: String,
+                //     image: String,
+                // },
+                cost:{
+                    type: Number,
                 },
-                price: Number,
             },
 
         ],
         cartTotal: Number,
-        totalAfterDiscount: Number,
+        discount: Number,
+        coupons:String,
+        costAfterDiscount: Number,
         user: {
             type: ObjectId,
             ref: "User",

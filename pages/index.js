@@ -22,9 +22,11 @@ import {products} from "../models/Product/index";
 const inter = Inter({ subsets: ["latin"] });
 
 
-export default function Home() {
+export default function Home({products}) {
   const { data: session } = useSession()
   console.log(session);
+  console.log("products",products);
+
   return (
     <div className={styles.container}>
       <Header />
