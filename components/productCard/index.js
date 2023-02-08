@@ -10,8 +10,15 @@ import Col from "react-bootstrap/Col";
 import HeartIcon from "../icons/HeartIcon";
 import CartIcon from "../icons/CartIcon";
 import ScalesIcon from "../icons/ScalesIcon";
+import axios from "axios";
+import { useRouter } from "next/router";
+
+
 
 export default function ProductCard({ product }) {
+  const router = useRouter();
+  const [code, setCode] = useState(router.query.code);
+  const [qty, setQty] = useState(1);
   const [active, setActive] = useState(0);
   const [images, setImages] = useState(product.subProducts[active]?.images);
   const [prices, setPrices] = useState(
@@ -36,7 +43,10 @@ export default function ProductCard({ product }) {
         })
     );
   }, [active]);
-
+  const addToCartHandler = async () => {
+    const { data } = await axios.get(`/api/product/${product._id}?style=${product.style}&size=${router.query.size}`);
+    console.log("data--------->",data);
+  };
   return (
     <Card className={styles.product}>
       <div className={styles.product__container}>
@@ -104,8 +114,10 @@ export default function ProductCard({ product }) {
                 <Button className={styles.btnscales}>
                   <ScalesIcon fillColor={"#220F4B"} />
                 </Button>
-                 {/* TODO onClick */}
-                <Button className={styles.btncart}>
+               
+                <Button className={styles.btncart}
+                 onClick={() => addToCartHandler()}
+                >
                   <CartIcon fillColor={"#FAF8FF"}/>
                 </Button>
               </Row>

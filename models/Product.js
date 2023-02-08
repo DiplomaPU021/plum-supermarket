@@ -36,10 +36,6 @@ const productSchema = new mongoose.Schema(
             type: String,
             required: true,
         },
-        code:{
-            type: String,
-            required: true,
-        },
         description: {
             type: String,
             required: true,
@@ -96,55 +92,52 @@ const productSchema = new mongoose.Schema(
             required: true,
             default: 0,
         },
-        price: {
-            type: Number,
-        },
-        price_unit: {
-            type: String
-        },
-        discount:{
-            type: Number,
-            default: 0
-        },
-        cart_min: {
-            type: Number,
-            default: 0
-        },
-        cart_max: {
-            type: Number,
-            default: 0
-        },
-        images: [],
 
-        // subProducts: [
-        //     {
-        //         images: [],
-        //         description_images: [],
-        //         color: {
-        //             color: {
-        //                 type: String,
-        //             },
-        //             image: {
-        //                 type: String,
-        //             },    
-        //         },
-        //         sizes: [
-        //             {
-        //                 size: String,
-        //                 qty: Number,
-        //                 price: Number,
-        //             },
-        //         ],
-        //         discount: {
-        //             type: Number,
-        //             default: 0,
-        //         },
-        //         sold: {
-        //             type: Number,
-        //             default: 0,
-        //         },
-        //     },
-        //],
+        subProducts: [
+            {
+                images: [],
+                description_images: [],
+                color: {
+                    color: {
+                        type: String,
+                    },
+                    image: {
+                        type: String,
+                    }
+                },
+                sizes: [
+                    {
+                        size: String,
+                        qty: Number,
+                        price: Number,
+                        price_unit: {
+                            type: String
+                        },
+                        cart_min: {
+                            type: Number,
+                            default: 0
+                        },
+                        cart_max: {
+                            type: Number,
+                            default: 0
+                        },
+                    },
+                ],
+                discount: {
+                    type: Number,
+                    default: 0,
+                },
+                sold: {
+                    type: Number,
+                    default: 0,
+                },
+                code: {
+                    type: String,
+                    required: true,
+                    unique: true,
+                },
+            },
+        ],
     },
     {
         timestamps: true,
