@@ -6,7 +6,7 @@
     "name": "Ноутбук Apple MacBook Air 13\" M1 256GB 2020 (MGN93) Silver",
     "description": "Найтонший і найлегший ноутбук від Apple стає надпотужним завдяки чипу Apple M1.\nЛегко виконуйте будь-які завдання завдяки надшвидкісному 8-ядерному центральному процесору. Графічний процесор із щонайбільше 8 ядрами забезпечує відмінне зображення в додатках та іграх зі складною графікою. 16-ядерна система Neural Engine прискорює виконання всіх операцій, у яких використовується машинне навчання. Конструкція без вентилятора гарантує безшумну роботу. А ще новий MacBook Air побив власний рекорд роботи від акумулятора — тепер він працює без підзарядки до 18 годин. Досі ідеально портативний. А тепер ще й набагато потужніший.",
     "brand": "Apple",
-    "slug": "Apple_MacBook_Air_13_M1_256GB_20",
+    "slug": "apple_macbook_air_13_m1_256gb_20",
     "category": {
       "$oid": "63e370145ba7e472e6726ca2"
     },
@@ -18,28 +18,22 @@
     "details": [
       {
         "name": "Серія",
-        "value": "Apple MacBook",
-        "_id": {
-          "$oid": "63e377505ba7e472e6726cb6"
-        }
+        "value": "Apple MacBook"
+      
       },
       {
         "name": "Діагональ",
-        "value": "13.3\" (2560x1600) WQXGA",
-        "_id": {
-          "$oid": "63e37dcd5ba7e472e6726cd1"
-        }
+        "value": "13.3\" (2560x1600) WQXGA"
+      
       },
       {
         "name": "Тип екрану",
         "value": "Retina"
       }
     ],
-    "questions": [],
     "reviews": [],
     "refundPolicy": "30 днів",
     "rating": 0,
-    "shipping": 2,
     "subProducts": [
       {
         "images": [
@@ -67,13 +61,12 @@
             "qty": 12,
             "price": 44499,
             "price_unit": "грн",
-            "cart_min": 0,
-            "cart_max": 0
+            "code": 245161903
           }
         ],
         "discount": 10,
-        "sold": 0,
-        "code": 245161903
+        "sold": 0
+       
       },
       {
         "images": [
@@ -101,13 +94,12 @@
             "qty": 12,
             "price": 44499,
             "price_unit": "грн",
-            "cart_min": 0,
-            "cart_max": 0
+            "code": 245161897
           }
         ],
         "discount": 10,
-        "sold": 0,
-        "code": 245161897
+        "sold": 0
+       
       },
       {
         "images": [
@@ -135,13 +127,12 @@
             "qty": 12,
             "price": 44499,
             "price_unit": "грн",
-            "cart_min": 0,
-            "cart_max": 0
+            "code": 245161909
           }
         ],
         "discount": 10,
-        "sold": 0,
-        "code": 245161909
+        "sold": 0
+       
       }
     ],
     "created_at": {
@@ -168,7 +159,7 @@
     },
     "subCategories": [
       {
-        "$oid": "63e3a76e5ba7e472e6726d0d"
+        "$oid": "63e373195ba7e472e6726ca8"
       }
     ],
     "details": [
@@ -185,11 +176,9 @@
         "value": "Капсули"
       }
     ],
-    "questions": [],
     "reviews": [],
     "refundPolicy": "30 днів",
     "rating": 0,
-    "shipping": 2,
     "subProducts": [
       {
         "images": [
@@ -217,81 +206,26 @@
             "qty": 12,
             "price": 1140,
             "price_unit": "грн",
-            "cart_min": 0,
-            "cart_max": 0
-          }
-        ],
-        "discount": 10,
-        "sold": 0,
-        "code": 200300509
-      },
-      {
-        "images": [
-          {
-            "url": "https://res.cloudinary.com/dzctqbi3o/image/upload/v1675872588/Diploma/detergents/298412218_gsbbnl.webp",
-            "public_url": "/Diploma/detergents/298412218_gsbbnl.webp"
+            "code": 200300509
           },
-          {
-            "url": "https://res.cloudinary.com/dzctqbi3o/image/upload/v1675872588/Diploma/detergents/298412236_lbmklj.webpg",
-            "public_url": "/Diploma/detergents/298412236_lbmklj.webpg"
-          },
-          {
-            "url": "https://res.cloudinary.com/dzctqbi3o/image/upload/v1675872588/Diploma/detergents/298412230_efjh7c.webp",
-            "public_url": "/Diploma/detergents/298412230_efjh7c.webp"
-          }
-        ],
-        "description_images": [],
-        "color": {
-          "color": "",
-          "image": ""
-        },
-        "sizes": [
           {
             "size": "30",
             "qty": 10,
             "price": 999,
             "price_unit": "грн",
-            "cart_min": 0,
-            "cart_max": 0
-          }
-        ],
-        "discount": 10,
-        "sold": 0,
-        "code": 45101200
-      },
-      {
-        "images": [
-          {
-            "url": "https://res.cloudinary.com/dzctqbi3o/image/upload/v1675872588/Diploma/detergents/298412218_gsbbnl.webp",
-            "public_url": "/Diploma/detergents/298412218_gsbbnl.webp"
+            "code": 45101200
           },
-          {
-            "url": "https://res.cloudinary.com/dzctqbi3o/image/upload/v1675872588/Diploma/detergents/298412236_lbmklj.webpg",
-            "public_url": "/Diploma/detergents/298412236_lbmklj.webpg"
-          },
-          {
-            "url": "https://res.cloudinary.com/dzctqbi3o/image/upload/v1675872588/Diploma/detergents/298412230_efjh7c.webp",
-            "public_url": "/Diploma/detergents/298412230_efjh7c.webp"
-          }
-        ],
-        "description_images": [],
-        "color": {
-          "color": "",
-          "image": ""
-        },
-        "sizes": [
           {
             "size": "60",
             "qty": 2,
             "price": 1799,
             "price_unit": "грн",
-            "cart_min": 0,
-            "cart_max": 0
+            "code": 200326921
           }
         ],
         "discount": 10,
-        "sold": 0,
-        "code": 200326921
+        "sold": 0
+        
       }
     ],
     "created_at": {

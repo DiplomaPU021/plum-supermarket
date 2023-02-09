@@ -1,10 +1,10 @@
 import "bootstrap/dist/css/bootstrap.min.css";
 import styles from "../../styles/product.module.scss";
-//import db from "../../utils/db";
-import { products } from "../../models/Product/index";
-//import Product from "../../models/Product";
-//import Category from "../../models/Category";
-//import SubCategory from "../../models/SubCategory";
+import db from "../../utils/db";
+// import { products } from "../../models/Product/index";
+import Product from "../../models/Product";
+import Category from "../../models/Category";
+import SubCategory from "../../models/SubCategory";
 //import user from "../../models/User";
 //import Head from "next/head";
 import Header from "../../components/header";
@@ -73,17 +73,18 @@ export default function product({ product }) {
 export async function getServerSideProps(context) {
   const { query } = context;
   const slug = query.slug;
-  const style = query.style;
-  const size = query.size || 0;
-  //db.connectDb();
+  const style = query.style; // id subproduct
+  const code = query.code || 0; //id sizes
+
+  db.connectDb();
   //----------------
   //from db
-  //let product = await Product.findOne({slug})
-  //.populate({path: "category", model: Category})
-  //.populate({path: "subCategories._id", model: SubCategory})
-  //.populate({path: "reviews.reviewBy", model: User})
-  //.lean();
-  let product = products.find((el) => el.slug == slug);
+  let product = await Product.findOne({slug})
+  .populate({path: "category", model: Category})
+  .populate({path: "subCategories._id", model: SubCategory})
+  // .populate({path: "reviews.reviewBy", model: User})
+  .lean();
+  // let product = products.find((el) => el.slug == slug);
   let subProduct = product.subProducts[style];
   let prices = subProduct.sizes
     .map((s) => {
@@ -98,7 +99,8 @@ export async function getServerSideProps(context) {
     images: subProduct.images,
     sizes: subProduct.sizes,
     discount: subProduct.discount,
-    sku: subProduct.sku,
+    code,
+    // sku: subProduct.sku,
     colors: product.subProducts.map((p) => {
       return p.color;
     }),
@@ -111,12 +113,12 @@ export async function getServerSideProps(context) {
     price:
       subProduct.discount > 0
         ? (
-            subProduct.sizes[size].price -
-            subProduct.sizes[size].price / subProduct.discount
+            subProduct.sizes[code].price -
+            subProduct.sizes[code].price / subProduct.discount
           ).toFixed(2)
-        : subProduct.sizes[size].price,
-    priceBefore: subProduct.sizes[size].price,
-    quantity: subProduct.sizes[size].qty,
+        : subProduct.sizes[code].price,
+    priceBefore: subProduct.sizes[code].price,
+    quantity: subProduct.sizes[code].qty,
     ratings: [
       { percentage: 76 },
       { percentage: 14 },
@@ -138,7 +140,7 @@ export async function getServerSideProps(context) {
       ),
   };
   //----------------
-  //db.disconnectDb();
+  db.disconnectDb();
   return {
     props: { product: JSON.parse(JSON.stringify(newProduct)) },
   };

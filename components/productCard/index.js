@@ -17,8 +17,8 @@ import { useRouter } from "next/router";
 
 export default function ProductCard({ product }) {
   const router = useRouter();
-  const [code, setCode] = useState(router.query.code);
-  const [qty, setQty] = useState(1);
+  //const [code, setCode] = useState(router.query.code);
+  //const [qty, setQty] = useState(1);
   const [active, setActive] = useState(0);
   const [images, setImages] = useState(product.subProducts[active]?.images);
   const [prices, setPrices] = useState(
@@ -44,8 +44,9 @@ export default function ProductCard({ product }) {
     );
   }, [active]);
   const addToCartHandler = async () => {
-    const { data } = await axios.get(`/api/product/${product._id}?style=${product.style}&size=${router.query.size}`);
+   // const { data } = await axios.get(`/api/product/${product._id}?style=${product.style}&code=${product.code}`);
     console.log("data--------->",data);
+    console.log("data2--------->",product);
   };
   return (
     <Card className={styles.product}>

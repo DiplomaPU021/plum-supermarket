@@ -15,30 +15,49 @@ import TopSales from '@/components/topsales'
 import Popular from '@/components/popular'
 import AppDownload from '@/components/appdownload'
 import FAQ from '@/components/faq'
+import db from '@/utils/db'
+import Product from "@/models/Product"
 
-
-import {products} from "../models/Product/index";
+//import {products} from "../models/Product/index";
 
 const inter = Inter({ subsets: ["latin"] });
 
 
-export default function Home({products}) {
+export default function Home({ products }) {
   const { data: session } = useSession()
   console.log(session);
-  console.log("products",products);
 
+  console.log("productsI", products);
+  //   .populate({path: "category", model: Category})
+  //   .populate({path: "subCategories._id", model: SubCategory})
+  //   .lean();
+  //   let product2 = await Product.findById("63e3a79f5ba7e472e6726d0f")
+  //   .populate({path: "category", model: Category})
+  //   .populate({path: "subCategories._id", model: SubCategory})
+  //   .lean();
   return (
     <div className={styles.container}>
       <Header />
       <HomeCarousel />
       <Categories />
-      <TopSales />
+      <TopSales products={products} />
       <YoutubeVideo />
       <RecomendedVideo />
-      <Popular />
+      <Popular/>
       <AppDownload />
       <FAQ />
       <Footer />
     </div>
   );
+}
+export async function getServerSideProps() {
+  db.connectDb();
+  //----------------
+  //from db
+  let products = await Product.find();
+  return {
+    props: { products: JSON.parse(JSON.stringify(products)) },
+
+  }
+
 }

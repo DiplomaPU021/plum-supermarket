@@ -1,4 +1,5 @@
 import mongoose from "mongoose";
+
 const { ObjectId } = mongoose.Schema;
 
 const reviewSchema = new mongoose.Schema({
@@ -66,12 +67,12 @@ const productSchema = new mongoose.Schema(
                 value: String,
             }
         ],
-        questions: [
-            {
-                question: String,
-                answer: String,
-            }
-        ],
+        // questions: [
+        //     {
+        //         question: String,
+        //         answer: String,
+        //     }
+        // ],
         reviews: [reviewSchema],
         refundPolicy: {
             type: String,
@@ -87,11 +88,11 @@ const productSchema = new mongoose.Schema(
             required: true,
             default: 0,
         },
-        shipping: {
-            type: Number,
-            required: true,
-            default: 0,
-        },
+        // shipping: {
+        //     type: Number,
+        //     required: true,
+        //     default: 0,
+        // },
 
         subProducts: [
             {
@@ -113,13 +114,10 @@ const productSchema = new mongoose.Schema(
                         price_unit: {
                             type: String
                         },
-                        cart_min: {
-                            type: Number,
-                            default: 0
-                        },
-                        cart_max: {
-                            type: Number,
-                            default: 0
+                        code: {
+                            type: String,
+                            required: true,
+                            unique: true,
                         },
                     },
                 ],
@@ -131,18 +129,15 @@ const productSchema = new mongoose.Schema(
                     type: Number,
                     default: 0,
                 },
-                code: {
-                    type: String,
-                    required: true,
-                    unique: true,
-                },
+               
             },
         ],
     },
     {
-        timestamps: true,
+        timestamps: false,
     }
 );
+
 
 const Product = mongoose.models.Product || mongoose.model("Product", productSchema);
 
