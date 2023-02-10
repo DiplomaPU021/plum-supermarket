@@ -5,8 +5,27 @@ import Card from 'react-bootstrap/Card'
 import Button from "react-bootstrap/Button"
 import HeartIcon from "../icons/HeartIcon"
 import DeleteIcon from "../icons/DeleteIcon"
+import { useSelector, useDispatch } from "react-redux";
+import { updateCart } from "../../store/cartSlice"
 
-export default function CartItem() {
+
+export default function CartItem(product) {
+    const { cart } = useSelector((state) => ({ ...state }));
+    console.log("cartItem",cart);
+    console.log("cartItemProduct",product);
+    const dispatch = useDispatch();
+    const updateQty = (type) => {
+        let newCart = cart.cartItems.map((item) => {
+            if (item._uid == product._uid) {
+                return {
+                    ...item,
+                    qty: type == "plus" ? item.qty + 1 : item.qty - 1,
+                };
+            }
+            return item;
+        });
+        dispatch(updateCart(newCart));
+    };
     return (
         <Card className={styles.card}>
             <Card.Body className={styles.cardbody}>
@@ -22,7 +41,18 @@ export default function CartItem() {
                 <div className={styles.cardcontrols}>
                     <div className={styles.cardcontrols_itemcount}>
                         <div className={styles.cardcontrols_plusmin}>
-                            <span>-</span><div className={styles.count}>01</div><span>+</span>
+                            <button 
+                            disabled={product.qty <2} 
+                            onClick={() => updateQty("minus")}                            >
+                            <span>-</span>
+                            </button><div className={styles.count}>01</div>
+                            <button 
+                            disabled={product.qty == product.quantity} 
+                            onClick={() => updateQty("plus")}
+                            >
+                               <span>+</span> 
+                            </button>
+                            
                         </div>
                         <h5>92 466$</h5>
                         <h3>81 998$</h3>

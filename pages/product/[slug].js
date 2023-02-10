@@ -20,6 +20,7 @@ import LightPlumIcon from "@/components/icons/LightPlumIcon";
 import GreenChevronRight from "@/components/icons/GreenChevronRight";
 
 export default function product({ product }) {
+  console.log("slugProduct", product);
   const [activeImg, setActiveImg] = useState("");
   return (
     <div className={styles.product}>
@@ -30,13 +31,13 @@ export default function product({ product }) {
           <div className={styles.product__container_path_chevronRight}>
             <GreenChevronRight />
           </div>
-          <span>{product.category.name}</span>
+          {/* <span>{product.category.name}</span> */}
           <div className={styles.product__container_path_chevronRight}>
             <GreenChevronRight />
           </div>
-          {product.subCategories.map((sub, i) => (
+          {/* {product.subCategories.map((sub, i) => (
             <span key={i}> {sub.name}</span>
-          ))}
+          ))} */}
         </div>
         <div className={styles.product__container_nameCode}>
           <div className={styles.product__container_nameCode_name}>
@@ -76,15 +77,20 @@ export async function getServerSideProps(context) {
   const style = query.style; // id subproduct
   const code = query.code || 0; //id sizes
 
+  console.log("code", code);
+
   db.connectDb();
   //----------------
   //from db
-  let product = await Product.findOne({slug})
-  .populate({path: "category", model: Category})
-  .populate({path: "subCategories._id", model: SubCategory})
-  // .populate({path: "reviews.reviewBy", model: User})
-  .lean();
-  // let product = products.find((el) => el.slug == slug);
+  let product = await Product.findOne({ slug })
+    .populate({ path: "category", model: Category })
+    .populate({ path: "subCategories", model: SubCategory })
+    // .populate({path: "reviews.reviewBy", model: User})
+    .lean();
+  console.log("newproduct1", product);
+  console.log("category", product.category.name);
+  console.log("subCategory", product.subCategories[0].name);
+  // let product = products.find((el можеш) => el.slug == slug);
   let subProduct = product.subProducts[style];
   let prices = subProduct.sizes
     .map((s) => {
@@ -96,6 +102,7 @@ export async function getServerSideProps(context) {
 
   let newProduct = {
     ...product,
+    style,
     images: subProduct.images,
     sizes: subProduct.sizes,
     discount: subProduct.discount,
@@ -106,16 +113,16 @@ export async function getServerSideProps(context) {
     }),
     priceRange: subProduct.discount
       ? `From ${(prices[0] - prices[0] / subProduct.discount).toFixed(2)} to ${(
-          prices[prices.length - 1] -
-          prices[prices.length - 1] / subProduct.discount
-        ).toFixed(2)}$`
+        prices[prices.length - 1] -
+        prices[prices.length - 1] / subProduct.discount
+      ).toFixed(2)}$`
       : `From ${prices[0]} to ${prices[prices.length - 1]}$`,
     price:
       subProduct.discount > 0
         ? (
-            subProduct.sizes[code].price -
-            subProduct.sizes[code].price / subProduct.discount
-          ).toFixed(2)
+          subProduct.sizes[code].price -
+          subProduct.sizes[code].price / subProduct.discount
+        ).toFixed(2)
         : subProduct.sizes[code].price,
     priceBefore: subProduct.sizes[code].price,
     quantity: subProduct.sizes[code].qty,
@@ -140,6 +147,7 @@ export async function getServerSideProps(context) {
       ),
   };
   //----------------
+  console.log("newproduct2", newProduct);
   db.disconnectDb();
   return {
     props: { product: JSON.parse(JSON.stringify(newProduct)) },

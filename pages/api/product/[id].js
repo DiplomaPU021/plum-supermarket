@@ -8,7 +8,7 @@ handler.get(async (req, res) => {
     try {
         // db.connectDb();
         // const id = req.query.id;
-       
+
         // const size = req.query.size;
         // const product = await Product.findById(id).lean();
         // let discount = product.subProducts[style].discount;
@@ -19,7 +19,7 @@ handler.get(async (req, res) => {
         const style = req.query.style;
         const code = req.query.code;
         const product = await Product.findById(id).lean();
-          let discount = product.subProducts[style].discount;
+        let discount = product.subProducts[style].discount;
         let priceBefore = product.subProducts[style].sizes[code].price;
         let price = discount ? priceBefore - priceBefore / discount : priceBefore
         db.disconnectDb();
@@ -48,8 +48,10 @@ handler.get(async (req, res) => {
             details: product.details,
             // shipping: product.shipping,
             code: product.subProducts[style].sizes[code].code,
-            images: product.subProducts[style].images,
+            images: product.subProducts[style].images.map(image => image.public_url),
+            discount,
             color: product.subProducts[style].color,
+            size: product.subProducts[style].sizes[code].size,
             price,
             priceBefore,
             quantity: product.subProducts[style].sizes[code].qty,

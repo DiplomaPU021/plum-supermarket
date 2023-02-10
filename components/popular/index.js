@@ -8,7 +8,7 @@ import Button from 'react-bootstrap/Button'
 import ProductCard from "../productCard"
 
 export default function Popular({products}) {
-    console.log("products", products)
+    console.log("Popularproducts", products)
 ;
     return (
         <div className={styles.topsales}>
@@ -19,21 +19,21 @@ export default function Popular({products}) {
             </Container>
             <Container className={styles.products_container}>
                 <Row className={styles.products_row}>
-                    {/* <Col className={styles.colcard}><ProductCard product={products[0]} /></Col>
+                    <Col className={styles.colcard}><ProductCard product={products[0]}  /></Col>
                     <Col className={styles.colcard}><ProductCard product={products[1]} /></Col>
-                    <Col className={styles.colcard}><ProductCard product={products[3]} /></Col>
-                    <Col className={styles.colcard}><ProductCard product={products[1]} /></Col> */}
+                    <Col className={styles.colcard}><ProductCard product={products[0]} /></Col>
+                    <Col className={styles.colcard}><ProductCard product={products[1]} /></Col>
                 </Row>
                 <Row className={styles.products_row}>
-                    {/* <Col className={styles.colcard}><ProductCard product={products[0]} /></Col>
-                    <Col className={styles.colcard}><ProductCard product={products[3]} /></Col>
-                    <Col className={styles.colcard}><ProductCard product={products[2]} /></Col>
-                    <Col className={styles.colcard}><ProductCard product={products[1]} /></Col> */}
+                    <Col className={styles.colcard}><ProductCard product={products[0]} /></Col>
+                    <Col className={styles.colcard}><ProductCard product={products[1]} /></Col>
+                    <Col className={styles.colcard}><ProductCard product={products[0]} /></Col>
+                    <Col className={styles.colcard}><ProductCard product={products[1]} /></Col>
                 </Row>
                 <Row className={styles.products_row}>
-                    {/* <Col className={styles.colcard}><ProductCard product={products[2]} /></Col>
+                    <Col className={styles.colcard}><ProductCard product={products[0]} /></Col>
                     <Col className={styles.colcard}><ProductCard product={products[1]} /></Col>
-                    <Col className={styles.colcard}><ProductCard product={products[3]} /></Col> */}
+                    <Col className={styles.colcard}><ProductCard product={products[0]} /></Col>
                     <Col>
                         <Card className={styles.morevideo}>
                             <Card.Body className={styles.lastcardbody}>

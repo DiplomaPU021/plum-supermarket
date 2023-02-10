@@ -4,18 +4,18 @@ const { ObjectId } = mongoose.Schema;
 
 const cartSchema = new mongoose.Schema(
     {
-        products: [
+        cartItems: [
             {
-                product: {
+                cartItem: {
                     type: ObjectId,
                     ref: "Product",
                 },
-                // name: {
-                //     type: String,
-                // },
-                // image: {
-                //     type: String,
-                // },
+                name: {
+                    type: String,
+                },
+                image: {
+                    type: String,
+                },
                 // size: {
                 //     type: String,
                 // },

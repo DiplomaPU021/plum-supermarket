@@ -43,7 +43,7 @@ export default function Home({ products }) {
       <TopSales products={products} />
       <YoutubeVideo />
       <RecomendedVideo />
-      <Popular/>
+      <Popular products ={products}/>
       <AppDownload />
       <FAQ />
       <Footer />
@@ -54,7 +54,13 @@ export async function getServerSideProps() {
   db.connectDb();
   //----------------
   //from db
-  let products = await Product.find();
+  let products = await Product.find().sort({ popularity: -1 }).limit(5);
+  //let popProducts ;
+
+  // for (let i = 0; i < products.length; i++) {
+  //   products[i]=await Product.findOne(products[i]._id).populate({ path: "category", model: Category })
+  //   .lean();
+  // }
   return {
     props: { products: JSON.parse(JSON.stringify(products)) },
 
