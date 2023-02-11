@@ -12,7 +12,7 @@ export const cartSlice = createSlice({
             state.cartItems.push(action.payload)
         },
         updateCart: (state, action) => {
-            state = action.payload;
+            state.cartItems = action.payload;
         },
         emptyCart: (state, action) => {
             state.cartItems = [];
