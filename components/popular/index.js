@@ -4,12 +4,9 @@ import Col from 'react-bootstrap/Col'
 import Row from 'react-bootstrap/Row'
 import Card from 'react-bootstrap/Card'
 import Button from 'react-bootstrap/Button'
-//import { products } from '../../models/Product/index.js'
 import ProductCard from "../productCard"
 
 export default function Popular({products}) {
-    console.log("Popularproducts", products)
-;
     return (
         <div className={styles.topsales}>
             <Container className={styles.container}>

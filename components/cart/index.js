@@ -6,35 +6,45 @@ import Link from "next/link"
 import Card from 'react-bootstrap/Card'
 import Button from 'react-bootstrap/Button'
 import CartItem from './CartItem'
-import { useSelector, useDispatch } from "react-redux";
+import { useEffect, useState } from "react";
+import { useSelector } from "react-redux";
 
 
 export default function Cart(props) {
-    const { cart } = useSelector((state) => ({ ...state }));
-    console.log("cart", cart)
+    const cart = useSelector((state) => state.cart);
+    const [total, setTotal] = useState(0);
 
-   // const [itemsCount, setItemsCount] = React.useState(2);
 
-console.log("props",props);
+    const getTotalPrice = () => {
+        return cart.cartItems.reduce(
+            (accumulator, item) => accumulator + item.qty * item.price,
+            0
+        );
+    };
+
+    // useEffect(() => {
+    //     setTotal(cart.cartItems.reduce(
+    //         (accumulator, item) => accumulator + item.qty * item.price, 0));
+    // }, [cart.cartItems]);
+
     return (
         <Modal
             {...props}
-            size={cart.length == 0  ? "lg" : "xl"}
+            size={cart.length == 0 ? "lg" : "xl"}
             aria-labelledby="contained-modal-title-vcenter"
             centered>
             <div className={styles.modaldiv}>
                 <Modal.Header closeButton ></Modal.Header>
-                {cart.length == 0 || cart==null? (
+                {cart == null || cart?.cartItems?.length == 0 || cart.cartItems == null ? (
                     <EmptyCart />
                 ) : (
                     <Modal.Body className={styles.modalbody}>
                         {
-                            cart.cartItems.map((product) => ( 
-                                <CartItem product={product} key={product._uid} />
+                            cart.cartItems?.map((product, i) => (
+                                <CartItem product={product} key={i} />
                             ))
                         }
-                        <CartItem/>
-                        <h3>Total to pay:<span>93 997$</span></h3>
+                        <h3>Total to pay:<span>{getTotalPrice().toFixed(2)}</span></h3>
                         <button className={styles.addbtn}>Checkout</button>
                         <Link href="/" className={styles.link}>Back to shopping</Link>
                     </Modal.Body>

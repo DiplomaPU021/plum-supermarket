@@ -7,6 +7,8 @@ import thunk from "redux-thunk";
 import createWebStorage from "redux-persist/lib/storage/createWebStorage";
 import { persistReducer } from "redux-persist";
 import cart from "./cartSlice"
+//import {cartReducer} from "./cartSlice";
+
 
 const reducers = combineReducers({ cart });
 
@@ -25,9 +27,6 @@ const createNoopStorage = () => {
     };
 };
 const storage = 
-//typeof window!== 'undefined' && localStorage? createWebStorage(window.localStorage): createNoopStorage();
-
-
 typeof window !== "undefined"? createWebStorage("local") : createNoopStorage();
 
 const config = {
@@ -36,9 +35,12 @@ const config = {
 };
 
 const reducer = persistReducer(config, reducers);
+// const reducer = {
+//     cart: cartReducer,
 
+//   };
 const store = configureStore({
-    reducer: reducer,
+    reducer,
     devTools: process.env.NODE_ENV !== "production",
     middleware: [thunk],
 });

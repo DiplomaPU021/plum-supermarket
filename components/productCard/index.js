@@ -13,7 +13,7 @@ import ScalesIcon from "../icons/ScalesIcon";
 import axios from "axios";
 import { useRouter } from "next/router";
 import { useSelector, useDispatch } from "react-redux";
-import { addToCart, updateCart } from "@/store/cartSlice";
+import { addToCart, updateCartQty } from "@/store/cartSlice";
 
 // сюди приходить продукт з бази даних напряму
 export default function ProductCard({ product }) {
@@ -23,10 +23,8 @@ export default function ProductCard({ product }) {
   const [code, setCode] = useState(router.query.code);
   const [qty, setQty] = useState(1);
   const [error, setError] = useState("");
-  const cart = useSelector((state)=> state.cart);
+  const cart = useSelector((state) => state.cart);
   //const { cart } = useSelector((state) => ({ ...state }));
-  //console.log("cart", cart);
-  // console.log("productCard", product);
 
   const [active, setActive] = useState(0);
   const [images, setImages] = useState(product.subProducts[active]?.images);
@@ -39,15 +37,15 @@ export default function ProductCard({ product }) {
         return a - b;
       })
   );
-  useEffect(() => {
-    setCode("");
-    setQty(1);
-  }, [router.query.style]);
-  useEffect(() => {
-    if (qty > product.quantity) {
-      setQty(product.quantity);
-    }
-  }, [router.query.code]);
+  // useEffect(() => {
+  //   setCode("");
+  //   setQty(1);
+  // }, [router.query.style]);
+  // useEffect(() => {
+  //   if (qty > product.quantity) {
+  //     setQty(product.quantity);
+  //   }
+  // }, [router.query.code]);
   useEffect(() => {
     setImages(product.subProducts[active].images);
     setPrices(
@@ -70,6 +68,7 @@ export default function ProductCard({ product }) {
     console.log("data--------->", data);
     console.log("data2--------->", product._id);
     console.log("data3--------->", data.style);
+    console.log("data3--------->", data.quantity);
     console.log("data4--------->", router.query.code);
 
     if (qty > data.quantity) {
@@ -81,22 +80,23 @@ export default function ProductCard({ product }) {
     } else {
       //let _uid = `${data._id}_${product.style}_${router.query.code}`;
       let _uid = `${data._id}_${data.style}_${data.code}`;
-      console.log("_uid", _uid);
-      let exist = cart.cartItems.find((item) => item._uid === _uid);
+      let exist = null;
+      if (cart.cartItems) {
+        exist = cart.cartItems.find((item) => item._uid === _uid);
+      }
       if (exist) {
         let newCart = cart.cartItems.map((item) => {
           if (item._uid === exist._uid) {
-            return { item, qty: qty };
+            return { ...item, qty:  item.qty + 1 }
           }
           return item;
+
         });
-        console.log("item ", newCart);
-        dispatch(updateCart(newCart));
+        dispatch(updateCartQty(newCart));
       } else {
         dispatch(addToCart(
           { ...data, qty, size: data.size, _uid, }
-       ));
-
+        ));
       }
     }
   };
