@@ -13,7 +13,7 @@ import ScalesIcon from "../icons/ScalesIcon";
 import axios from "axios";
 import { useRouter } from "next/router";
 import { useSelector, useDispatch } from "react-redux";
-import { addToCart, updateCartQty } from "@/store/cartSlice";
+import { addToCart, updateCart } from "@/store/cartSlice";
 
 // сюди приходить продукт з бази даних напряму
 export default function ProductCard({ product }) {
@@ -92,7 +92,7 @@ export default function ProductCard({ product }) {
           return item;
 
         });
-        dispatch(updateCartQty(newCart));
+        dispatch(updateCart(newCart));
       } else {
         dispatch(addToCart(
           { ...data, qty, size: data.size, _uid, }
