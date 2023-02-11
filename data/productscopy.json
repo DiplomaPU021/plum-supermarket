@@ -1,0 +1,260 @@
+[
+  {
+    "_id": {
+      "$oid": "63e16c622c2a6482d698d972"
+    },
+    "name": "Ноутбук Apple MacBook Air 13\" M1 256GB 2020",
+    "description": "Найтонший і найлегший ноутбук від Apple стає надпотужним завдяки чипу Apple M1.\nЛегко виконуйте будь-які завдання завдяки надшвидкісному 8-ядерному центральному процесору. Графічний процесор із щонайбільше 8 ядрами забезпечує відмінне зображення в додатках та іграх зі складною графікою. 16-ядерна система Neural Engine прискорює виконання всіх операцій, у яких використовується машинне навчання. Конструкція без вентилятора гарантує безшумну роботу. А ще новий MacBook Air побив власний рекорд роботи від акумулятора — тепер він працює без підзарядки до 18 годин. Досі ідеально портативний. А тепер ще й набагато потужніший.",
+    "brand": "Apple",
+    "slug": "apple_macbook_air_13_m1_256gb_20",
+    "category": {
+      "$oid": "63e370145ba7e472e6726ca2"
+    },
+    "subCategories": [
+      {
+        "$oid": "63e3a0b95ba7e472e6726cfe"
+      }
+    ],
+    "details": [
+      {
+        "name": "Серія",
+        "value": "Apple MacBook"
+      },
+      {
+        "name": "Діагональ",
+        "value": "13.3\" (2560x1600) WQXGA"
+      },
+      {
+        "name": "Тип екрану",
+        "value": "Retina"
+      }
+    ],
+    "reviews": [],
+    "refundPolicy": "30 днів",
+    "rating": 0,
+    "description_images": [],
+    "subProducts": [
+      {
+        "images": [
+          {
+            "url": "https://res.cloudinary.com/dzctqbi3o/image/upload/v1675855901/Diploma/Notebooks/gdlhuigfbwqdgd0gx8g5.png",
+            "public_url": "/Diploma/Notebooks/gdlhuigfbwqdgd0gx8g5.png"
+          },
+          {
+            "url": "https://res.cloudinary.com/dzctqbi3o/image/upload/v1675856380/Diploma/Notebooks/macbook_air_2_qxlofa.png",
+            "public_url": "/Diploma/Notebooks/macbook_air_2_qxlofa.png"
+          },
+          {
+            "url": "https://res.cloudinary.com/dzctqbi3o/image/upload/v1675856381/Diploma/Notebooks/macbook_air_12_tekzbn.png",
+            "public_url": "/Diploma/Notebooks/macbook_air_12_tekzbn.png"
+          }
+        ],
+        "color": {
+          "color": "Срібний",
+          "icon": ""
+        },
+        "size": "",
+        "qty": 12,
+        "price": 44499,
+        "price_unit": "грн",
+        "code": 592793249,
+        "discount": 10,
+        "sold": 11
+      },
+      {
+        "images": [
+          {
+            "url": "https://res.cloudinary.com/dzctqbi3o/image/upload/v1675855901/Diploma/Notebooks/gdlhuigfbwqdgd0gx8g5.png",
+            "public_url": "/Diploma/Notebooks/gdlhuigfbwqdgd0gx8g5.png"
+          },
+          {
+            "url": "https://res.cloudinary.com/dzctqbi3o/image/upload/v1675856380/Diploma/Notebooks/macbook_air_2_qxlofa.png",
+            "public_url": "/Diploma/Notebooks/macbook_air_2_qxlofa.png"
+          },
+          {
+            "url": "https://res.cloudinary.com/dzctqbi3o/image/upload/v1675856381/Diploma/Notebooks/macbook_air_12_tekzbn.png",
+            "public_url": "/Diploma/Notebooks/macbook_air_12_tekzbn.png"
+          }
+        ],
+        "color": {
+          "color": "Золотий",
+          "icon": ""
+        },
+        "size": "",
+        "qty": 12,
+        "price": 44499,
+        "price_unit": "грн",
+        "code": 641606362,
+        "discount": 10,
+        "sold": 12
+      },
+      {
+        "images": [
+          {
+            "url": "https://res.cloudinary.com/dzctqbi3o/image/upload/v1675855901/Diploma/Notebooks/gdlhuigfbwqdgd0gx8g5.png",
+            "public_url": "/Diploma/Notebooks/gdlhuigfbwqdgd0gx8g5.png"
+          },
+          {
+            "url": "https://res.cloudinary.com/dzctqbi3o/image/upload/v1675856380/Diploma/Notebooks/macbook_air_2_qxlofa.png",
+            "public_url": "/Diploma/Notebooks/macbook_air_2_qxlofa.png"
+          },
+          {
+            "url": "https://res.cloudinary.com/dzctqbi3o/image/upload/v1675856381/Diploma/Notebooks/macbook_air_12_tekzbn.png",
+            "public_url": "/Diploma/Notebooks/macbook_air_12_tekzbn.png"
+          }
+        ],
+        "color": {
+          "color": "Сірий",
+          "icon": ""
+        },
+        "size": "",
+        "qty": 12,
+        "price": 44499,
+        "price_unit": "грн",
+        "code": 856132944,
+        "discount": 10,
+        "sold": 14
+      }
+    ],
+    "created_at": {
+      "$date": {
+        "$numberLong": "1674203278251"
+      }
+    },
+    "updated_at": {
+      "$date": {
+        "$numberLong": "1674203278251"
+      }
+    }
+  },
+  {
+    "_id": {
+      "$oid": "63e3a79f5ba7e472e6726d0f"
+    },
+    "name": "Капсули для прання Tide Все-в-1 Color",
+    "description": "Tide Все в 1 Color — це приголомшлива ефективність усього в одній капсулі. Кришталева чистота та жодних слідів. Спробуйте інноваційний засіб для прання від Tide — Tide Все в 1 Pods. Кожна капсула складається з 3 секцій — у такий спосіб її інгредієнти не змішуються до початку прання. Під час контакту з водою спеціальна інноваційна плівка розчиняється, і капсула починає свою дію: очищає, видаляє плями, надає яскравості й освіжає; вона ефективна вже за 20 °C. Однієї капсули вистачає, щоб повністю випрати повний барабан брудних речей. Tide Все в 1 Pods — це надійний вибір для напрочуд ефективного прання. Використовуйте разом із кондиціонерами Lenor, які надають білизні ще більше м'якості та свіжості. УВАГА. Продукт може бути небезпечний. Бережіть капсули Tide від дітей.",
+    "brand": "Tide",
+    "slug": "tide_8001841582160",
+    "category": {
+      "$oid": "63e39c465ba7e472e6726ce6"
+    },
+    "subCategories": [
+      {
+        "$oid": "63e373195ba7e472e6726ca8"
+      }
+    ],
+    "details": [
+      {
+        "name": "Вид прання",
+        "value": "Автоматичне"
+      },
+      {
+        "name": "Призначення типу білизни",
+        "value": "Всі види білизни"
+      },
+      {
+        "name": "Тип засобу",
+        "value": "Капсули"
+      }
+    ],
+    "reviews": [],
+    "refundPolicy": "30 днів",
+    "rating": 0,
+  
+    "description_images": [],
+    "subProducts": [
+      {
+        "images": [
+          {
+            "url": "https://res.cloudinary.com/dzctqbi3o/image/upload/v1675872588/Diploma/detergents/298412218_gsbbnl.webp",
+            "public_url": "/Diploma/detergents/298412218_gsbbnl.webp"
+          },
+          {
+            "url": "https://res.cloudinary.com/dzctqbi3o/image/upload/v1675872588/Diploma/detergents/298412236_lbmklj.webp",
+            "public_url": "/Diploma/detergents/298412236_lbmklj.webp"
+          },
+          {
+            "url": "https://res.cloudinary.com/dzctqbi3o/image/upload/v1675872588/Diploma/detergents/298412230_efjh7c.webp",
+            "public_url": "/Diploma/detergents/298412230_efjh7c.webp"
+          }
+        ],
+        "color": {
+          "color": "",
+          "icon": ""
+        },
+          "size": "45",
+          "qty": 12,
+          "price": 1140,
+          "price_unit": "грн",
+          "discount": 10,
+          "sold": 14,
+          "code": 165279053
+        
+      },
+      {
+        "images": [
+          {
+            "url": "https://res.cloudinary.com/dzctqbi3o/image/upload/v1675872588/Diploma/detergents/298412218_gsbbnl.webp",
+            "public_url": "/Diploma/detergents/298412218_gsbbnl.webp"
+          },
+          {
+            "url": "https://res.cloudinary.com/dzctqbi3o/image/upload/v1675872588/Diploma/detergents/298412236_lbmklj.webp",
+            "public_url": "/Diploma/detergents/298412236_lbmklj.webp"
+          },
+          {
+            "url": "https://res.cloudinary.com/dzctqbi3o/image/upload/v1675872588/Diploma/detergents/298412230_efjh7c.webp",
+            "public_url": "/Diploma/detergents/298412230_efjh7c.webp"
+          }
+        ],
+        "color": {
+          "color": "",
+          "icon": ""
+        },
+          "size": "30", 
+          "qty": 4,
+          "price": 999,
+          "price_unit": "грн",
+          "discount": 15,
+          "sold": 5,
+          "code": 843369968
+      },
+      {
+        "images": [
+          {
+            "url": "https://res.cloudinary.com/dzctqbi3o/image/upload/v1675872588/Diploma/detergents/298412218_gsbbnl.webp",
+            "public_url": "/Diploma/detergents/298412218_gsbbnl.webp"
+          },
+          {
+            "url": "https://res.cloudinary.com/dzctqbi3o/image/upload/v1675872588/Diploma/detergents/298412236_lbmklj.webp",
+            "public_url": "/Diploma/detergents/298412236_lbmklj.webp"
+          },
+          {
+            "url": "https://res.cloudinary.com/dzctqbi3o/image/upload/v1675872588/Diploma/detergents/298412230_efjh7c.webp",
+            "public_url": "/Diploma/detergents/298412230_efjh7c.webp"
+          }
+        ],
+        "color": {
+          "color": "",
+          "icon": ""
+        },
+          "size": "60",  
+          "qty": 2,
+          "price": 1799,
+          "price_unit": "грн",
+          "discount": 17,
+          "sold": 2,
+          "code": 776575394
+      }
+    ],
+    "created_at": {
+      "$date": {
+        "$numberLong": "1674203278251"
+      }
+    },
+    "updated_at": {
+      "$date": {
+        "$numberLong": "1674203278251"
+      }
+    }
+  }
+]

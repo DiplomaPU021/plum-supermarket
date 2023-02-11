@@ -1,0 +1,65 @@
+[{
+  "_id": {
+    "$oid": "63e370145ba7e472e6726ca2"
+  },
+  "name": "Комп'ютери та ноутбуки",
+  "slug": "computers_and_notebooks",
+  "created_at": {
+    "$date": {
+      "$numberLong": "1674203278251"
+    }
+  },
+  "updated_at": {
+    "$date": {
+      "$numberLong": "1674203278251"
+    }
+  }
+},{
+  "_id": {
+    "$oid": "63e39c465ba7e472e6726ce5"
+  },
+  "name": "Смартфони, ТВ і Електроніка",
+  "slug": "smartphones_tv_and_electronics",
+  "created_at": {
+    "$date": {
+      "$numberLong": "1674203278251"
+    }
+  },
+  "updated_at": {
+    "$date": {
+      "$numberLong": "1674203278251"
+    }
+  }
+},{
+  "_id": {
+    "$oid": "63e39c465ba7e472e6726ce6"
+  },
+  "name": "Товари для дому",
+  "slug": "goods_for_home",
+  "created_at": {
+    "$date": {
+      "$numberLong": "1674203278251"
+    }
+  },
+  "updated_at": {
+    "$date": {
+      "$numberLong": "1674203278251"
+    }
+  }
+},{
+  "_id": {
+    "$oid": "63e39c465ba7e472e6726ce7"
+  },
+  "name": "Спорт і захоплення",
+  "slug": "sport_and_hobby",
+  "created_at": {
+    "$date": {
+      "$numberLong": "1674203278251"
+    }
+  },
+  "updated_at": {
+    "$date": {
+      "$numberLong": "1674203278251"
+    }
+  }
+}]
