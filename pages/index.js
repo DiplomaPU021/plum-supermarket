@@ -24,10 +24,10 @@ const inter = Inter({ subsets: ["latin"] });
 
 
 export default function Home({ products }) {
-  const { data: session } = useSession()
-  console.log(session);
+  const { data: session } = useSession();
+  console.log("session index home", session?.user?.id);
 
-  console.log("productsI", products);
+  console.log("productsIndex", products);
   //   .populate({path: "category", model: Category})
   //   .populate({path: "subCategories._id", model: SubCategory})
   //   .lean();

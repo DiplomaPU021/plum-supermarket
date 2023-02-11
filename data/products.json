@@ -197,14 +197,60 @@
           "price": 1140,
           "price_unit": "грн",
           "code": 200300509
+        }
+
+      ],
+      "discount": 0,
+      "sold": 0
+    },
+    {
+      "images": [
+        {
+          "url": "https://res.cloudinary.com/dzctqbi3o/image/upload/v1675872588/Diploma/detergents/298412218_gsbbnl.webp",
+          "public_url": "/Diploma/detergents/298412218_gsbbnl.webp"
         },
+        {
+          "url": "https://res.cloudinary.com/dzctqbi3o/image/upload/v1675872588/Diploma/detergents/298412236_lbmklj.webp",
+          "public_url": "/Diploma/detergents/298412236_lbmklj.webp"
+        },
+        {
+          "url": "https://res.cloudinary.com/dzctqbi3o/image/upload/v1675872588/Diploma/detergents/298412230_efjh7c.webp",
+          "public_url": "/Diploma/detergents/298412230_efjh7c.webp"
+        }
+      ],
+      "description_images": [],
+      "color": null,
+      "sizes": [
+
         {
           "size": "30",
           "qty": 10,
           "price": 999,
           "price_unit": "грн",
           "code": 45101200
+        }
+      ],
+      "discount": 0,
+      "sold": 0
+    },
+    {
+      "images": [
+        {
+          "url": "https://res.cloudinary.com/dzctqbi3o/image/upload/v1675872588/Diploma/detergents/298412218_gsbbnl.webp",
+          "public_url": "/Diploma/detergents/298412218_gsbbnl.webp"
         },
+        {
+          "url": "https://res.cloudinary.com/dzctqbi3o/image/upload/v1675872588/Diploma/detergents/298412236_lbmklj.webp",
+          "public_url": "/Diploma/detergents/298412236_lbmklj.webp"
+        },
+        {
+          "url": "https://res.cloudinary.com/dzctqbi3o/image/upload/v1675872588/Diploma/detergents/298412230_efjh7c.webp",
+          "public_url": "/Diploma/detergents/298412230_efjh7c.webp"
+        }
+      ],
+      "description_images": [],
+      "color": null,
+      "sizes": [
         {
           "size": "60",
           "qty": 2,

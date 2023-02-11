@@ -62,4 +62,196 @@
       "$numberLong": "1674203278251"
     }
   }
+},{
+  "_id": {
+    "$oid": "63e7c985d77191b2d8a70f01"
+  },
+  "name": "Зоотовари",
+  "slug": "pet_supplies",
+  "created_at": {
+    "$date": {
+      "$numberLong": "1674203278251"
+    }
+  },
+  "updated_at": {
+    "$date": {
+      "$numberLong": "1674203278251"
+    }
+  }
+},{
+  "_id": {
+    "$oid": "63e7c985d77191b2d8a70f02"
+  },
+  "name": "Інструменти та автотовари",
+  "slug": "tools_and_auto",
+  "created_at": {
+    "$date": {
+      "$numberLong": "1674203278251"
+    }
+  },
+  "updated_at": {
+    "$date": {
+      "$numberLong": "1674203278251"
+    }
+  }
+},{
+  "_id": {
+    "$oid": "63e7c985d77191b2d8a70f03"
+  },
+  "name": "Одяг, взуття і прикраси",
+  "slug": "сlothes_shoes_decoration",
+  "created_at": {
+    "$date": {
+      "$numberLong": "1674203278251"
+    }
+  },
+  "updated_at": {
+    "$date": {
+      "$numberLong": "1674203278251"
+    }
+  }
+},{
+  "_id": {
+    "$oid": "63e7c985d77191b2d8a70f04"
+  },
+  "name": "Офіс, школа та книги",
+  "slug": "office_school_books",
+  "created_at": {
+    "$date": {
+      "$numberLong": "1674203278251"
+    }
+  },
+  "updated_at": {
+    "$date": {
+      "$numberLong": "1674203278251"
+    }
+  }
+},{
+  "_id": {
+    "$oid": "63e7c985d77191b2d8a70f05"
+  },
+  "name": "Товари для геймерів",
+  "slug": "gaming_products",
+  "created_at": {
+    "$date": {
+      "$numberLong": "1674203278251"
+    }
+  },
+  "updated_at": {
+    "$date": {
+      "$numberLong": "1674203278251"
+    }
+  }
+},{
+  "_id": {
+    "$oid": "63e7c985d77191b2d8a70f06"
+  },
+  "name": "Сантехніка та ремонт",
+  "slug": "plumbing_and_repair",
+  "created_at": {
+    "$date": {
+      "$numberLong": "1674203278251"
+    }
+  },
+  "updated_at": {
+    "$date": {
+      "$numberLong": "1674203278251"
+    }
+  }
+},{
+  "_id": {
+    "$oid": "63e7c985d77191b2d8a70f07"
+  },
+  "name": "Краса та здоров'я",
+  "slug": "beauty_and_health",
+  "created_at": {
+    "$date": {
+      "$numberLong": "1674203278251"
+    }
+  },
+  "updated_at": {
+    "$date": {
+      "$numberLong": "1674203278251"
+    }
+  }
+},{
+  "_id": {
+    "$oid": "63e7c985d77191b2d8a70f09"
+  },
+  "name": "Алкоголь та продукти",
+  "slug": "alcohol_and_food",
+  "created_at": {
+    "$date": {
+      "$numberLong": "1674203278251"
+    }
+  },
+  "updated_at": {
+    "$date": {
+      "$numberLong": "1674203278251"
+    }
+  }
+},{
+  "_id": {
+    "$oid": "63e7c985d77191b2d8a70f0a"
+  },
+  "name": "Побутова техніка",
+  "slug": "appliances",
+  "created_at": {
+    "$date": {
+      "$numberLong": "1674203278251"
+    }
+  },
+  "updated_at": {
+    "$date": {
+      "$numberLong": "1674203278251"
+    }
+  }
+},{
+  "_id": {
+    "$oid": "63e7c985d77191b2d8a70f0b"
+  },
+  "name": "Дача, сад і город",
+  "slug": "cottage_and_garden",
+  "created_at": {
+    "$date": {
+      "$numberLong": "1674203278251"
+    }
+  },
+  "updated_at": {
+    "$date": {
+      "$numberLong": "1674203278251"
+    }
+  }
+},{
+  "_id": {
+    "$oid": "63e7c985d77191b2d8a70f0c"
+  },
+  "name": "Дитячі товари",
+  "slug": "childrens_goods",
+  "created_at": {
+    "$date": {
+      "$numberLong": "1674203278251"
+    }
+  },
+  "updated_at": {
+    "$date": {
+      "$numberLong": "1674203278251"
+    }
+  }
+},{
+  "_id": {
+    "$oid": "63e7c985d77191b2d8a70f0d"
+  },
+  "name": "Нашим захисникам",
+  "slug": "our_defenders",
+  "created_at": {
+    "$date": {
+      "$numberLong": "1674203278251"
+    }
+  },
+  "updated_at": {
+    "$date": {
+      "$numberLong": "1674203278251"
+    }
+  }
 }]
