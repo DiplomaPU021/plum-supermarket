@@ -65,11 +65,11 @@ export default function ProductCard({ product }) {
     // }
     // const { data } = await axios.get(`/api/product/${product._id}?style=${product.style}&code=${router.query.code}`);
     const { data } = await axios.get(`/api/product/${product._id}?style=0&code=0`);
-    console.log("data--------->", data);
-    console.log("data2--------->", product._id);
-    console.log("data3--------->", data.style);
-    console.log("data3--------->", data.quantity);
-    console.log("data4--------->", router.query.code);
+    // console.log("data--------->", data);
+    // console.log("data2--------->", product._id);
+    // console.log("data3--------->", data.style);
+    // console.log("data3--------->", data.quantity);
+    // console.log("data4--------->", router.query.code);
 
     if (qty > data.quantity) {
       setError('The quantity is bigger than in stock.');
@@ -144,8 +144,7 @@ export default function ProductCard({ product }) {
                   <Col>
                     <span className={styles.priceregular}>
                       {`${(
-                        prices[0] -
-                        prices[0] / product.subProducts[active].discount
+                        Number(prices[0]) * (100-Number(product.subProducts[active].discount))/100          
                       ).toFixed(2)}`}{" "}
                       {product.subProducts[active].sizes[0].price_unit}
                     </span>

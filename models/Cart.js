@@ -4,9 +4,9 @@ const { ObjectId } = mongoose.Schema;
 
 const cartSchema = new mongoose.Schema(
     {
-        cartItems: [
+        products: [
             {
-                cartItem: {
+                product: {
                     type: ObjectId,
                     ref: "Product",
                 },
@@ -16,9 +16,12 @@ const cartSchema = new mongoose.Schema(
                 image: {
                     type: String,
                 },
-                // size: {
-                //     type: String,
-                // },
+                size: {
+                    type: String,
+                },
+                code:{
+                    type: String,
+                },
                 // style: {
                 //     style: String,
                 //     color: String,
@@ -27,10 +30,10 @@ const cartSchema = new mongoose.Schema(
                 qty: {
                     type: Number,
                 },
-                // color: {
-                //     color: String,
-                //     image: String,
-                // },
+                color: {
+                    color: String,
+                    image: String,
+                },
                 cost:{
                     type: Number,
                 },

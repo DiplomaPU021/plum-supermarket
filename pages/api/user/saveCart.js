@@ -6,29 +6,30 @@ import db from "@/utils/db";
 
 const handler = nc();
 
-handler.get(async (req, res) => {
+handler.post(async (req, res) => {
     try {
-        db.connectDb();
+        await db.connectDb();
         const { cart, user_id } = req.body;
         let products = [];
         let user = await User.findById(user_id);
         let existing_cart = await Cart.findOne({ user: user._id });
         if (existing_cart) {
             await existing_cart.remove();
-        }
-        for (let i = 0; i < cart.length; i++) {
-            let dbProduct = await Product.findById(cart[i]._id).lean();
-            let subProduct = dbProduct.subProducts[cart[i].style];
+        }     
+        for (let i = 0; i < cart.cartItems.length; i++) {
+            let dbProduct = await Product.findById(cart.cartItems[i]._id).lean();
+            let subProduct = dbProduct.subProducts[cart.cartItems[i].style]; 
             let tempProduct = {};
-            tempProduct.name = dbProduct._id;
+            tempProduct.name = dbProduct.name;
+            tempProduct.product = dbProduct._id;
             tempProduct.color = {
-                color: cart[i].color.color,
-                image: cart[i].color.image,
+                color: cart.cartItems[i].color?.color,
+                image: cart.cartItems[i].color?.image,
             }
             tempProduct.image = subProduct.images[0].url;
-            tempProduct.qty = Number(cart[i].qty);
-            tempProduct.size = cart[i].size;
-            let price = Number(subProduct.sizes.find((p) => p.size == cart[i].size).price);
+            tempProduct.qty = Number(cart.cartItems[i].qty);
+            tempProduct.size = cart.cartItems[i].size;
+            let price = Number(subProduct.sizes.find((p) => p.size == cart.cartItems[i].size).price);
             tempProduct.price = subProduct.discount > 0
                 ? (price - price / Number(subProduct.discount)
                 ).toFixed(2)
@@ -39,19 +40,19 @@ handler.get(async (req, res) => {
         for (let i = 0; i < products.length; i++) {
             cartTotal += products[i].price * products[i].qty;
         }
-        await new Cart({
+        const newCart = new Cart({
             products,
-            cartTotal:cartTotal.toFixed(2),
+            cartTotal: cartTotal.toFixed(2),
             user: user._id,
-        }).save();
+        });
+        const addedCart = await newCart.save();
+        await db.disconnectDb();
 
 
-            db.disconnectDb();
+    } catch (error) {
+        return res.status(500).json({ error: error.message });
 
-        } catch (error) {
-            return res.status(500).json({ error: error.message });
-
-        }
     }
+}
 );
 export default handler;
