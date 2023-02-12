@@ -20,7 +20,7 @@ import LightPlumIcon from "@/components/icons/LightPlumIcon";
 import GreenChevronRight from "@/components/icons/GreenChevronRight";
 
 export default function product({ product }) {
-  console.log("slugProduct", product);
+  // console.log("slugProduct", product);
   const [activeImg, setActiveImg] = useState("");
   return (
     <div className={styles.product}>
@@ -87,9 +87,9 @@ export async function getServerSideProps(context) {
     .populate({ path: "subCategories", model: SubCategory })
     // .populate({path: "reviews.reviewBy", model: User})
     .lean();
-  console.log("newproduct1", product);
-  console.log("category", product.category.name);
-  console.log("subCategory", product.subCategories[0].name);
+  // console.log("newproduct1", product);
+  // console.log("category", product.category.name);
+  // console.log("subCategory", product.subCategories[0].name);
   // let product = products.find((el можеш) => el.slug == slug);
   let subProduct = product.subProducts[style];
   let prices = subProduct.sizes
@@ -147,7 +147,7 @@ export async function getServerSideProps(context) {
       ),
   };
   //----------------
-  console.log("newproduct2", newProduct);
+  // console.log("newproduct2", newProduct);
   db.disconnectDb();
   return {
     props: { product: JSON.parse(JSON.stringify(newProduct)) },
