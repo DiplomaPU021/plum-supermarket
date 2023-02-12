@@ -123,9 +123,9 @@ export default function ProductCard({ product }) {
           <Row>
             <Col>
               <Card.Title className={styles.product__container_infos_title}>
-                {product.name.length > 55
+                {(product.name + " "+ (product.subProducts[active].color? product.subProducts[active].color.color:"") +" " + product.subProducts[active].sizes[active].size).length > 55
                   ? `${product.name.substring(0, 55)}...`
-                  : product.name}
+                  : product.name + " "+ (product.subProducts[active].color? product.subProducts[active].color.color:"") +" " + product.subProducts[active].sizes[active].size}
               </Card.Title>
             </Col>
           </Row>
