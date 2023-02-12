@@ -1,7 +1,8 @@
 .container {
     display: flex;
-    margin: 60px;
-    gap: 3rem;
+    margin: 20px 60px 0px 60px;
+    gap: 1rem;
+   
 
     @media(max-width: 1100px) {
         flex-direction: column;
@@ -11,13 +12,16 @@
 }
 
 .cartst {
-    width: 315px;
+    width: 335px;
     height: 230px;
     padding: 24px;
     border-radius: 23px;
     background: linear-gradient(180deg, #FAF8FF 0%, #F2EDFF 100%);
     box-shadow: 0px 0px 15px rgba(34, 15, 75, 0.5), inset 7px 7px 20px #FAF5FF, inset -7px -7px 20px #F7EEFF;
     gap: 15px;
+    justify-content: center;
+    align-items: center;
+    display: flex;
 
     p {
         width: 267px;
@@ -37,6 +41,7 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    display: flex;
 }
 
 .circle {
@@ -70,7 +75,7 @@
     justify-content: center;
     gap: 2rem;
     align-items: center;
-    margin-top: 40px;
+    margin-top: 20px;
 }
 
 .textcenter {

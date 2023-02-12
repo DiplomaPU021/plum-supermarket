@@ -3,9 +3,6 @@ import styles from '../styles/Home.module.scss'
 import { useSession, signIn, signOut } from "next-auth/react"
 import Header from '@/components/header'
 import Footer from '@/components/footer'
-import "bootstrap/dist/css/bootstrap.min.css"
-import ProductCard from "@/components/productCard";
-
 import HomeCarousel from '@/components/carousel'
 import 'bootstrap/dist/css/bootstrap.min.css';
 import YoutubeVideo from '@/components/youtube'

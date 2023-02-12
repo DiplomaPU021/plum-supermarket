@@ -11,10 +11,8 @@ export default function Popular({products}) {
         <div className={styles.topsales}>
             <Container className={styles.container}>
                 <Row className={styles.row}>
-                    <Col><div className={styles.leftsale}>Popular from Category</div></Col>
+                    <Col className={styles.colcard}><div className={styles.leftsale}>Popular from Category</div></Col>
                 </Row>
-            </Container>
-            <Container className={styles.products_container}>
                 <Row className={styles.products_row}>
                     <Col className={styles.colcard}><ProductCard product={products[0]}  /></Col>
                     <Col className={styles.colcard}><ProductCard product={products[1]} /></Col>
@@ -30,8 +28,9 @@ export default function Popular({products}) {
                 <Row className={styles.products_row}>
                     <Col className={styles.colcard}><ProductCard product={products[0]} /></Col>
                     <Col className={styles.colcard}><ProductCard product={products[1]} /></Col>
+
                     <Col className={styles.colcard}><ProductCard product={products[0]} /></Col>
-                    <Col>
+                 <Col className={styles.colcard}>
                         <Card className={styles.morevideo}>
                             <Card.Body className={styles.lastcardbody}>
                                 <h6 className={styles.textcard}>More items next</h6>

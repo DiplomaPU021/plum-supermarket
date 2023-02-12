@@ -1,26 +1,31 @@
  .topsales {
      display: flex;
-     margin: 0px 40px 60px 60px;
-     justify-content: content;
+     margin: 30px 60px 0px 60px;
+     justify-content: center;
      flex-direction: column;
+     padding: 0px;
  }
+
+ .container {
+    padding: 0px;   
+}
 
  .row {
      height: 54px;
      align-items: center;
      display: flex;
      justify-content: center;
- }
-
- .container {
-     height: 54px;
+     padding: 0px;
      margin: 0px;
  }
+
+ 
 
  .coltext {
      color: #573C90;
      font-weight: 500;
      font-size: 21px;
+    
  }
 
  .leftsale {
@@ -36,26 +41,26 @@
      justify-content: flex-start;
      display: flex;
      padding-left: 20px;
- }
-
- 
-
- .products_container {
-     margin: 40px 0px 0px 0px;
+     margin-right: 0px;
+     
  }
 
  .products_row {
-     margin-bottom: 20px;
-     width: 110%;
-     gap: 1rem;
+     display: flex;
+     justify-content: center ;
+     align-items: center;
+     margin: 20px 0px 2rem 0px;
+     gap: 2rem;
  }
 
  .colcard{
-   flex: 0;
+   padding: 0px;
+   
  }
 
  .morevideo {
      border: none;
+    
  }
 
  .textcard {

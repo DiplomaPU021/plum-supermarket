@@ -76,6 +76,7 @@ export default function CartItem(product) {
                     </div>
                     <div className={styles.cardbtns}>
                         <button className={styles.itembtn}> <HeartIcon fillColor={"#220F4B"} /></button>
+
                         <button className={styles.itembtn}
                             onClick={() => removeProduct(product.product._uid)}
                         >

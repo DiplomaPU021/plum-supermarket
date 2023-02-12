@@ -52,7 +52,7 @@
     align-items: flex-start;
     padding: 24px;
     gap: 10px;
-    width: 1008px;
+    max-width: 1008px;
     height: 191px;
     background: linear-gradient(180deg, #FAF8FF 0%, #F2EDFF 100%);
     box-shadow: 0px 0px 15px rgba(34, 15, 75, 0.5), inset 7px 7px 20px #FAF5FF, inset -7px -7px 20px #F7EEFF;
@@ -69,13 +69,11 @@
     align-items: center;
     padding: 0px;
     gap: 24px;
-    width: 960px;
+    max-width: 960px;
     height: 143px;
     flex: none;
     order: 0;
     flex-grow: 1;
-
-
 }
 
 .discount {
