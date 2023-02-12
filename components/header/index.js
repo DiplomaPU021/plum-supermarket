@@ -14,10 +14,14 @@ import Cart from '../cart'
 
 export default function Header() {
     const { data: session } = useSession();
-    const { cart } = useSelector((state) => ({ ...state }))
+    const cart = useSelector((state) => state.cart);
     const [loggedIn, setLoggedIn] = React.useState(false);
     const [visible, setVisible] = React.useState(false)
     const [cartShow, setCartShow] = React.useState(false);
+
+    const getItemsCount = () => {
+      return cart.cartItems.reduce((accumulator, item) => accumulator + item.qty, 0);
+    };
     return (
         <div className={styles.main}>
             <div className={styles.main_container}>
@@ -46,7 +50,7 @@ export default function Header() {
                         <button onClick={() => setCartShow(true)}>
                             <CartIcon fillColor={"#220F4B"} />
                         </button>
-                        <span>0</span>
+                        <span> {getItemsCount()}</span>
                     </div>
                     <Cart
                         show={cartShow}

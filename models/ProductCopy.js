@@ -93,34 +93,23 @@ const productSchema = new mongoose.Schema(
         //     required: true,
         //     default: 0,
         // },
-
+        description_images: [],
         subProducts: [
             {
-                images: [],
-                description_images: [],
+                images: [],    
                 color: {
-                    color: {
-                        type: String,
-                    },
-                    image: {
-                        type: String,
-                    }
+                    type: String,
+                    icon: String,
                 },
-                sizes: [
-                    {
-                        size: String,
-                        qty: Number,
-                        price: Number,
-                        price_unit: {
-                            type: String
-                        },
-                        code: {
-                            type: String,
-                            required: true,
-                            unique: true,
-                        },
-                    },
-                ],
+                size: String,
+                qty: Number,
+                price: Number,
+                price_unit:  String,              
+                code: {
+                    type: String,
+                    required: true,
+                    unique: true,
+                },
                 discount: {
                     type: Number,
                     default: 0,
@@ -129,7 +118,6 @@ const productSchema = new mongoose.Schema(
                     type: Number,
                     default: 0,
                 },
-               
             },
         ],
     },
