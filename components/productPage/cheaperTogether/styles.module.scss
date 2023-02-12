@@ -1,0 +1,33 @@
+.cheapTwo {
+    //padding: 0;
+    border: 2px solid rgb(226, 36, 36);
+
+    &__simillarswiper {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+
+        &_col {
+            padding: 0;
+            width: 60px;
+            height: 60px;
+            border: 2px solid rgb(36, 49, 226);
+        }
+
+
+    }
+
+    &__signPlus {
+        width: 44px;
+        height: 44px;
+        border: 2px solid rgb(36, 49, 226);
+        padding: 0;
+    }
+
+    &__signEqual {
+        width: 44px;
+        height: 25px;
+        padding: 0;
+        border: 2px solid rgb(36, 49, 226);
+    }
+}

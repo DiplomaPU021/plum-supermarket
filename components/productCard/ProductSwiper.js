@@ -1,7 +1,7 @@
 import styles from "./styles.module.scss";
 import { useEffect, useRef } from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
-import Card from 'react-bootstrap/Card';
+import Card from "react-bootstrap/Card";
 
 // import Swiper and modules styles
 import "swiper/css";
@@ -36,7 +36,11 @@ export default function ProductSwiper({ images }) {
       >
         {images.map((img, i) => (
           <SwiperSlide key={i}>
-            <Card.Img src={img.url} alt=""/>
+            <Card.Img
+              src={img.url}
+              alt=""
+              className={styles.product__container_photobox_image}
+            />
           </SwiperSlide>
         ))}
       </Swiper>

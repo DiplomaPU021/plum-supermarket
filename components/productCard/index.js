@@ -130,9 +130,6 @@ export default function ProductCard({ product }) {
             </Col>
           </Row>
           <Row>
-            <Col className={styles.product__container_infos_line} />
-          </Row>
-          <Row className={styles.product__container_infos_pricebtn}>
             <Col>
               {product.subProducts[active].discount > 0 ? (
                 <Row className={styles.product__container_infos_pricebtn_price}>
