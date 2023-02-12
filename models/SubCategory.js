@@ -16,7 +16,7 @@ const subSchema = new mongoose.Schema(
             lowercase: true,
             index: true,
         },
-        parent: {
+        top_parent: {
             type: ObjectId,
             ref: "Category",
             required: true,
@@ -24,6 +24,6 @@ const subSchema = new mongoose.Schema(
     }
 );
 
-const SubCategory = mongoose.models.SubCategory || mongoose.model("SubCategory", SubCategory);
+const SubCategory = mongoose.models.SubCategory || mongoose.model("SubCategory", subSchema);
 
 export default SubCategory;

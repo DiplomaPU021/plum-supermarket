@@ -155,6 +155,21 @@ const products = [
           {
             url: "photos/tide1.jpg",
           },
+          {
+            url: "photos/tide3.jpg",
+          },
+          {
+            url: "photos/tide4.jpg",
+          },
+          {
+            url: "photos/tide5.png",
+          },
+          {
+            url: "photos/tide2.jpg",
+          },
+          {
+            url: "photos/tide6.png",
+          },
         ],
       },
       {
@@ -191,6 +206,70 @@ const products = [
       },
     ],
     details: [
+      {
+        name: "brand",
+        value: "Tide",
+      },
+      {
+        name: "Scent",
+        value: "fresh",
+      },
+      {
+        name: "Unit count",
+        value: "4949 mlliliters",
+      },
+      {
+        name: "Item form",
+        value: "Liquid",
+      },
+      {
+        name: "color",
+        value: "bule",
+      },
+      {
+        name: "Weight",
+        value: "4220 Grams",
+      },
+      {
+        name: "Liquid volume",
+        value: "4.08 Liters",
+      },
+      {
+        name: "style",
+        value: "loundry",
+      },
+      {
+        name: "type",
+        value: "concentrated",
+      },
+      {
+        name: "style",
+        value: "loundry",
+      },
+      {
+        name: "color",
+        value: "blue",
+      },
+      {
+        name: "style",
+        value: "loundry",
+      },
+      {
+        name: "style",
+        value: "loundry",
+      },
+      {
+        name: "color",
+        value: "blue",
+      },
+      {
+        name: "style",
+        value: "loundry",
+      },
+      {
+        name: "style",
+        value: "loundry",
+      },
       {
         name: "color",
         value: "blue",

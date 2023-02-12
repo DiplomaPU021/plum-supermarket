@@ -1,0 +1,240 @@
+.infos {
+    //position: relative;
+    //display: flex;
+    //flex-direction: row;
+    //width: 819px;
+    height: 750px;
+    background: #F0EBFB;
+    border: 2px solid red;
+    //padding: 0;
+
+    &__priceandaction {
+        position: relative;
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+        padding: 15px;
+
+        &_price {
+            span {
+                display: flex;
+                flex-direction: column;
+                font-family: 'Noto Sans';
+                font-style: normal;
+            }
+        }
+
+        &_react {
+            position: relative;
+            display: flex;
+            flex-direction: row;
+            justify-content: space-between;
+            gap: 2.5rem;
+
+            .liked {
+                position: relative;
+
+                div {
+                    position: absolute;
+                    display: flex;
+                    flex-direction: column;
+                    align-items: flex-start;
+                    padding: 6px 11px;
+                    gap: 10px;
+                    height: 28px;
+                    right: -30px;
+                    top: -15px;
+                    background: #70BF63;
+                    border-radius: 30px;
+
+                    span {
+                        font-family: 'Noto Sans';
+                        font-style: normal;
+                        font-weight: 400;
+                        font-size: 12px;
+                        line-height: 16px;
+                        text-align: center;
+                        color: #FAF8FF;
+                    }
+                }
+            }
+
+            button {
+                position: relative;
+                box-sizing: border-box;
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+                align-items: center;
+                padding: 11px;
+                gap: 51px;
+                width: 46px;
+                height: 46px;
+                background: #F0EBFB;
+                border: 2px solid #220F4B;
+                border-radius: 23px;
+            }
+        }
+
+        &_buy {
+            button {
+                position: relative;
+                display: flex;
+                flex-direction: row;
+                justify-content: center;
+                align-items: center;
+                gap: 10px;
+                width: 190px;
+                height: 53px;
+                background: #220F4B;
+                border-radius: 30px;
+                font-family: 'Noto Sans';
+                font-style: normal;
+                font-weight: 600;
+                font-size: 24px;
+                line-height: 33px;
+                color: #FAF8FF;
+            }
+        }
+    }
+
+    &__characteristics {
+        display: flex;
+        align-items: center;
+        height: 60px;
+        background: #FAF8FF;
+
+        span {
+            position: relative;
+            left: 21px;
+            font-family: 'Noto Sans';
+            font-style: normal;
+            font-weight: 500;
+            font-size: 32px;
+            line-height: 44px;
+            color: #220F4B;
+        }
+    }
+
+    &__container {
+        // position: relative;
+        display: flex;
+        flex-direction: column;
+        gap: 1px;
+
+        &_row {
+            //position: relative;
+            //width: 100%;
+            height: 38px;
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            background: #E6E1F1;
+
+            div {
+                width: 50%;
+
+                span {
+                    position: relative;
+                    left: 21px;
+                    font-family: 'Noto Sans';
+                    font-style: normal;
+                    font-weight: 500;
+                    font-size: 16px;
+                    line-height: 22px;
+                    color: #220F4B;
+                }
+            }
+        }
+    }
+
+    &__more {
+        position: relative;
+        display: flex;
+        justify-content: flex-end;
+        padding: 15px 0 0 0;
+
+        button {
+            font-family: 'Noto Sans';
+            font-style: normal;
+            font-weight: 400;
+            font-size: 16px;
+            line-height: 22px;
+            color: #70BF63;
+            background: transparent;
+        }
+    }
+
+
+    &__sizesInfo {
+        width: fit-content;
+        display: flex;
+        flex-direction: column;
+        padding: 44px 0 0 20px;
+        gap: 17px;
+        &_sizes {
+            border: 2px solid rgb(30, 0, 70);
+            width: fit-content;
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            padding: 16px 20px;
+            gap: 20px;
+            height: 62px;
+
+            background: #E1DCEC;
+            border-radius: 10px;
+            &_size{
+                display: grid;
+                place-items: center;
+                display: flex;
+                padding:  5px 5px;
+                gap: 5px;
+                background: #FFFFFF;
+                border-radius: 5px;
+                font-family: 'Noto Sans';
+                font-style: normal;
+                font-weight: 600;
+                font-size: 20px;
+                line-height: 27px;
+                cursor: pointer;
+                color: #220F4B;
+                
+                &:hover {
+                    outline: 1px solid#70BF63;
+                    outline-offset: 2px;
+                }
+                }
+        }
+
+            button {
+                font-family: 'Noto Sans';
+                font-style: normal;
+                font-weight: 400;
+                font-size: 16px;
+                line-height: 22px;
+                color: #70BF63;
+                background: transparent;
+            }
+        
+    }
+}
+
+.pricediscount {
+    text-decoration: line-through;
+    font-weight: 300;
+    font-size: 24px;
+    line-height: 33px;
+    color: #220F4B;
+}
+
+.priceregular {
+    font-weight: 500;
+    font-size: 36px;
+    line-height: 49px;
+    color: #70BF63;
+}
+.active_size{
+    outline: 2px solid #70BF63;
+}

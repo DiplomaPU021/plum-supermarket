@@ -66,12 +66,12 @@ const productSchema = new mongoose.Schema(
                 value: String,
             }
         ],
-        questions: [
-            {
-                question: String,
-                answer: String,
-            }
-        ],
+        // questions: [
+        //     {
+        //         question: String,
+        //         answer: String,
+        //     }
+        // ],
         reviews: [reviewSchema],
         refundPolicy: {
             type: String,
@@ -109,6 +109,8 @@ const productSchema = new mongoose.Schema(
                         size: String,
                         qty: Number,
                         price: Number,
+                        price_unit: String,
+                        code: Number,
                     },
                 ],
                 discount: {

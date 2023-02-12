@@ -1,71 +1,92 @@
 import "bootstrap/dist/css/bootstrap.min.css";
 import styles from "../../styles/product.module.scss";
-//import db from "../../utils/db";
-import { products } from "../../models/Product/index";
-//import Product from "../../models/Product";
-//import Category from "../../models/Category";
-//import SubCategory from "../../models/SubCategory";
-//import user from "../../models/User";
-//import Head from "next/head";
+import db from "../../utils/db";
+import Product from "../../models/Product";
+import Category from "../../models/Category";
+import SubCategory from "../../models/SubCategory";
+//import User from "../../models/User";
 import Header from "../../components/header";
 import Footer from "../../components/footer";
-// import MainSwiper from "../../components/productPage/mainSwiper";
-// import Infos from "../../components/productPage/infos";
+import MainSwiperCard from "../../components/productPage/mainSwiperCard";
+import Infos from "../../components/productPage/infos";
 // import Reviews from "../../components/productPage/reviews";
 import { useState } from "react";
-// import Container from "react-bootstrap/Container";
-// import Row from "react-bootstrap/Row";
-// import Col from "react-bootstrap/Col";
 import LightPlumIcon from "@/components/icons/LightPlumIcon";
-import GreenChevronRight from "@/components/icons/GreenChevronRight";
+import GreenChevronRight from "@/components/icons/ChevronRight";
+import Link from "next/link";
+import CustomerInfo from "@/components/productPage/customerInfo";
+import { Col, Container, Row } from "react-bootstrap";
+import Questions from "@/components/Questions";
+import BunnerApp from "@/components/bunnerApp";
+import CheaperTogether from "@/components/productPage/cheaperTogether";
 
 export default function product({ product }) {
-  const [activeImg, setActiveImg] = useState("");
+  const [active, setActive] = useState(0);
+
   return (
-    <div className={styles.product}>
+    <div>
       <Header country="" />
-      <div className={styles.product__container}>
-        <div className={styles.product__container_path}>
-          <LightPlumIcon />
-          <div className={styles.product__container_path_chevronRight}>
-            <GreenChevronRight />
-          </div>
-          <span>{product.category.name}</span>
-          <div className={styles.product__container_path_chevronRight}>
-            <GreenChevronRight />
-          </div>
-          {product.subCategories.map((sub, i) => (
-            <span key={i}> {sub.name}</span>
-          ))}
-        </div>
-        <div className={styles.product__container_nameCode}>
-          <div className={styles.product__container_nameCode_name}>
-            <span>
-              {product.name.length > 60
-                ? `${product.name.substring(0, 60)}...`
-                : product.name}
-            </span>
-          </div>
-          <div className={styles.product__container_nameCode_code}>
-            {/* below have to be code of product (NOT _ID)!!! */}
-            <span>Code: {product._id}</span>
-          </div>
-        </div>
-        <div>
-          <div>
-            Photo + Description
-            {/*  className={styles.product__main} */}
-            {/* <MainSwiper images={product.images} activeImg={activeImg} />
-            <Infos product={product} setActiveImg={setActiveImg} /> */}
-          </div>
-        </div>
-        <div>
-          <div>
-            Others
-            {/* <Reviews product={product} /> */}
-          </div>
-        </div>
-      </div>
+      <Container fluid className={styles.productpage}>
+        <Row>
+          <Col>
+            <Link href="/">
+              <LightPlumIcon />
+              <GreenChevronRight fillColor="#70BF63"  w="30px" h="30px"/>
+            </Link>
+            <Link
+              href={product.category.name}
+              className={styles.productpage__link}
+            >
+              <span>{product.category.name}</span>
+              <GreenChevronRight fillColor="#70BF63"   w="30px" h="30px"/>
+            </Link>
+            {product.subCategories.map((sub, i) => (
+              <Link
+                href={`/${product.category.name}/${sub.name}`}
+                key={i}
+                className={styles.productpage__link}
+              >
+                <span> {sub.name}</span>
+              </Link>
+            ))}
+          </Col>
+        </Row>
+        <Row className={styles.productpage__nameCode}>
+          <Col className={styles.productpage__nameCode_name}>
+            <span>{product.name}</span>
+          </Col>
+          <Col className={styles.productpage__nameCode_code}>
+            <span>Code: {product.code}</span>
+          </Col>
+        </Row>
+        <Row className={styles.productpage__main}>
+          <Col>
+          <MainSwiperCard product={product} setActive={setActive} />
+          </Col>
+          <Col> <Infos product={product} active={active}/></Col>
+        </Row>
+
+        <Row>
+          <CustomerInfo />
+        </Row>
+        <Row className={styles.productpage__title}>
+          <span>Разом дешевше</span>
+        </Row>
+        <Row>
+          <CheaperTogether product={product} productsPlus={product.productsPlus}/>
+        </Row>
+        <Row className={styles.productpage__title}>
+          <span>Найпопулярніші відгуки</span>
+          <button className={styles.productpage__title_btnReview}>
+            Залишити відгук
+          </button>
+        </Row>
+        <Row className={styles.productpage__title}>
+          <span>Також вас можуть зацікавити</span>
+        </Row>
+      </Container>
+      <BunnerApp />
+      <Questions />
       <Footer />
     </div>
   );
@@ -74,16 +95,16 @@ export async function getServerSideProps(context) {
   const { query } = context;
   const slug = query.slug;
   const style = query.style;
-  const size = query.size || 0;
-  //db.connectDb();
+  const code = query.code || 0;
+  db.connectDb();
   //----------------
   //from db
-  //let product = await Product.findOne({slug})
-  //.populate({path: "category", model: Category})
-  //.populate({path: "subCategories._id", model: SubCategory})
-  //.populate({path: "reviews.reviewBy", model: User})
-  //.lean();
-  let product = products.find((el) => el.slug == slug);
+  let product = await Product.findOne({ slug })
+    .populate({ path: "category", model: Category })
+    .populate({ path: "subCategories", model: SubCategory })
+    //.populate({path: "reviews.reviewBy", model: User})
+    .lean();
+
   let subProduct = product.subProducts[style];
   let prices = subProduct.sizes
     .map((s) => {
@@ -92,13 +113,16 @@ export async function getServerSideProps(context) {
     .sort((a, b) => {
       return a - b;
     });
+    //products that go together cheaper
+  let productsPlus = await Product.find().sort({createdAt: -1}).lean();
 
   let newProduct = {
     ...product,
+    style,
+    code: subProduct.sizes[code].code,
     images: subProduct.images,
     sizes: subProduct.sizes,
     discount: subProduct.discount,
-    sku: subProduct.sku,
     colors: product.subProducts.map((p) => {
       return p.color;
     }),
@@ -111,12 +135,13 @@ export async function getServerSideProps(context) {
     price:
       subProduct.discount > 0
         ? (
-            subProduct.sizes[size].price -
-            subProduct.sizes[size].price / subProduct.discount
+            subProduct.sizes[code].price -
+            subProduct.sizes[code].price / subProduct.discount
           ).toFixed(2)
-        : subProduct.sizes[size].price,
-    priceBefore: subProduct.sizes[size].price,
-    quantity: subProduct.sizes[size].qty,
+        : subProduct.sizes[code].price,
+    priceBefore: subProduct.sizes[code].price,
+    quantity: subProduct.sizes[code].qty,
+    productsPlus,
     ratings: [
       { percentage: 76 },
       { percentage: 14 },
@@ -138,7 +163,7 @@ export async function getServerSideProps(context) {
       ),
   };
   //----------------
-  //db.disconnectDb();
+  db.disconnectDb();
   return {
     props: { product: JSON.parse(JSON.stringify(newProduct)) },
   };

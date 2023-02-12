@@ -1,0 +1,140 @@
+.helpCenter {
+    display: flex;
+    flex-direction: column;
+    gap: 60px;
+    padding: 60px 60px 60px 60px;
+    background: #FAF8FF;
+    
+    &__titleCentr {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        justify-content: center;
+        padding: 0px;
+        gap: 40px;
+
+        img {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 0px;
+            gap: 10px;
+            width: 70px;
+            height: 70px;
+            background: #FAF8FF;
+            border: 2px solid #220F4B;
+            border-radius: 50px;
+        }
+
+        span {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 0px;
+            gap: 15px;
+            font-family: 'Noto Sans';
+            font-style: normal;
+            font-size: 25px;
+            line-height: 34px;
+            color: #220F4B;
+
+            &:first-of-type {
+                font-weight: 400;
+            }
+
+            &:last-of-type {
+                font-weight: 600;
+                text-transform: uppercase;
+            }
+        }
+    }
+
+    &__helps {
+        display: flex;
+        flex-direction: row;
+        align-items: flex-start;
+        padding: 0px;
+        gap: 20px;
+        
+        &_card {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 24px;
+            gap: 10px;
+
+            width: 315px;
+            height: 230px;
+
+            background: linear-gradient(180deg, #FAF8FF 0%, #F2EDFF 100%);
+            box-shadow: 0px 0px 15px rgba(34, 15, 75, 0.5), inset 7px 7px 20px #FAF5FF, inset -7px -7px 20px #F7EEFF;
+            border-radius: 23px;
+            font-family: 'Noto Sans';
+            font-style: normal;
+
+            button {
+                display: flex;
+                flex-direction: row;
+                justify-content: center;
+                align-items: center;
+                padding: 11px;
+                gap: 10px;
+
+                width: 267px;
+                height: 60px;
+
+                background: #70BF63;
+                border-radius: 30px;
+                font-weight: 500;
+                font-size: 28px;
+                line-height: 38px;
+
+                color: #FAF8FF;
+            }
+
+            span {
+                font-weight: 400;
+                font-size: 16px;
+                line-height: 24px;
+                color: #220F4B;
+            }
+        }
+    }
+
+    &__more {
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        align-items: center;
+        padding: 0px;
+        gap: 35px;
+
+        font-family: 'Noto Sans';
+        font-style: normal;
+        font-weight: 400;
+        font-size: 25px;
+
+        span {
+            display: flex;
+            flex-direction: row;
+            justify-content: center;
+            align-items: center;
+            line-height: 35px;
+            color: #220F4B;
+        }
+
+        button {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 10px 35px;
+            gap: 10px;
+            background: #220F4B;
+            border-radius: 30px;
+            line-height: 34px;
+            color: #FAF8FF;
+        }
+    }
+}
