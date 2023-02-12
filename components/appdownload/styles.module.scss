@@ -1,8 +1,10 @@
 .app {
     display: flex;
     height: 300px;
+    margin-top: 20px;
     background-color: rgb(186, 86, 151);
-    background-image: linear-gradient(to top left, rgb(170, 5, 76), rgb(186, 86, 151), rgb(201, 110, 149), rgb(197, 161, 207, 0.5), rgb(164, 67, 194), rgb(143, 20, 165), $plum-dark-color);
+    //background-image: linear-gradient(to top left, rgb(170, 5, 76), rgb(186, 86, 151), rgb(201, 110, 149), rgb(197, 161, 207, 0.5), rgb(164, 67, 194), rgb(143, 20, 165), $plum-dark-color);
+    background-image: linear-gradient(50deg, #9e2449 0%, #a75433 60%, #220F4B 110%);
     align-items: center;
     justify-content: space-between;
 }
@@ -15,8 +17,7 @@
     margin-left: 60px;
 
     h1 {
-        line-height: 1.5;
-        font-size: 38px;
+        font-size: 54px;
     }
 }
 

@@ -8,7 +8,7 @@ export default function AppDownload() {
     return (
         <div className={styles.app}>
             <div className={styles.apptext}>
-                <h1>Download the app and conveniently manage orders.</h1>
+                <h1>Завантажуйте додаток і зручно керуйте замовленнями</h1>
             </div>
             <div className="d-grid gap-3">
                 <Button className={styles.appbtn}>
