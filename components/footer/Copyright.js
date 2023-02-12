@@ -9,8 +9,8 @@ export default function Ad() {
             <section>©2023 PLUM All Right Reserved</section>
             <section>
                 <ul>
-                    {data.map((link) => (
-                        <li>
+                    {data.map((link,i) => (
+                        <li key={i}>
                             <Link href={link.link}>{link.name}</Link>
                         </li>
                     ))

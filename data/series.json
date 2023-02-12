@@ -1,0 +1,31 @@
+[{
+    "_id": {
+      "$oid": "63e377505ba7e472e6726cb6"
+    },
+    "name": "MacBook Air 2020"
+  },{
+    "_id": {
+      "$oid": "63e378a45ba7e472e6726cbd"
+    },
+    "name": "MacBook Air 2022"
+  },{
+    "_id": {
+      "$oid": "63e378a45ba7e472e6726cbe"
+    },
+    "name": "MacBook Pro 2020"
+  },{
+    "_id": {
+      "$oid": "63e378a45ba7e472e6726cbf"
+    },
+    "name": "MacBook Pro 2021"
+  },{
+    "_id": {
+      "$oid": "63e378a45ba7e472e6726cc0"
+    },
+    "name": "MacBook Pro 2022"
+  },{
+    "_id": {
+      "$oid": "63e378a45ba7e472e6726cc1"
+    },
+    "name": "MacBook Pro 2023"
+  }]

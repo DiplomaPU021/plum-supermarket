@@ -1,0 +1,49 @@
+.app {
+    display: flex;
+    height: 300px;
+    margin-top: 20px;
+    background-color: rgb(186, 86, 151);
+    //background-image: linear-gradient(to top left, rgb(170, 5, 76), rgb(186, 86, 151), rgb(201, 110, 149), rgb(197, 161, 207, 0.5), rgb(164, 67, 194), rgb(143, 20, 165), $plum-dark-color);
+    background-image: linear-gradient(50deg, #9e2449 0%, #a75433 60%, #220F4B 110%);
+    align-items: center;
+    justify-content: space-between;
+}
+
+.apptext {
+    width: 600px;
+    height: 200px;
+    color: #FAF8FF;
+    text-align: start;
+    margin-left: 60px;
+
+    h1 {
+        font-size: 54px;
+    }
+}
+
+.appbtn {
+    width: 262px;
+    height: 68px;
+    font-family: 'Noto Sans';
+    font-weight: 320;
+    font-size: 23px;
+    border-radius: 32px;
+    color: #FAF8FF;
+    background-color: #220F4B;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    gap: 1rem;
+    margin-right: 60px;
+    border: none;
+}
+
+.circle {
+    width: 46px;
+    height: 46px;
+    background-color: #FAF8FF;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}

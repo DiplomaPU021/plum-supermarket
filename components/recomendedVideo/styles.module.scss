@@ -1,10 +1,88 @@
-.container{
+.container {
     display: flex;
-    margin: 60px;
-    gap: 2rem;
+    margin: 40px 60px 0px 60px;
+    gap: 3rem;
+    
 
-    iframe{
-        margin-top: 10px;
-        border-radius: 23px;
+    @media(max-width: 1100px) {
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
     }
+
+    button {
+        min-width: 46px;
+        height: 46px;
+        border-radius: 50%;
+        background-color: $plum-dark-color;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    p {
+        width: 206px;
+        height: 46px;
+        font-family: 'Noto Sans';
+        font-style: normal;
+        font-weight: 400;
+        font-size: 18px;
+        line-height: 22px;
+        color: $plum-dark-color;
+        margin-right: 15px;
+    }
+
+
+    iframe {
+        border-radius: 23px;
+        height: 190px !important;
+    }
+}
+
+.cartst {
+    width: 315px;
+    height: 299px;
+    padding: 24px;
+    border-radius: 23px;
+    background: linear-gradient(180deg, #FAF8FF 0%, #F2EDFF 100%);
+    box-shadow: 0px 0px 15px rgba(34, 15, 75, 0.5), inset 7px 7px 20px #FAF5FF, inset -7px -7px 20px #F7EEFF;
+    gap: 15px;
+}
+
+.morevideo {
+    border: none;
+}
+
+.textcard {
+    width: 300px;
+    height: 68px;
+    font-family: 'Noto Sans';
+    font-style: normal;
+    font-weight: 540;
+    font-size: 25px;
+    line-height: 34px;
+    text-align: center;
+    color: #220F4B;
+}
+
+.lastcardbody {
+    width: "267px";
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 0px;
+    gap: 15px;
+    width: 300px;
+    height: 299px;
+}
+
+.ytbtn {
+    width: 243px;
+    height: 48px !important;
+    font-family: 'Noto Sans';
+    font-weight: 320;
+    font-size: 23px;
+    border-radius: 30px !important;
+    color: #FAF8FF;
 }
