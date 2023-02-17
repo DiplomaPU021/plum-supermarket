@@ -21,7 +21,7 @@ export default function MainSwiper({ product, setActive }) {
   return (
     <Container fluid className={styles.swiper}>
       <Row className={styles.swiper__photoBox}>
-        <Image
+        <Image fluid
           className={styles.swiper__photoBox_image}
           src={activeImg || product.images[0].url}
           alt=""
@@ -38,7 +38,6 @@ export default function MainSwiper({ product, setActive }) {
         </div>
         <Col>
           <Swiper
-            className={styles.swiper__simillarswiper_swip}
             slidesPerView={5}
             spaceBetween={30}
             navigation={{
@@ -46,7 +45,7 @@ export default function MainSwiper({ product, setActive }) {
               prevEl: ".image-swiper-button-prev",
               disabledClass: "swiper-button-disabled",
             }}
-            modules={[Navigation]}
+            modules={[Navigation]} 
           >
             {product.images.map((img, i) => (
               <SwiperSlide key={i}>
