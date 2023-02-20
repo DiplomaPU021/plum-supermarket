@@ -24,12 +24,12 @@ export default function CartPage(props) {
     //const [loading, setLoading] = useState(false)
     const [userId, setUserId] = useState(props.userid);
 
-    useEffect(() => {
-        if (session) {
-            console.log("session_______________>>>>>", session);
-            setUserId(session.user.id)
-        }
-    }, [userId]);
+    // useEffect(() => {
+    //     if (session) {
+    //         console.log("session_______________>>>>>", session);
+    //         setUserId(session.user.id)
+    //     }
+    // }, [userId]);
 
 
     // setCartShow(props.show);
@@ -44,7 +44,7 @@ export default function CartPage(props) {
     const saveCartToDbHandler = () => {
         if (session) {
             console.log("sessionUser_______________>>>>>", session.user);
-          //  setUserId(session.user.id);
+            //  setUserId(session.user.id);
             console.log("48indexCard");
             if (window.location.pathname === "/checkout") {
                 console.log("50indexCard");
@@ -54,7 +54,8 @@ export default function CartPage(props) {
                 console.log("54indexCard");
                 // setCartShow(false);
                 props.onHide();
-                router.push("/checkout");
+                window.location.reload(true);
+                // router.push("/checkout");
                 //  getCart(session.user.id);
                 // router.reload();
                 // window.location.reload(true);

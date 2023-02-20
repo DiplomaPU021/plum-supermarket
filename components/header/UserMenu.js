@@ -12,7 +12,7 @@ export default function UserMenu({ session }) {
                         (<img src={session.user.image}
                             alt="profile image"
                             className={styles.menu_image} />)
-                        : (<img src={"/" + session.user.image}
+                        : (<img src="https://res.cloudinary.com/dzctqbi3o/image/upload/v1676906580/Diploma/user/profile_nkfuxi.gif"
                             alt="profile image"
                             className={styles.menu_image} />)
                     }
