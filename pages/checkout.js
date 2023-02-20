@@ -42,7 +42,7 @@ export async function getServerSideProps(context) {
         if (!cart) {
           return {
             redirect: {
-              destination: "/",
+              destination: "/checkout",
             }
           }
         }
