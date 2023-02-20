@@ -25,7 +25,7 @@ export default function Home({ country, products }) {
   const { data: session } = useSession();
   console.log("session index home", session?.user?.id);
 
-  console.log("productsIndex", products);
+ // console.log("productsIndex", products);
   //   .populate({path: "category", model: Category})
   //   .populate({path: "subCategories._id", model: SubCategory})
   //   .lean();
@@ -49,6 +49,8 @@ export default function Home({ country, products }) {
   );
 }
 export async function getServerSideProps() {
+
+
   let data = {name: "Ukraine", flag: { emojitwo: "https://cdn.ipregistry.co/flags/emojitwo/ua.svg"}, code: "UA"};
   /* Увага!!! замість обєкту можна використати сервіс ipregistry з наступним методом
     await axios
@@ -60,7 +62,7 @@ export async function getServerSideProps() {
       console.log(err);      
     });*/
 
-  db.connectDb();
+ await db.connectDb();
   
   let products = await Product.find().sort({ popularity: -1 }).limit(5);
   

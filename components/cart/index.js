@@ -11,16 +11,23 @@ import { useSelector } from "react-redux";
 import { signIn, useSession } from 'next-auth/react';
 import { useRouter } from "next/router"
 import { saveCart } from "@/requests/user"
+//import DotLoaderSpinner from '@/components/loaders/dotLoader';
 
 
-
-export default function Cart(props) {
+export default function CartPage(props) {
     const router = useRouter();
-
     const { data: session } = useSession();
     const cart = useSelector((state) => state.cart);
     const [total, setTotal] = useState(0);
+    //const [loading, setLoading] = useState(false)
+    const [userId, setUserId] = useState(props.userid);
 
+    // useEffect(() => {
+    //     if (session) {
+    //         console.log("session_______________>>>>>", session);
+    //         setUserId(session.user.id)
+    //     }
+    // }, [userId]);
 
     const getTotalPrice = () => {
         return cart.cartItems.reduce(
@@ -28,13 +35,34 @@ export default function Cart(props) {
             0
         );
     };
-    const saveCartToDbHandler = async () => {
-
+    const saveCartToDbHandler = () => {
         if (session) {
-            saveCart(cart, session.user.id);
-            router.push("/checkout");
+            if (window.location.pathname === "/checkout") {
+                //  setLoading(true);
+                saveCart(cart, session.user.id);
+                // setLoading(false);
+                props.onHide();
+                window.location.reload(true);
+                // router.push("/checkout");
+                // router.reload();
+                //  router.push(
+                // {
+                //   pathname: router.pathname, // not router.asPath
+                //    query: { confirm: true },
+                // },);
+            } else {
+                saveCart(cart, session.user.id);
+                router.push("/checkout");
+            }
         } else {
             signIn();
+        }
+    }
+    const updateCartInDbHandler = () => {
+        if (session && window.location.pathname === "/checkout") {
+            router.push("/checkout");
+            console.log("77indexCard", cart);
+            saveCart(cart, session.user.id);
         }
     }
     // useEffect(() => {
@@ -43,20 +71,24 @@ export default function Cart(props) {
     // }, [cart.cartItems]);
 
     return (
+
         <Modal
             {...props}
             size={cart.length == 0 ? "lg" : "xl"}
             aria-labelledby="contained-modal-title-vcenter"
             centered>
+            {/* {
+                loading && <DotLoaderSpinner loading={loading} />
+            } */}
             <div className={styles.modaldiv}>
-                <Modal.Header closeButton ></Modal.Header>
+                <Modal.Header closeButton onClick={() => updateCartInDbHandler()}></Modal.Header>
                 {cart == null || cart?.cartItems?.length == 0 || cart.cartItems == null ? (
                     <EmptyCart />
                 ) : (
                     <Modal.Body className={styles.modalbody}>
                         {
                             cart.cartItems?.map((product, i) => (
-                                <CartItem product={product} key={i} />
+                                <CartItem key={i} product={product} userid={userId} />
                             ))
                         }
                         <h3>Total to pay:<span>{getTotalPrice().toFixed(2)}</span></h3>
@@ -66,7 +98,8 @@ export default function Cart(props) {
                         {/* <Checkout total={getTotalPrice().toFixed(2)}
                         saveCartToDbHandler={saveCartToDbHandler}
                         /> */}
-                        <Link href="/" className={styles.link}>Back to shopping</Link>
+                        <Link href="/" className={styles.link}>
+                            Back to shopping</Link>
                     </Modal.Body>
                 )}
             </div>

@@ -6,33 +6,43 @@ import Button from "react-bootstrap/Button"
 import HeartIcon from "../icons/HeartIcon"
 import DeleteIcon from "../icons/DeleteIcon"
 
-export default function CartItem() {
+export default function CartItem({ product }) {
     return (
         <>
-        <Card className={styles.card}>
-            <Card.Body className={styles.cardbody}>
-                <div className={styles.discount}>15%</div>
-                <div className={styles.picture}><img src="https://i.pcmag.com/imagery/reviews/065rv6nxdAEcCzvE3Qb8T3v-1.fit_lim.size_840x473.v1658424542.jpg" width='157px' height='95px'></img></div>
-                <div className={styles.cardtext}>
-                    <h5>Laptop Apple MacBook Air 13" M1 256GB 2020 (MGN93) Silver</h5>
-                </div>
-                <div className={styles.cardcontrols}>
-                    <div className={styles.cardcontrols_itemcount}>
-                        <div className={styles.cardcontrols_plusmin}>
-                            <span>-</span><div className={styles.count}>01</div><span>+</span>
+            <Card className={styles.card}>          
+                <Card.Body className={styles.cardbody}>                  
+                    {
+                        product.discount > 0
+                            ? (<div className={styles.discount}>
+                                -{product.discount}%
+                            </div>)
+                            : ("")
+                    }
+                    <div className={styles.picture}><img src={product.image} width='157px' height='95px'></img></div>
+                    <div className={styles.cardtext}>
+                        <h5>                {(product.name + " " + (product.color ? product.color : ""
+                        ) + " " + product.size).length > 55
+                            ? `${product.name.substring(0, 55)}...`
+                            : product.name + " " + (product.color ? product.color : "") + " " + product.size}</h5>
+                    </div>
+                    <div className={styles.cardcontrols}>
+                        <div className={styles.cardcontrols_itemcount}>
+                            <div className={styles.cardcontrols_plusmin}>
+                                {/* <span>-</span> */}
+                                <div className={styles.count}>{product.qty}</div>
+                                {/* <span>+</span> */}
+                            </div>
+                            {product.priceBefore!=product.priceAfter?
+                            ( <h5>{product.priceBefore} грн</h5>): ""}                          
+                            <h3>{product.priceAfter} грн</h3>
                         </div>
-                        <h5>92 466$</h5>
-                        <h3>81 998$</h3>
+                        {/* <div className={styles.cardbtns}>
+                            <button className={styles.itembtn}> <DeleteIcon fillColor={"#220F4B"} /></button>
+                        </div> */}
                     </div>
-                    <div className={styles.cardbtns}>
-                        <button className={styles.itembtn}> <DeleteIcon fillColor={"#220F4B"} /></button>
-                    </div>
-                </div>
-
-            </Card.Body>
-        </Card>
-         <div className={styles.cardtext_line}></div>
-         </>
-
+                </Card.Body>
+            </Card>
+            <div className={styles.cardtext_line}></div>
+        </> 
     )
 }

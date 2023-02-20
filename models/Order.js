@@ -2,7 +2,7 @@ import mongoose from "mongoose";
 
 const { ObjectId } = mongoose.Schema;
 
-const cartSchema = new mongoose.Schema(
+const orderSchema = new mongoose.Schema(
     {
         products: [
             {
@@ -13,41 +13,37 @@ const cartSchema = new mongoose.Schema(
                 name: {
                     type: String,
                 },
-                image: {
-                    type: String,
-                },
                 size: {
                     type: String,
                 },
                 code:{
                     type: String,
                 },
-                priceBefore: {
+                //price with discount
+                price: {
                     type: Number,
-                },
-                priceAfter: {
-                    type: Number,
-                },
-                discount: {
-                    type: Number,
-                    default: 0,
                 },
                 qty: {
                     type: Number,
                 },
                 color: {
-                    color: String,
-                    image: String,
+                    type: String,
                 },
-            }
+            },
 
         ],
-        cartTotalPrice: Number,
-        cartTotalQty: Number,
+
+        //total price with discount but without promocode
+        cartTotal: Number,
+        coupon:{
+            type: ObjectId,
+            ref: "Coupon",
+        },
+        //total price with discount and promocode
+        costAfterDiscount: Number,
         user: {
             type: ObjectId,
             ref: "User",
-            unique: true,
         }
     },
     {
@@ -55,6 +51,6 @@ const cartSchema = new mongoose.Schema(
     }
 );
 
-const Cart = mongoose.models.Cart || mongoose.model("Cart", cartSchema);
+const Order = mongoose.models.Order || mongoose.model("Order", orderSchema);
 
-export default Cart;
+export default Order;

@@ -1,7 +1,7 @@
 import styles from './styles.module.scss'
 import { useSelector } from "react-redux"
 import { Image, InputGroup } from 'react-bootstrap';
-import * as React from "react"
+import { useState, useEffect } from "react";
 import UserMenu from "./UserMenu"
 import Link from "next/link"
 import LoopIcon from '../icons/LoopIcon';
@@ -15,9 +15,17 @@ import Cart from '../cart'
 export default function Header({country}) {
     const { data: session } = useSession();
     const cart = useSelector((state) => state.cart);
-    const [loggedIn, setLoggedIn] = React.useState(false);
-    const [visible, setVisible] = React.useState(false)
-    const [cartShow, setCartShow] = React.useState(false);
+    const [loggedIn, setLoggedIn] = useState(false);
+    const [visible, setVisible] = useState(false)
+    const [cartShow, setCartShow] = useState(false);
+    //const [userId, setUserId] = useState(session?.user?.id);
+
+    // useEffect(() => {
+    //     if (session) {
+    //         console.log("session_______________>>>>>", session);
+    //         setUserId(session.user.id)
+    //     }
+    // }, [userId]);
 
     const getItemsCount = () => {
       return cart.cartItems.reduce((accumulator, item) => accumulator + item.qty, 0);
