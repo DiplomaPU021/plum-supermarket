@@ -4,6 +4,7 @@
   },
   "name": "Комп'ютери та ноутбуки",
   "slug": "computers_and_notebooks",
+  "icon": "laptop.png",
   "created_at": {
     "$date": {
       "$numberLong": "1674203278251"
