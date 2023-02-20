@@ -15,9 +15,7 @@ import { saveCart } from "@/requests/user"
 
 
 export default function CartPage(props) {
-    // console.log("propsInCartIndex", props);
     const router = useRouter();
-    //const [cartShow, setCartShow] = useState(props.show);
     const { data: session } = useSession();
     const cart = useSelector((state) => state.cart);
     const [total, setTotal] = useState(0);
@@ -31,11 +29,7 @@ export default function CartPage(props) {
     //     }
     // }, [userId]);
 
-
-    // setCartShow(props.show);
-    //console.log("27cartindex",cartShow);
     const getTotalPrice = () => {
-        // console.log("cartTotalPriceInCartIndex", cart);
         return cart.cartItems.reduce(
             (accumulator, item) => accumulator + item.qty * item.price,
             0
@@ -43,46 +37,23 @@ export default function CartPage(props) {
     };
     const saveCartToDbHandler = () => {
         if (session) {
-            console.log("sessionUser_______________>>>>>", session.user);
-            //  setUserId(session.user.id);
-            console.log("48indexCard");
             if (window.location.pathname === "/checkout") {
-                console.log("50indexCard");
                 //  setLoading(true);
                 saveCart(cart, session.user.id);
                 // setLoading(false);
-                console.log("54indexCard");
-                // setCartShow(false);
                 props.onHide();
                 window.location.reload(true);
                 // router.push("/checkout");
-                //  getCart(session.user.id);
                 // router.reload();
-                // window.location.reload(true);
                 //  router.push(
                 // {
                 //   pathname: router.pathname, // not router.asPath
                 //    query: { confirm: true },
                 // },);
             } else {
-                //    setLoading(true);
-                console.log("68indexCard");
                 saveCart(cart, session.user.id);
-                //  setLoading(false);
-                console.log("71indexCard");
                 router.push("/checkout");
-
-                //  router.push(
-                // {
-                //     pathname: "/checkout", // not router.asPath
-                //      query: { confirm: true },
-                //   },);
             }
-            // saveCart(cart, session.user.id);
-            // if (window.location.pathname != "/checkout") {
-            //  router.push("/checkout");
-            // }
-
         } else {
             signIn();
         }

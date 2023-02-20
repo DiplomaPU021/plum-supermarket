@@ -12,7 +12,6 @@ import { updateCart } from "../../store/cartSlice"
 
 export default function CartItem(product, userid) {
     console.log("cartItem", product);
-
     const cart = useSelector((state) => state.cart);
     const dispatch = useDispatch();
     const updateQty = async (type) => {
@@ -25,21 +24,14 @@ export default function CartItem(product, userid) {
             }
             return item;
         });
-        console.log("updateQty");
         dispatch(updateCart(newCart));
-     //   saveCart(newCart, userId);
-
-
     };
 
     const removeProduct = async (id) => {
         let newCart = cart.cartItems.filter((item) => {
             return item._uid != id;
         });
-        console.log("removeProduct");
-      //  saveCart(newCart, userId);
         dispatch(updateCart(newCart));
-
     };
     return (
         <Card className={styles.card}>

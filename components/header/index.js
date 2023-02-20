@@ -63,7 +63,6 @@ export default function Header() {
                     <Cart
                         show={cartShow}
                         onHide={() => setCartShow(false)}
-                        // userid={userId}
                     />
 
                     <div

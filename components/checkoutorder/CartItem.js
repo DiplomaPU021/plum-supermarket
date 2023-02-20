@@ -7,7 +7,6 @@ import HeartIcon from "../icons/HeartIcon"
 import DeleteIcon from "../icons/DeleteIcon"
 
 export default function CartItem({ product }) {
-    //console.log("productInChecoutCartItem", product);
     return (
         <>
             <Card className={styles.card}>          
