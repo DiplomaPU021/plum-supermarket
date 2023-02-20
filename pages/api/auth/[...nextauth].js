@@ -11,7 +11,7 @@ import { MongoDBAdapter } from '@next-auth/mongodb-adapter'
 import clientPromise from './lib/mongodb'
 import db from "../../../utils/db";
 
-await db.connectDb();
+db.connectDb();
 export default NextAuth({
   adapter: MongoDBAdapter(clientPromise),
   providers: [
