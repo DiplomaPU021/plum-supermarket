@@ -1,32 +1,14 @@
-
-.topsales {
-    display: flex;
-    margin: 30px 60px 0px 60px;
-    justify-content: center;
-    flex-direction: column;
-    padding: 0px;
-}
-
-.container {
-   padding: 0px;  
+.cont {
+    //padding: 0;
+    padding-top: 30px;
+    background-color: $light-wheet-color;
 }
 
 .row {
-    height: 54px;
-    align-items: center;
     display: flex;
-    justify-content: center;
-    padding: 0px;
-    margin: 0px;
-}
-
-
-
-.coltext {
-    color: #573C90;
-    font-weight: 500;
-    font-size: 21px;
-   
+    flex-direction: row;
+    align-items: center;
+    height: 54px;
 }
 
 .leftsale {
@@ -34,6 +16,8 @@
     height: 54px;
     background: linear-gradient(90deg, #70BF63 0%, #8AE37C 100%);
     border-radius: 0px 23px 23px 0px;
+    font-family: 'Noto Sans';
+    font-style: normal;
     font-weight: 600;
     font-size: 25px;
     line-height: 34px;
@@ -41,27 +25,32 @@
     align-items: center;
     justify-content: flex-start;
     display: flex;
-    padding-left: 20px;
-    margin-right: 0px;
-    
+    padding-left: 60px;
+
 }
 
 .products_row {
     display: flex;
-    justify-content: center ;
-    align-items: center;
-    margin: 20px 0px 2rem 0px;
-    gap: 2rem;  
+    flex-direction: row;
+    justify-content: center;
+    padding: 60px 60px;
+    gap: 20px;
 }
 
-.colcard{
-  padding: 0px;
-  
+.colcard {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 0px;
+    height: 400px;
+    width: 315px;
 }
 
 .morevideo {
     border: none;
-   
+    background-color: $light-wheet-color;
+    padding: 0px;
 }
 
 .textcard {
@@ -69,7 +58,7 @@
     height: 68px;
     font-family: 'Noto Sans';
     font-style: normal;
-    font-weight: 540;
+    font-weight: 400;
     font-size: 25px;
     line-height: 34px;
     text-align: center;
@@ -90,10 +79,12 @@
 
 .ytbtn {
     width: 243px;
-    height: 48px !important;
+    height: 54px !important;
     font-family: 'Noto Sans';
-    font-weight: 320;
-    font-size: 23px;
+    font-style: normal;
+    font-weight: 600;
+    font-size: 25px;
+    line-height: 34px;
     border-radius: 30px !important;
     color: #FAF8FF;
     background-color: #220F4B;

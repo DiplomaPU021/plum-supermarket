@@ -1,7 +1,6 @@
 .swiper {
     position: relative;
-    width: 650px;
-    height: 750px;
+    height: 700px;
     background: linear-gradient(180deg, #FAF8FF 0%, #F2EDFF 100%);
     box-shadow: 0px 0px 15px rgba(34, 15, 75, 0.5),
         inset 7px 7px 20px #FAF5FF, inset -7px -7px 20px #F7EEFF;
@@ -11,8 +10,7 @@
         padding: 117px 69px 124px 70px;
 
         &_image {
-            //width: 511px;
-            height: 309px;
+            max-height: 309px;
             object-fit: contain;
         }
     }
@@ -61,7 +59,7 @@
         font-weight: 600;
         font-size: 25px;
         line-height: 34px;
-        color: #FAF8FF;
+        color: $light-wheet-color;
     }
 
     &__colors {
@@ -94,7 +92,7 @@
             }
 
             &:hover {
-                outline: 1px solid#70BF63;
+                outline: 1px solid $green-color;
                 outline-offset: 2px;
             }
         }
@@ -106,5 +104,5 @@
 }
 
 .active {
-    outline: 2px solid #70BF63;
+    outline: 2px solid $green-color;
 }

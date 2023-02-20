@@ -3,26 +3,7 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import styles from "./styles.module.scss";
 
 export default function CustomerInteraction() {
-  const shipping = new Map([
-    ["s", "Самовивіз з відділення пошти"],
 
-    ["d", "Доставка кур'єром"],
-  ]);
-  const warranty = [
-    {
-      variant: "12 місяців офіційної гарантії від виробника",
-      variant: "Обмін/повернення товару впродовж 14 днів",
-    },
-  ];
-  const payment = [
-    {
-      variant:
-        "Оплата. Оплата під час отримання товару, Google Pay, Картою онлайн, " +
-        "Безготівковими для юридичних осіб, Оплатити онлайн соціальною картою " +
-        "<q>Пакунок малюка</q>, Безготівковий для фізичних осіб, Apple Pay, Оплатити " +
-        "онлайн картою <q>єПідтримка</q>, Visa, Mastercard",
-    },
-  ];
   return (
     <Container fluid className={styles.info}>
       <Row className={styles.info__row}>
