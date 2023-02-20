@@ -24,7 +24,7 @@ export default function Home({ products }) {
   const { data: session } = useSession();
   console.log("session index home", session?.user?.id);
 
-  console.log("productsIndex", products);
+ // console.log("productsIndex", products);
   //   .populate({path: "category", model: Category})
   //   .populate({path: "subCategories._id", model: SubCategory})
   //   .lean();

@@ -9,10 +9,13 @@ import { useSelector, useDispatch } from "react-redux";
 import { useEffect, useState } from "react";
 import { updateCart } from "../../store/cartSlice"
 
-export default function CartItem(product) {
-    const  cart  = useSelector((state) => state.cart);
+
+export default function CartItem(product, userid) {
+    console.log("cartItem", product);
+
+    const cart = useSelector((state) => state.cart);
     const dispatch = useDispatch();
-    const updateQty = (type) => {
+    const updateQty = async (type) => {
         let newCart = cart.cartItems.map((item) => {
             if (item._uid == product.product._uid) {
                 return {
@@ -22,29 +25,38 @@ export default function CartItem(product) {
             }
             return item;
         });
-        dispatch(updateCart(newCart));   
+        console.log("updateQty");
+        dispatch(updateCart(newCart));
+     //   saveCart(newCart, userId);
+
+
     };
 
-    const removeProduct = (id) => {
+    const removeProduct = async (id) => {
         let newCart = cart.cartItems.filter((item) => {
             return item._uid != id;
         });
+        console.log("removeProduct");
+      //  saveCart(newCart, userId);
         dispatch(updateCart(newCart));
+
     };
     return (
         <Card className={styles.card}>
             <Card.Body className={styles.cardbody}>
                 {
-                    product.product.discount>0? (
+                    product.product.discount > 0 ? (
                         <div className={styles.discount}>{product.product.discount}%</div>
-                    ) : ( <></>)
+                    ) : (<></>)
                 }
                 <div className={styles.picture}><img src={product.product.images[0]} width='157px' height='95px' alt="picture"></img></div>
                 <div className={styles.cardtext}>
                     <h5>
-                        {product.product.name.length > 40
-                            ? `${product.product.name.substring(0, 40)}...`
-                            : product.product.name}
+                        {(product.product.name + " " + (product.product.color ? product.product.color.color : ""
+                        ) + " " + product.product.size).length > 55
+                            ? `${(product.product.name + " " + (product.product.color ? product.product.color.color : ""
+                            ) + " " + product.product.size).substring(0, 55)}...`
+                            : product.product.name + " " + (product.product.color ? product.product.color.color : "") + " " + product.product.size}
                     </h5>
                     <div className={styles.cardtext_line}></div>
                     <div className={styles.cardtext_extraservice}>
@@ -68,10 +80,10 @@ export default function CartItem(product) {
                         </div>
                         {
                             product.product.discount > 0 ? (
-                                <h5>{Number(product.product.priceBefore*product.product.qty).toFixed(2)} {product.product.price_unit}</h5>)
+                                <h5>{Number(product.product.priceBefore * product.product.qty).toFixed(2)} {product.product.price_unit}</h5>)
                                 : (<></>)
                         }
-                        <h3>{Number(product.product.price*product.product.qty).toFixed(2)} {product.product.price_unit}</h3>
+                        <h3>{Number(product.product.price * product.product.qty).toFixed(2)} {product.product.price_unit}</h3>
 
                     </div>
                     <div className={styles.cardbtns}>
@@ -85,6 +97,5 @@ export default function CartItem(product) {
                 </div>
             </Card.Body>
         </Card>
-
     )
 }

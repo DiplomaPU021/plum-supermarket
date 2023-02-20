@@ -1,6 +1,6 @@
 import styles from "./styles.module.scss"
 import Link from "next/link"
-import {signOut, signIn} from "next-auth/react";
+import { signOut, signIn } from "next-auth/react";
 
 export default function UserMenu({ session }) {
     return (
@@ -8,21 +8,26 @@ export default function UserMenu({ session }) {
             <h4>Welcome to Plum!</h4>
             {session ? (
                 <div className={styles.flex}>
-                    <img src={"/"+session.user.image}
-                        alt="profile"
-                        className={styles.menu_image} />
+                    {session.user.image ?
+                        (<img src={session.user.image}
+                            alt="profile image"
+                            className={styles.menu_image} />)
+                        : (<img src={"/" + session.user.image}
+                            alt="profile image"
+                            className={styles.menu_image} />)
+                    }
                     <div className={styles.col}>
                         <span>Welcome back,</span>
                         <h3>{session.user.name}</h3>
-                        <span onClick={()=>signOut()}>Sign out</span>
+                        <span onClick={() => signOut()}>Sign out</span>
                     </div>
                 </div>) : (
                 <div className={styles.flexmenu}>
                     <button className={styles.btn_plum}
-                    onClick={()=>signIn()}
+                        onClick={() => signIn()}
                     >Register</button>
                     <button className={styles.btn_plum}
-                    onClick={()=>signIn()}>Login</button>                  
+                        onClick={() => signIn()}>Login</button>
                 </div>
             )}
             <ul>

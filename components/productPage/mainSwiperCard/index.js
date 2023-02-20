@@ -34,7 +34,7 @@ export default function MainSwiper({ product, setActive }) {
         <div
           className={`${styles.swiper__simillarswiper_col} swiper-button image-swiper-button-prev`}
         >
-          <ChevronLeft fillColor="#5D8C52"   w="30px" h="30px"/>
+          <ChevronLeft fillColor="#5D8C52" w="30px" h="30px" />
         </div>
         <Col>
           <Swiper
@@ -63,7 +63,7 @@ export default function MainSwiper({ product, setActive }) {
         <div
           className={`${styles.swiper__simillarswiper_col} swiper-button image-swiper-button-prev`}
         >
-          <ChevronRight fillColor="#5D8C52"   w="30px" h="30px"/>
+          <ChevronRight fillColor="#5D8C52" w="30px" h="30px" />
         </div>
       </Row>
       {product.discount ? (
@@ -71,9 +71,24 @@ export default function MainSwiper({ product, setActive }) {
       ) : (
         ""
       )}
-      {product.colors[0] ? (
+      {product.color ? (
         <div className={styles.swiper__colors}>
-          {product.colors.map((color, i) => (
+          {product.subProducts.map((el, i) => (
+            <span
+            key={i}
+              className={i == router.query.style ? styles.active : ""}
+              onMouseOver={() =>
+                setActiveImg(el.images[i].url)
+              }
+              onMouseLeave={() => setActiveImg("")}
+              onClick={() => setActive(i)}
+            >
+              <Link href={`/product/${product.slug}?style=${i}&code=${product.code}`}>
+                <Image src={product.color.image} alt={product.color.image} />
+              </Link>
+            </span>)
+          )}
+          {/* {product.colors.map((color, i) => (
             <span
               key={i}
               className={i == router.query.style ? styles.active : ""}
@@ -87,7 +102,7 @@ export default function MainSwiper({ product, setActive }) {
                 <Image src={color.image} alt={color.image} key={i} />
               </Link>
             </span>
-          ))}
+          ))} */}
         </div>
       ) : (
         ""

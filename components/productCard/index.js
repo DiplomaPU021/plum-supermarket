@@ -65,7 +65,7 @@ export default function ProductCard({ product }) {
     // }
     // const { data } = await axios.get(`/api/product/${product._id}?style=${product.style}&code=${router.query.code}`);
     const { data } = await axios.get(`/api/product/${product._id}?style=0&code=0`);
-    // console.log("data--------->", data);
+     console.log("dataOnProductCardIndex--------->", data);
     // console.log("data2--------->", product._id);
     // console.log("data3--------->", data.style);
     // console.log("data3--------->", data.quantity);
@@ -123,7 +123,8 @@ export default function ProductCard({ product }) {
           <Row>
             <Col>
               <Card.Title className={styles.product__container_infos_title}>
-                {(product.name + " "+ (product.subProducts[active].color? product.subProducts[active].color.color:"") +" " + product.subProducts[active].sizes[active].size).length > 55
+                {(product.name + " "+ (product.subProducts[active].color? product.subProducts[active].color.color:""
+                ) +" " + product.subProducts[active].sizes[active].size).length > 55
                   ? `${product.name.substring(0, 55)}...`
                   : product.name + " "+ (product.subProducts[active].color? product.subProducts[active].color.color:"") +" " + product.subProducts[active].sizes[active].size}
               </Card.Title>

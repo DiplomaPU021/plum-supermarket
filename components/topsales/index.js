@@ -10,8 +10,7 @@ import Button from 'react-bootstrap/Button'
 import ProductCard from "../productCard"
 
 export default function TopSales({ products }) {
-console.log("productsTopSales", products)
-;
+// console.log("productsTopSales", products);
 
     return (
         <div className={styles.topsales}>
