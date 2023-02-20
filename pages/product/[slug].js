@@ -97,7 +97,7 @@ export async function getServerSideProps(context) {
   const slug = query.slug;
   const style = query.style;
   const code = query.code || 0;
-  db.connectDb();
+  await db.connectDb();
   //----------------
   //from db
   let product = await Product.findOne({ slug })
@@ -174,7 +174,7 @@ export async function getServerSideProps(context) {
   };
  // console.log("newProduct",newProduct);
   //----------------
-  db.disconnectDb();
+ await db.disconnectDb();
   return {
     props: { product: JSON.parse(JSON.stringify(newProduct)) },
   };

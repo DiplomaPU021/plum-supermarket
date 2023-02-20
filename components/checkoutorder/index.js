@@ -465,7 +465,7 @@ export default function CheckoutOrder({
 }
 // export async function getServerSideProps(context) {
 //     //console.log("contextInCheckoutServerSideProps",context);
-//     db.connectDb();
+//     await db.connectDb();
 //     var user = {};
 //     const session = await getSession(context);
 //     if (session) {
@@ -493,7 +493,7 @@ export default function CheckoutOrder({
 //             }
 //         }
 //     }
-//     db.disconnectDb();
+//   await  db.disconnectDb();
 //     return {
 //         props: {
 //             cart: JSON.parse(JSON.stringify(cart)),

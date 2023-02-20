@@ -6,7 +6,7 @@ const handler = nc();
 
 handler.get(async (req, res) => {
     try {
-        db.connectDb();
+       await db.connectDb();
         const id = req.query.id;
         const style = req.query.style;
         const code = req.query.code;
@@ -15,7 +15,7 @@ handler.get(async (req, res) => {
         let discount = product.subProducts[style].discount;
         let priceBefore = product.subProducts[style].sizes[0].price;
         let price = discount ? priceBefore - priceBefore / discount : priceBefore
-        db.disconnectDb();
+       await db.disconnectDb();
         return res.status(200).json({
             _id: product._id,
             style: Number(style),

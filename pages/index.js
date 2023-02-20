@@ -48,7 +48,7 @@ export default function Home({ products }) {
   );
 }
 export async function getServerSideProps() {
-  db.connectDb();
+ await db.connectDb();
   //----------------
   //from db
   let products = await Product.find().sort({ popularity: -1 }).limit(5);
