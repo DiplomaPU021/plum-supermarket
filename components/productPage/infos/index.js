@@ -8,8 +8,12 @@ import { useEffect, useState } from "react";
 import styles from "./styles.module.scss";
 import { useRouter } from "next/router";
 import Link from "next/link";
+
 import { useSelector, useDispatch } from "react-redux";
 import { addToCart, updateCart } from "@/store/cartSlice";
+
+import { Col, Container, Row } from "react-bootstrap";
+
 
 export default function Infos({ product, active }) {
   const router = useRouter();
@@ -94,9 +98,9 @@ export default function Infos({ product, active }) {
   };
 
   return (
-    <div className={styles.infos}>
-      <div className={styles.infos__priceandaction}>
-        <div className={styles.infos__priceandaction_price}>
+    <Container fluid className={styles.infos}>
+      <Row className={styles.infos__priceandaction}>
+        <Col className={styles.infos__priceandaction_price}>
           {product.subProducts[active].discount > 0 ? (
             <div>
               <span className={styles.pricediscount}>{`${price} ${price_unit}`}</span>
@@ -112,8 +116,8 @@ export default function Infos({ product, active }) {
               <span className={styles.priceregular}>{`${price} ${price_unit}`}</span>
             </div>
           )}
-        </div>
-        <div className={styles.infos__priceandaction_react}>
+        </Col>
+        <Col className={styles.infos__priceandaction_react}>
           <div className={styles.liked}>
             {/* TODO onClick like below*/}
             <button>
@@ -128,25 +132,25 @@ export default function Infos({ product, active }) {
           <button>
             <ScalesIcon fillColor="#220F4B" />
           </button>
-        </div>
-        <div className={styles.infos__priceandaction_buy}>
+        </Col>
+        <Col className={styles.infos__priceandaction_buy}>
           <button
             onClick={() => {
               addToCartHandler();
             }}
           >
             <CartIcon fillColor="#FAF8FF" />
-            <span>Buy</span>
+            <span>Купити</span>
           </button>
-        </div>
-      </div>
-      <div className={styles.infos__characteristics}>
+        </Col>
+      </Row>
+      <Row className={styles.infos__characteristics}>
         <span>Основні характеристики</span>
-      </div>
-      <div className={styles.infos__container}>
+      </Row>
+      <Col className={styles.infos__details}>
         {product.details.slice(0, product.details.lenght).map((info, i) =>
           i < 9 ? (
-            <div className={styles.infos__container_row} key={i}>
+            <div className={styles.infos__details_row} key={i}>
               <div>
                 <span>{info.name}</span>
               </div>
@@ -156,37 +160,41 @@ export default function Infos({ product, active }) {
             </div>
           ) : null
         )}
-      </div>
-      <div className={styles.infos__more}>
+      </Col>
+      <Col className={styles.infos__more}>
         {/* TODO more details */}
         <button>
           Дивитися всі характеристики{" "}
           <ChevronRight fillColor="#70BF63" w="30px" h="30px" />
         </button>
-      </div>
+
+      </Col>
       {product.size ?
-        (<div className={styles.infos__sizesInfo}>
-          <div className={styles.infos__sizesInfo_sizes}>
+      (<Row className={styles.infos__sizesInfo}>
+        <Col className={styles.infos__sizesInfo_sizes}>
             {product.subProducts.map((el, i) => (
-              <Link style={{ textDecoration: "none" }}
-                key={i}
-                href={`/product/${product.slug}?style=${i}&code=${product.code}`}
+            <Link style={{textDecoration: "none"}}
+              key={i}
+              href={`/product/${product.slug}?style=${i}&code=${product.code}`}
+            >
+              <Col
+                className={`${styles.infos__sizesInfo_sizes_size}
+                  ${i == router.query.style && styles.active_size
+                }`}
+                 // onClick={() => setCode(i)}
               >
-                <div
-                  className={`${styles.infos__sizesInfo_sizes_size}
-                  ${i == router.query.style && styles.active_size}`}
-                // onClick={() => setCode(i)}
-                >
-                  {el.sizes[0].size}
-                </div>
-              </Link>
-            ))}
-          </div>
-          <button>
-            Таблиця розмірів{" "}
-            <ChevronRight fillColor="#70BF63" w="30px" h="30px" />
-          </button>
-        </div>) : (null)}
-    </div>
+               {el.sizes[0].size}
+              </Col>
+            </Link>
+          ))}
+        </Col>
+        <button>
+          {/* TODO onClick */}
+          Таблиця розмірів{" "}
+          <ChevronRight fillColor="#70BF63" w="30px" h="30px" />
+        </button>
+      </Row>): (null)}
+    </Container>
+
   );
 }

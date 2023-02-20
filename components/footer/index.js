@@ -14,7 +14,7 @@ export default function Footer({ country }) {
                 <Links />
                 <Socials />
                 <NewsLetter />
-                <Copyright />
+                <Copyright country={country} />
             </div>
         </footer>
     )

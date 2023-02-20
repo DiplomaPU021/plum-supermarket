@@ -16,11 +16,14 @@ import GreenChevronRight from "@/components/icons/ChevronRight";
 import Link from "next/link";
 import CustomerInfo from "@/components/productPage/customerInfo";
 import { Col, Container, Row } from "react-bootstrap";
-import Questions from "@/components/Questions";
+import Questions from "@/components/questions";
 import BunnerApp from "@/components/bunnerApp";
 import CheaperTogether from "@/components/productPage/cheaperTogether";
+import ProductDescription from "@/components/productPage/productDescription";
+import Popular from "@/components/popular";
+import Reviews from "@/components/productPage/reviews";
 
-export default function product({ product }) {
+export default function product({ product, products }) {
   const [active, setActive] = useState(0);
 
   return (
@@ -31,14 +34,14 @@ export default function product({ product }) {
           <Col>
             <Link href="/">
               <LightPlumIcon />
-              <GreenChevronRight fillColor="#70BF63"  w="30px" h="30px"/>
+              <GreenChevronRight fillColor="#70BF63" w="30px" h="30px" />
             </Link>
             <Link
               href={product.category.name}
               className={styles.productpage__link}
             >
               <span>{product.category.name}</span>
-              <GreenChevronRight fillColor="#70BF63"   w="30px" h="30px"/>
+              <GreenChevronRight fillColor="#70BF63" w="30px" h="30px" />
             </Link>
             {product.subCategories.map((sub, i) => (
               <Link
@@ -57,35 +60,25 @@ export default function product({ product }) {
             <span>{product.name} {product.color} {product.size}</span>
           </Col>
           <Col className={styles.productpage__nameCode_code}>
-            <span>Code: {product.code}</span>
+            <span>Код: {product.code}</span>
           </Col>
         </Row>
-        <Row className={styles.productpage__main}>
-          <Col>
-          <MainSwiperCard product={product} setActive={setActive} />
-          </Col>
-          <Col> <Infos product={product} active={active}/></Col>
-        </Row>
-
-        <Row>
-          <CustomerInfo />
-        </Row>
-        <Row className={styles.productpage__title}>
-          <span>Разом дешевше</span>
-        </Row>
-        <Row>
-          <CheaperTogether product={product} productsPlus={product.productsPlus}/>
-        </Row>
-        <Row className={styles.productpage__title}>
-          <span>Найпопулярніші відгуки</span>
-          <button className={styles.productpage__title_btnReview}>
-            Залишити відгук
-          </button>
-        </Row>
-        <Row className={styles.productpage__title}>
-          <span>Також вас можуть зацікавити</span>
-        </Row>
+        <Container fluid className={styles.productpage__main}>
+          <Row>
+            <Col style={{ padding: "0" }}>
+              <MainSwiperCard product={product} setActive={setActive} />
+            </Col>
+            <Col style={{ padding: "0" }}>
+              <Infos product={product} active={active} />
+            </Col>
+          </Row>
+        </Container>
       </Container>
+      <CustomerInfo />
+      <CheaperTogether product={product} productsPlus={product.productsPlus} />
+      <ProductDescription product={product} />
+      <Reviews reviews={product.reviews} />
+      <Popular products={products} />
       <BunnerApp />
       <Questions />
       <Footer />
@@ -107,6 +100,7 @@ export async function getServerSideProps(context) {
     .lean();
 
   let subProduct = product.subProducts[style];
+
   let priceBefore=subProduct.sizes[0].price.toFixed(2);
 
   // let prices = subProduct.sizes
@@ -120,6 +114,7 @@ export async function getServerSideProps(context) {
     //products that go together cheaper
   let productsPlus = await Product.find().sort({createdAt: -1}).lean();
 
+
   let newProduct = {
     ...product,
     style,
@@ -129,6 +124,7 @@ export async function getServerSideProps(context) {
     //sizes: subProduct.sizes,
     size:subProduct.sizes[0].size,
     discount: subProduct.discount,
+
     color: subProduct.color?.color,
     priceBefore,
     price: ((100-subProduct.discount)*priceBefore/100).toFixed(2),
@@ -151,6 +147,7 @@ export async function getServerSideProps(context) {
     //     : subProduct.sizes[code].price,
     // priceBefore: subProduct.sizes[code].price,
     quantity: subProduct.sizes[0].qty,
+
     productsPlus,
     ratings: [
       { percentage: 76 },
@@ -172,10 +169,18 @@ export async function getServerSideProps(context) {
     //       array.findIndex((el2) => el2.size === element.size) === index
     //   ),
   };
+
  // console.log("newProduct",newProduct);
+
+  //Should be the same of the catecory
+  let products = await Product.find().sort({ popularity: -1 }).limit(5);
+
   //----------------
  await db.disconnectDb();
   return {
-    props: { product: JSON.parse(JSON.stringify(newProduct)) },
+    props: {
+      product: JSON.parse(JSON.stringify(newProduct)),
+      products: JSON.parse(JSON.stringify(products)),
+    },
   };
 }

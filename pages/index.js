@@ -14,13 +14,14 @@ import AppDownload from '@/components/appdownload'
 import FAQ from '@/components/faq'
 import db from '@/utils/db'
 import Product from "@/models/Product"
-
+import axios from 'axios'
 //import {products} from "../models/Product/index";
 
 const inter = Inter({ subsets: ["latin"] });
 
 
-export default function Home({ products }) {
+export default function Home({ country, products }) {
+  console.log("country", country);
   const { data: session } = useSession();
   console.log("session index home", session?.user?.id);
 
@@ -34,7 +35,7 @@ export default function Home({ products }) {
   //   .lean();
   return (
     <div className={styles.container}>
-      <Header />
+      <Header country={country} />
       <HomeCarousel />
       <Categories />
       <TopSales products={products} />
@@ -43,24 +44,32 @@ export default function Home({ products }) {
       <Popular products ={products}/>
       <AppDownload />
       <FAQ />
-      <Footer />
+     <Footer country={country}/>
     </div>
   );
 }
 export async function getServerSideProps() {
+
+
+  let data = {name: "Ukraine", flag: { emojitwo: "https://cdn.ipregistry.co/flags/emojitwo/ua.svg"}, code: "UA"};
+  /* Увага!!! замість обєкту можна використати сервіс ipregistry з наступним методом
+    await axios
+    .get('https://api.ipregistry.co/?key=aq50e9f94war7j9p')
+    .then((res) => {      
+      return res.data.location.country;
+    })
+    .catch((err)=> {
+      console.log(err);      
+    });*/
+
  await db.connectDb();
-  //----------------
-  //from db
+  
   let products = await Product.find().sort({ popularity: -1 }).limit(5);
-  //let popProducts ;
-
-  // for (let i = 0; i < products.length; i++) {
-  //   products[i]=await Product.findOne(products[i]._id).populate({ path: "category", model: Category })
-  //   .lean();
-  // }
-  return {
-    props: { products: JSON.parse(JSON.stringify(products)) },
-
+  
+  return {    
+    props: {   
+      country: { name: data.name, flag: data.flag.emojitwo, code: data.code },
+      products: JSON.parse(JSON.stringify(products)) },
   }
 
 }

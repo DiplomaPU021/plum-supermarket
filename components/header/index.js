@@ -12,7 +12,7 @@ import AccountIcon from '../icons/AccountIcon'
 import { useSession } from "next-auth/react"
 import Cart from '../cart'
 
-export default function Header() {
+export default function Header({country}) {
     const { data: session } = useSession();
     const cart = useSelector((state) => state.cart);
     const [loggedIn, setLoggedIn] = useState(false);
