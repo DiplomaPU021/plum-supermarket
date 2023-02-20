@@ -5,9 +5,6 @@ import Header from '@/components/header'
 import Footer from '@/components/footer'
 import "bootstrap/dist/css/bootstrap.min.css"
 
-
-
-import {products} from "../models/Product/index";
 import CheckoutOrder from '@/components/checkoutorder'
 
 const inter = Inter({ subsets: ["latin"] });

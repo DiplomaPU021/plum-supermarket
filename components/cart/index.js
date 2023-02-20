@@ -32,7 +32,7 @@ export default function Cart(props) {
 
         if (session) {
             saveCart(cart, session.user.id);
-            router.push("/chechout");
+            router.push("/checkout");
         } else {
             signIn();
         }
