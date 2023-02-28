@@ -15,7 +15,7 @@ import ChevronRight from "@/components/icons/ChevronRight";
 import ChevronLeft from "@/components/icons/ChevronLeft";
 import { Container, Row, Col } from "react-bootstrap";
 
-export default function MainSwiper({ product, setActive }) {
+export default function MainSwiper({ product, active, setActive }) {
   const [activeImg, setActiveImg] = useState("");
   const router = useRouter();
   return (
@@ -87,21 +87,7 @@ export default function MainSwiper({ product, setActive }) {
               </Link>
             </span>)
           )}
-          {/* {product.colors.map((color, i) => (
-            <span
-              key={i}
-              className={i == router.query.style ? styles.active : ""}
-              onMouseOver={() =>
-                setActiveImg(product.subProducts[i].images[0].url)
-              }
-              onMouseLeave={() => setActiveImg("")}
-              onClick={() => setActive(i)}
-            >
-              <Link href={`/product/${product.slug}?style=${i}`}>
-                <Image src={color.image} alt={color.image} key={i} />
-              </Link>
-            </span>
-          ))} */}
+
         </div>
       ) : (
         ""

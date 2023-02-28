@@ -18,6 +18,7 @@ export default function CartPage(props) {
     const router = useRouter();
     const { data: session } = useSession();
     const cart = useSelector((state) => state.cart);
+    // console.log("cartIndex", cart);
     const [total, setTotal] = useState(0);
     //const [loading, setLoading] = useState(false)
     const [userId, setUserId] = useState(props.userid);
@@ -31,7 +32,7 @@ export default function CartPage(props) {
 
     const getTotalPrice = () => {
         return cart.cartItems.reduce(
-            (accumulator, item) => accumulator + item.qty * item.price,
+            (accumulator, item) => accumulator + item.qty * item.priceAfter,
             0
         );
     };

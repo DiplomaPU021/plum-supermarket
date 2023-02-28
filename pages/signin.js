@@ -28,7 +28,7 @@ const initialvalues = {
     login_error: "",
 }
 
-export default function signin({ providers, callbackUrl, csrfToken }) {
+export default function signin({ providers, callbackUrl, csrfToken, country }) {
     const [loading, setLoading] = React.useState(false)
     const [user, setUser] = React.useState(initialvalues);
     const {
@@ -241,7 +241,7 @@ export default function signin({ providers, callbackUrl, csrfToken }) {
                     </div>
                 </div>
             </div>
-            <Footer country="Ukraine" />
+            <Footer country={country} />
         </>
     )
 }
@@ -250,6 +250,16 @@ export async function getServerSideProps(context) {
     const { req, query } = context;
     const session = await getSession({req});
     const { callbackUrl } = query;
+    let data = {name: "Ukraine", flag: { emojitwo: "https://cdn.ipregistry.co/flags/emojitwo/ua.svg"}, code: "UA"};
+    /* Увага!!! замість обєкту можна використати сервіс ipregistry з наступним методом
+      await axios
+      .get('https://api.ipregistry.co/?key=aq50e9f94war7j9p')
+      .then((res) => {      
+        return res.data.location.country;
+      })
+      .catch((err)=> {
+        console.log(err);      
+      });*/
     if (session) {
         return {
             redirect: {
@@ -258,8 +268,10 @@ export async function getServerSideProps(context) {
         };
     };
     const csrfToken = await getCsrfToken(context);
-    const providers = Object.values(await getProviders())
+    const providers = Object.values(await getProviders());
+   const country= { name: data.name, flag: data.flag.emojitwo, code: data.code };
     return {
-        props: { providers, csrfToken, callbackUrl },
+        props: { providers, csrfToken, callbackUrl, country },
+       
     };
 }

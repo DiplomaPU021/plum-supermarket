@@ -23,7 +23,7 @@ import ProductDescription from "@/components/productPage/productDescription";
 import Popular from "@/components/popular";
 import Reviews from "@/components/productPage/reviews";
 
-export default function product({ product, products }) {
+export default function product({ product, products, country }) {
   const [active, setActive] = useState(0);
 
   return (
@@ -66,10 +66,10 @@ export default function product({ product, products }) {
         <Container fluid className={styles.productpage__main}>
           <Row>
             <Col style={{ padding: "0" }}>
-              <MainSwiperCard product={product} setActive={setActive} />
+              <MainSwiperCard product={product} active={active} setActive={setActive} />
             </Col>
             <Col style={{ padding: "0" }}>
-              <Infos product={product} active={active} />
+              <Infos product={product} active={active} setActive={setActive}/>
             </Col>
           </Row>
         </Container>
@@ -81,7 +81,7 @@ export default function product({ product, products }) {
       <Popular products={products} />
       <BunnerApp />
       <Questions />
-      <Footer />
+      <Footer country={country}/>
     </div>
   );
 }
@@ -90,6 +90,16 @@ export async function getServerSideProps(context) {
   const slug = query.slug;
   const style = query.style;
   const code = query.code || 0;
+  let data = {name: "Ukraine", flag: { emojitwo: "https://cdn.ipregistry.co/flags/emojitwo/ua.svg"}, code: "UA"};
+  /* Увага!!! замість обєкту можна використати сервіс ipregistry з наступним методом
+    await axios
+    .get('https://api.ipregistry.co/?key=aq50e9f94war7j9p')
+    .then((res) => {      
+      return res.data.location.country;
+    })
+    .catch((err)=> {
+      console.log(err);      
+    });*/
   await db.connectDb();
   //----------------
   //from db
@@ -100,17 +110,7 @@ export async function getServerSideProps(context) {
     .lean();
 
   let subProduct = product.subProducts[style];
-
-  let priceBefore=subProduct.sizes[0].price.toFixed(2);
-
-  // let prices = subProduct.sizes
-  //   .map((s) => {
-  //     return s.price;
-  //   })
-  //   .sort((a, b) => {
-  //     return a - b;
-  //   });
-
+  let price=subProduct.sizes[0].price.toFixed(2);
     //products that go together cheaper
   let productsPlus = await Product.find().sort({createdAt: -1}).lean();
 
@@ -124,30 +124,14 @@ export async function getServerSideProps(context) {
     //sizes: subProduct.sizes,
     size:subProduct.sizes[0].size,
     discount: subProduct.discount,
-
     color: subProduct.color?.color,
-    priceBefore,
-    price: ((100-subProduct.discount)*priceBefore/100).toFixed(2),
+    price,
+    priceAfter: ((100-subProduct.discount)*price/100).toFixed(2),
     price_unit: subProduct.sizes[0].price_unit,
     code: subProduct.sizes[0].code,
     sold: subProduct.sold,
 
-    // priceRange: subProduct.discount
-    //   ? `From ${(prices[0] - prices[0] / subProduct.discount).toFixed(2)} to ${(
-    //     prices[prices.length - 1] -
-    //     prices[prices.length - 1] / subProduct.discount
-    //   ).toFixed(2)}$`
-    //   : `From ${prices[0]} to ${prices[prices.length - 1]}$`,
-    // price:
-    //   subProduct.discount > 0
-    //     ? (
-    //         subProduct.sizes[code].price -
-    //         subProduct.sizes[code].price / subProduct.discount
-    //       ).toFixed(2)
-    //     : subProduct.sizes[code].price,
-    // priceBefore: subProduct.sizes[code].price,
     quantity: subProduct.sizes[0].qty,
-
     productsPlus,
     ratings: [
       { percentage: 76 },
@@ -156,18 +140,7 @@ export async function getServerSideProps(context) {
       { percentage: 4 },
       { percentage: 0 },
     ],
-    // allSizes: product.subProducts
-    //   .map((p) => {
-    //     return p.sizes;
-    //   })
-    //   .flat()
-    //   .sort((a, b) => {
-    //     return a.size - b.size;
-    //   })
-    //   .filter(
-    //     (element, index, array) =>
-    //       array.findIndex((el2) => el2.size === element.size) === index
-    //   ),
+
   };
 
  // console.log("newProduct",newProduct);
@@ -181,6 +154,7 @@ export async function getServerSideProps(context) {
     props: {
       product: JSON.parse(JSON.stringify(newProduct)),
       products: JSON.parse(JSON.stringify(products)),
+      country: { name: data.name, flag: data.flag.emojitwo, code: data.code },
     },
   };
 }

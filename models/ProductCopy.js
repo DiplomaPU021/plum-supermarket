@@ -61,12 +61,27 @@ const productSchema = new mongoose.Schema(
                 ref: "SubCategory",
             },
         ],
+        // details: [
+        //     {
+        //         name: String,
+        //         value: String,
+        //     }
+        // ],
+
         details: [
             {
-                name: String,
-                value: String,
+                "group": "String",
+                "fields": [
+                    {
+                        "name": "String",
+                        "value": "String",
+                        "isMain": true
+                    }
+                ]
             }
         ],
+
+
         // questions: [
         //     {
         //         question: String,
@@ -96,7 +111,7 @@ const productSchema = new mongoose.Schema(
         description_images: [],
         subProducts: [
             {
-                images: [],    
+                images: [],
                 color: {
                     type: String,
                     icon: String,
@@ -104,7 +119,7 @@ const productSchema = new mongoose.Schema(
                 size: String,
                 qty: Number,
                 price: Number,
-                price_unit:  String,              
+                price_unit: String,
                 code: {
                     type: String,
                     required: true,

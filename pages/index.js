@@ -64,7 +64,7 @@ export async function getServerSideProps() {
 
  await db.connectDb();
   
-  let products = await Product.find().sort({ popularity: -1 }).limit(5);
+  let products = await Product.find().sort({ popularity: -1 }).limit(10);
   
   return {    
     props: {   

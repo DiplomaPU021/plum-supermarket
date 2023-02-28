@@ -13,10 +13,8 @@ handler.post(async (req, res) => {
         let products = [];
         let user = await User.findById(user_id);
         let existing_cart = await Cart.findOne({ user: user._id });
-        if (existing_cart) {
-            console.log("17");
+        if (existing_cart) {           
             await existing_cart.remove();
-            console.log("19");
         } 
        
         for (let i = 0; i < cart.cartItems.length; i++) {
@@ -29,10 +27,9 @@ handler.post(async (req, res) => {
             tempProduct.size = cart.cartItems[i].size;
             tempProduct.code = subProduct.sizes.find((p) => p.size == cart.cartItems[i].size).code;
             let price = Number(subProduct.sizes.find((p) => p.size == cart.cartItems[i].size).price);
-            tempProduct.priceBefore = price;
+            tempProduct.price = price;
             tempProduct.priceAfter = subProduct.discount > 0
-                ? (price - price / Number(subProduct.discount)
-                ).toFixed(2)
+                ? (((100-subProduct.discount)*price)/100).toFixed(2)
                 : price.toFixed(2);
                 tempProduct.discount= Number(subProduct.discount);
             tempProduct.qty = Number(cart.cartItems[i].qty);
@@ -59,7 +56,7 @@ handler.post(async (req, res) => {
         });
       
         const addedCart = await newCart.save();
-        console.log("60row_saveCart",addedCart);
+       // console.log("60row_saveCart",addedCart);
 
         await db.disconnectDb();
 
@@ -80,7 +77,7 @@ handler.post(async (req, res) => {
     }
    
     
-    console.log("//////////////////////existing cart",existing_cart);
+    //console.log("//////////////////////existing cart",existing_cart);
 
     
     await db.disconnectDb();

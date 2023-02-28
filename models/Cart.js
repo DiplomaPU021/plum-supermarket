@@ -22,7 +22,7 @@ const cartSchema = new mongoose.Schema(
                 code:{
                     type: String,
                 },
-                priceBefore: {
+                price: {
                     type: Number,
                 },
                 priceAfter: {

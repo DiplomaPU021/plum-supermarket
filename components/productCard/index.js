@@ -30,7 +30,7 @@ export default function ProductCard({ product }) {
   const [prices, setPrices] = useState(
     product.subProducts[active]?.sizes
       .map((s) => {
-        return s.price;
+        return Number(s.price);
       })
       .sort((a, b) => {
         return a - b;
@@ -50,7 +50,7 @@ export default function ProductCard({ product }) {
     setPrices(
       product.subProducts[active]?.sizes
         .map((s) => {
-          return s.price;
+          return Number(s.price).toFixed();
         })
         .sort((a, b) => {
           return a - b;
@@ -65,7 +65,7 @@ export default function ProductCard({ product }) {
     // const { data } = await axios.get(`/api/product/${product._id}?style=${product.style}&code=${router.query.code}`);
 
     const { data } = await axios.get(`/api/product/${product._id}?style=0&code=0`);
-     console.log("dataOnProductCardIndex--------->", data);
+    console.log("dataOnProductCardIndex--------->", data);
 
     // console.log("data2--------->", product._id);
     // console.log("data3--------->", data.style);
@@ -122,17 +122,17 @@ export default function ProductCard({ product }) {
             <Col>
               <Card.Title className={styles.product__container_infos_title}>
 
-                {(product.name + " "+ (product.subProducts[active].color? product.subProducts[active].color.color:""
-                ) +" " + product.subProducts[active].sizes[active].size).length > 55
+                {(product.name + " " + (product.subProducts[active].color ? product.subProducts[active].color.color : ""
+                ) + " " + product.subProducts[active].sizes[active].size).length > 55
 
                   ? `${product.name.substring(0, 55)}...`
                   : product.name +
-                    " " +
-                    (product.subProducts[active].color
-                      ? product.subProducts[active].color.color
-                      : "") +
-                    " " +
-                    product.subProducts[active].sizes[active].size}
+                  " " +
+                  (product.subProducts[active].color
+                    ? product.subProducts[active].color.color
+                    : "") +
+                  " " +
+                  product.subProducts[active].sizes[active].size}
               </Card.Title>
             </Col>
           </Row>
@@ -142,27 +142,27 @@ export default function ProductCard({ product }) {
             </Col>
           </Row>
           <Row className={styles.product__container_infos_pricebtn}>
-              {product.subProducts[active].discount > 0 ? (
-                <Col className={styles.product__container_infos_pricebtn_price}>
-                  <span
-                    className={styles.pricediscount}
-                  >{`${prices[0]} ${product.subProducts[active].sizes[0].price_unit}`}</span>
-                  <span className={styles.priceregular}>
-                    {`${(
-                      (Number(prices[0]) *
-                        (100 - Number(product.subProducts[active].discount))) /
-                      100
-                    ).toFixed(2)}`}{" "}
-                    {product.subProducts[active].sizes[0].price_unit}
-                  </span>
-                </Col>
-              ) : (
-                <Col className={styles.product__container_infos_pricebtn_price}>
-                  <span
-                    className={styles.priceregular}
-                  >{`${prices[0]} ${product.subProducts[active].sizes[0].price_unit}`}</span>
-                </Col>
-              )}
+            {product.subProducts[active].discount > 0 ? (
+              <Col className={styles.product__container_infos_pricebtn_price}>
+                <span
+                  className={styles.pricediscount}
+                >{`${prices[0]} ${product.subProducts[active].sizes[0].price_unit}`}</span>
+                <span className={styles.priceregular}>
+                  {`${(
+                    (Number(prices[0]) *
+                      (100 - Number(product.subProducts[active].discount))) /
+                    100
+                  ).toFixed(2)}`}{" "}
+                  {product.subProducts[active].sizes[0].price_unit}
+                </span>
+              </Col>
+            ) : (
+              <Col className={styles.product__container_infos_pricebtn_price}>
+                <span
+                  className={styles.priceregular}
+                >{`${prices[0]} ${product.subProducts[active].sizes[0].price_unit}`}</span>
+              </Col>
+            )}
             <Col className={styles.product__container_infos_pricebtn_btn}>
               {/* TODO onClick */}
               <Button className={styles.btnscales}>

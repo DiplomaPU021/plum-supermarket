@@ -11,7 +11,7 @@ import { updateCart } from "../../store/cartSlice"
 
 
 export default function CartItem(product, userid) {
-    console.log("cartItem", product);
+    // console.log("cartItem", product);
     const cart = useSelector((state) => state.cart);
     const dispatch = useDispatch();
     const updateQty = async (type) => {
@@ -72,10 +72,10 @@ export default function CartItem(product, userid) {
                         </div>
                         {
                             product.product.discount > 0 ? (
-                                <h5>{Number(product.product.priceBefore * product.product.qty).toFixed(2)} {product.product.price_unit}</h5>)
+                                <h5>{Number(product.product.price * product.product.qty).toFixed(2)} {product.product.price_unit}</h5>)
                                 : (<></>)
                         }
-                        <h3>{Number(product.product.price * product.product.qty).toFixed(2)} {product.product.price_unit}</h3>
+                        <h3>{Number(product.product.priceAfter * product.product.qty).toFixed(2)} {product.product.price_unit}</h3>
 
                     </div>
                     <div className={styles.cardbtns}>

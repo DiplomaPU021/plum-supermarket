@@ -13,8 +13,8 @@ handler.get(async (req, res) => {
          //const code = 0;
         const product = await Product.findById(id).lean();
         let discount = product.subProducts[style].discount;
-        let priceBefore = product.subProducts[style].sizes[0].price;
-        let price = discount ? priceBefore - priceBefore / discount : priceBefore
+        let price = product.subProducts[style].sizes[0].price;
+        let priceAfter = discount ? (100-discount)*price/100 : price
        await db.disconnectDb();
         return res.status(200).json({
             _id: product._id,
@@ -35,7 +35,7 @@ handler.get(async (req, res) => {
             size: product.subProducts[style].sizes[0].size,
             price,
             price_unit: product.subProducts[style].sizes[0].price_unit,
-            priceBefore,
+            priceAfter,
             quantity: product.subProducts[style].sizes[0].qty,
         });
     } catch (error) {
