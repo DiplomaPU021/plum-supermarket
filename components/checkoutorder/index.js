@@ -74,7 +74,7 @@ export default function CheckoutOrder({
 
     const [filteredStreets, setFilteredStreets] = useState([]);
     const [searchStreet, setSearchStreet] = useState("");
-    const [selectedStreet, setSelectedStreet] = useState("");
+    const [selectedStreet, setSelectedStreet] = useState({});
 
     // TODO: замінити в коді adresssArray на userAdresses, як тільки в юзера з'являться адреси в базі
     const [addressArray, setAddressArray] = useState(
@@ -136,14 +136,10 @@ export default function CheckoutOrder({
         country: yup.string()
     })
 
-
-
     const selectRef = useRef();
     const handleCityChange = (e) => {
         setSearchCity(e.target.value);
     };
-
-
 
     const handleChange = e => {
         const { name, value } = e.target;
@@ -158,7 +154,6 @@ export default function CheckoutOrder({
     const handleChangePayment = e => {
         e.persist();
         console.log("handlePayment: ", e.target.value);
-
         setPayment(prevState => ({
             ...prevState,
             paymentType: e.target.value
@@ -166,8 +161,9 @@ export default function CheckoutOrder({
     };
 
     useEffect(() => {
-        let streets = [];
+
         if (searchCity && searchStreet) {
+            let streets = [];
             setTimeout(async () => {
                 streets = await getStreets(searchCity, searchStreet);
                 if (streets && streets.length > 0) {
@@ -179,10 +175,12 @@ export default function CheckoutOrder({
         }
     }, [searchStreet]);
 
+
     const handleSelectStreet = (street) => {
+        selectRef.current.focus();
         setSelectedStreet(street);
         setSearchStreet(`${street.street_type} ${street.name}`);
-        selectRef.current.focus();
+
     }
 
     const handleChangeDelivery = e => {
@@ -255,7 +253,7 @@ export default function CheckoutOrder({
             const addressString = selectedStreet.street_type + " " + selectedStreet.name + ", буд." + addressValues.building + ", кв." + addressValues.flat + ", пов." + addressValues.ground + ", ліфт: " + addressValues.elevator;
             setAddressArray([...addressArray,
             {
-                _id: addressArray.length + 1,
+                // _id: addressArray.length + 1,
                 address: addressString,
                 country: "Україна",
                 city: searchCity,
@@ -264,28 +262,13 @@ export default function CheckoutOrder({
                 active: true,
             }]
             );
-
-            // addressArray.push(
-            //     {
-            //         _id: addressArray.length,
-            //         address: addressString,
-            //         country: "Україна",
-            //         city: searchCity,
-            //         region: searchCity.region,
-            //         zipCode: searchCity.zipCode,
-            //         active: true,
-            //     });
-
             setShowAddAddressBlock("none")
             setShowPostmanDelivery("block");
-            // setAddressValues({
-            //     street: '',
-            //     building: '',
-            //     flat: '',
-            //     ground: '',
-            //     elevator: 'Відсутній'
-            // });
-            console.log(addressString);
+            document.getElementById("buildingGroup").value = "";
+            document.getElementById("flatGroup").value = "";
+            document.getElementById("groundGroup").value = "";
+            document.getElementById("idElevator").value = "";
+            setSearchStreet("")
         }
     }
     const handleShowAddAdress = () => {
@@ -306,14 +289,12 @@ export default function CheckoutOrder({
     const handleCancelAddAdress = () => {
         setShowAddAddressBlock("none");
         setShowPostmanDelivery("block");
-        setAddressValues({
-            street: '',
-            building: '',
-            flat: '',
-            ground: '',
-            elevator: 'Відсутній'
-        });
-        // clear form values or close modal
+        document.getElementById("buildingGroup").value = "";
+        document.getElementById("flatGroup").value = "";
+        document.getElementById("groundGroup").value = "";
+        document.getElementById("idElevator").value = "";
+        setSearchStreet("")
+
     };
     const getTotalPrice = () => {
         return cart.products.reduce(
@@ -426,13 +407,14 @@ export default function CheckoutOrder({
                                         </Row>
                                         <Row className={styles.delivery}>
                                             <Col className={styles.colcard}>
-                                                <Form.Group as={Col} controlId="delivery">
-                                                    <Form.Label className={styles.form_label}>Ваше місто</Form.Label>
+                                                <Form.Group as={Col} >
+                                                    <Form.Label className={styles.form_label} htmlFor="city-name">Ваше місто</Form.Label>
                                                     <Form.Control className={styles.form_input2} placeholder="Виберіть місто..."
                                                         value={searchCity ? searchCity.value : ""} name="city"
                                                         onClick={handleSearchCity}
                                                         onChange={handleCityChange}
                                                         readOnly={true}
+                                                        id="city-name"
                                                     //  ref={selectRef}
                                                     // inputRef={(ref) => {this.input = ref}}
                                                     />
@@ -443,17 +425,18 @@ export default function CheckoutOrder({
                                                             <Col>
                                                                 <Form.Check
                                                                     type="radio"
-                                                                    id="selfPickupCheck"
+                                                                    // id="selfPickupCheck"
                                                                     className={styles.radio}
-                                                                    aria-label="radio 6">
+                                                                    aria-label="radio 9">
                                                                     <Form.Check.Input
                                                                         name="selfPickupRadio"
+                                                                        id="selfPickupRadio"
                                                                         type="radio"
                                                                         value="Самовивіз з наших магазинів"
                                                                         onChange={handleChangeDelivery}
                                                                         checked={deliveryType === "Самовивіз з наших магазинів"}
                                                                     />
-                                                                    <Form.Check.Label>Самовивіз з наших магазинів</Form.Check.Label>
+                                                                    <Form.Check.Label htmlFor="selfPickupRadio">Самовивіз з наших магазинів</Form.Check.Label>
                                                                 </Form.Check>
                                                             </Col>
                                                             <Col className={styles.text_span}>Безкоштовно</Col>
@@ -472,16 +455,17 @@ export default function CheckoutOrder({
                                                         <Col>
                                                             <Form.Check
                                                                 type="radio"
-                                                                id="postmanCheck"
+                                                                // id="postmanCheck"
                                                                 className={styles.radio}
-                                                                aria-label="radio 6">
+                                                                aria-label="radio 8">
                                                                 <Form.Check.Input
                                                                     name="postmanRadio"
+                                                                    id="postmanRadio"
                                                                     type="radio"
                                                                     value="Кур'єр на вашу адресу"
                                                                     onChange={handleChangeDelivery}
                                                                     checked={deliveryType === "Кур'єр на вашу адресу"} />
-                                                                <Form.Check.Label>Кур'єр на вашу адресу</Form.Check.Label>
+                                                                <Form.Check.Label htmlFor="postmanRadio">Кур'єр на вашу адресу</Form.Check.Label>
                                                             </Form.Check>
                                                         </Col>
                                                         <Col className={styles.text_span}>98 $</Col>
@@ -494,7 +478,7 @@ export default function CheckoutOrder({
                                                                     onClick={handleSelectPostman}>
                                                                     {/* <option value="" disabled={false}>Вибрати адресу доставки...</option> */}
                                                                     {addressArray.map((item, index) => (
-                                                                        <option key={item._id + index} value={item.address}>{item.address}</option>
+                                                                        <option id={index} key={index} value={item.address}>{item.address}</option>
                                                                     ))}
                                                                 </Form.Select>
                                                             ) : (
@@ -503,26 +487,29 @@ export default function CheckoutOrder({
 
                                                             <Row>
                                                                 <Col>
-                                                                    <Button onClick={handleShowAddAdress}>Додати іншу адресу</Button>
+                                                                    <Button onClick={handleShowAddAdress} id="btn-add-another-address">Додати іншу адресу</Button>
                                                                 </Col>
                                                             </Row>
 
                                                         </Row>
+
                                                         <Row style={{ display: showAddAddressBlock }} id="rowStreetSearch">
                                                             <Row>
-                                                                <Form.Group as={Col} controlId="streetGroup">
-                                                                    <Form.Label className={styles.form_label}>Вулиця</Form.Label>
+                                                                <Form.Group as={Col} >
+                                                                    <Form.Label className={styles.form_label} htmlFor="street">Вулиця</Form.Label>
                                                                     <Form.Control className={styles.form_input}
                                                                         value={searchStreet}
                                                                         name="street"
+                                                                        id="street"
                                                                         onChange={(e) => setSearchStreet(e.target.value)}
                                                                         ref={selectRef}
                                                                     />
                                                                     {filteredStreets.length > 0 && (
                                                                         <ul className={styles.city_list} id="ulStreetSelect">
-                                                                            {filteredStreets.map((street, i) => (
+                                                                            {filteredStreets.map((street) => (
                                                                                 <li
                                                                                     key={street._id}
+                                                                                    id={street._id}
                                                                                     onClick={() => handleSelectStreet(street)}
                                                                                 >
                                                                                     {/* {searchStreet.length > 3 ? `${street.street_type} ${street.name}` : ""} */}
@@ -552,9 +539,9 @@ export default function CheckoutOrder({
                                                                         name="elevator"
                                                                         id="idElevator"
                                                                         onClick={handleSelectElevator}>
-                                                                        <option value="" disabled={false} key="optEl1">Наявність вантажного ліфта</option>
-                                                                        <option key="optEl2">Відсутній</option>
-                                                                        <option key="optEl3">Присутній</option>
+                                                                        <option value="" disabled={false} id="optEl1" key="optEl1">Наявність вантажного ліфта</option>
+                                                                        <option id="optEl2" key="optEl2">Відсутній</option>
+                                                                        <option id="optEl3" key="optEl3">Присутній</option>
                                                                     </Form.Select>
                                                                 </Form.Group>
                                                             </Row>
@@ -570,9 +557,9 @@ export default function CheckoutOrder({
                                                     <Row><Col>
                                                         <Form.Check
                                                             type="radio"
-                                                            id="selfPickupPointCheck"
+                                                            // id="selfPickupPointCheck"
                                                             className={styles.radio}
-                                                            aria-label="radio 6">
+                                                            aria-label="radio 7">
                                                             <Form.Check.Input
                                                                 type="radio"
                                                                 name="selfPickupPointRadio"
@@ -587,13 +574,13 @@ export default function CheckoutOrder({
                                                     <Row><Col>
                                                         <Form.Check
                                                             type="radio"
-                                                            id="novaPoshtaCheck"
+                                                            // id="novaPoshtaCheck"
                                                             className={styles.radio}
                                                             aria-label="radio 6">
                                                             <Form.Check.Input
                                                                 type="radio"
                                                                 value="Нова пошта"
-                                                                name="novePoshtaRadio"
+                                                                name="novaPoshtaRadio"
                                                                 checked={deliveryType === "Нова пошта"}
                                                                 onChange={handleChangeDelivery}
                                                             />

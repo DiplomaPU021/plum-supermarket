@@ -9,9 +9,6 @@ handler.get(async (req, res) => {
         await db.connectDb();
         const street = req.query.street;
         const city = req.query.city;
-        console.log("street", street);
-        console.log("city", city);
-
          const streets = await Street.find({ city_name: { $regex: new RegExp(`^${city}$`, 'i') }, name:{$regex :street, $options: 'i'}}).lean().limit(10);
         // const streets = await Street.find({
         //     city_name: {

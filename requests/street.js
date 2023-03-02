@@ -1,14 +1,16 @@
 import axios from 'axios';
 export const getStreets = async (city, street) => {
     try {
-        if(city && street) {
+        if (city && street) {
             const { data } = await axios.get(`/api/cities/${city.object_name}/${street}`);
-            return data.streets;
+            if (data && data.streets) {
+                return data.streets;
+            } else {
+                return [];
+            }
         }
-        else return [];
-       
-
     } catch (error) {
+        console.log("streetDB error", error);
         return response.data.error.message;
 
     }

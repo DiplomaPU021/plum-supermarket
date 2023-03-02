@@ -36,7 +36,7 @@ handler.post(async (req, res) => {
         const activation_token = createActivationToken({
             id: addedUser._id.toString(),
         });
-        console.log(activation_token);
+        console.log("activation_token",activation_token);
         const url = `${process.env.BASE_URL}/activate/${activation_token}`;
         sendEmail(email, url, "", "Activate your account", activateEmailTemplate);
         // res.send(url);

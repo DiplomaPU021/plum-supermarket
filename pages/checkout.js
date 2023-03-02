@@ -13,6 +13,7 @@ import DotLoaderSpinner from '@/components/loaders/dotLoader';
 
 import CheckoutOrder from '@/components/checkoutorder'
 
+
 const inter = Inter({ subsets: ["latin"] });
 
 
@@ -21,6 +22,7 @@ export default function Checkout({ cart, user, country }) {
      <div className={styles.container}>
        <Header />
        <CheckoutOrder cart={cart} user={user} />
+
        <Footer country={country}/>
      </div>
    );
@@ -40,7 +42,7 @@ export async function getServerSideProps(context) {
     });*/
  await db.connectDb();
   var user={};
-  const { req, query } = context;
+  const { req } = context;
     const session = await getSession({req});
     if (session) {
       // console.log("//////////////////////////////////Session:",session);
@@ -48,6 +50,7 @@ export async function getServerSideProps(context) {
       var cart={}; 
       if (user) {
         cart = await Cart.findOne({ user: user._id });
+      
         // console.log("/////////////////////////////////cart:", cart);
         if (!cart) {
           return {
