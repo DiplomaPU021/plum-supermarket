@@ -128,7 +128,6 @@ export async function getServerSideProps(context) {
     color: subProduct.color?.color,
     price,
     priceAfter: ((100-subProduct.discount)*price/100).toFixed(2),
-
     price_unit: subProduct.sizes[0].price_unit,
     code: subProduct.sizes[0].code,
     sold: subProduct.sold,
@@ -152,7 +151,6 @@ export async function getServerSideProps(context) {
   await db.disconnectDb();
   return {
     props: {
-      country: { name: data.name, flag: data.flag.emojitwo, code: data.code },
       product: JSON.parse(JSON.stringify(newProduct)),
       products: JSON.parse(JSON.stringify(products)),
       country: { name: data.name, flag: data.flag.emojitwo, code: data.code },
