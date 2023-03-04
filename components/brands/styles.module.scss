@@ -1,0 +1,25 @@
+.brands {
+    background-color: $light-wheet-color;
+    padding-top: 50px;
+    padding-bottom: 50px;
+
+    &__row {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 25px 60px;
+        gap: 30px;
+        background: #F0EBFB;
+        border-top: 2px solid $green-color;
+        border-bottom: 2px solid $green-color;
+        box-shadow: 5px 5px 20px rgba(34, 15, 75, 0.2);
+       
+            .img{
+                max-height: 50px;
+                height: fit-content;
+                max-width: 130px;
+                width: fit-content;
+            }
+        
+    }
+}

@@ -12,12 +12,12 @@ import { updateCart } from "../../store/cartSlice"
 import DelNotification from "../delete"
 
 
-export default function CartItem(product) {
+export default function CartItem(product, userid) {
     const [showExtra, setShowExtra] = React.useState("none")
     const [notificationShow, setNotificationShow] = React.useState(false);
     const cart = useSelector((state) => state.cart);
     const dispatch = useDispatch();
-    const updateQty = (type) => {
+    const updateQty = async (type) => {
         let newCart = cart.cartItems.map((item) => {
             if (item._uid == product.product._uid) {
                 return {
@@ -30,7 +30,7 @@ export default function CartItem(product) {
         dispatch(updateCart(newCart));
     };
 
-    const removeProduct = (id) => {
+    const removeProduct = async (id) => {
         setNotificationShow(true)
         let newCart = cart.cartItems.filter((item) => {
             return item._uid != id;
@@ -43,7 +43,7 @@ export default function CartItem(product) {
                 {
                     product.product.discount > 0 ? (
                         <div className={styles.discount}>{product.product.discount}%</div>
-                    ) : (<></>)
+                    ) : (<></>)                  
                 }
                 <Container className={styles.bord}>
                     <Row className={styles.bord}>
@@ -113,73 +113,7 @@ export default function CartItem(product) {
                         </Col>
                     </Row>
                 </Container>
-
-
-
-
-
-
-
-
-
-
-
-
-                {/* <div className={styles.picture}><img src={product.product.images[0]} width='157px' height='95px' alt="picture"></img></div>
-                <div className={styles.cardtext}>
-                    <h5>
-                        {product.product.name.length > 40
-                            ? `${product.product.name.substring(0, 40)}...`
-                            : product.product.name}
-                    </h5>
-                    <div className={styles.cardtext_line}></div>
-                    <div className={styles.cardtext_extraservice}>
-                        <Button className={styles.cardextrabtn} onClick={() => setShowExtra(showExtra === "none" ? "block" : "none")}>Extra service {showExtra === "none" ? <img width="30px" height="30px" src="../../../icons/down-btn.png"></img> :
-                            <img width="30px" height="30px" src="../../../icons/up-btn.png"></img>}
-                        </Button>
-                        <div className={styles.extra_div} style={{ display: showExtra }}>
-                            some text
-                        </div>
-                    </div>
-
-
-                </div>
-                <div className={styles.cardcontrols}>
-                    <div className={styles.cardcontrols_itemcount}>
-                        <div className={styles.cardcontrols_plusmin}>
-                            <button
-                                disabled={product.product.qty < 2}
-                                onClick={() => updateQty("minus")} >
-                                <span>-</span>
-                            </button><div className={styles.count}>{product.product.qty}</div>
-                            <button
-                                disabled={product.product.qty == product.product.quantity}
-                                onClick={() => updateQty("plus")}
-                            >
-                                <span>+</span>
-                            </button>
-                        </div>
-                        {
-                            product.product.discount > 0 ? (
-                                <h5>{Number(product.product.priceBefore * product.product.qty).toFixed(2)} {product.product.price_unit}</h5>)
-                                : (<></>)
-                        }
-                        <h3>{Number(product.product.price * product.product.qty).toFixed(2)} {product.product.price_unit}</h3>
-
-                    </div>
-                    <div className={styles.cardbtns}>
-                        <button className={styles.itembtn}> <HeartIcon fillColor={"#220F4B"} /></button>
-                        <button className={styles.itembtn} onClick={() => removeProduct(product.product._uid)} style={{ backgroundColor: notificationShow ? "#220F4B" : "#FAF8FF" }}>
-                            <DeleteIcon fillColor={notificationShow ? "#FAF8FF" : "#220F4B"} />
-                        </button>
-                    </div>
-                </div>
-                <DelNotification
-                        show={notificationShow}
-                        onHide={() => setNotificationShow(false)}
-                    /> */}
             </Card.Body>
         </Card>
-
     )
 }

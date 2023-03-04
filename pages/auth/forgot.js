@@ -48,7 +48,9 @@ export default function forgot() {
                         <div className={styles.back_svg}>
                             <BiLeftArrowAlt />
                         </div>
-                        <span>Forgot your password? <Link href="/auth/forgot">Login instead</Link></span>
+                        <span>Forgot your password? 
+                            {/* <Link href="/">Login instead</Link> */}
+                            </span>
                     </div>
                     <Formik
                         enableReinitialize
