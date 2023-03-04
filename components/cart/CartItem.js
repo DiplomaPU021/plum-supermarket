@@ -54,10 +54,12 @@ export default function CartItem(product, userid) {
                         </Col>
                         <Col md={5} xs={12} sm={5} className={styles.cardtext}>
                             <h5>
-                                {product.product.name.length > 40
-                                    ? `${product.product.name.substring(0, 40)}...`
-                                    : product.product.name}
-                            </h5>
+                        {(product.product.name + " " + (product.product.color ? product.product.color.color : ""
+                        ) + " " + product.product.size).length > 55
+                            ? `${(product.product.name + " " + (product.product.color ? product.product.color.color : ""
+                            ) + " " + product.product.size).substring(0, 55)}...`
+                            : product.product.name + " " + (product.product.color ? product.product.color.color : "") + " " + product.product.size}
+                    </h5>
                             <div className={styles.cardtext_line}></div>
                             <div className={styles.cardtext_extraservice}>
                                 <button className={styles.cardextrabtn} onClick={() => setShowExtra(showExtra === "none" ? "block" : "none")}>Extra service {showExtra === "none" ? <img width="30px" height="30px" src="../../../icons/down-btn.png"></img> :
@@ -95,12 +97,12 @@ export default function CartItem(product, userid) {
                                     </button>
                                 </div>
                                 <div className={styles.bord}>
-                                    {
-                                        product.product.discount > 0 ? (
-                                            <h5>{Number(product.product.priceBefore * product.product.qty).toFixed(2)} {product.product.price_unit}</h5>)
-                                            : (<></>)
-                                    }
-                                    <h3>{Number(product.product.price * product.product.qty).toFixed(2)} {product.product.price_unit}</h3>
+                                  {
+                            product.product.discount > 0 ? (
+                                <h5>{Number(product.product.price * product.product.qty).toFixed(2)} {product.product.price_unit}</h5>)
+                                : (<></>)
+                        }
+                                   <h3>{Number(product.product.priceAfter * product.product.qty).toFixed(2)} {product.product.price_unit}</h3>
                                 </div>
                             </Row>
                         </Col>
