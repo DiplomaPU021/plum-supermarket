@@ -7,6 +7,9 @@
     "slug": "notebooks",
     "top_parent": {
       "$oid": "63e370145ba7e472e6726ca2"
+    },
+    "parent": {
+      "$oid": "63fffd0450fc81079dcb179c"
     }
   },
   {
@@ -17,6 +20,9 @@
     "slug": "computers-nettops-monoblocks",
     "top_parent": {
       "$oid": "63e370145ba7e472e6726ca2"
+    },
+    "parent": {
+      "$oid": "63fffd0450fc81079dcb179c"
     }
   },
   {
@@ -27,6 +33,9 @@
     "slug": "monitors",
     "top_parent": {
       "$oid": "63e370145ba7e472e6726ca2"
+    },
+    "parent": {
+      "$oid": "640007c150fc81079dcb17a2"
     }
   },
   {
@@ -37,6 +46,9 @@
     "slug": "mobile-phones",
     "top_parent": {
       "$oid": "63e39c465ba7e472e6726ce5"
+    },
+    "parent": {
+      "$oid": "640009c450fc81079dcb17a7"
     }
   },
   {
@@ -47,6 +59,9 @@
     "slug": "tv",
     "top_parent": {
       "$oid": "63e39c465ba7e472e6726ce5"
+    },
+    "parent": {
+      "$oid": "64000a1350fc81079dcb17a8"
     }
   },
   {
@@ -57,6 +72,9 @@
     "slug": "tablets",
     "top_parent": {
       "$oid": "63e39c465ba7e472e6726ce5"
+    },
+    "parent": {
+      "$oid": "640007f150fc81079dcb17a3"
     }
   },
   {
@@ -67,6 +85,9 @@
     "slug": "household_chemicals",
     "top_parent": {
       "$oid": "63e39c465ba7e472e6726ce6"
+    },
+    "parent": {
+      "$oid": "64000bc050fc81079dcb17aa"
     }
   },
   {
@@ -77,6 +98,9 @@
     "slug": "detergents_all",
     "top_parent": {
       "$oid": "63e39c465ba7e472e6726ce6"
+    },
+    "parent": {
+      "$oid": "64000ab050fc81079dcb17a9"
     }
   }
 ]

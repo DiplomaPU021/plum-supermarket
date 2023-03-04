@@ -13,6 +13,8 @@ import { useSelector, useDispatch } from "react-redux";
 import { addToCart, updateCart } from "@/store/cartSlice";
 
 import { Col, Container, Row } from "react-bootstrap";
+import AllDetails from "../allDetails";
+import SizesTable from "../sizesTable";
 
 
 export default function Infos({ product, active }) {
@@ -25,7 +27,9 @@ export default function Infos({ product, active }) {
     product.subProducts[active]?.sizes[0]?.price);
   const [price_unit, setPriceUnit] = useState(
     product.subProducts[active]?.sizes[0]?.price_unit);
-
+  const [showDetails, setShowDetails] = useState(false)
+  const [showSizes, setShowSizes] = useState(false)
+ 
   // const [prices, setPrices] = useState(
   //   product.subProducts[active]?.sizes
   //     .map((s) => {
@@ -162,12 +166,15 @@ export default function Infos({ product, active }) {
         )}
       </Col>
       <Col className={styles.infos__more}>
-        {/* TODO more details */}
-        <button>
+        <button
+        onClick={()=> setShowDetails(true)}>
           Дивитися всі характеристики{" "}
           <ChevronRight fillColor="#70BF63" w="30px" h="30px" />
         </button>
-
+            <AllDetails
+            product={product}
+            show={showDetails}
+            onHide={() => setShowDetails(false)}/>
       </Col>
       {product.size ?
       (<Row className={styles.infos__sizesInfo}>
@@ -188,11 +195,15 @@ export default function Infos({ product, active }) {
             </Link>
           ))}
         </Col>
-        <button>
-          {/* TODO onClick */}
+        <button
+         onClick={()=> setShowSizes(true)}
+         >
           Таблиця розмірів{" "}
           <ChevronRight fillColor="#70BF63" w="30px" h="30px" />
         </button>
+        <SizesTable
+            show={showSizes}
+            onHide={() => setShowSizes(false)}/>
       </Row>): (null)}
     </Container>
 

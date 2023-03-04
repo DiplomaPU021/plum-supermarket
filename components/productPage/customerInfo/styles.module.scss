@@ -21,7 +21,7 @@
 
             .title {
                 padding: 10px 24px;
-                width: 427px;
+                width: 65%;
                 height: 54px;
                 background: linear-gradient(90deg, #71C064 0%, #8AE37C 100%);
                 border-radius: 0px 23px 23px 0px;
@@ -59,7 +59,7 @@
             .creditvariant {
                 display: flex;
                 flex-direction: column;
-                gap: 45px;
+                gap: 50px;
 
                 button {
                     width: fit-content;
@@ -92,7 +92,7 @@
                     flex-direction: row;
                     justify-content: center;
                     align-items: center;
-                   // padding-bottom: 30px;
+                    padding-bottom: 23px;
                     
                     span {
                         font-family: 'Noto Sans';

@@ -35,7 +35,7 @@ export default function Header({country}) {
             <div className={styles.main_container}>
                 <Link href="/">
                     <div className={styles.logo}>
-                        <Image src="../../../logo/logo_light.jpg" alt="logo" height="46px" />
+                        <Image src="../../../logo/logo_light.png" alt="logo" height="46px" />
                     </div>
                 </Link>
                 <div className={styles.search}>
