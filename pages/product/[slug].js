@@ -16,19 +16,22 @@ import GreenChevronRight from "@/components/icons/ChevronRight";
 import Link from "next/link";
 import CustomerInfo from "@/components/productPage/customerInfo";
 import { Col, Container, Row } from "react-bootstrap";
-import Questions from "@/components/questions";
-import BunnerApp from "@/components/bunnerApp";
+import FAQ from "@/components/faq";
+//import BunnerApp from "@/components/bannerApp";
 import CheaperTogether from "@/components/productPage/cheaperTogether";
 import ProductDescription from "@/components/productPage/productDescription";
 import Popular from "@/components/popular";
 import Reviews from "@/components/productPage/reviews";
+import AppDownload from "@/components/appdownload";
 
-export default function product({ product, products }) {
+
+export default function product({ product, products}) {
+  const country = { name: "Ukraine", flag: "", code: "UA" }
   const [active, setActive] = useState(0);
 
   return (
     <div>
-      <Header country="" />
+      <Header country={country} />
       <Container fluid className={styles.productpage}>
         <Row>
           <Col>
@@ -78,9 +81,9 @@ export default function product({ product, products }) {
       <ProductDescription product={product} />
       <Reviews reviews={product.reviews} />
       <Popular products={products} />
-      <BunnerApp />
-      <Questions />
-      <Footer />
+      <AppDownload />
+      <FAQ />
+      <Footer country={country}/>
     </div>
   );
 }

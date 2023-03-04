@@ -60,7 +60,7 @@ export async function getServerSideProps() {
       console.log(err);      
     });*/
 
-  db.connectDb();
+  await db.connectDb();
   
   let products = await Product.find().sort({ popularity: -1 }).limit(5);
   

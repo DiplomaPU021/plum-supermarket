@@ -15,7 +15,7 @@ export default function Checkout() {
     <div className={styles.container}>
       <Header />
       <CheckoutOrder/>
-      <Footer />
+      {/* <Footer /> */}
     </div>
   );
 }

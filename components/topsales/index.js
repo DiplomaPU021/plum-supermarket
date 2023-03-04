@@ -10,40 +10,34 @@ import Button from 'react-bootstrap/Button'
 import ProductCard from "../productCard"
 
 export default function TopSales({ products }) {
-console.log("productsTopSales", products)
-;
-
+    console.log("productsTopSales", products);
     return (
-        <div className={styles.topsales}>
-            <Container className={styles.container}>
-                <Row className={styles.row}>
-                    <Col className={styles.colcard}><div className={styles.leftsale}>Top sales for this month</div></Col>
-                    <Col className={styles.coltext} md="auto">Sale</Col>
-                    <Col className={styles.coltext} md="auto">New</Col>
-                    <Col className={styles.coltext} md="auto">Expected</Col>
-                </Row>
-                <Row className={styles.products_row}>
-                    <Col className={styles.colcard}><ProductCard product={products[0]}  /></Col>
-                    <Col className={styles.colcard}><ProductCard product={products[1]} /></Col>
-                    <Col className={styles.colcard}><ProductCard product={products[0]} /></Col>
-                    <Col className={styles.colcard}><ProductCard product={products[1]} /></Col>
-                </Row>
-                <Row className={styles.products_row}>
-                    <Col className={styles.colcard}><ProductCard product={products[1]} /></Col>
-                    <Col className={styles.colcard}><ProductCard product={products[0]} /></Col>
-                    <Col className={styles.colcard}><ProductCard product={products[1]} /></Col>
-                    <Col className={styles.colcard}><ProductCard product={products[0]} /></Col>
-                  <Col className={styles.colcard}>
-                        <Card className={styles.morevideo}>
-                            <Card.Body className={styles.lastcardbody}>
-                                <h6 className={styles.textcard}>More items next</h6>
-                                <Button className={styles.ytbtn}>Show more</Button>
-                            </Card.Body>
-                        </Card>
-                    </Col>
-                </Row>
-            </Container>
-        </div>
+        <Container fluid className={styles.cont}>
+            <Row className={styles.row}>
+                <Col xs={10} md={8} className={styles.col}><span className={styles.leftsale}>Top sales for this month</span></Col>
+                <Col className={styles.coltext2} xs={2} md={1}><Link href="/" className={styles.link}>Акційні</Link></Col>
+                <Col className={styles.coltext} xs={2} md={1}><Link href="/" className={styles.link}>Новинки</Link></Col>
+                <Col className={styles.coltext} xs={2} md={1}><Link href="/" className={styles.link}>Очікувані</Link></Col>
+            </Row>
+            <Row className={styles.products_row}>
+                <ProductCard product={products[0]} />
+                <ProductCard product={products[1]} />
+                <ProductCard product={products[0]} />
+                <ProductCard product={products[1]} />
+                <ProductCard product={products[1]} />
+                <ProductCard product={products[0]} />
+                <ProductCard product={products[1]} />
+                <div className={styles.colcard}>
+                    <Card className={styles.morevideo}>
+                        <Card.Body className={styles.lastcardbody}>
+                            <h6 className={styles.textcard}>Більше товарів далі</h6>
+                            <Button className={styles.ytbtn}>Показати ще</Button>
+                        </Card.Body>
+                    </Card>
+                </div>
+            </Row>
+        </Container>
+
 
     )
 }

@@ -2,7 +2,7 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import { Container, Row, Col } from "react-bootstrap";
 import styles from "./styles.module.scss";
 
-export default function BunnerApp() {
+export default function BannerApp() {
   return (
     <Container fluid>
       <Row className={styles.banner}>
