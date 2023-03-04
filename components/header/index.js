@@ -11,25 +11,28 @@ import CartIcon from '../icons/CartIcon'
 import AccountIcon from '../icons/AccountIcon'
 import { useSession } from "next-auth/react"
 import Cart from '../cart'
+import WishList from '../wishlist';
 
-export default function Header({country}) {
+export default function Header({ country }) {
     const { data: session } = useSession();
     const cart = useSelector((state) => state.cart);
-    const [loggedIn, setLoggedIn] = useState(false);
-    const [visible, setVisible] = useState(false)
-    const [cartShow, setCartShow] = useState(false);
-    //const [userId, setUserId] = useState(session?.user?.id);
+    const [loggedIn, setLoggedIn] = React.useState(false);
+    const [visible, setVisible] = React.useState(false)
+    const [cartShow, setCartShow] = React.useState(false);
+    const [wishShow, setWishShow] = React.useState(false);
+    const [language, setLanguage] = React.useState(false);
+    const [themeChange, setThemeChange] = React.useState(false);
+    
 
-    // useEffect(() => {
-    //     if (session) {
-    //         console.log("session_______________>>>>>", session);
-    //         setUserId(session.user.id)
-    //     }
-    // }, [userId]);
+    const getWishItemsCount = () => {
+         //TODO implement
+        return 0;
+    };
 
     const getItemsCount = () => {
-      return cart.cartItems.reduce((accumulator, item) => accumulator + item.qty, 0);
+        return cart.cartItems.reduce((accumulator, item) => accumulator + item.qty, 0);
     };
+
     return (
         <div className={styles.main}>
             <div className={styles.main_container}>
@@ -47,22 +50,31 @@ export default function Header({country}) {
                     </InputGroup>
                 </div>
                 <div className={styles.btnpannel}>
-                    <button>
-                        <ThemeIcon fillColor={"#220F4B"} />
+                     <button className={styles.location} onClick={() => setLanguage(true)} style={{backgroundColor: language ? "#220F4B" : "#FAF8FF", color: language ? "#FAF8FF" : "#220F4B"}}>
+                        UA
                     </button>
-                    <button>
-                    {/* <Image width="24px" height="24px" src="../../../images/categories/heart2.png" /> */}
-                         <HeartIcon fillColor={"#220F4B"} /> 
+                    <button onClick={() => setThemeChange(true)} style={{backgroundColor: themeChange ? "#220F4B" : "#FAF8FF"}}>
+                        <ThemeIcon fillColor={themeChange ? "#FAF8FF" : "#220F4B"} />
                     </button>
                     <div className={styles.cart}>
-                        <button onClick={() => setCartShow(true)}>
-                            <CartIcon fillColor={"#220F4B"} />
+                        <button onClick={() => setWishShow(true)} style={{backgroundColor: wishShow ? "#220F4B" : "#FAF8FF"}}>
+                        <HeartIcon fillColor={wishShow ? "#FAF8FF" : "#220F4B"} />
+                        </button>
+                        <span> {getWishItemsCount()}</span>
+                    </div>
+                    <div className={styles.cart}>
+                        <button onClick={() => setCartShow(true)} style={{backgroundColor: cartShow ? "#220F4B" : "#FAF8FF"}}>
+                            <CartIcon fillColor={cartShow ? "#FAF8FF" : "#220F4B"} />
                         </button>
                         <span> {getItemsCount()}</span>
                     </div>
                     <Cart
                         show={cartShow}
                         onHide={() => setCartShow(false)}
+                    />
+                     <WishList
+                        show={wishShow}
+                        onHide={() => setWishShow(false)}
                     />
 
                     <div
@@ -72,8 +84,8 @@ export default function Header({country}) {
                         {session ? (
                             //TODO change
                             <div className={styles.cart}>
-                                <button>
-                                    <HeartIcon fillColor={"#220F4B"} />
+                                <button style={{backgroundColor: "#220F4B"}}>
+                                   <AccountIcon fillColor={"#FAF8FF"} />
                                     {/* <img src={"/"+session.user.image} alt="profile"/> */}
                                     {/* {session.user.name} */}
                                 </button>

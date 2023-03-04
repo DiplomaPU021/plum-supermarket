@@ -1,0 +1,104 @@
+// .container {
+//     display: flex;
+//     margin: 20px 60px 0px 60px;
+//     gap: 1rem;
+   
+
+//     @media(max-width: 1100px) {
+//         flex-direction: column;
+//         justify-content: center;
+//         align-items: center;
+//     }
+// }
+
+// .cartst {
+//     width: 315px;
+//     height: 230px;
+//     padding: 24px;
+//     border-radius: 23px;
+//     background: linear-gradient(180deg, #FAF8FF 0%, #F2EDFF 100%);
+//     box-shadow: 0px 0px 15px rgba(34, 15, 75, 0.5), inset 7px 7px 20px #FAF5FF, inset -7px -7px 20px #F7EEFF;
+//     gap: 15px;
+//     justify-content: center;
+//     align-items: center;
+//     display: flex;
+
+//     p {
+//         max-width: 267px;
+//         font-family: 'Noto Sans';
+//         font-weight: 400;
+//         font-size: 16px;
+//         line-height: 22px;
+//         color: $plum-dark-color;
+//         margin-top: 20px;
+//     }
+// }
+
+// .cardbody {
+//     width: 267px;
+//     min-width: fit-content;
+//     margin: 0px;
+//     padding: 0px;
+//     flex-direction: column;
+//     justify-content: center;
+//     align-items: center;
+//     display: flex;
+//     border: 1px solid red;
+// }
+
+// .circle {
+//     width: 46px;
+//     height: 46px;
+//     background-color: #FAF8FF;
+//     border-radius: 50%;
+//     display: flex;
+//     align-items: center;
+//     justify-content: center;
+//     border: 2px solid $plum-dark-color;
+//     color: $plum-dark-color;
+// }
+
+// .cartbtn {
+//     color: #FAF8FF;
+//     width: 267px;
+//     height: 60px;
+//     background: $green-color;
+//     border-radius: 30px;
+//     font-weight: 500;
+//     font-size: 28px;
+//     line-height: 38px;
+//     align-items: center;
+//     justify-content: center;
+//     border: none;
+   
+
+  
+// }
+
+// .topfaq {
+//     display: flex;
+//     justify-content: center;
+//     gap: 2rem;
+//     align-items: center;
+//     margin-top: 20px;
+// }
+
+// .textcenter {
+//     text-align: center;
+//     color: $plum-dark-color;
+    
+// }
+
+// .helpbtn {
+//     background: $plum-dark-color;
+//     color: #FAF8FF;
+//     width: 368px;
+//     height: 54px;
+//     border-radius: 30px;
+//     font-weight: 400;
+//     font-size: 25px;
+//     line-height: 32px;
+//     align-items: center;
+//     justify-content: center;
+//     border: none;
+// }

@@ -158,6 +158,12 @@
             margin-top: 10px;
         }
 
+        .location{
+            color: #a09f9f;
+            text-decoration: none;
+            
+        }
+
         ul {
             display: flex;
             align-items: center;
@@ -167,7 +173,6 @@
 
             li {
                 position: relative;
-                text-decoration: underline;
 
                 a {
                     color: #a09f9f;

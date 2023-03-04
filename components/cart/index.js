@@ -11,7 +11,6 @@ import { useSelector } from "react-redux";
 import { signIn, useSession } from 'next-auth/react';
 import { useRouter } from "next/router"
 import { saveCart } from "@/requests/user"
-//import DotLoaderSpinner from '@/components/loaders/dotLoader';
 
 
 export default function CartPage(props) {
@@ -19,8 +18,10 @@ export default function CartPage(props) {
     const { data: session } = useSession();
     const cart = useSelector((state) => state.cart);
     const [total, setTotal] = useState(0);
-    //const [loading, setLoading] = useState(false)
+
     const [userId, setUserId] = useState(props.userid);
+    const [footerVisible, setFooterVis] = useState("none");
+
 
     // useEffect(() => {
     //     if (session) {
@@ -70,6 +71,12 @@ export default function CartPage(props) {
     //         (accumulator, item) => accumulator + item.qty * item.price, 0));
     // }, [cart.cartItems]);
 
+    useEffect(()=>{
+        if(cart?.cartItems?.length !== 0){
+            setFooterVis("block")
+        }
+    })
+
     return (
 
         <Modal
@@ -81,27 +88,33 @@ export default function CartPage(props) {
                 loading && <DotLoaderSpinner loading={loading} />
             } */}
             <div className={styles.modaldiv}>
-                <Modal.Header closeButton onClick={() => updateCartInDbHandler()}></Modal.Header>
+                <Modal.Header  className={styles.modalheader} closeButton onClick={() => updateCartInDbHandler()}></Modal.Header>
                 {cart == null || cart?.cartItems?.length == 0 || cart.cartItems == null ? (
                     <EmptyCart />
                 ) : (
-                    <Modal.Body className={styles.modalbody}>
+                    
+                    <Modal.Body className={styles.modalbody} >
+                        
                         {
                             cart.cartItems?.map((product, i) => (
                                 <CartItem key={i} product={product} userid={userId} />
                             ))
                         }
-                        <h3>Total to pay:<span>{getTotalPrice().toFixed(2)}</span></h3>
-                        <button className={styles.addbtn}
-                            onClick={() => saveCartToDbHandler()}
-                        >Checkout</button>
-                        {/* <Checkout total={getTotalPrice().toFixed(2)}
-                        saveCartToDbHandler={saveCartToDbHandler}
-                        /> */}
-                        <Link href="/" className={styles.link}>
-                            Back to shopping</Link>
-                    </Modal.Body>
-                )}
+                        </Modal.Body>
+                         )}
+                         {/* visible unvisible */}
+                          <Modal.Footer style={{display: footerVisible}} as={'div'}> 
+                          <div className={styles.modalfoot}>  
+                          <h3>Total to pay:<span>{getTotalPrice().toFixed(2)}</span></h3>
+                              <button className={styles.addbtn}
+                                  onClick={() => saveCartToDbHandler()}
+                              >Checkout</button>
+                              {/* <Checkout total={getTotalPrice().toFixed(2)}
+                              saveCartToDbHandler={saveCartToDbHandler}
+                              /> */}
+                              <Link href="/" className={styles.link}>Повернутись до покупок</Link>
+                              </div> 
+                          </Modal.Footer>
             </div>
         </Modal>
     )

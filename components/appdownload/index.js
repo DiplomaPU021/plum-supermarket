@@ -15,13 +15,23 @@ export default function AppDownload() {
                     <div className={styles.circle}>
                         <GooglePlayIcon fillColor={color} />
                     </div>
-                    Google Play
+                    <div className={styles.t}>
+                        <span className={styles.t__t1}>Завантажити</span>
+                        <span className={styles.t__t1}>
+                            В <b>Google Play</b>
+                        </span>
+                    </div>
                 </Button>
                 <Button className={styles.appbtn}>
                     <div className={styles.circle}>
                         <AppleIcon fillColor={color} />
                     </div>
-                    App Store
+                    <div className={styles.t}>
+                        <span className={styles.t__t1}>Завантажити</span>
+                        <span className={styles.t__t1}>
+                            В <b>AppStore</b>
+                        </span>
+                    </div>
                 </Button>
             </div>
         </div>

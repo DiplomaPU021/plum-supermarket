@@ -14,12 +14,14 @@ import GreenChevronRight from "@/components/icons/ChevronRight";
 import Link from "next/link";
 import CustomerInfo from "@/components/productPage/customerInfo";
 import { Col, Container, Row } from "react-bootstrap";
-import Questions from "@/components/questions";
-import BannerApp from "@/components/bannerApp";
+import FAQ from "@/components/faq";
+//import BunnerApp from "@/components/bannerApp";
 import CheaperTogether from "@/components/productPage/cheaperTogether";
 import ProductDescription from "@/components/productPage/productDescription";
 import Popular from "@/components/popular";
 import Reviews from "@/components/productPage/reviews";
+import AppDownload from "@/components/appdownload";
+
 
 export default function product({ product, products, country }) {
   const [active, setActive] = useState(0);
@@ -80,9 +82,9 @@ export default function product({ product, products, country }) {
       <ProductDescription product={product} />
       <Reviews reviews={product.reviews} />
       <Popular products={products} />
-      <BannerApp />
-      <Questions />
-      <Footer country={country} />
+      <AppDownload />
+      <FAQ />
+      <Footer country={country}/>
     </div>
   );
 }

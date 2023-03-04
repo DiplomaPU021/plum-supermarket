@@ -16,8 +16,8 @@ export default function Ad({country}) {
                     ))
                     }
                     <li>
-                        <a>
-                            <IoLocationSharp />{country.name}
+                        <a className={styles.location}>
+                            <IoLocationSharp /> {country.name}
                         </a>
                     </li>
                 </ul>

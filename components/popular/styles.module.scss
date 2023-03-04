@@ -1,5 +1,4 @@
 .cont {
-    //padding: 0;
     padding-top: 30px;
     background-color: $light-wheet-color;
 }
@@ -26,7 +25,6 @@
     justify-content: flex-start;
     display: flex;
     padding-left: 60px;
-
 }
 
 .products_row {
@@ -86,11 +84,10 @@
     font-size: 25px;
     line-height: 34px;
     text-align: center;
-    color: #220F4B;
+    color: #220F4B; 
 }
 
 .lastcardbody {
-    width: "267px";
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -112,4 +109,5 @@
     border-radius: 30px !important;
     color: #FAF8FF;
     background-color: #220F4B;
+    border: none;
 }
