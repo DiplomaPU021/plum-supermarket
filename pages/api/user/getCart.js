@@ -2,14 +2,15 @@ import Product from "@/models/Product";
 import User from "@/models/User";
 import Cart from "@/models/Cart";
 import db from "@/utils/db";
+import auth from "@/middleware/auth";
 
-const handler = nc();
+const handler = nc().use(auth);
 
 handler.get(async (req, res) => {
-    console.log("/////////////////////axios",req.query.id);
+   
     try {
   
-        const id = req.query.id;
+        const id = req.user;
         await db.connectDb();
         // const { user_id } = req.body;
         let user = await User.findById(id);

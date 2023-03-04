@@ -3,15 +3,18 @@ import Product from "@/models/Product";
 import User from "@/models/User";
 import Cart from "@/models/Cart";
 import db from "@/utils/db";
+import auth from "@/middleware/auth";
 
-const handler = nc();
+const handler = nc().use(auth);
 
 handler.post(async (req, res) => {
     try {
+        // console.log("user.id", req.user);
+        // return;
         await db.connectDb();
-        const { cart, user_id } = req.body;
+        const { cart } = req.body;
         let products = [];
-        let user = await User.findById(user_id);
+        let user = await User.findById(req.user);
         let existing_cart = await Cart.findOne({ user: user._id });
         if (existing_cart) {
             await existing_cart.remove();
@@ -56,8 +59,6 @@ handler.post(async (req, res) => {
         });
 
         const addedCart = await newCart.save();
-
-
         // console.log("60row_saveCart",addedCart);
 
         await db.disconnectDb();

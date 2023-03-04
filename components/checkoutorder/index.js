@@ -13,6 +13,9 @@ import * as yup from 'yup';
 import "yup-phone";
 import { getStreets } from "@/requests/street"
 import CityModal from "./citymodal";
+import useDeepCompareEffect from "use-deep-compare-effect"
+import { manageAddress } from "@/requests/user"
+
 
 
 const initialValues = {
@@ -29,6 +32,7 @@ const initialValues = {
 export default function CheckoutOrder({
     cart,
     user,
+    country,
     selectedAddresses,
     setSelectedAddresses
 }) {
@@ -49,6 +53,7 @@ export default function CheckoutOrder({
     const [shipping, setShipping] = useState(initialValues);
     const [cityModalShow, setCityModalShow] = useState(false);
     const [searchCity, setSearchCity] = useState(null);
+    const [selectedCity, setSelectedCity] = useState(null);
 
 
     const [showSelfPickup, setSelfPickup] = useState("none");
@@ -60,9 +65,19 @@ export default function CheckoutOrder({
 
     const [showAddAddressBlock, setShowAddAddressBlock] = useState("none");
     const [userAdresses, setUserAdresses] = useState(user?.address || []);
+    const [activeAddress, setActiveAddress] = useState(userAdresses?.find(address => address.active === true));
+    const [filteredUserAdresses, setFilteredUserAdresses] = useState([]);
 
+    // const usePrevious = value => {
+    //     const ref = useRef();
+    //     useEffect(() => {
+    //       ref.current = value;
+    //     });
+    //     return ref.current;
+    //   };
+    //   const myPreviousState = usePrevious(apiOptions);
     // TODO: поміняти місями true false після того як вже будуть юзери з адресами
-    const [visibleAddressField, setVisibleAddressField] = useState(user?.address.length ? false : true);
+    const [visibleAddressField, setVisibleAddressField] = useState(filteredUserAdresses?.length > 0 ? true : false);
 
     const [addressValues, setAddressValues] = useState({
         street: '',
@@ -70,6 +85,11 @@ export default function CheckoutOrder({
         flat: '',
         ground: '',
         elevator: ''
+    });
+    const [nameValues, setNameValues] = useState({
+        firstName: '',
+        lastName: '',
+        phoneNumber: ''
     });
 
     const [filteredStreets, setFilteredStreets] = useState([]);
@@ -108,21 +128,32 @@ export default function CheckoutOrder({
         region,
         city,
         zipCode,
-        address,
-        country
+        address
     } = shipping;
+
+    // const phoneSchema = yup.setLocale(number).string().phone('UA').test('len', 'Номер телефону має бути довжиною від 10 до 13 символів', val => {
+    //     if (val) {
+    //         const phone = val.replace(/[^0-9]/g, '');
+    //         return phone.length >= 10 && phone.length <= 13 && phone[0] === '0';
+    //     }
+    //     return false;
+    // });
     const validate = yup.object({
         firstName: yup.string()
             .min(3, "Ім'я має бути мінімум 3 символи")
             .max(20, "Ім'я має бути максимум 20 символів")
-            .matches(/^[aA-zZ]/, "Цифри та спец.символи заборонено")
-            .required(),
+            .matches(/^[А-Яа-яЇїІі'-]*[^\s][А-Яа-яЇїІі' -]*$/, "Цифри та спец.символи заборонено")
+            .required("Ім'я обов'язково"),
         lastName: yup.string()
             .min(3, "Прізвище має бути мінімум 3 символи")
             .max(20, "Прізвище має бути максиFмум 20 символів")
-            .matches(/^[aA-zZ]/, "Цифри та спец.символи заборонено")
-            .required(),
-        phoneNumber: yup.string().phone().required("Необхідний номер телефону"),
+            .matches(/^[А-Яа-яЇїІі'-]*[^\s][А-Яа-яЇїІі' -]*$/, "Цифри та спец.символи заборонено")
+            .required("Прізвище обов'язково"),
+        // phoneNumber: yup.string().phone().required("Необхідний номер телефону"),
+        phoneNumber: yup.string().test('phone', 'Некоректний номер телефону', value => {
+            if (!value) return true;
+            return yup.string().phone('UA').isValidSync(value) && value.length >= 10 && value[0] === '0';
+        }),
         // cityRegion: yup.string()
         //     .required("Необхідно ввести область")
         //     .min(3, "Має бути мінімум 3 символи")
@@ -132,8 +163,8 @@ export default function CheckoutOrder({
         //zipcode виконує тут роль коду міста для пошуку в базі 
         zipCode: yup.string(),
         address: yup.string()
-            .max(100, "Має бути максимум 100 символів"),
-        country: yup.string()
+            .max(100, "Має бути максимум 100 символів")
+        // country: yup.string()
     })
 
     const selectRef = useRef();
@@ -141,11 +172,13 @@ export default function CheckoutOrder({
         setSearchCity(e.target.value);
     };
 
-    const handleChange = e => {
+    const handleGetCredencials = e => {
         const { name, value } = e.target;
         //  if(name === "defaultCity") {
         // setSelectedCity(e.target.value);
         // }
+        setActiveAddress({ ...activeAddress, [name]: value });
+
         console.log("handleChange", name, value);
         setShipping({ ...shipping, [name]: value })
 
@@ -153,6 +186,8 @@ export default function CheckoutOrder({
 
     const handleChangePayment = e => {
         e.persist();
+        // console.log("userAdresses", userAdresses);
+
         console.log("handlePayment: ", e.target.value);
         setPayment(prevState => ({
             ...prevState,
@@ -162,7 +197,7 @@ export default function CheckoutOrder({
 
     useEffect(() => {
 
-        if (searchCity && searchStreet) {
+        if (searchCity && searchStreet) {          
             let streets = [];
             setTimeout(async () => {
                 streets = await getStreets(searchCity, searchStreet);
@@ -174,6 +209,51 @@ export default function CheckoutOrder({
             }, 1000);
         }
     }, [searchStreet]);
+
+    useDeepCompareEffect(() => {
+        // activeAddress && selectedCity ?
+        //     activeAddress.city.zipcode === selectedCity.object_code ?
+        //         setVisibleAddressField(true)
+        //         : setVisibleAddressField(false)
+        //     : setVisibleAddressField(false);
+
+        // if(!selectedCity&& activeAddress) {
+        //     console.log("190");
+        //     setVisibleAddressField(true)
+        // }
+        // else if(!selectedCity&& !activeAddress) {
+        //     console.log("194");
+        //     setVisibleAddressField(false)
+        // } else if (selectedCity&& activeAddress){
+        //     console.log("197", activeAddress);
+        //     if( activeAddress.zipCode === selectedCity.object_code){
+        //         console.log("199");
+        //         setVisibleAddressField(true) 
+        //     }
+        //     else {
+        //         console.log("203");
+        //         setVisibleAddressField(false)
+        //     }
+        if (selectedCity) {
+
+            setFilteredUserAdresses(userAdresses?.filter(address => address.zipCode === selectedCity.object_code));
+            console.log("filteredaddresses", filteredUserAdresses);
+            console.log("filteredaddressesLength", filteredUserAdresses.length);
+            if (filteredUserAdresses.length > 0) {
+                setVisibleAddressField(true);
+            } else {
+                setVisibleAddressField(false);
+            }
+        }
+    }, [selectedCity, filteredUserAdresses, userAdresses]);
+
+
+    // useEffect(() => {
+
+    //     setActiveAddress(userAdresses.find(address => address.active === true));
+
+    // }, [activeAddress, userAdresses]);
+
 
 
     const handleSelectStreet = (street) => {
@@ -229,12 +309,13 @@ export default function CheckoutOrder({
 
     };
     const handleSelectPostman = (e) => {
-        e.persist();
+        //  e.persist();
         // const options = e.target.options;
         // if (options[0].selected) {
         //     options[0].disabled = true;
         // }
-        console.log("handleSelectPostman", e.target.value);
+        // console.log("element.value", filteredUserAdresses[e.target.selectedIndex].address);
+        setActiveAddress(filteredUserAdresses[e.target.selectedIndex]);
 
     }
     const handleChangeAdress = (e) => {
@@ -250,25 +331,41 @@ export default function CheckoutOrder({
         // const addressString = Object.values(addressValues).join(', ');
 
         if (searchCity) {
-            const addressString = selectedStreet.street_type + " " + selectedStreet.name + ", буд." + addressValues.building + ", кв." + addressValues.flat + ", пов." + addressValues.ground + ", ліфт: " + addressValues.elevator;
-            setAddressArray([...addressArray,
-            {
-                // _id: addressArray.length + 1,
+            // const addressString = selectedStreet.street_type + " " + selectedStreet.name + ", буд." + addressValues.building + ", кв." + addressValues.flat + ", пов." + addressValues.ground + ", ліфт: " + addressValues.elevator;
+            const addressString = selectedStreet.street_type + " " + selectedStreet.name + ", буд. " + addressValues.building + ", кв. " + addressValues.flat;
+            let newAddress = {
+                firstName: activeAddress.firstName,
+                lastName: activeAddress.lastName,
+                phoneNumber: activeAddress.phoneNumber,
                 address: addressString,
-                country: "Україна",
-                city: searchCity,
-                region: searchCity.region,
-                zipCode: searchCity.zipCode,
+                streetType: selectedStreet.street_type,
+                street: selectedStreet.name,
+                building: addressValues.building,
+                flat: addressValues.flat,
+                ground: addressValues.ground,
+                elevator: addressValues.elevator,
+                cityType: selectedCity.object_category,
+                country: country.name,
+                city: selectedCity.object_name,
+                region: selectedCity.region,
+                zipCode: selectedCity.object_code,
                 active: true,
-            }]
-            );
+            };
+            if (newAddress) {
+                console.log("341NewAddress", newAddress);
+                setUserAdresses([...userAdresses, newAddress]);
+                setActiveAddress(newAddress);
+                // saveAddress(newAddress);
+            }
+            console.log("333filteredUserAdresses", filteredUserAdresses);
+
             setShowAddAddressBlock("none")
             setShowPostmanDelivery("block");
             document.getElementById("buildingGroup").value = "";
             document.getElementById("flatGroup").value = "";
             document.getElementById("groundGroup").value = "";
             document.getElementById("idElevator").value = "";
-            setSearchStreet("")
+            setSearchStreet("");
         }
     }
     const handleShowAddAdress = () => {
@@ -322,9 +419,10 @@ export default function CheckoutOrder({
 
     const handleCityModalClose = (selectedCity) => {
         if (selectedCity) {
-            // console.log("heloooooooo", selectedCity);
+            console.log("heloooooooo", selectedCity);
 
             setSearchCity(selectedCity);
+            setSelectedCity(selectedCity);
         }
         setCityModalShow(false);
     };
@@ -359,18 +457,35 @@ export default function CheckoutOrder({
                 <Formik
                     enableReinitialize
                     initialValues={{
-                        firstName,
-                        lastName,
-                        phoneNumber,
-                        address
+                        firstName: activeAddress ? activeAddress.firstName : "",
+                        lastName: activeAddress ? activeAddress.lastName : "",
+                        phoneNumber: activeAddress ? activeAddress.phoneNumber : "",
+                        city: selectedCity ? selectedCity.value : ""
                     }}
                     validationSchema={validate}
                 // onSubmit={() => {
                 //     signInHandler();
                 // }}
                 >
-                    {(form) => (
-                        <Form >
+                    {({
+                        // handleSubmit,
+                         handleChange,
+                        // handleBlur,
+                        values,
+                        touched,
+                        isValid,                       
+                        errors,
+                    }) => (
+                        <Form  >
+                            {/* <div>{activeAddress.street}</div>
+                            <div>{activeAddress.building}</div>
+                            <div>{activeAddress.flat}</div>
+                            <div>{country.name}</div>
+                            {userAdresses.map((address) => (
+                                <div key={address._id} >
+                                    {address.street}
+                                </div>
+                            ))} */}
                             <Row className={styles.products_row}>
                                 <Col className={styles.colcard}>
                                     <div className={styles.checkout_form}>
@@ -384,21 +499,44 @@ export default function CheckoutOrder({
                                             <Col className={styles.col_contacts}>
                                                 <Form.Group as={Col} controlId="groupSurname">
                                                     <Form.Label className={styles.form_label}>Прізвище</Form.Label>
-                                                    <Form.Control className={styles.form_input} name="lastName" onChange={handleChange} />
+                                                    <Form.Control className={styles.form_input}
+                                                        type="text"
+                                                        name="lastName"
+                                                        value={values.lastName}
+                                                        onChange={(e)=> {handleChange(e); handleGetCredencials(e)}}
+                                                        isInvalid={!!errors.lastName}
+                                                    />
+                                                    <Form.Control.Feedback type="invalid">{errors.lastName}
+                                                    </Form.Control.Feedback>
                                                 </Form.Group>
                                                 <Form.Group as={Col} controlId="groupPhone">
                                                     <Form.Label className={styles.form_label}>Номер телефону</Form.Label>
-                                                    <Form.Control className={styles.form_input} name="phoneNumber" onChange={handleChange} />
+                                                    <Form.Control className={styles.form_input}
+                                                        name="phoneNumber"
+                                                        value={values.phoneNumber}
+                                                        onChange={(e)=> {handleChange(e); handleGetCredencials(e)}}
+                                                        isInvalid={!!errors.phoneNumber}
+                                                    />
+                                                    <Form.Control.Feedback type="invalid">{errors.phoneNumber}
+                                                    </Form.Control.Feedback>
                                                 </Form.Group>
                                             </Col>
                                             <Col className={styles.col_contacts}>
                                                 <Form.Group as={Col} controlId="groupName">
                                                     <Form.Label className={styles.form_label}>Ім'я</Form.Label>
-                                                    <Form.Control className={styles.form_input} name="firstName" onChange={handleChange} />
+                                                    <Form.Control className={styles.form_input}
+                                                        type="text"
+                                                        name="firstName"
+                                                        value={values.firstName}
+                                                        onChange={(e)=> {handleChange(e); handleGetCredencials(e)}}
+                                                        isInvalid={!!errors.firstName}
+                                                    />
+                                                    <Form.Control.Feedback type="invalid">{errors.firstName}
+                                                    </Form.Control.Feedback>
                                                 </Form.Group>
                                                 <Form.Group as={Col} controlId="groupEmail">
                                                     <Form.Label className={styles.form_label}>Електронна пошта</Form.Label>
-                                                    <Form.Control className={styles.form_input} type="email" name="email" onChange={handleChange} />
+                                                    <Form.Control className={styles.form_input} type="email" name="email" value={user ? user.email : ""} readOnly />
                                                 </Form.Group>
                                             </Col>
                                         </Row>
@@ -407,17 +545,23 @@ export default function CheckoutOrder({
                                         </Row>
                                         <Row className={styles.delivery}>
                                             <Col className={styles.colcard}>
+                                                {/* {activeAddress.address}  {activeAddress.firstName} {activeAddress.lastName} */}
+                                                
                                                 <Form.Group as={Col} >
                                                     <Form.Label className={styles.form_label} htmlFor="city-name">Ваше місто</Form.Label>
                                                     <Form.Control className={styles.form_input2} placeholder="Виберіть місто..."
-                                                        value={searchCity ? searchCity.value : ""} name="city"
+                                                        // value={searchCity ? searchCity.value : activeAddress ? `${activeAddress.cityType} ${activeAddress.city}, ${activeAddress.region}` : ""} name="city"
+                                                        value={values.city} name="city"
                                                         onClick={handleSearchCity}
-                                                        onChange={handleCityChange}
+                                                        onChange={(e)=>{handleChange(e); handleCityChange(e)}}
                                                         readOnly={true}
                                                         id="city-name"
+                                                        isInvalid={!!errors.city}
                                                     //  ref={selectRef}
                                                     // inputRef={(ref) => {this.input = ref}}
                                                     />
+                                                    <Form.Control.Feedback type="invalid">{errors.city}
+                                                    </Form.Control.Feedback>
                                                     <CityModal show={cityModalShow} onClose={handleCityModalClose}
                                                         search_сity={searchCity} />
                                                     <Row>
@@ -475,10 +619,14 @@ export default function CheckoutOrder({
                                                             {visibleAddressField ? (
                                                                 <Form.Select className={styles.form_input2}
                                                                     name="selectPostmanDelivery"
-                                                                    onClick={handleSelectPostman}>
+                                                                    id="selectPostmanDelivery"
+                                                                    onChange={handleSelectPostman}>
                                                                     {/* <option value="" disabled={false}>Вибрати адресу доставки...</option> */}
-                                                                    {addressArray.map((item, index) => (
-                                                                        <option id={index} key={index} value={item.address}>{item.address}</option>
+                                                                    {filteredUserAdresses.map((item, index) => (
+                                                                        <option
+                                                                         id={index} key={index} 
+                                                                         value={item}
+                                                                        >{item.address}</option>
                                                                     ))}
                                                                 </Form.Select>
                                                             ) : (
@@ -487,7 +635,7 @@ export default function CheckoutOrder({
 
                                                             <Row>
                                                                 <Col>
-                                                                    <Button onClick={handleShowAddAdress} id="btn-add-another-address">Додати іншу адресу</Button>
+                                                                    <Button onClick={handleShowAddAdress} id="btn-add-another-address">Додати адресу</Button>
                                                                 </Col>
                                                             </Row>
 
@@ -554,23 +702,7 @@ export default function CheckoutOrder({
                                                         </Row>
                                                     </Row>
 
-                                                    <Row><Col>
-                                                        <Form.Check
-                                                            type="radio"
-                                                            // id="selfPickupPointCheck"
-                                                            className={styles.radio}
-                                                            aria-label="radio 7">
-                                                            <Form.Check.Input
-                                                                type="radio"
-                                                                name="selfPickupPointRadio"
-                                                                value="Самовивіз з мобільних точок видачі"
-                                                                checked={deliveryType === "Самовивіз з мобільних точок видачі"}
-                                                                onChange={handleChangeDelivery} />
-                                                            <Form.Check.Label>Самовивіз з мобільних точок видачі</Form.Check.Label>
-                                                        </Form.Check>
-                                                    </Col>
-                                                        <Col className={styles.text_span}>Безкоштовно</Col>
-                                                    </Row>
+
                                                     <Row><Col>
                                                         <Form.Check
                                                             type="radio"

@@ -15,6 +15,6 @@ export default async (req, res, next) => {
         res.status(401).json({ message: "Будь ласка авторизуйтесь!" });
 
     }
-    res.end();
+    // res.end();
 
 }

@@ -9,7 +9,11 @@ handler.get(async (req, res) => {
         await db.connectDb();
         const street = req.query.street;
         const city = req.query.city;
-         const streets = await Street.find({ city_name: { $regex: new RegExp(`^${city}$`, 'i') }, name:{$regex :street, $options: 'i'}}).lean().limit(10);
+        const streets = await Street.find({
+            city_name: { $regex: new RegExp(`^${city}$`, 'i') },
+            name: { $regex: street, $options: 'i' }
+        })
+            .lean().limit(10);
         // const streets = await Street.find({
         //     city_name: {
         //         $regexMatch: { input: city, regex: new RegExp(`^${city}$`, 'i') }

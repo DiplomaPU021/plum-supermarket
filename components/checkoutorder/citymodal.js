@@ -25,8 +25,10 @@ export default function CityModal(props) {
    
     };
     const filterCities = async (inputValue) => {
-        if (inputValue.length > 0) {
-            const cities = await getCity(inputValue);
+        if (inputValue.length > 0 ) {
+            //regex на введення лише кирилиці
+            if(/^[А-Яа-яЇїІі'-]+$/.test(inputValue)){
+                 const cities = await getCity(inputValue);
             // console.log("data", cities);
             const newCities = cities.map((item) => {
                 let label;
@@ -44,7 +46,9 @@ export default function CityModal(props) {
                     value,
                 };
             });
-            return newCities;
+            return newCities;   
+            }
+        
         }
         return [];
     };

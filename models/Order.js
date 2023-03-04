@@ -16,7 +16,7 @@ const orderSchema = new mongoose.Schema(
                 size: {
                     type: String,
                 },
-                code:{
+                code: {
                     type: String,
                 },
                 //price with discount
@@ -35,7 +35,7 @@ const orderSchema = new mongoose.Schema(
 
         //total price with discount but without promocode
         cartTotal: Number,
-        coupon:{
+        coupon: {
             type: ObjectId,
             ref: "Coupon",
         },
@@ -44,6 +44,85 @@ const orderSchema = new mongoose.Schema(
         user: {
             type: ObjectId,
             ref: "User",
+        },
+        shippingAddress: {
+            firstName: {
+                type: String,
+            },
+            lastName: {
+                type: String,
+            },
+            phoneNumber: {
+                type: String,
+            },
+            address: {
+                type: String,
+            },
+
+            streetType: {
+                type: String,
+            },
+            street: {
+                type: String,
+            },
+            building: {
+                type: String,
+            },
+            flat: {
+                type: String,
+            },
+            ground: {
+                type: String,
+            },
+            elevator: {
+                type: String,
+            },
+            region: {
+                type: String,
+            },
+            city: {
+                type: String,
+            },
+            cityType: {
+                type: String,
+            },
+            zipCode: {
+                type: String,
+            },
+            country: {
+                type: String,
+            }
+
+        },
+        paymentMethod: {
+            type: String,
+        },
+        paymentResult: {
+            id: String,
+            status: String,
+            email: String,
+        },
+        total: {
+            type: Number,
+            required: true,
+        },
+        shippingPrice: {
+            type: Number,
+            required: true,
+            default: 0,
+        },
+        taxPrice: {
+            type: Number,
+            default: 0,
+        },
+        isPaid: {
+            type: Boolean,
+            required: true,
+            default: false,            
+        },
+        status:{
+            type:String,
+            default: "no Processed"
         }
     },
     {

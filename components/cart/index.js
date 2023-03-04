@@ -40,7 +40,7 @@ export default function CartPage(props) {
         if (session) {
             if (window.location.pathname === "/checkout") {
                 //  setLoading(true);
-                saveCart(cart, session.user.id);
+                saveCart(cart);
                 // setLoading(false);
                 props.onHide();
                 window.location.reload(true);
@@ -52,7 +52,7 @@ export default function CartPage(props) {
                 //    query: { confirm: true },
                 // },);
             } else {
-                saveCart(cart, session.user.id);
+                saveCart(cart);
                 router.push("/checkout");
             }
         } else {
@@ -62,8 +62,8 @@ export default function CartPage(props) {
     const updateCartInDbHandler = () => {
         if (session && window.location.pathname === "/checkout") {
             router.push("/checkout");
-            console.log("77indexCard", cart);
-            saveCart(cart, session.user.id);
+            // console.log("77indexCard", cart);
+            saveCart(cart);
         }
     }
     // useEffect(() => {

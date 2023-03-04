@@ -45,10 +45,32 @@ const userSchema = new mongoose.Schema({
             address: {
                 type: String,
             },
+           
+            streetType:{
+                type: String,
+            },
+            street:{
+                type: String,
+            },
+            building:{
+                type: String,
+            },
+            flat:{
+                type: String,
+            },
+            ground:{
+                type: String,
+            },
+            elevator:{
+                type: String,
+            },
             region: {
                 type: String,
             },
             city: {
+                type: String,
+            },
+            cityType: {
                 type: String,
             },
             zipCode: {
@@ -59,7 +81,7 @@ const userSchema = new mongoose.Schema({
             },
             active: {
                 type: Boolean,
-                default: false,
+                default: false,                
             },
         },
     ],

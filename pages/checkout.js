@@ -21,7 +21,7 @@ export default function Checkout({ cart, user, country }) {
    return (
      <div className={styles.container}>
        <Header />
-       <CheckoutOrder cart={cart} user={user} />
+       <CheckoutOrder cart={cart} user={user}  country={country}/>
 
        <Footer country={country}/>
      </div>
@@ -30,7 +30,7 @@ export default function Checkout({ cart, user, country }) {
 export async function getServerSideProps(context) {
   //console.log("contextInCheckoutServerSideProps",context);
   //const [loading, setLoading] = React.useState(false)
-  let data = {name: "Ukraine", flag: { emojitwo: "https://cdn.ipregistry.co/flags/emojitwo/ua.svg"}, code: "UA"};
+  let data = {name: "Україна", flag: { emojitwo: "https://cdn.ipregistry.co/flags/emojitwo/ua.svg"}, code: "UA"};
   /* Увага!!! замість обєкту можна використати сервіс ipregistry з наступним методом
     await axios
     .get('https://api.ipregistry.co/?key=aq50e9f94war7j9p')
