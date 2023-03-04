@@ -1,0 +1,115 @@
+.modal {
+    background: rgba(34, 15, 75, 0.5);
+    backdrop-filter: blur(17.5px);
+
+    &__body {
+        background: linear-gradient(180deg, #FAF8FF 0%, #F2EDFF 100%);
+        box-shadow: 0px 0px 15px rgba(34, 15, 75, 0.5), inset 7px 7px 20px #FAF5FF, inset -7px -7px 20px #F7EEFF;
+        border-radius: 10px !important;
+        // padding: 24px;
+
+
+        &_card {
+            background: #F5F1FF;
+            border: 2px solid $plum-dark-color;
+            border-radius: 10px;
+
+            &_rowName {
+                padding: 30px 82px 24px 0;
+
+                .col {
+                    display: flex;
+                    flex-direction: row;
+                    align-items: center;
+                    justify-content: space-between;
+                    padding: 13px 24px;
+                    background: linear-gradient(90deg, #220F4B 0%, #573C91 100%);
+                    border-radius: 0px 23px 23px 0px;
+                }
+
+                span {
+                    font-family: 'Noto Sans';
+                    font-style: normal;
+                    font-size: 20px;
+                    line-height: 27px;
+
+                    &:first-of-type {
+                        font-weight: 400;
+                        color: $light-wheet-color;
+                    }
+
+                    &:last-of-type {
+                        font-weight: 500;
+                        color: $green-color;
+                    }
+                }
+            }
+
+            &_rowTitle {
+                display: flex;
+                flex-direction: row;
+                align-items: flex-start;
+                padding: 10px 85px;
+                gap: 10px;
+                
+                span {
+                    font-family: 'Noto Sans';
+                    font-style: normal;
+                    font-weight: 500;
+                    font-size: 24px;
+                    line-height: 33px;
+                    color: $green-color;
+                    padding: 0;
+                }
+            }
+
+            .details {
+                display: flex;
+                flex-direction: column;
+                gap: 1px;
+
+                &_row {
+                    min-height: 38px;
+                    display: flex;
+                    flex-direction: row;
+                    justify-content: flex-start;
+                    align-items: center;
+                    background: #E6E1F1;
+                    padding-left: 85px;
+
+                    div {
+                       &:first-of-type{
+                        min-width: 35%;
+                       }
+        
+                        span {
+                            font-family: 'Noto Sans';
+                            font-style: normal;
+                            font-weight: 500;
+                            font-size: 16px;
+                            line-height: 22px;
+                            color: #220F4B;
+                        }
+                    }
+                }
+            }
+
+            &_notes {
+                display: flex;
+                flex-direction: column;
+                align-items: flex-start;
+                padding: 24px;
+                gap: 10px;
+
+                span {
+                    font-family: 'Noto Sans';
+                    font-style: normal;
+                    font-weight: 500;
+                    font-size: 14px;
+                    line-height: 19px;
+                    color: #81528C;
+                }
+            }
+        }
+    }
+}

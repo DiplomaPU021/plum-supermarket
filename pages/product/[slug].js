@@ -4,12 +4,10 @@ import db from "../../utils/db";
 import Product from "../../models/Product";
 import Category from "../../models/Category";
 import SubCategory from "../../models/SubCategory";
-//import User from "../../models/User";
 import Header from "../../components/header";
 import Footer from "../../components/footer";
 import MainSwiperCard from "../../components/productPage/mainSwiperCard";
 import Infos from "../../components/productPage/infos";
-// import Reviews from "../../components/productPage/reviews";
 import { useState } from "react";
 import LightPlumIcon from "@/components/icons/LightPlumIcon";
 import GreenChevronRight from "@/components/icons/ChevronRight";
@@ -17,18 +15,18 @@ import Link from "next/link";
 import CustomerInfo from "@/components/productPage/customerInfo";
 import { Col, Container, Row } from "react-bootstrap";
 import Questions from "@/components/questions";
-import BunnerApp from "@/components/bunnerApp";
+import BannerApp from "@/components/bannerApp";
 import CheaperTogether from "@/components/productPage/cheaperTogether";
 import ProductDescription from "@/components/productPage/productDescription";
 import Popular from "@/components/popular";
 import Reviews from "@/components/productPage/reviews";
 
-export default function product({ product, products }) {
+export default function product({ product, products, country }) {
   const [active, setActive] = useState(0);
 
   return (
     <div>
-      <Header country="" />
+      <Header country={country} />
       <Container fluid className={styles.productpage}>
         <Row>
           <Col>
@@ -37,7 +35,7 @@ export default function product({ product, products }) {
               <GreenChevronRight fillColor="#70BF63" w="30px" h="30px" />
             </Link>
             <Link
-              href={product.category.name}
+              href={`/category/${product.category.slug}`}
               className={styles.productpage__link}
             >
               <span>{product.category.name}</span>
@@ -45,7 +43,9 @@ export default function product({ product, products }) {
             </Link>
             {product.subCategories.map((sub, i) => (
               <Link
-                href={`/${product.category.name}/${sub.name}`}
+               //TODO LINK
+                href="/"
+                //href={`/${product.category.name}/${sub.name}`}
                 key={i}
                 className={styles.productpage__link}
               >
@@ -56,8 +56,9 @@ export default function product({ product, products }) {
         </Row>
         <Row className={styles.productpage__nameCode}>
           <Col className={styles.productpage__nameCode_name}>
-
-            <span>{product.name} {product.color} {product.size}</span>
+            <span>
+              {product.name} {product.color} {product.size}
+            </span>
           </Col>
           <Col className={styles.productpage__nameCode_code}>
             <span>Код: {product.code}</span>
@@ -65,10 +66,10 @@ export default function product({ product, products }) {
         </Row>
         <Container fluid className={styles.productpage__main}>
           <Row>
-            <Col style={{ padding: "0" }}>
+            <Col style={{ padding: "0", width: "50%" }}>
               <MainSwiperCard product={product} setActive={setActive} />
             </Col>
-            <Col style={{ padding: "0" }}>
+            <Col style={{ padding: "0", width: "50%" }}>
               <Infos product={product} active={active} />
             </Col>
           </Row>
@@ -79,9 +80,9 @@ export default function product({ product, products }) {
       <ProductDescription product={product} />
       <Reviews reviews={product.reviews} />
       <Popular products={products} />
-      <BunnerApp />
+      <BannerApp />
       <Questions />
-      <Footer />
+      <Footer country={country} />
     </div>
   );
 }
@@ -101,7 +102,7 @@ export async function getServerSideProps(context) {
 
   let subProduct = product.subProducts[style];
 
-  let priceBefore=subProduct.sizes[0].price.toFixed(2);
+  let priceBefore = subProduct.sizes[0].price.toFixed(2);
 
   // let prices = subProduct.sizes
   //   .map((s) => {
@@ -111,9 +112,8 @@ export async function getServerSideProps(context) {
   //     return a - b;
   //   });
 
-    //products that go together cheaper
-  let productsPlus = await Product.find().sort({createdAt: -1}).lean();
-
+  //products that go together cheaper
+  let productsPlus = await Product.find().sort({ createdAt: -1 }).lean();
 
   let newProduct = {
     ...product,
@@ -122,12 +122,12 @@ export async function getServerSideProps(context) {
     code,
     images: subProduct.images,
     //sizes: subProduct.sizes,
-    size:subProduct.sizes[0].size,
+    size: subProduct.sizes[0].size,
     discount: subProduct.discount,
 
     color: subProduct.color?.color,
     priceBefore,
-    price: ((100-subProduct.discount)*priceBefore/100).toFixed(2),
+    price: (((100 - subProduct.discount) * priceBefore) / 100).toFixed(2),
     price_unit: subProduct.sizes[0].price_unit,
     code: subProduct.sizes[0].code,
     sold: subProduct.sold,
@@ -170,15 +170,29 @@ export async function getServerSideProps(context) {
     //   ),
   };
 
- // console.log("newProduct",newProduct);
+  // console.log("newProduct",newProduct);
 
   //Should be the same of the catecory
   let products = await Product.find().sort({ popularity: -1 }).limit(5);
-
+  let data = {
+    name: "Ukraine",
+    flag: { emojitwo: "https://cdn.ipregistry.co/flags/emojitwo/ua.svg" },
+    code: "UA",
+  };
+  /* Увага!!! замість обєкту можна використати сервіс ipregistry з наступним методом
+    await axios
+    .get('https://api.ipregistry.co/?key=aq50e9f94war7j9p')
+    .then((res) => {      
+      return res.data.location.country;
+    })
+    .catch((err)=> {
+      console.log(err);      
+    });*/
   //----------------
- await db.disconnectDb();
+  await db.disconnectDb();
   return {
     props: {
+      country: { name: data.name, flag: data.flag.emojitwo, code: data.code },
       product: JSON.parse(JSON.stringify(newProduct)),
       products: JSON.parse(JSON.stringify(products)),
     },
