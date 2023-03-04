@@ -32,8 +32,8 @@ export default function CartItem({ product }) {
                                 <div className={styles.count}>{product.qty}</div>
                                 {/* <span>+</span> */}
                             </div>
-                            {product.priceBefore!=product.priceAfter?
-                            ( <h5>{product.priceBefore} грн</h5>): ""}                          
+                            {product.price!=product.priceAfter?
+                            ( <h5>{product.price} грн</h5>): ""}                          
                             <h3>{product.priceAfter} грн</h3>
                         </div>
                         {/* <div className={styles.cardbtns}>

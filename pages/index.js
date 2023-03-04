@@ -62,7 +62,7 @@ export async function getServerSideProps() {
     .catch((err)=> {
       console.log(err);      
     });*/
-
+    
   await db.connectDb();
 
   //code below is for component cheaperTogether

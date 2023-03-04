@@ -17,17 +17,186 @@
     ],
     "details": [
       {
-        "name": "Серія",
-        "value": "Apple MacBook"
+        "group": "",
+        "fields": [
+          {
+            "name": "Серія (модельний ряд)",
+            "value": "Apple MacBook Air",
+            "isMain": true
+          }
+        ]
       },
       {
-        "name": "Діагональ",
-        "value": "13.3\" (2560x1600) WQXGA"
+        "group": "Екран",
+        "fields": [
+          {
+            "name": "Діагональ екрана",
+            "value": "13.3\"",
+            "isMain": true
+          },
+          {
+            "name": "Тип екрану",
+            "value": "Retina",
+            "isMain": false
+          },
+          {
+            "name": "Роздільна здатність",
+            "value": "2560x1600 (WQXGA)",
+            "isMain": true
+          },
+          {
+            "name": "Частота оновлення екрана",
+            "value": "60 Гц",
+            "isMain": true
+          },
+          {
+            "name": "Поверхня екрану",
+            "value": "Глянцева",
+            "isMain": true
+          }
+        ]
       },
       {
-        "name": "Тип екрану",
-        "value": "Retina"
+        "group": "Відеокарта",
+        "fields": [
+          {
+            "name": "Відеокарта",
+            "value": "Інтегрована відеокарта",
+            "isMain": true
+          }
+        ]
+      },
+      {
+        "group": "Накопичувачі даних",
+        "fields": [
+          {
+            "name": "Типи внутрішніх накопичувачів",
+            "value": "SSD",
+            "isMain": true
+          },
+          {
+            "name": "Обсяг SSD",
+            "value": "256Гб",
+            "isMain": true
+          },
+          {
+            "name": "Кількість слотів М.2",
+            "value": "Без слота М.2",
+            "isMain": true
+          },
+          {
+            "name": "Кількість відсіків 2.5” SATA для HDD/SSD",
+            "value": "Без відсіків",
+            "isMain": true
+          }
+        ]
+      },
+      {
+        "group": "Процесор",
+        "fields": [
+          {
+            "name": "Процесор",
+            "value": "Восьмиядерний Apple M1",
+            "isMain": true
+          },
+          {
+            "name": "Операційна система",
+            "value": "macOS Big Sur",
+            "isMain": true
+          }
+        ]
+      },
+      {
+        "group": "Оперативна пам'ять",
+        "fields": [
+          {
+            "name": "Об'єм оперативної пам'яті",
+            "value": "8 Гб",
+            "isMain": true
+          },
+          {
+            "name": "Кількість слотів для оперативної пам'яті",
+            "value": "Немає",
+            "isMain": false
+          }
+        ]
+      },
+      {
+        "group": "Підключення",
+        "fields": [
+          {
+            "name": "Мережеві адаптери",
+            "value": "Wi‑Fi Під'єднання до мереж Wi-Fi 6 (802.11ax) Сумісність зі стандартами IEEE 802.11a/b/g/n/ac Bluetooth Бездротова технологія Bluetooth 5.0",
+            "isMain": false
+          },
+          {
+            "name": "Роз'єми та порти введення-виведення",
+            "value": "2 x Thunderbolt 3, до 40 Гбіт/сек (USB Type-C 3.1 до 10 Гбіт/сек, DisplayPort)/1 x 3.5 мм jack для навушників",
+            "isMain": false
+          }
+        ]
+      },
+      {
+        "group": "Корпус",
+        "fields": [
+          {
+            "name": "Ємність акумулятора",
+            "value": "49.9Вт*год",
+            "isMain": false
+          },
+          {
+            "name": "Вага",
+            "value": "1.29 кг",
+            "isMain": false
+          },
+          {
+            "name": "Характеристики батареї",
+            "value": "До 15 годин роботи в інтернеті через бездротову мережу до 18 годин під час відтворення фільмів з програми Apple TVВбудований літій-полімерний акумулятор ємністю 49,9 Вт*год",
+            "isMain": false
+          },
+          {
+            "name": "Габарити (Ш х Г х В)",
+            "value": "304.1 x 212.4 x 16.1 мм",
+            "isMain": false
+          },
+          {
+            "name": "Короткі характеристики",
+            "value": "Екран 13.3\" Retina (2560x1600) WQXGA, глянцевий/Apple M1/RAM 8 ГБ/SSD 256 ГБ/Apple M1 Graphics/Wi-Fi/Bluetooth/macOS Big Sur/1.29 кг/сріблястий",
+            "isMain": false
+          },
+          {
+            "name": "Додатково",
+            "value": "З підсвіткою, порт Thunderbolt",
+            "isMain": false
+          },
+          {
+            "name": "Додаткові можливості",
+            "value": "HD-камера FaceTime 720pТехнологія True ToneSSD-накопичувач PCIeTouch IDСтереодинамікиШироке стереоПідтримка відтворення контенту у форматі Dolby AtmosСистема з трьох спрямованих мікрофонівКлавіатура Magic Keyboard з підсвіткоюДатчик зовнішньої освітленостіТрекпад Force Touch",
+            "isMain": false
+          },
+          {
+            "name": "Країна виробник",
+            "value": "Китай",
+            "isMain": false
+          },
+          {
+            "name": "Комплект постачання",
+            "value": "MacBook AirАдаптер USB-C потужністю 30 ВтКабель USB-C для заряджання (2 м)",
+            "isMain": false
+          },
+          {
+            "name": "Країна реєстрації бренду",
+            "value": "США",
+            "isMain": false
+          },
+          {
+            "name": "Гарантія",
+            "value": "12 місяців офіційної гарантії від виробника",
+            "isMain": false
+          }
+        ]
       }
+      
     ],
     "reviews": [],
     "refundPolicy": "30 днів",
@@ -145,22 +314,35 @@
     ],
     "details": [
       {
-        "name": "Вид прання",
-        "value": "Автоматичне"
-      },
-      {
-        "name": "Призначення типу білизни",
-        "value": "Всі види білизни"
-      },
-      {
-        "name": "Тип засобу",
-        "value": "Капсули"
+        "group": "",
+        "fields": [
+          {
+            "name": "Вид прання",
+            "value": "Автоматичне",
+            "isMain": true
+          },
+          {
+            "name": "Призначення типу білизни",
+            "value": "Всі види білизни",
+            "isMain": true
+          },
+          {
+            "name": "Тип засобу",
+            "value": "Капсули",
+            "isMain": true
+          },
+          {
+            "name": "За кольором",
+            "value": "Кольорове",
+            "isMain": true
+          }
+        ]
       }
+    
     ],
     "reviews": [],
     "refundPolicy": "30 днів",
     "rating": 0,
-  
     "description_images": [],
     "subProducts": [
       {
@@ -182,14 +364,13 @@
           "color": "",
           "icon": ""
         },
-          "size": "45",
-          "qty": 12,
-          "price": 1140,
-          "price_unit": "грн",
-          "discount": 10,
-          "sold": 14,
-          "code": 165279053
-        
+        "size": "45",
+        "qty": 12,
+        "price": 1140,
+        "price_unit": "грн",
+        "discount": 10,
+        "sold": 14,
+        "code": 165279053
       },
       {
         "images": [
@@ -210,13 +391,13 @@
           "color": "",
           "icon": ""
         },
-          "size": "30", 
-          "qty": 4,
-          "price": 999,
-          "price_unit": "грн",
-          "discount": 15,
-          "sold": 5,
-          "code": 843369968
+        "size": "30",
+        "qty": 4,
+        "price": 999,
+        "price_unit": "грн",
+        "discount": 15,
+        "sold": 5,
+        "code": 843369968
       },
       {
         "images": [
@@ -237,13 +418,13 @@
           "color": "",
           "icon": ""
         },
-          "size": "60",  
-          "qty": 2,
-          "price": 1799,
-          "price_unit": "грн",
-          "discount": 17,
-          "sold": 2,
-          "code": 776575394
+        "size": "60",
+        "qty": 2,
+        "price": 1799,
+        "price_unit": "грн",
+        "discount": 17,
+        "sold": 2,
+        "code": 776575394
       }
     ],
     "created_at": {

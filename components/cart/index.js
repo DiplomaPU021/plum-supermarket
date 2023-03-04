@@ -17,6 +17,7 @@ export default function CartPage(props) {
     const router = useRouter();
     const { data: session } = useSession();
     const cart = useSelector((state) => state.cart);
+    // console.log("cartIndex", cart);
     const [total, setTotal] = useState(0);
 
     const [userId, setUserId] = useState(props.userid);
@@ -32,7 +33,7 @@ export default function CartPage(props) {
 
     const getTotalPrice = () => {
         return cart.cartItems.reduce(
-            (accumulator, item) => accumulator + item.qty * item.price,
+            (accumulator, item) => accumulator + item.qty * item.priceAfter,
             0
         );
     };
@@ -40,7 +41,7 @@ export default function CartPage(props) {
         if (session) {
             if (window.location.pathname === "/checkout") {
                 //  setLoading(true);
-                saveCart(cart, session.user.id);
+                saveCart(cart);
                 // setLoading(false);
                 props.onHide();
                 window.location.reload(true);
@@ -52,7 +53,7 @@ export default function CartPage(props) {
                 //    query: { confirm: true },
                 // },);
             } else {
-                saveCart(cart, session.user.id);
+                saveCart(cart);
                 router.push("/checkout");
             }
         } else {
@@ -62,8 +63,8 @@ export default function CartPage(props) {
     const updateCartInDbHandler = () => {
         if (session && window.location.pathname === "/checkout") {
             router.push("/checkout");
-            console.log("77indexCard", cart);
-            saveCart(cart, session.user.id);
+            // console.log("77indexCard", cart);
+            saveCart(cart);
         }
     }
     // useEffect(() => {

@@ -103,7 +103,6 @@ export default function CartItem(product, userid) {
                                     <h3>{Number(product.product.price * product.product.qty).toFixed(2)} {product.product.price_unit}</h3>
                                 </div>
                             </Row>
-
                         </Col>
                         <Col md={1} xs={12} sm={1} className={styles.cardbtns}>
                             <button className={styles.itembtn}> <HeartIcon fillColor={"#220F4B"} /></button>
