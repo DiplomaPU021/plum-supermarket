@@ -147,23 +147,8 @@ export async function getServerSideProps(context) {
 
   // console.log("newProduct",newProduct);
 
-  //Should be the same of the catecory
+  //Should be the same of the catecory  
   let products = await Product.find().sort({ popularity: -1 }).limit(5);
-  let data = {
-    name: "Ukraine",
-    flag: { emojitwo: "https://cdn.ipregistry.co/flags/emojitwo/ua.svg" },
-    code: "UA",
-  };
-  /* Увага!!! замість обєкту можна використати сервіс ipregistry з наступним методом
-    await axios
-    .get('https://api.ipregistry.co/?key=aq50e9f94war7j9p')
-    .then((res) => {      
-      return res.data.location.country;
-    })
-    .catch((err)=> {
-      console.log(err);      
-    });*/
-  //----------------
   await db.disconnectDb();
   return {
     props: {

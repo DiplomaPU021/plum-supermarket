@@ -16,12 +16,12 @@ import WishList from '../wishlist';
 export default function Header({ country }) {
     const { data: session } = useSession();
     const cart = useSelector((state) => state.cart);
-    const [loggedIn, setLoggedIn] = React.useState(false);
-    const [visible, setVisible] = React.useState(false)
-    const [cartShow, setCartShow] = React.useState(false);
-    const [wishShow, setWishShow] = React.useState(false);
-    const [language, setLanguage] = React.useState(false);
-    const [themeChange, setThemeChange] = React.useState(false);
+    const [loggedIn, setLoggedIn] = useState(false);
+    const [visible, setVisible] = useState(false)
+    const [cartShow, setCartShow] = useState(false);
+    const [wishShow, setWishShow] = useState(false);
+    const [language, setLanguage] = useState(false);
+    const [themeChange, setThemeChange] = useState(false);
     
 
     const getWishItemsCount = () => {
