@@ -13,63 +13,30 @@ import { useSelector, useDispatch } from "react-redux";
 import { addToCart, updateCart } from "@/store/cartSlice";
 
 import { Col, Container, Row } from "react-bootstrap";
+import AllDetails from "../allDetails";
+import SizesTable from "../sizesTable";
 
 
 export default function Infos({ product, active, setActive }) {
-//const[active, setActive] = useState(0);
-  // console.log("infosPAge", product);
-  // console.log("infosPAgeActive", active);
   const router = useRouter();
   const dispatch = useDispatch();
   const [qty, setQty] = useState(1);
   const cart = useSelector((state) => state.cart);
   const [code, setCode] = useState();
-  // const [price, setPrice] = useState(
-  //   product.subProducts[active]?.sizes[0]?.price);
-  // const [price_unit, setPriceUnit] = useState(
-  //   product.subProducts[active]?.sizes[0]?.price_unit);
 
-  // const [prices, setPrices] = useState(
-  //   product.subProducts[active]?.sizes
-  //     .map((s) => {
-  //       return s.price;
-  //     })
-  //     .sort((a, b) => {
-  //       return a - b;
-  //     })
-  // );
+  const [showDetails, setShowDetails] = useState(false)
+  const [showSizes, setShowSizes] = useState(false)
+
   useEffect(() => {
     setCode("");
   }, [router.query.code]);
-  // useEffect(() => {
-  //   setPrice(product.priceBefore);
-  // }, [active]);
-  //useEffect(()=>{
-  // setCode(product.subProducts[active]?.sizes[0]?.code);
-  //   },[router.query.code]);
-  // useEffect(() => {
-  //   setPrices(
-  //     product.subProducts[active]?.sizes
-  //       .map((s) => {
-  //         return s.price;
-  //       })
-  //       .sort((a, b) => {
-  //         return a - b;
-  //       })
-  //   );
-  // }, [active]);
 
   const addToCartHandler = async () => {
     //need to connect to data base
     const { data } = await axios.get(
       `/api/product/${product._id}?style=${router.query.style}&code=${router.query.code}`
     );
-    //  console.log("data->>>>>>>>>>>>>",data);
-    // console.log("data1----->", product);
-    // console.log("data2----->", product.subProducts);
-    //console.log("dsize----->", size);
-
-    // console.log("data----->", product.subProducts[product.style]);
+  
     if (qty > data.quantity) {
       setError('The quantity is bigger than in stock.');
       return;
@@ -162,12 +129,15 @@ export default function Infos({ product, active, setActive }) {
         )}
       </Col>
       <Col className={styles.infos__more}>
-        {/* TODO more details */}
-        <button>
+        <button
+        onClick={()=> setShowDetails(true)}>
           Дивитися всі характеристики{" "}
           <ChevronRight fillColor="#70BF63" w="30px" h="30px" />
         </button>
-
+            <AllDetails
+            product={product}
+            show={showDetails}
+            onHide={() => setShowDetails(false)}/>
       </Col>
       {product.size ?
       (<Row className={styles.infos__sizesInfo}>
@@ -188,11 +158,15 @@ export default function Infos({ product, active, setActive }) {
             </Link>
           ))}
         </Col>
-        <button>
-          {/* TODO onClick */}
+        <button
+         onClick={()=> setShowSizes(true)}
+         >
           Таблиця розмірів{" "}
           <ChevronRight fillColor="#70BF63" w="30px" h="30px" />
         </button>
+        <SizesTable
+            show={showSizes}
+            onHide={() => setShowSizes(false)}/>
       </Row>): (null)}
     </Container>
 

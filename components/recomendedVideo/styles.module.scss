@@ -1,14 +1,29 @@
-.container {
-    display: flex;
-    margin: 40px 60px 0px 60px;
-    gap: 3rem;
-    
 
-    @media(max-width: 1100px) {
-        flex-direction: column;
-        justify-content: center;
-        align-items: center;
-    }
+.cont {
+    padding-top: 30px;
+    background-color: $light-wheet-color;
+}
+
+.products_row {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    padding: 30px 30px 60px 30px;
+    gap: 20px;
+}
+
+.cartst {
+    width: 315px;
+    height: 299px;
+    padding: 24px;
+    border-radius: 23px;
+    background: linear-gradient(180deg, #FAF8FF 0%, #F2EDFF 100%);
+    box-shadow: 0px 0px 15px rgba(34, 15, 75, 0.5), inset 7px 7px 20px #FAF5FF, inset -7px -7px 20px #F7EEFF;
+    gap: 15px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
 
     button {
         min-width: 46px;
@@ -39,18 +54,19 @@
     }
 }
 
-.cartst {
-    width: 315px;
-    height: 299px;
-    padding: 24px;
-    border-radius: 23px;
-    background: linear-gradient(180deg, #FAF8FF 0%, #F2EDFF 100%);
-    box-shadow: 0px 0px 15px rgba(34, 15, 75, 0.5), inset 7px 7px 20px #FAF5FF, inset -7px -7px 20px #F7EEFF;
-    gap: 15px;
-}
-
 .morevideo {
     border: none;
+    background-color: $light-wheet-color;
+    width: 315px;
+    height: 299px;
+
+    @media(max-width: 1280px) {
+        display: none;
+    }
+
+    @media(max-width: 1100px) {
+        display: block;
+    }
 }
 
 .textcard {
@@ -66,7 +82,6 @@
 }
 
 .lastcardbody {
-    width: "267px";
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -75,6 +90,7 @@
     gap: 15px;
     width: 300px;
     height: 299px;
+    background-color: $light-wheet-color;
 }
 
 .ytbtn {
@@ -85,4 +101,6 @@
     font-size: 23px;
     border-radius: 30px !important;
     color: #FAF8FF;
+    border: none;
+    background-color: $plum-dark-color;
 }

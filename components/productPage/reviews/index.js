@@ -5,21 +5,30 @@ import ChevronRight from "@/components/icons/ChevronRight";
 import StarIcon from "@/components/icons/StarIcon";
 import DisLikeIcon from "@/components/icons/DisLikeIcon";
 import LikeIcon from "@/components/icons/LikeIkon";
-
+import ReplyToFeedback from "../replyToFeedback";
+import { useState } from "react";
+import LeaveFeedback from "../leaveFeedback";
 
 export default function Reviews({ reviews }) {
+  const [answer, setAnswer] = useState(false);
+  const [feedback, setFeedback] = useState(false);
   return (
     <Container fluid className={styles.reviews}>
       <Row className={styles.reviews__title}>
         <span>Найпопулярніші відгуки</span>
-        <button className={styles.reviews__title_btnReview}>
+        <button
+          onClick={() => setFeedback(true)}
+         className={styles.reviews__title_btnReview}>
           Залишити відгук
         </button>
+        <LeaveFeedback
+                  show={feedback}
+                  onHide={() => setFeedback(false)}
+                />
       </Row>
       <div className={styles.reviews__row} scrolable="true">
         <Col className={styles.reviews__row_col}>
-          <Col
-            className={styles.reviews__scrollFrame}>
+          <Col className={styles.reviews__scrollFrame}>
             <Row className={styles.reviews__scrollFrame_review}>
               <Col className={styles.text}>
                 <span>Василь Петрович</span>
@@ -42,11 +51,14 @@ export default function Reviews({ reviews }) {
                 </span>
               </Col>
               <Col className={styles.answer}>
-                {/* TODO more answer */}
-                <button>
+                <button onClick={() => setAnswer(true)}>
                   Відповісти{" "}
                   <ChevronRight fillColor="#70BF63" w="30px" h="30px" />
                 </button>
+                <ReplyToFeedback
+                  show={answer}
+                  onHide={() => setAnswer(false)}
+                />
               </Col>
               <Col className={styles.line}></Col>
               <Col className={styles.starsLikes}>
@@ -103,7 +115,7 @@ export default function Reviews({ reviews }) {
               </Col>
               <Col className={styles.line}></Col>
               <Col className={styles.starsLikes}>
-              <div className={styles.starsLikes_stars}>
+                <div className={styles.starsLikes_stars}>
                   <StarIcon fillColor="#220F4B" />
                   <StarIcon fillColor="#220F4B" />
                   <StarIcon fillColor="#220F4B" />
@@ -156,7 +168,7 @@ export default function Reviews({ reviews }) {
               </Col>
               <Col className={styles.line}></Col>
               <Col className={styles.starsLikes}>
-              <div className={styles.starsLikes_stars}>
+                <div className={styles.starsLikes_stars}>
                   <StarIcon fillColor="#220F4B" />
                   <StarIcon fillColor="#220F4B" />
                   <StarIcon fillColor="#220F4B" />

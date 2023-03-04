@@ -12,37 +12,22 @@ export default function Popular({ products }) {
       <Row className={styles.row}>
         <div className={styles.leftsale}>Популярне з категорії</div>
       </Row>
-      <Row className={styles.products_row}>
-        <ProductCard product={products[0]} />
-
-        <ProductCard product={products[1]} />
-
-        <ProductCard product={products[0]} />
-
-        <ProductCard product={products[1]} />
-
-        <ProductCard product={products[0]} />
-
-        <ProductCard product={products[1]} />
-
-        <ProductCard product={products[0]} />
-
-        <ProductCard product={products[1]} />
-
-        <ProductCard product={products[0]} />
-
-        <ProductCard product={products[1]} />
-
-        <ProductCard product={products[0]} />
-
-        <div className={styles.colcard}>
-          <Card className={styles.morevideo}>
-            <Card.Body className={styles.lastcardbody}>
-              <h6 className={styles.textcard}>Більше товарів далі</h6>
-              <Button className={styles.ytbtn}>Показати ще</Button>
-            </Card.Body>
-          </Card>
-        </div>
+      <Row lg={4} md={3} className={styles.products_row}>
+        {products.map((p, i) => (
+          <Col key={i} className={styles.col}>
+            <ProductCard product={p} />
+          </Col>
+        ))}
+        <Col className={styles.col}>
+          <div className={styles.colcard}>
+            <Card className={styles.morevideo}>
+              <Card.Body className={styles.lastcardbody}>
+                <h6 className={styles.textcard}>Більше товарів далі</h6>
+                <Button className={styles.ytbtn}>Показати ще</Button>
+              </Card.Body>
+            </Card>
+          </div>
+        </Col>
       </Row>
     </Container>
   );

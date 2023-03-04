@@ -65,6 +65,7 @@ export default function ProductCard({ product }) {
     // const { data } = await axios.get(`/api/product/${product._id}?style=${product.style}&code=${router.query.code}`);
 
     const { data } = await axios.get(`/api/product/${product._id}?style=0&code=0`);
+
     console.log("dataOnProductCardIndex--------->", data);
 
     // console.log("data2--------->", product._id);
@@ -101,29 +102,29 @@ export default function ProductCard({ product }) {
   return (
     <Card className={styles.product}>
       <div className={styles.product__container}>
-        <Link href={`/product/${product.slug}?style=${active}&code=0`}>
-          <div className={styles.product__container_photobox}>
+        <div className={styles.product__container_photobox}>
+          <Link href={`/product/${product.slug}?style=${active}&code=0`}>
             <ProductSwiper images={images} />
-          </div>
-          {product.subProducts[active].discount ? (
-            <div className={styles.product__discount}>
-              -{product.subProducts[active].discount}%
-            </div>
-          ) : (
-            ""
-          )}
+          </Link>
           {/* TODO onClick */}
           <Button className={styles.btnheart}>
             <HeartIcon fillColor={"#220F4B"} />
           </Button>
-        </Link>
+        </div>
+        {product.subProducts[active].discount ? (
+          <div className={styles.product__discount}>
+            -{product.subProducts[active].discount}%
+          </div>
+        ) : (
+          ""
+        )}
         <Container className={styles.product__container_infos}>
           <Row>
             <Col>
               <Card.Title className={styles.product__container_infos_title}>
-
                 {(product.name + " " + (product.subProducts[active].color ? product.subProducts[active].color.color : ""
                 ) + " " + product.subProducts[active].sizes[active].size).length > 55
+
 
                   ? `${product.name.substring(0, 55)}...`
                   : product.name +
