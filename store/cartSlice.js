@@ -18,7 +18,7 @@ export const cartSlice = createSlice({
             state.cartItems = [];
         },
         calculateTotal: (state, action) => {
-            state.cartTotal = state.cartItems.reduce((acc, item) => acc + item.price * item.qty, 0).toFixed(2);
+            state.cartTotal = state.cartItems.reduce((acc, item) => acc + item.price * item.qty, 0).toLocaleString();
         },
         incrementQuantity: (state, action) => {
             console.log("state", state);

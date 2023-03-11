@@ -15,7 +15,6 @@ import Link from "next/link";
 import CustomerInfo from "@/components/productPage/customerInfo";
 import { Col, Container, Row } from "react-bootstrap";
 import FAQ from "@/components/faq";
-//import BunnerApp from "@/components/bannerApp";
 import CheaperTogether from "@/components/productPage/cheaperTogether";
 import ProductDescription from "@/components/productPage/productDescription";
 import Popular from "@/components/popular";
@@ -113,7 +112,7 @@ export async function getServerSideProps(context) {
 
   let subProduct = product.subProducts[style];
 
-  let price=subProduct.sizes[0].price.toFixed(2);
+  let price=subProduct.sizes[0].price.toFixed();
     //products that go together cheaper
   let productsPlus = await Product.find().sort({createdAt: -1}).lean();
   let newProduct = {
@@ -127,7 +126,7 @@ export async function getServerSideProps(context) {
     discount: subProduct.discount,
     color: subProduct.color?.color,
     price,
-    priceAfter: ((100-subProduct.discount)*price/100).toFixed(2),
+    priceAfter: ((100-subProduct.discount)*price/100).toFixed(),
     price_unit: subProduct.sizes[0].price_unit,
     code: subProduct.sizes[0].code,
     sold: subProduct.sold,

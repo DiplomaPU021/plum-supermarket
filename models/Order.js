@@ -23,24 +23,24 @@ const orderSchema = new mongoose.Schema(
                 price: {
                     type: Number,
                 },
+                priceAfter: {
+                    type: Number,
+                },
+                discount: {
+                    type: Number,
+                },
                 qty: {
                     type: Number,
                 },
                 color: {
-                    type: String,
+                    color: {
+                        type: String,
+                    },
                 },
             },
 
         ],
 
-        //total price with discount but without promocode
-        cartTotal: Number,
-        coupon: {
-            type: ObjectId,
-            ref: "Coupon",
-        },
-        //total price with discount and promocode
-        costAfterDiscount: Number,
         user: {
             type: ObjectId,
             ref: "User",
@@ -58,7 +58,6 @@ const orderSchema = new mongoose.Schema(
             address: {
                 type: String,
             },
-
             streetType: {
                 type: String,
             },
@@ -102,27 +101,42 @@ const orderSchema = new mongoose.Schema(
             status: String,
             email: String,
         },
-        total: {
+        
+        //total price with discount but without promocode
+        totalPrice: {
             type: Number,
             required: true,
         },
+        promocode: {
+            type: ObjectId,
+            ref: "Coupon",
+        },
+        //total price with discount and promocode
+        costAfterDiscount: Number,
         shippingPrice: {
             type: Number,
             required: true,
             default: 0,
         },
-        taxPrice: {
-            type: Number,
-            default: 0,
-        },
+        // taxPrice: {
+        //     type: Number,
+        //     default: 0,
+        // },
         isPaid: {
             type: Boolean,
             required: true,
-            default: false,            
+            default: false,
         },
-        status:{
-            type:String,
-            default: "no Processed"
+        status: {
+            type: String,
+            default: "Нове замовлення",
+            enum: ["Нове замовлення", "В обробці", "Надіслано", "Завершено", "Скасовано"],
+        },
+        paidAt:{
+            type:Date,
+        },
+        deliveredAt:{
+            type:Date,
         }
     },
     {

@@ -7,7 +7,7 @@ export const saveCart = async (cart) => {
         return data;
 
     } catch (error) {
-        return response.data.error.message;
+        return error.response.data.message;
 
     }
 }
@@ -17,7 +17,7 @@ export const getCart = async () => {
         return data;
 
     } catch (error) {
-        return response.data.error.message;
+        return error.response.data.message;
 
     }
 }
@@ -31,7 +31,7 @@ export const saveAddress = async (address) => {
         return data;
 
     } catch (error) {
-        return response.data.error.message;
+        return error.response.data.message;
 
     }
 }
@@ -45,7 +45,7 @@ export const changeActiveAddress = async (id) => {
         return data;
 
     } catch (error) {
-        return response.data.error.message;
+        return error.response.data.message;
 
     }
 }
@@ -60,8 +60,19 @@ export const deleteAddress = async (id) => {
         return data;
 
     } catch (error) {
-        return response.data.error.message;
+        return error.response.data.error.message;
 
+    }
+}
+export const applyPromocode = async (promocode) => {
+    try {
+        const { data } = await axios.post('/api/user/applyPromocode', {
+            promocode,
+        });
+        console.log("data->>>>>>>>>>>", data);
+        return data;
+    } catch (error) {
+        return error.response.data.message;;
     }
 }
 
@@ -74,7 +85,7 @@ export const checkout = async (cart, user_id) => {
         return data;
 
     } catch (error) {
-        return response.data.error.message;
+        return error.response.data.message;
 
     }
 }

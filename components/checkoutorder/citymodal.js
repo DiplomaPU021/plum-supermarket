@@ -6,7 +6,7 @@ import { getCity } from "@/requests/city"
 
 export default function CityModal(props) {   
 
-// console.log("props onCityModal", props);
+//  console.log("props onCityModal", props);
 
     const [searchCity, setSearchCity] = useState(props.search_сity);
     const [isClearable, setIsClearable] = useState(true);

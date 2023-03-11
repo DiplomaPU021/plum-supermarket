@@ -18,7 +18,7 @@ export default function AppDownload() {
                     <div className={styles.t}>
                         <span className={styles.t__t1}>Завантажити</span>
                         <span className={styles.t__t1}>
-                            В <b>Google Play</b>
+                            в <b>Google Play</b>
                         </span>
                     </div>
                 </Button>
@@ -29,7 +29,7 @@ export default function AppDownload() {
                     <div className={styles.t}>
                         <span className={styles.t__t1}>Завантажити</span>
                         <span className={styles.t__t1}>
-                            В <b>AppStore</b>
+                            в <b>AppStore</b>
                         </span>
                     </div>
                 </Button>

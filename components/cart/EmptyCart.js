@@ -15,13 +15,13 @@ export default function EmptyCart() {
     return (
         <Modal.Body className={styles.modalbody}>
             <Image src='../../../images/cart.jpg' width="180px" height="180px" />
-            <h2>Cart is empty</h2>
-            <h5>But it's never late to fix it !</h5>
+            <h2>Корзина пуста</h2>
+            <h5>Але ще не пізно це виправити!</h5>
             <div className={styles.line}></div>
             {/* <Link className={styles.addbtn} href="/">Add product</Link> */}
             <button className={styles.addbtn}
                onClick={() => showMainPageHandler()}
-            >Add product</button>
+            >Додати товари</button>
         </Modal.Body>
 
     )

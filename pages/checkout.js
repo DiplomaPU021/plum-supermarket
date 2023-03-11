@@ -22,9 +22,10 @@ export default function Checkout({ cart, user, country }) {
      <div className={styles.container}>
        <Header />
        <CheckoutOrder cart={cart} user={user}  country={country}/>
-
        <Footer country={country}/>
+       
      </div>
+     
    );
  }
 export async function getServerSideProps(context) {

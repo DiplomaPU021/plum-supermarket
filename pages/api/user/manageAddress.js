@@ -11,6 +11,17 @@ handler.post(async (req, res) => {
         await db.connectDb();
         const { address } = req.body;
         let user = await User.findById(req.user);
+        let user_addresses = user.address;
+        let addresses = [];
+        for (let i = 0; i < user_addresses.length; i++) {
+            let temp_address = {};
+            temp_address = { ...user_addresses[i].toObject(), active: false };
+            addresses.push(temp_address);
+        }
+        await user.updateOne({
+            address: addresses,
+        },
+            { new: true });
         await user.updateOne({
             $push: {
                 address: address,
@@ -18,6 +29,7 @@ handler.post(async (req, res) => {
         },
             { new: true }
         );
+        user = await User.findById(req.user);
         // res.json(address);      
         await db.disconnectDb();
         return res.status(200).json({ addresses: user.address });
