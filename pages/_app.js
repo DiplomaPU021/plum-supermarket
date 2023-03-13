@@ -26,6 +26,7 @@ function MyApp({ Component, pageProps: { session, ...pageProps } }) {
     </>
 
   );
+
 }
 // MyApp.propTypes = {
 //   Component: PropTypes.elementType.isRequired,

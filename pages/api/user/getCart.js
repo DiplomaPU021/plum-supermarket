@@ -1,4 +1,4 @@
-import Product from "@/models/Product";
+import nc from "next-connect";
 import User from "@/models/User";
 import Cart from "@/models/Cart";
 import db from "@/utils/db";
@@ -9,7 +9,6 @@ const handler = nc().use(auth);
 handler.get(async (req, res) => {
    
     try {
-  
         const id = req.user;
         await db.connectDb();
         // const { user_id } = req.body;
@@ -19,10 +18,6 @@ handler.get(async (req, res) => {
             return res.status(200).json(existing_cart);
         }
        
-        
-        console.log("//////////////////////existing cart",existing_cart);
-    
-        
         await db.disconnectDb();
 
     } catch (error) {

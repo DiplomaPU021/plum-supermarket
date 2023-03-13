@@ -81,9 +81,10 @@ export default function MainSwiper({ product, active, setActive }) {
               }
               onMouseLeave={() => setActiveImg("")}
               onClick={() => setActive(i)}
+              style={{background:product.color.image}}
             >
               <Link href={`/product/${product.slug}?style=${i}&code=${product.code}`}>
-                <Image src={product.color.image} alt={product.color.image} />
+                <Image  src={product.color.image} alt={product.color.image} />
               </Link>
             </span>)
           )}

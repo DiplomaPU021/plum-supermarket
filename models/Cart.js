@@ -43,6 +43,7 @@ const cartSchema = new mongoose.Schema(
 
         ],
         cartTotalPrice: Number,
+        cartTotalAfterDiscount: Number,
         cartTotalQty: Number,
         user: {
             type: ObjectId,

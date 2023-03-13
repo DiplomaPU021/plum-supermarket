@@ -73,14 +73,14 @@ export default function Infos({ product, active, setActive }) {
         <Col className={styles.infos__priceandaction_price}>
           {product.subProducts[active].discount > 0 ? (
             <div>
-              <span className={styles.pricediscount}>{`${product.price} ${product.price_unit}`}</span>
+              <span className={styles.pricediscount}>{`${Number(product.price).toLocaleString()} ${product.price_unit}`}</span>
               <span className={styles.priceregular}>
-                {`${product.priceAfter} ${product.price_unit}`}
+                {`${Number(product.priceAfter).toLocaleString()} ${product.price_unit}`}
               </span>
             </div>
           ) : (
             <div>
-              <span className={styles.priceregular}>{`${product.price} ${product.price_unit}`}</span>
+              <span className={styles.priceregular}>{`${Number(product.price).toLocaleString()} ${product.price_unit}`}</span>
             </div>
           )}
         </Col>

@@ -12,6 +12,7 @@ import db from "@/utils/db";
 import DotLoaderSpinner from '@/components/loaders/dotLoader';
 
 import CheckoutOrder from '@/components/checkoutorder'
+import { getCountryData } from "@/utils/country";
 
 
 const inter = Inter({ subsets: ["latin"] });
@@ -22,24 +23,14 @@ export default function Checkout({ cart, user, country }) {
      <div className={styles.container}>
        <Header />
        <CheckoutOrder cart={cart} user={user}  country={country}/>
-
        <Footer country={country}/>
+       
      </div>
+     
    );
  }
 export async function getServerSideProps(context) {
-  //console.log("contextInCheckoutServerSideProps",context);
-  //const [loading, setLoading] = React.useState(false)
-  let data = {name: "Україна", flag: { emojitwo: "https://cdn.ipregistry.co/flags/emojitwo/ua.svg"}, code: "UA"};
-  /* Увага!!! замість обєкту можна використати сервіс ipregistry з наступним методом
-    await axios
-    .get('https://api.ipregistry.co/?key=aq50e9f94war7j9p')
-    .then((res) => {      
-      return res.data.location.country;
-    })
-    .catch((err)=> {
-      console.log(err);      
-    });*/
+  const countryData = await getCountryData();
  await db.connectDb();
   var user={};
   const { req } = context;
@@ -73,7 +64,7 @@ export async function getServerSideProps(context) {
       props: {
         cart: JSON.parse(JSON.stringify(cart)),
         user: JSON.parse(JSON.stringify(user)),
-        country: { name: data.name, flag: data.flag.emojitwo, code: data.code },
+        country: countryData,
       },
     };
 }

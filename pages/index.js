@@ -16,13 +16,14 @@ import db from "@/utils/db";
 import Product from "@/models/Product";
 import axios from "axios";
 import Category from "@/models/Category";
+import { getCountryData } from "@/utils/country";
 
 const inter = Inter({ subsets: ["latin"] });
 
 export default function Home({ country, products, categories }) {
-  console.log("country", country);
+  // console.log("country", country);
   const { data: session } = useSession();
-  console.log("session index home", session?.user?.id);
+  // console.log("session index home", session?.user?.id);
 
   // console.log("productsIndex", products);
   //   .populate({path: "category", model: Category})
@@ -48,20 +49,7 @@ export default function Home({ country, products, categories }) {
   );
 }
 export async function getServerSideProps() {
-  let data = {
-    name: "Ukraine",
-    flag: { emojitwo: "https://cdn.ipregistry.co/flags/emojitwo/ua.svg" },
-    code: "UA",
-  };
-  /* Увага!!! замість обєкту можна використати сервіс ipregistry з наступним методом
-    await axios
-    .get('https://api.ipregistry.co/?key=aq50e9f94war7j9p')
-    .then((res) => {      
-      return res.data.location.country;
-    })
-    .catch((err)=> {
-      console.log(err);      
-    });*/
+  const countryData = await getCountryData();
     
   await db.connectDb();
 
@@ -73,7 +61,7 @@ export async function getServerSideProps() {
 
   return {
     props: {
-      country: { name: data.name, flag: data.flag.emojitwo, code: data.code },
+      country: countryData,
       products: JSON.parse(JSON.stringify(products)),
       categories: JSON.parse(JSON.stringify(categories)),
     },

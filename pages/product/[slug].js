@@ -20,6 +20,7 @@ import ProductDescription from "@/components/productPage/productDescription";
 import Popular from "@/components/popular";
 import Reviews from "@/components/productPage/reviews";
 import AppDownload from "@/components/appdownload";
+import { getCountryData } from "@/utils/country";
 
 export default function product({ product, products, country }) {
   const [active, setActive] = useState(0);
@@ -89,20 +90,9 @@ export async function getServerSideProps(context) {
   const slug = query.slug;
   const style = query.style;
   const code = query.code || 0;
-  let data = {
-    name: "Ukraine",
-    flag: { emojitwo: "https://cdn.ipregistry.co/flags/emojitwo/ua.svg" },
-    code: "UA",
-  };
-  /* Увага!!! замість обєкту можна використати сервіс ipregistry з наступним методом
-    await axios
-    .get('https://api.ipregistry.co/?key=aq50e9f94war7j9p')
-    .then((res) => {      
-      return res.data.location.country;
-    })
-    .catch((err)=> {
-      console.log(err);      
-    });*/
+
+  const countryData = await getCountryData();
+
   await db.connectDb();
   //----------------
   //from db
@@ -114,9 +104,11 @@ export async function getServerSideProps(context) {
 
   let subProduct = product.subProducts[style];
 
-  let price = subProduct.sizes[0].price.toFixed(2);
-  //products that go together cheaper
-  let productsPlus = await Product.find().sort({ createdAt: -1 }).lean();
+
+  let price=subProduct.sizes[0].price.toFixed();
+    //products that go together cheaper
+  let productsPlus = await Product.find().sort({createdAt: -1}).lean();
+
   let newProduct = {
     ...product,
     style,
@@ -128,11 +120,10 @@ export async function getServerSideProps(context) {
     discount: subProduct.discount,
     color: subProduct.color?.color,
     price,
-    priceAfter: (((100 - subProduct.discount) * price) / 100).toFixed(2),
+    priceAfter: ((100-subProduct.discount)*price/100).toFixed(),
     price_unit: subProduct.sizes[0].price_unit,
     code: subProduct.sizes[0].code,
     sold: subProduct.sold,
-
     quantity: subProduct.sizes[0].qty,
     productsPlus,
     ratings: [
@@ -153,7 +144,7 @@ export async function getServerSideProps(context) {
     props: {
       product: JSON.parse(JSON.stringify(newProduct)),
       products: JSON.parse(JSON.stringify(products)),
-      country: { name: data.name, flag: data.flag.emojitwo, code: data.code },
+      country: countryData,
     },
   };
 }

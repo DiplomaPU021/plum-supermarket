@@ -17,9 +17,6 @@ export default function CartPage(props) {
     const router = useRouter();
     const { data: session } = useSession();
     const cart = useSelector((state) => state.cart);
-    // console.log("cartIndex", cart);
-    const [total, setTotal] = useState(0);
-
     const [userId, setUserId] = useState(props.userid);
     const [footerVisible, setFooterVis] = useState("none");
 
@@ -44,7 +41,8 @@ export default function CartPage(props) {
                 saveCart(cart);
                 // setLoading(false);
                 props.onHide();
-                window.location.reload(true);
+                router.push("/checkout");
+                // window.location.reload(true);
                 // router.push("/checkout");
                 // router.reload();
                 //  router.push(
@@ -72,10 +70,10 @@ export default function CartPage(props) {
     //         (accumulator, item) => accumulator + item.qty * item.price, 0));
     // }, [cart.cartItems]);
 
-    useEffect(()=>{
-        if(cart?.cartItems?.length !== 0){
-            setFooterVis("block")
-        }
+    useEffect(() => {
+        if (cart?.cartItems?.length !== 0) {
+            setFooterVis("block");
+        } else { setFooterVis("none"); }
     })
 
     return (
@@ -89,33 +87,33 @@ export default function CartPage(props) {
                 loading && <DotLoaderSpinner loading={loading} />
             } */}
             <div className={styles.modaldiv}>
-                <Modal.Header  className={styles.modalheader} closeButton onClick={() => updateCartInDbHandler()}></Modal.Header>
+                <Modal.Header className={styles.modalheader} closeButton onClick={() => updateCartInDbHandler()}></Modal.Header>
                 {cart == null || cart?.cartItems?.length == 0 || cart.cartItems == null ? (
                     <EmptyCart />
                 ) : (
-                    
+
                     <Modal.Body className={styles.modalbody} >
-                        
+
                         {
                             cart.cartItems?.map((product, i) => (
                                 <CartItem key={i} product={product} userid={userId} />
                             ))
                         }
-                        </Modal.Body>
-                         )}
-                         {/* visible unvisible */}
-                          <Modal.Footer style={{display: footerVisible}} as={'div'}> 
-                          <div className={styles.modalfoot}>  
-                          <h3>Total to pay:<span>{getTotalPrice().toFixed(2)}</span></h3>
-                              <button className={styles.addbtn}
-                                  onClick={() => saveCartToDbHandler()}
-                              >Checkout</button>
-                              {/* <Checkout total={getTotalPrice().toFixed(2)}
+                    </Modal.Body>
+                )}
+                {/* visible unvisible */}
+                <Modal.Footer style={{ display: footerVisible }} as={'div'}>
+                    <div className={styles.modalfoot}>
+                        <h3>Всього до оплати:<span>{Math.round(getTotalPrice()).toLocaleString()} ₴</span></h3>
+                        <button className={styles.addbtn}
+                            onClick={() => saveCartToDbHandler()}
+                        >Оформити замовлення</button>
+                        {/* <Checkout total={getTotalPrice().toFixed(2)}
                               saveCartToDbHandler={saveCartToDbHandler}
                               /> */}
-                              <Link href="/" className={styles.link}>Повернутись до покупок</Link>
-                              </div> 
-                          </Modal.Footer>
+                        <Link href="/" className={styles.link}>Повернутись до покупок</Link>
+                    </div>
+                </Modal.Footer>
             </div>
         </Modal>
     )

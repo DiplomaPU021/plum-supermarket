@@ -2,6 +2,7 @@ import styles from "./styles.module.scss"
 import Link from "next/link"
 import { IoLocationSharp } from "react-icons/io5"
 
+
 export default function Ad({country}) {
     return (
 

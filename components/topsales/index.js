@@ -21,13 +21,11 @@ export default function TopSales({ products }) {
                 <Col className={styles.coltext} xs={2} md={1}><Link href="/" className={styles.link}>Очікувані</Link></Col>
             </Row>
             <Row className={styles.products_row}>
-                <ProductCard product={products[0]} />
-                <ProductCard product={products[1]} />
-                <ProductCard product={products[0]} />
-                <ProductCard product={products[1]} />
-                <ProductCard product={products[1]} />
-                <ProductCard product={products[0]} />
-                <ProductCard product={products[1]} />
+                {products.map((product) => (
+                     <ProductCard product={product} key={product._id}/>
+                ))
+                }
+               
                 <div className={styles.colcard}>
                     <Card className={styles.morevideo}>
                         <Card.Body className={styles.lastcardbody}>

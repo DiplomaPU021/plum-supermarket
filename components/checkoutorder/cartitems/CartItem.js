@@ -1,10 +1,5 @@
-import styles from "./styles.module.scss"
-import Link from "next/link"
-import { BiRightArrowAlt } from "react-icons/bi"
+import styles from "../styles.module.scss"
 import Card from 'react-bootstrap/Card'
-import Button from "react-bootstrap/Button"
-import HeartIcon from "../icons/HeartIcon"
-import DeleteIcon from "../icons/DeleteIcon"
 
 export default function CartItem({ product }) {
     return (
@@ -20,10 +15,10 @@ export default function CartItem({ product }) {
                     }
                     <div className={styles.picture}><img src={product.image} width='157px' height='95px'></img></div>
                     <div className={styles.cardtext}>
-                        <h5>                {(product.name + " " + (product.color ? product.color : ""
+                        <h5>                {(product.name + " " + (product.color ? product.color.color : ""
                         ) + " " + product.size).length > 55
                             ? `${product.name.substring(0, 55)}...`
-                            : product.name + " " + (product.color ? product.color : "") + " " + product.size}</h5>
+                            : product.name + " " + (product.color ? product.color.color : "") + " " + product.size}</h5>
                     </div>
                     <div className={styles.cardcontrols}>
                         <div className={styles.cardcontrols_itemcount}>
@@ -33,8 +28,8 @@ export default function CartItem({ product }) {
                                 {/* <span>+</span> */}
                             </div>
                             {product.price!=product.priceAfter?
-                            ( <h5>{product.price} грн</h5>): ""}                          
-                            <h3>{product.priceAfter} грн</h3>
+                            ( <h5>{product.price.toLocaleString()} ₴</h5>): ""}                          
+                            <h3>{product.priceAfter.toLocaleString()} ₴</h3>
                         </div>
                         {/* <div className={styles.cardbtns}>
                             <button className={styles.itembtn}> <DeleteIcon fillColor={"#220F4B"} /></button>

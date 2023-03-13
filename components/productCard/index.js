@@ -50,7 +50,7 @@ export default function ProductCard({ product }) {
     setPrices(
       product.subProducts[active]?.sizes
         .map((s) => {
-          return Number(s.price).toFixed();
+          return Number(s.price);
         })
         .sort((a, b) => {
           return a - b;
@@ -124,23 +124,16 @@ export default function ProductCard({ product }) {
           <Row>
             <Col>
               <Card.Title className={styles.product__container_infos_title}>
-                {(
-                  product.name +
+                              {(product.name + " " + (product.subProducts[active].color ? product.subProducts[active].color.color : ""
+                ) + " " + product.subProducts[active].sizes[active].size).length > 55
+                  ? `${product.name.substring(0, 55)}...`
+                  : product.name +
                   " " +
                   (product.subProducts[active].color
                     ? product.subProducts[active].color.color
                     : "") +
                   " " +
-                  product.subProducts[active].sizes[active].size
-                ).length > 55
-                  ? `${product.name.substring(0, 55)}...`
-                  : product.name +
-                    " " +
-                    (product.subProducts[active].color
-                      ? product.subProducts[active].color.color
-                      : "") +
-                    " " +
-                    product.subProducts[active].sizes[active].size}
+                  product.subProducts[active].sizes[active].size}
               </Card.Title>
             </Col>
           </Row>
@@ -154,13 +147,13 @@ export default function ProductCard({ product }) {
               <Col className={styles.product__container_infos_pricebtn_price}>
                 <span
                   className={styles.pricediscount}
-                >{`${prices[0]} ${product.subProducts[active].sizes[0].price_unit}`}</span>
+                >{`${prices[0].toLocaleString()} ${product.subProducts[active].sizes[0].price_unit}`}</span>
                 <span className={styles.priceregular}>
-                  {`${(
-                    (Number(prices[0]) *
-                      (100 - Number(product.subProducts[active].discount))) /
+                  {`${Math.round(
+                    ((prices[0]) *
+                      (100 - (product.subProducts[active].discount))) /
                     100
-                  ).toFixed(2)}`}{" "}
+                  ).toLocaleString('uk-UA')}`}{" "}
                   {product.subProducts[active].sizes[0].price_unit}
                 </span>
               </Col>
