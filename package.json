@@ -19,6 +19,7 @@
     "bootstrap": "^5.2.3",
     "formik": "^2.2.9",
     "googleapis": "^110.0.0",
+    "init": "^0.1.2",
     "jsonwebtoken": "^9.0.0",
     "mongodb": "^4.13.0",
     "mongoose": "^6.8.3",

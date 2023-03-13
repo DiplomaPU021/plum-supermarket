@@ -43,7 +43,7 @@ export default function CartItem(product, userid) {
                 {
                     product.product.discount > 0 ? (
                         <div className={styles.discount}>{product.product.discount}%</div>
-                    ) : (<></>)                  
+                    ) : (<></>)
                 }
                 <Container className={styles.bord}>
                     <Row className={styles.bord}>
@@ -54,12 +54,12 @@ export default function CartItem(product, userid) {
                         </Col>
                         <Col md={5} xs={12} sm={5} className={styles.cardtext}>
                             <h5>
-                        {(product.product.name + " " + (product.product.color ? product.product.color.color : ""
-                        ) + " " + product.product.size).length > 55
-                            ? `${(product.product.name + " " + (product.product.color ? product.product.color.color : ""
-                            ) + " " + product.product.size).substring(0, 55)}...`
-                            : product.product.name + " " + (product.product.color ? product.product.color.color : "") + " " + product.product.size}
-                    </h5>
+                                {(product.product.name + " " + (product.product.color ? product.product.color.color : ""
+                                ) + " " + product.product.size).length > 55
+                                    ? `${(product.product.name + " " + (product.product.color ? product.product.color.color : ""
+                                    ) + " " + product.product.size).substring(0, 55)}...`
+                                    : product.product.name + " " + (product.product.color ? product.product.color.color : "") + " " + product.product.size}
+                            </h5>
                             <div className={styles.cardtext_line}></div>
                             <div className={styles.cardtext_extraservice}>
                                 <button className={styles.cardextrabtn} onClick={() => setShowExtra(showExtra === "none" ? "block" : "none")}>Extra service {showExtra === "none" ? <img width="30px" height="30px" src="../../../icons/down-btn.png"></img> :
@@ -68,7 +68,7 @@ export default function CartItem(product, userid) {
                                 <div className={styles.extra_div} style={{ display: showExtra }}>
                                     <Form.Check type={'checkbox'} id={`check-api-1`}>
                                         <Form.Check.Input type={'checkbox'} />
-                                        <Form.Check.Label><b>Windows 11</b></Form.Check.Label>                          
+                                        <Form.Check.Label><b>Windows 11</b></Form.Check.Label>
                                     </Form.Check>
                                     <p>Операційна система Windows 11 Для дому на 1ПК (ESD - електронна ліцензія в конверті, всі мови) (KW9-00664)</p>
                                     <h4>9899 $</h4>
@@ -97,12 +97,12 @@ export default function CartItem(product, userid) {
                                     </button>
                                 </div>
                                 <div className={styles.bord}>
-                                  {
-                            product.product.discount > 0 ? (
-                                <h5>{Math.round(product.product.price * product.product.qty).toLocaleString('uk-UA')} {product.product.price_unit}</h5>)
-                                : (<></>)
-                        }
-                                   <h3>{Math.round(product.product.priceAfter * product.product.qty).toLocaleString('uk-UA')} {product.product.price_unit}</h3>
+                                    {
+                                        product.product.discount > 0 ? (
+                                            <h5>{Math.round(product.product.price * product.product.qty).toLocaleString('uk-UA')} {product.product.price_unit}</h5>)
+                                            : (<></>)
+                                    }
+                                    <h3>{Math.round(product.product.priceAfter * product.product.qty).toLocaleString('uk-UA')} {product.product.price_unit}</h3>
                                 </div>
                             </Row>
                         </Col>

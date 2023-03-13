@@ -21,18 +21,8 @@ import { getCountryData } from "@/utils/country";
 const inter = Inter({ subsets: ["latin"] });
 
 export default function Home({ country, products, categories }) {
-  // console.log("country", country);
-  const { data: session } = useSession();
-  // console.log("session index home", session?.user?.id);
 
-  // console.log("productsIndex", products);
-  //   .populate({path: "category", model: Category})
-  //   .populate({path: "subCategories._id", model: SubCategory})
-  //   .lean();
-  //   let product2 = await Product.findById("63e3a79f5ba7e472e6726d0f")
-  //   .populate({path: "category", model: Category})
-  //   .populate({path: "subCategories._id", model: SubCategory})
-  //   .lean();
+  const { data: session } = useSession();
   return (
     <div className={styles.container}>
       <Header country={country} />

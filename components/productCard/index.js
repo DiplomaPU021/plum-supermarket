@@ -68,13 +68,6 @@ export default function ProductCard({ product }) {
       `/api/product/${product._id}?style=0&code=0`
     );
 
-    console.log("dataOnProductCardIndex--------->", data);
-
-    // console.log("data2--------->", product._id);
-    // console.log("data3--------->", data.style);
-    // console.log("data3--------->", data.quantity);
-    // console.log("data4--------->", router.query.code);
-
     if (qty > data.quantity) {
       setError("The quantity is bigger than in stock.");
       return;

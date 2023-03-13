@@ -3,8 +3,6 @@ import Modal from 'react-bootstrap/Modal'
 import EmptyCart from "./emptyCart"
 import * as React from "react"
 import Link from "next/link"
-import Card from 'react-bootstrap/Card'
-import Button from 'react-bootstrap/Button'
 import CartItem from './cartItem'
 import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
@@ -20,14 +18,6 @@ export default function CartPage(props) {
     const [userId, setUserId] = useState(props.userid);
     const [footerVisible, setFooterVis] = useState("none");
 
-
-    // useEffect(() => {
-    //     if (session) {
-    //         console.log("session_______________>>>>>", session);
-    //         setUserId(session.user.id)
-    //     }
-    // }, [userId]);
-
     const getTotalPrice = () => {
         return cart.cartItems.reduce(
             (accumulator, item) => accumulator + item.qty * item.priceAfter,
@@ -37,19 +27,10 @@ export default function CartPage(props) {
     const saveCartToDbHandler = () => {
         if (session) {
             if (window.location.pathname === "/checkout") {
-                //  setLoading(true);
                 saveCart(cart);
-                // setLoading(false);
                 props.onHide();
                 router.push("/checkout");
-                // window.location.reload(true);
-                // router.push("/checkout");
-                // router.reload();
-                //  router.push(
-                // {
-                //   pathname: router.pathname, // not router.asPath
-                //    query: { confirm: true },
-                // },);
+
             } else {
                 saveCart(cart);
                 router.push("/checkout");
@@ -61,14 +42,9 @@ export default function CartPage(props) {
     const updateCartInDbHandler = () => {
         if (session && window.location.pathname === "/checkout") {
             router.push("/checkout");
-            // console.log("77indexCard", cart);
             saveCart(cart);
         }
     }
-    // useEffect(() => {
-    //     setTotal(cart.cartItems.reduce(
-    //         (accumulator, item) => accumulator + item.qty * item.price, 0));
-    // }, [cart.cartItems]);
 
     useEffect(() => {
         if (cart?.cartItems?.length !== 0) {
@@ -83,17 +59,12 @@ export default function CartPage(props) {
             size={cart.length == 0 ? "lg" : "xl"}
             aria-labelledby="contained-modal-title-vcenter"
             centered>
-            {/* {
-                loading && <DotLoaderSpinner loading={loading} />
-            } */}
             <div className={styles.modaldiv}>
                 <Modal.Header className={styles.modalheader} closeButton onClick={() => updateCartInDbHandler()}></Modal.Header>
                 {cart == null || cart?.cartItems?.length == 0 || cart.cartItems == null ? (
                     <EmptyCart />
                 ) : (
-
                     <Modal.Body className={styles.modalbody} >
-
                         {
                             cart.cartItems?.map((product, i) => (
                                 <CartItem key={i} product={product} userid={userId} />
@@ -101,16 +72,13 @@ export default function CartPage(props) {
                         }
                     </Modal.Body>
                 )}
-                {/* visible unvisible */}
                 <Modal.Footer style={{ display: footerVisible }} as={'div'}>
                     <div className={styles.modalfoot}>
                         <h3>Всього до оплати:<span>{Math.round(getTotalPrice()).toLocaleString()} ₴</span></h3>
                         <button className={styles.addbtn}
                             onClick={() => saveCartToDbHandler()}
                         >Оформити замовлення</button>
-                        {/* <Checkout total={getTotalPrice().toFixed(2)}
-                              saveCartToDbHandler={saveCartToDbHandler}
-                              /> */}
+
                         <Link href="/" className={styles.link}>Повернутись до покупок</Link>
                     </div>
                 </Modal.Footer>
