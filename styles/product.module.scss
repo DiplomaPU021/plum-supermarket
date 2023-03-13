@@ -1,7 +1,7 @@
-.productpage {
-    min-height: 100vh;
+.links {
+    margin: 0;
+    padding: 15px 0 0 60px;
     background: $light-wheet-color;
-    padding: 0 60px 0 60px;
 
     &__link {
         font-family: 'Noto Sans';
@@ -11,41 +11,50 @@
         line-height: 22px;
         color: $plum-dark-color;
         text-decoration: none;
-        &:hover{
+
+        &:hover {
             color: $green-color;
         }
     }
+}
 
-    &__nameCode {
+.nameCode {
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px 60px 38px 0;
+    background: $light-wheet-color;
+
+    span {
+        font-family: 'Noto Sans';
+        font-style: normal;
+        font-weight: 400;
+    }
+
+    &_name {
+        position: relative;
+        padding: 13px 0 13px 60px;
+        background: linear-gradient(90deg, #220F4B 0%, #573C91 100%);
+        border-radius: 0px 23px 23px 0px;
+        font-size: 32px;
+        color: $light-wheet-color;
+    }
+
+    &_code {
         display: flex;
         flex-direction: column;
-        align-items: center;
-        padding: 20px 0 38px 0;
-
-        span {
-            font-family: 'Noto Sans';
-            font-style: normal;
-            font-weight: 400;
-        }
-
-        &_name {
-            padding: 13px 0 13px 19px;
-            background: linear-gradient(90deg, #220F4B 0%, #573C91 100%);
-            border-radius: 0px 23px 23px 0px;
-            font-size: 32px;
-            color: $light-wheet-color;
-        }
-
-        &_code {
-            display: flex;
-            flex-direction: column;
-            align-items: flex-end;
-            padding-right: 27px;
-            font-size: 16px;
-            height: 22px;
-            color: $plum-dark-color;
-        }
+        align-items: flex-end;
+        padding-right: 27px;
+        font-size: 16px;
+        height: 22px;
+        color: $plum-dark-color;
     }
+}
+
+.productpage {
+    background: $light-wheet-color;
+    padding: 0 60px 0 60px;
 
     &__main {
         padding: 0;
@@ -75,7 +84,7 @@
             color: #FFFFFF;
         }
 
-        
+
     }
 
 }

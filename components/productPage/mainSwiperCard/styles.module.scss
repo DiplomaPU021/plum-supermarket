@@ -7,6 +7,7 @@
     border-radius: 23px;
     padding: 0;
     &__photoBox {
+        margin: 0;
         padding: 117px 69px 124px 70px;
 
         &_image {
@@ -23,10 +24,11 @@
     }
 
     &__simillarswiper {
+        margin: 0;
         display: flex;
         flex-direction: row;
         align-items: center;
-        padding: 57px 25px 70px 25px;
+        padding: 30px 35px;
 
         &_col {
             padding: 0;

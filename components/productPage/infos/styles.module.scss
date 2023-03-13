@@ -11,13 +11,16 @@
         padding: 15px;
 
         &_price {
+            display: flex;
+            align-items: center;
+            height: 100px;
+            
             span {
                 display: flex;
                 flex-direction: column;
                 font-family: 'Noto Sans';
                 font-style: normal;
             }
-            
         }
 
         &_react {

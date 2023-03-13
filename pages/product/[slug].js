@@ -15,7 +15,6 @@ import Link from "next/link";
 import CustomerInfo from "@/components/productPage/customerInfo";
 import { Col, Container, Row } from "react-bootstrap";
 import FAQ from "@/components/faq";
-//import BunnerApp from "@/components/bannerApp";
 import CheaperTogether from "@/components/productPage/cheaperTogether";
 import ProductDescription from "@/components/productPage/productDescription";
 import Popular from "@/components/popular";
@@ -26,52 +25,50 @@ export default function product({ product, products, country }) {
   const [active, setActive] = useState(0);
 
   return (
-    <div>
+    <Container fluid style={{ padding: "0" }}>
       <Header country={country} />
-      <Container fluid className={styles.productpage}>
-        <Row>
-          <Col>
-            <Link href="/">
-              <LightPlumIcon />
-              <GreenChevronRight fillColor="#70BF63" w="30px" h="30px" />
-            </Link>
-            <Link
-              href={`/category/${product.category.slug}`}
-              className={styles.productpage__link}
-            >
-              <span>{product.category.name}</span>
-              <GreenChevronRight fillColor="#70BF63" w="30px" h="30px" />
-            </Link>
-            {product.subCategories.map((sub, i) => (
-              <Link
-               //TODO LINK
-                href="/"
-                //href={`/${product.category.name}/${sub.name}`}
-                key={i}
-                className={styles.productpage__link}
-              >
-                <span> {sub.name}</span>
-              </Link>
-            ))}
-          </Col>
-        </Row>
-        <Row className={styles.productpage__nameCode}>
-          <Col className={styles.productpage__nameCode_name}>
-            <span>
-              {product.name} {product.color} {product.size}
+      <Row className={styles.links}>
+        <Col style={{ padding: "0" }}>
+          <Link href="/">
+            <LightPlumIcon />
+            <GreenChevronRight fillColor="#70BF63" w="30px" h="30px" />
+          </Link>
+          <Link
+            href={`/category/${product.category.slug}`}
+            className={styles.links__link}
+          >
+            <span>{product.category.name}</span>
+            <GreenChevronRight fillColor="#70BF63" w="30px" h="30px" />
+          </Link>
+          {product.subCategories.map((sub, i) => (
+            <span key={i} className={styles.links__link}>
+              {sub.name}
             </span>
-          </Col>
-          <Col className={styles.productpage__nameCode_code}>
-            <span>Код: {product.code}</span>
-          </Col>
-        </Row>
+          ))}
+        </Col>
+      </Row>
+      <Row className={styles.nameCode}>
+        <Col className={styles.nameCode_name}>
+          <span>
+            {product.name} {product.color} {product.size}
+          </span>
+        </Col>
+        <Col className={styles.nameCode_code}>
+          <span>Код: {product.code}</span>
+        </Col>
+      </Row>
+      <Container fluid className={styles.productpage}>
         <Container fluid className={styles.productpage__main}>
           <Row>
             <Col style={{ padding: "0", width: "50%" }}>
-              <MainSwiperCard product={product} active={active} setActive={setActive} />
+              <MainSwiperCard
+                product={product}
+                active={active}
+                setActive={setActive}
+              />
             </Col>
-            <Col style={{ padding: "0" , width: "50%" }}>
-              <Infos product={product} active={active} setActive={setActive}/>
+            <Col style={{ padding: "0", width: "50%" }}>
+              <Infos product={product} active={active} setActive={setActive} />
             </Col>
           </Row>
         </Container>
@@ -83,8 +80,8 @@ export default function product({ product, products, country }) {
       <Popular products={products} />
       <AppDownload />
       <FAQ />
-      <Footer country={country}/>
-    </div>
+      <Footer country={country} />
+    </Container>
   );
 }
 export async function getServerSideProps(context) {
@@ -92,7 +89,11 @@ export async function getServerSideProps(context) {
   const slug = query.slug;
   const style = query.style;
   const code = query.code || 0;
-  let data = {name: "Ukraine", flag: { emojitwo: "https://cdn.ipregistry.co/flags/emojitwo/ua.svg"}, code: "UA"};
+  let data = {
+    name: "Ukraine",
+    flag: { emojitwo: "https://cdn.ipregistry.co/flags/emojitwo/ua.svg" },
+    code: "UA",
+  };
   /* Увага!!! замість обєкту можна використати сервіс ipregistry з наступним методом
     await axios
     .get('https://api.ipregistry.co/?key=aq50e9f94war7j9p')
@@ -113,9 +114,9 @@ export async function getServerSideProps(context) {
 
   let subProduct = product.subProducts[style];
 
-  let price=subProduct.sizes[0].price.toFixed(2);
-    //products that go together cheaper
-  let productsPlus = await Product.find().sort({createdAt: -1}).lean();
+  let price = subProduct.sizes[0].price.toFixed(2);
+  //products that go together cheaper
+  let productsPlus = await Product.find().sort({ createdAt: -1 }).lean();
   let newProduct = {
     ...product,
     style,
@@ -127,7 +128,7 @@ export async function getServerSideProps(context) {
     discount: subProduct.discount,
     color: subProduct.color?.color,
     price,
-    priceAfter: ((100-subProduct.discount)*price/100).toFixed(2),
+    priceAfter: (((100 - subProduct.discount) * price) / 100).toFixed(2),
     price_unit: subProduct.sizes[0].price_unit,
     code: subProduct.sizes[0].code,
     sold: subProduct.sold,
@@ -141,12 +142,11 @@ export async function getServerSideProps(context) {
       { percentage: 4 },
       { percentage: 0 },
     ],
-
   };
 
   // console.log("newProduct",newProduct);
 
-  //Should be the same of the catecory  
+  //Should be the same of the catecory
   let products = await Product.find().sort({ popularity: -1 }).limit(5);
   await db.disconnectDb();
   return {

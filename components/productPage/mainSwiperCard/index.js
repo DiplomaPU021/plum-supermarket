@@ -38,12 +38,12 @@ export default function MainSwiper({ product, active, setActive }) {
         </div>
         <Col>
           <Swiper
-            slidesPerView={5}
-            spaceBetween={30}
+            slidesPerView={4}
+            spaceBetween={10}
             navigation={{
-              nextEl: ".image-swiper-button-next",
               prevEl: ".image-swiper-button-prev",
-              disabledClass: "swiper-button-disabled",
+              nextEl: ".image-swiper-button-next",
+              //disabledClass: "swiper-button-disabled",
             }}
             modules={[Navigation]} 
           >
@@ -60,7 +60,7 @@ export default function MainSwiper({ product, active, setActive }) {
           </Swiper>
         </Col>
         <div
-          className={`${styles.swiper__simillarswiper_col} swiper-button image-swiper-button-prev`}
+          className={`${styles.swiper__simillarswiper_col} swiper-button image-swiper-button-next`}
         >
           <ChevronRight fillColor="#5D8C52" w="30px" h="30px" />
         </div>

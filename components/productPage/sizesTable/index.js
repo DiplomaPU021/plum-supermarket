@@ -118,8 +118,7 @@ export default function SizesTable({ show, onHide }) {
                     </div>
                   </Col>
                 </Row>
-              ) : null}
-              {measurements ? (
+              ) : (
                 <Row className={`justify-content-md-center ${styles.row}`}>
                   <Col md={5}>
                     <Image src="../../../images/rightMeasurment.png" alt="" />
@@ -157,7 +156,7 @@ export default function SizesTable({ show, onHide }) {
                     </span>
                   </Col>
                 </Row>
-              ) : null}
+              )}
             </Container>
           </Modal.Body>
         </div>

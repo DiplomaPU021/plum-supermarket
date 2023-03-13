@@ -41,7 +41,7 @@
         justify-self: flex-end;
 
         @media (min-width: 1200px) {
-            width: fit-content;
+            width: 33.33%;
         }
 
         @media (min-width: 1400px) {
@@ -53,9 +53,6 @@
         }
     }
 
-    @media (max-width: 1300px) {
-        padding-left: 60px;
-    }
 }
 
 .colcard {
