@@ -15,10 +15,10 @@ export default function CartItem({ product }) {
                     }
                     <div className={styles.picture}><img src={product.image} width='157px' height='95px'></img></div>
                     <div className={styles.cardtext}>
-                        <h5>                {(product.name + " " + (product.color ? product.color : ""
+                        <h5>                {(product.name + " " + (product.color ? product.color.color : ""
                         ) + " " + product.size).length > 55
                             ? `${product.name.substring(0, 55)}...`
-                            : product.name + " " + (product.color ? product.color : "") + " " + product.size}</h5>
+                            : product.name + " " + (product.color ? product.color.color : "") + " " + product.size}</h5>
                     </div>
                     <div className={styles.cardcontrols}>
                         <div className={styles.cardcontrols_itemcount}>

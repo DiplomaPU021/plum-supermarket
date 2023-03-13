@@ -21,13 +21,11 @@ export const getCart = async () => {
 
     }
 }
-export const saveAddress = async (address) => {
+export const  saveAddress = async (address) => {
     try {
-        console.log("------------address", address);
         const { data } = await axios.post('/api/user/manageAddress', {
             address
         });
-        console.log("------------data30", data);
         return data;
 
     } catch (error) {
@@ -37,11 +35,9 @@ export const saveAddress = async (address) => {
 }
 export const changeActiveAddress = async (id) => {
     try {
-        console.log("------------id", address);
         const { data } = await axios.put('/api/user/manageAddress', {
             id
         });
-        console.log("------------data44", data);
         return data;
 
     } catch (error) {
@@ -52,11 +48,9 @@ export const changeActiveAddress = async (id) => {
 
 export const deleteAddress = async (id) => {
     try {
-        console.log("------------deleteid", address);
         const { data } = await axios.delete('/api/user/manageAddress', {
             date: { id },
         });
-        console.log("------------deletedata59", data);
         return data;
 
     } catch (error) {
@@ -69,7 +63,6 @@ export const applyPromocode = async (promocode) => {
         const { data } = await axios.post('/api/user/applyPromocode', {
             promocode,
         });
-        console.log("data->>>>>>>>>>>", data);
         return data;
     } catch (error) {
         return error.response.data.message;;

@@ -10,6 +10,9 @@ const orderSchema = new mongoose.Schema(
                     type: ObjectId,
                     ref: "Product",
                 },
+                image:{
+                    type:String,
+                },
                 name: {
                     type: String,
                 },
@@ -37,6 +40,9 @@ const orderSchema = new mongoose.Schema(
                         type: String,
                     },
                 },
+                // totalSum: {
+                //     type: Number,
+                // },
             },
 
         ],
@@ -90,8 +96,23 @@ const orderSchema = new mongoose.Schema(
             },
             country: {
                 type: String,
-            }
+            },
+           
 
+        },
+        deliveryMethod: {
+            deliveryType:{
+                type: String,
+            },
+            deliveryAddress:{
+                type: String,
+            },
+            deliveryCost:{
+                type: String,
+            },
+            deliveryId:{
+                type: String,
+            }
         },
         paymentMethod: {
             type: String,
@@ -107,17 +128,29 @@ const orderSchema = new mongoose.Schema(
             type: Number,
             required: true,
         },
+        totalQty:{
+            type: Number,
+            // required: true,
+        },
+        // promocode: {
+        //     type: ObjectId,
+        //     ref: "Coupon",
+        // },
         promocode: {
-            type: ObjectId,
-            ref: "Coupon",
+            type: String,          
+        },
+        discount:{
+            type:Number,
         },
         //total price with discount and promocode
-        costAfterDiscount: Number,
-        shippingPrice: {
-            type: Number,
-            required: true,
-            default: 0,
+        costAfterDiscount: {
+            type:Number,
         },
+        // shippingPrice: {
+        //     type: Number,
+        //     // required: true,
+        //     default: 0,
+        // },
         // taxPrice: {
         //     type: Number,
         //     default: 0,

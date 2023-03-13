@@ -104,7 +104,7 @@ export default function CartPage(props) {
                 {/* visible unvisible */}
                 <Modal.Footer style={{ display: footerVisible }} as={'div'}>
                     <div className={styles.modalfoot}>
-                        <h3>Всього до оплати:<span>{Math.round(getTotalPrice()).toLocaleString()} грн</span></h3>
+                        <h3>Всього до оплати:<span>{Math.round(getTotalPrice()).toLocaleString()} ₴</span></h3>
                         <button className={styles.addbtn}
                             onClick={() => saveCartToDbHandler()}
                         >Оформити замовлення</button>

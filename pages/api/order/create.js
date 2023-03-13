@@ -4,6 +4,7 @@ import Order from "@/models/Order";
 import db from "@/utils/db";
 import auth from "@/middleware/auth";
 import Coupon from "@/models/Coupon";
+import Cart from "@/models/Cart";
 
 const handler = nc().use(auth);
 
@@ -11,22 +12,35 @@ const handler = nc().use(auth);
 handler.post(async (req, res) => {
     try {
         await db.connectDb();
-        const { products, shippingAddress, shippingPrice, paymentMethod, totalPrice, costAfterDiscount,promocode } = req.body;
-        console.log("apiordercreate", shippingAddress, shippingPrice, paymentMethod, totalPrice, costAfterDiscount,promocode);
+        const {
+            products,
+            shippingAddress,
+         
+            paymentMethod,
+            deliveryMethod,
+            totalPrice,
+            totalQty,
+            costAfterDiscount,
+            promocode,
+            discount
+        } = req.body;
         let user = await User.findById(req.user);
-        let coupon= await Coupon.findOne({promocode});
-        console.log("apiordercreateUser",coupon);
+        // let coupon= await Coupon.findOne({promocode});
+        // console.log("apiordercreateUser", coupon);
         const newOrder = await new Order({
             user: user._id,
             products,
-            shippingAddress,
-            shippingPrice,
-            paymentMethod, 
+            shippingAddress,         
+            deliveryMethod,
+            paymentMethod,
             totalPrice,
+            totalQty,
             costAfterDiscount,
-            promocode:coupon?coupon._id:null
+            // promocode:coupon?coupon._id:null
+            promocode,
+            discount
         }).save();
-console.log("apiordercreateneworder", newOrder);
+        await Cart.deleteOne({ user: user._id });
         await db.disconnectDb();
         return res.status(200).json({
             order_id: newOrder._id,
