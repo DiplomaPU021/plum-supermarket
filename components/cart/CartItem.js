@@ -80,7 +80,7 @@ export default function CartItem(product, userid) {
                                         </Form.Check>
                                         <p>Microsoft 365 Персональний, підписка 1 рік, для 1 користувача (ESD - електронний ключ в конверті) (QQ2-00004)</p>
                                         <h4>2899 $</h4>
-                                    </div>
+                                    </div>                        
                                 </div>
                             </div>
                         </Col>
@@ -102,10 +102,12 @@ export default function CartItem(product, userid) {
                                 <div className={styles.bord}>
                                     {
                                         product.product.discount > 0 ? (
-                                            <h5>{Number(product.product.price * product.product.qty).toFixed(2)} {product.product.price_unit}</h5>)
+
+                                            <h5>{Math.round(product.product.price * product.product.qty).toLocaleString('uk-UA')} {product.product.price_unit}</h5>)
                                             : (<></>)
                                     }
-                                    <h3>{Number(product.product.priceAfter * product.product.qty).toFixed(2)} {product.product.price_unit}</h3>
+                                    <h3>{Math.round(product.product.priceAfter * product.product.qty).toLocaleString('uk-UA')} {product.product.price_unit}</h3>
+
                                 </div>
                             </Row>
                         </Col>

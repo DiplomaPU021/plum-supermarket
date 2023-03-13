@@ -9,8 +9,6 @@ const handler = nc().use(auth);
 
 handler.post(async (req, res) => {
     try {
-        // console.log("user.id", req.user);
-        // return;
         await db.connectDb();
         const { cart } = req.body;
         let products = [];
@@ -32,8 +30,8 @@ handler.post(async (req, res) => {
             let price = Number(subProduct.sizes.find((p) => p.size == cart.cartItems[i].size).price);
             tempProduct.price = price;
             tempProduct.priceAfter = subProduct.discount > 0
-                ? (((100 - subProduct.discount) * price) / 100).toFixed(2)
-                : price.toFixed(2);
+                ? (((100 - subProduct.discount) * price) / 100).toFixed()
+                : price;
             tempProduct.discount = Number(subProduct.discount);
             tempProduct.qty = Number(cart.cartItems[i].qty);
             tempProduct.color = {
@@ -53,7 +51,7 @@ handler.post(async (req, res) => {
         //   console.log("//////////////////////productsInSaveCart",products);
         const newCart = new Cart({
             products,
-            cartTotalPrice: cartTotalPrice.toFixed(2),
+            cartTotalPrice: cartTotalPrice.toFixed(),
             cartTotalQty: Number(cartTotalQty),
             user: user._id,
         });
@@ -68,8 +66,7 @@ handler.post(async (req, res) => {
         return res.status(500).json({ error: error.message });
 
     }
-}
-)
+})
     .get(async (req, res) => {
         await db.connectDb();
         const { user_id } = req.body;
@@ -78,11 +75,7 @@ handler.post(async (req, res) => {
         if (existing_cart) {
             return res.status(200).json(existing_cart);
         }
-
-
         //console.log("//////////////////////existing cart",existing_cart);
-
-
         await db.disconnectDb();
     })
 export default handler;

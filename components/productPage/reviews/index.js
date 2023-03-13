@@ -12,19 +12,18 @@ import LeaveFeedback from "../leaveFeedback";
 export default function Reviews({ reviews }) {
   const [answer, setAnswer] = useState(false);
   const [feedback, setFeedback] = useState(false);
+
   return (
     <Container fluid className={styles.reviews}>
       <Row className={styles.reviews__title}>
         <span>Найпопулярніші відгуки</span>
         <button
           onClick={() => setFeedback(true)}
-         className={styles.reviews__title_btnReview}>
+          className={styles.reviews__title_btnReview}
+        >
           Залишити відгук
         </button>
-        <LeaveFeedback
-                  show={feedback}
-                  onHide={() => setFeedback(false)}
-                />
+        <LeaveFeedback show={feedback} onHide={() => setFeedback(false)} />
       </Row>
       <div className={styles.reviews__row} scrolable="true">
         <Col className={styles.reviews__row_col}>

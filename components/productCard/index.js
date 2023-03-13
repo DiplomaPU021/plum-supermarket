@@ -50,7 +50,7 @@ export default function ProductCard({ product }) {
     setPrices(
       product.subProducts[active]?.sizes
         .map((s) => {
-          return Number(s.price).toFixed();
+          return Number(s.price);
         })
         .sort((a, b) => {
           return a - b;
@@ -64,14 +64,9 @@ export default function ProductCard({ product }) {
     // }
     // const { data } = await axios.get(`/api/product/${product._id}?style=${product.style}&code=${router.query.code}`);
 
-    const { data } = await axios.get(`/api/product/${product._id}?style=0&code=0`);
-
-    console.log("dataOnProductCardIndex--------->", data);
-
-    // console.log("data2--------->", product._id);
-    // console.log("data3--------->", data.style);
-    // console.log("data3--------->", data.quantity);
-    // console.log("data4--------->", router.query.code);
+    const { data } = await axios.get(
+      `/api/product/${product._id}?style=0&code=0`
+    );
 
     if (qty > data.quantity) {
       setError("The quantity is bigger than in stock.");
@@ -122,10 +117,8 @@ export default function ProductCard({ product }) {
           <Row>
             <Col>
               <Card.Title className={styles.product__container_infos_title}>
-                {(product.name + " " + (product.subProducts[active].color ? product.subProducts[active].color.color : ""
+                              {(product.name + " " + (product.subProducts[active].color ? product.subProducts[active].color.color : ""
                 ) + " " + product.subProducts[active].sizes[active].size).length > 55
-
-
                   ? `${product.name.substring(0, 55)}...`
                   : product.name +
                   " " +
@@ -147,13 +140,13 @@ export default function ProductCard({ product }) {
               <Col className={styles.product__container_infos_pricebtn_price}>
                 <span
                   className={styles.pricediscount}
-                >{`${prices[0]} ${product.subProducts[active].sizes[0].price_unit}`}</span>
+                >{`${prices[0].toLocaleString()} ${product.subProducts[active].sizes[0].price_unit}`}</span>
                 <span className={styles.priceregular}>
-                  {`${(
-                    (Number(prices[0]) *
-                      (100 - Number(product.subProducts[active].discount))) /
+                  {`${Math.round(
+                    ((prices[0]) *
+                      (100 - (product.subProducts[active].discount))) /
                     100
-                  ).toFixed(2)}`}{" "}
+                  ).toLocaleString('uk-UA')}`}{" "}
                   {product.subProducts[active].sizes[0].price_unit}
                 </span>
               </Col>
@@ -164,22 +157,20 @@ export default function ProductCard({ product }) {
                 >{`${prices[0]} ${product.subProducts[active].sizes[0].price_unit}`}</span>
               </Col>
             )}
-            <Col className={styles.product__container_infos_pricebtn_btn}>
-              {/* TODO onClick */}
-              <Button className={styles.btnscales}>
-                <ScalesIcon fillColor={"#220F4B"} />
-              </Button>
-              <Button
-                className={styles.btncart}
-                disabled={product.quantity < 1}
-                style={{
-                  cursor: `${product.quantity < 1 ? "not-allowed" : ""}`,
-                }}
-                onClick={() => addToCartHandler()}
-              >
-                <CartIcon fillColor={"#FAF8FF"} />
-              </Button>
-            </Col>
+            {/* TODO onClick */}
+            <Button className={styles.btnscales}>
+              <ScalesIcon fillColor={"#220F4B"} />
+            </Button>
+            <Button
+              className={styles.btncart}
+              disabled={product.quantity < 1}
+              style={{
+                cursor: `${product.quantity < 1 ? "not-allowed" : ""}`,
+              }}
+              onClick={() => addToCartHandler()}
+            >
+              <CartIcon fillColor={"#FAF8FF"} />
+            </Button>
           </Row>
           {error && <span>{error}</span>}
         </Container>

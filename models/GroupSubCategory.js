@@ -3,7 +3,7 @@ import mongoose from "mongoose";
 const { ObjectId } = mongoose.Schema;
 
 const groupSubCategorySchema = new mongoose.Schema({
-  image: {
+  slug: {
     type: String,
     required: true,
   },

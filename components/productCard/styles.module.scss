@@ -1,8 +1,8 @@
 .product {
     position: relative;
     height: 400px;
-   // width: 315px;
-    max-width: 350px;
+    //width: 315px;
+    max-width: 360px;
     padding: 24px !important;
     margin: 10px;
     gap: 10px;
@@ -78,11 +78,12 @@
             display: flex;
             flex-direction: column;
             justify-content: center;
-            padding: 0px;
-            gap: 10px;
+            padding: 0;
+            gap: 15px;
 
             &_title {
-                padding: 0px;
+                margin: 0;
+                padding: 0;
                 font-family: 'Noto Sans';
                 font-style: normal;
                 font-weight: 400;
@@ -98,31 +99,26 @@
             }
 
             &_pricebtn {
+                margin: 0;
+                padding: 0;
                 display: flex;
                 flex-direction: row;
                 align-items: center;
                 justify-content: center;
+                gap: 20px;
 
                 &_price {
                     display: flex;
                     flex-direction: column;
                     align-items: flex-start;
                     gap: 2px;
-                    padding-right: 0;
+                    padding: 0;
 
                     span {
                         font-family: 'Noto Sans';
                         font-style: normal;
                         color: $plum-dark-color;
                     }
-                }
-
-                &_btn {
-                    display: flex;
-                    flex-direction: row;
-                    justify-content: flex-end;
-                    padding-right: 8px;
-                    gap: 20px;
                 }
             }
         }
@@ -164,7 +160,8 @@
 
 .priceregular {
     font-weight: 500;
-    font-size: 20px;
+    font-size: 21px;
+    //font-size: 25px;
     line-height: 34px;
 }
 

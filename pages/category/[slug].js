@@ -13,13 +13,14 @@ import Brands from "@/components/brands/indes";
 import Advice from "@/components/advice";
 import GroupSubCategory from "@/models/GroupSubCategory";
 import Product from "@/models/Product";
+import { getCountryData } from "@/utils/country";
 
 export default function category({ country, category, advice, brands }) {
   return (
     <Container fluid className={styles.categorypage}>
       <Header country={country} />
-      <Row style={{ paddingLeft: "60px", margin: "0" }}>
-        <Col>
+      <Row style={{ padding: "15px  0 0 60px", margin: "0" }}>
+        <Col style={{padding: "0"}}>
           <Link href="/">
             <LightPlumIcon />
             <GreenChevronRight fillColor="#70BF63" w="30px" h="30px" />
@@ -89,25 +90,11 @@ export async function getServerSideProps(context) {
     photo: "comp.png",
   };
 
-  let data = {
-    name: "Ukraine",
-    flag: { emojitwo: "https://cdn.ipregistry.co/flags/emojitwo/ua.svg" },
-    code: "UA",
-  };
-  /* Увага!!! замість обєкту можна використати сервіс ipregistry з наступним методом
-      await axios
-      .get('https://api.ipregistry.co/?key=aq50e9f94war7j9p')
-      .then((res) => {      
-        return res.data.location.country;
-      })
-      .catch((err)=> {
-        console.log(err);      
-      });*/
-  //----------------
+  const countryData = await getCountryData();
   await db.disconnectDb();
   return {
     props: {
-      country: { name: data.name, flag: data.flag.emojitwo, code: data.code },
+      country: countryData,
       category: JSON.parse(JSON.stringify(newCategory)),
       advice: JSON.parse(JSON.stringify(newAdvice)),
       brands: JSON.parse(JSON.stringify(brands)),

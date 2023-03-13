@@ -6,7 +6,7 @@
         "parent": {
             "$oid": "63e370145ba7e472e6726ca2"
         },
-        "image": "laptop"
+        "slug": "laptop"
     },
     {
         "_id": {
@@ -15,7 +15,7 @@
         "parent": {
             "$oid": "63e370145ba7e472e6726ca2"
         },
-        "image": "system_blocks"
+        "slug": "system_blocks"
     },
     {
         "_id": {
@@ -24,7 +24,7 @@
         "parent": {
             "$oid": "63e370145ba7e472e6726ca2"
         },
-        "image": "monitor"
+        "slug": "monitor"
     },
     {
         "_id": {
@@ -33,7 +33,7 @@
         "parent": {
             "$oid": "63e370145ba7e472e6726ca2"
         },
-        "image": "tablet"
+        "slug": "tablet"
     },
     {
         "_id": {
@@ -42,7 +42,7 @@
         "parent": {
             "$oid": "63e370145ba7e472e6726ca2"
         },
-        "image": "server"
+        "slug": "server"
     },
     {
         "_id": {
@@ -51,7 +51,7 @@
         "parent": {
             "$oid": "63e370145ba7e472e6726ca2"
         },
-        "image": "accessories"
+        "slug": "accessories"
     },
     {
         "_id": {
@@ -60,7 +60,7 @@
         "parent": {
             "$oid": "63e370145ba7e472e6726ca2"
         },
-        "image": "office_equipment"
+        "slug": "office_equipment"
     },
     {
         "_id": {
@@ -69,7 +69,7 @@
         "parent": {
             "$oid": "63e39c465ba7e472e6726ce5"
         },
-        "image": "phone"
+        "slug": "phone"
     },
     {
         "_id": {
@@ -78,7 +78,7 @@
         "parent": {
             "$oid": "63e39c465ba7e472e6726ce5"
         },
-        "image": "tv"
+        "slug": "tv"
     },
     {
         "_id": {
@@ -87,7 +87,7 @@
         "parent": {
             "$oid": "63e39c465ba7e472e6726ce6"
         },
-        "image": "laundry"
+        "slug": "laundry"
     },
     {
         "_id": {
@@ -96,6 +96,6 @@
         "parent": {
             "$oid": "63e39c465ba7e472e6726ce6"
         },
-        "image": "household_cleaners"
+        "slug": "household_cleaners"
     }
 ]

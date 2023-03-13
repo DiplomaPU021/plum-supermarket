@@ -15,7 +15,6 @@ export default function CartPage(props) {
     const router = useRouter();
     const { data: session } = useSession();
     const cart = useSelector((state) => state.cart);
-    const [total, setTotal] = useState(0);
     const [userId, setUserId] = useState(props.userid);
     const [footerVisible, setFooterVis] = useState("none");
 
@@ -30,8 +29,7 @@ export default function CartPage(props) {
             if (window.location.pathname === "/checkout") {
                 saveCart(cart);
                 props.onHide();
-                window.location.reload(true);
-              
+                router.push("/checkout");
             } else {
                 saveCart(cart);
                 router.push("/checkout");
@@ -68,7 +66,6 @@ export default function CartPage(props) {
                 {cart == null || cart?.cartItems?.length == 0 || cart.cartItems == null ? (
                     <EmptyCart setFooterVis={setFooterVis} />
                 ) : (
-
                     <Modal.Body className={styles.modalbody} scrollable="true">
                         {
                             cart.cartItems?.map((product, i) => (
@@ -79,8 +76,10 @@ export default function CartPage(props) {
                 )}
                 <Modal.Footer style={{ display: footerVisible }} as={'div'}>
                     <div className={styles.modalfoot}>
-                        <h3>Total to pay:<span>{getTotalPrice().toFixed(2)}</span></h3>
-                        <button className={styles.addbtn} onClick={() => saveCartToDbHandler()}>Checkout</button>
+                        <h3>Всього до оплати:<span>{Math.round(getTotalPrice()).toLocaleString()} ₴</span></h3>
+                        <button className={styles.addbtn}
+                            onClick={() => saveCartToDbHandler()}
+                        >Оформити замовлення</button>
                         <Link href="/" className={styles.link}>Повернутись до покупок</Link>
                     </div>
                 </Modal.Footer>
