@@ -15,6 +15,8 @@ import { getStreets } from "@/requests/street"
 import CityModal from "./citymodal";
 import useDeepCompareEffect from "use-deep-compare-effect"
 import { manageAddress } from "@/requests/user"
+import PersonalDataPolicy from "./info/PersonalDataPolicy"
+import UserConditions from "./info/UserConditions"
 
 
 
@@ -54,6 +56,9 @@ export default function CheckoutOrder({
     const [cityModalShow, setCityModalShow] = useState(false);
     const [searchCity, setSearchCity] = useState(null);
     const [selectedCity, setSelectedCity] = useState(null);
+
+    const [infoShow, setInfoShow] = useState(false);
+    const [info2Show, setInfo2Show] = useState(false);
 
 
     const [showSelfPickup, setSelfPickup] = useState("none");
@@ -197,7 +202,7 @@ export default function CheckoutOrder({
 
     useEffect(() => {
 
-        if (searchCity && searchStreet) {          
+        if (searchCity && searchStreet) {
             let streets = [];
             setTimeout(async () => {
                 streets = await getStreets(searchCity, searchStreet);
@@ -469,11 +474,11 @@ export default function CheckoutOrder({
                 >
                     {({
                         // handleSubmit,
-                         handleChange,
+                        handleChange,
                         // handleBlur,
                         values,
                         touched,
-                        isValid,                       
+                        isValid,
                         errors,
                     }) => (
                         <Form  >
@@ -503,7 +508,7 @@ export default function CheckoutOrder({
                                                         type="text"
                                                         name="lastName"
                                                         value={values.lastName}
-                                                        onChange={(e)=> {handleChange(e); handleGetCredencials(e)}}
+                                                        onChange={(e) => { handleChange(e); handleGetCredencials(e) }}
                                                         isInvalid={!!errors.lastName}
                                                     />
                                                     <Form.Control.Feedback type="invalid">{errors.lastName}
@@ -514,7 +519,7 @@ export default function CheckoutOrder({
                                                     <Form.Control className={styles.form_input}
                                                         name="phoneNumber"
                                                         value={values.phoneNumber}
-                                                        onChange={(e)=> {handleChange(e); handleGetCredencials(e)}}
+                                                        onChange={(e) => { handleChange(e); handleGetCredencials(e) }}
                                                         isInvalid={!!errors.phoneNumber}
                                                     />
                                                     <Form.Control.Feedback type="invalid">{errors.phoneNumber}
@@ -528,7 +533,7 @@ export default function CheckoutOrder({
                                                         type="text"
                                                         name="firstName"
                                                         value={values.firstName}
-                                                        onChange={(e)=> {handleChange(e); handleGetCredencials(e)}}
+                                                        onChange={(e) => { handleChange(e); handleGetCredencials(e) }}
                                                         isInvalid={!!errors.firstName}
                                                     />
                                                     <Form.Control.Feedback type="invalid">{errors.firstName}
@@ -546,14 +551,14 @@ export default function CheckoutOrder({
                                         <Row className={styles.delivery}>
                                             <Col className={styles.colcard}>
                                                 {/* {activeAddress.address}  {activeAddress.firstName} {activeAddress.lastName} */}
-                                                
+
                                                 <Form.Group as={Col} >
                                                     <Form.Label className={styles.form_label} htmlFor="city-name">Ваше місто</Form.Label>
                                                     <Form.Control className={styles.form_input2} placeholder="Виберіть місто..."
                                                         // value={searchCity ? searchCity.value : activeAddress ? `${activeAddress.cityType} ${activeAddress.city}, ${activeAddress.region}` : ""} name="city"
                                                         value={values.city} name="city"
                                                         onClick={handleSearchCity}
-                                                        onChange={(e)=>{handleChange(e); handleCityChange(e)}}
+                                                        onChange={(e) => { handleChange(e); handleCityChange(e) }}
                                                         readOnly={true}
                                                         id="city-name"
                                                         isInvalid={!!errors.city}
@@ -624,8 +629,8 @@ export default function CheckoutOrder({
                                                                     {/* <option value="" disabled={false}>Вибрати адресу доставки...</option> */}
                                                                     {filteredUserAdresses.map((item, index) => (
                                                                         <option
-                                                                         id={index} key={index} 
-                                                                         value={item}
+                                                                            id={index} key={index}
+                                                                            value={item}
                                                                         >{item.address}</option>
                                                                     ))}
                                                                 </Form.Select>
@@ -855,9 +860,9 @@ export default function CheckoutOrder({
                                         <div className={styles.total}>
                                             <Form.Label className={styles.total_label}>Разом:</Form.Label>
                                             <ul>
-                                                <li><div className={styles.info_li}><p>{getTotalQty()} товарів на сумму</p><h6>{getTotalPrice().toFixed(2)} грн</h6></div></li>
+                                                <li><div className={styles.info_li}><p>{getTotalQty()} товарів на сумму</p><h6>{getTotalPrice().toFixed(2)} ₴</h6></div></li>
                                                 <li><div className={styles.info_li}><p>Вартість доставки</p><h6>за тарифами перевізника</h6></div></li>
-                                                <li><div className={styles.info_li}><p>До сплати:</p><h3>{getTotalPriceAferCoupon().toFixed(2)} грн</h3></div></li>
+                                                <li><div className={styles.info_li}><p>До сплати:</p><h3>{getTotalPriceAferCoupon().toFixed(2)} ₴</h3></div></li>
                                             </ul>
                                             <Button className={styles.small_sbm}
                                                 onClick={() => sendOrder()}
@@ -867,8 +872,8 @@ export default function CheckoutOrder({
                                         <div className={styles.info}>
                                             <p>Отримання замовлення від 5 000 ₴ тільки за паспортом (Закон від 06.12.2019 № 361-IX)</p>
                                             <ul>Підтверджуючи замовлення, я приймаю умови:
-                                                <li><div className={styles.info_li}><p>положення про обробку і захист персональних даних</p><img width="120px" height="25px" src="../../../icons/info.png"></img></div></li>
-                                                <li><div className={styles.info_li}><p>угоди користувача</p><img width="120px" height="25px" src="../../../icons/info.png"></img></div></li>
+                                                <li><div className={styles.info_li}><p>положення про обробку і захист персональних даних</p><img width="120px" height="25px" src="../../../icons/info.png" onClick={() => setInfoShow(true)}></img></div></li>
+                                                <li><div className={styles.info_li}><p>угоди користувача</p><img width="120px" height="25px" src="../../../icons/info.png" onClick={() => setInfo2Show(true)}></img></div></li>
                                             </ul>
                                         </div>
 
@@ -877,10 +882,14 @@ export default function CheckoutOrder({
 
                             </Row>
                         </Form>
+
                     )}
 
                 </Formik>
-
+                <PersonalDataPolicy show={infoShow}
+                    onHide={() => setInfoShow(false)} />
+                <UserConditions show={info2Show}
+                    onHide={() => setInfo2Show(false)} />
             </Container>
         </div >
     )

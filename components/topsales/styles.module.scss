@@ -1,5 +1,4 @@
 .cont {
-
     padding-top: 0px;
     background-color: $light-wheet-color;
 }
@@ -9,10 +8,6 @@
     flex-direction: row;
     align-items: center;
     height: 54px;
-}
-
-.col {
-    padding: 0px;
 }
 
 .leftsale {
@@ -32,6 +27,9 @@
     padding-left: 60px;
 }
 
+.col {
+    padding-left: 0;
+}
 
 .coltext {
     color: #573C90;
@@ -51,10 +49,32 @@
 .products_row {
     display: flex;
     flex-direction: row;
-    justify-content: center;
-    padding: 30px 30px;
-    gap: 20px;
+    align-items: flex-start;
+    padding: 50px;
 
+    .col {
+        padding: 0;
+        display: flex;
+        flex-direction: column;
+        align-self: flex-end;
+        justify-self: flex-end;
+
+        @media (min-width: 1200px) {
+            width: fit-content;
+        }
+
+        @media (min-width: 1400px) {
+            width: 25%;
+        }
+
+        @media (min-width: 1600px) {
+            width: 20%;
+        }
+    }
+
+    @media (max-width: 1300px) {
+        padding-left: 60px;
+    }
 }
 
 .colcard {
@@ -62,9 +82,9 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    padding: 0px;
+    padding: 24px;
+    margin: 10px;
     height: 400px;
-    width: 315px;
 }
 
 .morevideo {
@@ -86,7 +106,7 @@
 }
 
 .lastcardbody {
-   
+
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -111,7 +131,7 @@
     border: none;
 }
 
-.link{
+.link {
     text-decoration: none;
     color: #573C90;
 }

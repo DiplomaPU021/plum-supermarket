@@ -24,14 +24,6 @@ export default function Home({ country, products, categories }) {
   const { data: session } = useSession();
   console.log("session index home", session?.user?.id);
 
-  // console.log("productsIndex", products);
-  //   .populate({path: "category", model: Category})
-  //   .populate({path: "subCategories._id", model: SubCategory})
-  //   .lean();
-  //   let product2 = await Product.findById("63e3a79f5ba7e472e6726d0f")
-  //   .populate({path: "category", model: Category})
-  //   .populate({path: "subCategories._id", model: SubCategory})
-  //   .lean();
   return (
     <div className={styles.container}>
       <Header country={country} />
@@ -40,7 +32,7 @@ export default function Home({ country, products, categories }) {
       <TopSales products={products} />
       <YoutubeVideo />
       <RecomendedVideo />
-      <Popular products={products} />
+      <Popular products={products} category={"Комп'ютери та ноутбуки"}/>
       <AppDownload />
       <FAQ />
       <Footer country={country} />

@@ -1,16 +1,8 @@
 import styles from "./styles.module.scss"
 import Modal from 'react-bootstrap/Modal'
-
 import * as React from "react"
-import Link from "next/link"
 import { Form, Button } from "react-bootstrap"
-import { useEffect, useState } from "react";
-import { useSelector } from "react-redux";
-import { signIn, useSession } from 'next-auth/react';
 import { useRouter } from "next/router"
-
-
-
 
 export default function DelNotification(props) {
     const router = useRouter();
@@ -37,7 +29,7 @@ export default function DelNotification(props) {
                 <h3>Ви впевненні що хочете видалити цей товар?</h3>
                 <div className={styles.line}></div>
                 <button className={styles.addbtn}>Видалити</button>
-                <button className={styles.addbtn}>Скасувати</button>
+                <button className={styles.addbtn2}>Скасувати</button>
                 <Form.Check
                     type="radio"
                     className={styles.radio}
@@ -50,7 +42,6 @@ export default function DelNotification(props) {
                     <Form.Check.Label>Не запитувати знову</Form.Check.Label>
                 </Form.Check>
             </Modal.Body>
-
         </Modal>
     )
 }

@@ -16,7 +16,6 @@ import { saveCart } from "@/requests/user"
 
 export default function WishList(props) {
     const router = useRouter();
-
     const { data: session } = useSession();
     //const cart = useSelector((state) => state.cart);
     const [total, setTotal] = useState(1);
@@ -24,11 +23,10 @@ export default function WishList(props) {
     return (
         <Modal
             {...props}
-            size={total == 0 ? "lg" : "xl"} //{cart.length == 0 ? "lg" : "xl"}
+            size={total == 0 ? "lg" : "xl"}
             aria-labelledby="contained-modal-title-vcenter"
             centered>
             <div className={styles.modaldiv}>
-                <Modal.Header className={styles.modalheader}closeButton ></Modal.Header>
                 {/* {cart == null || cart?.cartItems?.length == 0 || cart.cartItems == null ? ( */}
                      {total == 0 ? (
                     <EmptyWish />
@@ -36,9 +34,11 @@ export default function WishList(props) {
                     <Modal.Body className={styles.modalbody}>
                         <WishItem />
                         <WishItem />
-                        <Link href="/" className={styles.link}>Повернутись до покупок</Link>
                     </Modal.Body>
                 )}
+                 <Modal.Footer as={'div'} className={styles.modalfoot}>                
+                        <Link href="/" className={styles.link}>Повернутись до покупок</Link>                 
+                </Modal.Footer>
             </div>
         </Modal>
     )

@@ -1,20 +1,50 @@
 .modaldiv {
-    margin: 10px;
+    margin: 20px;
     border: 2px solid $plum-dark-color;
     border-radius: 10px;
     color: $plum-dark-color;
+   // padding-top: 12px;
 
     span {
         margin-left: 20px;
     }
 }
 
+.modalbodyempty {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    gap: 20px;
+   
+}
+
 .modalbody {
     display: flex;
     flex-direction: column;
-    justify-content: center;
+    justify-content: flex-start;
     align-items: center;
     gap: 20px;
+    max-height: 400px;
+    overflow-y: scroll;
+    overflow-x: hidden;
+    margin-right:6px;
+    margin-top:10px;
+
+    &::-webkit-scrollbar {
+        width: 6px;
+    }
+
+    &::-webkit-scrollbar-track {
+        background: #70BF6380;
+        border-left: 2px solid $light-wheet-color;
+        border-right: 2px solid $light-wheet-color;      
+    }
+
+    &::-webkit-scrollbar-thumb {
+        background: $green-color;
+        border-radius: 4px;
+    }
 }
 
 .modalfoot {
@@ -23,10 +53,6 @@
     justify-content: center;
     align-items: center;
     gap: 8px;
-}
-
-.modalheader {
-    border-bottom: none; 
 }
 
 .line {
@@ -45,6 +71,7 @@
     margin-top: 0px;
     font-size: 25px;
     font-weight: 480;
+    margin-bottom: 30px;
 }
 
 .link {
@@ -94,10 +121,10 @@
     flex-direction: row;
     align-items: flex-start;
     padding: 24px 12px 24px 12px;
-    max-width: 1008px;
+   // max-width: 1008px;
     background: linear-gradient(180deg, #FAF8FF 0%, #F2EDFF 100%);
     box-shadow: 0px 0px 15px rgba(34, 15, 75, 0.5), inset 7px 7px 20px #FAF5FF, inset -7px -7px 20px #F7EEFF;
-    border-radius: 23px;
+    border-radius: 21px !important;
 
     @media(max-width: 1200px) {
         max-width: 900px;
@@ -118,8 +145,8 @@
 
     @media(max-width: 1200px) {
         max-width: 700px;
-        
-       
+
+
     }
 
     @media(max-width: 1000px) {
@@ -127,6 +154,7 @@
         display: flex;
         flex-direction: column;
         align-items: center;
+        justify-content: center;
     }
 }
 
@@ -135,7 +163,7 @@
     flex-direction: column;
     justify-content: center;
     align-items: flex-start;
-    width: 435px;
+   // width: 435px;
     padding-top: 10px;
 
     h5 {
@@ -151,9 +179,11 @@
     }
 
     &_extraservice {
-        max-width: 435px;      
+        max-width: 435px;
     }
- 
+
+   
+
 }
 
 .bord {
@@ -163,17 +193,17 @@
 .bordimage {
     display: flex;
     align-items: center;
-  
+
 
     @media(min-width: 900px) {
-       justify-content: center;
-       align-items:flex-start;
+        justify-content: center;
+        align-items: flex-start;
     }
 
     @media(max-width: 1200px) {
         justify-content: center;
-        align-items:flex-start;
-     }
+        align-items: flex-start;
+    }
 
 }
 
@@ -203,7 +233,7 @@
     justify-content: center;
     align-items: center;
     padding: 0px;
-    width: 220px;
+   // width: 220px;
     height: 143px;
 
     &_itemcount {
@@ -229,7 +259,7 @@
             margin: 0px !important;
         }
 
-        h3 {        
+        h3 {
             text-align: center;
             padding: 0px !important;
             margin: 0px !important;
@@ -247,7 +277,7 @@
         height: 52px;
         font-size: 30px;
         font-weight: 600;
-        
+
 
         .count {
             width: 51px;
@@ -263,28 +293,34 @@
         span {
             padding: 0px;
             margin: 0px;
-           
+
         }
     }
+
+    // @media(max-width: 600px) {
+    //    width: 430px;
+    // }
+
+
 }
 
 .cardbtns {
-  
+
     display: flex;
     flex-direction: column;
     align-items: center;
     gap: 20px;
     padding: 10px;
-    max-width: 50px;
-   
+    //max-width: 50px;
 
-    @media(max-width: 900px) {
-       flex-direction: row;
-        align-items: center;
-        padding: 0px !important;
-        margin: 0px !important;
-        justify-content: center;
-    }
+
+    // @media(max-width: 900px) {
+    //     flex-direction: row;
+    //     align-items: center;
+    //     padding: 0px !important;
+    //     margin: 0px !important;
+    //     justify-content: center;
+    // }
 
     @media(max-width: 700px) {
         flex-direction: row;
@@ -303,15 +339,25 @@
     background-color: #FAF8FF;
     width: 46px;
     height: 46px;
-
 }
 
 .extra_div {
     padding-top: 20px;
     max-width: 400px;
-    h4{
-       
-        float:inline-end;
+    
+    h4 {
+        float: right;
+        text-align: right;
+    }
+    p{
+        margin-bottom: 0px;
     }
 }
 
+.check{
+    margin-bottom: 40px;  
+}
+
+.modal {
+    max-width: 1080px !important;
+}

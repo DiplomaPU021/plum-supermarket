@@ -1,0 +1,45 @@
+.modalbody {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    gap: 20px;
+    max-height: 400px;
+    overflow: auto;
+
+    &::-webkit-scrollbar {
+        width: 6px;
+    }
+
+    &::-webkit-scrollbar-track {
+        background: #70BF6380;
+        border-left: 2px solid $light-wheet-color;
+        border-right: 2px solid $light-wheet-color;
+
+    }
+
+    &::-webkit-scrollbar-thumb {
+        background: $green-color;
+        border-radius: 4px;
+    }
+}
+
+.modaldiv {
+    margin: 10px;
+    border: 2px solid $plum-dark-color;
+    border-radius: 10px;
+    color: $plum-dark-color;
+    padding-bottom: 32px;
+
+    span {
+        margin-left: 20px;
+    }
+}
+
+.modalheader {
+    border-color: $green-color;
+    border-width: 3px;
+}
+
+
+

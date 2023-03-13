@@ -8,7 +8,7 @@ export default function HomeCarousel() {
                     <img
                         src="../../../images/carousel/banner1.jpg"
                         alt="First slide"
-                        width="1580px"
+                        className="d-block w-100"
                         height="320px"
                     />
                 </Carousel.Item>
@@ -16,7 +16,7 @@ export default function HomeCarousel() {
                     <img
                         src="../../../images/carousel/banner2.jpg"
                         alt="Second slide"
-                        width="1580px"
+                        className="d-block w-100"
                         height="320px"
                     />
                 </Carousel.Item>
@@ -24,7 +24,7 @@ export default function HomeCarousel() {
                     <img
                         src="../../../images/carousel/banner3.jpg"
                         alt="Third slide"
-                        width="1580px"
+                        className="d-block w-100"
                         height="320px"
                     />
                 </Carousel.Item>

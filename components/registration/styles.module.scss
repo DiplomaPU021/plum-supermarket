@@ -1,0 +1,186 @@
+.modaldiv {
+    margin: 20px;
+    border: 2px solid $plum-dark-color;
+    border-radius: 10px;
+    color: $plum-dark-color;
+
+    span {
+        margin-left: 20px;
+    }
+}
+
+.modalbodyempty {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    gap: 20px;
+}
+
+.modalbodyreg {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    gap: 20px;
+
+    p {
+        color: $plum-dark-color;
+        font-weight: 400;
+        font-size: 16px;
+    }
+
+    .policy {
+        font-weight: 300;
+        font-size: 14px;
+        line-height: 19px;
+        text-align: center;
+        color: #220F4B;
+    }
+
+    .forminput {
+        padding: 15px 24px;
+        width: 377px;
+        height: 54px;
+        border: 2px solid #220F4B;
+        border-radius: 35px;
+    }
+
+    .formlabel {
+        margin-left: 18px;
+        font-family: 'Noto Sans';
+        font-style: normal;
+        font-weight: 400;
+        font-size: 16px;
+        line-height: 22px;
+        color: #220F4B;
+    }
+
+}
+
+
+.modalbody {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    gap: 20px;
+    max-height: 400px;
+    overflow: auto;
+}
+
+.line {
+    width: 426px;
+    height: 0px;
+    border: 2px solid #70BF63;
+}
+
+.line2 {
+    width: 63px;
+    height: 0px;
+    border: 2px solid #70BF63;
+}
+
+.loginbtn2 {
+    width: 377px;
+    height: 54px;
+    color: $light-wheet-color;
+    background: #220F4B;
+    border-radius: 30px;
+    border: none;
+    margin-top: 20px;
+    font-size: 25px;
+    font-weight: 600;
+    margin-bottom: 30px;
+}
+
+.loginbtn {
+    width: 315px;
+    height: 54px;
+    color: $light-wheet-color;
+    background: #220F4B;
+    border-radius: 30px;
+    border: none;
+    margin-top: 0px;
+    font-size: 25px;
+    font-weight: 600;
+    margin-bottom: 30px;
+}
+
+.regbtn {
+    width: 315px;
+    height: 54px;
+    color: $plum-dark-color;
+    background: $light-wheet-color;
+    border: 2px solid #220F4B;
+    border-radius: 30px;
+    margin-top: 0px;
+    font-size: 25px;
+    font-weight: 600;
+    margin-bottom: 30px;
+}
+
+.logbtns {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    padding: 10px 0px;
+    gap: 10px;
+
+}
+
+.forgot {
+    font-family: 'Noto Sans';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 14px;
+    color: #573C91;
+    text-decoration: none;
+    margin-left: 170px;
+}
+
+.register {
+    font-weight: 500;
+    font-size: 16px;
+    color: #573C91;
+    cursor: pointer;
+}
+
+.container_frame {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 0px;
+    gap: 20px;
+    width: 377px;
+    height: 88px;
+}
+
+.devider {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    padding: 0px;
+    gap: 20px;
+    width: 377px;
+    height: 22px;
+
+    span {
+        color: $plum-dark-color;
+        font-weight: 400;
+        font-size: 16px;
+        margin: 0;
+    }
+}
+
+.linkicons {
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+    padding: 0px;
+    gap: 40px;
+    width: 304px;
+    height: 46px;
+}
