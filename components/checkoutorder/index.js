@@ -6,7 +6,8 @@ import PaymentMethod from "./payment"
 import UserData from "./userdata"
 import Shipping from "./shipping"
 import Summary from "./summary"
-
+import PersonalDataPolicy from "./info/PersonalDataPolicy"
+import UserConditions from "./info/UserConditions"
 
 export default function CheckoutOrder({
     cart,
@@ -22,6 +23,9 @@ export default function CheckoutOrder({
     const [activeAddress, setActiveAddress] = useState(userAdresses?.find(address => address.active === true));
     const [order_error, setOrder_Error] = useState("");
     const [totalAfterDiscount, setTotalAfterDiscount] = useState(cart?.cartTotalPrice);
+    const [infoShow, setInfoShow] = useState(false);
+    const [info2Show, setInfo2Show] = useState(false);
+
 
     return (
         <div className={styles.topsales}>
@@ -64,13 +68,17 @@ export default function CheckoutOrder({
                             <div className={styles.info}>
                                 <p>Отримання замовлення від 5 000 ₴ тільки за паспортом (Закон від 06.12.2019 № 361-IX)</p>
                                 <ul>Підтверджуючи замовлення, я приймаю умови:
-                                    <li><div className={styles.info_li}><p>положення про обробку і захист персональних даних</p><img width="120px" height="25px" src="../../../icons/info.png"></img></div></li>
-                                    <li><div className={styles.info_li}><p>угоди користувача</p><img width="120px" height="25px" src="../../../icons/info.png"></img></div></li>
+                                <li><div className={styles.info_li}><p>положення про обробку і захист персональних даних</p><img width="120px" height="25px" src="../../../icons/info.png" onClick={() => setInfoShow(true)}></img></div></li>
+                                                <li><div className={styles.info_li}><p>угоди користувача</p><img width="120px" height="25px" src="../../../icons/info.png" onClick={() => setInfo2Show(true)}></img></div></li>
                                 </ul>
                             </div>
                         </div>
                     </Col>
                 </Row>
+                <PersonalDataPolicy show={infoShow}
+                    onHide={() => setInfoShow(false)} />
+                <UserConditions show={info2Show}
+                    onHide={() => setInfo2Show(false)} />
             </Container>
         </div >
     )
