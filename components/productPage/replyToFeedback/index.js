@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { Form, Modal } from "react-bootstrap";
 import styles from "./styles.module.scss";
 
@@ -76,7 +77,10 @@ export default function ReplyToFeedback({ show, onHide }) {
           <div className={styles.info}>
             <p>
               Щоб ваш відгук або коментар пройшов модерацію і був опублікований,
-              ознайомтеся, будь ласка, з нашими правилами
+              ознайомтеся, будь ласка,
+              <Link style={{ color: "#573C90" }} href="/rules">
+                нашими правилами
+              </Link>
             </p>
           </div>
         </div>
