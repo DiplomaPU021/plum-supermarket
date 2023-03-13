@@ -4,6 +4,7 @@ import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import CategoryCard from "../categoryCard";
 
+import Link from "next/link";
 export default function CategoryPage({ category }) {
   return (
     <Container fluid className={styles.categorypage}>
@@ -13,12 +14,16 @@ export default function CategoryPage({ category }) {
       <Row lg={4} md={3} className={styles.categorypage__row}>
         {category.groups
           ? category.groups.map((group, i) =>
-              group.group_subcategory.length
-                ? (
-                    <Col className={styles.col} key={i}>
-                      <CategoryCard group={ group}/>
-                    </Col>
-                ): null
+              group.group_subcategory.length ? (
+                <Col className={styles.col} key={i}>
+                  <Link
+                    style={{ textDecoration: "none" }}
+                    href={`/subCategory/${group.slug}`}
+                  >
+                    <CategoryCard group={group} />
+                  </Link>
+                </Col>
+              ) : null
             )
           : null}
       </Row>

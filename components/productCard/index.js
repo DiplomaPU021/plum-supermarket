@@ -64,7 +64,9 @@ export default function ProductCard({ product }) {
     // }
     // const { data } = await axios.get(`/api/product/${product._id}?style=${product.style}&code=${router.query.code}`);
 
-    const { data } = await axios.get(`/api/product/${product._id}?style=0&code=0`);
+    const { data } = await axios.get(
+      `/api/product/${product._id}?style=0&code=0`
+    );
 
     console.log("dataOnProductCardIndex--------->", data);
 
@@ -122,7 +124,7 @@ export default function ProductCard({ product }) {
           <Row>
             <Col>
               <Card.Title className={styles.product__container_infos_title}>
-                {(product.name + " " + (product.subProducts[active].color ? product.subProducts[active].color.color : ""
+                              {(product.name + " " + (product.subProducts[active].color ? product.subProducts[active].color.color : ""
                 ) + " " + product.subProducts[active].sizes[active].size).length > 55
                   ? `${product.name.substring(0, 55)}...`
                   : product.name +
@@ -162,22 +164,20 @@ export default function ProductCard({ product }) {
                 >{`${prices[0]} ${product.subProducts[active].sizes[0].price_unit}`}</span>
               </Col>
             )}
-            <Col className={styles.product__container_infos_pricebtn_btn}>
-              {/* TODO onClick */}
-              <Button className={styles.btnscales}>
-                <ScalesIcon fillColor={"#220F4B"} />
-              </Button>
-              <Button
-                className={styles.btncart}
-                disabled={product.quantity < 1}
-                style={{
-                  cursor: `${product.quantity < 1 ? "not-allowed" : ""}`,
-                }}
-                onClick={() => addToCartHandler()}
-              >
-                <CartIcon fillColor={"#FAF8FF"} />
-              </Button>
-            </Col>
+            {/* TODO onClick */}
+            <Button className={styles.btnscales}>
+              <ScalesIcon fillColor={"#220F4B"} />
+            </Button>
+            <Button
+              className={styles.btncart}
+              disabled={product.quantity < 1}
+              style={{
+                cursor: `${product.quantity < 1 ? "not-allowed" : ""}`,
+              }}
+              onClick={() => addToCartHandler()}
+            >
+              <CartIcon fillColor={"#FAF8FF"} />
+            </Button>
           </Row>
           {error && <span>{error}</span>}
         </Container>

@@ -12,7 +12,12 @@ export default function Popular({ products }) {
       <Row className={styles.row}>
         <div className={styles.leftsale}>Популярне з категорії</div>
       </Row>
-      <Row lg={4} md={3} className={styles.products_row}>
+      <Row lg={4} className={styles.products_row}>
+        {products.map((p, i) => (
+          <Col key={i} className={styles.col}>
+            <ProductCard product={p} />
+          </Col>
+        ))}
         {products.map((p, i) => (
           <Col key={i} className={styles.col}>
             <ProductCard product={p} />

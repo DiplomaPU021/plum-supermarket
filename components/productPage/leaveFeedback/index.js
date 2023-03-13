@@ -1,12 +1,15 @@
-import { Form, Modal, Row } from "react-bootstrap";
 import "bootstrap/dist/css/bootstrap.min.css";
+import { Form, Modal } from "react-bootstrap";
 import styles from "./styles.module.scss";
-import ReactStars from "react-rating-stars-component";
 import React from "react";
+import { useState } from "react";
+import Link from "next/link";
 import Star from "@/components/icons/Star";
-
+import Rating from "react-rating";
+import Images from "./Images";
 
 export default function LeaveFeedback({ show, onHide }) {
+  const [images, setImages] = useState([]);
 
   return (
     <Modal
@@ -47,21 +50,22 @@ export default function LeaveFeedback({ show, onHide }) {
               </Form.Text>
             </Form.Group>
 
-            <Form.Group className="mb-3" controlId="formBasicStars">
-       
-                <ReactStars
-                classNames={styles.form__stars}
-                  count={5}
-                  size={44}
-                  edit={true}
-                  style={{ border: "2px solid green" }}
-                  isHalf={true}
-                  value={1.5}
-                  emptyIcon={<Star fillColor={"transparent"} />}
-                  halfIcon={<Star fillColor={"transparent"} />}
-                  fullIcon={<Star fillColor={"transparent"} />}
-                  activeColor="#70BF63"
-                />
+            <Form.Group className={styles.form__stars}>
+              <Rating
+                start={0}
+                stop={5}
+                initialRating={0}
+                emptySymbol={
+                  <div style={{ margin: "10px" }}>
+                    <Star fillColor="transparent" />
+                  </div>
+                }
+                fullSymbol={
+                  <div style={{ margin: "10px" }}>
+                    <Star fillColor="#70BF63" />
+                  </div>
+                }
+              />
             </Form.Group>
 
             <Form.Group className={styles.form__experience}>
@@ -107,7 +111,7 @@ export default function LeaveFeedback({ show, onHide }) {
               <Form.Control
                 className={styles.form_input}
                 as="textarea"
-                rows={5}
+                rows={6}
               />
             </Form.Group>
 
@@ -115,11 +119,7 @@ export default function LeaveFeedback({ show, onHide }) {
               <Form.Label style={{ paddingLeft: "23px" }}>
                 Фотографії товару
               </Form.Label>
-              <Form.Control
-                className={styles.form_input}
-                as="textarea"
-                rows={5}
-              />
+                <Images images={images} setImages={setImages} />
             </Form.Group>
 
             {/* TODO bottons */}
@@ -144,6 +144,15 @@ export default function LeaveFeedback({ show, onHide }) {
               </Form.Check>
             </Form.Group>
           </Form>
+          <div className={styles.info}>
+            <p>
+              Щоб ваш відгук або коментар пройшов модерацію і був опублікований,
+              ознайомтеся, будь ласка, з
+              <Link style={{ color: "#573C90" }} href="/rules">
+                нашими правилами
+              </Link>
+            </p>
+          </div>
         </div>
       </div>
     </Modal>

@@ -1,15 +1,14 @@
 import styles from "./styles.module.scss";
 import { Card } from "react-bootstrap";
-import Link from "next/link";
 
 export default function CategoryCard({ group }) {
+  
   return (
-    <Link style={{ textDecoration: "none"}} href="/">
       <Card className={styles.categorycard}>
         <Card.Img
           className={styles.categorycard__photobox}
-          src={`../../images/group_subCategories/${group.image}.png`}
-          alt={group.image}
+          src={`../../images/group_subCategories/${group.slug}.png`}
+          alt={group.slug}
         />
         <div className={styles.line}></div>
         <Card.Body className={styles.categorycard__body}>
@@ -20,6 +19,5 @@ export default function CategoryCard({ group }) {
           </div>
         </Card.Body>
       </Card>
-    </Link>
   );
 }

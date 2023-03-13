@@ -26,52 +26,50 @@ export default function product({ product, products, country }) {
   const [active, setActive] = useState(0);
 
   return (
-    <div>
+    <Container fluid style={{ padding: "0" }}>
       <Header country={country} />
-      <Container fluid className={styles.productpage}>
-        <Row>
-          <Col>
-            <Link href="/">
-              <LightPlumIcon />
-              <GreenChevronRight fillColor="#70BF63" w="30px" h="30px" />
-            </Link>
-            <Link
-              href={`/category/${product.category.slug}`}
-              className={styles.productpage__link}
-            >
-              <span>{product.category.name}</span>
-              <GreenChevronRight fillColor="#70BF63" w="30px" h="30px" />
-            </Link>
-            {product.subCategories.map((sub, i) => (
-              <Link
-               //TODO LINK
-                href="/"
-                //href={`/${product.category.name}/${sub.name}`}
-                key={i}
-                className={styles.productpage__link}
-              >
-                <span> {sub.name}</span>
-              </Link>
-            ))}
-          </Col>
-        </Row>
-        <Row className={styles.productpage__nameCode}>
-          <Col className={styles.productpage__nameCode_name}>
-            <span>
-              {product.name} {product.color} {product.size}
+      <Row className={styles.links}>
+        <Col style={{ padding: "0" }}>
+          <Link href="/">
+            <LightPlumIcon />
+            <GreenChevronRight fillColor="#70BF63" w="30px" h="30px" />
+          </Link>
+          <Link
+            href={`/category/${product.category.slug}`}
+            className={styles.links__link}
+          >
+            <span>{product.category.name}</span>
+            <GreenChevronRight fillColor="#70BF63" w="30px" h="30px" />
+          </Link>
+          {product.subCategories.map((sub, i) => (
+            <span key={i} className={styles.links__link}>
+              {sub.name}
             </span>
-          </Col>
-          <Col className={styles.productpage__nameCode_code}>
-            <span>Код: {product.code}</span>
-          </Col>
-        </Row>
+          ))}
+        </Col>
+      </Row>
+      <Row className={styles.nameCode}>
+        <Col className={styles.nameCode_name}>
+          <span>
+            {product.name} {product.color} {product.size}
+          </span>
+        </Col>
+        <Col className={styles.nameCode_code}>
+          <span>Код: {product.code}</span>
+        </Col>
+      </Row>
+      <Container fluid className={styles.productpage}>
         <Container fluid className={styles.productpage__main}>
           <Row>
             <Col style={{ padding: "0", width: "50%" }}>
-              <MainSwiperCard product={product} active={active} setActive={setActive} />
+              <MainSwiperCard
+                product={product}
+                active={active}
+                setActive={setActive}
+              />
             </Col>
-            <Col style={{ padding: "0" , width: "50%" }}>
-              <Infos product={product} active={active} setActive={setActive}/>
+            <Col style={{ padding: "0", width: "50%" }}>
+              <Infos product={product} active={active} setActive={setActive} />
             </Col>
           </Row>
         </Container>
@@ -83,8 +81,8 @@ export default function product({ product, products, country }) {
       <Popular products={products} />
       <AppDownload />
       <FAQ />
-      <Footer country={country}/>
-    </div>
+      <Footer country={country} />
+    </Container>
   );
 }
 export async function getServerSideProps(context) {
@@ -92,7 +90,9 @@ export async function getServerSideProps(context) {
   const slug = query.slug;
   const style = query.style;
   const code = query.code || 0;
+
   const countryData = await getCountryData();
+
   await db.connectDb();
   //----------------
   //from db
@@ -104,9 +104,11 @@ export async function getServerSideProps(context) {
 
   let subProduct = product.subProducts[style];
 
+
   let price=subProduct.sizes[0].price.toFixed();
     //products that go together cheaper
   let productsPlus = await Product.find().sort({createdAt: -1}).lean();
+
   let newProduct = {
     ...product,
     style,
@@ -122,7 +124,6 @@ export async function getServerSideProps(context) {
     price_unit: subProduct.sizes[0].price_unit,
     code: subProduct.sizes[0].code,
     sold: subProduct.sold,
-
     quantity: subProduct.sizes[0].qty,
     productsPlus,
     ratings: [
@@ -132,12 +133,11 @@ export async function getServerSideProps(context) {
       { percentage: 4 },
       { percentage: 0 },
     ],
-
   };
 
   // console.log("newProduct",newProduct);
 
-  //Should be the same of the catecory  
+  //Should be the same of the catecory
   let products = await Product.find().sort({ popularity: -1 }).limit(5);
   await db.disconnectDb();
   return {

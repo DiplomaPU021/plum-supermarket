@@ -19,8 +19,8 @@ export default function category({ country, category, advice, brands }) {
   return (
     <Container fluid className={styles.categorypage}>
       <Header country={country} />
-      <Row style={{ paddingLeft: "60px", margin: "0" }}>
-        <Col>
+      <Row style={{ padding: "15px  0 0 60px", margin: "0" }}>
+        <Col style={{padding: "0"}}>
           <Link href="/">
             <LightPlumIcon />
             <GreenChevronRight fillColor="#70BF63" w="30px" h="30px" />
