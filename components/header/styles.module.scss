@@ -8,24 +8,19 @@
     background-color: $light-wheet-color;
     box-shadow: 0px 1px 3px $plum-dark-color;
 
-
-
     &_container {
-       // max-width: 1440px;
-        margin: 25px 60px 10px 60px;
+        margin: 25px 40px 10px 40px;
         display: flex;
         width: 100%;
         min-height: 46px;
         justify-content: space-between;
 
-        @media(max-width: 1100px) {
+        @media(max-width: 900px) {
             flex-direction: column;
             justify-content: center;
             align-items: center;
             justify-content: space-around;
         }
-
-
     }
 
     .logo {
@@ -33,19 +28,29 @@
         min-width: 120px;
         height: 46px;
         margin-bottom: 10px;
-
     }
 
     .search {
         display: flex;
         align-items: center;
-        max-width: 600px;
-        min-width: 230px;
-        // flex: 2;
+        max-width: 800px;
+        min-width: 180px;
         height: 46px;
         margin-bottom: 10px;
-        // justify-content: space-between;
+        padding-left: 20px;
+        padding-right: 30px;
+
+        @media(max-width: 900px) {
+            .search {
+                padding: 0px !important;
+                max-width: 600px;
+            }
+        }
     }
+}
+
+.inputgroup {
+    max-width: 712px;
 }
 
 .cart {
@@ -71,8 +76,6 @@
     display: flex;
     justify-content: flex-end;
     gap: 1rem;
-
-
     margin-bottom: 10px;
 
     button {
@@ -92,14 +95,10 @@
         width: 30px;
         border: 1px solid grey;
     }
-
 }
 
-
-
-
 .forminput {
-    border-radius: 23px;
+    border-radius: 23px !important;
     border: 2px solid #220F4B;
     position: relative;
     height: 46px;
@@ -107,12 +106,17 @@
     font-size: 18px;
     color: $plum-dark-color;
     font-weight: 550;
-    width: 580px;
+    width: 600px;
     background-color: $light-wheet-color;
 
     &:focus {
         border: 2px solid #220F4B;
         box-shadow: none;
+    }
+
+    @media(max-width: 900px) {
+
+        width: 520px;
     }
 }
 
@@ -134,7 +138,6 @@
 }
 
 .location {
-    //color: $plum-dark-color;
     font-size: 20px;
     font-weight: 600;
 }

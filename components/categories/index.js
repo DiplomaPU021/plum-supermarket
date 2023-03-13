@@ -7,7 +7,7 @@ import Image from "react-bootstrap/Image";
 
 export default function Categories({ categories }) {
   return (
-    <Container className={styles.container}>
+    <Container fluid className={styles.container}>
       <Row className={styles.row}>
         {categories.length
           ? categories.map((ca, i) => (

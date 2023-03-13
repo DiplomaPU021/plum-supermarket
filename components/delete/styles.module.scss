@@ -24,11 +24,10 @@
     h3 {
         padding: 20px 0px 0px 0px;
     }
-
 }
 
 .modal {
-    width: 360px;
+    width: 360px !important;
     height: 378px;
 }
 
@@ -48,4 +47,19 @@
     border: none;
     font-size: 20px;
     font-weight: 600;
+}
+
+.addbtn2 {
+    width: 272px;
+    height: 47px;
+    color: $light-wheet-color;
+    background: $plum-dark-color;
+    border-radius: 30px;
+    border: none;
+    font-size: 20px;
+    font-weight: 600;
+
+    &:hover{
+        border: 2px solid $green-color;
+    }
 }

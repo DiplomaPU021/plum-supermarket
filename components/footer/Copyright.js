@@ -5,7 +5,6 @@ import { IoLocationSharp } from "react-icons/io5"
 
 export default function Ad({country}) {
     return (
-
         <div className={styles.footer_copyright}>
             <section>©2023 PLUM All Right Reserved</section>
             <section>
@@ -14,8 +13,7 @@ export default function Ad({country}) {
                         <li key={i}>
                             <Link href={link.link}>{link.name}</Link>
                         </li>
-                    ))
-                    }
+                    ))}
                     <li>
                         <a className={styles.location}>
                             <IoLocationSharp /> {country.name}

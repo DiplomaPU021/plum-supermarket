@@ -30,7 +30,6 @@ export default function CartPage(props) {
                 saveCart(cart);
                 props.onHide();
                 router.push("/checkout");
-
             } else {
                 saveCart(cart);
                 router.push("/checkout");
@@ -48,23 +47,26 @@ export default function CartPage(props) {
 
     useEffect(() => {
         if (cart?.cartItems?.length !== 0) {
-            setFooterVis("block");
-        } else { setFooterVis("none"); }
+            setFooterVis("block")
+        }
+        else{
+            setFooterVis("none")
+        }
     })
 
     return (
-
         <Modal
             {...props}
             size={cart.length == 0 ? "lg" : "xl"}
+           // dialogClassName={styles.modal}
             aria-labelledby="contained-modal-title-vcenter"
+            className="modal"
             centered>
             <div className={styles.modaldiv}>
-                <Modal.Header className={styles.modalheader} closeButton onClick={() => updateCartInDbHandler()}></Modal.Header>
                 {cart == null || cart?.cartItems?.length == 0 || cart.cartItems == null ? (
-                    <EmptyCart />
+                    <EmptyCart setFooterVis={setFooterVis} />
                 ) : (
-                    <Modal.Body className={styles.modalbody} >
+                    <Modal.Body className={styles.modalbody} scrollable="true">
                         {
                             cart.cartItems?.map((product, i) => (
                                 <CartItem key={i} product={product} userid={userId} />
@@ -78,7 +80,6 @@ export default function CartPage(props) {
                         <button className={styles.addbtn}
                             onClick={() => saveCartToDbHandler()}
                         >Оформити замовлення</button>
-
                         <Link href="/" className={styles.link}>Повернутись до покупок</Link>
                     </div>
                 </Modal.Footer>

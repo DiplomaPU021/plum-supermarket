@@ -1,9 +1,6 @@
 import styles from "./styles.module.scss"
 import * as React from "react"
-import Link from "next/link"
-import { BiRightArrowAlt } from "react-icons/bi"
 import Card from 'react-bootstrap/Card'
-import Button from "react-bootstrap/Button"
 import HeartIcon from '../icons/HeartIcon'
 import DeleteIcon from "../icons/DeleteIcon"
 import { useSelector, useDispatch } from "react-redux";
@@ -30,12 +27,14 @@ export default function CartItem(product, userid) {
         dispatch(updateCart(newCart));
     };
 
-    const removeProduct = async (id) => {
+    const removeProduct = (id) => {
+        // const removeProduct = async (id) => {
         setNotificationShow(true)
-        let newCart = cart.cartItems.filter((item) => {
-            return item._uid != id;
-        });
-        dispatch(updateCart(newCart));
+        //TODO треба перенести  в компонент модальне видалення DelNotification і в разі вибору не показувати знову використовувати пряме видалення тут
+        // let newCart = cart.cartItems.filter((item) => {
+        //     return item._uid != id;
+        // });
+        // dispatch(updateCart(newCart));
     };
     return (
         <Card className={styles.card}>
@@ -66,18 +65,22 @@ export default function CartItem(product, userid) {
                                     <img width="30px" height="30px" src="../../../icons/up-btn.png"></img>}
                                 </button>
                                 <div className={styles.extra_div} style={{ display: showExtra }}>
-                                    <Form.Check type={'checkbox'} id={`check-api-1`}>
-                                        <Form.Check.Input type={'checkbox'} />
-                                        <Form.Check.Label><b>Windows 11</b></Form.Check.Label>
-                                    </Form.Check>
-                                    <p>Операційна система Windows 11 Для дому на 1ПК (ESD - електронна ліцензія в конверті, всі мови) (KW9-00664)</p>
-                                    <h4>9899 $</h4>
-                                    <Form.Check type={'checkbox'} id={`check-api-2`}>
-                                        <Form.Check.Input type={'checkbox'} />
-                                        <Form.Check.Label><b>Microsoft 365 на вибір</b></Form.Check.Label>
-                                    </Form.Check>
-                                    <p>Microsoft 365 Персональний, підписка 1 рік, для 1 користувача (ESD - електронний ключ в конверті) (QQ2-00004)</p>
-                                    <h4>2899 $</h4>
+                                    <div className={styles.check}>
+                                        <Form.Check type={'checkbox'} id={`check-api-1`} >
+                                            <Form.Check.Input type={'checkbox'} />
+                                            <Form.Check.Label><b>Windows 11</b></Form.Check.Label>
+                                        </Form.Check>
+                                        <p>Операційна система Windows 11 Для дому на 1ПК (ESD - електронна ліцензія в конверті, всі мови) (KW9-00664)</p>
+                                        <h4>9899 $</h4>
+                                    </div>
+                                    <div className={styles.check}>
+                                        <Form.Check type={'checkbox'} id={`check-api-2`} >
+                                            <Form.Check.Input type={'checkbox'} />
+                                            <Form.Check.Label><b>Microsoft 365 на вибір</b></Form.Check.Label>
+                                        </Form.Check>
+                                        <p>Microsoft 365 Персональний, підписка 1 рік, для 1 користувача (ESD - електронний ключ в конверті) (QQ2-00004)</p>
+                                        <h4>2899 $</h4>
+                                    </div>                        
                                 </div>
                             </div>
                         </Col>
@@ -99,10 +102,12 @@ export default function CartItem(product, userid) {
                                 <div className={styles.bord}>
                                     {
                                         product.product.discount > 0 ? (
+
                                             <h5>{Math.round(product.product.price * product.product.qty).toLocaleString('uk-UA')} {product.product.price_unit}</h5>)
                                             : (<></>)
                                     }
                                     <h3>{Math.round(product.product.priceAfter * product.product.qty).toLocaleString('uk-UA')} {product.product.price_unit}</h3>
+
                                 </div>
                             </Row>
                         </Col>
@@ -111,6 +116,10 @@ export default function CartItem(product, userid) {
                             <button className={styles.itembtn} onClick={() => removeProduct(product.product._uid)} style={{ backgroundColor: notificationShow ? "#220F4B" : "#FAF8FF" }}>
                                 <DeleteIcon fillColor={notificationShow ? "#FAF8FF" : "#220F4B"} />
                             </button>
+                            <DelNotification
+                                show={notificationShow}
+                                onHide={() => setNotificationShow(false)}
+                            />
                         </Col>
                     </Row>
                 </Container>

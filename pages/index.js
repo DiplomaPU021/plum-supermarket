@@ -23,6 +23,7 @@ const inter = Inter({ subsets: ["latin"] });
 export default function Home({ country, products, categories }) {
 
   const { data: session } = useSession();
+
   return (
     <div className={styles.container}>
       <Header country={country} />
@@ -31,7 +32,7 @@ export default function Home({ country, products, categories }) {
       <TopSales products={products} />
       <YoutubeVideo />
       <RecomendedVideo />
-      <Popular products={products} />
+      <Popular products={products} category={"Комп'ютери та ноутбуки"}/>
       <AppDownload />
       <FAQ />
       <Footer country={country} />

@@ -14,7 +14,6 @@ export default function CheckoutOrder({
     country
 }) {
 
-
     const [payment, setPayment] = useState({ paymentMethod: "Оплата під час отримання товару", paymentMethodId: "" });
     const { paymentMethod } = payment;
     const [delivery, setDelivery] = useState({ deliveryType: "Нова пошта", deliveryCost: "за тарифами перевізника", deliveryAddress: "", deliveryId:"novaPoshta" });
@@ -23,7 +22,6 @@ export default function CheckoutOrder({
     const [activeAddress, setActiveAddress] = useState(userAdresses?.find(address => address.active === true));
     const [order_error, setOrder_Error] = useState("");
     const [totalAfterDiscount, setTotalAfterDiscount] = useState(cart?.cartTotalPrice);
-
 
     return (
         <div className={styles.topsales}>
@@ -72,7 +70,6 @@ export default function CheckoutOrder({
                             </div>
                         </div>
                     </Col>
-
                 </Row>
             </Container>
         </div >
