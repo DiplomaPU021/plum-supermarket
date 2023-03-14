@@ -1,9 +1,9 @@
 import styles from "./styles.module.scss"
 import Modal from 'react-bootstrap/Modal'
-import EmptyCart from "./emptyCart"
+import EmptyCart from "./EmptyCart"
 import * as React from "react"
 import Link from "next/link"
-import CartItem from './cartItem'
+import CartItem from './CartItem'
 import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { signIn, useSession } from 'next-auth/react';
