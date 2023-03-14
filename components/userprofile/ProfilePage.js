@@ -12,6 +12,7 @@ export default function ProfilePage() {
         <Modal.Body className={styles.modalbodyempty}>
             <h2>Ваші персональні дані</h2>
             <h5>Особисті дані</h5>
+            <div>Вийти</div>
         </Modal.Body>
 
     )

@@ -1,6 +1,6 @@
 import styles from "./styles.module.scss"
 import Modal from 'react-bootstrap/Modal'
-import * as React from "react"
+import { useState } from 'react'
 import { useSelector } from "react-redux";
 import { signIn, useSession } from 'next-auth/react';
 import { useRouter } from "next/router"
@@ -10,10 +10,10 @@ import Image from 'react-bootstrap/Image'
 export default function Registration(props) {
     const router = useRouter();
     const { data: session } = useSession();
-    const [userId, setUserId] = React.useState(props.userid);
-    const [authShow, setAuthShow] = React.useState(true);
-    const [logShow, setLogShow] = React.useState(false);
-    const [regShow, setRegShow] = React.useState(false);
+    const [userId, setUserId] = useState(props.userid);
+    const [authShow, setAuthShow] = useState(true);
+    const [logShow, setLogShow] = useState(false);
+    const [regShow, setRegShow] = useState(false);
 
     const logInFormShow = () => {
         setLogShow(true)

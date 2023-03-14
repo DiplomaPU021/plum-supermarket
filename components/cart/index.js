@@ -1,9 +1,9 @@
 import styles from "./styles.module.scss"
 import Modal from 'react-bootstrap/Modal'
-import EmptyCart from "./emptyCart"
+import EmptyCart from "./EmptyCart"
 import * as React from "react"
 import Link from "next/link"
-import CartItem from './cartItem'
+import CartItem from './CartItem'
 import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { signIn, useSession } from 'next-auth/react';
@@ -38,6 +38,7 @@ export default function CartPage(props) {
             signIn();
         }
     }
+        //функція н працює, бо зник хедер який її запускав
     const updateCartInDbHandler = () => {
         if (session && window.location.pathname === "/checkout") {
             router.push("/checkout");
@@ -61,7 +62,8 @@ export default function CartPage(props) {
            // dialogClassName={styles.modal}
             aria-labelledby="contained-modal-title-vcenter"
             className="modal"
-            centered>
+            centered
+            >
             <div className={styles.modaldiv}>
                 {cart == null || cart?.cartItems?.length == 0 || cart.cartItems == null ? (
                     <EmptyCart setFooterVis={setFooterVis} />
