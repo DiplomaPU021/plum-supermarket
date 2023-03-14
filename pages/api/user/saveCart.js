@@ -9,6 +9,8 @@ const handler = nc().use(auth);
 
 handler.post(async (req, res) => {
     try {
+        // console.log("user.id", req.user);
+        // return;
         await db.connectDb();
         const { cart } = req.body;
         let products = [];

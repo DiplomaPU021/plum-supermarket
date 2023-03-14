@@ -1,5 +1,6 @@
 import styles from "../styles.module.scss"
 import { Row, Col, Form } from "react-bootstrap"
+import { useState } from 'react'
 import { Formik } from 'formik';
 import * as yup from 'yup';
 import "yup-phone";
@@ -22,12 +23,22 @@ export default function UserData({ user, activeAddress, setActiveAddress }) {
             if (!value) return true;
             return yup.string().phone('UA').isValidSync(value) && value.length >= 10 && value[0] === '0';
         }),
+        city: yup.string()
+            .required("Необхідно вибрати місто"),
+        //zipcode виконує тут роль коду міста для пошуку в базі 
+        zipCode: yup.string(),
+        address: yup.string()
+            .max(100, "Має бути максимум 100 символів")
+        // country: yup.string()
     })
+
 
     const handleGetCredencials = e => {
         const { name, value } = e.target;
         setActiveAddress({ ...activeAddress, [name]: value });
+        // console.log("handleChange", name, value);
     }
+
 
     return (
         <>
@@ -57,9 +68,12 @@ export default function UserData({ user, activeAddress, setActiveAddress }) {
                                         value={formik.values.lastName}
                                         onChange={(e) => { formik.handleChange(e); handleGetCredencials(e) }}
                                         isInvalid={!!formik.errors.lastName}
+                            
                                     />
                                     <Form.Control.Feedback type="invalid">{formik.errors.lastName}
                                     </Form.Control.Feedback>
+                                    {/* <Form.Control.Feedback type="valid">
+                                    </Form.Control.Feedback> */}
                                 </Form.Group>
                                 <Form.Group as={Col} controlId="groupPhone">
                                     <Form.Label className={styles.form_label}>Номер телефону</Form.Label>
@@ -87,15 +101,15 @@ export default function UserData({ user, activeAddress, setActiveAddress }) {
                                     />
                                     <Form.Control.Feedback type="invalid">{formik.errors.firstName}
                                     </Form.Control.Feedback>
-                                    <Form.Control.Feedback type="valid" />
-
+                                    <Form.Control.Feedback type="valid"/>
+                                    
                                 </Form.Group>
                                 <Form.Group as={Col} controlId="groupEmail">
                                     <Form.Label className={styles.form_label}>Електронна пошта</Form.Label>
                                     <Form.Control className={styles.form_input}
-                                        type="email" name="email" value={user ? user.email : ""} readOnly
-                                        isValid={!formik.errors.email} />
-                                    <Form.Control.Feedback type="valid" />
+                                     type="email" name="email" value={user ? user.email : ""} readOnly 
+                                     isValid={!formik.errors.email}/>
+                                    <Form.Control.Feedback type="valid"/>
                                 </Form.Group>
                             </Col>
                         </Row>

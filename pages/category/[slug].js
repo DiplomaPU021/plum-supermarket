@@ -13,7 +13,6 @@ import Brands from "@/components/brands/indes";
 import Advice from "@/components/advice";
 import GroupSubCategory from "@/models/GroupSubCategory";
 import Product from "@/models/Product";
-import { getCountryData } from "@/utils/country";
 
 export default function category({ country, category, advice, brands }) {
   return (
@@ -90,11 +89,25 @@ export async function getServerSideProps(context) {
     photo: "comp.png",
   };
 
-  const countryData = await getCountryData();
+  let data = {
+    name: "Ukraine",
+    flag: { emojitwo: "https://cdn.ipregistry.co/flags/emojitwo/ua.svg" },
+    code: "UA",
+  };
+  /* Увага!!! замість обєкту можна використати сервіс ipregistry з наступним методом
+      await axios
+      .get('https://api.ipregistry.co/?key=aq50e9f94war7j9p')
+      .then((res) => {      
+        return res.data.location.country;
+      })
+      .catch((err)=> {
+        console.log(err);      
+      });*/
+  //----------------
   await db.disconnectDb();
   return {
     props: {
-      country: countryData,
+      country: { name: data.name, flag: data.flag.emojitwo, code: data.code },
       category: JSON.parse(JSON.stringify(newCategory)),
       advice: JSON.parse(JSON.stringify(newAdvice)),
       brands: JSON.parse(JSON.stringify(brands)),

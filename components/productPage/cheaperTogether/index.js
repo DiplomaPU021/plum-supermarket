@@ -64,7 +64,7 @@ export default function CheaperTogether({ product, productsPlus }) {
               <Col className={styles.cheapTwo__simillarswiper_summary}>
                 <div className={styles.cheapTwo__simillarswiper_summary_price}>
                   {/* TODO calculate price below */}
-                  <span>82034.88 ₴</span>
+                  <span>82034.88 грн</span>
                 </div>
                 <div className={styles.cheapTwo__simillarswiper_summary_buy}>
                   {/* TODO add to cart*/}

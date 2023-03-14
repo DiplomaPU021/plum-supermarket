@@ -225,7 +225,7 @@
         "size": "",
         "qty": 12,
         "price": 44499,
-        "price_unit": "₴",
+        "price_unit": "грн",
         "code": 592793249,
         "discount": 10,
         "sold": 11
@@ -252,7 +252,7 @@
         "size": "",
         "qty": 12,
         "price": 44499,
-        "price_unit": "₴",
+        "price_unit": "грн",
         "code": 641606362,
         "discount": 10,
         "sold": 12
@@ -279,7 +279,7 @@
         "size": "",
         "qty": 12,
         "price": 44499,
-        "price_unit": "₴",
+        "price_unit": "грн",
         "code": 856132944,
         "discount": 10,
         "sold": 14
@@ -367,7 +367,7 @@
         "size": "45",
         "qty": 12,
         "price": 1140,
-        "price_unit": "₴",
+        "price_unit": "грн",
         "discount": 10,
         "sold": 14,
         "code": 165279053
@@ -394,7 +394,7 @@
         "size": "30",
         "qty": 4,
         "price": 999,
-        "price_unit": "₴",
+        "price_unit": "грн",
         "discount": 15,
         "sold": 5,
         "code": 843369968
@@ -421,7 +421,7 @@
         "size": "60",
         "qty": 2,
         "price": 1799,
-        "price_unit": "₴",
+        "price_unit": "грн",
         "discount": 17,
         "sold": 2,
         "code": 776575394

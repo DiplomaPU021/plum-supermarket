@@ -126,6 +126,8 @@ export default function ProductCard({ product }) {
               <Card.Title className={styles.product__container_infos_title}>
                               {(product.name + " " + (product.subProducts[active].color ? product.subProducts[active].color.color : ""
                 ) + " " + product.subProducts[active].sizes[active].size).length > 55
+
+
                   ? `${product.name.substring(0, 55)}...`
                   : product.name +
                   " " +

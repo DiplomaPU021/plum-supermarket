@@ -24,7 +24,6 @@ export default function CheckoutCart({ cart }) {
                 <CartPage
                     show={cartShow}
                     onHide={() => setCartShow(false)}
-
                 />
                 {cart.products.map((p, i) => (
                     <Col className={styles.colcard} key={p._id} >
