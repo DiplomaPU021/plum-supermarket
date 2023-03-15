@@ -52,6 +52,9 @@
                 &__stars {
                     display: flex;
                     justify-content: center;
+                    span{
+                        margin-right: 10px;
+                    }
                 }
 
                 &__experience {

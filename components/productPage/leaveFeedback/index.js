@@ -55,16 +55,9 @@ export default function LeaveFeedback({ show, onHide }) {
                 start={0}
                 stop={5}
                 initialRating={0}
-                emptySymbol={
-                  <div style={{ margin: "10px" }}>
-                    <Star fillColor="transparent" />
-                  </div>
-                }
-                fullSymbol={
-                  <div style={{ margin: "10px" }}>
-                    <Star fillColor="#70BF63" />
-                  </div>
-                }
+                fractions={2}
+                emptySymbol={<Star fillColor="transparent" />}
+                fullSymbol={<Star fillColor="#70BF63" />}
               />
             </Form.Group>
 
@@ -119,7 +112,7 @@ export default function LeaveFeedback({ show, onHide }) {
               <Form.Label style={{ paddingLeft: "23px" }}>
                 Фотографії товару
               </Form.Label>
-                <Images images={images} setImages={setImages} />
+              <Images images={images} setImages={setImages} />
             </Form.Group>
 
             {/* TODO bottons */}

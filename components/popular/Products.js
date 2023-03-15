@@ -13,11 +13,6 @@ export default function Products({ products }) {
                     <ProductCard product={p} />
                 </Col>
             ))}
-            {products.map((p, i) => (
-                <Col key={i} className={styles.col}>
-                    <ProductCard product={p} />
-                </Col>
-            ))}
             <Col className={styles.col}>
                 <div className={styles.colcard}>
                     <Card className={styles.morevideo}>

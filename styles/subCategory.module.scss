@@ -278,18 +278,122 @@
                                     color: $plum-dark-color;
                                 }
                             }
+                            input[type="range"] {
+                                --minRangePercent: 0%;
+                                --maxRangePercent: 0%;
+                                height: .4rem;
+                              }
+                              input[type="range"]:invalid {
+                                box-shadow: none;
+                              }
+                              
+                              input[type="range"]::-webkit-slider-thumb {
+                              
+                              }
+                              
+                              .min_max_slider {
+                                position: relative;
+                                width: 200px;
+                                text-align: center;
+                                margin-bottom: 50px;
+                              }
+                              
+                              .min_max_slider::focus {
+                                oultine: none;
+                              }
+                              
+                              input::focus {
+                                outline: none;
+                              }
+                              
+                              .min_max_slider > label {
+                                display: none;
+                              }
+                              
+                              .min_max_slider > input {
+                                cursor: pointer;
+                                position: absolute;
+                              }
+                              
+                              /* webkit specific styling */
+                              .min_max_slider > input {
+                                -webkit-appearance: none;
+                                -moz-appearance: none;
+                                outline: none !important;
+                                background: transparent;
+                              }
+                              .min_max_slider > input.min {
+                                background-image: linear-gradient(
+                                  to right,
+                                  silver 0%,
+                                  silver var(--minRangePercent),
+                                  orange var(--minRangePercent),
+                                  orange 100%
+                                );
+                              }
+                              
+                              .min_max_slider > input.max {
+                                background-image: linear-gradient(
+                                  to right,
+                                  orange 0%,
+                                  orange var(--maxRangePercent),
+                                  silver var(--maxRangePercent),
+                                  silver 100%
+                                );
+                              }
+                              
+                              .min_max_slider > input::-webkit-slider-runnable-track,
+                              .min_max_slider > input::-moz-range-track,
+                              .min_max_slider > input::-ms-track {
+                                box-sizing: border-box;
+                                border: none;
+                                height: 4px;
+                                background: orange;
+                                border-radius: 8px;
+                                height: 10px;
+                                background-color: transparent;
+                                background-image: linear-gradient(orange, orange),
+                                  linear-gradient(orange, orange);
+                                background-size: var(--sx) 10px, calc(100% - var(--sx)) 4px;
+                                background-position: left center, right center;
+                                background-repeat: no-repeat;
+                              }
+                              
+                              .min_max_slider > input::focus {
+                                outline: none;
+                              }
+                              
+                              .min_max_slider > input.max::-moz-range-progress {
+                                background: orange;
+                                border-radius: 4px;
+                              }
+                              
+                              .min_max_slider > input.min::-moz-range-progress {
+                                height: 0.6em;
+                                background: silver;
+                                border-radius: 4px;
+                              }
+                              
+                              input[type="range"]::-webkit-slider-thumb,
+                              input[type="range"]::-moz-range-thumb {
+                                -webkit-appearance: none; /* Override default look */
+                                -moz-appearance: none;
+                                appearance: none;
+                                width: 20px; /* Set a specific slider handle width */
+                                height: 20px; /* Slider handle height */
+                                background: orange; /* Green background */
+                                cursor: pointer; /* Cursor on hover */
+                                border: none;
+                                color: 1px solid orange;
+                                border-radius: 50%;
+                                /* box-shadow: -205px 0 0 200px hsl(100, 100%, 40%); */
+                              }
+                              
+                              .min_max_slider > input::-webkit-slider-runnable-track {
+                                cursor: pointer;
+                              }
+                              
 
-                            .slider {
-                                border: 2px solid;
-                                height: 50px;
-                                margin: 0 10px;
-
-                                &_horizontal {
-                                    width: 100%;
-                                    height: 50px;
-
-                                }
-                            }
 
                         }
                     }
@@ -310,15 +414,15 @@
                 border: 1px solid red;
                 padding: 0;
                 display: flex;
-                
-                @media (min-width: 1200px) {
+
+                @media (min-width: 1100px) {
                     width: 33.33%;
                 }
-        
+
                 @media (min-width: 1400px) {
                     width: 25%;
                 }
-        
+
                 @media (min-width: 1500px) {
                     width: 20%;
                 }

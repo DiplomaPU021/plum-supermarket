@@ -4,7 +4,7 @@ import LightPlumIcon from "@/components/icons/LightPlumIcon";
 import GreenChevronRight from "@/components/icons/ChevronRight";
 import "bootstrap/dist/css/bootstrap.min.css";
 import Link from "next/link";
-import { Container, Row, Col, Accordion, Card, Form } from "react-bootstrap";
+import { Container, Row, Col, Accordion, Form } from "react-bootstrap";
 import styles from "../../styles/subCategory.module.scss";
 import db from "../../utils/db";
 import Brands from "@/components/brands/indes";
@@ -16,9 +16,17 @@ import { useState } from "react";
 import Popular from "@/components/popular";
 import ProductCard from "@/components/productCard";
 import LoopIcon from "@/components/icons/LoopIcon";
-import ReactSlider from "react-slider";
 
-export default function subCategory({ country, category, brands, products }) {
+import { getCountryData } from "@/utils/country";
+//import Slider from "./Slider";
+
+export default function subCategory({
+  country,
+  popular,
+  category,
+  brands,
+  products,
+}) {
   const [radioValue, setRadioValue] = useState(category.subcategories[0].slug);
   const [subCategoryName, setSubCategoryName] = useState(
     category.subcategories[0].name
@@ -231,18 +239,7 @@ export default function subCategory({ country, category, brands, products }) {
                     <span>Ціна</span>
                   </Accordion.Header>
                   <Accordion.Body className={styles.accordion__item_body}>
-                    <div className={styles.slider}>
-                      <ReactSlider
-                        min={0}
-                        max={100}
-                        step={1}
-                        defaultValue={[10, 20]}
-                        orientation="horizontal"
-                        withBars
-                        className={styles.slider_horizontal}
-                        pearling
-                      />
-                    </div>
+                  {/* <Slider min={300} max={3000} /> */}
                   </Accordion.Body>
                 </Accordion.Item>
               </Accordion>
@@ -264,7 +261,7 @@ export default function subCategory({ country, category, brands, products }) {
                       ? "25%"
                       : showSideBlok && window.innerWidth >= 1400
                       ? "33.33%"
-                      : showSideBlok && window.innerWidth >= 1200
+                      : showSideBlok && window.innerWidth >= 1100
                       ? "50%"
                       : "",
                 }}
@@ -282,7 +279,7 @@ export default function subCategory({ country, category, brands, products }) {
                       ? "25%"
                       : showSideBlok && window.innerWidth >= 1400
                       ? "33.33%"
-                      : showSideBlok && window.innerWidth >= 1200
+                      : showSideBlok && window.innerWidth >= 1100
                       ? "50%"
                       : "",
                 }}
@@ -293,7 +290,7 @@ export default function subCategory({ country, category, brands, products }) {
           </Row>
         </Col>
       </Row>
-      <Popular products={products} />
+      <Popular products={popular} category={category.name} />
       <Footer country={country} />
     </Container>
   );
@@ -302,7 +299,7 @@ export default function subCategory({ country, category, brands, products }) {
 export async function getServerSideProps(context) {
   const { query } = context;
   const slug = query.slug;
-
+  const countryData = await getCountryData();
   await db.connectDb();
 
   let group_subcategory = await GroupSubCategory.findOne({ slug }).lean();
@@ -329,28 +326,19 @@ export async function getServerSideProps(context) {
   //products that go together cheaper
   let productsPlus = await Product.find().sort({ createdAt: -1 }).lean();
 
-  let data = {
-    name: "Ukraine",
-    flag: { emojitwo: "https://cdn.ipregistry.co/flags/emojitwo/ua.svg" },
-    code: "UA",
-  };
-  /* Увага!!! замість обєкту можна використати сервіс ipregistry з наступним методом
-        await axios
-        .get('https://api.ipregistry.co/?key=aq50e9f94war7j9p')
-        .then((res) => {      
-          return res.data.location.country;
-        })
-        .catch((err)=> {
-          console.log(err);      
-        });*/
-  //----------------
+  //Should be with mark "popular"
+  let popularFromCategory = await Product.find({ category: category._id })
+    .sort({ createdAt: -1 })
+    .lean();
+
   await db.disconnectDb();
   return {
     props: {
-      country: { name: data.name, flag: data.flag.emojitwo, code: data.code },
+      country: countryData,
       category: JSON.parse(JSON.stringify(newCategory)),
       brands: JSON.parse(JSON.stringify(brands)),
       products: JSON.parse(JSON.stringify(productsPlus)),
+      popular: JSON.parse(JSON.stringify(popularFromCategory)),
     },
   };
 }

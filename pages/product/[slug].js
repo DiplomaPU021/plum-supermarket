@@ -22,7 +22,7 @@ import Reviews from "@/components/productPage/reviews";
 import AppDownload from "@/components/appdownload";
 import { getCountryData } from "@/utils/country";
 
-export default function product({ product, products, country }) {
+export default function product({ product, popular, country }) {
   const [active, setActive] = useState(0);
 
   return (
@@ -78,7 +78,7 @@ export default function product({ product, products, country }) {
       <CheaperTogether product={product} productsPlus={product.productsPlus} />
       <ProductDescription product={product} />
       <Reviews reviews={product.reviews} />
-      <Popular products={products} />
+      <Popular products={popular}  category={product.category.name}/>
       <AppDownload />
       <FAQ />
       <Footer country={country} />
@@ -106,8 +106,10 @@ export async function getServerSideProps(context) {
 
 
   let price=subProduct.sizes[0].price.toFixed();
+  
     //products that go together cheaper
   let productsPlus = await Product.find().sort({createdAt: -1}).lean();
+
 
   let newProduct = {
     ...product,
@@ -126,24 +128,26 @@ export async function getServerSideProps(context) {
     sold: subProduct.sold,
     quantity: subProduct.sizes[0].qty,
     productsPlus,
-    ratings: [
-      { percentage: 76 },
-      { percentage: 14 },
-      { percentage: 6 },
-      { percentage: 4 },
-      { percentage: 0 },
-    ],
+    // reviews: [
+    //   { percentage: 76 },
+    //   { percentage: 14 },
+    //   { percentage: 6 },
+    //   { percentage: 4 },
+    //   { percentage: 0 },
+    // ],
   };
 
-  // console.log("newProduct",newProduct);
 
-  //Should be the same of the catecory
-  let products = await Product.find().sort({ popularity: -1 }).limit(5);
+  //Should be with mark "popular"
+  let popularFromCategory = await Product.find({ category: product.category._id })
+  .sort({createdAt: -1})
+  .lean();
+
   await db.disconnectDb();
   return {
     props: {
       product: JSON.parse(JSON.stringify(newProduct)),
-      products: JSON.parse(JSON.stringify(products)),
+      popular: JSON.parse(JSON.stringify(popularFromCategory)),
       country: countryData,
     },
   };
