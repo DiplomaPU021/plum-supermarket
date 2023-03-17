@@ -12,8 +12,9 @@ const handler = nc();
 handler.post(async (req, res) => {
     try {
         await db.connectDb();
-        const { name, email, password } = req.body;
-        if (!name || !email || !password) {
+        const { firstName,lastName, phoneNumber, email, password } = req.body;
+        console.log("credencials",firstName,lastName, phoneNumber, email, password);
+        if ( !email || !password) {
             return res.status(400).json({ message: "Please fill all fields" });
         }
         if (!validateEmail(email)) {
@@ -28,7 +29,9 @@ handler.post(async (req, res) => {
         }
         const cryptedPassword = await bcrypt.hash(password, 12);
         const newUser = new User({
-            name,
+            firstName,
+            lastName,
+            phoneNumber,
             email,
             password: cryptedPassword
         });
@@ -40,7 +43,7 @@ handler.post(async (req, res) => {
         const url = `${process.env.BASE_URL}/activate/${activation_token}`;
         sendEmail(email, url, "", "Activate your account", activateEmailTemplate);
         // res.send(url);
-       // console.log(addedUser);
+       console.log(addedUser);
          await db.disconnectDb();
          res.json({
             message: "Successfully registered! Please check your email for activation link",

@@ -14,15 +14,20 @@ export default function Registration(props) {
     const [authShow, setAuthShow] = useState(true);
     const [logShow, setLogShow] = useState(false);
     const [regShow, setRegShow] = useState(false);
+    const [congratsShow, setCongratsShow] = useState(false);
 
     const logInFormShow = () => {
+        console.log("RegistrationIndex",props);
         setLogShow(true)
         setAuthShow(false)
+
     }
     const registerFormShow = () => {
         setRegShow(true)
         setAuthShow(false)
+
     }
+
 
     return (
         <Modal
@@ -44,7 +49,7 @@ export default function Registration(props) {
                         </div>
                     </Modal.Body>
                 ) : (
-                    <Authorization logShow={logShow} regshow={regShow} setLogShow={setLogShow} setRegShow={setRegShow} />
+                    <Authorization logShow={logShow} regShow={regShow} congratsShow={congratsShow} setLogShow={setLogShow} setRegShow={setRegShow} setCongratsShow={setCongratsShow} />
                 )}
             </div>
         </Modal>

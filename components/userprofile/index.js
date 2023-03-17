@@ -11,7 +11,7 @@ export default function UserProfile(props) {
     const router = useRouter();
     const { data: session } = useSession();
     const [userId, setUserId] = useState(props.userid);
-   
+
     return (
         <Modal
             {...props}
@@ -19,8 +19,8 @@ export default function UserProfile(props) {
             aria-labelledby="contained-modal-title-vcenter"
             centered>
             <div className={styles.modaldiv}>
-                <Modal.Header className="modal-header" closeButton >Мій кабінет</Modal.Header>             
-                    <ProfilePage />                     
+                <Modal.Header className="modal-header" closeButton >Мій кабінет</Modal.Header>
+                <ProfilePage />
             </div>
         </Modal>
     )

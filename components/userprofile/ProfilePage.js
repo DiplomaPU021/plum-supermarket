@@ -3,6 +3,7 @@ import Modal from 'react-bootstrap/Modal'
 import Image from 'react-bootstrap/Image'
 import Link from "next/link"
 import { useRouter } from "next/router"
+import { signOut } from "next-auth/react"
 
 
 export default function ProfilePage() {
@@ -12,7 +13,10 @@ export default function ProfilePage() {
         <Modal.Body className={styles.modalbodyempty}>
             <h2>Ваші персональні дані</h2>
             <h5>Особисті дані</h5>
-            <div>Вийти</div>
+            {/* <Link href={signOut()}>Вийти</Link> */}
+            <a>
+            <span onClick={() => signOut()}>Вийти</span>
+            </a>
         </Modal.Body>
 
     )

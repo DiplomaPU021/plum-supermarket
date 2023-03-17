@@ -10,6 +10,7 @@ import EmailProvider from 'next-auth/providers/email'
 import { MongoDBAdapter } from '@next-auth/mongodb-adapter'
 import clientPromise from './lib/mongodb'
 import db from "../../../utils/db";
+import AppleProvider from "next-auth/providers/apple";
 
 db.connectDb();
 export default NextAuth({
@@ -42,18 +43,42 @@ export default NextAuth({
         }
       }
     }),
-    FacebookProvider({
-      clientId: process.env.FACEBOOK_ID,
-      clientSecret: process.env.FACEBOOK_SECRET
-    }),
+   
     GoogleProvider({
       clientId: process.env.GOOGLE_ID,
       clientSecret: process.env.GOOGLE_SECRET
     }),
-    GitHubProvider({
-      clientId: process.env.GITHUB_ID,
-      clientSecret: process.env.GITHUB_SECRET
-    }),
+    AppleProvider({
+  clientId: process.env.APPLE_CLIENT_ID,
+  teamId: process.env.APPLE_TEAM_ID,
+  privateKey: process.env.APPLE_PRIVATE_KEY,
+  keyId: process.env.APPLE_KEY_ID,
+  scope: 'name email',
+  // Функція, яка приймає на вхід токен, видає додаткові дані користувача
+  profile: async (token) => {
+    const decoded = jwt.decode(token.id_token, { complete: true });
+    if (!decoded) {
+      throw new Error('Failed to decode ID token from Apple');
+    }
+
+    const { email, sub } = decoded.payload;
+    const name = decoded.payload?.name?.firstName + ' ' + decoded.payload?.name?.lastName;
+    const user = await User.findOne({ email: email });
+    if (user) {
+      // Any object returned will be saved in `user` property of the JWT
+      return user;
+    } else {
+      // If you return null then an error will be displayed advising the user to check their details.
+      throw new Error("Incorrect email or password")
+      // You can also Reject this callback with an Error thus the user will be sent to the error page with the error message as a query parameter
+    }
+    // return {
+    //   id: sub,
+    //   name: name,
+    //   email: email,
+    // };
+  },
+    }),   
     Auth0Provider({
       clientId: process.env.AUTH0_CLIENT_ID,
       clientSecret: process.env.AUTH0_CLIENT_SECRET,

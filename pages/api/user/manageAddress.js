@@ -33,7 +33,7 @@ handler.post(async (req, res) => {
             }, { new: true });
      
         user = await User.findById(req.user);
-        console.log("temp_addressUser2", user);
+        // console.log("temp_addressUser2", user);
         await db.disconnectDb();
         return res.status(200).json({ addresses: user.address });
     } catch (error) {

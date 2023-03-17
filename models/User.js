@@ -3,7 +3,7 @@ import mongoose from "mongoose";
 const userSchema = new mongoose.Schema({
     name: {
         type: String,
-        required: "Please enter your full name",
+        // required: "Please enter your full name",
     },
     firstName: {
         type: String,
@@ -40,6 +40,16 @@ const userSchema = new mongoose.Schema({
         type: String,
         default: "",
     },
+    uniqueString: {
+        type: String,
+        unique: true,
+    },
+    // likedProducts: [
+    //     {
+    //         type: ObjectId,
+    //         ref: "Product",
+    //     },
+    // ],
     address: [
         {
             firstName: {
@@ -54,23 +64,23 @@ const userSchema = new mongoose.Schema({
             address: {
                 type: String,
             },
-           
-            streetType:{
+
+            streetType: {
                 type: String,
             },
-            street:{
+            street: {
                 type: String,
             },
-            building:{
+            building: {
                 type: String,
             },
-            flat:{
+            flat: {
                 type: String,
             },
-            ground:{
+            ground: {
                 type: String,
             },
-            elevator:{
+            elevator: {
                 type: String,
             },
             region: {
@@ -90,7 +100,7 @@ const userSchema = new mongoose.Schema({
             },
             active: {
                 type: Boolean,
-                default: false,                
+                default: false,
             },
         },
     ],
