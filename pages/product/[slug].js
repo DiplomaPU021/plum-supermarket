@@ -41,11 +41,9 @@ export default function product({ product, popular, country }) {
             <span>{product.category.name}</span>
             <GreenChevronRight fillColor="#70BF63" w="30px" h="30px" />
           </Link>
-          {product.subCategories.map((sub, i) => (
-            <span key={i} className={styles.links__link}>
-              {sub.name}
+            <span className={styles.links__link}>
+              {product.subCategories[0].name}
             </span>
-          ))}
         </Col>
       </Row>
       <Row className={styles.nameCode}>
@@ -78,9 +76,7 @@ export default function product({ product, popular, country }) {
       <CheaperTogether product={product} productsPlus={product.productsPlus} />
       <ProductDescription product={product} />
       <Reviews reviews={product.reviews} />
-      <Popular products={popular}  category={product.category.name}/>
-      <AppDownload />
-      <FAQ />
+      <Popular title={"Популярне з категорії"} products={popular}  category={product.category.name}/>
       <Footer country={country} />
     </Container>
   );

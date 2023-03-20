@@ -12,17 +12,16 @@ import Category from "../../models/Category";
 import SubCategory from "@/models/SubCategory";
 import GroupSubCategory from "@/models/GroupSubCategory";
 import Product from "@/models/Product";
-import { useState } from "react";
-import Popular from "@/components/popular";
+import { useEffect, useState } from "react";
 import ProductCard from "@/components/productCard";
 import LoopIcon from "@/components/icons/LoopIcon";
-
 import { getCountryData } from "@/utils/country";
-//import Slider from "./Slider";
+import RangeSlider from "./RangeSlider";
+import ViewedProducts from "@/components/viewedProducts";
 
 export default function subCategory({
   country,
-  popular,
+  viewedProducts,
   category,
   brands,
   products,
@@ -31,7 +30,29 @@ export default function subCategory({
   const [subCategoryName, setSubCategoryName] = useState(
     category.subcategories[0].name
   );
-  const [showSideBlok, setShowSideBlok] = useState(true);
+  const [showSideBlock, setShowSideBlock] = useState(true);
+
+  const [value, setValue] = useState({ min: 10, max: 70 });
+
+  const [numCards, setNumCards] = useState(3);
+
+  useEffect(() => {
+    const handleResize = () => {
+      const screenWidth = window.innerWidth;
+      let newNumCards;
+      if (screenWidth >= 1600) {
+        newNumCards = 4;
+      } else if (screenWidth >= 1400) {
+        newNumCards = 3;
+      } else {
+        newNumCards = 2;
+      }
+      setNumCards(newNumCards);
+    };
+    handleResize();
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
 
   return (
     <Container fluid className={styles.subcategorypage}>
@@ -71,16 +92,11 @@ export default function subCategory({
                 setSubCategoryName(sub.name);
               }}
             >
-              {console.log(
-                `${styles.btn} ${radioValue === sub.slug ? "checked" : ""}`
-              )}
-
               {sub.name}
             </button>
           ))}
         </Col>
       </Row>
-      {/* TODO it receivs wrong data */}
       <Brands brands={brands} />
       <Row className={styles.subcategorypage__settings}>
         <Col className={styles.subcategorypage__settings_col}>
@@ -92,14 +108,16 @@ export default function subCategory({
             <option value="option1">Від дешевих до дорогих</option>
             <option value="option2">Від дорогих до дешевих</option>
           </select>
-          <button onClick={() => setShowSideBlok(showSideBlok ? false : true)}>
+          <button
+            onClick={() => setShowSideBlock(showSideBlock ? false : true)}
+          >
             Фільтр
           </button>
         </Col>
       </Row>
       <Row className={styles.subcategorypage__row}>
-        {showSideBlok ? (
-          <Col lg={5} className={styles.subcategorypage__row_sidebar}>
+        {showSideBlock ? (
+          <Col lg={4} className={styles.subcategorypage__row_sidebar}>
             <Col className={styles.col}>
               <div className={styles.search}>
                 <div className={styles.search_field}>
@@ -239,58 +257,50 @@ export default function subCategory({
                     <span>Ціна</span>
                   </Accordion.Header>
                   <Accordion.Body className={styles.accordion__item_body}>
-                  {/* <Slider min={300} max={3000} /> */}
+                    <RangeSlider
+                      //TODO max & min should be prices from data base
+                      min={0}
+                      max={100}
+                      step={1}
+                      value={value}
+                      onChange={setValue}
+                    />
+                    <div className={styles.prices}>
+                      <div>
+                        Від <span>{value.min}</span> &#8372;
+                      </div>
+                      <span style={{ color: "#220F4B", fontWeight: "bold" }}>
+                        &#8211;
+                      </span>
+                      <div>
+                        До <span>{value.max}</span> &#8372;
+                      </div>
+                      <Form.Check.Input
+                        className={styles.checkbox_box}
+                        type="checkbox"
+                      />
+                    </div>
                   </Accordion.Body>
                 </Accordion.Item>
               </Accordion>
             </Col>
           </Col>
         ) : null}
-        <Col className={styles.subcategorypage__row_cards}>
+        <Col style={{padding: "0"}}>
           <Row
-            lg={showSideBlok ? 4 : 3}
-            style={{ paddingLeft: showSideBlok ? "0" : "50px" }}
+            className={styles.subcategorypage__row_cards}
+            lg={showSideBlock ? numCards : numCards + 1}
+            style={{ paddingLeft: showSideBlock ? "0" : "50px" }}
           >
             {products.map((p, i) => (
-              <Col
-                key={i}
-                className={styles.col}
-                style={{
-                  width:
-                    showSideBlok && window.innerWidth >= 1500
-                      ? "25%"
-                      : showSideBlok && window.innerWidth >= 1400
-                      ? "33.33%"
-                      : showSideBlok && window.innerWidth >= 1100
-                      ? "50%"
-                      : "",
-                }}
-              >
-                <ProductCard product={p} />
-              </Col>
-            ))}
-            {products.map((p, i) => (
-              <Col
-                key={i}
-                className={styles.col}
-                style={{
-                  width:
-                    showSideBlok && window.innerWidth >= 1500
-                      ? "25%"
-                      : showSideBlok && window.innerWidth >= 1400
-                      ? "33.33%"
-                      : showSideBlok && window.innerWidth >= 1100
-                      ? "50%"
-                      : "",
-                }}
-              >
+              <Col key={i} className={styles.col}>
                 <ProductCard product={p} />
               </Col>
             ))}
           </Row>
         </Col>
       </Row>
-      <Popular products={popular} category={category.name} />
+      <ViewedProducts viewedProducts={viewedProducts}/>
       <Footer country={country} />
     </Container>
   );
@@ -318,16 +328,39 @@ export async function getServerSideProps(context) {
     subcategories: subcategories,
   };
 
-  //TODO brands, it works wrong !!!!!!!
-  let brands = await Product.find({
-    subCategory: group_subcategory._id,
-  }).distinct("brand");
+  let brands = await Product.aggregate([
+    {
+      $lookup: {
+        from: "subcategories",
+        localField: "subCategories",
+        foreignField: "_id",
+        as: "subCategories",
+      },
+    },
+    { $unwind: "$subCategories" },
+    { $match: { "subCategories.parent": group_subcategory._id } },
+    { $group: { _id: "$brand" } },
+    { $group: { _id: null, brands: { $addToSet: "$_id" } } },
+    { $project: { _id: 0, brands: 1 } },
+    { $limit: 10 },
+  ]);
+  let brandNames = brands.length > 0 ? brands[0].brands : [];
 
-  //products that go together cheaper
-  let productsPlus = await Product.find().sort({ createdAt: -1 }).lean();
+  // group of products from same subgroup of subCategories
+  let products = await Product.aggregate([
+    {
+      $lookup: {
+        from: "subcategories",
+        localField: "subCategories",
+        foreignField: "_id",
+        as: "subCategories",
+      },
+    },
+    { $match: { subCategories: { $in: subcategories } } },
+  ]);
 
-  //Should be with mark "popular"
-  let popularFromCategory = await Product.find({ category: category._id })
+  //TODO Should be with mark "viewed products"
+  let viewedProducts = await Product.find()
     .sort({ createdAt: -1 })
     .lean();
 
@@ -336,9 +369,9 @@ export async function getServerSideProps(context) {
     props: {
       country: countryData,
       category: JSON.parse(JSON.stringify(newCategory)),
-      brands: JSON.parse(JSON.stringify(brands)),
-      products: JSON.parse(JSON.stringify(productsPlus)),
-      popular: JSON.parse(JSON.stringify(popularFromCategory)),
+      brands: JSON.parse(JSON.stringify(brandNames)),
+      products: JSON.parse(JSON.stringify(products)),
+      viewedProducts: JSON.parse(JSON.stringify(viewedProducts)),
     },
   };
 }

@@ -140,7 +140,7 @@ export default function ProductCard({ product }) {
               <Col className={styles.product__container_infos_pricebtn_price}>
                 <span
                   className={styles.pricediscount}
-                >{`${prices[0].toLocaleString()} ${product.subProducts[active].sizes[0].price_unit}`}</span>
+                >{`${prices[0].toLocaleString('uk-UA')} ${product.subProducts[active].sizes[0].price_unit}`}</span>
                 <span className={styles.priceregular}>
                   {`${Math.round(
                     ((prices[0]) *

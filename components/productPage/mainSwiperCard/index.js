@@ -78,7 +78,9 @@ export default function MainSwiper({ product, active, setActive }) {
       <Row className={styles.swiper__reviews}>
         {product.rating ? (
           <Col className={styles.swiper__reviews_stars}>
-            Відгуки
+            <button
+            onClick={()=> setFeedback(true)}
+            >Відгуки</button>
             <Rating
               readonly={true}
               start={0}
@@ -89,9 +91,7 @@ export default function MainSwiper({ product, active, setActive }) {
               fullSymbol={<StarIcon fillColor="#573C91" />}
             />
           </Col>
-        ) : (
-          <button onClick={() => setFeedback(true)}>Залишити відгук</button>
-        )}
+        ) : (null)}
         <LeaveFeedback show={feedback} onHide={() => setFeedback(false)} />
       </Row>
       {product.color ? (
