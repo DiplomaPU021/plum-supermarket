@@ -14,8 +14,7 @@ handler.post(async (req, res) => {
         await db.connectDb();
         const {
             products,
-            shippingAddress,
-         
+            shippingAddress,         
             paymentMethod,
             deliveryMethod,
             totalPrice,
