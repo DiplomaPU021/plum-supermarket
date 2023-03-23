@@ -1,5 +1,5 @@
 import "bootstrap/dist/css/bootstrap.min.css";
-import { Container, Row, Image } from "react-bootstrap";
+import { Container, Row, Image} from "react-bootstrap";
 import styles from "./styles.module.scss";
 
 export default function Brands({ brands }) {

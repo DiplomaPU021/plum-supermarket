@@ -9,7 +9,6 @@ import YoutubeVideo from "@/components/youtube";
 import RecomendedVideo from "@/components/recomendedVideo";
 import Categories from "@/components/categories";
 import TopSales from "@/components/topsales";
-import Popular from "@/components/popular";
 import AppDownload from "@/components/appdownload";
 import FAQ from "@/components/faq";
 import db from "@/utils/db";
@@ -32,7 +31,6 @@ export default function Home({ country, products, categories }) {
       <TopSales products={products} />
       <YoutubeVideo />
       <RecomendedVideo />
-      <Popular products={products} category={"Комп'ютери та ноутбуки"} />
       <AppDownload />
       <FAQ />
       <Footer country={country} />
@@ -44,10 +42,10 @@ export async function getServerSideProps() {
 
   await db.connectDb();
 
-  //code below is for component cheaperTogether
+  //code below is for component TopSales
   let products = await Product.find();
 
-  //code below is for component categories
+  //code below is for component Categories
   let categories = await Category.find();
 
   return {
