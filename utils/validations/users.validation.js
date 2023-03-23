@@ -2,8 +2,6 @@ import * as yup from "yup";
 import "yup-phone";
 
 
-
-
 const registerValidation = yup.object({
     firstName: yup.string()
         .min(3, "Ім'я має бути мінімум 3 символи")

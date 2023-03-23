@@ -23,7 +23,7 @@ const inter = Inter({ subsets: ["latin"] });
 export default function Home({ country, products, categories }) {
 
   const { data: session, status } = useSession();
-  console.log("session",session, status);
+  // console.log("session",session, status);
   return (
     <div className={styles.container}>
       <Header country={country} />

@@ -31,19 +31,15 @@ export default function CartPage(props) {
     };
     const saveCartToDbHandler = () => {
         if (session) {
-            console.log("sessionOnCartIndex", session);
             if (window.location.pathname === "/checkout") {
                 saveCart(cart);
                 props.onHide();
                 router.push("/checkout");
             } else {
-                console.log("sessionOnCartIndex2", session);
                 saveCart(cart);
                 router.push("/checkout");
             }
         } else {
-            // signIn();
-            console.log("sessionOnCartIndex3", session);
             openLoginModal();
         }
     }

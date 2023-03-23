@@ -2,13 +2,10 @@ import styles from "./styles.module.scss"
 import Modal from 'react-bootstrap/Modal'
 import {useState} from "react"
 import { Form, Button } from "react-bootstrap"
-import { useRouter } from "next/router"
 import { useDispatch, useSelector } from "react-redux"
 import { updateCart } from "@/store/cartSlice"
 
 export default function DelNotification(props) {
-    console.log("PropsOnDeleteConfirmation", props);
-    const router = useRouter();
     const cart = useSelector((state) => state.cart);
     const dispatch = useDispatch();
     const [dontAsk, setDontAsk] = useState({ askType: "", another: "another" });

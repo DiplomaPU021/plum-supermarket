@@ -1,7 +1,5 @@
 import styles from "./styles.module.scss"
 import Modal from 'react-bootstrap/Modal'
-import Link from "next/link"
-// import { useRouter } from "next/router"
 import { useEffect, useState } from "react";
 import Form from "react-bootstrap/Form"
 import ContinueWith from "./ContinueWith"
@@ -46,10 +44,10 @@ export default function Register({
         error,
     } = user;
     useEffect(() => {
-        if(session){
+        if (session) {
             switchToMyCabinet();
         }
-    },[]);
+    }, []);
     const switchToMyCabinet = () => {
         setCongratsShow(false)
         setRegShow(false)
@@ -91,7 +89,7 @@ export default function Register({
             return yup.string().phone('UA').isValidSync(value) && value.length >= 10 && value[0] === '0';
         }),
         email: yup.string().email("Введіть коректний адрес email.").trim()
-        .required("Email буде потрібний для входу в персональний кабінет та для скидання пароля."),
+            .required("Email буде потрібний для входу в персональний кабінет та для скидання пароля."),
         password: yup.string().required("Введіть комбінацію 6 літер, цифр та спец. символів.")
             .min(6, "Пароль має мати принаймі 6 символів.")
             .max(36, "Пароль не може бути довшим за 36 символів."),
@@ -154,10 +152,10 @@ export default function Register({
                             <Form.Label className={styles.formlabel}>Прізвище</Form.Label>
                             <Form.Control className={styles.forminput} name="lastName"
                                 value={formik.values.lastName}
-                                onChange={(e)=>{formik.handleChange(e); handleChangeCredencials(e)}}
+                                onChange={(e) => { formik.handleChange(e); handleChangeCredencials(e) }}
                                 isInvalid={!!formik.errors.lastName}
                             />
-                              <Form.Control.Feedback type="invalid">{formik.errors.lastName}
+                            <Form.Control.Feedback type="invalid">{formik.errors.lastName}
                             </Form.Control.Feedback>
                         </Form.Group>
                         <Form.Group className="mb-3" controlId="groupName">
@@ -165,9 +163,9 @@ export default function Register({
                             <Form.Control className={styles.forminput}
                                 name="firstName"
                                 value={formik.values.firstName}
-                                onChange={(e)=>{formik.handleChange(e); handleChangeCredencials(e)}}
+                                onChange={(e) => { formik.handleChange(e); handleChangeCredencials(e) }}
                                 isInvalid={!!formik.errors.firstName} />
-                                  <Form.Control.Feedback type="invalid">{formik.errors.firstName}
+                            <Form.Control.Feedback type="invalid">{formik.errors.firstName}
                             </Form.Control.Feedback>
                         </Form.Group>
                         <Form.Group className="mb-3" controlId="groupPhone">
@@ -175,7 +173,7 @@ export default function Register({
                             <Form.Control className={styles.forminput}
                                 name="phoneNumber"
                                 value={formik.values.phoneNumber}
-                                onChange={(e)=>{formik.handleChange(e); handleChangeCredencials(e)}}
+                                onChange={(e) => { formik.handleChange(e); handleChangeCredencials(e) }}
                                 isInvalid={!!formik.errors.phoneNumber} />
                             <Form.Control.Feedback type="invalid">{formik.errors.phoneNumber}
                             </Form.Control.Feedback>
@@ -220,12 +218,12 @@ export default function Register({
                     </Form>
                 )}
             </Formik>
-            <ContinueWith 
-            setLogShow={setLogShow}
-            setRegShow={setRegShow}
-            setCongratsShow={setCongratsShow}
-            setAuthShow={setAuthShow}
-            setUserProfileShow={setUserProfileShow}
+            <ContinueWith
+                setLogShow={setLogShow}
+                setRegShow={setRegShow}
+                setCongratsShow={setCongratsShow}
+                setAuthShow={setAuthShow}
+                setUserProfileShow={setUserProfileShow}
             />
             <p>Ви вже маєте акаунт? <span className={styles.register} onClick={switchToLogin}>Увійти</span></p>
             <p className={styles.policy}>Реєструючись, ви погоджуєтеся з умовами положення про обробку і захист персональних даних та угодою користувача</p>

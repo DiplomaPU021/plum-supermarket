@@ -9,9 +9,7 @@ import { getProviders, getSession, signIn, getCsrfToken, useSession } from "next
 import { useEffect, useState } from "react"
 import { Formik } from "formik"
 import DotLoaderSpinner from "../loaders/dotLoader"
-import useDeepCompareEffect from "use-deep-compare-effect"
-import axios from "axios"
-// import useSwr from "swr";
+
 
 const initialvalues = {
     login_email: "",
@@ -25,12 +23,6 @@ export default function LogIn({
     setAuthShow,
     setUserProfileShow
 }) {
-    // const fetcher = url => axios.get(url).then(res => res.data)
-    // const { data, error } = useSwr("/api/login", fetcher);
-
-    // if (error) return <div>Failed to load users</div>;
-    // if (!data) return <div>Loading...</div>;
-    const router = useRouter();
     const { data: session, status } = useSession();
     const [loading, setLoading] = useState(false)
     const [user, setUser] = useState(initialvalues);
@@ -46,8 +38,8 @@ export default function LogIn({
     useEffect(() => {
         async function fetchData() {
             const response = await getCsrfToken();
-            console.log("token2", Object.values(response));
-            console.log("sessionOnLogin///////////", session, status);
+            // console.log("token2", Object.values(response));
+            // console.log("sessionOnLogin///////////", session, status);
             if (response) {
                 setCsrfToken(response);
             }
@@ -55,16 +47,6 @@ export default function LogIn({
         fetchData();
     }, []); // Or [] if effect doesn't need props or state
 
-    // useEffect(() => {
-    //     async function fetchData() {
-    //         const response = await getCsrfToken();
-    //         console.log("token2",Object.values(response));
-    //         if (response) {
-    //             setCsrfToken(response);
-    //         }
-    //     }
-    //     fetchData();
-    // }, []); // Or [] if effect doesn't need props or state
     const {
         login_email,
         login_password,
@@ -75,8 +57,8 @@ export default function LogIn({
         login_password: yup.string().required("Введіть пароль")
     });
     const handleChangeCredencials = (e) => {
-        console.log("e.target.name, e.target.name");
-        console.log("e.target.value", e.target.value);
+        // console.log("e.target.name, e.target.name");
+        // console.log("e.target.value", e.target.value);
         const { name, value } = e.target
         setUser({ ...user, [name]: value })
     };
@@ -98,7 +80,7 @@ export default function LogIn({
                 // callbackUrl:"/"
             };
             const res = await signIn('credentials', options);
-            console.log("responseFrom SignIn", res);
+            // console.log("responseFrom SignIn", res);
 
             // const { data } = await axios.post('/api/login', JSON.stringify({
             //     email:login_email,
@@ -112,13 +94,12 @@ export default function LogIn({
             // //   session.user.id = csrfToken.sub || data.user._id.toString();
             // //   session.user.role = data.user.role || "user";
 
-            console.log("sessionOnLogin///////////", session, status);
+            // console.log("sessionOnLogin///////////", session, status);
             setUser({ ...user, login_error: res.error, success: "" });
 
             setLoading(false);
             if (res.error) {
-                console.log("noerooreee", user.login_error);
-              
+                console.log("errorOnLogin", user.login_error);         
             } else{
                 switchToMyCabinet();
             }
@@ -126,7 +107,6 @@ export default function LogIn({
         }
         catch (error) {
             setLoading(false);
-            console.error("error", error);
             setUser({ ...user, success: "", login_error: error });
             // switchToRegister();
         }
@@ -143,7 +123,7 @@ export default function LogIn({
         setCongratsShow(false)
         setLogShow(false)
         setAuthShow(false)
-        setUserProfileShow(true)
+        setUserProfileShow(false)
     }
 
     return (

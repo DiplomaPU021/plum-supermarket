@@ -9,7 +9,6 @@ import Header from '@/components/header'
 import Footer from '@/components/footer'
 import "bootstrap/dist/css/bootstrap.min.css";
 import db from "@/utils/db";
-import DotLoaderSpinner from '@/components/loaders/dotLoader';
 import CheckoutOrder from '@/components/checkoutorder'
 import { getCountryData } from "@/utils/country";
 // import { useRouter } from "next/router";
@@ -19,7 +18,7 @@ const inter = Inter({ subsets: ["latin"] });
 
 
 export default function Checkout({ cart, user, country }) {
-  console.log("cart, user, country OnCheckoutPage",cart, user, country);
+  // console.log("cart, user, country OnCheckoutPage",cart, user, country);
   //  const router = useRouter();
   // React.useEffect(() => {
   //   if (!cart || !user) {
@@ -62,22 +61,8 @@ export async function getServerSideProps(context) {
       }
 
     }
-    //    else {
-    //     return {
-    //       redirect: {
-    //         destination: "/",
-    //       }
-    //   }
-
-
-
-    // }
   }
   await db.disconnectDb();
-  // if (!cart || !user) {
-  //   router.push("/");
-  //   return
-  //   } 
   return {
     props: {
       cart,

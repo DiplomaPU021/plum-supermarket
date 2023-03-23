@@ -30,14 +30,11 @@ const registerUser = async (firstName, lastName, phoneNumber, email, password) =
 
 const login = async (email, password) => {
   const user = await userService.findEmail(email);
-console.log("33", user);
   if (user && (await bcrypt.compare(password, user.password))) {
-    console.log("35" );
     const token = await tokenService.createToken({
       userId: user._id,
       email,
     });
-    console.log("40",token );
     return token;
   } else {
     throw new Error(`Користувач ${email} не існує або пароль вказано не вірно`);

@@ -12,7 +12,7 @@ const handler = nc({})
       const { email, password } = req.body;
       // console.log("loginApi", email, password);
       const token = await authService.login(email, password);
-      console.log("token", token);
+      // console.log("token", token);
       await db.disconnectDb();
       let user = await User.findById(token.sub);
       return res.status(200).json({ user,token });

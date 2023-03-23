@@ -197,7 +197,7 @@ export default function Shipping({ user, activeAddress, setActiveAddress, countr
             setShowNovaPoshtaDelivery("none")
         }
         const deliveryPrice = deliveryTypes.filter(d => d.name === e.target.value).map(p => p.price);
-        console.log("deliveryCost238", deliveryPrice[0]);
+        // console.log("deliveryCost238", deliveryPrice[0]);
         setDelivery(prevState => ({
             ...prevState,
             deliveryType: e.target.value,
@@ -213,7 +213,7 @@ export default function Shipping({ user, activeAddress, setActiveAddress, countr
         if (options[0].selected) {
             options[0].disabled = true;
         }
-        console.log("handleSelectPickup", e.target.id);
+        // console.log("handleSelectPickup", e.target.id);
         setDelivery({
             ...delivery,
             deliveryAddress: e.target.value,

@@ -42,7 +42,6 @@ export default NextAuth({
         const user = await User.findOne({ email: email });
         if (user) {
           if(user.email_verified==true){
-            console.log("check 44");
              // Any object returned will be saved in `user` property of the JWT
           return SingnInUser({ password, user });
           } else {
@@ -171,15 +170,11 @@ export default NextAuth({
     //         return true;
     //  }
 //  },
-    async session({ session, token, account, ...props }) {
-      console.log("props, session", session);
-      console.log("props, token", token);
-      console.log("props, user", account);
-      console.log("props, props", props);
+    async session({ session, token, account}) {
       let user = await User.findById(token.sub);
       if (token) {
         console.log("tokenInApiAuthnextjs", token);
-        console.log("tokenInApiAuthnextjsExpires", token.exp);
+        console.log("accountInApiAuthnextjsExpires", account);
         console.log("sessionInApiAuthnextjs", session);
       }
       // if (token) {

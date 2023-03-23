@@ -8,10 +8,10 @@ import useDeepCompareEffect from "use-deep-compare-effect";
 export default function ContinueWith(
     {
         setRegShow,
-    setLogShow,
-    setCongratsShow,
-    setAuthShow,
-    setUserProfileShow
+        setLogShow,
+        setCongratsShow,
+        setAuthShow,
+        setUserProfileShow
     }
 ) {
     const router = useRouter();
@@ -27,13 +27,12 @@ export default function ContinueWith(
         }
         fetchData();
     }, [providers]); // Or [] if effect doesn't need props or state
-    const signInHandler =()=>
-    {
-       const res=signIn(providers.google.id);
-     
-       setUserProfileShow(true); 
+    const signInHandler = () => {
+        const res = signIn(providers.google.id);
+
+        setUserProfileShow(true);
         // window.alert(res);
-console.log("res",res);
+        // console.log("res", res);
     }
     return (
         <div className={styles.container_frame}>

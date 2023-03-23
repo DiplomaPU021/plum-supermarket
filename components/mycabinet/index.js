@@ -11,23 +11,19 @@ export default function MyCabinet(props) {
     const router = useRouter();
     const { data: session, status } = useSession();
     const [userId, setUserId] = useState(props.userid);
-    const [authShow, setAuthShow] = useState(session?.user? false : true);
+    const [authShow, setAuthShow] = useState(session?.user ? false : true);
     const [logShow, setLogShow] = useState(false);
     const [regShow, setRegShow] = useState(false);
     const [congratsShow, setCongratsShow] = useState(false);
-    const [userProfileShow, setUserProfileShow] = useState(session?.user? true : false);
-console.log("authShowOnIndexModal", authShow, status,session);
+    const [userProfileShow, setUserProfileShow] = useState(session?.user ? true : false);
+    // console.log("authShowOnIndexModal", authShow, status, session);
     useEffect(() => {
-console.log("hhhhhhhhhhhhhhhhhhhhhhh");
-        if(session &&(status=="authenticated"||status=="loading")){
+        if (session && (status == "authenticated" || status == "loading")) {
             setAuthShow(false);
-             setUserProfileShow(true);
-              console.log("21"); 
+            setUserProfileShow(true);
         }
-        // session? () => { setAuthShow(false); setUserProfileShow(true); console.log("21"); } : setAuthShow(true);
     }, [session]);
     const logInFormShow = () => {
-        console.log("RegistrationIndex", props);
         setLogShow(true)
         setAuthShow(false)
 
@@ -79,7 +75,7 @@ console.log("hhhhhhhhhhhhhhhhhhhhhhh");
                 )}
                 {userProfileShow ? (
                     <Modal.Footer> <a>
-                        <span onClick={signOutHandler}>Вилогуватись</span>
+                        <span onClick={signOutHandler}>Вийти</span>
                     </a></Modal.Footer>
                 ) : <></>}
 
