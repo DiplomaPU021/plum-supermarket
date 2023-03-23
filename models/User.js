@@ -32,7 +32,7 @@ const userSchema = new mongoose.Schema({
         type: String,
         default: "profile.gif",
     },
-    emailVerified: {
+    email_verified: {
         type: Boolean,
         default: false,
     },

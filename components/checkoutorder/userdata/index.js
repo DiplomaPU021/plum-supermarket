@@ -34,9 +34,9 @@ export default function UserData({ user, activeAddress, setActiveAddress }) {
             <Formik
                 enableReinitialize
                 initialValues={{
-                    firstName: activeAddress ? activeAddress.firstName : "",
-                    lastName: activeAddress ? activeAddress.lastName : "",
-                    phoneNumber: activeAddress ? activeAddress.phoneNumber : "",
+                    firstName: user.firstName ? user.firstName : "",
+                    lastName: user.lastName ? user.lastName : "",
+                    phoneNumber: user.phoneNumber ? user.phoneNumber : "",
                 }}
                 validationSchema={validate}>
                 {(formik) => (

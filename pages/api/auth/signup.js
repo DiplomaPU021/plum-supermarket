@@ -15,17 +15,17 @@ handler.post(async (req, res) => {
         const { firstName,lastName, phoneNumber, email, password } = req.body;
         console.log("credencials",firstName,lastName, phoneNumber, email, password);
         if ( !email || !password) {
-            return res.status(400).json({ message: "Please fill all fields" });
+            return res.status(400).json({ message: "Будь ласка заповніть всі поля" });
         }
         if (!validateEmail(email)) {
-            return res.status(400).json({ message: "Please enter a valid email" });
+            return res.status(400).json({ message: "Введіть дійсну електронну адресу" });
         }
         const user = await User.findOne({ email });
         if (user) {
-            return res.status(400).json({ message: "This email is already registered!" });
+            return res.status(400).json({ message: "Цей email вже зареєстровано!" });
         }
         if (password.length < 6) {
-            return res.status(400).json({ message: "Password must be at least 6 characters long" });
+            return res.status(400).json({ message: "Пароль має містити принаймі 6 літер" });
         }
         const cryptedPassword = await bcrypt.hash(password, 12);
         const newUser = new User({
@@ -39,14 +39,15 @@ handler.post(async (req, res) => {
         const activation_token = createActivationToken({
             id: addedUser._id.toString(),
         });
-        console.log("activation_token",activation_token);
+        console.log("activation_token////////////////",activation_token);
         const url = `${process.env.BASE_URL}/activate/${activation_token}`;
-        sendEmail(email, url, "", "Activate your account", activateEmailTemplate);
+        await addedUser.updateOne({ uniqueString: url, });
+        sendEmail(email, url, "", "Активуйте вашу електронну адресу", activateEmailTemplate);
         // res.send(url);
        console.log(addedUser);
          await db.disconnectDb();
          res.json({
-            message: "Successfully registered! Please check your email for activation link",
+            message: "Успішно зареєстровано! Перевірте вашу адресу на наявність листа активації",
         });
     } catch (error) {
         res.status(500).json({ message: error.message });

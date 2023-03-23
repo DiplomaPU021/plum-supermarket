@@ -1,16 +1,14 @@
 import NextAuth from 'next-auth'
-import FacebookProvider from 'next-auth/providers/facebook'
 import GoogleProvider from 'next-auth/providers/google'
-import Auth0Provider from "next-auth/providers/auth0";
-import GitHubProvider from "next-auth/providers/github";
 import CredentialsProvider from "next-auth/providers/credentials";
 import User from "../../../models/User";
 import bcrypt from "bcryptjs";
-import EmailProvider from 'next-auth/providers/email'
 import { MongoDBAdapter } from '@next-auth/mongodb-adapter'
 import clientPromise from './lib/mongodb'
 import db from "../../../utils/db";
-import AppleProvider from "next-auth/providers/apple";
+// import AppleProvider from "next-auth/providers/apple";
+// import tokenService from '@/utils/services/token.service';
+// import jwt from "jsonwebtoken";
 
 db.connectDb();
 export default NextAuth({
@@ -31,11 +29,26 @@ export default NextAuth({
         // Add logic here to look up the user from the credentials supplied
         const email = credentials.email;
         const password = credentials.password;
+
+        //   const { data } = await axios.post('/api/login', JSON.stringify({
+        //     email:credentials.email,
+        //     password:credentials.password,
+        // }), {
+        //     headers: { "Content-Type": "application/json" },
+        //     withCredentials: true,
+        //   });
+
         //const user = await client.db("mydb").collection("users").findOne({email:email}); 
         const user = await User.findOne({ email: email });
         if (user) {
-          // Any object returned will be saved in `user` property of the JWT
+          if(user.email_verified==true){
+            console.log("check 44");
+             // Any object returned will be saved in `user` property of the JWT
           return SingnInUser({ password, user });
+          } else {
+            throw new Error("Email не верифіковано, будь ласка пройдіть валідацію")
+          }
+         
         } else {
           // If you return null then an error will be displayed advising the user to check their details.
           throw new Error("Incorrect email or password")
@@ -43,51 +56,132 @@ export default NextAuth({
         }
       }
     }),
-   
+
     GoogleProvider({
       clientId: process.env.GOOGLE_ID,
-      clientSecret: process.env.GOOGLE_SECRET
-    }),
-    AppleProvider({
-  clientId: process.env.APPLE_CLIENT_ID,
-  teamId: process.env.APPLE_TEAM_ID,
-  privateKey: process.env.APPLE_PRIVATE_KEY,
-  keyId: process.env.APPLE_KEY_ID,
-  scope: 'name email',
-  // Функція, яка приймає на вхід токен, видає додаткові дані користувача
-  profile: async (token) => {
-    const decoded = jwt.decode(token.id_token, { complete: true });
-    if (!decoded) {
-      throw new Error('Failed to decode ID token from Apple');
-    }
+      clientSecret: process.env.GOOGLE_SECRET,
+      async profile(profile) {
+        return {
+        id: profile.sub, // I'd prefer not to have this but not supplying an id causes a TypeScript error
+          email: profile.email,
+          email_verified: profile.email_verified ? true : false, 
+          name: profile.name,
+          image: profile.picture,
+          firstName: profile.given_name,
+          lastName: profile.family_name,
+          role: "user",
+          //locale
+        }
+      }
+      // async signIn(user, account, metadata) {
+      //   if (!user.email_verified) {
+      //     throw new Error('Email не верифіковано, будь ласка пройдіть валідацію');
+      //   }
+    
+      //   // Add emailVerified to user object
+      //   user.emailVerified = true;
+    
+      //   return true;
+      // }
+      // callbacks: {
+      //   async jwt(token, user, account) {
+      //     if (account.provider === 'google' && user.email_verified) {
+      //      console.log("76");
+           
+      //       // Add emailVerified: true to the user object saved in the JWT
+      //       return {
+      //         ...token,
+      //         user: {
+      //           ...token.user,
+      //           emailVerified: true,
+      //           firstName: user.given_name,
+      //           lastName: user.family_name,
+      //           email: user.email,
+      //           image: user.picture
+      //         }
+      //       };
+      //     }}}
+      // scope: 'name email',
+    //   // Функція, яка приймає на вхід токен, видає додаткові дані користувача
+    //   profile: async (token) => {
+    //     const decoded = jwt.decode(token.sub, { complete: true });
+    //     if (!decoded) {
+    //       throw new Error('Failed to decode ID token from Google');
+    //     }
+    
+    //     const { email, sub } = decoded.payload;
+    //     const firstName = decoded.payload?.given_name + ' ' + decoded.payload?.family_name;
+    //     const emailVerified = decoded.payload?.email_verified;
+    //     // Save the user to the database with the emailVerified field
+    // const user = await User.findOneAndUpdate({ email: email }, { emailVerified: emailVerified }, { upsert: true, new: true });
 
-    const { email, sub } = decoded.payload;
-    const name = decoded.payload?.name?.firstName + ' ' + decoded.payload?.name?.lastName;
-    const user = await User.findOne({ email: email });
-    if (user) {
-      // Any object returned will be saved in `user` property of the JWT
-      return user;
-    } else {
-      // If you return null then an error will be displayed advising the user to check their details.
-      throw new Error("Incorrect email or password")
-      // You can also Reject this callback with an Error thus the user will be sent to the error page with the error message as a query parameter
-    }
     // return {
     //   id: sub,
-    //   name: name,
+    //   firstName: firstName,
+    //   lastName: lastName,
     //   email: email,
+    //   emailVerified: emailVerified,
     // };
-  },
-    }),   
-    Auth0Provider({
-      clientId: process.env.AUTH0_CLIENT_ID,
-      clientSecret: process.env.AUTH0_CLIENT_SECRET,
-      issuer: process.env.AUTH0_ISSUER
+    //   },
     }),
+    // AppleProvider({
+    //   clientId: process.env.APPLE_CLIENT_ID,
+    //   teamId: process.env.APPLE_TEAM_ID,
+    //   privateKey: process.env.APPLE_PRIVATE_KEY,
+    //   keyId: process.env.APPLE_KEY_ID,
+    //   scope: 'name email',
+    //   // Функція, яка приймає на вхід токен, видає додаткові дані користувача
+    //   profile: async (token) => {
+    //     console.log("gogleProviderToken: ", token);
+    //     const decoded = jwt.decode(token.id_token, { complete: true });
+    //     if (!decoded) {
+    //       throw new Error('Failed to decode ID token from Apple');
+    //     }
+
+    //     const { email, sub } = decoded.payload;
+    //     const name = decoded.payload?.name?.given_name + ' ' + decoded.payload?.name?.family_name;
+    //    const verified=decoded.payload?.email_verified;
+    //    console.log("verifiedEmail",verified);
+    //     const user = await User.findOne({ email: email });
+    //     if (user) {
+    //       // Any object returned will be saved in `user` property of the JWT
+    //       return user;
+    //     } else {
+    //       // If you return null then an error will be displayed advising the user to check their details.
+    //       throw new Error("Incorrect email or password")
+    //       // You can also Reject this callback with an Error thus the user will be sent to the error page with the error message as a query parameter
+    //     }
+    //     // return {
+    //     //   id: sub,
+    //     //   name: name,
+    //     //   email: email,
+    //     // };
+    //   },
+    // }),
   ],
   callbacks: {
-    async session({ session, token }) {
+    // async signIn({ user, account, profile, email, credentials }) {
+    //   if (account.provider === "google") {
+    //         if (profile.email_verified && profile.email.endsWith("@gmail.com")) {
+    //           user.email_verified = true;
+    //           user.firstName=profile.given_name;
+    //           user.lastName=profile.family_name;
+    //           user.role="user";
+    //         }
+    //         return true;
+    //  }
+//  },
+    async session({ session, token, account, ...props }) {
+      console.log("props, session", session);
+      console.log("props, token", token);
+      console.log("props, user", account);
+      console.log("props, props", props);
       let user = await User.findById(token.sub);
+      if (token) {
+        console.log("tokenInApiAuthnextjs", token);
+        console.log("tokenInApiAuthnextjsExpires", token.exp);
+        console.log("sessionInApiAuthnextjs", session);
+      }
       // if (token) {
       //   session.user = token.user;
       //   session.accessToken = token.accessToken;
@@ -98,11 +192,26 @@ export default NextAuth({
       session.user.role = user.role || "user";
       return session;
     },
+      //  async jwt(token, user, account) {
+      //     if (account.provider === 'google' && user.email_verified) {
+      //       // Add emailVerified: true to the user object saved in the JWT
+      //       return {
+      //         ...token,
+      //         user: {
+      //           ...token.user,
+      //           emailVerified: true,
+      //           firstName: user.given_name,
+      //           lastNAme: user.family_name,
+      //           email: user.email,
+      //           image: user.image
+      //         }
+      //       };
+      //     }},
   },
-  pages: {
-    signIn: '/signin',
-    signOut: '/signout',
-  },
+  // pages: {
+  //   signIn: '/signin',
+  //   signOut: '/signout',
+  // },
   session: {
     strategy: 'jwt',
   },
@@ -111,11 +220,26 @@ export default NextAuth({
 
 const SingnInUser = async ({ password, user }) => {
   if (!user.password) {
-    throw new Error("Please enter your password");
+    throw new Error("Будь ласка введіть пароль");
   }
   const testPassword = await bcrypt.compare(password, user.password);
   if (!testPassword) {
-    throw new Error("Incorrect email or password");
+    throw new Error("Пароль введено не вірно");
   }
   return user;
 };
+// const login = async ({ password, user }) => {
+  
+// console.log("33", user);
+//   if (user && (await bcrypt.compare(password, user.password))) {
+//     console.log("35" );
+//     const token = await tokenService.createToken({
+//       userId: user._id,
+//       email,
+//     });
+//     console.log("40",token );
+//     return token;
+//   } else {
+//     throw new Error(`Користувач ${email} не існує або пароль вказано не вірно`);
+//   }
+// };

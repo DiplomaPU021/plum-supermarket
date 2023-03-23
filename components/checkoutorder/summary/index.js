@@ -9,7 +9,7 @@ import { signIn, useSession } from "next-auth/react";
 import { useDispatch } from "react-redux";
 import { emptyCart } from "@/store/cartSlice";
 import { useRouter } from "next/router";
-import Authorization from "@/components/registration/Authorization";
+
 
 
 export default function Summary({
@@ -30,6 +30,7 @@ export default function Summary({
     const [promocode, setPromocode] = useState("");
     const [discount, setDiscount] = useState(0);
     const [couponError, setCouponError] = useState("");
+    
     const validatePromoCode = yup.object({
         promocode: yup.string().required("Введіть промокод"),
     });
@@ -73,8 +74,15 @@ export default function Summary({
 
         if (session) {
             try {
-                if (delivery.deliveryId == "postmanDelivery") {
-                    await saveAddress(activeAddress);
+                console.log("activeAddress", activeAddress);
+                if(activeAddress==="undefined"||activeAddress.firstName==null||activeAddress.firstName==""){
+                    activeAddress.firstName=user.firstName;
+                }
+                if(activeAddress==="undefined"||activeAddress.lastName==null||activeAddress.lastName==""){
+                    activeAddress.lastName=user.lastName;
+                }
+                if (delivery.deliveryId == "postmanDelivery") {                     
+                    await saveAddress(activeAddress);            
                     console.log("deliveryCost100", delivery.deliveryCost);
                     const { data } = await axios.post("/api/order/create", {
                         products: cart.products,
@@ -183,10 +191,7 @@ export default function Summary({
                                 <Button className={styles.small_sbm}
                                     onClick={() => sendOrder()}
                                 >Підтвердити</Button>
-                                <Authorization
-                                    show={setUserSigninShow}
-                                    onHide={() => setUserSigninShow(false)}
-                                />
+        
                             </div>
 
                         </div>

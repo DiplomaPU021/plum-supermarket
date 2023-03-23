@@ -23,7 +23,7 @@ handler.post(async (req, res) => {
                 addresses.push(temp_address);
             } else {
                 addresses.push(address);
-            }
+            } 
         }
         if(existingAddressIndex ==-1) {
             addresses.push(address);

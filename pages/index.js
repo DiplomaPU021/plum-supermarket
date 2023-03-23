@@ -22,8 +22,8 @@ const inter = Inter({ subsets: ["latin"] });
 
 export default function Home({ country, products, categories }) {
 
-  const { data: session } = useSession();
-
+  const { data: session, status } = useSession();
+  console.log("session",session, status);
   return (
     <div className={styles.container}>
       <Header country={country} />
@@ -32,7 +32,7 @@ export default function Home({ country, products, categories }) {
       <TopSales products={products} />
       <YoutubeVideo />
       <RecomendedVideo />
-      <Popular products={products} category={"Комп'ютери та ноутбуки"}/>
+      <Popular products={products} category={"Комп'ютери та ноутбуки"} />
       <AppDownload />
       <FAQ />
       <Footer country={country} />
@@ -41,7 +41,7 @@ export default function Home({ country, products, categories }) {
 }
 export async function getServerSideProps() {
   const countryData = await getCountryData();
-    
+
   await db.connectDb();
 
   //code below is for component cheaperTogether

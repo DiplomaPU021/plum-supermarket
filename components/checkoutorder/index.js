@@ -23,25 +23,26 @@ export default function CheckoutOrder({
     const [delivery, setDelivery] = useState({ deliveryType: "Нова пошта", deliveryCost: "за тарифами перевізника", deliveryAddress: "", deliveryId: "novaPoshta" });
     const [deliveryCost, setDeliveryCost] = useState(0);
     const [userAdresses, setUserAdresses] = useState(user?.address || []);
-    const [activeAddress, setActiveAddress] = useState(userAdresses?.find(address => address.active === true));
+    const [activeAddress, setActiveAddress] = useState(userAdresses?.find(address => address.active === true)||{});
     const [order_error, setOrder_Error] = useState("");
     const [totalAfterDiscount, setTotalAfterDiscount] = useState(cart?.cartTotalPrice);
     const [infoShow, setInfoShow] = useState(false);
     const [info2Show, setInfo2Show] = useState(false);
 
-    useEffect(() => {
-        if (!cart || !user) {
-            setLoading(true);
-            router.push('/');
-            setLoading(false);
-        }
-    }, []);
+    // useEffect(() => {
+    //     if (!cart || !user) {
+    //         setLoading(true);
+    //         router.push('/');
+    //         setLoading(false);
+    //     }
+    // }, []);
 
     return (
         <div className={styles.topsales}>
                            {
                 loading && <DotLoaderSpinner loading={loading} />
             }
+ 
             <Container className={styles.container}>
                 <Row className={styles.row}>
                     <Col className={styles.colcard}><div className={styles.leftsale}>Оформлення замовлення</div></Col>
@@ -62,6 +63,7 @@ export default function CheckoutOrder({
                     </Col>
                     <Col className={styles.colcard} xs lg="4">
                         <div>
+                        
                             <Summary
                                 cart={cart}
                                 user={user}

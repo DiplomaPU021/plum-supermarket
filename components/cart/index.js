@@ -9,6 +9,7 @@ import { useSelector } from "react-redux";
 import { signIn, useSession } from 'next-auth/react';
 import { useRouter } from "next/router"
 import { saveCart } from "@/requests/user"
+import MyCabinet from "@/components/mycabinet"
 
 export default function CartPage(props) {
     const router = useRouter();
@@ -30,17 +31,19 @@ export default function CartPage(props) {
     };
     const saveCartToDbHandler = () => {
         if (session) {
+            console.log("sessionOnCartIndex", session);
             if (window.location.pathname === "/checkout") {
                 saveCart(cart);
                 props.onHide();
                 router.push("/checkout");
             } else {
+                console.log("sessionOnCartIndex2", session);
                 saveCart(cart);
                 router.push("/checkout");
             }
         } else {
             // signIn();
-
+            console.log("sessionOnCartIndex3", session);
             openLoginModal();
         }
     }
@@ -61,52 +64,41 @@ export default function CartPage(props) {
         }
     })
 
-    return (  
-            <Modal
-                {...props}
-                size={cart.length == 0 ? "lg" : "xl"}
-                // dialogClassName={styles.modal}
-                aria-labelledby="contained-modal-title-vcenter"
-                className="modal"
-                centered             
-            >
-                {loginModalShow ? (
-                    <div className={styles.modaldiv}>
-                        <Modal.Body className={styles.modalbody}>
-                        <h3> Будь ласка авторизуйтесь!</h3>
-                            </Modal.Body>
-                        <Modal.Footer style={{ display: footerVisible }} as={'div'}>
-                            <div className={styles.modalfoot}>
-                        <button className={styles.addbtn}
-                                    onClick={(e)=>{setLoginModalShow(false); props.onHide();}}>
-                                Гаразд</button>
-                                </div>
-                        </Modal.Footer>
-                    </div>
-                ) : (
-                    <div className={styles.modaldiv}>
-                        {cart == null || cart?.cartItems?.length == 0 || cart.cartItems == null ? (
-                            <EmptyCart setFooterVis={setFooterVis} />
-                        ) : (
-                            <Modal.Body className={styles.modalbody} scrollable="true">
-                                {
-                                    cart.cartItems?.map((product, i) => (
-                                        <CartItem key={i} product={product} userid={userId} />
-                                    ))
-                                }
-                            </Modal.Body>
-                        )}
-                        <Modal.Footer style={{ display: footerVisible }} as={'div'}>
-                            <div className={styles.modalfoot}>
-                                <h3>Всього до оплати:<span>{Math.round(getTotalPrice()).toLocaleString()} ₴</span></h3>
-                                <button className={styles.addbtn}
-                                    onClick={() => saveCartToDbHandler()}
-                                >Оформити замовлення</button>
-                                <Link href="/" className={styles.link}>Повернутись до покупок</Link>
-                            </div>
-                        </Modal.Footer>
-                    </div>
-                )}
-            </Modal>
+    return (
+        <Modal
+            {...props}
+            size={cart.length == 0 ? "lg" : "xl"}
+            // dialogClassName={styles.modal}
+            aria-labelledby="contained-modal-title-vcenter"
+            className="modal"
+            centered
+        >
+            {loginModalShow ? (
+                <MyCabinet show={loginModalShow} onHide={()=>setLoginModalShow(false)}/>
+            ) : (
+                <div className={styles.modaldiv}>
+                    {cart == null || cart?.cartItems?.length == 0 || cart.cartItems == null ? (
+                        <EmptyCart setFooterVis={setFooterVis} />
+                    ) : (
+                        <Modal.Body className={styles.modalbody} scrollable="true">
+                            {
+                                cart.cartItems?.map((product, i) => (
+                                    <CartItem key={i} product={product} userid={userId} />
+                                ))
+                            }
+                        </Modal.Body>
+                    )}
+                    <Modal.Footer style={{ display: footerVisible }} as={'div'}>
+                        <div className={styles.modalfoot}>
+                            <h3>Всього до оплати:<span>{Math.round(getTotalPrice()).toLocaleString()} ₴</span></h3>
+                            <button className={styles.addbtn}
+                                onClick={() => saveCartToDbHandler()}
+                            >Оформити замовлення</button>
+                            <Link href="/" className={styles.link}>Повернутись до покупок</Link>
+                        </div>
+                    </Modal.Footer>
+                </div>
+            )}
+        </Modal>
     )
 }

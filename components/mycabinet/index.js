@@ -1,23 +1,33 @@
 import styles from "./styles.module.scss"
 import Modal from 'react-bootstrap/Modal'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { useSelector } from "react-redux";
-import { signIn, useSession } from 'next-auth/react';
+import { signIn, signOut, useSession } from 'next-auth/react';
 import { useRouter } from "next/router"
 import Authorization from "./Authorization";
 import Image from 'react-bootstrap/Image'
 
-export default function Registration(props) {
+export default function MyCabinet(props) {
     const router = useRouter();
-    const { data: session } = useSession();
+    const { data: session, status } = useSession();
     const [userId, setUserId] = useState(props.userid);
-    const [authShow, setAuthShow] = useState(true);
+    const [authShow, setAuthShow] = useState(session?.user? false : true);
     const [logShow, setLogShow] = useState(false);
     const [regShow, setRegShow] = useState(false);
     const [congratsShow, setCongratsShow] = useState(false);
-
+    const [userProfileShow, setUserProfileShow] = useState(session?.user? true : false);
+console.log("authShowOnIndexModal", authShow, status,session);
+    useEffect(() => {
+console.log("hhhhhhhhhhhhhhhhhhhhhhh");
+        if(session &&(status=="authenticated"||status=="loading")){
+            setAuthShow(false);
+             setUserProfileShow(true);
+              console.log("21"); 
+        }
+        // session? () => { setAuthShow(false); setUserProfileShow(true); console.log("21"); } : setAuthShow(true);
+    }, [session]);
     const logInFormShow = () => {
-        console.log("RegistrationIndex",props);
+        console.log("RegistrationIndex", props);
         setLogShow(true)
         setAuthShow(false)
 
@@ -27,7 +37,12 @@ export default function Registration(props) {
         setAuthShow(false)
 
     }
-
+    const signOutHandler = () => {
+        signOut({ redirect: false, callbackUrl: "/" });
+        // props.onHide();
+        setUserProfileShow(false);
+        setAuthShow(true)
+    }
 
     return (
         <Modal
@@ -49,8 +64,25 @@ export default function Registration(props) {
                         </div>
                     </Modal.Body>
                 ) : (
-                    <Authorization logShow={logShow} regShow={regShow} congratsShow={congratsShow} setLogShow={setLogShow} setRegShow={setRegShow} setCongratsShow={setCongratsShow} />
+                    <Authorization
+                        logShow={logShow}
+                        regShow={regShow}
+                        congratsShow={congratsShow}
+                        authShow={authShow}
+                        userProfileShow={userProfileShow}
+                        setLogShow={setLogShow}
+                        setRegShow={setRegShow}
+                        setCongratsShow={setCongratsShow}
+                        setAuthShow={setAuthShow}
+                        setUserProfileShow={setUserProfileShow}
+                    />
                 )}
+                {userProfileShow ? (
+                    <Modal.Footer> <a>
+                        <span onClick={signOutHandler}>Вилогуватись</span>
+                    </a></Modal.Footer>
+                ) : <></>}
+
             </div>
         </Modal>
     )

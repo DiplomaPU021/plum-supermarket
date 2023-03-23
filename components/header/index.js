@@ -2,7 +2,7 @@ import styles from './styles.module.scss'
 import { useSelector } from "react-redux"
 import { Image, InputGroup } from 'react-bootstrap';
 import { useState, useEffect } from "react";
-import UserMenu from "./UserMenu"
+// import UserMenu from "./UserMenu"
 import Link from "next/link"
 import LoopIcon from '../icons/LoopIcon';
 import ThemeIcon from '../icons/ThemeIcon'
@@ -12,11 +12,11 @@ import AccountIcon from '../icons/AccountIcon'
 import { useSession } from "next-auth/react"
 import Cart from '../cart'
 import WishList from '../wishlist';
-import Registration from '../registration'
-import UserProfile from '../userprofile'
+import MyCabinet from '../mycabinet'
+// import UserProfile from '../userprofile'
 
 export default function Header({ country }) {
-    const { data: session } = useSession();
+    const { data: session, status } = useSession();
     const cart = useSelector((state) => state.cart);
     const [loggedIn, setLoggedIn] = useState(false);
     const [visible, setVisible] = useState(false)
@@ -24,8 +24,8 @@ export default function Header({ country }) {
     const [wishShow, setWishShow] = useState(false);
     const [language, setLanguage] = useState(false);
     const [themeChange, setThemeChange] = useState(false);
-    const [userProfileOpen, setUserProfileOpen] = useState(false)
-    const [logInOpen, setLogInOpen] = useState(false)
+    // const [userProfileOpen, setUserProfileOpen] = useState(false)
+    const [myCabinetOpen, setMyCabinetOpen] = useState(false)
 
 
     const getWishItemsCount = () => {
@@ -80,37 +80,36 @@ export default function Header({ country }) {
                         show={wishShow}
                         onHide={() => setWishShow(false)}
                     />
-                    
+
 
                     {/* <div
                         onMouseOver={() => setVisible(true)}
                         onMouseLeave={() => setVisible(false)}
                     > */}
-                        {session ? (
-                            //TODO change
-                            <div className={styles.cart}>
-                                <button style={{ backgroundColor: "#220F4B" }} onClick={() => setUserProfileOpen(true)}>
-                                    <AccountIcon fillColor={"#FAF8FF"}  />
-                                    {/* <img src={"/"+session.user.image} alt="profile"/> */}
-                                    {/* {session.user.name} */}
-                                </button>
-                            </div>
-                            
-                        ) : (
-                            <button onClick={() => setLogInOpen(true)}>
-                                <AccountIcon fillColor={"#220F4B"}  />
+                    {session && status == "authenticated" ? (
+                        //TODO change
+                        <div className={styles.cart}>
+                            <button style={{ backgroundColor: "#220F4B" }} onClick={() => setMyCabinetOpen(true)}>
+                                <AccountIcon fillColor={"#FAF8FF"} />
+                                {/* <img src={"/"+session.user.image} alt="profile"/> */}
+                                {/* {session.user.name} */}
                             </button>
-
-                        )}
-                        <Registration
-                             show={logInOpen}
-                             onHide={() => setLogInOpen(false)} />
-                        <UserProfile
+                        </div>
+                    ) : (
+                        <button onClick={() => setMyCabinetOpen(true)}>
+                            <AccountIcon fillColor={"#220F4B"} />
+                        </button>
+                    )}
+                    <MyCabinet
+                        show={myCabinetOpen}
+                        onHide={() => setMyCabinetOpen(false)} />
+                        
+                    {/* <UserProfile
                             show={userProfileOpen}
-                            onHide={() => setUserProfileOpen(false)} />
-                        {/* {visible && <UserMenu session={session} />} */}
+                            onHide={() => setUserProfileOpen(false)} /> */}
+                    {/* {visible && <UserMenu session={session} />} */}
                     {/* </div> */}
-                   
+
                 </div>
 
             </div>
