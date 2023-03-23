@@ -5,7 +5,7 @@ import { Form, Button } from "react-bootstrap"
 import { useDispatch, useSelector } from "react-redux"
 import { updateCart } from "@/store/cartSlice"
 
-export default function DelNotification(props) {
+export default function DelNotification({productId, setDeleteConfirm, ...props}) {
     const cart = useSelector((state) => state.cart);
     const dispatch = useDispatch();
     const [dontAsk, setDontAsk] = useState({ askType: "", another: "another" });
@@ -14,7 +14,7 @@ export default function DelNotification(props) {
     const handleDontAskAgain = (e) => {
         // e.persist();
         // console.log(e.target.value);
-        props.setDeleteConfirm(true);
+        setDeleteConfirm(true);
         setDontAsk(prevState => ({
             ...prevState,
             askType: e.target.value
@@ -22,7 +22,7 @@ export default function DelNotification(props) {
     };
     const deleteHandler = () => {
         let newCart = cart.cartItems.filter((item) => {
-            return item._uid != props.productId;
+            return item._uid != productId;
         });
         dispatch(updateCart(newCart));
         props.onHide();
