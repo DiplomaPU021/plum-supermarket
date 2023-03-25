@@ -1,9 +1,11 @@
 .cont {
-    padding-top: 0px;
+    padding: 0;
+    padding-top: 30px;
     background-color: $light-wheet-color;
 }
 
 .row {
+    margin: 0;
     display: flex;
     flex-direction: row;
     align-items: center;

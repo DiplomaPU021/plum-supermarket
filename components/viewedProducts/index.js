@@ -46,7 +46,7 @@ export default function ViewedProducts({ viewedProducts }) {
         <Col lg={11} className={styles.viewed__simillarswiper_swiper}>
           <Swiper
             slidesPerView={numCards}
-            spaceBetween={20}
+            spaceBetween={0}
             navigation={{
               prevEl: ".image-swiper-button-prev",
               nextEl: ".image-swiper-button-next",
@@ -57,7 +57,9 @@ export default function ViewedProducts({ viewedProducts }) {
           >
             {viewedProducts.map((p, i) => (
               <SwiperSlide key={i}>
-                <ProductCard product={p} />
+                <Col style={{ padding: "0", display: "flex" }}>
+                  <ProductCard product={p} />
+                </Col>
               </SwiperSlide>
             ))}
           </Swiper>
