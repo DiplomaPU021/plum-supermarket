@@ -123,7 +123,7 @@ export default function Summary({
             } catch (error) { console.error(error) }
 
         } else {
-            e.preventDefault();
+            // e.preventDefault();
             setUserSigninShow(true);
             //TODO: open Modal MyCabinet            
             // signIn();
