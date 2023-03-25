@@ -32,7 +32,6 @@ export default function Home({ country, products, categories }) {
       <TopSales products={products} />
       <YoutubeVideo />
       <RecomendedVideo />
-      <Popular products={products} category={"Комп'ютери та ноутбуки"}/>
       <AppDownload />
       <FAQ />
       <Footer country={country} />

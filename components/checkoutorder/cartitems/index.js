@@ -1,5 +1,5 @@
 import styles from "../styles.module.scss"
-import {  Row, Col } from "react-bootstrap"
+import { Row, Col } from "react-bootstrap"
 import { useState } from 'react'
 import CartItem from "./CartItem"
 import CartPage from '../../cart'
@@ -13,26 +13,28 @@ export default function CheckoutCart({ cart }) {
     }
 
     return (
-        <>
-            <Row className={styles.row}>
-                <Col className={styles.colcard}> <div className={styles.panel}>Ваше замовлення</div></Col>
-            </Row>
-            <Row className={styles.order}>
-                <button
-                    onClick={(e) => updateCartHandler(e)}
-                >Редагувати</button>
-                <CartPage
-                    show={cartShow}
-                    onHide={() => setCartShow(false)}
 
-                />
-                {cart.products.map((p, i) => (
-                    <Col className={styles.colcard} key={p._id} >
-                        <CartItem product={p} />
-                    </Col>
-                ))}
-            </Row>
-        </>
+        <Row className={styles.order}>
+            <div className={styles.order_top}>
+                <span>Ваше замовлення</span>
+                <div className={styles.edit} onClick={(e) => updateCartHandler(e)}>
+                    <img src="../../../icons/edit.png" width="46px" height="46px" alt="" />
+                </div>
+            </div>
+            <CartPage
+                show={cartShow}
+                onHide={() => setCartShow(false)}
+            />
+            <div className={styles.scroll_div} scrolable="true">
+            {cart.products.map((p, i) => (
+                <Col key={p._id} >
+                    <CartItem product={p} />
+                </Col>
+            ))}
+            </div>
+            <div className={styles.form_line}></div>
+        </Row>
+
     )
 }
 

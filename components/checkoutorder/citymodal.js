@@ -1,8 +1,12 @@
+import styles from "./styles.module.scss"
 import Modal from 'react-bootstrap/Modal'
 import { useState, useEffect, useRef } from 'react'
 import AsyncSelect from 'react-select/async';
 import { getCity } from "@/requests/city"
 import { Button } from 'react-bootstrap';
+import Container from 'react-bootstrap/Container';
+import Row from 'react-bootstrap/Row';
+import Col from 'react-bootstrap/Col';
 
 
 export default function CityModal(props) {
@@ -168,20 +172,54 @@ export default function CityModal(props) {
 
     }
 
+    const customStyles = {
+        control: (provided, state) => ({
+          ...provided,
+          backgroundColor: '#FAF8FF',
+          borderRadius: '23px',
+          borderWidth: '1px',
+          borderColor: state.isFocused ? '#220F4B' : provided.borderColor,
+          boxShadow: state.isFocused ? '0 0 0 1px #220F4B' : provided.boxShadow,
+          '&:hover': {
+            borderColor: state.isFocused ? '#220F4B' : '#220F4B',
+            borderWidth: '1px',
+          }
+        }),
+        menu: (provided) => ({
+          ...provided,
+          backgroundColor: '#f2f2f2',
+          borderRadius: '12px',
+          borderColor: '#b2b2b2',
+          boxShadow: '0 4px 8px rgba(0, 0, 0, 0.1)',
+        }),
+        option: (provided, state) => ({
+          ...provided,
+          backgroundColor: state.isSelected ? '#e6e6e6' : 'transparent',
+          color: '#333',
+          '&:hover': {
+            backgroundColor: '#e6e6e6',
+          }
+        }),
+      };       
+
     return (
         <Modal show={props.show} onHide={handleClose}
             aria-labelledby="contained-modal-title-vcenter"
+            dialogClassName={styles.modal}
             centered>
-            <div>
-                <Modal.Header closeButton onClick={handleClose}></Modal.Header>
-                <Modal.Body>
-                    <Button onClick={handleCityClick} id="kiev">Київ</Button>
-                    <Button onClick={handleCityClick} id="lviv">Львів</Button>
-                    <Button onClick={handleCityClick} id="kharkiv">Харків</Button>
-                    <Button onClick={handleCityClick} id="frankivsk">Івано-Франківськ</Button>
-                    <Button onClick={handleCityClick} id="odesa">Одеса</Button>
-                    <Button onClick={handleCityClick} id="dnipro">Дніпро</Button>
-                    <AsyncSelect
+                <Modal.Body className={styles.modalbody}>
+                    <Container >
+                        <Row className={styles.product_row}>
+                            <button onClick={handleCityClick} id="kiev">Київ</button>
+                            <button onClick={handleCityClick} id="kharkiv">Харків</button>
+                            <button onClick={handleCityClick} id="lviv">Львів</button>
+                        </Row>
+                        <Row className={styles.product_row}>
+                            <button onClick={handleCityClick} id="frankivsk">Івано-Франківськ</button>
+                            <button onClick={handleCityClick} id="odesa">Одеса</button>
+                            <button onClick={handleCityClick} id="dnipro">Дніпро</button>
+                        </Row>
+                        <AsyncSelect
                         cacheOptions
                         defaultOptions
                         loadOptions={loadOptions}
@@ -190,11 +228,12 @@ export default function CityModal(props) {
                         value={searchCity}
                         isClearable={isClearable}
                         isSearchable={isSearchable}
-                        // ref={clickRef}
+                        styles={customStyles}
+                    // ref={clickRef}
                     />
-
+                    </Container>
+                   
                 </Modal.Body>
-            </div>
         </Modal>
     )
 }

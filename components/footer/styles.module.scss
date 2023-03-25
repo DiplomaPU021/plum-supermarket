@@ -1,7 +1,7 @@
 .footer {
     background: #220F4B;
-    height: 560px;
-    padding: 60px;
+    height: 570px;
+    padding: 50px 60px 30px 60px;
     color: #FAF8FF;
     
     &_container {
@@ -16,19 +16,19 @@
         ;
 
         @media(min-width: 1200px) {
-            max-width: 1200px;
             margin: 0 auto;
         }
     }
 
-    h3 {
-        font-size: 18px;
-        font-weight: 700;
+    p {
+        font-size: 25px;
+        font-weight: 600;
     }
 
     h5 {
         margin-left: -20px;
         width: 200px
+      
     }
 
     &_links {
@@ -41,12 +41,12 @@
             padding: 0px 5px 5px 5px;
 
             li {
-                font-size: 14px;
-
                 a {
                     color: #FAF8FF;
                     line-height: 30px;
                     text-decoration: none;
+                    font-size: 16px;
+                    font-weight: 400;
 
                     &:hover {
                         text-decoration: underline;
@@ -111,7 +111,6 @@
 
     &_newsletter {
         grid-area: newsletter;
-        margin-bottom: 20px;
         padding: 30px;
 
         input {

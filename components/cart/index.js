@@ -49,7 +49,7 @@ export default function CartPage(props) {
         if (cart?.cartItems?.length !== 0) {
             setFooterVis("block")
         }
-        else{
+        else {
             setFooterVis("none")
         }
     })
@@ -58,7 +58,7 @@ export default function CartPage(props) {
         <Modal
             {...props}
             size={cart.length == 0 ? "lg" : "xl"}
-           // dialogClassName={styles.modal}
+            // dialogClassName={styles.modal}
             aria-labelledby="contained-modal-title-vcenter"
             className="modal"
             centered>

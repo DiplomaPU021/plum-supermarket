@@ -9,6 +9,9 @@ import { useSession } from "next-auth/react";
 import { useDispatch } from "react-redux";
 import { emptyCart } from "@/store/cartSlice";
 import { useRouter } from "next/router";
+import CheckoutCart from "../cartitems";
+import PersonalDataPolicy from '../../checkoutorder/info/PersonalDataPolicy'
+import UserConditions from "../../checkoutorder/info/PersonalDataPolicy"
 
 
 export default function Summary({
@@ -32,19 +35,20 @@ export default function Summary({
         promocode: yup.string().required("Введіть промокод"),
     });
 
-
     const [totalPrice, setTotalPrice] = useState(cart?.cartTotalPrice);
     const [totalQty, setTotalQty] = useState(cart?.cartTotalQty);
     const [visible, setVisible] = useState(true);
+    const [infoShow, setInfoShow] = useState(false);
+    const [info2Show, setInfo2Show] = useState(false);
     useEffect(() => {
         setTotalQty(cart.cartTotalQty);
         setTotalPrice(getTotalPrice());
-          if (delivery.deliveryId == "postmanDelivery") {
-        setTotalAfterDiscount((100 - discount) * getTotalPrice() / 100 + Number(delivery.deliveryCost));
-          }
-          else {
+        if (delivery.deliveryId == "postmanDelivery") {
+            setTotalAfterDiscount((100 - discount) * getTotalPrice() / 100 + Number(delivery.deliveryCost));
+        }
+        else {
             setTotalAfterDiscount((100 - discount) * getTotalPrice() / 100);
-          }
+        }
     }, [cart, setPromocode, totalPrice, delivery]);
 
     const getTotalPrice = () => {
@@ -73,10 +77,10 @@ export default function Summary({
             try {
                 if (delivery.deliveryId == "postmanDelivery") {
                     await saveAddress(activeAddress);
-                    console.log("deliveryCost100",delivery.deliveryCost);
+                    console.log("deliveryCost100", delivery.deliveryCost);
                     const { data } = await axios.post("/api/order/create", {
                         products: cart.products,
-                        shippingAddress: activeAddress,               
+                        shippingAddress: activeAddress,
                         paymentMethod,
                         deliveryMethod: delivery,
                         totalPrice,
@@ -87,7 +91,7 @@ export default function Summary({
                     });
                     router.push(`/order/${data.order_id}`);
                 } else {
-                    console.log("deliveryCost107",delivery.deliveryCost);
+                    console.log("deliveryCost107", delivery.deliveryCost);
                     const { data } = await axios.post("/api/order/create", {
                         products: cart.products,
                         shippingAddress: {
@@ -100,7 +104,7 @@ export default function Summary({
                             zipCode: activeAddress.zipCode,
                             country: activeAddress.country,
                         },
-                      
+
                         paymentMethod,
                         deliveryMethod: delivery,
                         totalPrice,
@@ -113,10 +117,10 @@ export default function Summary({
                 }
                 console.log("user sent order");
                 var empty = dispatch(emptyCart());
-                console.log("emptycartPayload", empty);                
+                console.log("emptycartPayload", empty);
 
-            } catch (error) {console.error(error) }
-           
+            } catch (error) { console.error(error) }
+
         } else {
             signIn();
         }
@@ -135,9 +139,9 @@ export default function Summary({
                 onSubmit={(values) => console.log(values)}
             >
                 {(formik) => (
-
                     <Form  >
                         <div className={styles.confirm}>
+                            <CheckoutCart cart={cart} />
                             <Button className={styles.promo} onClick={() => setShowPromo(showPromo === "none" ? "block" : "none")}>
                                 Промокод
                                 {showPromo === "none" ? <img width="30px" height="30px" src="../../../icons/down-btn.png"></img> :
@@ -164,28 +168,39 @@ export default function Summary({
                                     <Button className={styles.small_sbm} onClick={(e) => applyCouponHandler(e)}>Застосувати</Button>
                                 ) : <></>}
                             </div>
-                            <div className={styles.form_line}></div>
                             <div className={styles.total}>
-                                <Form.Label className={styles.total_label}>Разом:</Form.Label>
                                 <ul>
-                                    <li><div className={styles.info_li}><p>{totalQty} товарів на сумму</p><h6>{totalPrice.toLocaleString()} ₴</h6></div></li>
-                                    <li><div className={styles.info_li}><p>Доставка</p><h6>{delivery.deliveryType}</h6></div></li>
-                                    <li><div className={styles.info_li}><p>Вартість доставки</p><h6>{delivery.deliveryType == "Кур'єр на вашу адресу" ? `${Number(delivery.deliveryCost)} ₴` : delivery.deliveryCost}</h6></div></li>
-                                    <li><div className={styles.info_li}><p>Оплата</p><h6>{paymentMethod}</h6></div></li>
+                                    <li><div className={styles.litext_btn}><p>{totalQty} товарів на сумму</p><h6>{totalPrice.toLocaleString()} ₴</h6></div></li>
+                                    <li><div className={styles.litext_btn}><p>Доставка</p><h6>{delivery.deliveryType}</h6></div></li>
+                                    <li><div className={styles.litext_btn}><p>Вартість доставки</p><h6>{delivery.deliveryType == "Кур'єр на вашу адресу" ? `${Number(delivery.deliveryCost)} ₴` : delivery.deliveryCost}</h6></div></li>
+                                    <li><div className={styles.litext_btn}><p>Оплата</p><h6>{paymentMethod}</h6></div></li>
                                     {discount > 0 && (
-                                        <li><div className={styles.info_li}><p>Купон застосовано:</p><h6><b>-{discount}%</b></h6></div></li>
+                                        <li><div className={styles.litext_btn}><p>Купон застосовано:</p><h6><b>-{discount}%</b></h6></div></li>
                                     )}
-                                    <li><div className={styles.info_li}><p>До сплати:</p><h3>{Math.round(totalAfterDiscount).toLocaleString()} ₴</h3></div></li>
+                                    <li><div className={styles.litext_btn}><p>До сплати:</p><h3>{Math.round(totalAfterDiscount).toLocaleString()} ₴</h3></div></li>
                                 </ul>
                                 <Button className={styles.small_sbm}
                                     onClick={() => sendOrder()}
                                 >Підтвердити</Button>
                             </div>
-
+                            <div>
+                                <div className={styles.form_line}></div>
+                                <div className={styles.info}>
+                                    <p>Отримання замовлення від 5 000 ₴ тільки за паспортом (Закон від 06.12.2019 № 361-IX)</p>
+                                    <ul>Підтверджуючи замовлення, я приймаю умови:
+                                        <li><div className={styles.litext_btn}><p>положення про обробку і захист персональних даних</p><img width="115px" height="25px" src="../../../icons/info.png" onClick={() => setInfoShow(true)}></img></div></li>
+                                        <li><div className={styles.litext_btn}><p>угоди користувача</p><img width="115px" height="25px" src="../../../icons/info.png" onClick={() => setInfo2Show(true)}></img></div></li>
+                                    </ul>
+                                </div>
+                            </div>
                         </div>
                     </Form>
                 )}
             </Formik>
+            <PersonalDataPolicy show={infoShow}
+                onHide={() => setInfoShow(false)} />
+            <UserConditions show={info2Show}
+                onHide={() => setInfo2Show(false)} />
         </>
     )
 }

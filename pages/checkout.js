@@ -10,21 +10,19 @@ import Footer from '@/components/footer'
 import "bootstrap/dist/css/bootstrap.min.css";
 import db from "@/utils/db";
 import DotLoaderSpinner from '@/components/loaders/dotLoader';
-
 import CheckoutOrder from '@/components/checkoutorder'
 import { getCountryData } from "@/utils/country";
+
 
 
 const inter = Inter({ subsets: ["latin"] });
 
 
-export default function Checkout({ cart, user, country }) {
+export default function Checkout({ cart, user, country }) { 
    return (
      <div className={styles.container}>
-       <Header />
-       <CheckoutOrder cart={cart} user={user}  country={country}/>
-       <Footer country={country}/>
-       
+       <Header/>
+       <CheckoutOrder cart={cart} user={user}  country={country}/>      
      </div>
      
    );
