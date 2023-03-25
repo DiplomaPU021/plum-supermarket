@@ -14,12 +14,10 @@ import GreenChevronRight from "@/components/icons/ChevronRight";
 import Link from "next/link";
 import CustomerInfo from "@/components/productPage/customerInfo";
 import { Col, Container, Row } from "react-bootstrap";
-import FAQ from "@/components/faq";
 import CheaperTogether from "@/components/productPage/cheaperTogether";
 import ProductDescription from "@/components/productPage/productDescription";
 import Popular from "@/components/popular";
 import Reviews from "@/components/productPage/reviews";
-import AppDownload from "@/components/appdownload";
 import { getCountryData } from "@/utils/country";
 
 export default function product({ product, popular, country }) {

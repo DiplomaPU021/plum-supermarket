@@ -1,0 +1,173 @@
+.product {
+    position: relative;
+    height: 312px;
+    width: 100%;
+    padding: 24px !important;
+    margin: 10px;
+    gap: 10px;
+    box-sizing: border-box;
+    border-radius: 23px;
+    background: linear-gradient(180deg, #FAF8FF 0%, #F2EDFF 100%),
+        linear-gradient(180deg, #220F4B 0%, #573C91 100%);
+    box-shadow: 0px 0px 10px rgba(34, 15, 75, 0.5), inset 7px 7px 20px #FAF5FF,
+        inset -7px -7px 20px #F7EEFF;
+
+    &__container {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        padding: 0px;
+        gap: 5px;
+        height: 352px;
+
+        &_photobox {
+            width: 100%;
+            height: 141px !important;
+            position: relative;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 0px;
+            box-sizing: border-box;
+            background: linear-gradient(180deg, #FAF8FF 0%, #F2EDFF 100%),
+                linear-gradient(180deg, #220F4B 0%, #573C91 100%);
+            border-image-source: linear-gradient(180deg, #220F4B 0%, #573C91 100%);
+            border-radius: 23px;
+            box-shadow: inset 0px 0px 4px rgba(34, 15, 75, 0.5),
+                inset 7px 3px 20px #FAF5FF,
+                inset -7px -7px 20px #F7EEFF;
+
+              
+            &_image {
+                height: 100%;
+                width: 100%;
+                object-fit: contain;
+            }
+
+            .btnclose {
+                width: 20px;
+                height: 20px;
+                background-color: $light-wheet-color;
+                position: absolute;
+                right: 0;
+                top: 0;
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+                align-items: center;
+                padding: 0;
+                flex: none;
+                order: 1;
+                flex-grow: 0;
+                z-index: 1;
+            }
+        }
+
+        &_infos {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            padding: 0;
+            gap: 10px;
+
+            &_title {
+                margin: 0;
+                padding: 0;
+                height: 44px;
+                font-family: 'Noto Sans';
+                font-style: normal;
+                font-weight: 400;
+                font-size: 16px;
+                line-height: 22px;
+                color: $plum-dark-color;
+            }
+
+            &_line {
+                width: 100%;
+                height: 0px;
+                border: 2px solid $green-color;
+            }
+
+            &_pricebtn {
+                margin: 0;
+                padding: 0;
+                height: 58px;
+                display: flex;
+                flex-direction: row;
+                align-items: center;
+                justify-content: center;
+                gap: 20px;
+                
+                &_price {
+                    display: flex;
+                    flex-direction: column;
+                    align-items: flex-start;
+                    gap: 2px;
+                    padding: 0;
+
+                    span {
+                        font-family: 'Noto Sans';
+                        font-style: normal;
+                        color: $plum-dark-color;
+                    }
+                }
+            }
+        }
+    }
+}
+
+.pricediscount {
+    text-decoration: line-through;
+    font-weight: 300;
+    font-size: 16px;
+    line-height: 22px;
+}
+
+.priceregular {
+    font-weight: 500;
+    font-size: 21px;
+    //font-size: 25px;
+    line-height: 34px;
+}
+
+
+
+.btnscales {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 46px;
+    height: 46px;
+    border-radius: 23px;
+    border: 2px solid $plum-dark-color;
+    background-color: $light-wheet-color;
+
+    &:hover {
+        background-color: $light-wheet-color;
+        border: 2px solid $plum-dark-color;
+    }
+}
+
+.btncart {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 46px;
+    height: 46px;
+    border-radius: 23px;
+    background-color: $plum-dark-color;
+    border: 2px solid $plum-dark-color;
+
+    &:hover {
+        background-color: $plum-dark-color;
+        border: 2px solid $plum-dark-color;
+    }
+}
+
+
+.swiper {
+    cursor: pointer;
+    background: linear-gradient(180deg, #FAF8FF 0%, #F2EDFF 100%);
+    width: 239px;
+    height: 110px;
+}

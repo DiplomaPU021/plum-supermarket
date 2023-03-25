@@ -1,7 +1,8 @@
-import styles from './styles.module.scss'
-import { useSelector } from "react-redux"
-import { Image, InputGroup } from 'react-bootstrap';
+import styles from "./styles.module.scss";
+import { useSelector } from "react-redux";
+import { Image, InputGroup } from "react-bootstrap";
 import { useState, useEffect } from "react";
+import ComparisonListModal from "./ComparisonListModal";
 // import UserMenu from "./UserMenu"
 import Link from "next/link"
 import LoopIcon from '../icons/LoopIcon';
@@ -23,12 +24,21 @@ export default function Header({ country }) {
     const [visible, setVisible] = useState(false)
     const [cartShow, setCartShow] = useState(false);
     const [wishShow, setWishShow] = useState(false);
+    const [scaleShow, setScaleShow] = useState(false);
     const [language, setLanguage] = useState(false);
     const [themeChange, setThemeChange] = useState(false);
     // const [userProfileOpen, setUserProfileOpen] = useState(false)
     const [myCabinetOpen, setMyCabinetOpen] = useState(false)
 
-
+  const getWishItemsCount = () => {
+    //TODO implement
+    return 0;
+  };
+  const getScaleItemsCount = () => {
+    //TODO implement
+    return 0;
+  };
+  
     const getWishItemsCount = () => {
         return wishList.wishListItems.reduce((accumulator, item) => accumulator + item.qty, 0);
     };
@@ -60,6 +70,15 @@ export default function Header({ country }) {
                     <button onClick={() => setThemeChange(true)} style={{ backgroundColor: themeChange ? "#220F4B" : "#FAF8FF" }}>
                         <ThemeIcon fillColor={themeChange ? "#FAF8FF" : "#220F4B"} />
                     </button>
+                     <div className={styles.cart}>
+            <button
+              onClick={() => setScaleShow(true)}
+              style={{ backgroundColor: scaleShow ? "#220F4B" : "#FAF8FF" }}
+            >
+              <ScalesIcon fillColor={scaleShow ? "#FAF8FF" : "#220F4B"} />
+            </button>
+            <span> {getScaleItemsCount()}</span>
+          </div>
                     <div className={styles.cart}>
                         <button onClick={() => setWishShow(true)} style={{ backgroundColor: wishShow ? "#220F4B" : "#FAF8FF" }}>
                             <HeartIcon fillColor={wishShow ? "#FAF8FF" : "#220F4B"} />
@@ -80,9 +99,12 @@ export default function Header({ country }) {
                         show={wishShow}
                         onHide={() => setWishShow(false)}
                     />
+                     <ComparisonListModal
+            show={scaleShow}
+            onHide={() => setScaleShow(false)}
+          />
 
-
-                    {/* <div
+          {/* <div
                         onMouseOver={() => setVisible(true)}
                         onMouseLeave={() => setVisible(false)}
                     > */}
@@ -111,8 +133,21 @@ export default function Header({ country }) {
                     {/* </div> */}
 
                 </div>
-
             </div>
+          ) : (
+            <button onClick={() => setLogInOpen(true)}>
+              <AccountIcon fillColor={"#220F4B"} />
+            </button>
+          )}
+          <Registration show={logInOpen} onHide={() => setLogInOpen(false)} />
+          <UserProfile
+            show={userProfileOpen}
+            onHide={() => setUserProfileOpen(false)}
+          />
+          {/* {visible && <UserMenu session={session} />} */}
+          {/* </div> */}
         </div>
-    )
+      </div>
+    </div>
+  );
 }
