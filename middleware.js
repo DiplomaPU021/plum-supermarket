@@ -9,7 +9,7 @@ export async function middleware(req, res, next) {
         secret: process.env.JWT_SECRET,
         secureCookie: process.env.NODE_ENV === 'production',
     });
-    console.log(session);
+    //console.log(session);
     if (pathname == "/checkout") {
         if (!session) return NextResponse.redirect(`${origin}`);
     }
