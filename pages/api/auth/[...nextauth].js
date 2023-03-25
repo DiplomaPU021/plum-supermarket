@@ -173,9 +173,9 @@ export default NextAuth({
     async session({ session, token, account}) {
       let user = await User.findById(token.sub);
       if (token) {
-        console.log("tokenInApiAuthnextjs", token);
-        console.log("accountInApiAuthnextjsExpires", account);
-        console.log("sessionInApiAuthnextjs", session);
+        // console.log("tokenInApiAuthnextjs", token);
+        // console.log("accountInApiAuthnextjsExpires", account);
+        // console.log("sessionInApiAuthnextjs", session);
       }
       // if (token) {
       //   session.user = token.user;
@@ -185,6 +185,7 @@ export default NextAuth({
       // }
       session.user.id = token.sub || user._id.toString();
       session.user.role = user.role || "user";
+      token.role = user.role || "user";
       return session;
     },
       //  async jwt(token, user, account) {
