@@ -6,7 +6,7 @@ export default function CartItem({ product }) {
         <div >
             <Card className={styles.card}>          
                 <Card.Body className={styles.cardbody}>                  
-                    <div className={styles.picture}><img src={product.image} width='74px' height='45px'></img></div>
+                    <div className={styles.picture}><img src={product.image} width='74px' height='45px' style={{objectFit: "contain"}}></img></div>
                     <div className={styles.cardtext}>
                         <h5>                {(product.name + " " + (product.color ? product.color.color : ""
                         ) + " " + product.size).length > 55

@@ -276,6 +276,7 @@
 .switchcheckbox:checked+.switchlabel .switchbutton {
     left: calc(100% - 0px);
     transform: translateX(-100%);
+}
 
 .modal {
     background: rgba(34, 15, 75, 0.5);

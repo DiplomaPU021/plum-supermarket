@@ -38,7 +38,7 @@ export default function CheckoutOrder({
     // }, []);
 
     return (
-     <>
+     <div>
             <Container className={styles.container}>
                 <Row className={styles.row}>
                     <div className={styles.leftsale}>Оформлення замовлення</div>
@@ -71,7 +71,7 @@ export default function CheckoutOrder({
                 </Row>
             </Container>
             <SimpleCopyright />
-        </>
+        </div>
     )
 }
 
