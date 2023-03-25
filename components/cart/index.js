@@ -19,6 +19,7 @@ export default function CartPage(props) {
     const [footerVisible, setFooterVis] = useState("none");
     const [loginModalShow, setLoginModalShow] = useState(false);
 
+
     const getTotalPrice = () => {
         return cart.cartItems.reduce(
             (accumulator, item) => accumulator + item.qty * item.priceAfter,
@@ -43,13 +44,6 @@ export default function CartPage(props) {
             openLoginModal();
         }
     }
-    //функція н працює, бо зник хедер який її запускав
-    // const updateCartInDbHandler = () => {
-    //     if (session && window.location.pathname === "/checkout") {
-    //         router.push("/checkout");
-    //         saveCart(cart);
-    //     }
-    // }
 
     useEffect(() => {
         if (cart?.cartItems?.length !== 0) {
@@ -74,7 +68,7 @@ export default function CartPage(props) {
             ) : (
                 <div className={styles.modaldiv}>
                     {cart == null || cart?.cartItems?.length == 0 || cart.cartItems == null ? (
-                        <EmptyCart setFooterVis={setFooterVis} />
+                        <EmptyCart  { ...props }/>
                     ) : (
                         <Modal.Body className={styles.modalbody} scrollable="true">
                             {
@@ -90,7 +84,7 @@ export default function CartPage(props) {
                             <button className={styles.addbtn}
                                 onClick={() => saveCartToDbHandler()}
                             >Оформити замовлення</button>
-                            <Link href="/" className={styles.link}>Повернутись до покупок</Link>
+                            <Link href="/" className={styles.link} onClick={()=>props.onHide()}>Повернутись до покупок</Link>
                         </div>
                     </Modal.Footer>
                 </div>

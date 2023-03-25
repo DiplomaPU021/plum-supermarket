@@ -18,6 +18,7 @@ import MyCabinet from '../mycabinet'
 export default function Header({ country }) {
     const { data: session, status } = useSession();
     const cart = useSelector((state) => state.cart);
+    const wishList = useSelector((state) => state.wishList);
     const [loggedIn, setLoggedIn] = useState(false);
     const [visible, setVisible] = useState(false)
     const [cartShow, setCartShow] = useState(false);
@@ -29,8 +30,7 @@ export default function Header({ country }) {
 
 
     const getWishItemsCount = () => {
-        //TODO implement
-        return 0;
+        return wishList.wishListItems.reduce((accumulator, item) => accumulator + item.qty, 0);
     };
 
     const getItemsCount = () => {
