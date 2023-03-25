@@ -82,3 +82,16 @@ export const checkout = async (cart, user_id) => {
 
     }
 }
+
+export const saveWishList = async (wishList) => {
+    try {
+        const { data } = await axios.post('/api/user/saveWishList', {
+            wishList,
+        });
+        return data;
+
+    } catch (error) {
+        return error.response.data.message;
+
+    }
+}

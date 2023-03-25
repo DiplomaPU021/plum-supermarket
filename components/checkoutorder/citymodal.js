@@ -30,7 +30,7 @@ export default function CityModal(props) {
         setSearchCity(selectedOption);
         // props.onChange && props.onChange(selectedOption);
         // console.log("selectedOption onCityModal", selectedOption);
-        console.log("selectedCity onCityModal", searchCity);
+        // console.log("selectedCity onCityModal", searchCity);
 
     };
     const filterCities = async (inputValue) => {

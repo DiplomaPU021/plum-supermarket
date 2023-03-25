@@ -80,9 +80,10 @@ export default function signin({ providers, callbackUrl, csrfToken, country }) {
         if (res?.error) {
             setLoading(false);
             setUser({ ...user, login_error: res?.error });
-        } else {
-            return Router.push(callbackUrl || "/");
-        }
+        } 
+        // else {
+        //     return Router.push(callbackUrl || "/");
+        // }
     };
     const signUpHandler = async () => {
         try {
@@ -252,18 +253,18 @@ export async function getServerSideProps(context) {
     const session = await getSession({req});
     const { callbackUrl } = query;
     const countryData = await getCountryData();
-    if (session) {
-        return {
-            redirect: {
-                destination: callbackUrl,
-            },
-        };
-    };
+    // if (session) {
+    //     return {
+    //         redirect: {
+    //             destination: callbackUrl,
+    //         },
+    //     };
+    // };
     const csrfToken = await getCsrfToken(context);
     const providers = Object.values(await getProviders());
    
     return {
-        props: { providers, csrfToken, callbackUrl, country:countryData },
+        props: { providers, csrfToken, country:countryData },
        
     };
 }

@@ -1,49 +1,52 @@
-import styles from './styles.module.scss'
-import { useSelector } from "react-redux"
-import { Image, InputGroup } from 'react-bootstrap';
+import styles from "./styles.module.scss";
+import { useSelector } from "react-redux";
+import { Image, InputGroup } from "react-bootstrap";
 import { useState, useEffect } from "react";
-import UserMenu from "./UserMenu"
-import Link from "next/link"
-import LoopIcon from '../icons/LoopIcon';
-import HeartIcon from '../icons/HeartIcon'
-import CartIcon from '../icons/CartIcon'
-import AccountIcon from '../icons/AccountIcon'
-import { useSession } from "next-auth/react"
-import Cart from '../cart'
-import WishList from '../wishlist';
-import Registration from '../registration'
-import UserProfile from '../userprofile'
+import ComparisonListModal from "./ComparisonListModal";
+import Link from "next/link";
+import LoopIcon from "../icons/LoopIcon";
+import ThemeIcon from "../icons/ThemeIcon";
+import HeartIcon from "../icons/HeartIcon";
+import CartIcon from "../icons/CartIcon";
+import AccountIcon from "../icons/AccountIcon";
+import { useSession } from "next-auth/react";
+import Cart from "../cart";
+import WishList from "../wishlist";
+import MyCabinet from "../mycabinet";
+import ScalesIcon from "../icons/ScalesIcon";
 import ThemeSwitcher from './ThemeSwitcher';
-import ScalesIcon from '../icons/ScalesIcon';
 
 export default function Header({ country }) {
-    const { data: session } = useSession();
-    const cart = useSelector((state) => state.cart);
-    const [loggedIn, setLoggedIn] = useState(false);
-    const [visible, setVisible] = useState(false)
-    const [cartShow, setCartShow] = useState(false);
-    const [wishShow, setWishShow] = useState(false);
-    const [language1, setLanguage1] = useState(false);
-    const [language2, setLanguage2] = useState(false);
-    const [themeChange, setThemeChange] = useState(false);
-    const [userProfileOpen, setUserProfileOpen] = useState(false)
-    const [logInOpen, setLogInOpen] = useState(false)
-    const [comparisonChange, setСomparisonChange] = useState(false);
+  const { data: session, status } = useSession();
+  const cart = useSelector((state) => state.cart);
+  const wishList = useSelector((state) => state.wishList);
+  const [cartShow, setCartShow] = useState(false);
+  const [wishShow, setWishShow] = useState(false);
+  const [scaleShow, setScaleShow] = useState(false);
+  const [language1, setLanguage1] = useState(false);
+  const [language2, setLanguage2] = useState(false);
+  const [themeChange, setThemeChange] = useState(false);
+  const [myCabinetOpen, setMyCabinetOpen] = useState(false);
+  const [comparisonChange, setСomparisonChange] = useState(false);
 
+  const getScaleItemsCount = () => {
+    //TODO implement
+    return 0;
+  };
 
-    const getComparisonCount = () => {
-        //TODO implement
-        return 0;
-    }
-
-    const getWishItemsCount = () => {
-        //TODO implement
-        return 0;
-    };
-
+  const getWishItemsCount = () => {
+    return wishList.wishListItems.reduce(
+      (accumulator, item) => accumulator + item.qty,
+      0
+    );
+  };
+  
     const getItemsCount = () => {
-        return cart.cartItems.reduce((accumulator, item) => accumulator + item.qty, 0);
-    };
+    return cart.cartItems.reduce(
+      (accumulator, item) => accumulator + item.qty,
+      0
+    );
+  };
 
     const handleBtn1Click = () => {
         setLanguage1(true)
@@ -53,11 +56,6 @@ export default function Header({ country }) {
     const handleBtn2Click = () => {
         setLanguage2(true)
         setLanguage1(false)
-    }
-
-    const comparisonPageRedirect = () => {
-        setСomparisonChange(true)
-        //TODO redirect to comparison Page
     }
 
 
@@ -97,10 +95,10 @@ export default function Header({ country }) {
                 </div>
                 <div className={styles.btnpannel}>
                     <div className={styles.cart}>
-                        <button onClick={comparisonPageRedirect} style={{ backgroundColor: comparisonChange ? "#220F4B" : "#FAF8FF" }}>
+                        <button onClick={() => setScaleShow(true)} style={{ backgroundColor: comparisonChange ? "#220F4B" : "#FAF8FF" }}>
                             <ScalesIcon fillColor={comparisonChange ? "#FAF8FF" : "#220F4B"} />
                         </button>
-                        <span> {getComparisonCount()}</span>
+                        <span> {getScaleItemsCount()}</span>
                     </div>
                     <div className={styles.cart}>
                         <button onClick={() => setWishShow(true)} style={{ backgroundColor: wishShow ? "#220F4B" : "#FAF8FF" }}>
@@ -122,42 +120,35 @@ export default function Header({ country }) {
                         show={wishShow}
                         onHide={() => setWishShow(false)}
                     />
-
-
-                    {/* <div
-                        onMouseOver={() => setVisible(true)}
-                        onMouseLeave={() => setVisible(false)}
-                    > */}
-                    {session ? (
-                        //TODO change
-                        <div className={styles.cart}>
-                            <button style={{ backgroundColor: "#220F4B" }} onClick={() => setUserProfileOpen(true)}>
-                                <AccountIcon fillColor={"#FAF8FF"} />
-                                {/* <img src={"/"+session.user.image} alt="profile"/> */}
-                                {/* {session.user.name} */}
-                            </button>
-                        </div>
-
-                    ) : (
-                        <button onClick={() => setLogInOpen(true)}>
-                            <AccountIcon fillColor={"#220F4B"} />
-                        </button>
-
-                    )}
-                    <Registration
-                        show={logInOpen}
-                        onHide={() => setLogInOpen(false)} />
-                    <UserProfile
-                        show={userProfileOpen}
-                        onHide={() => setUserProfileOpen(false)} />
-                    {/* {visible && <UserMenu session={session} />} */}
-                    {/* </div> */}
-
-                </div>
-
+                     <ComparisonListModal
+            show={scaleShow}
+            onHide={() => setScaleShow(false)}
+          />
+           {session && status == "authenticated" ? (
+            //TODO change
+            <div className={styles.cart}>
+              <button
+                style={{ backgroundColor: "#220F4B" }}
+                onClick={() => setMyCabinetOpen(true)}
+              >
+                <AccountIcon fillColor={"#FAF8FF"} />
+                {/* <img src={"/"+session.user.image} alt="profile"/> */}
+                {/* {session.user.name} */}
+              </button>
             </div>
-        </div>
-    )
+          ) : (
+            <button onClick={() => setMyCabinetOpen(true)}>
+              <AccountIcon fillColor={"#220F4B"} />
+            </button>
+          )}
+          <MyCabinet
+            show={myCabinetOpen}
+            onHide={() => setMyCabinetOpen(false)}
+          />
+           </div>
+      </div>
+    </div>
+  );
 }
 
 const languages = [

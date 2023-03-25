@@ -15,13 +15,15 @@ import { addToCart, updateCart } from "@/store/cartSlice";
 import { Col, Container, Row } from "react-bootstrap";
 import AllDetails from "../allDetails";
 import SizesTable from "../sizesTable";
+import { addToWishList, updateWishList } from "@/store/wishListSlice";
 
 
-export default function Infos({ product, active, setActive }) {
+export default function Infos({ product, active, setActive, setError }) {
   const router = useRouter();
   const dispatch = useDispatch();
   const [qty, setQty] = useState(1);
   const cart = useSelector((state) => state.cart);
+  const wishList = useSelector((state) => state.wishList);
   const [code, setCode] = useState();
 
   const [showDetails, setShowDetails] = useState(false)
@@ -66,6 +68,41 @@ export default function Infos({ product, active, setActive }) {
       }
     }
   };
+  const addToWishListHandler = async () => {
+    //need to connect to data base
+    const { data } = await axios.get(
+      `/api/product/${product._id}?style=${router.query.style}&code=${router.query.code}`
+    );
+  
+    if (qty > data.quantity) {
+      setError('The quantity is bigger than in stock.');
+      return;
+    } else if (data.quantity < 1) {
+      setError('This product is out of stock.');
+      return;
+    } else {
+      //let _uid = `${data._id}_${product.style}_${router.query.code}`;
+      let _uid = `${data._id}_${data.style}_${data.code}`;
+      let exist = null;
+      if (wishList.wishListItems) {
+        exist = wishList.wishListItems.find((item) => item._uid === _uid);
+      }
+      if (exist) {
+        let newWishList = wishList.wishListItems.map((item) => {
+          if (item._uid === exist._uid) {
+            return { ...item, qty: item.qty + 1 }
+          }
+          return item;
+
+        });
+        dispatch(updateWishList(newWishList));
+      } else {
+        dispatch(addToWishList(
+          { ...data, qty, size: data.size, _uid, }
+        ));
+      }
+    }
+  };
 
   return (
     <Container fluid className={styles.infos}>
@@ -73,9 +110,9 @@ export default function Infos({ product, active, setActive }) {
         <Col className={styles.infos__priceandaction_price}>
           {product.subProducts[active].discount > 0 ? (
             <div>
-              <span className={styles.pricediscount}>{`${Number(product.price).toLocaleString()} ${product.price_unit}`}</span>
+              <span className={styles.pricediscount}>{`${Number(product.price).toLocaleString('uk-UA')} ${product.price_unit}`}</span>
               <span className={styles.priceregular}>
-                {`${Number(product.priceAfter).toLocaleString()} ${product.price_unit}`}
+                {`${Number(product.priceAfter).toLocaleString('uk-UA')} ${product.price_unit}`}
               </span>
             </div>
           ) : (
@@ -87,7 +124,7 @@ export default function Infos({ product, active, setActive }) {
         <Col className={styles.infos__priceandaction_react}>
           <div className={styles.liked}>
             {/* TODO onClick like below*/}
-            <button>
+            <button onClick={addToWishListHandler}>
               <HeartIcon fillColor="#220F4B" />
             </button>
             {/* TODO count of liked below*/}

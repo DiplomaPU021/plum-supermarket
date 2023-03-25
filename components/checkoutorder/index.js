@@ -1,29 +1,44 @@
 import styles from "./styles.module.scss"
 import { Container, Row, Col } from "react-bootstrap"
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import CheckoutCart from "./cartitems"
 import PaymentMethod from "./payment"
 import UserData from "./userdata"
 import Shipping from "./shipping"
 import Summary from "./summary"
 import SimpleCopyright from "./SimpleCopyright"
+import PersonalDataPolicy from "./info/PersonalDataPolicy"
+import UserConditions from "./info/UserConditions"
+import DotLoaderSpinner from "../loaders/dotLoader"
+import { useRouter } from "next/router"
+
 
 export default function CheckoutOrder({
     cart,
     user,
     country
 }) {
+    const router = useRouter();
+    const [loading, setLoading] = useState(false)
     const [payment, setPayment] = useState({ paymentMethod: "Оплата під час отримання товару", paymentMethodId: "" });
     const { paymentMethod } = payment;
     const [delivery, setDelivery] = useState({ deliveryType: "Нова пошта", deliveryCost: "за тарифами перевізника", deliveryAddress: "", deliveryId: "novaPoshta" });
     const [deliveryCost, setDeliveryCost] = useState(0);
     const [userAdresses, setUserAdresses] = useState(user?.address || []);
-    const [activeAddress, setActiveAddress] = useState(userAdresses?.find(address => address.active === true));
+    const [activeAddress, setActiveAddress] = useState(userAdresses?.find(address => address.active === true)||{});
     const [order_error, setOrder_Error] = useState("");
     const [totalAfterDiscount, setTotalAfterDiscount] = useState(cart?.cartTotalPrice);
 
+    // useEffect(() => {
+    //     if (!cart || !user) {
+    //         setLoading(true);
+    //         router.push('/');
+    //         setLoading(false);
+    //     }
+    // }, []);
+
     return (
-        <>
+     <>
             <Container className={styles.container}>
                 <Row className={styles.row}>
                     <div className={styles.leftsale}>Оформлення замовлення</div>

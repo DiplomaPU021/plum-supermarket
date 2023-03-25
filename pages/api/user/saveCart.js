@@ -68,14 +68,21 @@ handler.post(async (req, res) => {
     }
 })
     .get(async (req, res) => {
-        await db.connectDb();
-        const { user_id } = req.body;
-        let user = await User.findById(user_id);
-        let existing_cart = await Cart.findOne({ user: user._id });
-        if (existing_cart) {
-            return res.status(200).json(existing_cart);
+        try {
+            const id = req.user;
+            await db.connectDb();
+            // const { user_id } = req.body;
+            let user = await User.findById(id);
+            let existing_cart = await Cart.findOne({ user: user._id });
+            if (existing_cart) {
+                return res.status(200).json(existing_cart);
+            }
+           
+            await db.disconnectDb();
+    
+        } catch (error) {
+            return res.status(500).json({ error: error.message });
+    
         }
-        //console.log("//////////////////////existing cart",existing_cart);
-        await db.disconnectDb();
     })
 export default handler;

@@ -5,13 +5,14 @@ import { applyPromocode, saveAddress } from "@/requests/user";
 import { Formik } from 'formik';
 import * as yup from 'yup';
 import axios from "axios";
-import { useSession } from "next-auth/react";
+import { signIn, useSession } from "next-auth/react";
 import { useDispatch } from "react-redux";
 import { emptyCart } from "@/store/cartSlice";
 import { useRouter } from "next/router";
 import CheckoutCart from "../cartitems";
 import PersonalDataPolicy from '../../checkoutorder/info/PersonalDataPolicy'
 import UserConditions from "../../checkoutorder/info/PersonalDataPolicy"
+
 
 
 export default function Summary({
@@ -27,10 +28,12 @@ export default function Summary({
     const { data: session } = useSession();
     const dispatch = useDispatch();
     const router = useRouter();
+    const [userSinginShow, setUserSigninShow] = useState(false);
     const [showPromo, setShowPromo] = useState("none");
     const [promocode, setPromocode] = useState("");
     const [discount, setDiscount] = useState(0);
     const [couponError, setCouponError] = useState("");
+    
     const validatePromoCode = yup.object({
         promocode: yup.string().required("Введіть промокод"),
     });
@@ -41,7 +44,7 @@ export default function Summary({
     const [infoShow, setInfoShow] = useState(false);
     const [info2Show, setInfo2Show] = useState(false);
     useEffect(() => {
-        setTotalQty(cart.cartTotalQty);
+        setTotalQty(cart?.cartTotalQty);
         setTotalPrice(getTotalPrice());
         if (delivery.deliveryId == "postmanDelivery") {
             setTotalAfterDiscount((100 - discount) * getTotalPrice() / 100 + Number(delivery.deliveryCost));
@@ -52,7 +55,7 @@ export default function Summary({
     }, [cart, setPromocode, totalPrice, delivery]);
 
     const getTotalPrice = () => {
-        return cart.products.reduce(
+        return cart?.products.reduce(
             (accumulator, item) => accumulator + item.qty * item.priceAfter,
             0
         );
@@ -60,10 +63,8 @@ export default function Summary({
 
     const applyCouponHandler = async (e) => {
         const res = await applyPromocode(promocode);
-        console.log(res);
         if (res.error) {
             setCouponError(res.error);
-            console.error("coupon error", res.error);
         } else {
             setTotalAfterDiscount(res.cartTotalAfterDiscount);
             setDiscount(res.discount);
@@ -71,13 +72,20 @@ export default function Summary({
             setVisible(false);
         }
     }
-    const sendOrder = async () => {
+    const sendOrder = async (e) => {
 
         if (session) {
             try {
-                if (delivery.deliveryId == "postmanDelivery") {
-                    await saveAddress(activeAddress);
-                    console.log("deliveryCost100", delivery.deliveryCost);
+                console.log("activeAddress", activeAddress);
+                if(activeAddress==="undefined"||activeAddress.firstName==null||activeAddress.firstName==""){
+                    activeAddress.firstName=user.firstName;
+                }
+                if(activeAddress==="undefined"||activeAddress.lastName==null||activeAddress.lastName==""){
+                    activeAddress.lastName=user.lastName;
+                }
+                if (delivery.deliveryId == "postmanDelivery") {                     
+                    await saveAddress(activeAddress);            
+                    // console.log("deliveryCost100", delivery.deliveryCost);
                     const { data } = await axios.post("/api/order/create", {
                         products: cart.products,
                         shippingAddress: activeAddress,
@@ -91,7 +99,6 @@ export default function Summary({
                     });
                     router.push(`/order/${data.order_id}`);
                 } else {
-                    console.log("deliveryCost107", delivery.deliveryCost);
                     const { data } = await axios.post("/api/order/create", {
                         products: cart.products,
                         shippingAddress: {
@@ -115,14 +122,14 @@ export default function Summary({
                     });
                     router.push(`/order/${data.order_id}`);
                 }
-                console.log("user sent order");
                 var empty = dispatch(emptyCart());
-                console.log("emptycartPayload", empty);
-
             } catch (error) { console.error(error) }
 
         } else {
-            signIn();
+            // e.preventDefault();
+            setUserSigninShow(true);
+            //TODO: open Modal MyCabinet            
+            // signIn();
         }
     }
     return (
@@ -139,7 +146,7 @@ export default function Summary({
                 onSubmit={(values) => console.log(values)}
             >
                 {(formik) => (
-                    <Form  >
+                    <Form>
                         <div className={styles.confirm}>
                             <CheckoutCart cart={cart} />
                             <Button className={styles.promo} onClick={() => setShowPromo(showPromo === "none" ? "block" : "none")}>
@@ -182,6 +189,7 @@ export default function Summary({
                                 <Button className={styles.small_sbm}
                                     onClick={() => sendOrder()}
                                 >Підтвердити</Button>
+        
                             </div>
                             <div>
                                 <div className={styles.form_line}></div>

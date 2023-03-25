@@ -9,7 +9,6 @@ import YoutubeVideo from "@/components/youtube";
 import RecomendedVideo from "@/components/recomendedVideo";
 import Categories from "@/components/categories";
 import TopSales from "@/components/topsales";
-import Popular from "@/components/popular";
 import AppDownload from "@/components/appdownload";
 import FAQ from "@/components/faq";
 import db from "@/utils/db";
@@ -22,8 +21,8 @@ const inter = Inter({ subsets: ["latin"] });
 
 export default function Home({ country, products, categories }) {
 
-  const { data: session } = useSession();
-
+  const { data: session, status } = useSession();
+  // console.log("session",session, status);
   return (
     <div className={styles.container}>
       <Header country={country} />
@@ -40,13 +39,13 @@ export default function Home({ country, products, categories }) {
 }
 export async function getServerSideProps() {
   const countryData = await getCountryData();
-    
+
   await db.connectDb();
 
-  //code below is for component cheaperTogether
+  //code below is for component TopSales
   let products = await Product.find();
 
-  //code below is for component categories
+  //code below is for component Categories
   let categories = await Category.find();
 
   return {

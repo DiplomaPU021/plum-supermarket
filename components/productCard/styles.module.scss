@@ -1,8 +1,9 @@
 .product {
     position: relative;
     height: 400px;
-    min-width: 310px;
-    max-width: 360px;
+    //min-width: 310px;
+    //max-width: 360px;
+    width: 100%;
     padding: 24px !important;
     margin: 10px;
     gap: 10px;
@@ -29,7 +30,6 @@
             justify-content: center;
             align-items: center;
             padding: 0px;
-            gap: 10px;
             box-sizing: border-box;
             background: linear-gradient(180deg, #FAF8FF 0%, #F2EDFF 100%),
                 linear-gradient(180deg, #220F4B 0%, #573C91 100%);
@@ -84,6 +84,7 @@
             &_title {
                 margin: 0;
                 padding: 0;
+                height: 50px;
                 font-family: 'Noto Sans';
                 font-style: normal;
                 font-weight: 400;

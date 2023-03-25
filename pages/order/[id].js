@@ -10,7 +10,7 @@ import GreenChevronRight from "@/components/icons/ChevronRight";
 import Link from "next/link";
 import { Container, Row, Col, Button } from "react-bootstrap";
 import Table from 'react-bootstrap/Table';
-import { Rowdies } from "@next/font/google";
+
 
 
 export default function order({ orderData }) {

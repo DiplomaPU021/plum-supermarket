@@ -242,6 +242,7 @@
     }
 }
 
+
 // Switcher------------------------------------
 
 .switchlabel {
@@ -275,4 +276,107 @@
 .switchcheckbox:checked+.switchlabel .switchbutton {
     left: calc(100% - 0px);
     transform: translateX(-100%);
+
+.modal {
+    background: rgba(34, 15, 75, 0.5);
+    backdrop-filter: blur(17.5px);
+
+    &__main {
+        border-radius: 10px !important;
+        background: linear-gradient(180deg, #FAF8FF 0%, #F2EDFF 100%);
+        box-shadow: 0px 0px 15px rgba(34, 15, 75, 0.5), inset 7px 7px 20px #FAF5FF, inset -7px -7px 20px #F7EEFF;
+
+        &_card {
+            border-radius: 10px !important;
+            background: #F5F1FF;
+            border: 2px solid $plum-dark-color;
+            margin: 24px;
+            padding-bottom: 10px;
+
+            .header {
+                border-bottom: 2px solid $green-color;
+                margin: 24px;
+
+                font-family: 'Noto Sans';
+                font-style: normal;
+                display: flex;
+                flex-direction: row;
+                align-items: center;
+                font-weight: 500;
+                font-size: 23px;
+                line-height: 31px;
+                color: $plum-dark-color;
+            }
+
+            table {
+                font-family: 'Noto Sans';
+                font-style: normal;
+                width: 100%;
+
+
+                tbody {
+                    background: #E6E1F1;
+                    border: 1px solid $light-wheet-color;
+
+
+                    tr {
+                        height: 44px;
+                        color: $plum-dark-color;
+                        border: 1px solid $light-wheet-color;
+
+                        td {
+                            padding: 10px;
+                            font-weight: 500;
+                            font-size: 18px;
+                            line-height: 25px;
+                            border: 1px solid $light-wheet-color;
+
+                            span {
+                                font-family: 'Noto Sans';
+                                font-style: normal;
+                                font-weight: 500;
+                                font-size: 18px;
+                                line-height: 25px;
+                                color: $plum-dark-color;
+                            }
+
+
+                            &:first-of-type {
+                                width: 50%;
+                                font-weight: 500;
+                                font-size: 18px;
+                                line-height: 25px;
+                                padding: 10px 24px;
+                            }
+
+                            &:last-of-type {
+                                width: 20%;
+                                display: table-cell;
+                                vertical-align: middle;
+                                text-align: center;
+
+                                button {
+                                    font-family: 'Noto Sans';
+                                    font-style: normal;
+                                    font-weight: 500;
+                                    font-size: 18px;
+                                    line-height: 25px;
+                                    color: $plum-dark-color;
+                                    width: 30px;
+                                    height: 30px;
+                                    flex-direction: column;
+                                    justify-content: center;
+                                    align-items: center;
+                                    background: $light-wheet-color;
+                                    border: 2px solid $plum-dark-color;
+                                    border-radius: 23px;
+                                }
+                            }
+
+                        }
+                    }
+                }
+            }
+        }
+    }
 }

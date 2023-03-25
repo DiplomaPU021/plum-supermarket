@@ -15,11 +15,12 @@ function MyApp({ Component, pageProps: { session, ...pageProps } }) {
         <title>Інтернет-магазин PLUM: офіційний сайт найпопулярнішого онлайн-гіпермаркету в Україні</title>
         <meta name="description" content="Інтернет-магазин PLUM: електроніка, одяг і взуття, побутова техніка, автотовари, товари для дому та бізнесу. Купуйте в PLUM! ✓ Офіційна гарантія ✓ Доставка по всій Україні 🚚 ✓ Відгуки покупців, огляди і характеристики товарів $ Вигідні ціни та знижки %" />
         <link rel="icon" href="/favicon.ico" />
-      </Head>
-      <SessionProvider session={session}>
+      </Head> 
+      
+      <SessionProvider session={session}>  
         <Provider store={store}>
           <PersistGate loading={null} persistor={persistor}>
-            <Component {...pageProps} />
+           <Component {...pageProps} />
           </PersistGate>
         </Provider>
       </SessionProvider>
@@ -33,3 +34,24 @@ function MyApp({ Component, pageProps: { session, ...pageProps } }) {
 //   pageProps: PropTypes.object.isRequired,
 // };
 export default MyApp;
+
+// export async function getServerSideProps(context) {
+//   const { req, query } = context;
+//   const session = await getSession({req});
+//   const { callbackUrl } = query;
+//   const countryData = await getCountryData();
+//   if (session) {
+//       return {
+//           redirect: {
+//               destination: callbackUrl,
+//           },
+//       };
+//   };
+//   const csrfToken = await getCsrfToken(context);
+//   const providers = Object.values(await getProviders());
+ 
+//   return {
+//     pageProps: { providers, csrfToken, callbackUrl, country:countryData },
+     
+//   };
+// }

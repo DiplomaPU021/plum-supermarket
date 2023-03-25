@@ -1,5 +1,5 @@
 import styles from "./styles.module.scss"
-import * as React from "react"
+import { useState } from "react";
 import Card from 'react-bootstrap/Card'
 import HeartIcon from '../icons/HeartIcon'
 import DeleteIcon from "../icons/DeleteIcon"
@@ -10,8 +10,9 @@ import DelNotification from "../delete"
 
 
 export default function CartItem(product, userid) {
-    const [showExtra, setShowExtra] = React.useState("none")
-    const [notificationShow, setNotificationShow] = React.useState(false);
+    const [showExtra, setShowExtra] = useState("none")
+    const [notificationShow, setNotificationShow] = useState(false);
+    const [deleteConfirm, setDeleteConfirm] = useState(false);
     const cart = useSelector((state) => state.cart);
     const dispatch = useDispatch();
     const updateQty = async (type) => {
@@ -28,8 +29,16 @@ export default function CartItem(product, userid) {
     };
 
     const removeProduct = (id) => {
+        if(deleteConfirm) {
+            let newCart = cart.cartItems.filter((item) => {
+                return item._uid != id;
+            });
+            dispatch(updateCart(newCart));
+        } else {
+              setNotificationShow(true) 
+        }
         // const removeProduct = async (id) => {
-        setNotificationShow(true)
+     
         //TODO треба перенести  в компонент модальне видалення DelNotification і в разі вибору не показувати знову використовувати пряме видалення тут
         // let newCart = cart.cartItems.filter((item) => {
         //     return item._uid != id;
@@ -80,7 +89,7 @@ export default function CartItem(product, userid) {
                                         </Form.Check>
                                         <p>Microsoft 365 Персональний, підписка 1 рік, для 1 користувача (ESD - електронний ключ в конверті) (QQ2-00004)</p>
                                         <h4>2899 $</h4>
-                                    </div>                        
+                                    </div>
                                 </div>
                             </div>
                         </Col>
@@ -117,6 +126,8 @@ export default function CartItem(product, userid) {
                                 <DeleteIcon fillColor={notificationShow ? "#FAF8FF" : "#220F4B"} />
                             </button>
                             <DelNotification
+                                productId={product.product._uid}
+                                setDeleteConfirm={setDeleteConfirm}
                                 show={notificationShow}
                                 onHide={() => setNotificationShow(false)}
                             />

@@ -4,7 +4,6 @@ import { useState } from 'react'
 import CartItem from "./CartItem"
 import CartPage from '../../cart'
 
-
 export default function CheckoutCart({ cart }) {
     const [cartShow, setCartShow] = useState(false);
     const updateCartHandler = (e) => {
@@ -13,7 +12,6 @@ export default function CheckoutCart({ cart }) {
     }
 
     return (
-
         <Row className={styles.order}>
             <div className={styles.order_top}>
                 <span>Ваше замовлення</span>
@@ -26,7 +24,7 @@ export default function CheckoutCart({ cart }) {
                 onHide={() => setCartShow(false)}
             />
             <div className={styles.scroll_div} scrolable="true">
-            {cart.products.map((p, i) => (
+            {cart?.products.map((p, i) => (
                 <Col key={p._id} >
                     <CartItem product={p} />
                 </Col>
@@ -34,7 +32,6 @@ export default function CheckoutCart({ cart }) {
             </div>
             <div className={styles.form_line}></div>
         </Row>
-
     )
 }
 
