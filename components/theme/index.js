@@ -7,7 +7,6 @@ class ThemeSwitcher extends Component {
     state = { theme: null }
 
     chooseTheme = (theme, evt) => {
-        console.log("HELLLLLOOOOOO")
         evt.preventDefault();
         if (theme.toLowerCase() === 'reset') { theme = null }
         this.setState({ theme });

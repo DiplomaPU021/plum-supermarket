@@ -1,23 +1,32 @@
 import styles from "./styles.module.scss"
 import Modal from 'react-bootstrap/Modal'
-import * as React from "react"
+import {useState} from "react"
 import { Form, Button } from "react-bootstrap"
-import { useRouter } from "next/router"
+import { useDispatch, useSelector } from "react-redux"
+import { updateCart } from "@/store/cartSlice"
 
-export default function DelNotification(props) {
-    const router = useRouter();
-    const [dontAsk, setDontAsk] = React.useState({ askType: "", another: "another" });
+export default function DelNotification({productId, setDeleteConfirm, ...props}) {
+    const cart = useSelector((state) => state.cart);
+    const dispatch = useDispatch();
+    const [dontAsk, setDontAsk] = useState({ askType: "", another: "another" });
     const { askType } = dontAsk;
 
-    const handleDontAskAgain = e => {
-        e.persist();
-        console.log(e.target.value);
-
+    const handleDontAskAgain = (e) => {
+        // e.persist();
+        // console.log(e.target.value);
+        setDeleteConfirm(true);
         setDontAsk(prevState => ({
             ...prevState,
             askType: e.target.value
         }));
     };
+    const deleteHandler = () => {
+        let newCart = cart.cartItems.filter((item) => {
+            return item._uid != productId;
+        });
+        dispatch(updateCart(newCart));
+        props.onHide();
+    }
 
     return (
         <Modal
@@ -28,8 +37,8 @@ export default function DelNotification(props) {
             <Modal.Body className={styles.modalbody}>
                 <h3>Ви впевненні що хочете видалити цей товар?</h3>
                 <div className={styles.line}></div>
-                <button className={styles.addbtn}>Видалити</button>
-                <button className={styles.addbtn2}>Скасувати</button>
+                <button className={styles.addbtn} onClick={deleteHandler}>Видалити</button>
+                <button className={styles.addbtn2} onClick={() => props.onHide()}>Скасувати</button>
                 <Form.Check
                     type="radio"
                     className={styles.radio}

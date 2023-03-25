@@ -1,6 +1,6 @@
 import styles from "./styles.module.scss"
-import { Container, Row, Col} from "react-bootstrap"
-import { useState } from 'react'
+import { Container, Row, Col } from "react-bootstrap"
+import { useEffect, useState } from 'react'
 import CheckoutCart from "./cartitems"
 import PaymentMethod from "./payment"
 import UserData from "./userdata"
@@ -8,27 +8,41 @@ import Shipping from "./shipping"
 import Summary from "./summary"
 import PersonalDataPolicy from "./info/PersonalDataPolicy"
 import UserConditions from "./info/UserConditions"
+import DotLoaderSpinner from "../loaders/dotLoader"
+import { useRouter } from "next/router"
 
 export default function CheckoutOrder({
     cart,
     user,
     country
 }) {
-
+    const router = useRouter();
+    const [loading, setLoading] = useState(false)
     const [payment, setPayment] = useState({ paymentMethod: "Оплата під час отримання товару", paymentMethodId: "" });
     const { paymentMethod } = payment;
-    const [delivery, setDelivery] = useState({ deliveryType: "Нова пошта", deliveryCost: "за тарифами перевізника", deliveryAddress: "", deliveryId:"novaPoshta" });
+    const [delivery, setDelivery] = useState({ deliveryType: "Нова пошта", deliveryCost: "за тарифами перевізника", deliveryAddress: "", deliveryId: "novaPoshta" });
     const [deliveryCost, setDeliveryCost] = useState(0);
     const [userAdresses, setUserAdresses] = useState(user?.address || []);
-    const [activeAddress, setActiveAddress] = useState(userAdresses?.find(address => address.active === true));
+    const [activeAddress, setActiveAddress] = useState(userAdresses?.find(address => address.active === true)||{});
     const [order_error, setOrder_Error] = useState("");
     const [totalAfterDiscount, setTotalAfterDiscount] = useState(cart?.cartTotalPrice);
     const [infoShow, setInfoShow] = useState(false);
     const [info2Show, setInfo2Show] = useState(false);
 
+    // useEffect(() => {
+    //     if (!cart || !user) {
+    //         setLoading(true);
+    //         router.push('/');
+    //         setLoading(false);
+    //     }
+    // }, []);
 
     return (
         <div className={styles.topsales}>
+                           {
+                loading && <DotLoaderSpinner loading={loading} />
+            }
+ 
             <Container className={styles.container}>
                 <Row className={styles.row}>
                     <Col className={styles.colcard}><div className={styles.leftsale}>Оформлення замовлення</div></Col>
@@ -49,6 +63,7 @@ export default function CheckoutOrder({
                     </Col>
                     <Col className={styles.colcard} xs lg="4">
                         <div>
+                        
                             <Summary
                                 cart={cart}
                                 user={user}
@@ -68,8 +83,8 @@ export default function CheckoutOrder({
                             <div className={styles.info}>
                                 <p>Отримання замовлення від 5 000 ₴ тільки за паспортом (Закон від 06.12.2019 № 361-IX)</p>
                                 <ul>Підтверджуючи замовлення, я приймаю умови:
-                                <li><div className={styles.info_li}><p>положення про обробку і захист персональних даних</p><img width="120px" height="25px" src="../../../icons/info.png" onClick={() => setInfoShow(true)}></img></div></li>
-                                                <li><div className={styles.info_li}><p>угоди користувача</p><img width="120px" height="25px" src="../../../icons/info.png" onClick={() => setInfo2Show(true)}></img></div></li>
+                                    <li><div className={styles.info_li}><p>положення про обробку і захист персональних даних</p><img width="120px" height="25px" src="../../../icons/info.png" onClick={() => setInfoShow(true)}></img></div></li>
+                                    <li><div className={styles.info_li}><p>угоди користувача</p><img width="120px" height="25px" src="../../../icons/info.png" onClick={() => setInfo2Show(true)}></img></div></li>
                                 </ul>
                             </div>
                         </div>

@@ -26,7 +26,7 @@ export default function CheckoutCart({ cart }) {
                     onHide={() => setCartShow(false)}
 
                 />
-                {cart.products.map((p, i) => (
+                {cart?.products.map((p, i) => (
                     <Col className={styles.colcard} key={p._id} >
                         <CartItem product={p} />
                     </Col>

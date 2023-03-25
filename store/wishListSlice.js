@@ -2,23 +2,23 @@ import { createSlice } from '@reduxjs/toolkit';
 
 
 const initialState = {
-    cartItems: []
+    wishListItems: []
 };
-export const cartSlice = createSlice({
-    name: 'cart',
+export const wishListSlice = createSlice({
+    name: 'wishList',
     initialState,
     reducers: {
-        addToCart: (state, action) => {
-            state.cartItems.push(action.payload)
+        addToWishList: (state, action) => {
+            state.wishListItems.push(action.payload)
         },
-        updateCart: (state, action) => {
-            state.cartItems = action.payload;
+        updateWishList: (state, action) => {
+            state.wishListItems = action.payload;
         },
-        emptyCart: (state, action) => {
-            state.cartItems = [];
+        emptyWishList: (state, action) => {
+            state.wishListItems = [];
         },
         calculateTotal: (state, action) => {
-            state.cartTotal = state.cartItems.reduce((acc, item) => acc + item.price * item.qty, 0).toLocaleString();
+            state.wishListTotal = state.wishListItems.reduce((acc, item) => acc + item.price * item.qty, 0).toLocaleString();
         },
         incrementQuantity: (state, action) => {
             // console.log("state", state);
@@ -35,13 +35,13 @@ export const cartSlice = createSlice({
                 item.qty--;
             }
         },
-        removeFromCart: (state, action) => {
+        removeFromWishList: (state, action) => {
             const index = state.findIndex((item) => item._id === action.payload);
             state.splice(index, 1);
         },
     },
 });
 
-export const { addToCart, updateCart, emptyCart, calculateTotal, incrementQuantity, decrementQuantity, removeFromCart } = cartSlice.actions;
-export default cartSlice.reducer;
-//export const cartReducer = cartSlice.reducer;
+export const { addToWishList, updateWishList, emptyWishList, calculateTotal, incrementQuantity, decrementQuantity, removeFromWishList } = wishListSlice.actions;
+export default wishListSlice.reducer;
+//export const wishListReducer = wishListSlice.reducer;
