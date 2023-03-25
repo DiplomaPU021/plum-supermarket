@@ -15,7 +15,7 @@ export default function Links() {
                             <Payment />
                         </div>
                     ) : (
-                        <h3>{link.heading}</h3>
+                        <p>{link.heading}</p>
                     )}
                     {
                         link.links.map((link, i) => (
@@ -37,81 +37,81 @@ const links = [
         links: []
     },
     {
-        heading: "About company",
+        heading: "Про компанію",
         links: [
             {
-                name: "About us",
+                name: "Про нас",
                 link: ""
             },
             {
-                name: "Terms and Conditions",
+                name: "Умови використання сайту",
                 link: ""
             }, {
-                name: "Contacts",
+                name: "Контакти",
                 link: ""
             }, {
-                name: "All Categories",
+                name: "Усі категорії",
                 link: ""
             },
         ]
     },
     {
-        heading: "Help & Support",
+        heading: "Допомога",
         links: [
             {
-                name: "Shipping Info",
+                name: "Доставка та оплата",
                 link: ""
             },
             {
-                name: "Returns",
+                name: "Кредит",
                 link: ""
             }, {
-                name: "How To Order",
+                name: "Гарантія",
                 link: ""
             }, {
-                name: "How To Track",
+                name: "Повернення товару",
                 link: ""
             },
             {
-                name: "Size Guide",
+                name: "Сервісні центри",
                 link: ""
             }
         ]
     },
     {
-        heading: "Customer service",
+        heading: "Сервіси",
         links: [
             {
-                name: "Customer service",
+                name: "Бонусний рахунок",
                 link: ""
             },
             {
-                name: "PLUM Premium ",
+                name: "PLUM Premium",
                 link: ""
             }, {
-                name: "Bonus",
+                name: "Подарункові сертифікати",
                 link: ""
             }, {
-                name: "Take our feedback survay",
+                name: "PLUM обмін",
                 link: ""
             },
         ]
     },
     {
-        heading: "Partners",
+        heading: "Партнерам",
         links: [
             {
-                name: "Sell with PLUM",
+                name: "Продавати на PLUM",
                 link: ""
             },
             {
-                name: "Work with us",
+                name: "Співпраця з нами",
                 link: ""
             }, {
-                name: "Rent",
+                name: "Франчайзінг",
                 link: ""
             }, {
-                name: "FAQ",
+                name: "Оренда приміщень",
                 link: ""
             },
         ]

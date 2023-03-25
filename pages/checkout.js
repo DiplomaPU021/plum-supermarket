@@ -14,28 +14,20 @@ import { getCountryData } from "@/utils/country";
 // import { useRouter } from "next/router";
 
 
+
 const inter = Inter({ subsets: ["latin"] });
 
 
-export default function Checkout({ cart, user, country }) {
-  // console.log("cart, user, country OnCheckoutPage",cart, user, country);
-  //  const router = useRouter();
-  // React.useEffect(() => {
-  //   if (!cart || !user) {
-  //     router.push('/');
-  //   }
-  // }, [cart, user]);
+export default function Checkout({ cart, user, country }) { 
+   return (
+     <div className={styles.container}>
+       <Header/>
+       <CheckoutOrder cart={cart} user={user}  country={country}/>      
+     </div>
+     
+   );
+ }
 
-  return (
-    <div className={styles.container}>
-      <Header />
-      <CheckoutOrder cart={cart} user={user} country={country} />
-      <Footer country={country} />
-    </div>
-  );
-
-
-}
 export async function getServerSideProps(context) {
 
   const countryData = await getCountryData();

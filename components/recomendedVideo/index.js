@@ -11,32 +11,38 @@ export default function RecomendedVideo({ title, link }) {
         <Container fluid className={styles.cont}>
             {/* <div className={styles.container}> */}
             <Row className={styles.products_row}>
-                <Col className={styles.cartst}>
-                    <iframe width="267" height="190"
+                <Col className={styles.col}>
+                    <div className={styles.cartst}>
+                    <iframe width="280" height="190"
                         src="https://www.youtube.com/embed/kYFnAnmwG5c?autoplay=1&mute=1&controls=0">
                     </iframe>
                     <Card.Body style={{ display: 'flex', width: "267px" }}>
                         <p>Some advertising about our products</p>
                         <button><PlayIcon fillColor="#FAF8FF" /></button>
                     </Card.Body>
+                    </div>
                 </Col>
-                <Col className={styles.cartst}>
-                    <iframe width="267" height="190"
+                <Col className={styles.col}>
+                <div className={styles.cartst}>
+                    <iframe width="280" height="190"
                         src="https://www.youtube.com/embed/L71D1XIXNk4?autoplay=1&mute=1&controls=0">
                     </iframe>
                     <Card.Body style={{ display: 'flex', width: "267px" }}>
                         <p>Some advertising about our products</p>
                         <button><PlayIcon fillColor="#FAF8FF" /></button>
                     </Card.Body>
+                    </div>
                 </Col>
-                <Col className={styles.cartst}>
-                    <iframe width="267" height="190"
+                <Col className={styles.col}>
+                <div className={styles.cartst}>
+                    <iframe width="280" height="190"
                         src="https://www.youtube.com/embed/8paaoWp2OeY?autoplay=1&mute=1&controls=0">
                     </iframe>
                     <Card.Body style={{ display: 'flex', width: "267px", paddingBottom: "0px" }}>
                         <p>Some advertising about our products</p>
                         <button><PlayIcon fillColor="#FAF8FF" /></button>
                     </Card.Body>
+                    </div>
                 </Col>
                 <Col className={styles.col}>
                     <div className={styles.colcard}>

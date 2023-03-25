@@ -6,10 +6,12 @@ import PaymentMethod from "./payment"
 import UserData from "./userdata"
 import Shipping from "./shipping"
 import Summary from "./summary"
+import SimpleCopyright from "./SimpleCopyright"
 import PersonalDataPolicy from "./info/PersonalDataPolicy"
 import UserConditions from "./info/UserConditions"
 import DotLoaderSpinner from "../loaders/dotLoader"
 import { useRouter } from "next/router"
+
 
 export default function CheckoutOrder({
     cart,
@@ -26,8 +28,6 @@ export default function CheckoutOrder({
     const [activeAddress, setActiveAddress] = useState(userAdresses?.find(address => address.active === true)||{});
     const [order_error, setOrder_Error] = useState("");
     const [totalAfterDiscount, setTotalAfterDiscount] = useState(cart?.cartTotalPrice);
-    const [infoShow, setInfoShow] = useState(false);
-    const [info2Show, setInfo2Show] = useState(false);
 
     // useEffect(() => {
     //     if (!cart || !user) {
@@ -38,19 +38,14 @@ export default function CheckoutOrder({
     // }, []);
 
     return (
-        <div className={styles.topsales}>
-                           {
-                loading && <DotLoaderSpinner loading={loading} />
-            }
- 
+     <>
             <Container className={styles.container}>
                 <Row className={styles.row}>
-                    <Col className={styles.colcard}><div className={styles.leftsale}>Оформлення замовлення</div></Col>
+                    <div className={styles.leftsale}>Оформлення замовлення</div>
                 </Row>
-                <Row className={styles.products_row}>
+                <Row className={styles.general_div}>
                     <Col className={styles.colcard}>
                         <div className={styles.checkout_form}>
-                            <CheckoutCart cart={cart} />
                             <UserData user={user} activeAddress={activeAddress} setActiveAddress={setActiveAddress} />
                             <Shipping
                                 user={user}
@@ -61,41 +56,22 @@ export default function CheckoutOrder({
                             <PaymentMethod paymentMethod={paymentMethod} setPayment={setPayment} />
                         </div>
                     </Col>
-                    <Col className={styles.colcard} xs lg="4">
-                        <div>
-                        
-                            <Summary
-                                cart={cart}
-                                user={user}
-                                totalAfterDiscount={totalAfterDiscount}
-                                setTotalAfterDiscount={setTotalAfterDiscount}
-                                paymentMethod={paymentMethod}
-                                activeAddress={activeAddress}
-                                delivery={delivery}
-                                setDelivery={setDelivery}
-                            />
-                            {/* <Button className={styles.small_sbm}
-                                onClick={() => sendOrder()}
-                            >Підтвердити</Button> */}
-                        </div>
-                        <div>
-                            <div className={styles.form_line}></div>
-                            <div className={styles.info}>
-                                <p>Отримання замовлення від 5 000 ₴ тільки за паспортом (Закон від 06.12.2019 № 361-IX)</p>
-                                <ul>Підтверджуючи замовлення, я приймаю умови:
-                                    <li><div className={styles.info_li}><p>положення про обробку і захист персональних даних</p><img width="120px" height="25px" src="../../../icons/info.png" onClick={() => setInfoShow(true)}></img></div></li>
-                                    <li><div className={styles.info_li}><p>угоди користувача</p><img width="120px" height="25px" src="../../../icons/info.png" onClick={() => setInfo2Show(true)}></img></div></li>
-                                </ul>
-                            </div>
-                        </div>
+                    <Col className={styles.summary_form} xs lg="4">
+                        <Summary
+                            cart={cart}
+                            user={user}
+                            totalAfterDiscount={totalAfterDiscount}
+                            setTotalAfterDiscount={setTotalAfterDiscount}
+                            paymentMethod={paymentMethod}
+                            activeAddress={activeAddress}
+                            delivery={delivery}
+                            setDelivery={setDelivery}
+                        />
                     </Col>
                 </Row>
-                <PersonalDataPolicy show={infoShow}
-                    onHide={() => setInfoShow(false)} />
-                <UserConditions show={info2Show}
-                    onHide={() => setInfo2Show(false)} />
             </Container>
-        </div >
+            <SimpleCopyright />
+        </>
     )
 }
 

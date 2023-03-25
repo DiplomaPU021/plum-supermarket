@@ -1,5 +1,5 @@
 import styles from "../styles.module.scss"
-import { Form, Row, Col } from "react-bootstrap"
+import { Form, Row } from "react-bootstrap"
 import { paymentMethods } from "@/data/paymentMethods"
 
 
@@ -15,29 +15,27 @@ export default function PaymentMethod({ paymentMethod, setPayment }) {
     return (
         <>
             <Row className={styles.row}>
-                <Col className={styles.colcard}> <div className={styles.panel}>Оплата</div></Col>
+                <div className={styles.panel}> <div className={styles.count}>3</div>Оплата</div>
             </Row>
             <Row className={styles.payment}>
-                <Col className={styles.colcard}>
-                    <Form.Group>
-                        {paymentMethods.map((pm) => (
-                            <Form.Check
-                                key={pm.id}
+                <Form.Group>
+                    {paymentMethods.map((pm) => (
+                        <Form.Check
+                            key={pm.id}
+                            type="radio"
+                            className={styles.radio}
+                            aria-label="radio 1">
+                            <Form.Check.Input
                                 type="radio"
-                                className={styles.radio}
-                                aria-label="radio 1">
-                                <Form.Check.Input
-                                    type="radio"
-                                    name="payment"
-                                    value={pm.name}
-                                    id={pm.id}
-                                    onChange={handleChangePayment}
-                                    checked={paymentMethod === `${pm.name}`} />
-                                <Form.Check.Label htmlFor={pm.id}>{pm.name}</Form.Check.Label>
-                            </Form.Check>
-                        ))}
-                    </Form.Group>
-                </Col>
+                                name="payment"
+                                value={pm.name}
+                                id={pm.id}
+                                onChange={handleChangePayment}
+                                checked={paymentMethod === `${pm.name}`} />
+                            <Form.Check.Label htmlFor={pm.id}>{pm.name}</Form.Check.Label>
+                        </Form.Check>
+                    ))}
+                </Form.Group>
             </Row>
         </>
     )

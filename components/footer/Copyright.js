@@ -6,7 +6,7 @@ import { IoLocationSharp } from "react-icons/io5"
 export default function Ad({country}) {
     return (
         <div className={styles.footer_copyright}>
-            <section>©2023 PLUM All Right Reserved</section>
+            <section>©2023 ТМ PLUM використовується на підставі правовласника PlumLTD </section>
             <section>
                 <ul>
                     {data.map((link,i) => (

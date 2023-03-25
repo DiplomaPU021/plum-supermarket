@@ -14,6 +14,15 @@ const userSchema = new mongoose.Schema({
     phoneNumber: {
         type: String,
     },
+    firstName: {
+        type: String,
+    },
+    lastName: {
+        type: String,
+    },
+    phoneNumber: {
+        type: String,
+    },
     email: {
         type: String,
         required: "Please enter your email",

@@ -2,10 +2,11 @@
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
-    align-items: center;
-    gap: 20px;
-    max-height: 400px;
+    align-items: flex-start;
+    max-height: 420px;
     overflow: auto;
+    padding-left:30px;
+    margin: 10px 6px 0px;
 
     &::-webkit-scrollbar {
         width: 6px;
@@ -22,24 +23,40 @@
         background: $green-color;
         border-radius: 4px;
     }
+
+    .title {
+        font-weight: 400;
+        font-size: 16px;
+        line-height: 22px;
+        color: #70BF63;
+    }
+
+    p{
+        font-weight: 300;
+        font-size: 14px;
+    }
 }
 
 .modaldiv {
-    margin: 10px;
+    margin: 20px;
     border: 2px solid $plum-dark-color;
     border-radius: 10px;
     color: $plum-dark-color;
-    padding-bottom: 32px;
+    padding-bottom: 12px;
 
     span {
         margin-left: 20px;
     }
+
+    
 }
 
 .modalheader {
     border-color: $green-color;
     border-width: 3px;
+    font-weight: 500;
+    font-size: 23px;
+    line-height: 31px;
+
 }
-
-
 

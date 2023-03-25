@@ -9,7 +9,9 @@
     display: flex;
     flex-direction: row;
     align-items: center;
+    justify-content: space-between;
     height: 54px;
+    padding-right: 50px;
 }
 
 .leftsale {
@@ -36,16 +38,8 @@
 .coltext {
     color: #573C90;
     font-weight: 500;
-    font-size: 21px;
-    min-width: fit-content;
-}
-
-.coltext2 {
-    color: #573C90;
-    font-weight: 500;
-    font-size: 21px;
-    min-width: fit-content;
-    padding-left: 40px;
+    font-size: 25px;
+    width: fit-content;
 }
 
 .products_row {

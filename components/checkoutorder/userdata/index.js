@@ -42,10 +42,7 @@ export default function UserData({ user, activeAddress, setActiveAddress }) {
                 {(formik) => (
                     <Form>
                         <Row className={styles.row}>
-                            <Col className={styles.colcard}> <div className={styles.panel}>Контактні данні одержувача</div></Col>
-                        </Row>
-                        <Row className={styles.attention2}>
-                            Увага! Отримання замовлення за паспортом. Введіть прізвище, ім'я, по батькові та мобільний номер телефону отримувача замовлення
+                            <div className={styles.panel}> <div className={styles.count}>1</div>Контактні данні</div>
                         </Row>
                         <Row className={styles.contacts}>
                             <Col className={styles.col_contacts}>
@@ -58,7 +55,7 @@ export default function UserData({ user, activeAddress, setActiveAddress }) {
                                         onChange={(e) => { formik.handleChange(e); handleGetCredencials(e) }}
                                         isInvalid={!!formik.errors.lastName}
                                     />
-                                    <Form.Control.Feedback type="invalid">{formik.errors.lastName}
+                                    <Form.Control.Feedback type="invalid" className={styles.err}>{formik.errors.lastName}
                                     </Form.Control.Feedback>
                                 </Form.Group>
                                 <Form.Group as={Col} controlId="groupPhone">
@@ -69,7 +66,7 @@ export default function UserData({ user, activeAddress, setActiveAddress }) {
                                         onChange={(e) => { formik.handleChange(e); handleGetCredencials(e) }}
                                         isInvalid={!!formik.errors.phoneNumber}
                                     />
-                                    <Form.Control.Feedback type="invalid">{formik.errors.phoneNumber}
+                                    <Form.Control.Feedback type="invalid" className={styles.err}>{formik.errors.phoneNumber}
                                     </Form.Control.Feedback>
                                     <Form.Control.Feedback type="valid">
                                     </Form.Control.Feedback>
@@ -85,7 +82,7 @@ export default function UserData({ user, activeAddress, setActiveAddress }) {
                                         onChange={(e) => { formik.handleChange(e); handleGetCredencials(e) }}
                                         isInvalid={!!formik.errors.firstName}
                                     />
-                                    <Form.Control.Feedback type="invalid">{formik.errors.firstName}
+                                    <Form.Control.Feedback type="invalid" className={styles.err}>{formik.errors.firstName}
                                     </Form.Control.Feedback>
                                     <Form.Control.Feedback type="valid" />
 
@@ -99,7 +96,9 @@ export default function UserData({ user, activeAddress, setActiveAddress }) {
                                 </Form.Group>
                             </Col>
                         </Row>
-
+                        <Row className={styles.attention2}>
+                            Увага! Товари, що на різних складах або різних продавців, буде доставлено окремими замовленнями
+                        </Row>
                     </Form>
                 )}
             </Formik>
