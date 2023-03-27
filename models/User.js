@@ -113,6 +113,20 @@ const userSchema = new mongoose.Schema({
             },
         },
     ],
+    wishlist: [
+        {
+            product: {
+                type: String,
+                ref: "Product",
+            },
+            style: {
+                type: String,
+            },
+            code: {
+                type: String,
+            }
+        },
+    ],
 },
     { timestamps: true, }
 

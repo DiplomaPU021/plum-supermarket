@@ -5,6 +5,8 @@ import ThemeIcon from '../icons/ThemeIcon'
 
 
 export default function ThemeSwitcher({isChecked, handleSwitch, onColor='blue', offColor}) {
+    // const[onColor, setOnColor] = useState("#FAF8FF");
+    // const[offColor, setOffColor] = useState("#585068");
     return (
         <div>
            <input className={styles.switchcheckbox} hidden type="checkbox" id="switch-checkbox" checked={isChecked} onChange={handleSwitch}/>
