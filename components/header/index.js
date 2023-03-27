@@ -77,7 +77,7 @@ export default function Header({ country }) {
                         </li>
                     </ul>
                 </section>
-                <ThemeSwitcher onColor={"#FAF8FF"} offColor={"#585068"} isChecked={themeChange} handleSwitch={() => setThemeChange(!themeChange)} />
+                {/* <ThemeSwitcher onColor={"#FAF8FF"} offColor={"#585068"} isChecked={themeChange} handleSwitch={() => setThemeChange(!themeChange)} /> */}
             </div>
             <div className={styles.main_container}>
                 <Link href="/">
