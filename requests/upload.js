@@ -1,7 +1,7 @@
 import axios from "axios";
 
 
-export const uploadImages = asunc(formData) => {
+export const uploadImages = async(formData) => {
     const { data } = await axios.post("/api/cloudinary", formData, {
         headers: {
             "content-type": "multipart/form-data",
