@@ -148,7 +148,7 @@ export default function ProductCard({ product }) {
             -{product.subProducts[active].discount}%
           </div>
         ) : (
-          ""
+          <></>
         )}
         <Container className={styles.product__container_infos}>
           <Row>

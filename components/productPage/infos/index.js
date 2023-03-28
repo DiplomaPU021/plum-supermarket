@@ -24,14 +24,14 @@ export default function Infos({ product, active, setActive, setError }) {
   const [qty, setQty] = useState(1);
   const cart = useSelector((state) => state.cart);
   const wishList = useSelector((state) => state.wishList);
-  const [code, setCode] = useState();
+  const [size, setSize] = useState(product.size);
 
   const [showDetails, setShowDetails] = useState(false)
   const [showSizes, setShowSizes] = useState(false)
 
-  useEffect(() => {
-    setCode("");
-  }, [router.query.code]);
+  // useEffect(() => {
+  //   setCode("");
+  // }, [router.query.code]);
 
   const addToCartHandler = async () => {
     //need to connect to data base
@@ -106,6 +106,7 @@ export default function Infos({ product, active, setActive, setError }) {
 
   return (
     <Container fluid className={styles.infos}>
+     
       <Row className={styles.infos__priceandaction}>
         <Col className={styles.infos__priceandaction_price}>
           {product.subProducts[active].discount > 0 ? (
@@ -148,6 +149,7 @@ export default function Infos({ product, active, setActive, setError }) {
           </button>
         </Col>
       </Row>
+   
       <Row className={styles.infos__characteristics}>
         <span>Основні характеристики</span>
       </Row>
@@ -179,18 +181,19 @@ export default function Infos({ product, active, setActive, setError }) {
       {product.size ?
       (<Row className={styles.infos__sizesInfo}>
         <Col className={styles.infos__sizesInfo_sizes}>
-            {product.subProducts.map((el, i) => (
+         
+            {product.sizes.map((el, i) => (
             <Link style={{textDecoration: "none"}}
               key={i}
-              href={`/product/${product.slug}?style=${i}&code=${product.code}`}
+              href={`/product/${product.slug}?style=${router.query.style}&code=${i}`}
             >
               <Col
                 className={`${styles.infos__sizesInfo_sizes_size}
-                  ${i == router.query.style && styles.active_size
+                  ${i == router.query.code && styles.active_size
                 }`}
-                 onClick={() => setActive(i)}
+                 onClick={() => setSize(el.size)}
               >
-               {el.sizes[0].size}
+               {el.size}
               </Col>
             </Link>
           ))}
@@ -201,6 +204,7 @@ export default function Infos({ product, active, setActive, setError }) {
           Таблиця розмірів{" "}
           <ChevronRight fillColor="#70BF63" w="30px" h="30px" />
         </button>
+      
         <SizesTable
             show={showSizes}
             onHide={() => setShowSizes(false)}/>

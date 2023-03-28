@@ -39,9 +39,9 @@ export default function product({ product, popular, country }) {
             <span>{product.category.name}</span>
             <GreenChevronRight fillColor="#70BF63" w="30px" h="30px" />
           </Link>
-            <span className={styles.links__link}>
-              {product.subCategories[0].name}
-            </span>
+          <span className={styles.links__link}>
+            {product.subCategories[0].name}
+          </span>
         </Col>
       </Row>
       <Row className={styles.nameCode}>
@@ -74,7 +74,7 @@ export default function product({ product, popular, country }) {
       <CheaperTogether product={product} productsPlus={product.productsPlus} />
       <ProductDescription product={product} />
       <Reviews reviews={product.reviews} />
-      <Popular title={"Популярне з категорії"} products={popular}  category={product.category.name}/>
+      <Popular title={"Популярне з категорії"} products={popular} category={product.category.name} />
       <Footer country={country} />
     </Container>
   );
@@ -82,8 +82,8 @@ export default function product({ product, popular, country }) {
 export async function getServerSideProps(context) {
   const { query } = context;
   const slug = query.slug;
-  const style = query.style;
-  const code = query.code || 0;
+  const style = query.style || 0;
+  const mode = query.code || 0;
 
   const countryData = await getCountryData();
 
@@ -95,32 +95,35 @@ export async function getServerSideProps(context) {
     .populate({ path: "subCategories", model: SubCategory })
     //.populate({path: "reviews.reviewBy", model: User})
     .lean();
-
+  console.log("PagesProductSlugProps", product);
   let subProduct = product.subProducts[style];
 
 
-  let price=subProduct.sizes[0].price.toFixed();
-  
-    //products that go together cheaper
-  let productsPlus = await Product.find().sort({createdAt: -1}).lean();
+  let price = subProduct.sizes[mode].price.toFixed();
+
+  //products that go together cheaper
+  let productsPlus = await Product.find().sort({ createdAt: -1 }).lean();
 
 
   let newProduct = {
     ...product,
     style,
     // code: subProduct.sizes[code].code,
-    code,
+    mode,
     images: subProduct.images,
-    //sizes: subProduct.sizes,
-    size: subProduct.sizes[0].size,
+    sizes: subProduct.sizes,
+    size: subProduct.sizes[mode].size,
     discount: subProduct.discount,
     color: subProduct.color?.color,
+    // colors: subProduct.color? product.subProducts.map((p) => {
+    //   return p.color;
+    // }) : null,
     price,
-    priceAfter: ((100-subProduct.discount)*price/100).toFixed(),
-    price_unit: subProduct.sizes[0].price_unit,
-    code: subProduct.sizes[0].code,
+    priceAfter: ((100 - subProduct.discount) * price / 100).toFixed(),
+    price_unit: subProduct.sizes[mode].price_unit,
+    code: subProduct.sizes[mode].code,
     sold: subProduct.sold,
-    quantity: subProduct.sizes[0].qty,
+    quantity: subProduct.sizes[mode].qty,
     productsPlus,
     // reviews: [
     //   { percentage: 76 },
@@ -131,11 +134,11 @@ export async function getServerSideProps(context) {
     // ],
   };
 
-
+  console.log("PagesProductSlugPropsNew", newProduct);
   //Should be with mark "popular"
   let popularFromCategory = await Product.find({ category: product.category._id })
-  .sort({createdAt: -1})
-  .lean();
+    .sort({ createdAt: -1 })
+    .lean();
 
   await db.disconnectDb();
   return {

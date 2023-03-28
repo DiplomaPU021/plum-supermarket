@@ -103,10 +103,10 @@ export default function MainSwiper({ product, active, setActive }) {
               onMouseOver={() => setActiveImg(el.images[i].url)}
               onMouseLeave={() => setActiveImg("")}
               onClick={() => setActive(i)}
-              style={{ background: product.color.image }}
+              style={{ background: el.color.image }}
             >
               <Link
-                href={`/product/${product.slug}?style=${i}&code=${product.code}`}
+                href={`/product/${product.slug}?style=${i}&code=${0}`}
               >
                 <Image src={product.color.image} alt={product.color.image} />
               </Link>

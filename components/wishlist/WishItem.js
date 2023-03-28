@@ -11,6 +11,7 @@ import { addToCart, updateCart } from "@/store/cartSlice";
 import axios from "axios";
 
 export default function WishItem(product) {
+    console.log("product", product);
     const [notificationShow, setNotificationShow] = useState(false);
     const wishList = useSelector((state) => state.wishList);
     const [deleteConfirm, setDeleteConfirm] = useState(true);
@@ -30,7 +31,7 @@ export default function WishItem(product) {
     };
     const addToCartHandler= async (product)=>{
         const { data } = await axios.get(
-            `/api/product/${product._id}?style=${product.style}&code=${product.code}`
+            `/api/product/${product._id}?style=${product.style}&code=${product.mode}`
           );
         let exist = null;
       if (cart.cartItems) {
