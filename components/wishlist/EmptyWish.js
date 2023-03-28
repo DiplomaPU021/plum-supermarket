@@ -8,7 +8,7 @@ export default function EmptyWish(props) {
         <Modal.Body className={styles.modalbody}>
             <Image src='../../../images/frame.jpg' width="180px" height="180px" />
             <h2>Вподобаних товарів немає</h2>
-            <h5>Аде це ніколи не пізно виправити!</h5>
+            <h5>Але це ніколи не пізно виправити!</h5>
             <div className={styles.line}></div>
             <button className={styles.addbtn}
             onClick={() => props.onHide()}>Додати товар</button>

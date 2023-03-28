@@ -126,7 +126,7 @@ export default function ProductCard({ product }) {
       });
       dispatch(updateWishList(newWishList));
       } else {
-        dispatch(addToWishList({ ...data, qty, size: data.size, _uid }));
+        dispatch(addToWishList({ ...data, qty, size: data.size, _uid,mode:0 }));
       }
     }
   };

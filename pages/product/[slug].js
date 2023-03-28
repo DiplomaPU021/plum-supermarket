@@ -82,9 +82,10 @@ export default function product({ product, popular, country }) {
 export async function getServerSideProps(context) {
   const { query } = context;
   const slug = query.slug;
-  const style = query.style || 0;
+  const style = query.style==null || query.style=="undefined"? 0: query.style;
   const mode = query.code || 0;
 
+  console.log("STYLE AND MODE", style, mode);
   const countryData = await getCountryData();
 
   await db.connectDb();
@@ -95,7 +96,7 @@ export async function getServerSideProps(context) {
     .populate({ path: "subCategories", model: SubCategory })
     //.populate({path: "reviews.reviewBy", model: User})
     .lean();
-  console.log("PagesProductSlugProps", product);
+  // console.log("PagesProductSlugProps", product);
   let subProduct = product.subProducts[style];
 
 
@@ -134,7 +135,7 @@ export async function getServerSideProps(context) {
     // ],
   };
 
-  console.log("PagesProductSlugPropsNew", newProduct);
+  // console.log("PagesProductSlugPropsNew", newProduct);
   //Should be with mark "popular"
   let popularFromCategory = await Product.find({ category: product.category._id })
     .sort({ createdAt: -1 })

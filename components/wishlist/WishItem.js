@@ -10,12 +10,13 @@ import CartIcon from "../icons/CartIcon";
 import { addToCart, updateCart } from "@/store/cartSlice";
 import axios from "axios";
 
-export default function WishItem(product) {
+export default function WishItem(product, setError) {
     console.log("product", product);
     const [notificationShow, setNotificationShow] = useState(false);
     const wishList = useSelector((state) => state.wishList);
     const [deleteConfirm, setDeleteConfirm] = useState(true);
     const cart = useSelector((state) => state.cart);
+   
     const dispatch = useDispatch();
 
     const removeProduct = (_uid) => {
@@ -30,6 +31,7 @@ export default function WishItem(product) {
 
     };
     const addToCartHandler= async (product)=>{
+        console.log("Product added to cart", product);
         const { data } = await axios.get(
             `/api/product/${product._id}?style=${product.style}&code=${product.mode}`
           );

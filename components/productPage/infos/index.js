@@ -36,7 +36,7 @@ export default function Infos({ product, active, setActive, setError }) {
   const addToCartHandler = async () => {
     //need to connect to data base
     const { data } = await axios.get(
-      `/api/product/${product._id}?style=${router.query.style}&code=${router.query.code}`
+      `/api/product/${product._id}?style=${product.style}&code=${product.mode}`
     );
   
     if (qty > data.quantity) {
@@ -71,7 +71,7 @@ export default function Infos({ product, active, setActive, setError }) {
   const addToWishListHandler = async () => {
     //need to connect to data base
     const { data } = await axios.get(
-      `/api/product/${product._id}?style=${router.query.style}&code=${router.query.code}`
+      `/api/product/${product._id}?style=${product.style}&code=${product.mode}`
     );
   
     if (qty > data.quantity) {
@@ -88,17 +88,13 @@ export default function Infos({ product, active, setActive, setError }) {
         exist = wishList.wishListItems.find((item) => item._uid === _uid);
       }
       if (exist) {
-        let newWishList = wishList.wishListItems.map((item) => {
-          if (item._uid === exist._uid) {
-            return { ...item, qty: item.qty + 1 }
-          }
-          return item;
-
-        });
-        dispatch(updateWishList(newWishList));
+        let newWishList = wishList.wishListItems.filter((item) => {
+          return item._uid != _uid;
+      });
+      dispatch(updateWishList(newWishList));
       } else {
         dispatch(addToWishList(
-          { ...data, qty, size: data.size, _uid, }
+          { ...data, qty, size: data.size, _uid, mode:product.mode}
         ));
       }
     }

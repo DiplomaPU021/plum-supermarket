@@ -21,6 +21,7 @@ export default function WishList(props) {
     const [userId, setUserId] = useState(props.userid);
     const [footerVisible, setFooterVis] = useState("none");
     const [loginModalShow, setLoginModalShow] = useState(false);
+    const [error, setError]= useState();
     // const [total, setTotal] = useState(1);
     const getTotalQty = () => {
         return wishList.wishListItems.reduce(
@@ -66,7 +67,7 @@ export default function WishList(props) {
                     <Modal.Body className={styles.modalbody}>
                         {
                             wishList.wishListItems?.map((product, i) => (
-                                <WishItem key={i} product={product} userid={userId} />
+                                <WishItem key={i} product={product} userid={userId} setError={setError}/>
                             ))
                         }
                     </Modal.Body>
