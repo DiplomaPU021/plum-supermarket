@@ -1,6 +1,22 @@
 import mongoose from "mongoose";
 
 const { ObjectId } = mongoose.Schema;
+const replySchema = new mongoose.Schema({
+    replyBy: {
+        type: ObjectId,
+        ref: "User",
+        required: true,
+    },
+    replierName: {
+        type: String,
+    },
+    comment: {
+        type: String,
+        required: true,
+    },
+    likes: [],
+    dislikes: [],
+});
 
 const reviewSchema = new mongoose.Schema({
     reviewBy: {
@@ -13,22 +29,37 @@ const reviewSchema = new mongoose.Schema({
         required: true,
         default: 0,
     },
+    reviewerName: {
+        type: String,
+    },
+    //comment
     review: {
         type: String,
         required: true,
     },
-    size: {
+    experience: {
         type: String,
     },
-    style: {
-        color: String,
-        image: String,
-    },
-    fit: {
+    advantages: {
         type: String,
     },
+    disadvantages: {
+        type: String,
+    },
+    // size: {
+    //     type: String,
+    // },
+    // style: {
+    //     color: String,
+    //     image: String,
+    // },
+    // fit: {
+    //     type: String,
+    // },
     images: [],
     likes: [],
+    dislikes: [],
+    replies: [replySchema]
 });
 
 const productSchema = new mongoose.Schema(
@@ -129,7 +160,7 @@ const productSchema = new mongoose.Schema(
                     type: Number,
                     default: 0,
                 },
-               
+
             },
         ],
     },

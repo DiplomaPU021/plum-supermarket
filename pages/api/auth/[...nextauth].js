@@ -185,7 +185,9 @@ export default NextAuth({
       // }
       session.user.id = token.sub || user._id.toString();
       session.user.role = user.role || "user";
+      session.user.name = user.firstName || user.name ||"";
       token.role = user.role || "user";
+
       return session;
     },
       //  async jwt(token, user, account) {

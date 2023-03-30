@@ -95,3 +95,16 @@ export const saveWishList = async (wishList) => {
 
     }
 }
+// export const updateProductReview = async(product_id, review) =>{
+//     try {
+//         console.log("UpdateProductReviewUser", product_id, JSON.parse(JSON.stringify(review)));
+//         const { data } = await axios.post('/api/user/updateProductReview', {
+//          product_id, review,
+//         });
+//         return data;
+
+//     } catch (error) {
+//         return error.response.data.message;
+
+//     }
+// }

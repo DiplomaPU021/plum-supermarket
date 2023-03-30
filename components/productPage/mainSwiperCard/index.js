@@ -5,11 +5,8 @@ import Image from "react-bootstrap/Image";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import { Swiper, SwiperSlide } from "swiper/react";
-
-// import Swiper and modules styles
 import "swiper/css";
 import "swiper/css/pagination";
-
 import { Navigation } from "swiper";
 import ChevronRight from "@/components/icons/ChevronRight";
 import ChevronLeft from "@/components/icons/ChevronLeft";
@@ -17,12 +14,24 @@ import { Container, Row, Col } from "react-bootstrap";
 import StarIcon from "@/components/icons/StarIcon";
 import Rating from "react-rating";
 import LeaveFeedback from "../leaveFeedback";
+import { useSession } from "next-auth/react";
+import MyCabinet from "@/components/mycabinet";
 
-export default function MainSwiper({ product, active, setActive }) {
+
+export default function MainSwiper({ product, active, setActive, setProductReview }) {
+  const { data: session } = useSession();
   const [activeImg, setActiveImg] = useState(active);
   const [feedback, setFeedback] = useState(false);
+  const [loginModalShow, setLoginModalShow] = useState(false);
   const router = useRouter();
+  const handleFeedBack = () => {
+    if (session) {
+      setFeedback(true);
+    } else {
+      setLoginModalShow(true)
+    }
 
+  }
   return (
     <Container fluid className={styles.swiper}>
       <Row className={styles.swiper__photoBox}>
@@ -76,23 +85,28 @@ export default function MainSwiper({ product, active, setActive }) {
         ""
       )}
       <Row className={styles.swiper__reviews}>
-        {product.rating ? (
+        {/* {product.rating ? ( */}
           <Col className={styles.swiper__reviews_stars}>
             <button
-            onClick={()=> setFeedback(true)}
+            onClick={handleFeedBack}
             >Відгуки</button>
             <Rating
-              readonly={true}
+              readonly
               start={0}
               stop={5}
               fractions={2}
               initialRating={product.rating}
-              emptySymbol={<StarIcon fillColor="#70BF63" />}
+              emptySymbol={<StarIcon fillColor="#70BF63"  borderColor="#70BF63"/>}
               fullSymbol={<StarIcon fillColor="#573C91" />}
             />
           </Col>
-        ) : (null)}
-        <LeaveFeedback show={feedback} onHide={() => setFeedback(false)} />
+        {/* ) : (null)} */}
+        {session ? (
+          <LeaveFeedback show={feedback} onHide={() => setFeedback(false)} product={product} setProductReview={setProductReview}/>
+        ) : (
+          <MyCabinet show={loginModalShow} onHide={() => setLoginModalShow(false)} />
+        )}
+
       </Row>
       {product.color ? (
         <div className={styles.swiper__colors}>

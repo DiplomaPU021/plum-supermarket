@@ -8,10 +8,11 @@ import createWebStorage from "redux-persist/lib/storage/createWebStorage";
 import { persistReducer } from "redux-persist";
 import cart from "./cartSlice"
 import wishList from "./wishListSlice"
+import dialog from "./DialogSlice"
 //import {cartReducer} from "./cartSlice";
 
 
-const reducers = combineReducers({ cart, wishList });
+const reducers = combineReducers({ cart, wishList , dialog});
 
 
 const createNoopStorage = () => {

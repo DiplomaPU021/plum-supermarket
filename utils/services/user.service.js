@@ -1,6 +1,8 @@
 import User from "@/models/User";
 
 const getOneById = async (id) => {
+
+    console.log("UtilsUserOneById", id);
     const user = await User.findById(id);
     return user;
 };

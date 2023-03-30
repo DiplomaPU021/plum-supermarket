@@ -19,10 +19,13 @@ import ProductDescription from "@/components/productPage/productDescription";
 import Popular from "@/components/popular";
 import Reviews from "@/components/productPage/reviews";
 import { getCountryData } from "@/utils/country";
+import { getSession } from "next-auth/react";
+import User from "@/models/User";
 
 export default function product({ product, popular, country }) {
   const [active, setActive] = useState(0);
-
+  const [productReview, setProductReview] = useState(product?.reviews?.reverse());
+console.log("review", product.reviews);
   return (
     <Container fluid style={{ padding: "0" }}>
       <Header country={country} />
@@ -62,30 +65,40 @@ export default function product({ product, popular, country }) {
                 product={product}
                 active={active}
                 setActive={setActive}
+                productReview={productReview}
+                setProductReview={setProductReview}
+                // user={user}
               />
             </Col>
             <Col style={{ padding: "0", width: "50%" }}>
               <Infos product={product} active={active} setActive={setActive} />
             </Col>
-          </Row>
+          </Row> 
         </Container>
       </Container>
       <CustomerInfo />
       <CheaperTogether product={product} productsPlus={product.productsPlus} />
       <ProductDescription product={product} />
-      <Reviews reviews={product.reviews} />
+      {product.reviews.length > 0? (
+         <Reviews product={product} productReview={productReview} setProductReview={setProductReview}/>
+      ): null}    
       <Popular title={"Популярне з категорії"} products={popular} category={product.category.name} />
       <Footer country={country} />
     </Container>
   );
 }
 export async function getServerSideProps(context) {
-  const { query } = context;
+  const { query, req } = context;
   const slug = query.slug;
   const style = query.style==null || query.style=="undefined"? 0: query.style;
   const mode = query.code || 0;
-
-  console.log("STYLE AND MODE", style, mode);
+  // var user={};
+  // const session = await getSession({ req });
+  // if (session) {
+  //   console.log("//////////////////////////////////SlugSession:", session);
+  //   user = await User.findById(session.user.id);
+  // }
+  // console.log("STYLE AND MODE", style, mode);
   const countryData = await getCountryData();
 
   await db.connectDb();
@@ -94,7 +107,7 @@ export async function getServerSideProps(context) {
   let product = await Product.findOne({ slug })
     .populate({ path: "category", model: Category })
     .populate({ path: "subCategories", model: SubCategory })
-    //.populate({path: "reviews.reviewBy", model: User})
+    .populate({path: "reviews.reviewBy", model: User})
     .lean();
   // console.log("PagesProductSlugProps", product);
   let subProduct = product.subProducts[style];
@@ -126,6 +139,7 @@ export async function getServerSideProps(context) {
     sold: subProduct.sold,
     quantity: subProduct.sizes[mode].qty,
     productsPlus,
+    reviews:product.reviews.reverse(),
     // reviews: [
     //   { percentage: 76 },
     //   { percentage: 14 },
@@ -147,6 +161,7 @@ export async function getServerSideProps(context) {
       product: JSON.parse(JSON.stringify(newProduct)),
       popular: JSON.parse(JSON.stringify(popularFromCategory)),
       country: countryData,
+      // user: JSON.parse(JSON.stringify(user)),
     },
   };
 }
