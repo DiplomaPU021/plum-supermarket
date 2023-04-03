@@ -1,6 +1,6 @@
 import { context } from "react-responsive";
 import * as React from "react"
-import { Inter } from '@next/font/google'
+import { Inter } from "next/font/google"
 import styles from '../styles/Home.module.scss'
 import { getSession, signIn, signOut } from "next-auth/react"
 import User from "@/models/User";
@@ -12,8 +12,6 @@ import db from "@/utils/db";
 import CheckoutOrder from '@/components/checkoutorder'
 import { getCountryData } from "@/utils/country";
 // import { useRouter } from "next/router";
-
-
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -51,7 +49,6 @@ export async function getServerSideProps(context) {
           }
         }
       }
-
     }
   }
   await db.disconnectDb();

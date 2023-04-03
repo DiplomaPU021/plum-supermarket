@@ -15,7 +15,6 @@ export default function CartPage(props) {
     const router = useRouter();
     const { data: session } = useSession();
     const cart = useSelector((state) => state.cart);
-    const [userId, setUserId] = useState(props.userid);
     const [footerVisible, setFooterVis] = useState("none");
     const [loginModalShow, setLoginModalShow] = useState(false);
 
@@ -73,7 +72,7 @@ export default function CartPage(props) {
                         <Modal.Body className={styles.modalbody} scrollable="true">
                             {
                                 cart.cartItems?.map((product, i) => (
-                                    <CartItem key={i} product={product} userid={userId} />
+                                    <CartItem key={i} product={product} error={props.error} setError={props.setError}/>
                                 ))
                             }
                         </Modal.Body>

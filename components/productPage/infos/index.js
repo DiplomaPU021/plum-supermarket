@@ -16,10 +16,13 @@ import { Col, Container, Row } from "react-bootstrap";
 import AllDetails from "../allDetails";
 import SizesTable from "../sizesTable";
 import { addToWishList, updateWishList } from "@/store/wishListSlice";
+import { useSession } from "next-auth/react";
+import { saveWishList, updateOneInWishList } from "@/requests/user";
 
 
 export default function Infos({ product, active, setActive, setError }) {
   const router = useRouter();
+   const { data: session, status } = useSession();
   const dispatch = useDispatch();
   const [qty, setQty] = useState(1);
   const cart = useSelector((state) => state.cart);
@@ -69,20 +72,8 @@ export default function Infos({ product, active, setActive, setError }) {
     }
   };
   const addToWishListHandler = async () => {
-    //need to connect to data base
-    const { data } = await axios.get(
-      `/api/product/${product._id}?style=${product.style}&code=${product.mode}`
-    );
-  
-    if (qty > data.quantity) {
-      setError('The quantity is bigger than in stock.');
-      return;
-    } else if (data.quantity < 1) {
-      setError('This product is out of stock.');
-      return;
-    } else {
-      //let _uid = `${data._id}_${product.style}_${router.query.code}`;
-      let _uid = `${data._id}_${data.style}_${data.code}`;
+    if (session) {
+      let _uid = `${product._id}_${product.style}_${product.subProducts[product.style].sizes[product.mode].code}`;
       let exist = null;
       if (wishList.wishListItems) {
         exist = wishList.wishListItems.find((item) => item._uid === _uid);
@@ -92,11 +83,25 @@ export default function Infos({ product, active, setActive, setError }) {
           return item._uid != _uid;
       });
       dispatch(updateWishList(newWishList));
+      updateOneInWishList({productId: product._id});
       } else {
+            const { data } = await axios.get(
+      `/api/product/${product._id}?style=${product.style}&code=${product.mode}`
+    );
+  
         dispatch(addToWishList(
           { ...data, qty, size: data.size, _uid, mode:product.mode}
         ));
+        saveWishList({
+          productId: product._id,
+          size: product.subProducts[product.style].sizes[product.mode].size,
+          image: product.subProducts[product.style].images[0],
+          color: product.subProducts[product.style].color?.color,
+          code: product.subProducts[product.style].sizes[product.mode].code
+        });
       }
+    } else {
+      alert("Залогінтесь");
     }
   };
 

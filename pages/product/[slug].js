@@ -25,7 +25,7 @@ import User from "@/models/User";
 export default function product({ product, popular, country }) {
   const [active, setActive] = useState(0);
   const [productReview, setProductReview] = useState(product?.reviews?.reverse());
-console.log("review", product.reviews);
+// console.log("review", product.reviews);
   return (
     <Container fluid style={{ padding: "0" }}>
       <Header country={country} />

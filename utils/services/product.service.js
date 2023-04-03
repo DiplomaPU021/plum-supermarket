@@ -9,7 +9,11 @@ const getAll = async () => {
     const result = await Product.find();
     return result;
 }
-const findByReviewByAndUpdate = async (userId, productId, review, reviewerName,
+const findByReviewByAndUpdate = async (
+    userId,
+    productId,
+    review,
+    reviewerName,
     rating,
     experience,
     advantages,

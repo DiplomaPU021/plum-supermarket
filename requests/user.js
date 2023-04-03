@@ -83,10 +83,39 @@ export const checkout = async (cart, user_id) => {
     }
 }
 
-export const saveWishList = async (wishList) => {
+export const saveWishList = async ({productId, size, image, color, code}) => {
     try {
-        const { data } = await axios.post('/api/user/saveWishList', {
-            wishList,
+        console.log("apiusersavewish",productId, size, image, color, code);
+        const { data } = await axios.post('/api/user/wishlist', {
+            productId, size, image, color, code,
+        });
+        return data;
+
+    } catch (error) {
+        return error.response.data.message;
+
+    }
+}
+
+export const updateOneInWishList = async ({productId, size, image, color, code}) => {
+    try {
+        // console.log("apiuserupdatewish",productId);
+        const { data } = await axios.put('/api/user/wishlist', {
+            productId, size, image, color, code,
+        });
+        return data;
+
+    } catch (error) {
+        return error.response.data.message;
+
+    }
+}
+export const deleteOneFromWishList = async ({productId, code}) => {
+    try {
+        // console.log("apiuserupdatewish",productId, code);
+        const { data } = await axios.delete('/api/user/wishlist', {
+            productId,
+            code
         });
         return data;
 
