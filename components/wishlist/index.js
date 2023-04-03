@@ -57,24 +57,26 @@ export default function WishList(props) {
             {...props}
             size={wishList.length == 0 ? "lg" : "xl"}
             aria-labelledby="contained-modal-title-vcenter"
+            className={styles.modal}
             centered>
-            <div className={styles.modaldiv}>
-                {wishList == null || wishList?.wishListItems?.length == 0 || wishList.wishListItems == null ? (
-                // {total == 0 ? (
-                    <EmptyWish {...props} />
-                ) : (
-                    <Modal.Body className={styles.modalbody}>
-                        {
-                            wishList.wishListItems?.map((product, i) => (
-                                <WishItem key={i} product={product} userid={userId} />
-                            ))
-                        }
-                    </Modal.Body>
-                )}
-                <Modal.Footer style={{ display: footerVisible }} as={'div'} className={styles.modalfoot}>
-                    <Link href="/" className={styles.link} onClick={()=>props.onHide()}>Повернутись до покупок</Link>
-                </Modal.Footer>
-            </div>
+                <div className={styles.modaldiv}>
+                    <Modal.Header className="modal-header" closeButton>Вподобані товари</Modal.Header>
+                    {wishList == null || wishList?.wishListItems?.length == 0 || wishList.wishListItems == null ? (
+                        <EmptyWish {...props} />
+                    ) : (
+
+                        <Modal.Body className={styles.modalbody}>
+                            {
+                                wishList.wishListItems?.map((product, i) => (
+                                    <WishItem key={i} product={product} userid={userId} />
+                                ))
+                            }
+                        </Modal.Body>
+                    )}
+                    <Modal.Footer style={{ display: footerVisible }} as={'div'} className={styles.modalfoot}>
+                        <Link href="/" className={styles.link} onClick={() => props.onHide()}>Повернутись до покупок</Link>
+                    </Modal.Footer>
+                </div>
         </Modal>
     )
 }

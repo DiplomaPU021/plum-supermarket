@@ -1,3 +1,8 @@
+.modal {
+    background: rgba(87, 60, 145, 0.5);
+    backdrop-filter: blur(2.5px);
+}
+
 .modaldiv {
     margin: 20px;
     border: 2px solid $plum-dark-color;
@@ -20,7 +25,7 @@
 .modalbodyreg {
     display: flex;
     flex-direction: column;
-    justify-content: flex-start;
+    justify-content: center;
     align-items: center;
     gap: 20px;
 
@@ -36,6 +41,8 @@
         line-height: 19px;
         text-align: center;
         color: #220F4B;
+        margin-bottom: 0;
+        margin-top: 30px;
     }
 
     .forminput {
@@ -57,7 +64,6 @@
     }
 
 }
-
 
 .modalbody {
     display: flex;
@@ -134,10 +140,10 @@
     font-family: 'Noto Sans';
     font-style: normal;
     font-weight: 400;
-    font-size: 14px;
+    font-size: 15px;
     color: #573C91;
     text-decoration: none;
-    margin-left: 170px;
+    margin-left: 78px;
 }
 
 .register {
@@ -147,14 +153,24 @@
     cursor: pointer;
 }
 
-.container_frame {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    padding: 0px;
-    gap: 20px;
-    width: 377px;
-    height: 88px;
+.registerSwitch {
+    float: right;
+    padding: 40px 60px 0px 0px;
+
+    @media(max-width: 900px) {
+        padding-right: 25px;
+    }
+}
+
+.regSwitch {
+    text-align: center;
+    padding-top: 35px;
+    padding-right: 15px;
+
+    @media(min-width: 1200px) {
+        padding-right: 100px;
+        margin-bottom: 20px;
+    }
 }
 
 .devider {
@@ -178,24 +194,57 @@
 .linkicons {
     display: flex;
     flex-direction: row;
-    align-items: flex-start;
-    padding: 0px;
+    align-items: center;
     gap: 40px;
     width: 304px;
     height: 46px;
+    margin: auto;
+    padding-top: 30px;
 }
+
 .social_btn {
-    border: none;
-    outline: none;
-    width: 290px;
-    height: 50px;
-    border-radius: 50px;
+    width: 178px;
+    height: 48px;
+    border-radius: 30px;
     display: flex;
+    justify-content: center;
     align-items: center;
-    padding-left: 5%;
-    gap: 10px;
-    background: #220F4B;
-    border: 1px solid #66666683;
+    border: 2px solid #220F4B;
     cursor: pointer;
     color: $light-wheet-color;
+}
+
+// login-----------------------------
+
+.login_forms {
+    float: right;
+    padding-right: 40px;
+    padding-top: 20px;
+
+    @media(max-width: 900px) {
+        padding-right: 12px;
+    }
+}
+
+.forgot_flex {
+    display: flex;
+    padding-left: 12px;
+}
+
+.feedback {
+    padding-left: 10px;
+}
+
+.reg_forms {
+    padding-left: 12px;
+}
+
+.login_container {
+    display: flex;
+    flex-direction: column;
+}
+
+.container_frame {
+    flex-direction: column;
+    max-width: 377px;
 }

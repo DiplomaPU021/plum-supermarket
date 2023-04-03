@@ -1,5 +1,5 @@
 import styles from "../styles.module.scss"
-import { Form, Row, Col, Button } from "react-bootstrap"
+import { Form, Row, Col, Button, Container } from "react-bootstrap"
 import React, { useEffect, useRef, useState } from 'react'
 import CityModal from "../citymodal";
 import { getStreets } from "@/requests/street";
@@ -359,107 +359,117 @@ export default function Shipping({ user, activeAddress, setActiveAddress, countr
                             </Col>
                             <Col className={styles.text_span}>{deliveryTypes[1].price} &#x20b4;</Col>
                         </Row>
-                        <Row style={{ display: showPostmanDeliveryAll }}>
-                            <Row>
-                                <div style={{ display: showPostmanDelivery }}>
-                                    {visibleAddressField ? (
-                                        <Form.Select className={styles.form_input2}
-                                            name="selectPostmanDelivery"
-                                            id="selectPostmanDelivery"
-                                            onChange={handleSelectPostman}
-                                            ref={postmanRef}
-                                        >
-                                            {/* <option value="" disabled={false}>Вибрати адресу доставки...</option> */}
-                                            {filteredUserAdresses != null && filteredUserAdresses
-                                                .filter((c) => c.city == selectedCity.object_name)
-                                                ? filteredUserAdresses.map((item, index) => (
-                                                    <option
-                                                        key={item.address}
-                                                        value={item.address}
-                                                    >{item.address}</option>
-                                                )
-                                                ) : <></>}
-                                        </Form.Select>
-                                    ) : (
-                                        <></>
-                                    )}
+                        <Row style={{ display: showPostmanDeliveryAll }}>   {/* //TODO padding controll */}
+                            {visibleAddressField ? (
+                                <div className={styles.group_floor}>
+                                    <Form.Select className={styles.form_address}
+                                        name="selectPostmanDelivery"
+                                        id="selectPostmanDelivery"
+                                        onChange={handleSelectPostman}
+                                        ref={postmanRef}
+                                    >
+                                        {/* <option value="" disabled={false}>Вибрати адресу доставки...</option> */}
+                                        {filteredUserAdresses != null && filteredUserAdresses
+                                            .filter((c) => c.city == selectedCity.object_name)
+                                            ? filteredUserAdresses.map((item, index) => (
+                                                <option
+                                                    key={item.address}
+                                                    value={item.address}
+                                                >{item.address}</option>
+                                            )
+                                            ) : <></>}
+                                    </Form.Select>
+                                    <Col>
+
+                                        <button onClick={handleShowAddAdress} id="btn-add-another-address">Додати адресу</button>
+
+                                    </Col>
                                 </div>
 
-                                <div style={{ display: showAddAddressBlock }}>
-                                    <Form.Group as={Col} >
-                                        <Form.Label className={styles.form_label} htmlFor="street">Вулиця</Form.Label>
-                                        <Form.Control className={styles.form_input}
-                                            type="text"
-                                            value={searchStreet}
-                                            name="street"
-                                            id="street"
-                                            onChange={(e) => setSearchStreet(e.target.value)}
-                                            ref={selectRef}
-                                        />
-                                        {filteredStreets.length > 0 && (
-                                            <ul className={styles.city_list} id="ulStreetSelect">
-                                                {filteredStreets.map((street) => (
-                                                    <li
-                                                        key={street._id}
-                                                        id={street._id}
-                                                        onClick={() => handleSelectStreet(street)}
-                                                    >
-                                                        {`${street.street_type} ${street.name}`}
-                                                    </li>
-                                                ))}
-                                            </ul>
-                                        )}
-                                    </Form.Group>
-                                    <Form.Group as={Col} controlId="buildingGroup">
-                                        <Form.Label className={styles.form_label}>Будинок</Form.Label>
-                                        <Form.Control className={styles.form_input} name="building" onChange={handleChangeAdress} />
-                                    </Form.Group>
-                                    <Form.Group as={Col} controlId="flatGroup">
-                                        <Form.Label className={styles.form_label}>Квартира</Form.Label>
-                                        <Form.Control className={styles.form_input} name="flat" onChange={handleChangeAdress} />
-                                    </Form.Group>
-                                </div>
-                            </Row>
-                            <Row>
-                                <Row style={{ display: showPostmanDelivery }}>
-                                    <Form.Group as={Col} controlId="groundGroup">
-                                        <Form.Label className={styles.form_label}>Поверх</Form.Label>
-                                        <Form.Control className={styles.form_input}
-                                            name="ground"
-                                            onChange={handleChangeGround}
-                                            value={activeAddress ? activeAddress.ground : ""} />
-                                    </Form.Group>
-                                    <Form.Group as={Col} controlId="elevatorGroup">
-                                        <Form.Label className={styles.form_label}>Ліфт</Form.Label>
-                                        <Form.Select className={styles.form_input2}
-                                            name="elevator"
-                                            id="idElevator"
-                                            value={activeAddress ? activeAddress.elevator : ""}
-                                            onChange={handleSelectElevator}>
-                                            <option value="" disabled={false} id="optEl1" key="optEl1">Наявність вантажного ліфта</option>
-                                            <option id="optEl2" key="optEl2">Відсутній</option>
-                                            <option id="optEl3" key="optEl3">Присутній</option>
-                                        </Form.Select>
-                                    </Form.Group>
-                                </Row>
-                            </Row>
-                            {visibleAddressField ? (
-                                <Row style={{ display: showPostmanDelivery }}>
-                                    <Col>
-                                        <div>
-                                            <Button onClick={handleShowAddAdress} id="btn-add-another-address">Додати адресу</Button>
-                                        </div>
-                                    </Col>
-                                </Row>
                             ) : (
                                 <></>
                             )}
-                            <Row style={{ display: showAddAddressBlock }}>
-                                <Col>
-                                    <Button onClick={handleAddAdress} id="btnAddAddress" disabled={isButtonDisabled}>Додати</Button>
-                                    <Button onClick={handleCancelAddAdress} id="btnCancelAddAddress">Скасувати</Button>
-                                </Col>
-                            </Row>
+                            <div style={{ display: showAddAddressBlock }} className={styles.street_div}>
+                                <Form.Group >
+                                    <Form.Label className={styles.form_label} htmlFor="street">Вулиця</Form.Label>
+                                    <Form.Control className={styles.form_floor}
+                                        type="text"
+                                        value={searchStreet}
+                                        name="street"
+                                        id="street"
+                                        onChange={(e) => setSearchStreet(e.target.value)}
+                                        ref={selectRef}
+                                    />
+                                    {filteredStreets.length > 0 && (
+                                        <ul className={styles.city_list} id="ulStreetSelect">
+                                            {filteredStreets.map((street) => (
+                                                <li
+                                                    key={street._id}
+                                                    id={street._id}
+                                                    onClick={() => handleSelectStreet(street)}
+                                                >
+                                                    {`${street.street_type} ${street.name}`}
+                                                </li>
+                                            ))}
+                                        </ul>
+                                    )}
+                                </Form.Group>
+                                <div className={styles.flex_row}>
+                                    <Form.Group controlId="buildingGroup">
+                                        <Form.Label className={styles.form_label}>Будинок</Form.Label>
+                                        <Form.Control className={styles.form_floor} name="building" onChange={handleChangeAdress} />
+                                    </Form.Group>
+                                    <Form.Group controlId="flatGroup">
+                                        <Form.Label className={styles.form_label}>Квартира</Form.Label>
+                                        <Form.Control className={styles.form_floor} name="flat" onChange={handleChangeAdress} />
+                                    </Form.Group>
+                                    <button onClick={handleAddAdress} id="btnAddAddress" disabled={isButtonDisabled}>Додати</button>
+                                    <button onClick={handleCancelAddAdress} id="btnCancelAddAddress">Скасувати</button>
+                                </div>
+                            </div>
+                            <div className={styles.group_floor}>
+                                <Form.Group controlId="groundGroup" className={styles.floor}>
+                                    <Form.Label className={styles.form_label}>Поверх</Form.Label>
+                                    <Form.Control className={styles.form_floor}
+                                        name="ground"
+                                        onChange={handleChangeGround}
+                                        value={activeAddress ? activeAddress.ground : ""} />
+                                </Form.Group>
+
+                                <Form.Group controlId="elevatorGroup" className={styles.floor}>
+                                    <Form.Label className={styles.form_label}>Ліфт</Form.Label>
+                                    <Form.Select className={styles.form_elevator}
+                                        name="elevator"
+                                        id="idElevator"
+                                        value={activeAddress ? activeAddress.elevator : ""}
+                                        onChange={handleSelectElevator}>
+                                        <option value="" disabled={false} id="optEl1" key="optEl1">Наявність ліфта</option>
+                                        <option id="optEl2" key="optEl2">Відсутній</option>
+                                        <option id="optEl3" key="optEl3">Присутній</option>
+                                    </Form.Select>
+                                </Form.Group>
+
+                            </div>
+                            <Form.Group controlId="formBasicCheckbox" className={styles.lift_up}>
+                                <Form.Check type="checkbox" label="Підняти на поверх" />
+                            </Form.Group>
+                            <div className={styles.shiping_line}></div>
+                            <Container className={styles.bottom}>
+                                <Row className={styles.deltime_text}>Вкажіть зручний день та час для доставки</Row>
+                                <Row className={styles.shipping_time}>
+                                    <button id="kiev">14 травня</button>
+                                    <button id="kharkiv">15 травня</button>
+                                    <button id="kharkiv">16 травня</button>
+                                    <button id="lviv">17 травня</button>
+                                </Row>
+                                <Row className={styles.shipping_time}>
+                                    <button id="frankivsk">10:00-12:00</button>
+                                    <button id="odesa">12:00-14:00</button>
+                                    <button id="kharkiv">14:00-16:00</button>
+                                    <button id="dnipro">16:00-18:00</button>
+                                </Row>
+                            </Container >
+
                         </Row>
                         <Row>
                             <Col>
@@ -493,7 +503,7 @@ export default function Shipping({ user, activeAddress, setActiveAddress, countr
                         </Row>
                     </Form.Group>
                 </Row>
-            </Form>
+            </Form >
         </>
     )
 }
