@@ -5,7 +5,6 @@ import { useState, useEffect } from "react";
 import ComparisonListModal from "./ComparisonListModal";
 import Link from "next/link";
 import LoopIcon from "../icons/LoopIcon";
-import ThemeIcon from "../icons/ThemeIcon";
 import HeartIcon from "../icons/HeartIcon";
 import CartIcon from "../icons/CartIcon";
 import AccountIcon from "../icons/AccountIcon";
@@ -14,22 +13,26 @@ import Cart from "../cart";
 import WishList from "../wishlist";
 import MyCabinet from "../mycabinet";
 import ScalesIcon from "../icons/ScalesIcon";
-import ThemeSwitcher from './ThemeSwitcher';
 import { saveWishList } from "@/requests/user";
+import ThemeSwitcher from "./ThemeSwitcher";
+
 
 export default function Header({ country }) {
   const { data: session, status } = useSession();
   const cart = useSelector((state) => state.cart);
   const wishList = useSelector((state) => state.wishList);
+  const scaleList = useSelector((state) => state.scaleList);
   const [cartShow, setCartShow] = useState(false);
   const [wishShow, setWishShow] = useState(false);
   const [scaleShow, setScaleShow] = useState(false);
-  const [language1, setLanguage1] = useState(false);
+  const [language1, setLanguage1] = useState(true);
   const [language2, setLanguage2] = useState(false);
   const [themeChange, setThemeChange] = useState(false);
   const [myCabinetOpen, setMyCabinetOpen] = useState(false);
   const [comparisonChange, setСomparisonChange] = useState(false);
   const [error, setError]= useState({inCartError:false, uidProduct:""});
+  const [divVisible, setDivVisible] = useState(true);
+
 
 
   // useEffect(() => {
@@ -43,8 +46,10 @@ export default function Header({ country }) {
   //   }
   // }, [wishList, session])
   const getScaleItemsCount = () => {
-    //TODO implement
-    return 0;
+    return scaleList.scaleListItems.reduce(
+      (acc, cur) => acc + cur.items.length,
+      0
+    );
   };
 
   const getWishItemsCount = () => {
@@ -65,17 +70,23 @@ export default function Header({ country }) {
     setLanguage1(true)
     setLanguage2(false)
   }
-
   const handleBtn2Click = () => {
     setLanguage2(true)
     setLanguage1(false)
   }
 
-
+  useEffect(() => {
+    if (window.location.pathname === "/checkout") {
+      setDivVisible(false)
+    } else {
+      setDivVisible(true)
+    }
+  })
 
   return (
     <div className={styles.main}>
-      <div className={styles.headertop}>
+      <div className={styles.headertop} style={{ display: divVisible ? 'flex' : 'none' }}>
+
         <section>
           <ul>
             <li>
@@ -90,7 +101,8 @@ export default function Header({ country }) {
             </li>
           </ul>
         </section>
-        {/* <ThemeSwitcher onColor={"#FAF8FF"} offColor={"#585068"} isChecked={themeChange} handleSwitch={() => setThemeChange(!themeChange)} /> */}
+
+        <ThemeSwitcher onColor={"#FAF8FF"} offColor={"#585068"} isChecked={themeChange} handleSwitch={() => setThemeChange(!themeChange)} />
       </div>
       <div className={styles.main_container}>
         <Link href="/">
@@ -98,34 +110,37 @@ export default function Header({ country }) {
             <Image src="../../../logo/logo_light.png" alt="logo" height="60px" />
           </div>
         </Link>
-        <div className={styles.search}>
-          <div className={styles.search_flex}>
-            <input type="text" placeholder="Я шукаю..." />
-            <button>
-              <LoopIcon fillColor="#FAF8FF" />
-            </button>
+          <div className={styles.search} style={{ width: divVisible ? '65%' : '10%' }}>
+            <div className={styles.search_flex} style={{ display: divVisible ? 'flex' : 'none' }}>
+              <input type="text" placeholder="Я шукаю..." />
+              <button>
+                <LoopIcon fillColor="#FAF8FF" />
+              </button>
+            </div>
           </div>
-        </div>
-        <div className={styles.btnpannel}>
-          <div className={styles.cart}>
-            <button onClick={() => setScaleShow(true)} style={{ backgroundColor: comparisonChange ? "#220F4B" : "#FAF8FF" }}>
-              <ScalesIcon fillColor={comparisonChange ? "#FAF8FF" : "#220F4B"} />
-            </button>
-            <span> {getScaleItemsCount()}</span>
+          <div className={styles.checkout_header} style={{ display: divVisible ? 'none' : 'flex' }}>
+             <p>Консультації по телефону <span>+38 023 652 12 56</span> Графік роботи Call-центру</p>
           </div>
-          <div className={styles.cart}>
-            <button onClick={() => setWishShow(true)} style={{ backgroundColor: wishShow ? "#220F4B" : "#FAF8FF" }}>
-              <HeartIcon fillColor={wishShow ? "#FAF8FF" : "#220F4B"} />
-            </button>
-            <span> {getWishItemsCount()}</span>
-          </div>
-          <div className={styles.cart}>
-            <button onClick={() => setCartShow(true)} style={{ backgroundColor: cartShow ? "#220F4B" : "#FAF8FF" }}>
-              <CartIcon fillColor={cartShow ? "#FAF8FF" : "#220F4B"} />
-            </button>
-            <span> {getItemsCount()}</span>
-          </div>
-          <Cart
+          <div className={styles.btnpannel} style={{ display: divVisible ? 'flex' : 'none' }}>
+            <div className={styles.cart}>
+              <button onClick={() => setScaleShow(true)} style={{ backgroundColor: scaleShow ? "#220F4B" : "#FAF8FF" }}>
+                <ScalesIcon  fillColor={scaleShow ? "#FAF8FF" : "#220F4B"}/>
+              </button>
+              <span> {getScaleItemsCount()}</span>
+            </div>
+            <div className={styles.cart}>
+              <button onClick={() => setWishShow(true)} style={{ backgroundColor: wishShow ? "#220F4B" : "#FAF8FF" }}>
+                <HeartIcon fillColor={wishShow ? "#FAF8FF" : "#220F4B"} />
+              </button>
+              <span> {getWishItemsCount()}</span>
+            </div>
+            <div className={styles.cart}>
+              <button onClick={() => setCartShow(true)} style={{ backgroundColor: cartShow ? "#220F4B" : "#FAF8FF" }}>
+                <CartIcon fillColor={cartShow ? "#FAF8FF" : "#220F4B"} />
+              </button>
+              <span> {getItemsCount()}</span>
+            </div>
+            <Cart
             show={cartShow}
             onHide={() => setCartShow(false)}
             error={error}
@@ -137,33 +152,34 @@ export default function Header({ country }) {
             error={error}
             setError={setError}
           />
-          <ComparisonListModal
-            show={scaleShow}
-            onHide={() => setScaleShow(false)}
-          />
-          {session && status == "authenticated" ? (
-            //TODO change
-            <div className={styles.cart}>
-              <button
-                style={{ backgroundColor: "#220F4B" }}
-                onClick={() => setMyCabinetOpen(true)}
-              >
-                <AccountIcon fillColor={"#FAF8FF"} />
-                {/* <img src={"/"+session.user.image} alt="profile"/> */}
-                {/* {session.user.name} */}
+            <ComparisonListModal
+              show={scaleShow}
+              onHide={() => setScaleShow(false)}
+            />
+            {session && status == "authenticated" ? (
+              //TODO change
+              <div className={styles.cart}>
+                <button
+                  style={{ backgroundColor: "#220F4B" }}
+                  onClick={() => setMyCabinetOpen(true)}
+                >
+                  <AccountIcon fillColor={"#FAF8FF"} />
+                  {/* <img src={"/"+session.user.image} alt="profile"/> */}
+                  {/* {session.user.name} */}
+                </button>
+              </div>
+
+            ) : (
+              <button onClick={() => setMyCabinetOpen(true)}>
+                <AccountIcon fillColor={"#220F4B"} />
               </button>
-            </div>
-          ) : (
-            <button onClick={() => setMyCabinetOpen(true)}>
-              <AccountIcon fillColor={"#220F4B"} />
-            </button>
-          )}
-          <MyCabinet
-            show={myCabinetOpen}
-            onHide={() => setMyCabinetOpen(false)}
-          />
+            )}
+            <MyCabinet
+              show={myCabinetOpen}
+              onHide={() => setMyCabinetOpen(false)}
+            />
+          </div>
         </div>
-      </div>
     </div>
   );
 }

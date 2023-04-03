@@ -4,9 +4,8 @@ import styles from "./styles.module.scss";
 import React, { useRef } from "react";
 import { useState } from "react";
 import Link from "next/link";
-import Star from "@/components/icons/Star";
-import Rating from "react-rating";
 import Images from "./Images";
+import { Rating } from "react-simple-star-rating";
 import dataURItoBlob from "@/utils/dataURItoBlob";
 import { uploadImages } from "@/requests/upload";
 import axios from "axios";
@@ -147,14 +146,15 @@ export default function LeaveFeedback({ show, onHide, product, setProductReview 
 
             <Form.Group className={styles.form__stars}>
               <Rating
-                start={0}
-                stop={5}
-                initialRating={form.rating}
-                step={1}
-                fractions={2}
-                emptySymbol={<Star fillColor="transparent" />}
-                fullSymbol={<Star fillColor="#70BF63" />}
-                onChange={(rating) => { setField("rating", rating.initialRating); console.log("rating", rating); }}
+                SVGstyle={{ margin: "0 10px" }}
+                initialValue={form.rating}
+                ratingValue
+                size={56}
+                SVGstrokeColor="#70BF63"
+                SVGstorkeWidth={1}
+                emptyColor="transparent"
+                fillColor="#70BF63"
+                onChange={(rating) => { setField("rating", rating.ratingValue); console.log("rating", rating); }}
               />
             </Form.Group>
 

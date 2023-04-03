@@ -1,19 +1,14 @@
 import { configureStore } from "@reduxjs/toolkit";
 import { combineReducers } from "redux";
 import thunk from "redux-thunk";
-//import storage from 'redux-persist/lib/storage'
-//import AsyncStorage from '@react-native-community/async-storage';
-//import AsyncStorage from '@react-native-async-storage/async-storage';
 import createWebStorage from "redux-persist/lib/storage/createWebStorage";
 import { persistReducer } from "redux-persist";
 import cart from "./cartSlice"
 import wishList from "./wishListSlice"
 import dialog from "./DialogSlice"
-//import {cartReducer} from "./cartSlice";
+import scaleList from "./scaleListSlice"
 
-
-const reducers = combineReducers({ cart, wishList , dialog});
-
+const reducers = combineReducers({ cart, wishList , dialog, scaleList});
 
 const createNoopStorage = () => {
     return {

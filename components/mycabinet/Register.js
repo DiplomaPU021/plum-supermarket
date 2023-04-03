@@ -9,6 +9,7 @@ import { Formik } from "formik"
 import axios from "axios";
 import DotLoaderSpinner from '@/components/loaders/dotLoader';
 import { useSession } from "next-auth/react";
+import { Container, Row, Col, Image } from "react-bootstrap"
 
 
 const initialvalues = {
@@ -131,102 +132,112 @@ export default function Register({
             {
                 loading && <DotLoaderSpinner loading={loading} />
             }
-            <Formik
-                enableReinitialize
-                initialValues={{
-                    firstName,
-                    lastName,
-                    phoneNumber,
-                    email,
-                    password,
-                    conf_password,
-                }}
-                initialErrors={{ error }}
-                validationSchema={registerValidation}
-                onSubmit={(e) => {
-                    e.preventDefault(e);
-                }}>
-                {(formik) => (
-                    <Form method="post">
-                        <Form.Group className="mb-3" controlId="groupSurname">
-                            <Form.Label className={styles.formlabel}>Прізвище</Form.Label>
-                            <Form.Control className={styles.forminput} name="lastName"
-                                value={formik.values.lastName}
-                                onChange={(e) => { formik.handleChange(e); handleChangeCredencials(e) }}
-                                isInvalid={!!formik.errors.lastName}
-                            />
-                            <Form.Control.Feedback type="invalid">{formik.errors.lastName}
-                            </Form.Control.Feedback>
-                        </Form.Group>
-                        <Form.Group className="mb-3" controlId="groupName">
-                            <Form.Label className={styles.formlabel}>Імя</Form.Label>
-                            <Form.Control className={styles.forminput}
-                                name="firstName"
-                                value={formik.values.firstName}
-                                onChange={(e) => { formik.handleChange(e); handleChangeCredencials(e) }}
-                                isInvalid={!!formik.errors.firstName} />
-                            <Form.Control.Feedback type="invalid">{formik.errors.firstName}
-                            </Form.Control.Feedback>
-                        </Form.Group>
-                        <Form.Group className="mb-3" controlId="groupPhone">
-                            <Form.Label className={styles.formlabel}>Телефон</Form.Label>
-                            <Form.Control className={styles.forminput}
-                                name="phoneNumber"
-                                value={formik.values.phoneNumber}
-                                onChange={(e) => { formik.handleChange(e); handleChangeCredencials(e) }}
-                                isInvalid={!!formik.errors.phoneNumber} />
-                            <Form.Control.Feedback type="invalid">{formik.errors.phoneNumber}
-                            </Form.Control.Feedback>
-                        </Form.Group>
-                        <Form.Group className="mb-3" controlId="groupEmail">
-                            <Form.Label className={styles.formlabel}>Електронна пошта</Form.Label>
-                            <Form.Control className={styles.forminput} type="email"
-                                name="email"
-                                value={formik.values.email}
-                                onChange={(e) => { formik.handleChange(e); handleChangeCredencials(e) }}
-                                isInvalid={!!formik.errors.email || formik.initialErrors.error} />
-                            <Form.Control.Feedback type="invalid">{formik.errors.email}{formik.initialErrors.error}
-                            </Form.Control.Feedback>
-                        </Form.Group>
-                        <Form.Group className="mb-3" controlId="groupPassword">
-                            <Form.Label className={styles.formlabel}>Пароль</Form.Label>
-                            <Form.Control className={styles.forminput}
-                                type="password"
-                                name="password"
-                                value={formik.values.password}
-                                onChange={(e) => { formik.handleChange(e); handleChangeCredencials(e) }}
-                                isInvalid={!!formik.errors.password} />
-                            <Form.Control.Feedback type="invalid">{formik.errors.password}
-                            </Form.Control.Feedback>
-                        </Form.Group>
-                        <Form.Group className="mb-3" controlId="groupConfirmPassword">
-                            <Form.Label className={styles.formlabel}>Підтвердити пароль</Form.Label>
-                            <Form.Control className={styles.forminput}
-                                type="password"
-                                name="conf_password"
-                                value={formik.values.conf_password}
-                                onChange={(e) => { formik.handleChange(e); handleChangeCredencials(e) }}
-                                isInvalid={!!formik.errors.conf_password} />
-                            <Form.Control.Feedback type="invalid">{formik.errors.conf_password}
-                            </Form.Control.Feedback>
-                        </Form.Group>
-                        <button className={styles.loginbtn2} variant="primary" onClick={(e) => {
-                            signUpHandler(e);
-                        }}>
-                            Зареєструватись
-                        </button>
-                    </Form>
-                )}
-            </Formik>
-            <ContinueWith
-                setLogShow={setLogShow}
-                setRegShow={setRegShow}
-                setCongratsShow={setCongratsShow}
-                setAuthShow={setAuthShow}
-                setUserProfileShow={setUserProfileShow}
-            />
-            <p>Ви вже маєте акаунт? <span className={styles.register} onClick={switchToLogin}>Увійти</span></p>
-            <p className={styles.policy}>Реєструючись, ви погоджуєтеся з умовами положення про обробку і захист персональних даних та угодою користувача</p>
+            <Container className={styles.login_container}>
+                <Row>
+                    <Col>
+                        <Image src='../../../images/register.jpg' width="463px" height="528px" />
+                    </Col>
+                    <Col>
+                        <Formik
+                            enableReinitialize
+                            initialValues={{
+                                firstName,
+                                lastName,
+                                phoneNumber,
+                                email,
+                                password,
+                                conf_password,
+                            }}
+                            initialErrors={{ error }}
+                            validationSchema={registerValidation}
+
+                            onSubmit={(e) => {
+                                e.preventDefault(e);
+                            }}>
+                            {(formik) => (
+                                <Form method="post" className={styles.reg_forms}>
+                                    {/* <Form.Group className="mb-3" controlId="groupSurname">
+                                        <Form.Label className={styles.formlabel}>Прізвище</Form.Label>
+                                        <Form.Control className={styles.forminput} name="lastName"
+                                            value={formik.values.lastName}
+                                            onChange={(e) => { formik.handleChange(e); handleChangeCredencials(e) }}
+                                            isInvalid={!!formik.errors.lastName}
+                                        />
+                                        <Form.Control.Feedback type="invalid">{formik.errors.lastName}
+                                        </Form.Control.Feedback>
+                                    </Form.Group>
+                                    <Form.Group className="mb-3" controlId="groupName">
+                                        <Form.Label className={styles.formlabel}>Імя</Form.Label>
+                                        <Form.Control className={styles.forminput}
+                                            name="firstName"
+                                            value={formik.values.firstName}
+                                            onChange={(e) => { formik.handleChange(e); handleChangeCredencials(e) }}
+                                            isInvalid={!!formik.errors.firstName} />
+                                        <Form.Control.Feedback type="invalid">{formik.errors.firstName}
+                                        </Form.Control.Feedback>
+                                    </Form.Group>
+                                    <Form.Group className="mb-3" controlId="groupPhone">
+                                        <Form.Label className={styles.formlabel}>Телефон</Form.Label>
+                                        <Form.Control className={styles.forminput}
+                                            name="phoneNumber"
+                                            value={formik.values.phoneNumber}
+                                            onChange={(e) => { formik.handleChange(e); handleChangeCredencials(e) }}
+                                            isInvalid={!!formik.errors.phoneNumber} />
+                                        <Form.Control.Feedback type="invalid">{formik.errors.phoneNumber}
+                                        </Form.Control.Feedback>
+                                    </Form.Group> */}
+                                    <Form.Group className="mb-3" controlId="groupEmail">
+                                        <Form.Label className={styles.formlabel}>Електронна пошта</Form.Label>
+                                        <Form.Control className={styles.forminput} type="email"
+                                            name="email"
+                                            value={formik.values.email}
+                                            onChange={(e) => { formik.handleChange(e); handleChangeCredencials(e) }}
+                                            isInvalid={!!formik.errors.email || formik.initialErrors.error} />
+                                        <Form.Control.Feedback type="invalid">{formik.errors.email}{formik.initialErrors.error}
+                                        </Form.Control.Feedback>
+                                    </Form.Group>
+                                    <Form.Group className="mb-3" controlId="groupPassword">
+                                        <Form.Label className={styles.formlabel}>Пароль</Form.Label>
+                                        <Form.Control className={styles.forminput}
+                                            type="password"
+                                            name="password"
+                                            value={formik.values.password}
+                                            onChange={(e) => { formik.handleChange(e); handleChangeCredencials(e) }}
+                                            isInvalid={!!formik.errors.password} />
+                                        <Form.Control.Feedback type="invalid">{formik.errors.password}
+                                        </Form.Control.Feedback>
+                                    </Form.Group>
+                                    <Form.Group className="mb-3" controlId="groupConfirmPassword">
+                                        <Form.Label className={styles.formlabel}>Підтвердити пароль</Form.Label>
+                                        <Form.Control className={styles.forminput}
+                                            type="password"
+                                            name="conf_password"
+                                            value={formik.values.conf_password}
+                                            onChange={(e) => { formik.handleChange(e); handleChangeCredencials(e) }}
+                                            isInvalid={!!formik.errors.conf_password} />
+                                        <Form.Control.Feedback type="invalid">{formik.errors.conf_password}
+                                        </Form.Control.Feedback>
+                                    </Form.Group>
+                                    <button className={styles.loginbtn2} variant="primary" onClick={(e) => {
+                                        signUpHandler(e);
+                                    }}>
+                                        Зареєструватись
+                                    </button>
+                                    <ContinueWith
+                                        setLogShow={setLogShow}
+                                        setRegShow={setRegShow}
+                                        setCongratsShow={setCongratsShow}
+                                        setAuthShow={setAuthShow}
+                                        setUserProfileShow={setUserProfileShow}
+                                    />
+                                </Form>
+                            )}
+                        </Formik>
+                        <div className={styles.regSwitch}> <p>Ви вже маєте акаунт? <span className={styles.register} onClick={switchToLogin}>Увійти</span></p></div>
+                    </Col>
+                    <p className={styles.policy}>Реєструючись, ви погоджуєтеся з умовами положення про обробку і захист персональних даних та угодою користувача</p>
+                </Row>
+            </Container>
         </Modal.Body>
     )
 }

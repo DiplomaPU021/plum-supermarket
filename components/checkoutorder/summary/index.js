@@ -186,9 +186,7 @@ export default function Summary({
                                     )}
                                     <li><div className={styles.litext_btn}><p>До сплати:</p><h3>{Math.round(totalAfterDiscount).toLocaleString()} ₴</h3></div></li>
                                 </ul>
-                                <Button className={styles.small_sbm}
-                                    onClick={() => sendOrder()}
-                                >Підтвердити</Button>
+                                <Button className={styles.small_sbm} onClick={() => sendOrder()}>Підтвердити</Button>
         
                             </div>
                             <div>

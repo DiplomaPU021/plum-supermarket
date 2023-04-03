@@ -53,15 +53,13 @@
                 border: 2px solid $plum-dark-color;
                 background-color: $light-wheet-color;
                 position: absolute;
-                //left: 245px;
-                //top: 24px;
                 right: 0;
                 top: 0;
                 display: flex;
                 flex-direction: column;
                 justify-content: center;
                 align-items: center;
-                padding: 11px;
+                padding: 0;
                 gap: 51px;
                 flex: none;
                 order: 1;
@@ -70,6 +68,7 @@
                 &:hover {
                     background-color: $light-wheet-color;
                     border: 2px solid $plum-dark-color;
+                    box-shadow: 0px 0px 5px 0px #220F4B;
                 }
             }
         }
@@ -169,6 +168,7 @@
 
 
 .btnscales {
+    padding: 0;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -181,10 +181,12 @@
     &:hover {
         background-color: $light-wheet-color;
         border: 2px solid $plum-dark-color;
+        box-shadow: 0px 0px 5px 0px #220F4B;
     }
 }
 
 .btncart {
+    padding: 0;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -197,6 +199,7 @@
     &:hover {
         background-color: $plum-dark-color;
         border: 2px solid $plum-dark-color;
+        box-shadow: 0px 0px 5px 0px #220F4B;
     }
 }
 

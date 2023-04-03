@@ -1,6 +1,7 @@
 import nc from "next-connect";
 import Product from "@/models/Product";
 import db from "@/utils/db";
+import SubCategory from "@/models/SubCategory";
 
 const handler = nc();
 
@@ -11,7 +12,9 @@ handler.get(async (req, res) => {
         const style = req.query.style;
         const mode = req.query.code;
          //const code = 0;
-        const product = await Product.findById(id).lean();
+        const product = await Product.findById(id)
+        .populate({ path: "subCategories", model: SubCategory })
+        .lean();
         let discount = product.subProducts[style].discount;
         let price = product.subProducts[style].sizes[mode].price;
         let priceAfter = discount ? (100-discount)*price/100 : price
@@ -24,7 +27,8 @@ handler.get(async (req, res) => {
             slug: product.slug,
             brand: product.brand,
             category_id: product.category,
-            subCategory_id: product.subCategories[0],
+            subCategory_id: product.subCategories[0]._id,
+            subCategoryName: product.subCategories[0].name,
             details: product.details,
             // shipping: product.shipping,
             code: product.subProducts[style].sizes[mode].code,

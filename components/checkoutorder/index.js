@@ -38,8 +38,8 @@ export default function CheckoutOrder({
     // }, []);
 
     return (
-     <div>
-            <Container className={styles.container}>
+      <div>
+            <Container fluid className={styles.container}>
                 <Row className={styles.row}>
                     <div className={styles.leftsale}>Оформлення замовлення</div>
                 </Row>
@@ -70,8 +70,8 @@ export default function CheckoutOrder({
                     </Col>
                 </Row>
             </Container>
-            <SimpleCopyright />
-        </div>
+             <SimpleCopyright />
+         </div>
     )
 }
 

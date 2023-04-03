@@ -10,6 +10,7 @@ import { useState } from "react";
 import LeaveFeedback from "../leaveFeedback";
 import { useSession } from "next-auth/react";
 import MyCabinet from "@/components/mycabinet";
+import Star from "@/components/icons/Star";
 
 
 export default function Reviews({ product, productReview, setProductReview }) {
@@ -56,14 +57,14 @@ export default function Reviews({ product, productReview, setProductReview }) {
                     <span>{review.review}</span>
                     <span>{review.advantages}</span>
                     <span>{review.disadvantages}</span>
-                    <span>{review.images.map((img)=>(                     
+                    <span>{review.images.map((img) => (
                       <Image key={img.public_url}
-                      className={styles.swiper__simillarswiper_image}
-                      src={img.url}
-                      alt=""    
-                      width="100px"  
-                      height="100px"    
-                    />
+                        className={styles.swiper__simillarswiper_image}
+                        src={img.url}
+                        alt=""
+                        width="100px"
+                        height="100px"
+                      />
                     ))}</span>
 
                   </Col>
@@ -86,9 +87,9 @@ export default function Reviews({ product, productReview, setProductReview }) {
                       ))} */}
                       {Array(5).fill().map((_, index) => (
                         index < review.rating ? (
-                          <StarIcon key={index} fillColor="#220F4B" />
+                          <Star fillColor="#220F4B" height={24} width={24} stroke="#220F4B" />
                         ) : (
-                          <StarIcon key={index} fillColor="#70BF63" />
+                          <Star fillColor="transparent" height={24} width={24} stroke="#70BF63" />
                         )
                       ))}
                     </div>
@@ -114,62 +115,6 @@ export default function Reviews({ product, productReview, setProductReview }) {
               <></>
             )
             }
-
-
-            {/* <Row className={styles.reviews__scrollFrame_review}>
-              <Col className={styles.text}>
-                <span>Василь Петрович</span>
-                <span>
-                  Перший макбук. Відчуття від роботи на ньому неймовірні. Довго
-                  вагався при виборі у порівнянні з ультрабуками за таку ж ціну.
-                  Після старенького ноутбуку який тримав від сили 2 години - 12
-                  годин це просто чудо.
-                </span>
-                <span>
-                  Переваги: Екосистема епл, екран, тач панель казкова, повсюду
-                  метал що дуже приємно, нічого не гуде та шумить бо охолодження
-                  пасивне, автономність дуже круто допомагає в періоди
-                  відсутності електрики
-                </span>
-                <span>
-                  Недоліки: Не знаю поки що тут писати. Є певні недоліки в осі,
-                  але це терпимо. Також потрібен кишеньковий ССД якщо обираєте
-                  мінімальну комплектацію, або підписка на хмару.
-                </span>
-              </Col>
-              <Col className={styles.answer}>
-
-                <button>
-                  Відповісти{" "}
-                  <ChevronRight fillColor="#70BF63" w="30px" h="30px" />
-                </button>
-              </Col>
-              <Col className={styles.line}></Col>
-              <Col className={styles.starsLikes}>
-                <div className={styles.starsLikes_stars}>
-                  <StarIcon fillColor="#220F4B" />
-                  <StarIcon fillColor="#220F4B" />
-                  <StarIcon fillColor="#220F4B" />
-                  <StarIcon fillColor="#220F4B" />
-                  <StarIcon fillColor="#70BF63" />
-                </div>
-                <div className={styles.starsLikes_likes}>
-                  <div className={styles.starsLikes_likes_like}>
-                    <span>0</span>
-                    <button>
-                      <DisLikeIcon fillColor="#220F4B" />
-                    </button>
-                  </div>
-                  <div className={styles.starsLikes_likes_like}>
-                    <span>12</span>
-                    <button>
-                      <LikeIcon fillColor="#220F4B" />
-                    </button>
-                  </div>
-                </div>
-              </Col>
-            </Row> */}
-
           </Col>
         </Col>
       </div>

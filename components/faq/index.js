@@ -45,7 +45,7 @@ export default function FAQ() {
       </Row>
       <Row>
         <Col className={styles.helpCenter__more}>
-          <span>Більше відвовідей шукайте тут</span>
+          <span>Більше відповідей шукайте тут</span>
           <button>Довідковий центр PLUM</button>
         </Col>
       </Row>

@@ -6,28 +6,96 @@ import Footer from "@/components/footer";
 import { getCountryData } from "@/utils/country";
 import db from "@/utils/db";
 import Product from "@/models/Product";
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import Popular from "@/components/popular";
 import ComparisonCard from "@/components/comparisonCard";
 import DeleteIcon from "@/components/icons/DeleteIcon";
-import InfoModal from "./InfoModal";
+import Info from "./Info";
 import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
 import "swiper/css/pagination";
 import { Navigation } from "swiper";
+import ChevronLeft from "@/components/icons/ChevronLeft";
+import ChevronRight from "@/components/icons/ChevronRight";
+import { useSelector, useDispatch } from "react-redux";
+import Link from "next/link";
+import { removeFromScaleList } from "@/store/scaleListSlice";
 
-export default function ComparisonPage({ products, country }) {
+export default function ComparisonPage({ products, country, subCategory_id }) {
   const [checked, setChecked] = useState(false);
-  const [show, setShow] = useState(false);
+  const [showTooltip, setShowTooltop] = useState(false);
 
-  const toggleShow = () => setShow(!show);
+  const tooltipShow = () => setShowTooltop(!showTooltip);
+  const target = useRef(null);
+  const dispatch = useDispatch();
+
+  const [numCards, setNumCards] = useState(3);
+  const [widthEmptyCard, setWidthEmptyCard] = useState(3);
+  const [widthCards, setWidthCards] = useState(9);
+
+  const scaleList = useSelector((state) => state.scaleList);
+
+  useEffect(() => {
+    const handleResize = () => {
+      const screenWidth = window.innerWidth;
+      let newNumCards, newWidthEmptyCard, newWidthCards;
+      if (screenWidth >= 1600) {
+        newNumCards = 4;
+        newWidthEmptyCard = 3;
+        newWidthCards = 9;
+      } else if (screenWidth >= 1400) {
+        newNumCards = 3;
+        newWidthEmptyCard = 3;
+        newWidthCards = 9;
+      } else {
+        newNumCards = 2;
+        newWidthEmptyCard = 4;
+        newWidthCards = 8;
+      }
+      setNumCards(newNumCards);
+      setWidthEmptyCard(newWidthEmptyCard);
+      setWidthCards(newWidthCards);
+    };
+    handleResize();
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
+
+  const subCategory = scaleList.scaleListItems.find(
+    (item) => item.subCategory_id === subCategory_id
+  );
+  // const [groupedProducts, setGroupedProducts] = useState({});
+  // const [detailNames, setDetailNames] = useState([]);
+  
+  // useEffect(() => {
+  //   const groups = subCategory.items.reduce((acc, product) => {
+  //     product.details.forEach(detail => {
+  //       if (!acc[detail.name]) {
+  //         acc[detail.name] = [];
+  //       }
+  //       acc[detail.name].push(product);
+  //     });
+  //     return acc;
+  //   }, {});
+
+  //   const names = Object.keys(groups);
+  //   setGroupedProducts(groups);
+  //   setDetailNames(names);
+  // }, [subCategory.items]);
+  // console.log("prods", detailNames);
+
+  const deleteGroupHadler = (subCategory) => {
+    dispatch(removeFromScaleList({ ...subCategory }));
+  };
 
   return (
     <Container fluid className={styles.comparison}>
       <Header country={country} />
       <Row className={styles.comparison__title}>
         <Col className={styles.comparison__title_name}>
-          <span>Порівнюємо ноутбуки</span>
+          <span>
+            Порівнюємо {subCategory ? subCategory.subCategoryName : ""}
+          </span>
         </Col>
       </Row>
       <Row className={styles.comparison__parameters}>
@@ -46,117 +114,144 @@ export default function ComparisonPage({ products, country }) {
         </Col>
       </Row>
       <Row className={styles.comparison__cards}>
-        <Col
-          style={{ padding: "0", display: "flex", border: "2px solid green" }}
-        >
-          <Col className={styles.comparison__cards_empty}>
+        <Col lg={widthEmptyCard} className={styles.colEmpty}>
+          <Col className={styles.colEmpty__empty}>
             <button className={styles.btnscales}>
-              <img src="../icons/plus_green.png" alt="" />
+              <Link href={"/"}>
+                <img src="../icons/plus_green.png" alt="" />
+              </Link>
             </button>
             <span>Додати до порівняння </span>
             <div className={styles.line}></div>
             <div>
               <span>Очистити все</span>
-              <button className={styles.btnscales}>
+              <button
+                className={styles.btnscales}
+                onClick={() => deleteGroupHadler(subCategory)}
+              >
                 <DeleteIcon fillColor={"#220F4B"} />
               </button>
             </div>
           </Col>
         </Col>
-        <Swiper
-          style={{ 
-            padding: "0",
-            display: "grid", 
-            border: "2px solid blue",
-           }}
-          slidesPerView={3}
-          spaceBetween={0}
-          navigation={{
-            prevEl: ".image-swiper-button-prev",
-            nextEl: ".image-swiper-button-next",
-            disabledClass: "swiper-button-disabled",
-          }}
-          loop={true}
-          modules={[Navigation]}
+        <Col
+          style={{ display: subCategory ? "block" : "none" }}
+          lg={widthCards}
+          className={styles.row}
         >
-          {products.map((p, i) => (
-            <SwiperSlide key={i}>
-              <Col
-                style={{
-                  padding: "0",
-                  display: "flex",
-                }}
-              >
-                <ComparisonCard product={p} />
-              </Col>
-            </SwiperSlide>
-          ))}
-        </Swiper>
+          <button
+            className={`${styles.btnl} swiper-button image-swiper-button-prev`}
+          >
+            <ChevronLeft fillColor="#220F4B" w="24" h="24" />
+          </button>
+          <Swiper
+            slidesPerView={numCards}
+            spaceBetween={0}
+            navigation={{
+              prevEl: ".image-swiper-button-prev",
+              nextEl: ".image-swiper-button-next",
+              disabledClass: "swiper-button-disabled",
+            }}
+            modules={[Navigation]}
+          >
+            {subCategory
+              ? subCategory.items.map((p, i) => (
+                  <SwiperSlide
+                    key={i}
+                    style={{ position: "absolute !important" }}
+                  >
+                    <Col className={styles.col}>
+                      <ComparisonCard product={p} />
+                    </Col>
+                  </SwiperSlide>
+                ))
+              : null}
+          </Swiper>
+          <button
+            className={`${styles.btnr} swiper-button image-swiper-button-next`}
+          >
+            <ChevronRight fillColor="#220F4B" w="24" h="24" />
+          </button>
+        </Col>
       </Row>
       <Accordion
         flush
         alwaysOpen
         defaultActiveKey="0"
+        style={{ display: subCategory ? "block" : "none" }}
         className={styles.accordion}
       >
         <Accordion.Item eventKey="0" className={styles.accordion__item}>
           <Accordion.Header className={styles.accordion__item_header}>
             <span>First Name</span>
           </Accordion.Header>
-          <Accordion.Body className={styles.accordion__item_body}>
-            <InfoModal
-              show={show}
-              onHide={toggleShow}
-              title={"title"}
-              info={"info"}
-            />
-            <table>
-              <tbody>
-                <tr>
-                  <td>
-                    Кількість слотів для оперативної пам'яті
-                    <img src="../../icons/help_light.png" alt="" />
-                  </td>
-                  <td>Восьмиядерний Apple M1</td>
-                  <td>Otto</td>
-                  <td>@mdo</td>
-                </tr>
-                <tr>
-                  <td>
-                    Jacob
-                    <img
-                      src="../../icons/help_light.png"
-                      alt=""
-                      onMouseEnter={toggleShow}
-                    />
-                  </td>
-                  <td>Thornton</td>
-                  <td>
-                    HD-камера FaceTime. 720p Технологія True
-                    ToneSSD-накопичувач. PCIeTouch ID. Стереодинаміки. Широке
-                    стерео. Підтримка відтворення контенту у форматі Dolby
-                    Atmos. Система з трьох спрямованих мікрофонів. Клавіатура
-                    Magic Keyboard з підсвіткою. Датчик зовнішньої освітленості.
-                    Трекпад Force Touch
-                  </td>
-                  <td>trtrtr</td>
-                </tr>
-                <tr>
-                  <td>
-                    Larry the Bird
-                    <img src="../../icons/help_light.png" alt="" />
-                  </td>
-                  <td>Larry the Bird</td>
-                  <td>Larry the Bird</td>
-                  <td>
-                    2 х USB 3.2 Type-C Gen 2 (Thunderbolt 4)/2 x USB 3.2 Gen
-                    1/HDMI/комбінований аудіороз'єм для
-                    навушників/мікрофона/кардридер MicroSD
-                  </td>
-                </tr>
-              </tbody>
-            </table>
-          </Accordion.Body>
+          {/* {subCategory.items.slice(0, numCards).map(( p, i) => (
+            <Accordion.Body key={i} className={styles.accordion__item_body}>
+              {console.log(p)}
+              <Info
+                target={target}
+                show={showTooltip}
+                setShow={setShowTooltop}
+                title={"title"}
+                info={"info"}
+              />
+              <table>
+                <tbody>
+                  <tr>
+                    <td>
+                     fg
+                      <img
+                        src="../../icons/help_light.png"
+                        alt=""
+                        onMouseEnter={tooltipShow}
+                      />
+                    </td>
+                    <td>Восьмиядерний Apple M1</td>
+                    <td>Otto</td>
+                    <td>-</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      Jacob
+                      <img
+                        src="../../icons/help_light.png"
+                        alt=""
+                        ref={target}
+                        onMouseEnter={tooltipShow}
+                      />
+                    </td>
+                    <td>Thornton</td>
+                    <td>
+                      HD-камера FaceTime. 720p Технологія True
+                      ToneSSD-накопичувач. PCIeTouch ID. Стереодинаміки. Широке
+                      стерео. Підтримка відтворення контенту у форматі Dolby
+                      Atmos. Система з трьох спрямованих мікрофонів. Клавіатура
+                      Magic Keyboard з підсвіткою. Датчик зовнішньої
+                      освітленості. Трекпад Force Touch
+                    </td>
+                    <td>trtrtr</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      Larry the Bird
+                      <img
+                        src="../../icons/help_light.png"
+                        alt=""
+                        onMouseEnter={tooltipShow}
+                      />
+                    </td>
+                    <td>Larry the Bird</td>
+                    <td>Larry the Bird</td>
+                    <td>
+                      2 х USB 3.2 Type-C Gen 2 (Thunderbolt 4)/2 x USB 3.2 Gen
+                      1/HDMI/комбінований аудіороз'єм для
+                      навушників/мікрофона/кардридер MicroSD
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </Accordion.Body>
+          ))} */}
         </Accordion.Item>
         <Accordion.Item eventKey="1" className={styles.accordion__item}>
           <Accordion.Header className={styles.accordion__item_header}>
@@ -206,10 +301,12 @@ export default function ComparisonPage({ products, country }) {
 
 export async function getServerSideProps(context) {
   const countryData = await getCountryData();
+  const { query } = context;
+  const subCategory_id = query.subCategory;
 
   await db.connectDb();
 
-  //TODO should be products for comparison
+  //TODO should be products for component "View more"
   let products = await Product.find().lean();
 
   await db.disconnectDb();
@@ -218,6 +315,7 @@ export async function getServerSideProps(context) {
     props: {
       products: JSON.parse(JSON.stringify(products)),
       country: countryData,
+      subCategory_id: subCategory_id,
     },
   };
 }

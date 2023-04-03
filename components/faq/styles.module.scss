@@ -135,6 +135,10 @@
             border-radius: 30px;
             line-height: 34px;
             color: $light-wheet-color;
+
+            &:hover {
+                box-shadow: 0px 0px 5px 0px #220F4B;
+            }
         }
     }
 }

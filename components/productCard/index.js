@@ -17,6 +17,11 @@ import { addToCart, updateCart } from "@/store/cartSlice";
 import { addToWishList, updateWishList } from "@/store/wishListSlice";
 import { updateOneInWishList, saveWishList } from "@/requests/user";
 import { useSession } from "next-auth/react";
+import {
+  addToScaleList,
+  updateScaleList,
+  removeFromScaleList,
+} from "@/store/scaleListSlice";
 
 // сюди приходить продукт з бази даних напряму
 export default function ProductCard({ product }) {
@@ -28,7 +33,7 @@ export default function ProductCard({ product }) {
   const [error, setError] = useState("");
   const cart = useSelector((state) => state.cart);
   const wishList = useSelector((state) => state.wishList);
-
+  const scaleList = useSelector((state) => state.scaleList);
 
   //const { cart } = useSelector((state) => ({ ...state }));
 
@@ -64,6 +69,7 @@ export default function ProductCard({ product }) {
         })
     );
   }, [active]);
+  
   const addToCartHandler = async () => {
     // if (!router.query.code) {
     //   setError("Please select a product type");
@@ -115,6 +121,7 @@ export default function ProductCard({ product }) {
         });
         dispatch(updateWishList(newWishList));
         updateOneInWishList({productId: product._id});
+
       } else {
         const { data } = await axios.get(
           `/api/product/${product._id}?style=0&code=0`
@@ -163,6 +170,34 @@ export default function ProductCard({ product }) {
     //   }
     // }
   };
+
+  const addToScaleHandler = async () => {
+    const { data } = await axios.get(
+      `/api/product/${product._id}?style=0&code=0`
+    );
+    let existSub = null;
+    let existItem = null;
+    if (scaleList.scaleListItems) {
+      existSub = scaleList.scaleListItems.find(
+        (item) => item.subCategory_id === data.subCategory_id
+      );
+      if (existSub) {
+        existItem = existSub.items.find((p) => p._id === data._id);
+        if (existItem) {
+          if (existSub.items.length === 1) {
+            dispatch(removeFromScaleList({ ...existSub}));
+          } else {
+            dispatch(updateScaleList({ ...data }));
+          }
+        } else {
+          dispatch(addToScaleList({ ...data }));
+        }
+      } else {
+        dispatch(addToScaleList({ ...data }));
+      }
+    }
+  };
+
   return (
     <Card className={styles.product}>
       <div className={styles.product__container}>
@@ -170,7 +205,6 @@ export default function ProductCard({ product }) {
           <Link href={`/product/${product.slug}?style=${active}&code=0`}>
             <ProductSwiper images={images} />
           </Link>
-          {/* TODO onClick */}
           <Button className={styles.btnheart}
             onClick={addToWishHandler}>
             <HeartIcon fillColor={"#220F4B"} />
@@ -187,16 +221,23 @@ export default function ProductCard({ product }) {
           <Row>
             <Col>
               <Card.Title className={styles.product__container_infos_title}>
-                {(product.name + " " + (product.subProducts[active].color ? product.subProducts[active].color.color : ""
-                ) + " " + product.subProducts[active].sizes[active].size).length > 55
-                  ? `${product.name.substring(0, 55)}...`
-                  : product.name +
+                {(
+                  product.name +
                   " " +
                   (product.subProducts[active].color
                     ? product.subProducts[active].color.color
                     : "") +
                   " " +
-                  product.subProducts[active].sizes[active].size}
+                  product.subProducts[active].sizes[active].size
+                ).length > 55
+                  ? `${product.name.substring(0, 55)}...`
+                  : product.name +
+                    " " +
+                    (product.subProducts[active].color
+                      ? product.subProducts[active].color.color
+                      : "") +
+                    " " +
+                    product.subProducts[active].sizes[active].size}
               </Card.Title>
             </Col>
           </Row>
@@ -210,13 +251,14 @@ export default function ProductCard({ product }) {
               <Col className={styles.product__container_infos_pricebtn_price}>
                 <span
                   className={styles.pricediscount}
-                >{`${prices[0].toLocaleString('uk-UA')} ${product.subProducts[active].sizes[0].price_unit}`}</span>
+                >{`${prices[0].toLocaleString("uk-UA")} ${
+                  product.subProducts[active].sizes[0].price_unit
+                }`}</span>
                 <span className={styles.priceregular}>
                   {`${Math.round(
-                    ((prices[0]) *
-                      (100 - (product.subProducts[active].discount))) /
-                    100
-                  ).toLocaleString('uk-UA')}`}{" "}
+                    (prices[0] * (100 - product.subProducts[active].discount)) /
+                      100
+                  ).toLocaleString("uk-UA")}`}{" "}
                   {product.subProducts[active].sizes[0].price_unit}
                 </span>
               </Col>
@@ -227,8 +269,7 @@ export default function ProductCard({ product }) {
                 >{`${prices[0]} ${product.subProducts[active].sizes[0].price_unit}`}</span>
               </Col>
             )}
-            {/* TODO onClick */}
-            <Button className={styles.btnscales}>
+            <Button className={styles.btnscales} onClick={()=>addToScaleHandler()}>
               <ScalesIcon fillColor={"#220F4B"} />
             </Button>
             <Button
