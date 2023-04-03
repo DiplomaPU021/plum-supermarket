@@ -3,6 +3,7 @@ import Modal from 'react-bootstrap/Modal'
 import Link from "next/link"
 import { useRouter } from "next/router"
 import Form from "react-bootstrap/Form"
+import { Container, Row, Col, Image } from "react-bootstrap"
 import ContinueWith from "./ContinueWith"
 import * as yup from 'yup';
 import { getProviders, getSession, signIn, getCsrfToken, useSession } from "next-auth/react"
@@ -99,8 +100,8 @@ export default function LogIn({
 
             setLoading(false);
             if (res.error) {
-                console.log("errorOnLogin", user.login_error);         
-            } else{
+                console.log("errorOnLogin", user.login_error);
+            } else {
                 switchToMyCabinet();
             }
 
@@ -131,67 +132,82 @@ export default function LogIn({
             {
                 loading && <DotLoaderSpinner loading={loading} />
             }
-            <Formik
-                enableReinitialize
-                initialValues={{
-                    login_email,
-                    login_password
+            <Container className={styles.login_container}>
+                <Row>
+                    <Col>
+                        <Formik
+                            enableReinitialize
+                            initialValues={{
+                                login_email,
+                                login_password
 
-                }}
-                initialErrors={{ login_error }}
-                validationSchema={loginValidation}
-                onSubmit={(e) => {
-                    e.preventDefault(e);
+                            }}
+                            initialErrors={{ login_error }}
+                            validationSchema={loginValidation}
+                            onSubmit={(e) => {
+                                e.preventDefault(e);
 
-                }}>
-                {(formik) => (
-                    <Form onSubmit={(e) => {
-                        e.preventDefault(e)
-                    }}>
-                        <input
-                            type="hidden"
-                            readOnly
-                            name="csrfToken"
-                            value={csrfToken}
-                        />
-                        <Form.Group className="mb-3" controlId="groupLoginEmail">
-                            <Form.Label className={styles.formlabel}>Електронна пошта</Form.Label>
-                            <Form.Control className={styles.forminput}
-                                type="email"
-                                name="login_email"
-                                value={formik.values.login_email}
-                                onChange={(e) => { formik.handleChange(e); handleChangeCredencials(e) }}
-                                isInvalid={!!formik.errors.login_email || formik.initialErrors.login_error} />
-                            <Form.Control.Feedback type="invalid">{formik.errors.login_email}{formik.initialErrors.login_error}
-                            </Form.Control.Feedback>
-                        </Form.Group>
-                        <Form.Group className="mb-3" controlId="groupLoginPassword">
-                            <Form.Label className={styles.formlabel}>Пароль</Form.Label> <Link className={styles.forgot} href="/auth/forgot">Забули пароль?</Link>
-                            <Form.Control className={styles.forminput}
-                                type="password"
-                                name="login_password"
-                                value={formik.values.login_password}
-                                onChange={(e) => { formik.handleChange(e); handleChangeCredencials(e) }}
-                                isInvalid={!!formik.errors.login_password} />
-                            <Form.Control.Feedback type="invalid">{formik.errors.login_password}
-                            </Form.Control.Feedback>
-                        </Form.Group>
-                        <Form.Group className="mb-3" controlId="groupLoginCheckbox">
-                            <Form.Check type="checkbox" label="Запам'ятати мене" />
-                        </Form.Group>
-                        <button className={styles.loginbtn2} variant="primary" onClick={signInHandler}>
-                            Увійти
-                        </button>
-                    </Form>
-                )}
-            </Formik>
-            <ContinueWith
-                setLogShow={setLogShow}
-                setRegShow={setRegShow}
-                setCongratsShow={setCongratsShow}
-                setAuthShow={setAuthShow}
-                setUserProfileShow={setUserProfileShow} />
-            <p>Ви ще не маєте акаунту? <span className={styles.register} onClick={switchToRegister}>Зареєструватися</span></p>
+                            }}>
+                            {(formik) => (
+                                <Form onSubmit={(e) => {
+                                    e.preventDefault(e)
+                                }} className={styles.login_forms}>
+                                    <input
+                                        type="hidden"
+                                        readOnly
+                                        name="csrfToken"
+                                        value={csrfToken}
+                                    />
+                                    <Form.Group className="mb-3" controlId="groupLoginEmail">
+                                        <Form.Label className={styles.formlabel}>Електронна пошта</Form.Label>
+                                        <Form.Control className={styles.forminput}
+                                            type="email"
+                                            name="login_email"
+                                            value={formik.values.login_email}
+                                            onChange={(e) => { formik.handleChange(e); handleChangeCredencials(e) }}
+                                            isInvalid={!!formik.errors.login_email || formik.initialErrors.login_error} />
+                                        <Form.Control.Feedback type="invalid" className={styles.feedback}>{formik.errors.login_email}{formik.initialErrors.login_error}
+                                        </Form.Control.Feedback>
+                                    </Form.Group>
+                                    <Form.Group className="mb-3" controlId="groupLoginPassword">
+                                        <Form.Label className={styles.formlabel}>Пароль</Form.Label>
+                                        <Form.Control className={styles.forminput}
+                                            type="password"
+                                            name="login_password"
+                                            value={formik.values.login_password}
+                                            onChange={(e) => { formik.handleChange(e); handleChangeCredencials(e) }}
+                                            isInvalid={!!formik.errors.login_password} />
+                                        <Form.Control.Feedback type="invalid" className={styles.feedback}>{formik.errors.login_password}
+                                        </Form.Control.Feedback>
+                                    </Form.Group>
+                                    <div className={styles.forgot_flex}>
+                                        <Form.Group className="mb-3" controlId="groupLoginCheckbox">
+                                            <Form.Check type="checkbox" label="Запам'ятати мене" />
+                                        </Form.Group>
+                                        <Link className={styles.forgot} href="/auth/forgot">Забули пароль?</Link>
+                                    </div>
+                                    <button className={styles.loginbtn2} variant="primary" onClick={signInHandler}>
+                                        Увійти
+                                    </button>
+                                    <ContinueWith
+                                        setLogShow={setLogShow}
+                                        setRegShow={setRegShow}
+                                        setCongratsShow={setCongratsShow}
+                                        setAuthShow={setAuthShow}
+                                        setUserProfileShow={setUserProfileShow} />
+                                </Form>
+                            )}
+
+                        </Formik>
+
+
+                        <div className={styles.registerSwitch}><p>Ви ще не маєте акаунту? <span className={styles.register} onClick={switchToRegister}>Зареєструватися</span></p></div>
+                    </Col>
+                    <Col className={styles.login_col2}>
+                        <Image src='../../../images/login.jpg' width="463px" height="528px" />
+                    </Col>
+                </Row>
+            </Container>
         </Modal.Body>
     )
 }

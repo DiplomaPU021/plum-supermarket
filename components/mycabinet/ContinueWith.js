@@ -44,10 +44,14 @@ export default function ContinueWith(
             <div className={styles.linkicons}>
                 <button className={styles.social_btn}
                     onClick={signInHandler} >
-                    <Image height="46px" width="46px" src={`../../icons/google.png`} alt="provider" />
-                    Увійти з допомогою Google
+                    <Image height="24px" width="24px" src={`../../icons/logos_google-icon.png`} alt="provider" />
+                </button>
+                <button className={styles.social_btn}
+                    onClick={signInHandler} >
+                    <Image height="24px" width="24px" src={`../../icons/logos_facebook.png`} alt="provider" />
                 </button>
             </div>
+            
             {/* <div className={styles.linkicons}>
                 <button className={styles.social_btn}
                     onClick={() => signIn(providers.apple.id)} >

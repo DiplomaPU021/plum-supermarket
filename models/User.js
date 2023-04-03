@@ -14,15 +14,6 @@ const userSchema = new mongoose.Schema({
     phoneNumber: {
         type: String,
     },
-    firstName: {
-        type: String,
-    },
-    lastName: {
-        type: String,
-    },
-    phoneNumber: {
-        type: String,
-    },
     email: {
         type: String,
         required: "Please enter your email",
@@ -111,6 +102,20 @@ const userSchema = new mongoose.Schema({
                 type: Boolean,
                 default: false,
             },
+        },
+    ],
+    wishlist: [
+        {
+            product: {
+                type: String,
+                ref: "Product",
+            },
+            style: {
+                type: String,
+            },
+            code: {
+                type: String,
+            }
         },
     ],
 },

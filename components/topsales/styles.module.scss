@@ -130,4 +130,9 @@
 .link {
     text-decoration: none;
     color: #573C90;
+
+    &:hover {
+        font-weight: 600;
+        color: #573C90;
+    }
 }

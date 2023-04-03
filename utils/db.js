@@ -2,9 +2,9 @@ import mongoose from "mongoose";
 const connection = {};
 mongoose.set('strictQuery', true);
 export async function connectDb() {
-    if (connection.isConnected) {
-        console.log("Already connected to database");
-        return;
+     if (connection.isConnected) {
+         console.log("Already connected to database");
+         return;
     }
     if (mongoose.connections.length > 0) {
         connection.isConnected = mongoose.connections[0].readyState;
