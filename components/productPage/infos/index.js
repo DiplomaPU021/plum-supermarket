@@ -16,7 +16,11 @@ import { Col, Container, Row } from "react-bootstrap";
 import AllDetails from "../allDetails";
 import SizesTable from "../sizesTable";
 import { addToWishList, updateWishList } from "@/store/wishListSlice";
-
+import {
+  addToScaleList,
+  removeFromScaleList,
+  updateScaleList,
+} from "@/store/scaleListSlice";
 
 export default function Infos({ product, active, setActive, setError }) {
   const router = useRouter();
@@ -25,7 +29,7 @@ export default function Infos({ product, active, setActive, setError }) {
   const cart = useSelector((state) => state.cart);
   const wishList = useSelector((state) => state.wishList);
   const [code, setCode] = useState();
-
+  const scaleList = useSelector((state) => state.scaleList);
   const [showDetails, setShowDetails] = useState(false)
   const [showSizes, setShowSizes] = useState(false)
 
@@ -103,7 +107,35 @@ export default function Infos({ product, active, setActive, setError }) {
       }
     }
   };
+  const addToScaleHandler = async () => {
+   //need to connect to data base
+   const { data } = await axios.get(
+    `/api/product/${product._id}?style=${router.query.style}&code=${router.query.code}`
+  );
 
+    if (qty > data.quantity) {
+      setError("The quantity is bigger than in stock.");
+      return;
+    } else if (data.quantity < 1) {
+      setError("This product is out of stock.");
+      return;
+    } else {
+      //let _uid = `${data._id}_${product.style}_${router.query.code}`;
+      let _uid = `${data._id}_${data.style}_${data.code}`;
+      let exist = null;
+      if (scaleList.scaleListItems) {
+        exist = scaleList.scaleListItems.find((item) => item._uid === _uid);
+      }
+      if (exist) {
+        let newScaleList = scaleList.scaleListItems.filter((item) => {
+          return item._uid != _uid;
+        });
+        dispatch(updateScaleList(newScaleList));
+      } else {
+        dispatch(addToScaleList({ ...data, qty, size: data.size, _uid }));
+      }
+    }
+  };
   return (
     <Container fluid className={styles.infos}>
       <Row className={styles.infos__priceandaction}>
@@ -132,8 +164,7 @@ export default function Infos({ product, active, setActive, setError }) {
               <span>6015</span>
             </div>
           </div>
-          {/* TODO onClick scales below*/}
-          <button>
+          <button  onClick={addToScaleHandler}>
             <ScalesIcon fillColor="#220F4B" />
           </button>
         </Col>

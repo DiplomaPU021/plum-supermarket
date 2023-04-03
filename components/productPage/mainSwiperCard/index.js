@@ -14,9 +14,9 @@ import { Navigation } from "swiper";
 import ChevronRight from "@/components/icons/ChevronRight";
 import ChevronLeft from "@/components/icons/ChevronLeft";
 import { Container, Row, Col } from "react-bootstrap";
-import StarIcon from "@/components/icons/StarIcon";
-import Rating from "react-rating";
+import { Rating } from "react-simple-star-rating";
 import LeaveFeedback from "../leaveFeedback";
+import Star from "@/components/icons/Star";
 
 export default function MainSwiper({ product, active, setActive }) {
   const [activeImg, setActiveImg] = useState(active);
@@ -78,20 +78,32 @@ export default function MainSwiper({ product, active, setActive }) {
       <Row className={styles.swiper__reviews}>
         {product.rating ? (
           <Col className={styles.swiper__reviews_stars}>
-            <button
-            onClick={()=> setFeedback(true)}
-            >Відгуки</button>
+            <button onClick={() => setFeedback(true)}>Відгуки</button>
             <Rating
               readonly={true}
-              start={0}
-              stop={5}
-              fractions={2}
-              initialRating={product.rating}
-              emptySymbol={<StarIcon fillColor="#70BF63" />}
-              fullSymbol={<StarIcon fillColor="#573C91" />}
+              size={30}
+              allowFraction={2}
+              initialValue={product.rating}
+              ratingValue
+              emptyIcon={
+                <Star
+                  fillColor="transparent"
+                  height={24}
+                  width={24}
+                  stroke="#70BF63"
+                />
+              }
+              fillIcon={
+                <Star
+                  fillColor="#220F4B"
+                  height={24}
+                  width={24}
+                  stroke="#220F4B"
+                />
+              }
             />
           </Col>
-        ) : (null)}
+        ) : null}
         <LeaveFeedback show={feedback} onHide={() => setFeedback(false)} />
       </Row>
       {product.color ? (
@@ -103,13 +115,11 @@ export default function MainSwiper({ product, active, setActive }) {
               onMouseOver={() => setActiveImg(el.images[i].url)}
               onMouseLeave={() => setActiveImg("")}
               onClick={() => setActive(i)}
-              style={{ background: product.color.image }}
+              style={{ background: el.color.image }}
             >
               <Link
                 href={`/product/${product.slug}?style=${i}&code=${product.code}`}
-              >
-                <Image src={product.color.image} alt={product.color.image} />
-              </Link>
+              ></Link>
             </span>
           ))}
         </div>

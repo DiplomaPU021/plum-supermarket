@@ -71,6 +71,9 @@
                 background: #F0EBFB;
                 border: 2px solid $plum-dark-color;
                 border-radius: 23px;
+                &:hover {
+                    box-shadow: 0px 0px 5px 0px #220F4B;
+                }
             }
         }
 
@@ -103,6 +106,9 @@
                     gap: 5px;
                     width: 160px;
                     font-size: 23px;
+                }
+                &:hover {
+                    box-shadow: 0px 0px 5px 0px #220F4B;
                 }
             }
         }

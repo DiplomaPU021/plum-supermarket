@@ -37,7 +37,7 @@ export default function ProductSwiper({ images }) {
         {images.map((img, i) => (
           <SwiperSlide key={i}>
             <Card.Img
-              src={img.url}
+              src={img}
               alt=""
               className={styles.product__container_photobox_image}
             />

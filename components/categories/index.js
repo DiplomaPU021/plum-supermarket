@@ -11,7 +11,7 @@ export default function Categories({ categories }) {
       <Row className={styles.row}>
         {categories.length
           ? categories.map((ca, i) => (
-              <Col key={i} className={styles.col}>
+              <Col lg={3} key={i} className={styles.col}>
                 <Link href={`/category/${ca.slug}`} className={styles.link}>
                   <Image
                     width="34px"

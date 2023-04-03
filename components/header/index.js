@@ -14,12 +14,13 @@ import Cart from "../cart";
 import WishList from "../wishlist";
 import MyCabinet from "../mycabinet";
 import ScalesIcon from "../icons/ScalesIcon";
-import ThemeSwitcher from './ThemeSwitcher';
+import ThemeSwitcher from "./ThemeSwitcher";
 
 export default function Header({ country }) {
   const { data: session, status } = useSession();
   const cart = useSelector((state) => state.cart);
   const wishList = useSelector((state) => state.wishList);
+  const scaleList = useSelector((state) => state.scaleList);
   const [cartShow, setCartShow] = useState(false);
   const [wishShow, setWishShow] = useState(false);
   const [scaleShow, setScaleShow] = useState(false);
@@ -31,8 +32,10 @@ export default function Header({ country }) {
   const [divVisible, setDivVisible] = useState(true);
 
   const getScaleItemsCount = () => {
-    //TODO implement
-    return 0;
+    return scaleList.scaleListItems.reduce(
+      (acc, cur) => acc + cur.items.length,
+      0
+    );
   };
 
   const getWishItemsCount = () => {
@@ -92,7 +95,6 @@ export default function Header({ country }) {
             <Image src="../../../logo/logo_light.png" alt="logo" height="60px" />
           </div>
         </Link>
-     
           <div className={styles.search} style={{ width: divVisible ? '65%' : '10%' }}>
             <div className={styles.search_flex} style={{ display: divVisible ? 'flex' : 'none' }}>
               <input type="text" placeholder="Я шукаю..." />
@@ -105,10 +107,9 @@ export default function Header({ country }) {
              <p>Консультації по телефону <span>+38 023 652 12 56</span> Графік роботи Call-центру</p>
           </div>
           <div className={styles.btnpannel} style={{ display: divVisible ? 'flex' : 'none' }}>
-         
             <div className={styles.cart}>
-              <button onClick={() => setScaleShow(true)} style={{ backgroundColor: comparisonChange ? "#220F4B" : "#FAF8FF" }}>
-                <ScalesIcon fillColor={comparisonChange ? "#FAF8FF" : "#220F4B"} />
+              <button onClick={() => setScaleShow(true)} style={{ backgroundColor: scaleShow ? "#220F4B" : "#FAF8FF" }}>
+                <ScalesIcon  fillColor={scaleShow ? "#FAF8FF" : "#220F4B"}/>
               </button>
               <span> {getScaleItemsCount()}</span>
             </div>

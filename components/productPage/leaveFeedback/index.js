@@ -4,12 +4,11 @@ import styles from "./styles.module.scss";
 import React from "react";
 import { useState } from "react";
 import Link from "next/link";
-import Star from "@/components/icons/Star";
-import Rating from "react-rating";
 import Images from "./Images";
+import { Rating } from "react-simple-star-rating";
 
 export default function LeaveFeedback({ show, onHide }) {
-  const [images, setImages] = useState([]);
+const [images, setImages] = useState([]);
 
   return (
     <Modal
@@ -52,12 +51,14 @@ export default function LeaveFeedback({ show, onHide }) {
 
             <Form.Group className={styles.form__stars}>
               <Rating
-                start={0}
-                stop={5}
-                initialRating={0}
-                fractions={2}
-                emptySymbol={<Star fillColor="transparent" />}
-                fullSymbol={<Star fillColor="#70BF63" />}
+                SVGstyle={{ margin: "0 10px" }}
+                initialValue={3}
+                ratingValue
+                size={56}
+                SVGstrokeColor="#70BF63"
+                SVGstorkeWidth={1}
+                emptyColor="transparent"
+                fillColor="#70BF63"
               />
             </Form.Group>
 

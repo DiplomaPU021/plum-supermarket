@@ -300,7 +300,7 @@ export default function subCategory({
           </Row>
         </Col>
       </Row>
-      <ViewedProducts viewedProducts={viewedProducts}/>
+      <ViewedProducts viewedProducts={viewedProducts} />
       <Footer country={country} />
     </Container>
   );
