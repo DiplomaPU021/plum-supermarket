@@ -215,7 +215,7 @@ export default function CityModal(props) {
                             <button onClick={handleCityClick} id="lviv">Львів</button>
                         </Row>
                         <Row className={styles.product_row}>
-                            <button onClick={handleCityClick} id="frankivsk">Івано-Франківськ</button>
+                            <button onClick={handleCityClick} id="frankivsk">Запоріжжя</button>
                             <button onClick={handleCityClick} id="odesa">Одеса</button>
                             <button onClick={handleCityClick} id="dnipro">Дніпро</button>
                         </Row>

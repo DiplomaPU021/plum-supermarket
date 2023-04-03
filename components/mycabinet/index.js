@@ -1,7 +1,6 @@
 import styles from "./styles.module.scss"
 import Modal from 'react-bootstrap/Modal'
 import { useEffect, useState } from 'react'
-import { useSelector } from "react-redux";
 import { signIn, signOut, useSession } from 'next-auth/react';
 import { useRouter } from "next/router"
 import Authorization from "./Authorization";
@@ -42,12 +41,13 @@ export default function MyCabinet(props) {
 
     return (
         <Modal
+            className={styles.modal}
             {...props}
-            size={"lg"}
+            size={"xl"}
             aria-labelledby="contained-modal-title-vcenter"
             centered>
             <div className={styles.modaldiv}>
-                <Modal.Header className="modal-header" closeButton></Modal.Header>
+                <Modal.Header className="modal-header" closeButton>Мій кабінет</Modal.Header>
                 {authShow ? (
                     <Modal.Body className={styles.modalbodyempty}>
                         <Image src='../../../images/useraccount.jpg' width="241px" height="180px" />

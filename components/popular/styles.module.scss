@@ -118,4 +118,9 @@
     color: #FAF8FF;
     background-color: #220F4B;
     border: none;
+
+    &:hover {
+        box-shadow: 0px 0px 5px 0px #220F4B;
+        background-color: #220F4B;
+    }
 }

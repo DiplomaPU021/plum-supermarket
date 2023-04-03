@@ -1,32 +1,61 @@
 .container {
-  padding: 30px 60px 0px 0px;
+  padding: 0;
+  padding-top: 30px;
   background-color: $light-wheet-color;
+
+  @media (min-width: 1200px) {  
+    max-width: 100%; 
+    padding-right: 40px;
+  }
+
+  @media (min-width: 1300px) {  
+    max-width: 100%; 
+    padding-right: 50px;
+  }
+
+  @media (min-width: 1580px) {
+    max-width: 100%;
+    padding-right: 60px;
+  }
 }
 
-.general_div {
+.general_div {  
   display: flex;
   flex-direction: row;
   align-items: flex-start;
-  padding-top: 30px;
+  padding: 50px 0px 0px 0px;
+  margin: 0;
+  column-gap: 20px;
 }
 
 .row {
+  margin: 0;
   display: flex;
   flex-direction: row;
   align-items: center;
   height: 54px;
+ 
 }
 
 .checkout_form {
-  max-width: 782px;
+  max-width: 982px;
 }
 
 .summary_form {
-  width: 536px;
+  width: 540px;
   margin-left: 15px;
   padding: 0;
   position: sticky;
   top: 30px;
+
+  @media (min-width: 1580px) {
+    width: 598px;
+  }
+}
+
+.colcard{
+  padding: 0;
+  
 }
 
 .confirm {
@@ -39,6 +68,10 @@
   background: linear-gradient(0deg, #FAF8FF, #FAF8FF), linear-gradient(180deg, #FAF8FF 0%, #F2EDFF 100%);
   box-shadow: 0px 0px 15px rgba(34, 15, 75, 0.5), inset 7px 7px 20px #FAF5FF, inset -7px -7px 20px #F7EEFF;
   border-radius: 23px;
+
+  @media (min-width: 1580px) {
+    width: 598px;
+  }
 }
 
 .leftsale {
@@ -56,7 +89,6 @@
   justify-content: flex-start;
   display: flex;
   padding-left: 60px;
-
 }
 
 .panel {
@@ -74,31 +106,55 @@
   justify-content: flex-start;
   display: flex;
   padding-left: 60px;
+  
+  @media (min-width: 1350px) {
+    max-width: 770px;
+  }
 
+  @media (max-width: 1280px) {
+    max-width: 640px;
+  }
+
+  @media (min-width: 1580px) {
+    max-width: 950px;
+  }
 }
 
 .contacts {
   max-width: 650px;
   flex-direction: column;
   gap: 15px;
-  margin: 30px 0px 20px 50px;
+  margin: 40px 0px 30px 50px;
   padding: 24px;
   background: linear-gradient(180deg, #FAF8FF 0%, #F2EDFF 100%);
   box-shadow: 0px 0px 15px rgba(34, 15, 75, 0.5), inset 7px 7px 20px #FAF5FF, inset -7px -7px 20px #F7EEFF;
   border-radius: 23px;
   justify-content: center;
   align-items: center;
+ 
+  @media (min-width: 1300px) {
+    max-width: 710px;
+  }
+
+  @media (min-width: 1200px) {
+    gap: 10px;
+  }
+
+  @media (min-width: 1580px) {
+    max-width: 900px;
+  }
 }
 
 .err {
   padding-left: 10px;
+ 
 }
 
 .col_contacts {
   display: flex;
   padding: 0px;
-  gap: 3rem;
-  max-width: 728px;
+  gap: 2rem;
+  max-width: 850px;
   height: 216px;
 }
 
@@ -131,37 +187,63 @@
   line-height: 30px;
   font-family: 'Noto Sans';
   font-style: normal;
-  margin: 20px 0px 30px 50px;
+  margin: 20px 0px 40px 50px;
   font-weight: 400;
   font-size: 14px;
   line-height: 19px;
   text-align: center;
+  justify-content: center;
+
+  @media (min-width: 1300px) {
+    max-width: 710px;
+  }
+
+  @media (min-width: 1580px) {
+    max-width: 900px;
+  }
 }
 
 .delivery {
   padding: 24px;
   gap: 60px;
-  margin: 30px 0px 30px 50px;
+  margin: 40px 0px 40px 50px;
   max-width: 650px;
   background: linear-gradient(180deg, #FAF8FF 0%, #F2EDFF 100%);
   box-shadow: 0px 0px 15px rgba(34, 15, 75, 0.5), inset 7px 7px 20px #FAF5FF, inset -7px -7px 20px #F7EEFF;
   border-radius: 23px;
+ 
+  @media (min-width: 1300px) {
+    max-width: 710px;
+  }
+
+  @media (min-width: 1580px) {
+    max-width: 900px;
+  }
 }
 
 .payment {
   padding: 16px;
   gap: 60px;
-  margin: 30px 0px 0px 50px;
+  margin: 40px 0px 0px 50px;
   max-width: 650px;
   background: linear-gradient(180deg, #FAF8FF 0%, #F2EDFF 100%);
   box-shadow: 0px 0px 15px rgba(34, 15, 75, 0.5), inset 7px 7px 20px #FAF5FF, inset -7px -7px 20px #F7EEFF;
   border-radius: 23px;
+  
+  @media (min-width: 1300px) {
+    max-width: 710px;
+  }
+
+  @media (min-width: 1580px) {
+    max-width: 900px;
+  }
 }
 
 .order {
   padding: 0 24px;
   gap: 20px;
   max-width: 538px;
+  
 }
 
 .order_top {
@@ -172,7 +254,7 @@
   font-size: 25px;
   line-height: 34px;
   padding-right: 0;
-
+ 
   .edit {
     width: 46px;
     height: 46px;
@@ -185,10 +267,10 @@
   }
 }
 
-.modalbody{
-    background: linear-gradient(180deg, #FAF8FF 0%, #F2EDFF 100%);
-    border-radius: 10px;
- }
+.modalbody {
+  background: linear-gradient(180deg, #FAF8FF 0%, #F2EDFF 100%);
+  border-radius: 10px;
+}
 
 .litext_btn {
   display: flex;
@@ -199,6 +281,10 @@
   line-height: 21px;
   padding-right: 0;
   width: 490px;
+
+  img{
+    cursor: pointer;
+  }
 }
 
 .count {
@@ -216,7 +302,7 @@
 
 .form_input {
   padding: 15px 24px;
-  max-width: 602px;
+  max-width: 860px;
   height: 60px;
   border: 2px solid #220F4B;
   border-radius: 35px;
@@ -224,12 +310,130 @@
 
 .form_input2 {
   padding: 15px 24px;
-  max-width: 602px;
+  max-width: 860px;
   height: 60px;
   border: 2px solid #220F4B;
   border-radius: 35px;
   margin-left: 12px;
 }
+
+// shipping----------------------------------------------------
+
+.street_div{
+  padding: 0px 4px 0px 4px;
+}
+
+.flex_row{
+  align-items: flex-end;
+  justify-content: center;
+  display: flex;
+  flex-direction: row;
+  column-gap: 12px;
+
+  button {
+    width: 160px;
+    height: 56px;
+    font-family: 'Noto Sans';
+    font-weight: 320;
+    font-size: 20px;
+    border-radius: 30px;
+    color: #FAF8FF;
+    background-color: #220F4B;
+  }
+}
+
+.bottom{
+  margin-bottom: 0px;
+  padding-bottom: 0px;
+}
+
+.shipping_time{
+  justify-content: space-between;
+  padding: 20px 12px 0px 12px;
+
+  button {
+    border: 2px solid $plum-dark-color;
+    background-color: $light-wheet-color;
+    border-radius: 30px;
+    height: 46px;
+    color: $plum-dark-color;
+    text-align: center;
+    width: 22%;
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 22px;
+  }
+}
+
+.deltime_text {
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 19px;
+  color: #220F4B;
+  padding-left: 24px; 
+}
+
+.lift_up {
+  margin: 12px;
+}
+
+.shiping_line {
+  min-width: 200px;
+  height: 0px;
+  border: 2px solid #70BF63;
+  padding: 0px 20px 0px 20px;
+}
+
+.form_floor {
+  padding: 15px 24px;
+  max-width: 100%;
+  height: 60px;
+  border: 2px solid #220F4B;
+  border-radius: 35px;
+}
+
+.form_address {
+  padding: 15px 24px;
+  width: 60%;
+  height: 60px;
+  border: 2px solid #220F4B;
+  border-radius: 35px;
+}
+
+.form_elevator {
+  padding: 15px 24px;
+  max-width: 98%;
+  height: 60px;
+  border: 2px solid #220F4B;
+  border-radius: 35px;
+}
+
+.group_floor {
+  align-items: center;
+  justify-content: center;
+  display: flex;
+  flex-direction: row;
+  margin-left: 0;
+  padding: 0px 0px 5px 8px;
+  column-gap: 1rem;
+
+  button {
+    width: 96%;
+    height: 56px;
+    font-family: 'Noto Sans';
+    font-weight: 320;
+    font-size: 20px;
+    border-radius: 30px;
+    color: #FAF8FF;
+    background-color: #220F4B;
+  }
+
+  .floor {
+    width: 50%;
+    padding: 0px 5px 0px 0px;
+  }
+}
+
 
 .form_label {
   margin-left: 18px;
@@ -262,7 +466,7 @@
   display: flex;
   justify-content: flex-end;
   align-items: center;
-  max-width: 270px;
+  max-width: 300px;
   margin-right: 10px;
 
   p {
@@ -301,7 +505,6 @@
   margin-right: 10px;
   max-width: 200px;
 }
-
 
 //card---------------------------------------
 
@@ -436,7 +639,8 @@
   }
 
   &:hover {
-    background-color: none;
+    background: none;
+    color: #220F4B;
   }
 }
 
@@ -531,6 +735,14 @@
   border-radius: 30px;
   color: #FAF8FF;
   background-color: #220F4B;
+  border: none;
+
+  &:hover {
+    box-shadow: 0px 0px 5px 0px #220F4B;
+    background-color: #220F4B;
+}
+
+
 }
 
 .total_label {
@@ -572,12 +784,8 @@
   }
 }
 
-
 .simple_copyright {
   width: 100%;
-  height: 90px;
-  font-family: 'Noto Sans';
-  font-style: normal;
   font-weight: 400;
   font-size: 16px;
   line-height: 30px;
@@ -585,7 +793,8 @@
   flex-direction: column;
   align-items: center;
   color: #220F4B;
-  margin-top: 20px;
+  margin-top: 50px;
+  padding-bottom: 40px;
 
   p {
     padding: 0;
@@ -607,7 +816,7 @@
     width: 125px;
     font-weight: 400;
     font-size: 16px;
-    line-height: 22px;  
+    line-height: 22px;
   }
 }
 
@@ -615,6 +824,6 @@
   width: 650px !important;
   height: 302px;
   border-radius: 10px;
+  // background: rgba(87, 60, 145, 0.5);
+  // backdrop-filter: blur(2.5px);
 }
-
-

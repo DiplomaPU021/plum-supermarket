@@ -20,9 +20,9 @@ const inter = Inter({ subsets: ["latin"] });
 
 export default function Checkout({ cart, user, country }) { 
    return (
-     <div className={styles.container}>
+      <div className={styles.container}>   
        <Header/>
-       <CheckoutOrder cart={cart} user={user}  country={country}/>      
+       <CheckoutOrder cart={cart} user={user}  country={country}/>           
      </div>
      
    );
@@ -31,29 +31,30 @@ export default function Checkout({ cart, user, country }) {
 export async function getServerSideProps(context) {
 
   const countryData = await getCountryData();
-  await db.connectDb();
-  var user = {}; var cart = {};
-  const { req } = context;
-  const session = await getSession({ req });
-  if (session) {
-    console.log("//////////////////////////////////Session:", session);
-    user = await User.findById(session.user.id);
+   await db.connectDb();
+   var user = {}; var cart = {};
+   const { req } = context;
+   const session = await getSession({ req });
+   if (session) {
+     console.log("//////////////////////////////////Session:", session);
+     user = await User.findById(session.user.id);
 
-    if (user) {
-      user = JSON.parse(JSON.stringify(user));
-      cart = await Cart.findOne({ user: user._id });
-      if (cart) {
-        cart = JSON.parse(JSON.stringify(cart));
-      } else {
-        return {
-          redirect: {
-            destination: "/checkout",
+     if (user) {
+       user = JSON.parse(JSON.stringify(user));
+       cart = await Cart.findOne({ user: user._id });
+       if (cart) {
+       cart = JSON.parse(JSON.stringify(cart));
+        } 
+      else {
+          return {
+           redirect: {
+              destination: "/checkout",
+            }
           }
         }
-      }
 
-    }
-  }
+     }
+   }
   await db.disconnectDb();
   return {
     props: {

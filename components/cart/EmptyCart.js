@@ -6,10 +6,10 @@ import Image from 'react-bootstrap/Image'
 export default function EmptyCart(props) {
     return (
         <Modal.Body className={styles.modalbodyempty}>
-            <Image src='../../../images/cart.jpg' width="180px" height="180px" />
-            <h2>Корзина пуста</h2>
-            <h5>Але ще не пізно це виправити!</h5>
+            <Image src='../../../images/cart.jpg' width="230px" height="230px" />
+            <h5>Корзина пуста</h5>
             <div className={styles.line}></div>
+            <p>Але це ніколи не пізно виправити!</p>
             <button className={styles.addbtn}
                onClick={() => props.onHide()}
             >Додати товари</button>

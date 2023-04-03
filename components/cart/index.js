@@ -1,5 +1,6 @@
 import styles from "./styles.module.scss"
 import Modal from 'react-bootstrap/Modal'
+import Button from 'react-bootstrap/Button'
 import EmptyCart from "./EmptyCart"
 import * as React from "react"
 import Link from "next/link"
@@ -58,15 +59,15 @@ export default function CartPage(props) {
         <Modal
             {...props}
             size={cart.length == 0 ? "lg" : "xl"}
-            // dialogClassName={styles.modal}
             aria-labelledby="contained-modal-title-vcenter"
-            className="modal"
+            className={styles.modal}
             centered
         >
             {loginModalShow ? (
                 <MyCabinet show={loginModalShow} onHide={()=>setLoginModalShow(false)}/>
             ) : (
                 <div className={styles.modaldiv}>
+                    <Modal.Header className="modal-header" closeButton>Корзина</Modal.Header>
                     {cart == null || cart?.cartItems?.length == 0 || cart.cartItems == null ? (
                         <EmptyCart  { ...props }/>
                     ) : (
