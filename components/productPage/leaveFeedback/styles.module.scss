@@ -1,7 +1,6 @@
 .modal {
-    background: rgba(34, 15, 75, 0.5);
-    backdrop-filter: blur(17.5px);
-
+    background: rgba(87, 60, 145, 0.5);
+    backdrop-filter: blur(2.5px);
     &__main {
         padding: 24px;
         background: linear-gradient(180deg, #FAF8FF 0%, #F2EDFF 100%);
@@ -52,9 +51,6 @@
                 &__stars {
                     display: flex;
                     justify-content: center;
-                    span{
-                        margin-right: 10px;
-                    }
                 }
 
                 &__experience {
@@ -113,6 +109,9 @@
                         &:first-of-type {
                             background: $plum-dark-color;
                             color: #E7DBEA;
+                            &:hover {
+                                box-shadow: 0px 0px 5px 0px #220F4B;
+                            }
                         }
 
                         &:last-of-type {

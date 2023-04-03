@@ -3,8 +3,17 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import { Modal } from "react-bootstrap";
 import DeleteIcon from "../icons/DeleteIcon";
 import Link from "next/link";
+import { useSelector, useDispatch } from "react-redux";
+import { removeFromScaleList } from "@/store/scaleListSlice";
 
 export default function ComparisonListModal({ show, onHide }) {
+  const scaleList = useSelector((state) => state.scaleList);
+
+  const dispatch = useDispatch();
+  const deleteGroupHadler = (subCategory) => {
+    dispatch(removeFromScaleList({ ...subCategory }));
+  };
+
   return (
     <Modal
       className={styles.modal}
@@ -21,38 +30,24 @@ export default function ComparisonListModal({ show, onHide }) {
           <Modal.Body style={{ padding: "0" }}>
             <table>
               <tbody>
-                <tr>
-                  <td>
-                    <Link
-                      style={{ textDecoration: "none" }}
-                      href={`/comparison`}
-                    >
-                      <span>Ноутбуки</span>
-                    </Link>
-                  </td>
-                  <td>5</td>
-                  <td>
-                    <button>
-                      <DeleteIcon fillColor="#220F4B" />
-                    </button>
-                  </td>
-                </tr>
-                <tr>
-                  <td>
-                    <Link
-                      style={{ textDecoration: "none" }}
-                      href={`/comparisonPage`}
-                    >
-                      <span>Ноутбуки</span>
-                    </Link>
-                  </td>
-                  <td>5</td>
-                  <td>
-                    <button>
-                      <DeleteIcon fillColor="#220F4B" />
-                    </button>
-                  </td>
-                </tr>
+                {scaleList.scaleListItems.map((subCategory, i) => (
+                  <tr key={i}>
+                    <td>
+                      <Link
+                        style={{ textDecoration: "none" }}
+                        href={`/comparison/?subCategory=${subCategory.subCategory_id}`}
+                      >
+                        <span>{subCategory.subCategoryName}</span>
+                      </Link>
+                    </td>
+                    <td>{subCategory.items.length}</td>
+                    <td>
+                      <button onClick={() => deleteGroupHadler(subCategory)}>
+                        <DeleteIcon fillColor="#220F4B" />
+                      </button>
+                    </td>
+                  </tr>
+                ))}
               </tbody>
             </table>
           </Modal.Body>

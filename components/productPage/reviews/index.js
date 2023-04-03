@@ -8,6 +8,7 @@ import LikeIcon from "@/components/icons/LikeIkon";
 import ReplyToFeedback from "../replyToFeedback";
 import { useState } from "react";
 import LeaveFeedback from "../leaveFeedback";
+import Star from "@/components/icons/Star";
 
 export default function Reviews({ reviews }) {
   const [answer, setAnswer] = useState(false);
@@ -33,20 +34,13 @@ export default function Reviews({ reviews }) {
                 <span>Василь Петрович</span>
                 <span>
                   Перший макбук. Відчуття від роботи на ньому неймовірні. Довго
-                  вагався при виборі у порівнянні з ультрабуками за таку ж ціну.
-                  Після старенького ноутбуку який тримав від сили 2 години - 12
-                  годин це просто чудо.
+                  вагався при виборі у
                 </span>
                 <span>
-                  Переваги: Екосистема епл, екран, тач панель казкова, повсюду
-                  метал що дуже приємно, нічого не гуде та шумить бо охолодження
-                  пасивне, автономність дуже круто допомагає в періоди
-                  відсутності електрики
+                  Переваги: Екосистема епл,
                 </span>
                 <span>
-                  Недоліки: Не знаю поки що тут писати. Є певні недоліки в осі,
-                  але це терпимо. Також потрібен кишеньковий ССД якщо обираєте
-                  мінімальну комплектацію, або підписка на хмару.
+                  Недоліки: Не знаю поки що тут писати. 
                 </span>
               </Col>
               <Col className={styles.answer}>
@@ -62,11 +56,11 @@ export default function Reviews({ reviews }) {
               <Col className={styles.line}></Col>
               <Col className={styles.starsLikes}>
                 <div className={styles.starsLikes_stars}>
-                  <StarIcon fillColor="#220F4B" />
-                  <StarIcon fillColor="#220F4B" />
-                  <StarIcon fillColor="#220F4B" />
-                  <StarIcon fillColor="#220F4B" />
-                  <StarIcon fillColor="#220F4B" />
+                  <Star fillColor="#220F4B" height={24} width={24} stroke="#220F4B" />
+                  <Star fillColor="#220F4B" height={24} width={24} stroke="#220F4B" />
+                  <Star fillColor="#220F4B" height={24} width={24} stroke="#220F4B" />
+                  <Star fillColor="transparent" height={24} width={24} stroke="#70BF63" />
+                  <Star fillColor="transparent" height={24} width={24} stroke="#70BF63" />
                 </div>
                 <div className={styles.starsLikes_likes}>
                   <div className={styles.starsLikes_likes_like}>

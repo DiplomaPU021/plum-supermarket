@@ -279,8 +279,8 @@
 }
 
 .modal {
-    background: rgba(34, 15, 75, 0.5);
-    backdrop-filter: blur(17.5px);
+    background: rgba(87, 60, 145, 0.5);
+    backdrop-filter: blur(2.5px);
 
     &__main {
         border-radius: 10px !important;
@@ -371,6 +371,9 @@
                                     background: $light-wheet-color;
                                     border: 2px solid $plum-dark-color;
                                     border-radius: 23px;
+                                    &:hover {
+                                        box-shadow: 0px 0px 5px 0px #220F4B;
+                                    }
                                 }
                             }
 
