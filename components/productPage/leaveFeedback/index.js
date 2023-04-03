@@ -72,10 +72,10 @@ export default function LeaveFeedback({ show, onHide, product, setProductReview 
         });
         uploaded_images = await uploadImages(formData);
       }
-      setField("rating", 3);
+      //  setField("rating", 3);
       const { data } = await axios.put(`/api/product/${product._id}/review`, {
         reviewerName: form.reviewerName,
-        rating: form.rating ? form.rating : 3,
+        rating: form.rating, //? form.rating : 3,
         experience: form.experience,
         advantages: form.advantages,
         disadvantages: form.disadvantages,
@@ -148,13 +148,12 @@ export default function LeaveFeedback({ show, onHide, product, setProductReview 
               <Rating
                 SVGstyle={{ margin: "0 10px" }}
                 initialValue={form.rating}
-                ratingValue
                 size={56}
                 SVGstrokeColor="#70BF63"
                 SVGstorkeWidth={1}
                 emptyColor="transparent"
                 fillColor="#70BF63"
-                onChange={(rating) => { setField("rating", rating.ratingValue); console.log("rating", rating); }}
+                onClick={(rating) => { setField("rating", rating); console.log("rating", rating, form.rating); }}
               />
             </Form.Group>
 

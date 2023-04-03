@@ -87,9 +87,9 @@ export default function Reviews({ product, productReview, setProductReview }) {
                       ))} */}
                       {Array(5).fill().map((_, index) => (
                         index < review.rating ? (
-                          <Star fillColor="#220F4B" height={24} width={24} stroke="#220F4B" />
+                          <Star key={index} fillColor="#220F4B" height={24} width={24} stroke="#220F4B" />
                         ) : (
-                          <Star fillColor="transparent" height={24} width={24} stroke="#70BF63" />
+                          <Star key={index} fillColor="transparent" height={24} width={24} stroke="#70BF63" />
                         )
                       ))}
                     </div>

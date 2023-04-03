@@ -130,8 +130,8 @@ export default function MainSwiper({ product, active, setActive, setProductRevie
               onClick={() => setActive(i)}
               style={{ background: el.color.image }}
             >
+                              {/* href={`/product/${product.slug}?style=${i}&code=${0}`} */}
               <Link
-                {/* href={`/product/${product.slug}?style=${i}&code=${0}`} */}
                 href={`/product/${product.slug}?style=${i}&code=${product.mode}`}
               ></Link>
 
