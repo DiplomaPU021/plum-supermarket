@@ -1,11 +1,12 @@
 import "bootstrap/dist/css/bootstrap.min.css";
 import styles from "./styles.module.scss";
-import { useState } from "react";
+import { useRef, useState } from "react";
 import { MdOutlineRemoveCircle } from "react-icons/md";
 import { Container, Row, Image } from "react-bootstrap";
 
 export default function Images({ images, setImages }) {
   const [error, setError] = useState("");
+  const inputRef= useRef(null);
   const handleImages = (e) => {
     let files = Array.from(e.target.files);
     files.forEach((img, i) => {
@@ -67,6 +68,7 @@ export default function Images({ images, setImages }) {
             </label>
             <input
               id="file-upload"
+              ref={inputRef}
               type="file"
               hidden
               onChange={handleImages}

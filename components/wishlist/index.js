@@ -20,7 +20,8 @@ export default function WishList(props) {
     const wishList = useSelector((state) => state.wishList);
     const [userId, setUserId] = useState(props.userid);
     const [footerVisible, setFooterVis] = useState("none");
-    const [loginModalShow, setLoginModalShow] = useState(false);
+    // const [loginModalShow, setLoginModalShow] = useState(false);
+
     // const [total, setTotal] = useState(1);
     const getTotalQty = () => {
         return wishList.wishListItems.reduce(
@@ -28,19 +29,19 @@ export default function WishList(props) {
             0
         );
     };
-    const openLoginModal = () => {
-        setLoginModalShow(true);
+    // const openLoginModal = () => {
+    //     setLoginModalShow(true);
 
-    };
-    const saveWishListToDbHandler = () => {
-        if (session) {
-            saveWishList(wishList);
-            router.push("/");
-        }
-        else {
-            openLoginModal();
-        }
-    }
+    // };
+    // const saveWishListToDbHandler = () => {
+    //     if (session) {
+    //         saveWishList(wishList);
+    //         router.push("/");
+    //     }
+    //     else {
+    //         openLoginModal();
+    //     }
+    // }
 
 
     useEffect(() => {
@@ -68,7 +69,7 @@ export default function WishList(props) {
                         <Modal.Body className={styles.modalbody}>
                             {
                                 wishList.wishListItems?.map((product, i) => (
-                                    <WishItem key={i} product={product} userid={userId} />
+                                    <WishItem key={i} product={product} userid={userId} error={props.error} setError={props.setError} />
                                 ))
                             }
                         </Modal.Body>

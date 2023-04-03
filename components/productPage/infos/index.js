@@ -16,31 +16,36 @@ import { Col, Container, Row } from "react-bootstrap";
 import AllDetails from "../allDetails";
 import SizesTable from "../sizesTable";
 import { addToWishList, updateWishList } from "@/store/wishListSlice";
+import { useSession } from "next-auth/react";
+import { saveWishList, updateOneInWishList } from "@/requests/user";
+
 import {
   addToScaleList,
   removeFromScaleList,
   updateScaleList,
 } from "@/store/scaleListSlice";
 
+
 export default function Infos({ product, active, setActive, setError }) {
   const router = useRouter();
+   const { data: session, status } = useSession();
   const dispatch = useDispatch();
   const [qty, setQty] = useState(1);
   const cart = useSelector((state) => state.cart);
   const wishList = useSelector((state) => state.wishList);
-  const [code, setCode] = useState();
+  const [size, setSize] = useState(product.size);
   const scaleList = useSelector((state) => state.scaleList);
   const [showDetails, setShowDetails] = useState(false)
   const [showSizes, setShowSizes] = useState(false)
 
-  useEffect(() => {
-    setCode("");
-  }, [router.query.code]);
+  // useEffect(() => {
+  //   setCode("");
+  // }, [router.query.code]);
 
   const addToCartHandler = async () => {
     //need to connect to data base
     const { data } = await axios.get(
-      `/api/product/${product._id}?style=${router.query.style}&code=${router.query.code}`
+      `/api/product/${product._id}?style=${product.style}&code=${product.mode}`
     );
   
     if (qty > data.quantity) {
@@ -73,38 +78,36 @@ export default function Infos({ product, active, setActive, setError }) {
     }
   };
   const addToWishListHandler = async () => {
-    //need to connect to data base
-    const { data } = await axios.get(
-      `/api/product/${product._id}?style=${router.query.style}&code=${router.query.code}`
-    );
-  
-    if (qty > data.quantity) {
-      setError('The quantity is bigger than in stock.');
-      return;
-    } else if (data.quantity < 1) {
-      setError('This product is out of stock.');
-      return;
-    } else {
-      //let _uid = `${data._id}_${product.style}_${router.query.code}`;
-      let _uid = `${data._id}_${data.style}_${data.code}`;
+    if (session) {
+      let _uid = `${product._id}_${product.style}_${product.subProducts[product.style].sizes[product.mode].code}`;
       let exist = null;
       if (wishList.wishListItems) {
         exist = wishList.wishListItems.find((item) => item._uid === _uid);
       }
       if (exist) {
-        let newWishList = wishList.wishListItems.map((item) => {
-          if (item._uid === exist._uid) {
-            return { ...item, qty: item.qty + 1 }
-          }
-          return item;
-
-        });
-        dispatch(updateWishList(newWishList));
+        let newWishList = wishList.wishListItems.filter((item) => {
+          return item._uid != _uid;
+      });
+      dispatch(updateWishList(newWishList));
+      updateOneInWishList({productId: product._id});
       } else {
+            const { data } = await axios.get(
+      `/api/product/${product._id}?style=${product.style}&code=${product.mode}`
+    );
+  
         dispatch(addToWishList(
-          { ...data, qty, size: data.size, _uid, }
+          { ...data, qty, size: data.size, _uid, mode:product.mode}
         ));
+        saveWishList({
+          productId: product._id,
+          size: product.subProducts[product.style].sizes[product.mode].size,
+          image: product.subProducts[product.style].images[0],
+          color: product.subProducts[product.style].color?.color,
+          code: product.subProducts[product.style].sizes[product.mode].code
+        });
       }
+    } else {
+      alert("Залогінтесь");
     }
   };
   const addToScaleHandler = async () => {
@@ -138,6 +141,7 @@ export default function Infos({ product, active, setActive, setError }) {
   };
   return (
     <Container fluid className={styles.infos}>
+     
       <Row className={styles.infos__priceandaction}>
         <Col className={styles.infos__priceandaction_price}>
           {product.subProducts[active].discount > 0 ? (
@@ -179,6 +183,7 @@ export default function Infos({ product, active, setActive, setError }) {
           </button>
         </Col>
       </Row>
+   
       <Row className={styles.infos__characteristics}>
         <span>Основні характеристики</span>
       </Row>
@@ -210,18 +215,19 @@ export default function Infos({ product, active, setActive, setError }) {
       {product.size ?
       (<Row className={styles.infos__sizesInfo}>
         <Col className={styles.infos__sizesInfo_sizes}>
-            {product.subProducts.map((el, i) => (
+         
+            {product.sizes.map((el, i) => (
             <Link style={{textDecoration: "none"}}
               key={i}
-              href={`/product/${product.slug}?style=${i}&code=${product.code}`}
+              href={`/product/${product.slug}?style=${router.query.style}&code=${i}`}
             >
               <Col
                 className={`${styles.infos__sizesInfo_sizes_size}
-                  ${i == router.query.style && styles.active_size
+                  ${i == router.query.code && styles.active_size
                 }`}
-                 onClick={() => setActive(i)}
+                 onClick={() => setSize(el.size)}
               >
-               {el.sizes[0].size}
+               {el.size}
               </Col>
             </Link>
           ))}
@@ -232,6 +238,7 @@ export default function Infos({ product, active, setActive, setError }) {
           Таблиця розмірів{" "}
           <ChevronRight fillColor="#70BF63" w="30px" h="30px" />
         </button>
+      
         <SizesTable
             show={showSizes}
             onHide={() => setShowSizes(false)}/>

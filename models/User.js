@@ -1,5 +1,6 @@
 import mongoose from "mongoose";
 
+const { ObjectId } = mongoose.Schema;
 const userSchema = new mongoose.Schema({
     name: {
         type: String,
@@ -107,10 +108,20 @@ const userSchema = new mongoose.Schema({
     wishlist: [
         {
             product: {
-                type: String,
+                type: ObjectId,
                 ref: "Product",
+                required : true,
             },
-            style: {
+            name: {
+                type: String,
+            },
+            image: {
+                type: String,
+            },
+            size: {
+                type: String,
+            },        
+            color: {
                 type: String,
             },
             code: {

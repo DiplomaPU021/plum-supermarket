@@ -1,8 +1,13 @@
+import { useSession } from "next-auth/react";
 import Link from "next/link";
+import { useState } from "react";
 import { Form, Modal } from "react-bootstrap";
 import styles from "./styles.module.scss";
 
-export default function ReplyToFeedback({ show, onHide }) {
+export default function ReplyToFeedback({ show, onHide, review }) {
+  const { data: session } = useSession();
+  const [replierName, setReplierName] = useState(session ? session.user?.name : "");
+
   return (
     <Modal
       className={styles.modal}
@@ -19,16 +24,18 @@ export default function ReplyToFeedback({ show, onHide }) {
           <Form className={styles.form}>
             <Form.Group className="mb-3" controlId="formBasicName">
               <Form.Label style={{ paddingLeft: "23px" }}>
-                Прізвище та ім’я
+                Ім’я
               </Form.Label>
               <Form.Control
                 className={styles.form_input}
                 type="name"
+                value={replierName}
                 placeholder="Ваше прізвище та ім’я"
+                onChange={(e) => setReplierName(e.target.value)}
               />
             </Form.Group>
 
-            <Form.Group className="mb-3" controlId="formBasicEmail">
+            {/* <Form.Group className="mb-3" controlId="formBasicEmail">
               <Form.Label style={{ paddingLeft: "23px" }}>
                 Електронна пошта
               </Form.Label>
@@ -40,7 +47,7 @@ export default function ReplyToFeedback({ show, onHide }) {
               <Form.Text style={{ paddingLeft: "23px" }} className="text-muted">
                 Ми ніколи нікому не передамо вашу електронну адресу.
               </Form.Text>
-            </Form.Group>
+            </Form.Group> */}
 
             <Form.Group className="mb-3" controlId="formBasicTextarea">
               <Form.Label style={{ paddingLeft: "23px" }}>Коментар</Form.Label>
@@ -64,11 +71,11 @@ export default function ReplyToFeedback({ show, onHide }) {
             <Form.Group
               controlId="formBasicCheckbox"
             >
-              <Form.Check type="checkbox" 
-              className={styles.form_checkbox}>
-                <Form.Check.Input 
-                className={styles.form_checkbox_box} type="checkbox" />
-                <Form.Check.Label  className={styles.form_checkbox_label}>
+              <Form.Check type="checkbox"
+                className={styles.form_checkbox}>
+                <Form.Check.Input
+                  className={styles.form_checkbox_box} type="checkbox" />
+                <Form.Check.Label className={styles.form_checkbox_label}>
                   Повідомляти про відповіді по електорнній пошті
                 </Form.Check.Label>
               </Form.Check>

@@ -1,4 +1,4 @@
-import { Inter } from "@next/font/google";
+import { Inter } from "next/font/google";
 import styles from "../styles/Home.module.scss";
 import { useSession, signIn, signOut } from "next-auth/react";
 import Header from "@/components/header";

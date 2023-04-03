@@ -14,11 +14,9 @@ import axios from "axios";
 import { useRouter } from "next/router";
 import { useSelector, useDispatch } from "react-redux";
 import { addToCart, updateCart } from "@/store/cartSlice";
-import {
-  addToWishList,
-  removeFromWishList,
-  updateWishList,
-} from "@/store/wishListSlice";
+import { addToWishList, updateWishList } from "@/store/wishListSlice";
+import { updateOneInWishList, saveWishList } from "@/requests/user";
+import { useSession } from "next-auth/react";
 import {
   addToScaleList,
   updateScaleList,
@@ -27,6 +25,7 @@ import {
 
 // сюди приходить продукт з бази даних напряму
 export default function ProductCard({ product }) {
+  const { data: session, status } = useSession();
   const router = useRouter();
   const dispatch = useDispatch();
   const [code, setCode] = useState(router.query.code);
@@ -35,6 +34,7 @@ export default function ProductCard({ product }) {
   const cart = useSelector((state) => state.cart);
   const wishList = useSelector((state) => state.wishList);
   const scaleList = useSelector((state) => state.scaleList);
+
   //const { cart } = useSelector((state) => ({ ...state }));
 
   const [active, setActive] = useState(0);
@@ -108,25 +108,9 @@ export default function ProductCard({ product }) {
     }
   };
   const addToWishHandler = async () => {
-    // if (!router.query.code) {
-    //   setError("Please select a product type");
-    //   return;
-    // }
-    // const { data } = await axios.get(`/api/product/${product._id}?style=${product.style}&code=${router.query.code}`);
-
-    const { data } = await axios.get(
-      `/api/product/${product._id}?style=0&code=0`
-    );
-
-    if (qty > data.quantity) {
-      setError("The quantity is bigger than in stock.");
-      return;
-    } else if (data.quantity < 1) {
-      setError("This product is out of stock.");
-      return;
-    } else {
-      //let _uid = `${data._id}_${product.style}_${router.query.code}`;
-      let _uid = `${data._id}_${data.style}_${data.code}`;
+    if (session) {
+     
+      let _uid = `${product._id}_${active}_${product.subProducts[active].sizes[active].code}`;
       let exist = null;
       if (wishList.wishListItems) {
         exist = wishList.wishListItems.find((item) => item._uid === _uid);
@@ -136,10 +120,55 @@ export default function ProductCard({ product }) {
           return item._uid != _uid;
         });
         dispatch(updateWishList(newWishList));
+        updateOneInWishList({productId: product._id});
+
       } else {
-        dispatch(addToWishList({ ...data, qty, size: data.size, _uid }));
+        const { data } = await axios.get(
+          `/api/product/${product._id}?style=0&code=0`
+        );
+        dispatch(addToWishList({ ...data, qty, size: data.size, _uid, mode: 0 }));
+        saveWishList({
+          productId: product._id,
+          size: product.subProducts[active].sizes[active].size,
+          image: product.subProducts[active].images[0],
+          color: product.subProducts[active].color?.color,
+          code: product.subProducts[active].sizes[active].code
+        });
       }
     }
+
+    // if (!router.query.code) {
+    //   setError("Please select a product type");
+    //   return;
+    // }
+    // const { data } = await axios.get(`/api/product/${product._id}?style=${product.style}&code=${router.query.code}`);
+
+    // const { data } = await axios.get(
+    //   `/api/product/${product._id}?style=0&code=0`
+    // );
+
+    // if (qty > data.quantity) {
+    //   setError("The quantity is bigger than in stock.");
+    //   return;
+    // } else if (data.quantity < 1) {
+    //   setError("This product is out of stock.");
+    //   return;
+    // } else {
+    //   //let _uid = `${data._id}_${product.style}_${router.query.code}`;
+    //   let _uid = `${data._id}_${data.style}_${data.code}`;
+    //   let exist = null;
+    //   if (wishList.wishListItems) {
+    //     exist = wishList.wishListItems.find((item) => item._uid === _uid);
+    //   }
+    //   if (exist) {
+    //     let newWishList = wishList.wishListItems.filter((item) => {
+    //       return item._uid != _uid;
+    //   });
+    //   dispatch(updateWishList(newWishList));
+    //   } else {
+    //     dispatch(addToWishList({ ...data, qty, size: data.size, _uid,mode:0 }));
+    //   }
+    // }
   };
 
   const addToScaleHandler = async () => {
@@ -176,7 +205,8 @@ export default function ProductCard({ product }) {
           <Link href={`/product/${product.slug}?style=${active}&code=0`}>
             <ProductSwiper images={images} />
           </Link>
-          <Button className={styles.btnheart} onClick={addToWishHandler}>
+          <Button className={styles.btnheart}
+            onClick={addToWishHandler}>
             <HeartIcon fillColor={"#220F4B"} />
           </Button>
         </div>
@@ -185,7 +215,7 @@ export default function ProductCard({ product }) {
             -{product.subProducts[active].discount}%
           </div>
         ) : (
-          ""
+          <></>
         )}
         <Container className={styles.product__container_infos}>
           <Row>

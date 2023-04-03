@@ -5,7 +5,6 @@ import { useState, useEffect } from "react";
 import ComparisonListModal from "./ComparisonListModal";
 import Link from "next/link";
 import LoopIcon from "../icons/LoopIcon";
-import ThemeIcon from "../icons/ThemeIcon";
 import HeartIcon from "../icons/HeartIcon";
 import CartIcon from "../icons/CartIcon";
 import AccountIcon from "../icons/AccountIcon";
@@ -14,7 +13,9 @@ import Cart from "../cart";
 import WishList from "../wishlist";
 import MyCabinet from "../mycabinet";
 import ScalesIcon from "../icons/ScalesIcon";
+import { saveWishList } from "@/requests/user";
 import ThemeSwitcher from "./ThemeSwitcher";
+
 
 export default function Header({ country }) {
   const { data: session, status } = useSession();
@@ -29,8 +30,21 @@ export default function Header({ country }) {
   const [themeChange, setThemeChange] = useState(false);
   const [myCabinetOpen, setMyCabinetOpen] = useState(false);
   const [comparisonChange, setСomparisonChange] = useState(false);
+  const [error, setError]= useState({inCartError:false, uidProduct:""});
   const [divVisible, setDivVisible] = useState(true);
 
+
+
+  // useEffect(() => {
+  //   console.log("35");
+  //   if (session) {
+  //     setTimeout(async () => {
+  //       for (let i = 0; i < wishList.wishListItems.length; i++) {
+  //         saveWishList({productId:wishList.wishListItems[i]._id, size:wishList.wishListItems[i].size, image:wishList.wishListItems[i].images[0], color:wishList.wishListItems[i].color?.color, code:wishList.wishListItems[i].code});
+  //       }
+  //     }, 5000)
+  //   }
+  // }, [wishList, session])
   const getScaleItemsCount = () => {
     return scaleList.scaleListItems.reduce(
       (acc, cur) => acc + cur.items.length,
@@ -56,7 +70,6 @@ export default function Header({ country }) {
     setLanguage1(true)
     setLanguage2(false)
   }
-
   const handleBtn2Click = () => {
     setLanguage2(true)
     setLanguage1(false)
@@ -73,6 +86,7 @@ export default function Header({ country }) {
   return (
     <div className={styles.main}>
       <div className={styles.headertop} style={{ display: divVisible ? 'flex' : 'none' }}>
+
         <section>
           <ul>
             <li>
@@ -87,6 +101,7 @@ export default function Header({ country }) {
             </li>
           </ul>
         </section>
+
         <ThemeSwitcher onColor={"#FAF8FF"} offColor={"#585068"} isChecked={themeChange} handleSwitch={() => setThemeChange(!themeChange)} />
       </div>
       <div className={styles.main_container}>
@@ -126,13 +141,17 @@ export default function Header({ country }) {
               <span> {getItemsCount()}</span>
             </div>
             <Cart
-              show={cartShow}
-              onHide={() => setCartShow(false)}
-            />
-            <WishList
-              show={wishShow}
-              onHide={() => setWishShow(false)}
-            />
+            show={cartShow}
+            onHide={() => setCartShow(false)}
+            error={error}
+            setError={setError}
+          />
+          <WishList
+            show={wishShow}
+            onHide={() => setWishShow(false)}
+            error={error}
+            setError={setError}
+          />
             <ComparisonListModal
               show={scaleShow}
               onHide={() => setScaleShow(false)}

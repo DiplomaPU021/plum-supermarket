@@ -3,7 +3,6 @@ import Modal from 'react-bootstrap/Modal'
 import Image from 'react-bootstrap/Image'
 
 export default function EmptyWish(props) {
-
     return (
         <Modal.Body className={styles.modalbodyempty}>
             <Image src='../../../images/frame1.jpg' width="230px" height="230px" />
@@ -13,6 +12,5 @@ export default function EmptyWish(props) {
             <button className={styles.addbtn}
             onClick={() => props.onHide()}>Додати товар</button>
         </Modal.Body>
-
     )
 }

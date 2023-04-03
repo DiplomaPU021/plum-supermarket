@@ -5,24 +5,34 @@ import Image from "react-bootstrap/Image";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import { Swiper, SwiperSlide } from "swiper/react";
-
-// import Swiper and modules styles
 import "swiper/css";
 import "swiper/css/pagination";
-
 import { Navigation } from "swiper";
 import ChevronRight from "@/components/icons/ChevronRight";
 import ChevronLeft from "@/components/icons/ChevronLeft";
 import { Container, Row, Col } from "react-bootstrap";
 import { Rating } from "react-simple-star-rating";
 import LeaveFeedback from "../leaveFeedback";
+import { useSession } from "next-auth/react";
+import MyCabinet from "@/components/mycabinet";
 import Star from "@/components/icons/Star";
 
-export default function MainSwiper({ product, active, setActive }) {
+
+
+export default function MainSwiper({ product, active, setActive, setProductReview }) {
+  const { data: session } = useSession();
   const [activeImg, setActiveImg] = useState(active);
   const [feedback, setFeedback] = useState(false);
+  const [loginModalShow, setLoginModalShow] = useState(false);
   const router = useRouter();
+  const handleFeedBack = () => {
+    if (session) {
+      setFeedback(true);
+    } else {
+      setLoginModalShow(true)
+    }
 
+  }
   return (
     <Container fluid className={styles.swiper}>
       <Row className={styles.swiper__photoBox}>
@@ -76,35 +86,38 @@ export default function MainSwiper({ product, active, setActive }) {
         ""
       )}
       <Row className={styles.swiper__reviews}>
-        {product.rating ? (
-          <Col className={styles.swiper__reviews_stars}>
-            <button onClick={() => setFeedback(true)}>Відгуки</button>
-            <Rating
-              readonly={true}
-              size={30}
-              allowFraction={2}
-              initialValue={product.rating}
-              ratingValue
-              emptyIcon={
-                <Star
-                  fillColor="transparent"
-                  height={24}
-                  width={24}
-                  stroke="#70BF63"
-                />
-              }
-              fillIcon={
-                <Star
-                  fillColor="#220F4B"
-                  height={24}
-                  width={24}
-                  stroke="#220F4B"
-                />
-              }
-            />
-          </Col>
-        ) : null}
-        <LeaveFeedback show={feedback} onHide={() => setFeedback(false)} />
+
+        <Col className={styles.swiper__reviews_stars}>
+          <button onClick={handleFeedBack}>Відгуки</button>
+          <Rating
+            readonly={true}
+            size={30}
+            allowFraction={2}
+            initialValue={product.rating}
+            ratingValue
+            emptyIcon={
+              <Star
+                fillColor="transparent"
+                height={24}
+                width={24}
+                stroke="#70BF63"
+              />
+            }
+            fillIcon={
+              <Star
+                fillColor="#220F4B"
+                height={24}
+                width={24}
+                stroke="#220F4B"
+              />
+            }
+          />
+        </Col>
+        {session ? (
+          <LeaveFeedback show={feedback} onHide={() => setFeedback(false)} product={product} setProductReview={setProductReview} />
+        ) : (
+          <MyCabinet show={loginModalShow} onHide={() => setLoginModalShow(false)} />
+        )}
       </Row>
       {product.color ? (
         <div className={styles.swiper__colors}>
@@ -118,8 +131,10 @@ export default function MainSwiper({ product, active, setActive }) {
               style={{ background: el.color.image }}
             >
               <Link
-                href={`/product/${product.slug}?style=${i}&code=${product.code}`}
+                {/* href={`/product/${product.slug}?style=${i}&code=${0}`} */}
+                href={`/product/${product.slug}?style=${i}&code=${product.mode}`}
               ></Link>
+
             </span>
           ))}
         </div>

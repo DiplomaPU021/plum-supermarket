@@ -9,7 +9,7 @@ import { updateCart } from "../../store/cartSlice"
 import DelNotification from "../delete"
 
 
-export default function CartItem(product, userid) {
+export default function CartItem({product,setError}) {
     const [showExtra, setShowExtra] = useState("none")
     const [notificationShow, setNotificationShow] = useState(false);
     const [deleteConfirm, setDeleteConfirm] = useState(false);
@@ -17,7 +17,7 @@ export default function CartItem(product, userid) {
     const dispatch = useDispatch();
     const updateQty = async (type) => {
         let newCart = cart.cartItems.map((item) => {
-            if (item._uid == product.product._uid) {
+            if (item._uid == product._uid) {
                 return {
                     ...item,
                     qty: type == "plus" ? item.qty + 1 : item.qty - 1,
@@ -33,6 +33,7 @@ export default function CartItem(product, userid) {
             let newCart = cart.cartItems.filter((item) => {
                 return item._uid != id;
             });
+            setError((prevState)=>({...prevState, inCartError: false, uidProduct: "" }));
             dispatch(updateCart(newCart));
         } else {
               setNotificationShow(true) 
@@ -49,24 +50,24 @@ export default function CartItem(product, userid) {
         <Card className={styles.card}>
             <Card.Body className={styles.cardbody}>
                 {
-                    product.product.discount > 0 ? (
-                        <div className={styles.discount}>{product.product.discount}%</div>
+                    product.discount > 0 ? (
+                        <div className={styles.discount}>{product.discount}%</div>
                     ) : (<></>)
                 }
                 <Container className={styles.bord}>
                     <Row className={styles.bord}>
                         <Col md={3} xs={12} sm={3} className={styles.bordimage}>
                             <Row className={styles.picture}>
-                                <img src={product.product.images[0]} width='157px' height='95px' alt="picture" />
+                                <img src={product.images[0]} width='157px' height='95px' alt="picture" />
                             </Row>
                         </Col>
                         <Col md={5} xs={12} sm={5} className={styles.cardtext}>
                             <h5>
-                                {(product.product.name + " " + (product.product.color ? product.product.color.color : ""
-                                ) + " " + product.product.size).length > 55
-                                    ? `${(product.product.name + " " + (product.product.color ? product.product.color.color : ""
-                                    ) + " " + product.product.size).substring(0, 55)}...`
-                                    : product.product.name + " " + (product.product.color ? product.product.color.color : "") + " " + product.product.size}
+                                {(product.name + " " + (product.color ? product.color.color : ""
+                                ) + " " + product.size).length > 55
+                                    ? `${(product.name + " " + (product.color ? product.color.color : ""
+                                    ) + " " + product.size).substring(0, 55)}...`
+                                    : product.name + " " + (product.color ? product.color.color : "") + " " + product.size}
                             </h5>
                             <div className={styles.cardtext_line}></div>
                             <div className={styles.cardtext_extraservice}>
@@ -97,12 +98,12 @@ export default function CartItem(product, userid) {
                             <Row className={styles.cardcontrols_itemcount}>
                                 <div className={styles.cardcontrols_plusmin}>
                                     <button
-                                        disabled={product.product.qty < 2 ? true : false}
+                                        disabled={product.qty < 2 ? true : false}
                                         onClick={() => updateQty("minus")} >
                                         <span>-</span>
-                                    </button><div className={styles.count}>{product.product.qty}</div>
+                                    </button><div className={styles.count}>{product.qty}</div>
                                     <button
-                                        disabled={product.product.qty == product.product.quantity}
+                                        disabled={product.qty == product.quantity}
                                         onClick={() => updateQty("plus")}
                                     >
                                         <span>+</span>
@@ -110,26 +111,27 @@ export default function CartItem(product, userid) {
                                 </div>
                                 <div className={styles.bord}>
                                     {
-                                        product.product.discount > 0 ? (
+                                        product.discount > 0 ? (
 
-                                            <h5>{Math.round(product.product.price * product.product.qty).toLocaleString('uk-UA')} {product.product.price_unit}</h5>)
+                                            <h5>{Math.round(product.price * product.qty).toLocaleString('uk-UA')} {product.price_unit}</h5>)
                                             : (<></>)
                                     }
-                                    <h3>{Math.round(product.product.priceAfter * product.product.qty).toLocaleString('uk-UA')} {product.product.price_unit}</h3>
+                                    <h3>{Math.round(product.priceAfter * product.qty).toLocaleString('uk-UA')} {product.price_unit}</h3>
 
                                 </div>
                             </Row>
                         </Col>
                         <Col md={1} xs={12} sm={1} className={styles.cardbtns}>
                             <button className={styles.itembtn}> <HeartIcon fillColor={"#220F4B"} /></button>
-                            <button className={styles.itembtn} onClick={() => removeProduct(product.product._uid)} style={{ backgroundColor: notificationShow ? "#220F4B" : "#FAF8FF" }}>
+                            <button className={styles.itembtn} onClick={() => removeProduct(product._uid)} style={{ backgroundColor: notificationShow ? "#220F4B" : "#FAF8FF" }}>
                                 <DeleteIcon fillColor={notificationShow ? "#FAF8FF" : "#220F4B"} />
                             </button>
                             <DelNotification
-                                productId={product.product._uid}
+                                productId={product._uid}
                                 setDeleteConfirm={setDeleteConfirm}
                                 show={notificationShow}
                                 onHide={() => setNotificationShow(false)}
+                                setError={setError}
                             />
                         </Col>
                     </Row>

@@ -19,10 +19,13 @@ import ProductDescription from "@/components/productPage/productDescription";
 import Popular from "@/components/popular";
 import Reviews from "@/components/productPage/reviews";
 import { getCountryData } from "@/utils/country";
+import { getSession } from "next-auth/react";
+import User from "@/models/User";
 
 export default function product({ product, popular, country }) {
   const [active, setActive] = useState(0);
-
+  const [productReview, setProductReview] = useState(product?.reviews?.reverse());
+// console.log("review", product.reviews);
   return (
     <Container fluid style={{ padding: "0" }}>
       <Header country={country} />
@@ -39,9 +42,9 @@ export default function product({ product, popular, country }) {
             <span>{product.category.name}</span>
             <GreenChevronRight fillColor="#70BF63" w="30px" h="30px" />
           </Link>
-            <span className={styles.links__link}>
-              {product.subCategories[0].name}
-            </span>
+          <span className={styles.links__link}>
+            {product.subCategories[0].name}
+          </span>
         </Col>
       </Row>
       <Row className={styles.nameCode}>
@@ -62,29 +65,40 @@ export default function product({ product, popular, country }) {
                 product={product}
                 active={active}
                 setActive={setActive}
+                productReview={productReview}
+                setProductReview={setProductReview}
+                // user={user}
               />
             </Col>
             <Col style={{ padding: "0", width: "50%" }}>
               <Infos product={product} active={active} setActive={setActive} />
             </Col>
-          </Row>
+          </Row> 
         </Container>
       </Container>
       <CustomerInfo />
       <CheaperTogether product={product} productsPlus={product.productsPlus} />
       <ProductDescription product={product} />
-      <Reviews reviews={product.reviews} />
-      <Popular title={"Популярне з категорії"} products={popular}  category={product.category.name}/>
+      {product.reviews.length > 0? (
+         <Reviews product={product} productReview={productReview} setProductReview={setProductReview}/>
+      ): null}    
+      <Popular title={"Популярне з категорії"} products={popular} category={product.category.name} />
       <Footer country={country} />
     </Container>
   );
 }
 export async function getServerSideProps(context) {
-  const { query } = context;
+  const { query, req } = context;
   const slug = query.slug;
-  const style = query.style;
-  const code = query.code || 0;
-
+  const style = query.style==null || query.style=="undefined"? 0: query.style;
+  const mode = query.code || 0;
+  // var user={};
+  // const session = await getSession({ req });
+  // if (session) {
+  //   console.log("//////////////////////////////////SlugSession:", session);
+  //   user = await User.findById(session.user.id);
+  // }
+  // console.log("STYLE AND MODE", style, mode);
   const countryData = await getCountryData();
 
   await db.connectDb();
@@ -93,35 +107,39 @@ export async function getServerSideProps(context) {
   let product = await Product.findOne({ slug })
     .populate({ path: "category", model: Category })
     .populate({ path: "subCategories", model: SubCategory })
-    //.populate({path: "reviews.reviewBy", model: User})
+    .populate({path: "reviews.reviewBy", model: User})
     .lean();
-
+  // console.log("PagesProductSlugProps", product);
   let subProduct = product.subProducts[style];
 
 
-  let price=subProduct.sizes[0].price.toFixed();
-  
-    //products that go together cheaper
-  let productsPlus = await Product.find().sort({createdAt: -1}).lean();
+  let price = subProduct.sizes[mode].price.toFixed();
+
+  //products that go together cheaper
+  let productsPlus = await Product.find().sort({ createdAt: -1 }).lean();
 
 
   let newProduct = {
     ...product,
     style,
     // code: subProduct.sizes[code].code,
-    code,
+    mode,
     images: subProduct.images,
-    //sizes: subProduct.sizes,
-    size: subProduct.sizes[0].size,
+    sizes: subProduct.sizes,
+    size: subProduct.sizes[mode].size,
     discount: subProduct.discount,
     color: subProduct.color?.color,
+    // colors: subProduct.color? product.subProducts.map((p) => {
+    //   return p.color;
+    // }) : null,
     price,
-    priceAfter: ((100-subProduct.discount)*price/100).toFixed(),
-    price_unit: subProduct.sizes[0].price_unit,
-    code: subProduct.sizes[0].code,
+    priceAfter: ((100 - subProduct.discount) * price / 100).toFixed(),
+    price_unit: subProduct.sizes[mode].price_unit,
+    code: subProduct.sizes[mode].code,
     sold: subProduct.sold,
-    quantity: subProduct.sizes[0].qty,
+    quantity: subProduct.sizes[mode].qty,
     productsPlus,
+    reviews:product.reviews.reverse(),
     // reviews: [
     //   { percentage: 76 },
     //   { percentage: 14 },
@@ -131,11 +149,11 @@ export async function getServerSideProps(context) {
     // ],
   };
 
-
+  // console.log("PagesProductSlugPropsNew", newProduct);
   //Should be with mark "popular"
   let popularFromCategory = await Product.find({ category: product.category._id })
-  .sort({createdAt: -1})
-  .lean();
+    .sort({ createdAt: -1 })
+    .lean();
 
   await db.disconnectDb();
   return {
@@ -143,6 +161,7 @@ export async function getServerSideProps(context) {
       product: JSON.parse(JSON.stringify(newProduct)),
       popular: JSON.parse(JSON.stringify(popularFromCategory)),
       country: countryData,
+      // user: JSON.parse(JSON.stringify(user)),
     },
   };
 }
