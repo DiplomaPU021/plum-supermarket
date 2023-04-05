@@ -9,6 +9,7 @@ export default function ProductDescription({ product }) {
   const [showDescription, setShowDescription] = useState(false)
   return (
     <Container fluid className={styles.description}>
+      {/* {product.description} */}
       <Row className={styles.description__row}>
         <Col className={styles.description__row_col}>
           <span>MacBook Air. З новою силою.</span>
