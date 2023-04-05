@@ -76,9 +76,8 @@ export default function Infos({ product, active, setActive, setError }) {
   const addToWishListHandler = async () => {
     if (session) {
       setIsOpen(false);
-      let _uid = `${product._id}_${product.style}_${
-        product.subProducts[product.style].sizes[product.mode].code
-      }`;
+      let _uid = `${product._id}_${product.style}_${product.subProducts[product.style].sizes[product.mode].code
+        }`;
       let exist = null;
       if (wishList.wishListItems) {
         exist = wishList.wishListItems.find((item) => item._uid === _uid);
@@ -159,9 +158,8 @@ export default function Infos({ product, active, setActive, setError }) {
                 product.price
               ).toLocaleString("uk-UA")} ${product.price_unit}`}</span>
               <span className={styles.priceregular}>
-                {`${Number(product.priceAfter).toLocaleString("uk-UA")} ${
-                  product.price_unit
-                }`}
+                {`${Number(product.priceAfter).toLocaleString("uk-UA")} ${product.price_unit
+                  }`}
               </span>
             </div>
           ) : (
@@ -207,16 +205,18 @@ export default function Infos({ product, active, setActive, setError }) {
       </Row>
       <Col className={styles.infos__details}>
         {product.details.slice(0, product.details.lenght).map((info, i) =>
-          i < 9 ? (
-            <div className={styles.infos__details_row} key={i}>
-              <div>
-                <span>{info.name}</span>
+          i < 9 ?
+            info.fields.map((name, index) => (
+              <div className={styles.infos__details_row} key={index}>
+                <div>
+                  <span>{name.name}</span>
+
+                </div>
+                <div>
+                  <span>{name.value}</span>
+                </div>
               </div>
-              <div>
-                <span>{info.value}</span>
-              </div>
-            </div>
-          ) : null
+            )) : null
         )}
       </Col>
       <Col className={styles.infos__more}>

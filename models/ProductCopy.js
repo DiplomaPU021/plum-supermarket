@@ -68,18 +68,18 @@ const productSchema = new mongoose.Schema(
             }
         ],
 
-        // details: [
-        //     {
-        //         "group": "String",
-        //         "fields": [
-        //             {
-        //                 "name": "String",
-        //                 "value": "String",
-        //                 "isMain": true
-        //             }
-        //         ]
-        //     }
-        // ],
+        details: [
+            {
+                "group": "String",
+                "fields": [
+                    {
+                        "name": "String",
+                        "value": "String",
+                        "isMain": true
+                    }
+                ]
+            }
+        ],
 
 
         // questions: [
