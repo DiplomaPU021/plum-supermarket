@@ -9,10 +9,12 @@ import { Rating } from "react-simple-star-rating";
 import dataURItoBlob from "@/utils/dataURItoBlob";
 import { uploadImages } from "@/requests/upload";
 import axios from "axios";
+import { useSession } from "next-auth/react";
 
 export default function LeaveFeedback({ show, onHide, product, setProductReview }) {
+  const { data: session } = useSession();
   const [form, setForm] = useState({
-    reviewerName: '',
+    reviewerName: session?session.user.name:"",
     review: '',
     advantages: '',
     disadvantages: '',

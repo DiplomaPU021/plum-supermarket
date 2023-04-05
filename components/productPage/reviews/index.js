@@ -55,8 +55,9 @@ export default function Reviews({ product, productReview, setProductReview }) {
                   <Col className={styles.text}>
                     <span>{review.reviewerName}</span>
                     <span>{review.review}</span>
-                    <span>{review.advantages}</span>
-                    <span>{review.disadvantages}</span>
+                    <span><b>Досвід використання:</b> {review.experience}</span>                   
+                    <span><b>Переваги:</b> {review.advantages}</span>
+                    <span><b>Недоліки:</b> {review.disadvantages}</span>
                     <span>{review.images.map((img) => (
                       <Image key={img.public_url}
                         className={styles.swiper__simillarswiper_image}
@@ -110,9 +111,12 @@ export default function Reviews({ product, productReview, setProductReview }) {
                   </Col>
                 </Row>
               ))
-
             ) : (
-              <></>
+              <Row>
+                <Col>
+                  <span>Тут ще немає відгуків. Ви можете бути першим.</span>
+                </Col>
+              </Row>
             )
             }
           </Col>

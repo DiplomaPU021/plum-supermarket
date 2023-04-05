@@ -13,9 +13,9 @@ import { Container, Row, Col, Image } from "react-bootstrap"
 
 
 const initialvalues = {
-    firstName: "",
-    lastName: "",
-    phoneNumber: "",
+    // firstName: "",
+    // lastName: "",
+    // phoneNumber: "",
     email: "",
     password: "",
     conf_password: "",
@@ -35,9 +35,9 @@ export default function Register({
     const [user, setUser] = useState(initialvalues);
     const { data: session, status } = useSession();
     const {
-        firstName,
-        lastName,
-        phoneNumber,
+        // firstName,
+        // lastName,
+        // phoneNumber,
         email,
         password,
         conf_password,
@@ -102,9 +102,9 @@ export default function Register({
         try {
             setLoading(true);
             const { data } = await axios.post('/api/register', {
-                firstName,
-                lastName,
-                phoneNumber,
+                // firstName,
+                // lastName,
+                // phoneNumber,
                 email,
                 password,
             });
@@ -141,9 +141,9 @@ export default function Register({
                         <Formik
                             enableReinitialize
                             initialValues={{
-                                firstName,
-                                lastName,
-                                phoneNumber,
+                                // firstName,
+                                // lastName,
+                                // phoneNumber,
                                 email,
                                 password,
                                 conf_password,

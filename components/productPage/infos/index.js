@@ -8,35 +8,34 @@ import { useEffect, useState } from "react";
 import styles from "./styles.module.scss";
 import { useRouter } from "next/router";
 import Link from "next/link";
-
 import { useSelector, useDispatch } from "react-redux";
 import { addToCart, updateCart } from "@/store/cartSlice";
-
 import { Col, Container, Row } from "react-bootstrap";
 import AllDetails from "../allDetails";
 import SizesTable from "../sizesTable";
 import { addToWishList, updateWishList } from "@/store/wishListSlice";
 import { useSession } from "next-auth/react";
 import { saveWishList, updateOneInWishList } from "@/requests/user";
-
+import { Tooltip } from "react-tooltip";
+import "react-tooltip/dist/react-tooltip.css";
 import {
   addToScaleList,
   removeFromScaleList,
   updateScaleList,
 } from "@/store/scaleListSlice";
 
-
 export default function Infos({ product, active, setActive, setError }) {
   const router = useRouter();
-   const { data: session, status } = useSession();
+  const { data: session, status } = useSession();
   const dispatch = useDispatch();
   const [qty, setQty] = useState(1);
   const cart = useSelector((state) => state.cart);
   const wishList = useSelector((state) => state.wishList);
   const [size, setSize] = useState(product.size);
   const scaleList = useSelector((state) => state.scaleList);
-  const [showDetails, setShowDetails] = useState(false)
-  const [showSizes, setShowSizes] = useState(false)
+  const [showDetails, setShowDetails] = useState(false);
+  const [showSizes, setShowSizes] = useState(false);
+  const [isOpen, setIsOpen] = useState(false);
 
   // useEffect(() => {
   //   setCode("");
@@ -47,12 +46,12 @@ export default function Infos({ product, active, setActive, setError }) {
     const { data } = await axios.get(
       `/api/product/${product._id}?style=${product.style}&code=${product.mode}`
     );
-  
+
     if (qty > data.quantity) {
-      setError('The quantity is bigger than in stock.');
+      setError("The quantity is bigger than in stock.");
       return;
     } else if (data.quantity < 1) {
-      setError('This product is out of stock.');
+      setError("This product is out of stock.");
       return;
     } else {
       //let _uid = `${data._id}_${product.style}_${router.query.code}`;
@@ -64,22 +63,22 @@ export default function Infos({ product, active, setActive, setError }) {
       if (exist) {
         let newCart = cart.cartItems.map((item) => {
           if (item._uid === exist._uid) {
-            return { ...item, qty: item.qty + 1 }
+            return { ...item, qty: item.qty + 1 };
           }
           return item;
-
         });
         dispatch(updateCart(newCart));
       } else {
-        dispatch(addToCart(
-          { ...data, qty, size: data.size, _uid, }
-        ));
+        dispatch(addToCart({ ...data, qty, size: data.size, _uid }));
       }
     }
   };
   const addToWishListHandler = async () => {
     if (session) {
-      let _uid = `${product._id}_${product.style}_${product.subProducts[product.style].sizes[product.mode].code}`;
+      setIsOpen(false);
+      let _uid = `${product._id}_${product.style}_${
+        product.subProducts[product.style].sizes[product.mode].code
+      }`;
       let exist = null;
       if (wishList.wishListItems) {
         exist = wishList.wishListItems.find((item) => item._uid === _uid);
@@ -87,34 +86,40 @@ export default function Infos({ product, active, setActive, setError }) {
       if (exist) {
         let newWishList = wishList.wishListItems.filter((item) => {
           return item._uid != _uid;
-      });
-      dispatch(updateWishList(newWishList));
-      updateOneInWishList({productId: product._id});
+        });
+        dispatch(updateWishList(newWishList));
+        updateOneInWishList({ productId: product._id });
       } else {
-            const { data } = await axios.get(
-      `/api/product/${product._id}?style=${product.style}&code=${product.mode}`
-    );
-  
-        dispatch(addToWishList(
-          { ...data, qty, size: data.size, _uid, mode:product.mode}
-        ));
+        const { data } = await axios.get(
+          `/api/product/${product._id}?style=${product.style}&code=${product.mode}`
+        );
+
+        dispatch(
+          addToWishList({
+            ...data,
+            qty,
+            size: data.size,
+            _uid,
+            mode: product.mode,
+          })
+        );
         saveWishList({
           productId: product._id,
           size: product.subProducts[product.style].sizes[product.mode].size,
           image: product.subProducts[product.style].images[0],
           color: product.subProducts[product.style].color?.color,
-          code: product.subProducts[product.style].sizes[product.mode].code
+          code: product.subProducts[product.style].sizes[product.mode].code,
         });
       }
     } else {
-      alert("Залогінтесь");
+      setIsOpen(true);
     }
   };
   const addToScaleHandler = async () => {
-   //need to connect to data base
-   const { data } = await axios.get(
-    `/api/product/${product._id}?style=${router.query.style}&code=${router.query.code}`
-  );
+    //need to connect to data base
+    const { data } = await axios.get(
+      `/api/product/${product._id}?style=${router.query.style}&code=${router.query.code}`
+    );
 
     if (qty > data.quantity) {
       setError("The quantity is bigger than in stock.");
@@ -141,34 +146,47 @@ export default function Infos({ product, active, setActive, setError }) {
   };
   return (
     <Container fluid className={styles.infos}>
-     
+      <Tooltip
+        id="login-tooltip"
+        content="Будь ласка зареєструйтесь!"
+        isOpen={isOpen}
+      />
       <Row className={styles.infos__priceandaction}>
         <Col className={styles.infos__priceandaction_price}>
           {product.subProducts[active].discount > 0 ? (
             <div>
-              <span className={styles.pricediscount}>{`${Number(product.price).toLocaleString('uk-UA')} ${product.price_unit}`}</span>
+              <span className={styles.pricediscount}>{`${Number(
+                product.price
+              ).toLocaleString("uk-UA")} ${product.price_unit}`}</span>
               <span className={styles.priceregular}>
-                {`${Number(product.priceAfter).toLocaleString('uk-UA')} ${product.price_unit}`}
+                {`${Number(product.priceAfter).toLocaleString("uk-UA")} ${
+                  product.price_unit
+                }`}
               </span>
             </div>
           ) : (
             <div>
-              <span className={styles.priceregular}>{`${Number(product.price).toLocaleString()} ${product.price_unit}`}</span>
+              <span className={styles.priceregular}>{`${Number(
+                product.price
+              ).toLocaleString()} ${product.price_unit}`}</span>
             </div>
           )}
         </Col>
         <Col className={styles.infos__priceandaction_react}>
           <div className={styles.liked}>
-            {/* TODO onClick like below*/}
-            <button onClick={addToWishListHandler}>
+            <button
+              onClick={addToWishListHandler}
+              data-tooltip-id="login-tooltip"
+              onMouseLeave={() => setIsOpen(false)}
+            >
               <HeartIcon fillColor="#220F4B" />
             </button>
             {/* TODO count of liked below*/}
-            <div>
+            {/* <div>
               <span>6015</span>
-            </div>
+            </div> */}
           </div>
-          <button  onClick={addToScaleHandler}>
+          <button onClick={addToScaleHandler}>
             <ScalesIcon fillColor="#220F4B" />
           </button>
         </Col>
@@ -183,7 +201,7 @@ export default function Infos({ product, active, setActive, setError }) {
           </button>
         </Col>
       </Row>
-   
+
       <Row className={styles.infos__characteristics}>
         <span>Основні характеристики</span>
       </Row>
@@ -202,48 +220,42 @@ export default function Infos({ product, active, setActive, setError }) {
         )}
       </Col>
       <Col className={styles.infos__more}>
-        <button
-        onClick={()=> setShowDetails(true)}>
+        <button onClick={() => setShowDetails(true)}>
           Дивитися всі характеристики{" "}
           <ChevronRight fillColor="#70BF63" w="30px" h="30px" />
         </button>
-            <AllDetails
-            product={product}
-            show={showDetails}
-            onHide={() => setShowDetails(false)}/>
+        <AllDetails
+          product={product}
+          show={showDetails}
+          onHide={() => setShowDetails(false)}
+        />
       </Col>
-      {product.size ?
-      (<Row className={styles.infos__sizesInfo}>
-        <Col className={styles.infos__sizesInfo_sizes}>
-         
+      {product.size ? (
+        <Row className={styles.infos__sizesInfo}>
+          <Col className={styles.infos__sizesInfo_sizes}>
             {product.sizes.map((el, i) => (
-            <Link style={{textDecoration: "none"}}
-              key={i}
-              href={`/product/${product.slug}?style=${router.query.style}&code=${i}`}
-            >
-              <Col
-                className={`${styles.infos__sizesInfo_sizes_size}
-                  ${i == router.query.code && styles.active_size
-                }`}
-                 onClick={() => setSize(el.size)}
+              <Link
+                style={{ textDecoration: "none" }}
+                key={i}
+                href={`/product/${product.slug}?style=${router.query.style}&code=${i}`}
               >
-               {el.size}
-              </Col>
-            </Link>
-          ))}
-        </Col>
-        <button
-         onClick={()=> setShowSizes(true)}
-         >
-          Таблиця розмірів{" "}
-          <ChevronRight fillColor="#70BF63" w="30px" h="30px" />
-        </button>
-      
-        <SizesTable
-            show={showSizes}
-            onHide={() => setShowSizes(false)}/>
-      </Row>): (null)}
+                <Col
+                  className={`${styles.infos__sizesInfo_sizes_size}
+                  ${i == router.query.code && styles.active_size}`}
+                  onClick={() => setSize(el.size)}
+                >
+                  {el.size}
+                </Col>
+              </Link>
+            ))}
+          </Col>
+          <button onClick={() => setShowSizes(true)}>
+            Таблиця розмірів{" "}
+            <ChevronRight fillColor="#70BF63" w="30px" h="30px" />
+          </button>
+          <SizesTable show={showSizes} onHide={() => setShowSizes(false)} />
+        </Row>
+      ) : null}
     </Container>
-
   );
 }

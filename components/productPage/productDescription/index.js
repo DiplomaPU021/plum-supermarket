@@ -50,7 +50,7 @@ export default function ProductDescription({ product }) {
         </Col>
       </Row>
       <Row>
-      <Col className={styles.description__more}>
+      <Col className={styles.description__more} id="anchor_one" >
           <button onClick={()=>setShowDescription(true)}>
             Дивитися всі характеристики{" "}
             <ChevronRight fillColor="#70BF63" w="30px" h="30px" />

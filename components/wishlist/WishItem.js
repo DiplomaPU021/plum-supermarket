@@ -10,14 +10,20 @@ import CartIcon from "../icons/CartIcon";
 import { addToCart, updateCart } from "@/store/cartSlice";
 import axios from "axios";
 import { deleteOneFromWishList } from "@/requests/user";
+import { useSession } from "next-auth/react";
+import { Tooltip } from "react-tooltip";
+import "react-tooltip/dist/react-tooltip.css";
 
-export default function WishItem({ product, error, setError, ...props }) {
+export default function WishItem({ product, error, setError }) {
+    const { data: session } = useSession();
     const [notificationShow, setNotificationShow] = useState(false);
     const wishList = useSelector((state) => state.wishList);
     const [deleteConfirm, setDeleteConfirm] = useState(true);
     const cart = useSelector((state) => state.cart);
     const dispatch = useDispatch();
     const [addTocartDisabled, setAddTocartDisabled] = useState(false);
+    const [isOpenDel, setIsOpenDel] = useState(false);
+    const [isOpenCart, setIsOpenCart] = useState(false);
 
     useEffect(() => {
         if (error?.inCartError == true) {
@@ -25,18 +31,24 @@ export default function WishItem({ product, error, setError, ...props }) {
         } else {
             setAddTocartDisabled(false);
         }
-    }, [error, setError])
+    }, [error])
 
     const removeProduct = (_uid, id, code) => {
-        if (deleteConfirm) {
-            let newWishList = wishList.wishListItems.filter((item) => {
-                return item._uid != _uid;
-            });
-            deleteOneFromWishList({ productId: id, code });
-            dispatch(updateWishList(newWishList));
+        if (session) {
+            setIsOpenDel(false);
+            if (deleteConfirm) {
+                let newWishList = wishList.wishListItems.filter((item) => {
+                    return item._uid != _uid;
+                });
+                dispatch(updateWishList(newWishList));
+                deleteOneFromWishList({ productId: id, code });
+            } else {
+                setNotificationShow(true);
+            }
         } else {
-            setNotificationShow(true);
+            setIsOpenDel(true);
         }
+
 
     };
     const addToCartHandler = async (product) => {
@@ -48,16 +60,30 @@ export default function WishItem({ product, error, setError, ...props }) {
             exist = cart.cartItems.find((item) => item._uid === product._uid);
         }
         if (exist) {
-            setError((prevState) => ({ ...prevState, inCartError: true, uidProduct: product._uid }));
+            setError((prevState) => ({ ...prevState, inCartError: true, uidPrInCart: product._uid }));
             console.error('Товар уже в корзині');
+            setIsOpenCart(true);
             return;
         } else {
+            setIsOpenCart(false);
             dispatch(addToCart({ ...data, qty: 1, size: data.size, _uid: product._uid }));
         }
     }
 
     return (
         <Card className={styles.card}>
+            <Tooltip
+                id="delete-tooltip"
+                content="Будь ласка зареєструйтесь!"
+                isOpen={isOpenDel}
+                offset={30}
+            />
+            <Tooltip
+                id="add-to-cart-tooltip"
+                content="Уже в корзині!"
+                isOpen={isOpenCart}              
+                place="left"
+            />
             <Card.Body className={styles.cardbody}>
                 {
                     product.discount > 0 ? (
@@ -85,13 +111,17 @@ export default function WishItem({ product, error, setError, ...props }) {
                             <button
                                 className={styles.itembtn}
                                 onClick={() => addToCartHandler(product)}
-                                disabled={error.inCartError && error.uidProduct === product._uid ? true : false}>
+                                disabled={error.inCartError && error.uidProduct === product._uid ? true : false}
+                                data-tooltip-id="add-to-cart-tooltip"
+                                onMouseLeave={() => setIsOpenCart(false)}>
                                 <CartIcon fillColor={"#220F4B"} />
                             </button>
                             <button
                                 className={styles.itembtn}
                                 onClick={() => removeProduct(product._uid, product._id, product.code)}
-                                style={{ backgroundColor: notificationShow ? "#220F4B" : "#FAF8FF" }}>
+                                style={{ backgroundColor: notificationShow ? "#220F4B" : "#FAF8FF" }}
+                                data-tooltip-id="delete-tooltip"
+                                onMouseLeave={() => setIsOpenDel(false)}>
                                 <DeleteIcon fillColor={notificationShow ? "#FAF8FF" : "#220F4B"} />
                             </button>
                             {/* <DelNotification

@@ -14,12 +14,12 @@ export default function Products({ products }) {
         </Col>
       ))}
       <Col className={styles.col}>
-          <Card className={styles.morevideo}>
-            <Card.Body className={styles.lastcardbody}>
-              <h6 className={styles.textcard}>Більше товарів далі</h6>
-              <Button className={styles.ytbtn}>Показати ще</Button>
-            </Card.Body>
-          </Card>
+        <Card className={styles.morevideo}>
+          <Card.Body className={styles.lastcardbody}>
+            <h6 className={styles.textcard}>Більше товарів далі</h6>
+            <Button className={styles.ytbtn}>Показати ще</Button>
+          </Card.Body>
+        </Card>
       </Col>
     </Row>
   );
