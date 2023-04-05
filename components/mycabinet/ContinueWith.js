@@ -16,6 +16,7 @@ export default function ContinueWith(
 ) {
     const router = useRouter();
     const [providers, setProviders] = useState([]);
+    const [loading, setLoading] = useState(false);
 
     useDeepCompareEffect(() => {
         async function fetchData() {
@@ -27,15 +28,24 @@ export default function ContinueWith(
         }
         fetchData();
     }, [providers]); // Or [] if effect doesn't need props or state
-    const signInHandler = () => {
-        const res = signIn(providers.google.id);
 
+    const signInHandler = (id) => {
+        try {
+        setLoading(true);
+        const res = signIn(id);
         setUserProfileShow(true);
-        // window.alert(res);
-        // console.log("res", res);
+        setLoading(false);
+        } catch(error) {
+            console.error(error);
+            setLoading(false);
+        }
+        //  alert(res);
     }
     return (
         <div className={styles.container_frame}>
+             {
+                loading && <DotLoaderSpinner loading={loading} />
+            }
             <div className={styles.devider}>
                 <div className={styles.line2}></div>
                 <span>або увійдіть за допомогою</span>
@@ -43,15 +53,15 @@ export default function ContinueWith(
             </div>
             <div className={styles.linkicons}>
                 <button className={styles.social_btn}
-                    onClick={signInHandler} >
+                    onClick={()=>signInHandler(providers.google.id)} >
                     <Image height="24px" width="24px" src={`../../icons/logos_google-icon.png`} alt="provider" />
                 </button>
                 <button className={styles.social_btn}
-                    onClick={signInHandler} >
+                    onClick={()=>signInHandler(providers.facebook.id)} >
                     <Image height="24px" width="24px" src={`../../icons/logos_facebook.png`} alt="provider" />
                 </button>
             </div>
-            
+
             {/* <div className={styles.linkicons}>
                 <button className={styles.social_btn}
                     onClick={() => signIn(providers.apple.id)} >

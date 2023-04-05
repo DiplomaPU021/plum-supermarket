@@ -5,10 +5,9 @@ import createWebStorage from "redux-persist/lib/storage/createWebStorage";
 import { persistReducer } from "redux-persist";
 import cart from "./cartSlice"
 import wishList from "./wishListSlice"
-import dialog from "./DialogSlice"
 import scaleList from "./scaleListSlice"
 
-const reducers = combineReducers({ cart, wishList , dialog, scaleList});
+const reducers = combineReducers({ cart, wishList, scaleList });
 
 const createNoopStorage = () => {
     return {
@@ -23,8 +22,8 @@ const createNoopStorage = () => {
         },
     };
 };
-const storage = 
-typeof window !== "undefined"? createWebStorage("local") : createNoopStorage();
+const storage =
+    typeof window !== "undefined" ? createWebStorage("local") : createNoopStorage();
 
 const config = {
     key: "root",

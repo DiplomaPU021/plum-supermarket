@@ -19,16 +19,15 @@ handler.post(async (req, res) => {
 
     } catch (error) {
         return res.status(500).json({ error: error.message });
-
     }
 });
 handler.put(async (req, res) => {
     try {
         await db.connectDb();
-        const { productId } = req.body;
-        // console.log("req.queryIdPut", productId);
-        // console.log("req.user///////////////////////////////", req.user);
-        let user = userService.findByWishlistAndUpdate(req.user, productId);
+        const { productId, code } = req.body;
+        console.log("req.queryIdPut", productId, code);
+        userService.removeFromWishlist(req.user, productId, code);
+        // let user = userService.findByWishlistAndUpdate(req.user, productId);
         await db.disconnectDb();
         return res.status(200).json({ message: "Продукт успішно відредаговано" });
 
@@ -54,9 +53,8 @@ handler.get(async (req, res) => {
     }
 });
 handler.delete(async (req, res) => {
-    // console.log("DELETE!!!!!!!!!!!!!!", req);
     const { productId, code } = req.body;
-    // console.log("delete!!!!!!!!!!!!!!!!", productId, code);
+    console.log("delete!!!!!!!!!!!!!!!!", productId, code);
     await db.connectDb();
     userService.removeFromWishlist(req.user, productId, code);
 });

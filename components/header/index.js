@@ -15,6 +15,8 @@ import MyCabinet from "../mycabinet";
 import ScalesIcon from "../icons/ScalesIcon";
 import { saveWishList } from "@/requests/user";
 import ThemeSwitcher from "./ThemeSwitcher";
+import { Tooltip } from "react-tooltip";
+import "react-tooltip/dist/react-tooltip.css";
 
 
 export default function Header({ country }) {
@@ -30,10 +32,13 @@ export default function Header({ country }) {
   const [themeChange, setThemeChange] = useState(false);
   const [myCabinetOpen, setMyCabinetOpen] = useState(false);
   const [comparisonChange, setСomparisonChange] = useState(false);
-  const [error, setError]= useState({inCartError:false, uidProduct:""});
+  const [error, setError] = useState({ inCartError: false, uidPrInCart: "", inWishListError: false, uidPrInWish: "" });
   const [divVisible, setDivVisible] = useState(true);
+  const [isOpen, setIsOpen] = useState(false);
 
-
+  // useEffect(() => {
+  //   // console.log('App comp value:', JSON.stringify(error));
+  // }, [wishShow]);
 
   // useEffect(() => {
   //   console.log("35");
@@ -65,7 +70,16 @@ export default function Header({ country }) {
       0
     );
   };
+  const handleWishShow = () => {
+    if (session) {
+      setIsOpen(false);
+      setWishShow(true);
+    } else {
+      setWishShow(false);
+      setIsOpen(true);
+    }
 
+  };
   const handleBtn1Click = () => {
     setLanguage1(true)
     setLanguage2(false)
@@ -82,11 +96,23 @@ export default function Header({ country }) {
       setDivVisible(true)
     }
   })
+  const setShowWishListHandler = () => {
+    if (session) {
+      setWishShow(true)
+    } else {
+      alert("Залогінтесь");
+    }
+  }
 
   return (
     <div className={styles.main}>
+      <Tooltip
+        id="header-login-tooltip"
+        content="Будь ласка зареєструйтесь!"
+        isOpen={isOpen}
+        place="bottom"
+      />
       <div className={styles.headertop} style={{ display: divVisible ? 'flex' : 'none' }}>
-
         <section>
           <ul>
             <li>
@@ -110,37 +136,41 @@ export default function Header({ country }) {
             <Image src="../../../logo/logo_light.png" alt="logo" height="60px" />
           </div>
         </Link>
-          <div className={styles.search} style={{ width: divVisible ? '65%' : '10%' }}>
-            <div className={styles.search_flex} style={{ display: divVisible ? 'flex' : 'none' }}>
-              <input type="text" placeholder="Я шукаю..." />
-              <button>
-                <LoopIcon fillColor="#FAF8FF" />
-              </button>
-            </div>
+        <div className={styles.search} style={{ width: divVisible ? '65%' : '10%' }}>
+          <div className={styles.search_flex} style={{ display: divVisible ? 'flex' : 'none' }}>
+            <input type="text" placeholder="Я шукаю..." />
+            <button>
+              <LoopIcon fillColor="#FAF8FF" />
+            </button>
           </div>
-          <div className={styles.checkout_header} style={{ display: divVisible ? 'none' : 'flex' }}>
-             <p>Консультації по телефону <span>+38 023 652 12 56</span> Графік роботи Call-центру</p>
+        </div>
+        <div className={styles.checkout_header} style={{ display: divVisible ? 'none' : 'flex' }}>
+          <p>Консультації по телефону <span>+38 023 652 12 56</span> Графік роботи Call-центру</p>
+        </div>
+        <div className={styles.btnpannel} style={{ display: divVisible ? 'flex' : 'none' }}>
+          <div className={styles.cart}>
+            <button onClick={() => setScaleShow(true)} style={{ backgroundColor: scaleShow ? "#220F4B" : "#FAF8FF" }}>
+              <ScalesIcon fillColor={scaleShow ? "#FAF8FF" : "#220F4B"} />
+            </button>
+            <span> {getScaleItemsCount()}</span>
           </div>
-          <div className={styles.btnpannel} style={{ display: divVisible ? 'flex' : 'none' }}>
-            <div className={styles.cart}>
-              <button onClick={() => setScaleShow(true)} style={{ backgroundColor: scaleShow ? "#220F4B" : "#FAF8FF" }}>
-                <ScalesIcon  fillColor={scaleShow ? "#FAF8FF" : "#220F4B"}/>
-              </button>
-              <span> {getScaleItemsCount()}</span>
-            </div>
-            <div className={styles.cart}>
-              <button onClick={() => setWishShow(true)} style={{ backgroundColor: wishShow ? "#220F4B" : "#FAF8FF" }}>
-                <HeartIcon fillColor={wishShow ? "#FAF8FF" : "#220F4B"} />
-              </button>
-              <span> {getWishItemsCount()}</span>
-            </div>
-            <div className={styles.cart}>
-              <button onClick={() => setCartShow(true)} style={{ backgroundColor: cartShow ? "#220F4B" : "#FAF8FF" }}>
-                <CartIcon fillColor={cartShow ? "#FAF8FF" : "#220F4B"} />
-              </button>
-              <span> {getItemsCount()}</span>
-            </div>
-            <Cart
+          <div className={styles.cart}>
+            <button
+              onClick={handleWishShow}
+              style={{ backgroundColor: wishShow ? "#220F4B" : "#FAF8FF" }}
+              data-tooltip-id="header-login-tooltip"
+              onMouseLeave={() => setIsOpen(false)}>
+              <HeartIcon fillColor={wishShow ? "#FAF8FF" : "#220F4B"} />
+            </button>
+            <span> {getWishItemsCount()}</span>
+          </div>
+          <div className={styles.cart}>
+            <button onClick={() => setCartShow(true)} style={{ backgroundColor: cartShow ? "#220F4B" : "#FAF8FF" }}>
+              <CartIcon fillColor={cartShow ? "#FAF8FF" : "#220F4B"} />
+            </button>
+            <span> {getItemsCount()}</span>
+          </div>
+          <Cart
             show={cartShow}
             onHide={() => setCartShow(false)}
             error={error}
@@ -152,34 +182,34 @@ export default function Header({ country }) {
             error={error}
             setError={setError}
           />
-            <ComparisonListModal
-              show={scaleShow}
-              onHide={() => setScaleShow(false)}
-            />
-            {session && status == "authenticated" ? (
-              //TODO change
-              <div className={styles.cart}>
-                <button
-                  style={{ backgroundColor: "#220F4B" }}
-                  onClick={() => setMyCabinetOpen(true)}
-                >
-                  <AccountIcon fillColor={"#FAF8FF"} />
-                  {/* <img src={"/"+session.user.image} alt="profile"/> */}
-                  {/* {session.user.name} */}
-                </button>
-              </div>
-
-            ) : (
-              <button onClick={() => setMyCabinetOpen(true)}>
-                <AccountIcon fillColor={"#220F4B"} />
+          <ComparisonListModal
+            show={scaleShow}
+            onHide={() => setScaleShow(false)}
+          />
+          {session && status == "authenticated" ? (
+            //TODO change
+            <div className={styles.cart}>
+              <button
+                style={{ backgroundColor: "#220F4B" }}
+                onClick={() => setMyCabinetOpen(true)}
+              >
+                <AccountIcon fillColor={"#FAF8FF"} />
+                {/* <img src={"/"+session.user.image} alt="profile"/> */}
+                {/* {session.user.name} */}
               </button>
-            )}
-            <MyCabinet
-              show={myCabinetOpen}
-              onHide={() => setMyCabinetOpen(false)}
-            />
-          </div>
+            </div>
+
+          ) : (
+            <button onClick={() => setMyCabinetOpen(true)}>
+              <AccountIcon fillColor={"#220F4B"} />
+            </button>
+          )}
+          <MyCabinet
+            show={myCabinetOpen}
+            onHide={() => setMyCabinetOpen(false)}
+          />
         </div>
+      </div>
     </div>
   );
 }

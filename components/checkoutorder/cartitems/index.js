@@ -2,7 +2,7 @@ import styles from "../styles.module.scss"
 import { Row, Col } from "react-bootstrap"
 import { useState } from 'react'
 import CartItem from "./CartItem"
-import CartPage from '../../cart'
+import Cart from '../../cart'
 
 export default function CheckoutCart({ cart }) {
     const [cartShow, setCartShow] = useState(false);
@@ -19,7 +19,7 @@ export default function CheckoutCart({ cart }) {
                     <img src="../../../icons/edit.png" width="46px" height="46px" alt="" />
                 </div>
             </div>
-            <CartPage
+            <Cart
                 show={cartShow}
                 onHide={() => setCartShow(false)}
             />

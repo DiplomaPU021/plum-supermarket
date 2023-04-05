@@ -22,6 +22,7 @@ handler.get(async (req, res) => {
         return res.status(200).json({
             _id: product._id,
             style: Number(style),
+            mode,
             name: product.name,
             description: product.description,
             slug: product.slug,

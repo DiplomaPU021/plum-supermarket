@@ -112,8 +112,8 @@ export const updateOneInWishList = async ({productId, size, image, color, code})
 }
 export const deleteOneFromWishList = async ({productId, code}) => {
     try {
-        // console.log("apiuserupdatewish",productId, code);
-        const { data } = await axios.delete('/api/user/wishlist', {
+          console.log("apiuserdeletewish",productId, code);
+        const { data } = await axios.put('/api/user/wishlist', {
             productId,
             code
         });
