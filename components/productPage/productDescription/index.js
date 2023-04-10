@@ -9,6 +9,7 @@ export default function ProductDescription({ product }) {
   const [showDescription, setShowDescription] = useState(false)
   return (
     <Container fluid className={styles.description}>
+      {/* {product.description} */}
       <Row className={styles.description__row}>
         <Col className={styles.description__row_col}>
           <span>MacBook Air. З новою силою.</span>
@@ -50,7 +51,7 @@ export default function ProductDescription({ product }) {
         </Col>
       </Row>
       <Row>
-      <Col className={styles.description__more}>
+      <Col className={styles.description__more} id="anchor_one" >
           <button onClick={()=>setShowDescription(true)}>
             Дивитися всі характеристики{" "}
             <ChevronRight fillColor="#70BF63" w="30px" h="30px" />

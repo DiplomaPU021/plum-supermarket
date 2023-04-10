@@ -22,6 +22,8 @@ import {
   updateScaleList,
   removeFromScaleList,
 } from "@/store/scaleListSlice";
+import { Tooltip } from "react-tooltip";
+import "react-tooltip/dist/react-tooltip.css";
 
 // сюди приходить продукт з бази даних напряму
 export default function ProductCard({ product }) {
@@ -30,7 +32,7 @@ export default function ProductCard({ product }) {
   const dispatch = useDispatch();
   const [code, setCode] = useState(router.query.code);
   const [qty, setQty] = useState(1);
-  const [error, setError] = useState("");
+  const [errorInProductCard, setErrorInProductCard] = useState("");
   const cart = useSelector((state) => state.cart);
   const wishList = useSelector((state) => state.wishList);
   const scaleList = useSelector((state) => state.scaleList);
@@ -48,6 +50,7 @@ export default function ProductCard({ product }) {
         return a - b;
       })
   );
+  const [isOpen, setIsOpen] = useState(false);
   // useEffect(() => {
   //   setCode("");
   //   setQty(1);
@@ -69,7 +72,7 @@ export default function ProductCard({ product }) {
         })
     );
   }, [active]);
-  
+
   const addToCartHandler = async () => {
     // if (!router.query.code) {
     //   setError("Please select a product type");
@@ -82,10 +85,10 @@ export default function ProductCard({ product }) {
     );
 
     if (qty > data.quantity) {
-      setError("The quantity is bigger than in stock.");
+      setErrorInProductCard("The quantity is bigger than in stock.");
       return;
     } else if (data.quantity < 1) {
-      setError("This product is out of stock.");
+      setErrorInProductCard("This product is out of stock.");
       return;
     } else {
       //let _uid = `${data._id}_${product.style}_${router.query.code}`;
@@ -109,7 +112,7 @@ export default function ProductCard({ product }) {
   };
   const addToWishHandler = async () => {
     if (session) {
-     
+      setIsOpen(false);
       let _uid = `${product._id}_${active}_${product.subProducts[active].sizes[active].code}`;
       let exist = null;
       if (wishList.wishListItems) {
@@ -120,21 +123,24 @@ export default function ProductCard({ product }) {
           return item._uid != _uid;
         });
         dispatch(updateWishList(newWishList));
-        updateOneInWishList({productId: product._id});
-
+        updateOneInWishList({ productId: product._id });
       } else {
         const { data } = await axios.get(
           `/api/product/${product._id}?style=0&code=0`
         );
-        dispatch(addToWishList({ ...data, qty, size: data.size, _uid, mode: 0 }));
+        dispatch(
+          addToWishList({ ...data, qty, size: data.size, _uid, mode: 0 })
+        );
         saveWishList({
           productId: product._id,
           size: product.subProducts[active].sizes[active].size,
           image: product.subProducts[active].images[0],
           color: product.subProducts[active].color?.color,
-          code: product.subProducts[active].sizes[active].code
+          code: product.subProducts[active].sizes[active].code,
         });
       }
+    } else {
+      setIsOpen(true);
     }
 
     // if (!router.query.code) {
@@ -185,7 +191,7 @@ export default function ProductCard({ product }) {
         existItem = existSub.items.find((p) => p._id === data._id);
         if (existItem) {
           if (existSub.items.length === 1) {
-            dispatch(removeFromScaleList({ ...existSub}));
+            dispatch(removeFromScaleList({ ...existSub }));
           } else {
             dispatch(updateScaleList({ ...data }));
           }
@@ -200,13 +206,23 @@ export default function ProductCard({ product }) {
 
   return (
     <Card className={styles.product}>
+      <Tooltip
+        id="login-tooltip"
+        content="Будь ласка зареєструйтесь!"
+        isOpen={isOpen}
+        offset={30}
+      />
       <div className={styles.product__container}>
         <div className={styles.product__container_photobox}>
           <Link href={`/product/${product.slug}?style=${active}&code=0`}>
             <ProductSwiper images={images} />
           </Link>
-          <Button className={styles.btnheart}
-            onClick={addToWishHandler}>
+          <Button
+            className={styles.btnheart}
+            onClick={addToWishHandler}
+            data-tooltip-id="login-tooltip"
+            onMouseLeave={() => setIsOpen(false)}
+          >
             <HeartIcon fillColor={"#220F4B"} />
           </Button>
         </div>
@@ -269,7 +285,10 @@ export default function ProductCard({ product }) {
                 >{`${prices[0]} ${product.subProducts[active].sizes[0].price_unit}`}</span>
               </Col>
             )}
-            <Button className={styles.btnscales} onClick={()=>addToScaleHandler()}>
+            <Button
+              className={styles.btnscales}
+              onClick={() => addToScaleHandler()}
+            >
               <ScalesIcon fillColor={"#220F4B"} />
             </Button>
             <Button
@@ -283,7 +302,7 @@ export default function ProductCard({ product }) {
               <CartIcon fillColor={"#FAF8FF"} />
             </Button>
           </Row>
-          {error && <span>{error}</span>}
+          {errorInProductCard && <span>{errorInProductCard}</span>}
         </Container>
       </div>
     </Card>

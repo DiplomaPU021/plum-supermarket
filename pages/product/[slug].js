@@ -25,7 +25,7 @@ import User from "@/models/User";
 export default function product({ product, popular, country }) {
   const [active, setActive] = useState(0);
   const [productReview, setProductReview] = useState(product?.reviews?.reverse());
-// console.log("review", product.reviews);
+  // console.log("review", product.reviews);
   return (
     <Container fluid style={{ padding: "0" }}>
       <Header country={country} />
@@ -67,21 +67,19 @@ export default function product({ product, popular, country }) {
                 setActive={setActive}
                 productReview={productReview}
                 setProductReview={setProductReview}
-                // user={user}
+              // user={user}
               />
             </Col>
             <Col style={{ padding: "0", width: "50%" }}>
               <Infos product={product} active={active} setActive={setActive} />
             </Col>
-          </Row> 
+          </Row>
         </Container>
       </Container>
       <CustomerInfo />
       <CheaperTogether product={product} productsPlus={product.productsPlus} />
       <ProductDescription product={product} />
-      {product.reviews.length > 0? (
-         <Reviews product={product} productReview={productReview} setProductReview={setProductReview}/>
-      ): null}    
+        <Reviews product={product} productReview={productReview} setProductReview={setProductReview} />
       <Popular title={"Популярне з категорії"} products={popular} category={product.category.name} />
       <Footer country={country} />
     </Container>
@@ -90,7 +88,7 @@ export default function product({ product, popular, country }) {
 export async function getServerSideProps(context) {
   const { query, req } = context;
   const slug = query.slug;
-  const style = query.style==null || query.style=="undefined"? 0: query.style;
+  const style = query.style == null || query.style == "undefined" ? 0 : query.style;
   const mode = query.code || 0;
   // var user={};
   // const session = await getSession({ req });
@@ -107,7 +105,8 @@ export async function getServerSideProps(context) {
   let product = await Product.findOne({ slug })
     .populate({ path: "category", model: Category })
     .populate({ path: "subCategories", model: SubCategory })
-    .populate({path: "reviews.reviewBy", model: User})
+    .populate({ path: "reviews.reviewBy", model: User })
+    .populate({ path: "reviews.replies.replyBy", model: User })
     .lean();
   // console.log("PagesProductSlugProps", product);
   let subProduct = product.subProducts[style];
@@ -139,7 +138,7 @@ export async function getServerSideProps(context) {
     sold: subProduct.sold,
     quantity: subProduct.sizes[mode].qty,
     productsPlus,
-    reviews:product.reviews.reverse(),
+    reviews: product.reviews.reverse(),
     // reviews: [
     //   { percentage: 76 },
     //   { percentage: 14 },

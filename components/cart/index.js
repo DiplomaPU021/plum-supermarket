@@ -12,7 +12,8 @@ import { useRouter } from "next/router"
 import { saveCart } from "@/requests/user"
 import MyCabinet from "@/components/mycabinet"
 
-export default function CartPage(props) {
+export default function Cart({error, setError, ...props}) {
+    // console.log("cartIndex");
     const router = useRouter();
     const { data: session } = useSession();
     const cart = useSelector((state) => state.cart);
@@ -74,7 +75,7 @@ export default function CartPage(props) {
                         <Modal.Body className={styles.modalbody} scrollable="true">
                             {
                                 cart.cartItems?.map((product, i) => (
-                                    <CartItem key={i} product={product} error={props.error} setError={props.setError}/>
+                                    <CartItem key={i} product={product} error={error} setError={setError}/>
                                 ))
                             }
                         </Modal.Body>

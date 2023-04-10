@@ -1,6 +1,6 @@
 import "bootstrap/dist/css/bootstrap.min.css";
 import styles from "./styles.module.scss";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Image from "react-bootstrap/Image";
 import Link from "next/link";
 import { useRouter } from "next/router";
@@ -17,14 +17,18 @@ import { useSession } from "next-auth/react";
 import MyCabinet from "@/components/mycabinet";
 import Star from "@/components/icons/Star";
 
-
-
 export default function MainSwiper({ product, active, setActive, setProductReview }) {
   const { data: session } = useSession();
   const [activeImg, setActiveImg] = useState(active);
   const [feedback, setFeedback] = useState(false);
   const [loginModalShow, setLoginModalShow] = useState(false);
+  const [rating, setRating] = useState(product.rating);
   const router = useRouter();
+
+  useEffect(() => {
+    // console.log(rating);
+    setRating(product.rating);
+  }, [rating])
   const handleFeedBack = () => {
     if (session) {
       setFeedback(true);
@@ -88,12 +92,13 @@ export default function MainSwiper({ product, active, setActive, setProductRevie
       <Row className={styles.swiper__reviews}>
 
         <Col className={styles.swiper__reviews_stars}>
-          <button onClick={handleFeedBack}>Відгуки</button>
+          {/* <button ><a href="#anchor_one">Відгуки</a></button> */}
+          <Link href="#anchor_one">Відгуки</Link>
           <Rating
             readonly={true}
             size={30}
             allowFraction={2}
-            initialValue={product.rating}
+            initialValue={rating}
             ratingValue
             emptyIcon={
               <Star
@@ -130,9 +135,8 @@ export default function MainSwiper({ product, active, setActive, setProductRevie
               onClick={() => setActive(i)}
               style={{ background: el.color.image }}
             >
-                              {/* href={`/product/${product.slug}?style=${i}&code=${0}`} */}
               <Link
-                href={`/product/${product.slug}?style=${i}&code=${product.mode}`}
+                href={`/product/${product.slug}?style=${i}&code=${0}`}
               ></Link>
 
             </span>

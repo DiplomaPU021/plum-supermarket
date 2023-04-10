@@ -92,10 +92,22 @@ const productSchema = new mongoose.Schema(
                 ref: "SubCategory",
             },
         ],
+        // details: [
+        //     {
+        //         name: String,
+        //         value: String,
+        //     }
+        // ],
         details: [
             {
-                name: String,
-                value: String,
+                "group": String,
+                "fields": [
+                    {
+                        "name": String,
+                        "value": String,
+                        "isMain": Boolean
+                    }
+                ]
             }
         ],
         // questions: [

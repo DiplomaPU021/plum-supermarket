@@ -14,11 +14,12 @@ import { saveWishList } from "@/requests/user"
 import MyCabinet from "@/components/mycabinet"
 
 
-export default function WishList(props) {
+export default function WishList({ error, setError, ...props}) {
+    // console.log("WishListIndex", props);
     const router = useRouter();
     const { data: session } = useSession();
     const wishList = useSelector((state) => state.wishList);
-    const [userId, setUserId] = useState(props.userid);
+    // const [userId, setUserId] = useState(props.userid);
     const [footerVisible, setFooterVis] = useState("none");
     // const [loginModalShow, setLoginModalShow] = useState(false);
 
@@ -70,7 +71,7 @@ export default function WishList(props) {
                         <Modal.Body className={styles.modalbody}>
                             {
                                 wishList.wishListItems?.map((product, i) => (
-                                    <WishItem key={i} product={product} userid={userId} error={props.error} setError={props.setError} />
+                                    <WishItem key={i} product={product} error={error} setError={setError} />
                                 ))
                             }
                         </Modal.Body>
