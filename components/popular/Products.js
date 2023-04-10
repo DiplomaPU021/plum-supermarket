@@ -10,7 +10,7 @@ export default function Products({ products }) {
     <Row lg={4} md={3} className={styles.products_row}>
       {products.map((p, i) => (
         <Col key={i} className={styles.col}>
-          <ProductCard product={p} />
+          <ProductCard product={p} style={p.style} mode={p.mode}/>
         </Col>
       ))}
       <Col className={styles.col}>

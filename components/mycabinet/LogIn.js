@@ -242,7 +242,7 @@ export default function LogIn({
           </Col>
           <Col className={styles.login_col2}>
             <Image
-              src="../../../images/login.jpg"
+              src="../../../images/login.png"
               width="463px"
               height="528px"
             />

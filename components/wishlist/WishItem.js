@@ -7,7 +7,7 @@ import { Container, Row, Col, Form } from "react-bootstrap"
 import { updateWishList } from "@/store/wishListSlice";
 import { useDispatch, useSelector } from "react-redux";
 import CartIcon from "../icons/CartIcon";
-import { addToCart, updateCart } from "@/store/cartSlice";
+import { addToCart } from "@/store/cartSlice";
 import axios from "axios";
 import { deleteOneFromWishList } from "@/requests/user";
 import { useSession } from "next-auth/react";

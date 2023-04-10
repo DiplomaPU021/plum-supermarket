@@ -10,11 +10,14 @@ import dataURItoBlob from "@/utils/dataURItoBlob";
 import { uploadImages } from "@/requests/upload";
 import axios from "axios";
 import { useSession } from "next-auth/react";
+import { useDispatch } from "react-redux";
+import { addToReviewRating, updateNumberReviews, updateReviewRating } from "@/store/reviewSlice";
 
 export default function LeaveFeedback({ show, onHide, product, setProductReview }) {
   const { data: session } = useSession();
+  const dispatch = useDispatch();
   const [form, setForm] = useState({
-    reviewerName: session?session.user.name:"",
+    reviewerName: session ? session.user.name : "",
     review: '',
     advantages: '',
     disadvantages: '',
@@ -74,18 +77,18 @@ export default function LeaveFeedback({ show, onHide, product, setProductReview 
         });
         uploaded_images = await uploadImages(formData);
       }
-      //  setField("rating", 3);
       const { data } = await axios.put(`/api/product/${product._id}/review`, {
         reviewerName: form.reviewerName,
-        rating: form.rating, //? form.rating : 3,
+        rating: form.rating,
         experience: form.experience,
         advantages: form.advantages,
         disadvantages: form.disadvantages,
         review: form.review,
         images: uploaded_images,
       });
-      console.log("data////", data);
       setProductReview(data.reviews);
+      dispatch(updateNumberReviews(data.reviews.length));
+      dispatch(addToReviewRating(form.rating))
       setForm({
         reviewerName: '',
         review: '',
@@ -98,8 +101,6 @@ export default function LeaveFeedback({ show, onHide, product, setProductReview 
       onHide();
     }
   }
-
-
   return (
     <Modal
       className={styles.modal}
@@ -155,7 +156,7 @@ export default function LeaveFeedback({ show, onHide, product, setProductReview 
                 SVGstorkeWidth={1}
                 emptyColor="transparent"
                 fillColor="#70BF63"
-                onClick={(rating) => { setField("rating", rating); console.log("rating", rating, form.rating); }}
+                onClick={(rate) => setField("rating", rate)}
               />
             </Form.Group>
 

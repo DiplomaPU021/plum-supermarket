@@ -13,7 +13,7 @@ export default function ProfilePage(props) {
    
     return (
         <Modal.Body className={styles.modalbodyempty}>
-            <h2 onClick={console.log(session.user)}>Ваші персональні дані</h2>
+            <h2>Ваші персональні дані</h2>
             <h5>Особисті дані</h5>
             {/* <Link href={signOut()}>Вийти</Link> */}
         </Modal.Body>

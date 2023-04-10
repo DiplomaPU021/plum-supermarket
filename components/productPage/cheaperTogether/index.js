@@ -7,12 +7,14 @@ import { Container, Col, Image, Row } from "react-bootstrap";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Navigation } from "swiper";
 import styles from "./styles.module.scss";
-
-// import Swiper and modules styles
 import "swiper/css";
 import "swiper/css/pagination";
 
-export default function CheaperTogether({ product, productsPlus }) {
+export default function CheaperTogether({ product, productsPlus, active, setActive}) {
+  const handleSumCheaperTogether=(product1, product2)=>{
+    const result=Math.round((Number(product1.priceAfter)+Number(product2.priceAfter))*0.95).toLocaleString("uk-UA");
+    return result;
+  }
   return (
     <Container fluid className={styles.cheapTwo}>
       <div className={styles.cheapTwo__title}>
@@ -43,20 +45,20 @@ export default function CheaperTogether({ product, productsPlus }) {
               key={i}
             >
               <div  style={{maxWidth: "335px"}}>
-                <ProductCard product={product} />
+                <ProductCard product={product} style={product.style} mode={product.mode} />
               </div>
               <Image
                 className={styles.cheapTwo__signPlus}
                 src="../../../icons/plusDark.png"
-                alt=""
+                alt="dark plus"
               />
               <div  style={{maxWidth: "335px"}}>
-                <ProductCard product={prod} />
+                <ProductCard product={prod} style={prod.style} mode={prod.mode}/>
               </div>
               <Image
                 className={styles.cheapTwo__signEqual}
                 src="../../../icons/equalDark.png"
-                alt=""
+                alt="dark equal"
               />
               <div className={styles.shipping}>
                 <span>Безкоштовна доставка</span>
@@ -64,7 +66,7 @@ export default function CheaperTogether({ product, productsPlus }) {
               <Col className={styles.cheapTwo__simillarswiper_summary}>
                 <div className={styles.cheapTwo__simillarswiper_summary_price}>
                   {/* TODO calculate price below */}
-                  <span>182 034 ₴</span>
+                  <span>{handleSumCheaperTogether(product,prod)} {product.price_unit}</span>
                 </div>
                 <div className={styles.cheapTwo__simillarswiper_summary_buy}>
                   {/* TODO add to cart*/}

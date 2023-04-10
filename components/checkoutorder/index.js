@@ -25,7 +25,7 @@ export default function CheckoutOrder({
     const [delivery, setDelivery] = useState({ deliveryType: "Нова пошта", deliveryCost: "за тарифами перевізника", deliveryAddress: "", deliveryId: "novaPoshta" });
     const [deliveryCost, setDeliveryCost] = useState(0);
     const [userAdresses, setUserAdresses] = useState(user?.address || []);
-    const [activeAddress, setActiveAddress] = useState(userAdresses?.find(address => address.active === true)||{});
+    const [activeAddress, setActiveAddress] = useState(userAdresses?.find(address => address.active === true)||null);
     const [order_error, setOrder_Error] = useState("");
     const [totalAfterDiscount, setTotalAfterDiscount] = useState(cart?.cartTotalPrice);
 

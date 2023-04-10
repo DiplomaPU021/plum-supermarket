@@ -138,8 +138,7 @@ export async function getServerSideProps(context) {
     const { query } = context;
     const id = query.id;
     const orderData = await Order.findById(id).populate('user').lean();
-    console.log("order", orderData);
-
+    // console.log("order", orderData);
     return {
         props: {
             // country: countryData,

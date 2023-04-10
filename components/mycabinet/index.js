@@ -5,10 +5,16 @@ import { signIn, signOut, useSession } from 'next-auth/react';
 import { useRouter } from "next/router"
 import Authorization from "./Authorization";
 import Image from 'react-bootstrap/Image'
+import { useDispatch, useSelector } from "react-redux";
+import { emptyCart } from "@/store/cartSlice";
+import { emptyWishList } from "@/store/wishListSlice";
+import { emptyScaleList } from "@/store/scaleListSlice";
+import { emptyReviewRating } from "@/store/reviewSlice";
 
 export default function MyCabinet(props) {
     const router = useRouter();
     const { data: session, status } = useSession();
+    const dispatch = useDispatch();
     const [userId, setUserId] = useState(props.userid);
     const [authShow, setAuthShow] = useState(session?.user ? false : true);
     const [logShow, setLogShow] = useState(false);
@@ -25,18 +31,20 @@ export default function MyCabinet(props) {
     const logInFormShow = () => {
         setLogShow(true)
         setAuthShow(false)
-
     }
     const registerFormShow = () => {
         setRegShow(true)
         setAuthShow(false)
-
     }
     const signOutHandler = () => {
         signOut({ redirect: false, callbackUrl: "/" });
         // props.onHide();
         setUserProfileShow(false);
-        setAuthShow(true)
+        setAuthShow(true);
+        dispatch(emptyCart());
+        dispatch(emptyWishList());
+        dispatch(emptyScaleList());
+        dispatch(emptyReviewRating());
     }
 
     return (
@@ -50,7 +58,7 @@ export default function MyCabinet(props) {
                 <Modal.Header className="modal-header" closeButton>Мій кабінет</Modal.Header>
                 {authShow ? (
                     <Modal.Body className={styles.modalbodyempty}>
-                        <Image src='../../../images/useraccount.jpg' width="241px" height="180px" />
+                        <Image src='../../../images/useraccount.png' width="241px" height="180px" />
                         <h2>Ви не авторизовані</h2>
                         <div className={styles.line}></div>
                         <h5>Але це ніколи не пізно виправити</h5>

@@ -15,36 +15,15 @@ import MyCabinet from "@/components/mycabinet"
 
 
 export default function WishList({ error, setError, ...props}) {
-    // console.log("WishListIndex", props);
-    const router = useRouter();
-    const { data: session } = useSession();
     const wishList = useSelector((state) => state.wishList);
-    // const [userId, setUserId] = useState(props.userid);
     const [footerVisible, setFooterVis] = useState("none");
-    // const [loginModalShow, setLoginModalShow] = useState(false);
-
-    // const [total, setTotal] = useState(1);
     const getTotalQty = () => {
         return wishList.wishListItems.reduce(
             (accumulator, item) => accumulator + item.qty,
             0
         );
     };
-    // const openLoginModal = () => {
-    //     setLoginModalShow(true);
-
-    // };
-    // const saveWishListToDbHandler = () => {
-    //     if (session) {
-    //         saveWishList(wishList);
-    //         router.push("/");
-    //     }
-    //     else {
-    //         openLoginModal();
-    //     }
-    // }
-
-
+    
     useEffect(() => {
         if (wishList?.wishListItems?.length !== 0) {
             setFooterVis("block")

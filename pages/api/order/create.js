@@ -5,6 +5,7 @@ import db from "@/utils/db";
 import auth from "@/middleware/auth";
 import Coupon from "@/models/Coupon";
 import Cart from "@/models/Cart";
+import productService from "@/utils/services/product.service";
 
 const handler = nc().use(auth);
 
@@ -23,9 +24,8 @@ handler.post(async (req, res) => {
             promocode,
             discount
         } = req.body;
+       
         let user = await User.findById(req.user);
-        // let coupon= await Coupon.findOne({promocode});
-        // console.log("apiordercreateUser", coupon);
         const newOrder = await new Order({
             user: user._id,
             products,
@@ -40,6 +40,9 @@ handler.post(async (req, res) => {
             discount
         }).save();
         await Cart.deleteOne({ user: user._id });
+    
+       await productService.findByIdAndUpdateQuantity(products);
+        console.log("46");
         await db.disconnectDb();
         return res.status(200).json({
             order_id: newOrder._id,

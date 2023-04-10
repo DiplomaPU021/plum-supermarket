@@ -22,7 +22,7 @@ import {
 import { updateScaleList } from "@/store/scaleListSlice";
 
 // сюди приходить продукт з бази даних напряму
-export default function ComparisonCard({ product }) {
+export default function ComparisonCard({ product, style,mode }) {
   const router = useRouter();
   const dispatch = useDispatch();
   const [code, setCode] = useState(router.query.code);
@@ -44,7 +44,7 @@ export default function ComparisonCard({ product }) {
     // const { data } = await axios.get(`/api/product/${product._id}?style=${product.style}&code=${router.query.code}`);
 
     const { data } = await axios.get(
-      `/api/product/${product._id}?style=0&code=0`
+      `/api/product/${product._id}?style=${style}&code=${mode}`
     );
 
     if (qty > data.quantity) {
@@ -82,7 +82,7 @@ export default function ComparisonCard({ product }) {
     // const { data } = await axios.get(`/api/product/${product._id}?style=${product.style}&code=${router.query.code}`);
 
     const { data } = await axios.get(
-      `/api/product/${product._id}?style=0&code=0`
+      `/api/product/${product._id}?style=${style}&code=${mode}`
     );
 
     if (qty > data.quantity) {

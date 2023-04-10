@@ -1,11 +1,11 @@
 import styles from "./styles.module.scss"
 import Modal from 'react-bootstrap/Modal'
-import {useState} from "react"
+import { useState } from "react"
 import { Form, Button } from "react-bootstrap"
 import { useDispatch, useSelector } from "react-redux"
-import { updateCart } from "@/store/cartSlice"
+import { deleteApproval, updateCart } from "@/store/cartSlice"
 
-export default function DelNotification({setDeleteConfirm, productId, setError,...props}) {
+export default function DelNotification({ setDeleteConfirm, productId, setError, ...props }) {
     const cart = useSelector((state) => state.cart);
     const dispatch = useDispatch();
     const [dontAsk, setDontAsk] = useState({ askType: "", another: "another" });
@@ -14,7 +14,6 @@ export default function DelNotification({setDeleteConfirm, productId, setError,.
     const handleDontAskAgain = (e) => {
         // e.persist();
         // console.log(e.target.value);
-        setDeleteConfirm(true);
         setDontAsk(prevState => ({
             ...prevState,
             askType: e.target.value
@@ -24,8 +23,13 @@ export default function DelNotification({setDeleteConfirm, productId, setError,.
         let newCart = cart.cartItems.filter((item) => {
             return item._uid != productId;
         });
-        setError((prevState)=>({...prevState, inCartError: false, uidProduct: "" }));
+        setError((prevState) => ({ ...prevState, inCartError: false, uidProduct: "" }));
         dispatch(updateCart(newCart));
+        if (dontAsk.askType != "") {
+            setDeleteConfirm(true);
+            dispatch(deleteApproval(true));
+        }
+
         props.onHide();
     }
 

@@ -24,50 +24,50 @@ import {
   updateScaleList,
 } from "@/store/scaleListSlice";
 
-export default function Infos({ product, active, setActive, setError }) {
+export default function Infos({ product, active, setActive, productError, setProductError }) {
   const router = useRouter();
   const { data: session, status } = useSession();
   const dispatch = useDispatch();
   const [qty, setQty] = useState(1);
   const cart = useSelector((state) => state.cart);
   const wishList = useSelector((state) => state.wishList);
-  const [size, setSize] = useState(product.size);
   const scaleList = useSelector((state) => state.scaleList);
   const [showDetails, setShowDetails] = useState(false);
   const [showSizes, setShowSizes] = useState(false);
   const [isOpen, setIsOpen] = useState(false);
+  const [isOpenQ, setIsOpenQ] = useState(false);
 
-  // useEffect(() => {
-  //   setCode("");
-  // }, [router.query.code]);
 
   const addToCartHandler = async () => {
-    //need to connect to data base
     const { data } = await axios.get(
       `/api/product/${product._id}?style=${product.style}&code=${product.mode}`
     );
 
     if (qty > data.quantity) {
-      setError("The quantity is bigger than in stock.");
+      setProductError("На складі обмежена кількість товару");
+      setIsOpenQ(true);
       return;
     } else if (data.quantity < 1) {
-      setError("This product is out of stock.");
+      setProductError("Цей товар закінчився");
+      setIsOpenQ(true);
       return;
     } else {
-      //let _uid = `${data._id}_${product.style}_${router.query.code}`;
+      setIsOpenQ(false);
       let _uid = `${data._id}_${data.style}_${data.code}`;
       let exist = null;
       if (cart.cartItems) {
         exist = cart.cartItems.find((item) => item._uid === _uid);
       }
       if (exist) {
-        let newCart = cart.cartItems.map((item) => {
-          if (item._uid === exist._uid) {
-            return { ...item, qty: item.qty + 1 };
-          }
-          return item;
-        });
-        dispatch(updateCart(newCart));
+        setProductError("Товар уже в корзині");
+        setIsOpenQ(true);
+        // let newCart = cart.cartItems.map((item) => {
+        //   if (item._uid === exist._uid) {
+        //     return { ...item, qty: item.qty + 1 };
+        //   }
+        //   return item;
+        // });
+        // dispatch(updateCart(newCart)); 
       } else {
         dispatch(addToCart({ ...data, qty, size: data.size, _uid }));
       }
@@ -121,13 +121,12 @@ export default function Infos({ product, active, setActive, setError }) {
     );
 
     if (qty > data.quantity) {
-      setError("The quantity is bigger than in stock.");
+      setProductError("The quantity is bigger than in stock.");
       return;
     } else if (data.quantity < 1) {
-      setError("This product is out of stock.");
+      setProductError("This product is out of stock.");
       return;
     } else {
-      //let _uid = `${data._id}_${product.style}_${router.query.code}`;
       let _uid = `${data._id}_${data.style}_${data.code}`;
       let exist = null;
       if (scaleList.scaleListItems) {
@@ -150,9 +149,14 @@ export default function Infos({ product, active, setActive, setError }) {
         content="Будь ласка зареєструйтесь!"
         isOpen={isOpen}
       />
+      <Tooltip
+        id="quantity-tooltip"
+        content={productError}
+        isOpen={isOpenQ}
+      />
       <Row className={styles.infos__priceandaction}>
         <Col className={styles.infos__priceandaction_price}>
-          {product.subProducts[active].discount > 0 ? (
+          {product.subProducts[product.style].discount > 0 ? (
             <div>
               <span className={styles.pricediscount}>{`${Number(
                 product.price
@@ -230,8 +234,12 @@ export default function Infos({ product, active, setActive, setError }) {
           onHide={() => setShowDetails(false)}
         />
       </Col>
+
       {product.size ? (
         <Row className={styles.infos__sizesInfo}>
+          <span className={`${styles.input} ${productError ? styles.error : ""}`}>
+            {/* {productError} */}
+          </span>
           <Col className={styles.infos__sizesInfo_sizes}>
             {product.sizes.map((el, i) => (
               <Link
@@ -242,7 +250,12 @@ export default function Infos({ product, active, setActive, setError }) {
                 <Col
                   className={`${styles.infos__sizesInfo_sizes_size}
                   ${i == router.query.code && styles.active_size}`}
-                  onClick={() => setSize(el.size)}
+                  onClick={() => setActive((prevState) => ({
+                    ...prevState,
+                    mode: i,              
+                  }))}
+                  data-tooltip-id="quantity-tooltip"
+                  onMouseLeave={() => setIsOpenQ(false)}
                 >
                   {el.size}
                 </Col>

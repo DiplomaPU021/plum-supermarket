@@ -21,6 +21,7 @@
     "express-fileupload": "^1.4.0",
     "formik": "^2.2.9",
     "googleapis": "^110.0.0",
+    "html-react-parser": "^3.0.15",
     "init": "^0.1.2",
     "jsonwebtoken": "^9.0.0",
     "mongodb": "^4.13.0",

@@ -87,18 +87,18 @@ export default function CityModal(props) {
         console.log(e.target.textContent);
 
         let selectedCity = "";
-        if (e.target.id == "frankivsk") {
+        if (e.target.id == "zaporizhzhya") {
             selectedCity = {
-                community: "Івано-Франківськ",
-                level_1: "2600000000",
-                level_2: "2610100000",
+                community: "Запоріжжя",
+                level_1: "2300000000",
+                level_2: "2310100000",
                 object_category: "м.",
-                object_code: "2610100000",
-                object_name: "Івано-Франківськ",
-                region: "Івано-Франківська Область",
-                _id: "63fd04b68cbfb5572cac4439",
-                value: "м. Івано-Франківськ, Івано-Франківська Область",
-                label: "м. Івано-Франківськ, Івано-Франківська Область"
+                object_code: "2310100000",
+                object_name: "Запоріжжя",
+                region: "Запорізька Область",
+                _id: "63fd04b68cbfb5572cac4436",
+                value: "м. Запоріжжя, Запорізька Область",
+                label: "м. Запоріжжя, Запорізька Область"
             };
             setSearchCity(selectedCity);
         } else if (e.target.id == "kiev") {
@@ -215,7 +215,7 @@ export default function CityModal(props) {
                             <button onClick={handleCityClick} id="lviv">Львів</button>
                         </Row>
                         <Row className={styles.product_row}>
-                            <button onClick={handleCityClick} id="frankivsk">Запоріжжя</button>
+                            <button onClick={handleCityClick} id="zaporizhzhya">Запоріжжя</button>
                             <button onClick={handleCityClick} id="odesa">Одеса</button>
                             <button onClick={handleCityClick} id="dnipro">Дніпро</button>
                         </Row>

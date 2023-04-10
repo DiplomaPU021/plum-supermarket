@@ -133,7 +133,6 @@ const findByWishlistAndUpdate = async (userId, productId, size, image, color, co
             });
         return updateResult;      
     } catch (error) {
-        // console.log("128");
         // console.log(error);
         throw new Error("Error removing wishlist item");
     }
@@ -153,10 +152,8 @@ const removeFromWishlist = async (userId, productId, code) => {
             { _id: userId },
             { $pull: { wishlist: { product: productId,  code: code } } }
         );
-        // console.log("125");
         return result;
     } catch (error) {
-        // console.log("128");
         // console.log(error);
         throw new Error("Error removing wishlist item");
     }

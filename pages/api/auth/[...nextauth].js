@@ -132,7 +132,7 @@ export default NextAuth({
       clientId: process.env.FACEBOOK_CLIENT_ID,
       clientSecret: process.env.FACEBOOK_CLIENT_SECRET,
       async profile(profile, options) {
-        console.log("profileFacebook", JSON.stringify(profile), JSON.stringify(options));
+        // console.log("profileFacebook", JSON.stringify(profile), JSON.stringify(options));
         const userProfile = {
           id: profile.id,
           email: profile.email,

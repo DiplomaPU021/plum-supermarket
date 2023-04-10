@@ -12,38 +12,23 @@ import ChevronRight from "@/components/icons/ChevronRight";
 import ChevronLeft from "@/components/icons/ChevronLeft";
 import { Container, Row, Col } from "react-bootstrap";
 import { Rating } from "react-simple-star-rating";
-import LeaveFeedback from "../leaveFeedback";
-import { useSession } from "next-auth/react";
-import MyCabinet from "@/components/mycabinet";
 import Star from "@/components/icons/Star";
+import { useSelector } from "react-redux";
 
 export default function MainSwiper({ product, active, setActive, setProductReview }) {
-  const { data: session } = useSession();
-  const [activeImg, setActiveImg] = useState(active);
-  const [feedback, setFeedback] = useState(false);
-  const [loginModalShow, setLoginModalShow] = useState(false);
-  const [rating, setRating] = useState(product.rating);
+  const [activeImg, setActiveImg] = useState(product.images[0].url);
+  const reviewRating = useSelector((state) => state.reviewRating);
   const router = useRouter();
-
   useEffect(() => {
-    // console.log(rating);
-    setRating(product.rating);
-  }, [rating])
-  const handleFeedBack = () => {
-    if (session) {
-      setFeedback(true);
-    } else {
-      setLoginModalShow(true)
-    }
-
-  }
+    setActiveImg(product.images[0].url);
+  }, [product.slug]);
   return (
     <Container fluid className={styles.swiper}>
       <Row className={styles.swiper__photoBox}>
         <Image
           className={styles.swiper__photoBox_image}
-          src={activeImg || product.images[0].url}
-          alt=""
+          src={activeImg|| product.images[0].url}
+          alt={product.name}
         />
       </Row>
       <Col className={styles.swiper__line}></Col>
@@ -70,7 +55,7 @@ export default function MainSwiper({ product, active, setActive, setProductRevie
                 <Image
                   className={styles.swiper__simillarswiper_image}
                   src={img.url}
-                  alt=""
+                  alt={product.name}
                   onClick={() => setActiveImg(img.url)}
                 />
               </SwiperSlide>
@@ -98,7 +83,7 @@ export default function MainSwiper({ product, active, setActive, setProductRevie
             readonly={true}
             size={30}
             allowFraction={2}
-            initialValue={rating}
+            initialValue={reviewRating?.reviewRatingValue}
             ratingValue
             emptyIcon={
               <Star
@@ -118,11 +103,6 @@ export default function MainSwiper({ product, active, setActive, setProductRevie
             }
           />
         </Col>
-        {session ? (
-          <LeaveFeedback show={feedback} onHide={() => setFeedback(false)} product={product} setProductReview={setProductReview} />
-        ) : (
-          <MyCabinet show={loginModalShow} onHide={() => setLoginModalShow(false)} />
-        )}
       </Row>
       {product.color ? (
         <div className={styles.swiper__colors}>
@@ -132,13 +112,15 @@ export default function MainSwiper({ product, active, setActive, setProductRevie
               className={i == router.query.style ? styles.active : ""}
               onMouseOver={() => setActiveImg(el.images[i].url)}
               onMouseLeave={() => setActiveImg("")}
-              onClick={() => setActive(i)}
+              onClick={() => setActive((prevState) => ({
+                ...prevState,
+                style: i,              
+              }))}
               style={{ background: el.color.image }}
             >
               <Link
                 href={`/product/${product.slug}?style=${i}&code=${0}`}
               ></Link>
-
             </span>
           ))}
         </div>

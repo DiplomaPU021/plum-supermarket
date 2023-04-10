@@ -85,7 +85,7 @@ export default function Summary({
                 }
                 if (delivery.deliveryId == "postmanDelivery") {                     
                     await saveAddress(activeAddress);            
-                    // console.log("deliveryCost100", delivery.deliveryCost);
+                     console.log("deliveryCost80", delivery.deliveryCost);
                     const { data } = await axios.post("/api/order/create", {
                         products: cart.products,
                         shippingAddress: activeAddress,
@@ -99,6 +99,7 @@ export default function Summary({
                     });
                     router.push(`/order/${data.order_id}`);
                 } else {
+                    console.log("deliveryCost102", delivery.deliveryCost);
                     const { data } = await axios.post("/api/order/create", {
                         products: cart.products,
                         shippingAddress: {
