@@ -12,7 +12,7 @@ export default function Socials() {
                 <ul>
                     <li>
                         <div>
-                            <a href="" target="_blank">
+                            <a href="https://www.facebook.com/" target="_blank">
                                 <FacebookIcon fillColor={"#220F4B"} />
                             </a>
 
@@ -20,7 +20,7 @@ export default function Socials() {
                     </li>
                     <li>
                         <div>
-                            <a href="" target="_blank">
+                            <a href="https://www.instagram.com/accounts/login/" target="_blank">
                                 <InstagramIcon fillColor={"#220F4B"} />
                             </a>
                         </div>

@@ -204,7 +204,7 @@ export default function LogIn({
                         <div className={styles.registerSwitch}><p>Ви ще не маєте акаунту? <span className={styles.register} onClick={switchToRegister}>Зареєструватися</span></p></div>
                     </Col>
                     <Col className={styles.login_col2}>
-                        <Image src='../../../images/login.jpg' width="463px" height="528px" />
+                        <Image src='../../../images/login.png' width="463px" height="528px" />
                     </Col>
                 </Row>
             </Container>

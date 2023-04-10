@@ -46,11 +46,12 @@ export default function MyCabinet(props) {
             size={"xl"}
             aria-labelledby="contained-modal-title-vcenter"
             centered>
+                <div className={styles.modal_main}>
             <div className={styles.modaldiv}>
                 <Modal.Header className="modal-header" closeButton>Мій кабінет</Modal.Header>
                 {authShow ? (
                     <Modal.Body className={styles.modalbodyempty}>
-                        <Image src='../../../images/useraccount.jpg' width="241px" height="180px" />
+                        <Image src='../../../images/reglog.png' width="308px" height="230px" />
                         <h2>Ви не авторизовані</h2>
                         <div className={styles.line}></div>
                         <h5>Але це ніколи не пізно виправити</h5>
@@ -71,14 +72,16 @@ export default function MyCabinet(props) {
                         setCongratsShow={setCongratsShow}
                         setAuthShow={setAuthShow}
                         setUserProfileShow={setUserProfileShow}
+                        signOutHandler={signOutHandler}
                     />
                 )}
-                {userProfileShow ? (
+                {/* {userProfileShow ? (
                     <Modal.Footer> <a>
                         <span onClick={signOutHandler}>Вийти</span>
                     </a></Modal.Footer>
-                ) : <></>}
+                ) : <></>} */}
 
+            </div>
             </div>
         </Modal>
     )

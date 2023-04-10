@@ -62,6 +62,7 @@ export default function CartPage(props) {
             className={styles.modal}
             centered
         >
+             <div className={styles.modal_main}>
             {loginModalShow ? (
                 <MyCabinet show={loginModalShow} onHide={()=>setLoginModalShow(false)}/>
             ) : (
@@ -89,6 +90,7 @@ export default function CartPage(props) {
                     </Modal.Footer>
                 </div>
             )}
+            </div>
         </Modal>
     )
 }
