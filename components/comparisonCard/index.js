@@ -25,16 +25,12 @@ import { updateScaleList } from "@/store/scaleListSlice";
 export default function ComparisonCard({ product, style,mode }) {
   const router = useRouter();
   const dispatch = useDispatch();
-  const [code, setCode] = useState(router.query.code);
   const [qty, setQty] = useState(1);
   const [error, setError] = useState("");
   const cart = useSelector((state) => state.cart);
   //const { cart } = useSelector((state) => ({ ...state }));
 
   const wishList = useSelector((state) => state.wishList);
-  const [images, setImages] = useState(product.images);
-
-  const [price, setPrice] = useState(product.price);
 
   const addToCartHandler = async () => {
     // if (!router.query.code) {
@@ -117,8 +113,8 @@ export default function ComparisonCard({ product, style,mode }) {
     <Card className={styles.product}>
       <div className={styles.product__container}>
         <div className={styles.product__container_photobox}>
-          <Link href={`/product/${product.slug}?style=0&code=0`}>
-            <ProductSwiper images={images} />
+          <Link href={`/product/${product.slug}?style=${product.style}&code=${product.mode}`}>
+            <ProductSwiper images={product.images} />
           </Link>
           <button className={styles.btnclose}
            onClick={()=>deleteProductHadler(product)}
@@ -154,12 +150,12 @@ export default function ComparisonCard({ product, style,mode }) {
           <Row className={styles.product__container_infos_pricebtn}>
             {product.discount > 0 ? (
               <Col className={styles.product__container_infos_pricebtn_price}>
-                <span className={styles.pricediscount}>{`${price.toLocaleString(
+                <span className={styles.pricediscount}>{`${product.price.toLocaleString(
                   "uk-UA"
                 )} ${product.price_unit}`}</span>
                 <span className={styles.priceregular}>
                   {`${Math.round(
-                    (price * (100 - product.discount)) / 100
+                    (product.price * (100 - product.discount)) / 100
                   ).toLocaleString("uk-UA")}`}{" "}
                   {product.price_unit}
                 </span>
@@ -168,7 +164,7 @@ export default function ComparisonCard({ product, style,mode }) {
               <Col className={styles.product__container_infos_pricebtn_price}>
                 <span
                   className={styles.priceregular}
-                >{`${price} ${product.price_unit}`}</span>
+                >{`${product.price} ${product.price_unit}`}</span>
               </Col>
             )}
             <Button onClick={addToWishHandler} className={styles.btnscales}>

@@ -36,6 +36,9 @@ export default function ProductCard({ product, style, mode }) {
   const cart = useSelector((state) => state.cart);
   const wishList = useSelector((state) => state.wishList);
   const scaleList = useSelector((state) => state.scaleList);
+  const [wishShow, setWishShow] = useState(false);
+  const [scaleShow, setScaleShow] = useState(false);
+  const [opacity, setOpacity] = useState("1");
   const reviewRating = useSelector((state) => state.reviewRating);
   const [isOpen, setIsOpen] = useState(false);
   useEffect(() => {
@@ -81,12 +84,14 @@ export default function ProductCard({ product, style, mode }) {
         exist = wishList.wishListItems.find((item) => item._uid === _uid);
       }
       if (exist) {
+        setWishShow(false);
         let newWishList = wishList.wishListItems.filter((item) => {
           return item._uid != _uid;
         });
         dispatch(updateWishList(newWishList));
         updateOneInWishList({ productId: product._id });
       } else {
+        setWishShow(true);
         const { data } = await axios.get(
           `/api/product/${product._id}?style=${style}&code=${mode}`
         );
@@ -117,8 +122,11 @@ export default function ProductCard({ product, style, mode }) {
         (item) => item.subCategory_id === data.subCategory_id
       );
       if (existSub) {
-        existItem = existSub.items.find((p) => p._id === data._id);
+        existItem = existSub.items.find(
+          (p) => p._id === data._id && p.code == data.code
+        );
         if (existItem) {
+          setScaleShow(false);
           if (existSub.items.length === 1) {
             dispatch(removeFromScaleList({ ...existSub }));
           } else {
@@ -128,6 +136,7 @@ export default function ProductCard({ product, style, mode }) {
           dispatch(addToScaleList({ ...data }));
         }
       } else {
+        setScaleShow(true);
         dispatch(addToScaleList({ ...data }));
       }
     }
@@ -143,20 +152,29 @@ export default function ProductCard({ product, style, mode }) {
       />
       <div className={styles.product__container}>
         <div className={styles.product__container_photobox}>
-          <Link href={`/product/${product.slug}?style=${style}&code=${mode}`}>
+          <Link
+            style={{ opacity: opacity }}
+            href={`/product/${product.slug}?style=${style}&code=${mode}`}
+          >
             <ProductSwiper images={images} />
           </Link>
           <Button
+           
             className={styles.btnheart}
             onClick={addToWishHandler}
             data-tooltip-id="login-tooltip"
             onMouseLeave={() => setIsOpen(false)}
+          
+            style={{ backgroundColor: wishShow ? "#220F4B" : "#FAF8FF" }}
           >
-            <HeartIcon fillColor={"#220F4B"} />
+            <HeartIcon fillColor={wishShow ? "#FAF8FF" : "#220F4B"} />
           </Button>
         </div>
         {product.subProducts[style]?.discount ? (
-          <div className={styles.product__discount}>
+          <div
+            style={{ opacity: opacity }}
+            className={styles.product__discount}
+          >
             -{product.subProducts[style]?.discount}%
           </div>
         ) : (
@@ -165,7 +183,10 @@ export default function ProductCard({ product, style, mode }) {
         <Container className={styles.product__container_infos}>
           <Row>
             <Col>
-              <Card.Title className={styles.product__container_infos_title}>
+              <Card.Title
+                style={{ opacity: opacity }}
+                className={styles.product__container_infos_title}
+              >
                 <Link
                   href={`/product/${product.slug}?style=${style}&code=${mode}`}
                 >
@@ -192,12 +213,18 @@ export default function ProductCard({ product, style, mode }) {
           </Row>
           <Row>
             <Col>
-              <div className={styles.product__container_infos_line}></div>
+              <div
+                style={{ opacity: opacity }}
+                className={styles.product__container_infos_line}
+              ></div>
             </Col>
           </Row>
           <Row className={styles.product__container_infos_pricebtn}>
             {product.subProducts[style]?.discount > 0 ? (
-              <Col className={styles.product__container_infos_pricebtn_price}>
+              <Col
+                style={{ opacity: opacity }}
+                className={styles.product__container_infos_pricebtn_price}
+              >
                 <span
                   className={styles.pricediscount}
                 >{`${product.subProducts[style]?.sizes[mode].price.toLocaleString("uk-UA")} ${product.subProducts[style]?.sizes[mode].price_unit
@@ -211,7 +238,10 @@ export default function ProductCard({ product, style, mode }) {
                 </span>
               </Col>
             ) : (
-              <Col className={styles.product__container_infos_pricebtn_price}>
+              <Col
+                style={{ opacity: opacity }}
+                className={styles.product__container_infos_pricebtn_price}
+              >
                 <span
                   className={styles.priceregular}
                 >{`${product.subProducts[style]?.sizes[mode].price} ${product.subProducts[style]?.sizes[mode].price_unit}`}</span>
@@ -220,13 +250,15 @@ export default function ProductCard({ product, style, mode }) {
             <Button
               className={styles.btnscales}
               onClick={() => addToScaleHandler()}
+              style={{ backgroundColor: scaleShow ? "#220F4B" : "#FAF8FF" }}
             >
-              <ScalesIcon fillColor={"#220F4B"} />
+              <ScalesIcon fillColor={scaleShow ? "#FAF8FF" : "#220F4B"} />
             </Button>
             <Button
               className={styles.btncart}
               disabled={product.quantity < 1}
               style={{
+                opacity: opacity,
                 cursor: `${product.quantity < 1 ? "not-allowed" : ""}`,
               }}
               onClick={() => addToCartHandler()}

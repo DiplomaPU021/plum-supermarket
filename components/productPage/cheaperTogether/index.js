@@ -35,6 +35,7 @@ export default function CheaperTogether({ product, productsPlus, active, setActi
             disabledClass: "swiper-button-disabled",
           }}
           modules={[Navigation]}
+          loop={true}
           style={{
             padding: "10px 0 10px 10px",
           }}

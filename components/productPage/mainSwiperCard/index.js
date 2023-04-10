@@ -49,6 +49,7 @@ export default function MainSwiper({ product, active, setActive, setProductRevie
               disabledClass: "swiper-button-disabled",
             }}
             modules={[Navigation]}
+            loop={true}
           >
             {product.images.map((img, i) => (
               <SwiperSlide key={i}>

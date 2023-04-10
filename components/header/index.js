@@ -182,23 +182,23 @@ export default function Header({ country }) {
             error={error}
             setError={setError}
           />
-          <ComparisonListModal
-            show={scaleShow}
-            onHide={() => setScaleShow(false)}
-          />
-          {session && status == "authenticated" ? (
-            //TODO change
-            <div className={styles.cart}>
-              <button
-                style={{ backgroundColor: "#220F4B" }}
-                onClick={() => setMyCabinetOpen(true)}
-              >
-                <AccountIcon fillColor={"#FAF8FF"} />
-                {/* <img src={"/"+session.user.image} alt="profile"/> */}
-                {/* {session.user.name} */}
-              </button>
-            </div>
-
+            <ComparisonListModal
+              show={scaleShow}
+              onHide={() => setScaleShow(false)}
+              setScaleShow = {setScaleShow}
+            />
+            {session && status == "authenticated" ? (
+              //TODO change
+              <div className={styles.cart}>
+                <button
+                  style={{ backgroundColor: "#220F4B" }}
+                  onClick={() => setMyCabinetOpen(true)}
+                >
+                  <AccountIcon fillColor={"#FAF8FF"} />
+                  {/* <img src={"/"+session.user.image} alt="profile"/> */}
+                  {/* {session.user.name} */}
+                </button>
+              </div>
           ) : (
             <button onClick={() => setMyCabinetOpen(true)}>
               <AccountIcon fillColor={"#220F4B"} />

@@ -60,15 +60,18 @@ export default function Reviews({ product, productReview, setProductReview }) {
                     <span><b>Досвід використання:</b> {review.experience}</span>                   
                     <span><b>Переваги:</b> {review.advantages}</span>
                     <span><b>Недоліки:</b> {review.disadvantages}</span>
-                    <span>{review.images.map((img) => (
-                      <Image key={img.public_url}
-                        className={styles.swiper__simillarswiper_image}
+                    <div className={styles.imags}>
+                      {review.images.map((img) => (
+                      <span key={img.public_url}>
+                        <Image
                         src={img.url}
                         alt=""
-                        width="100px"
-                        height="100px"
+                        width="100%"
+                        height="150px"
+                        objectfit="cover"
                       />
-                    ))}</span>
+                      </span>
+                    ))}</div>
 
                   </Col>
                   <Col className={styles.answer}>
@@ -85,9 +88,6 @@ export default function Reviews({ product, productReview, setProductReview }) {
                   <Col className={styles.line}></Col>
                   <Col className={styles.starsLikes}>
                     <div className={styles.starsLikes_stars}>
-                      {/* {Array(review.rating).fill().map((_, index) => (
-                        <StarIcon key={index} fillColor="#220F4B" />
-                      ))} */}
                       {Array(5).fill().map((_, index) => (
                         index < review.rating ? (
                           <Star key={index} fillColor="#220F4B" height={24} width={24} stroke="#220F4B" />
@@ -98,12 +98,14 @@ export default function Reviews({ product, productReview, setProductReview }) {
                     </div>
                     <div className={styles.starsLikes_likes}>
                       <div className={styles.starsLikes_likes_like}>
+                        {/* TODO */}
                         <span>0</span>
                         <button>
                           <DisLikeIcon fillColor="#220F4B" />
                         </button>
                       </div>
                       <div className={styles.starsLikes_likes_like}>
+                        {/* TODO */}
                         <span>12</span>
                         <button>
                           <LikeIcon fillColor="#220F4B" />

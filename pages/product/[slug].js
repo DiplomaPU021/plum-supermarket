@@ -22,6 +22,7 @@ import { getCountryData } from "@/utils/country";
 import User from "@/models/User";
 import { useDispatch } from "react-redux";
 import { updateNumberReviews, updateReviewRating } from "@/store/reviewSlice";
+import GroupSubCategory from "@/models/GroupSubCategory";
 
 export default function product({ product, popular, country, style, mode }) {
   const [active, setActive] = useState({ style: style, mode: mode });
@@ -50,9 +51,12 @@ export default function product({ product, popular, country, style, mode }) {
             <span>{product.category.name}</span>
             <GreenChevronRight fillColor="#70BF63" w="30px" h="30px" />
           </Link>
-          <span className={styles.links__link}>
-            {product.subCategories[0].name}
-          </span>
+          <Link
+            href={`/subCategory/${product.subCategories[0].parent.slug}`}
+            className={styles.links__link}
+          >
+            <span> {product.subCategories[0].name}</span>
+          </Link>
         </Col>
       </Row>
       <Row className={styles.nameCode}>
@@ -105,7 +109,7 @@ export async function getServerSideProps(context) {
   //from db
   let product = await Product.findOne({ slug })
     .populate({ path: "category", model: Category })
-    .populate({ path: "subCategories", model: SubCategory })
+    .populate({ path: "subCategories", model: SubCategory, populate: { path: "parent", model: GroupSubCategory }})
     .populate({ path: "reviews.reviewBy", model: User })
     .populate({ path: "reviews.replies.replyBy", model: User })
     .lean();

@@ -164,19 +164,19 @@
             }
         }
 
-        
+
 
         .row {
             position: relative;
             padding: 0;
             display: flex;
             box-sizing: border-box;
-            
+
             .col {
                 padding: 0;
                 display: flex;
                 box-sizing: border-box;
-    
+
             }
 
             @media (min-width: 1600px) {
@@ -296,6 +296,7 @@
                             border: 1px solid $light-wheet-color;
 
                             td {
+                                //width: 25%;
                                 padding: 10px;
                                 font-weight: 400;
                                 font-size: 16px;
@@ -362,11 +363,18 @@
                 line-height: 31px;
                 color: $plum-dark-color;
 
+                button {
+                    width: 20px;
+                    height: 20px;
+                    padding: 0;
+                    background-color: transparent;
+                }
+
             }
 
             .body {
 
-                div {
+                //div {
                     font-family: 'Noto Sans';
                     font-style: normal;
                     font-weight: 300;
@@ -395,7 +403,7 @@
                         background: $green-color;
                         border-radius: 3px;
                     }
-                }
+               // }
             }
 
         }

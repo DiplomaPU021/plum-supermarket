@@ -10,6 +10,8 @@ export default function Images({ images, setImages }) {
   const handleImages = (e) => {
     let files = Array.from(e.target.files);
     files.forEach((img, i) => {
+      console.log("images", images);
+      console.log("i",i);
       if (images.length == 10 || i == 2) {
         setError("Дзволено максимум 10 фото.");
         return;
@@ -25,7 +27,7 @@ export default function Images({ images, setImages }) {
         files = files.filter((item) => item.name !== img.name);
         return;
       } else if (img.size > 1024 * 1024 * 5) {
-        setError(`${img.name} size is too large, max 5mb allowed.`);
+        setError(`${img.name} розмір завеликий, дозволено максимум 5 Мб..`);
         files = files.filter((item) => item.name !== img.name);
         return;
       } else {
