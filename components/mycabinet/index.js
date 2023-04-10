@@ -5,10 +5,16 @@ import { signIn, signOut, useSession } from 'next-auth/react';
 import { useRouter } from "next/router"
 import Authorization from "./Authorization";
 import Image from 'react-bootstrap/Image'
+import { useDispatch, useSelector } from "react-redux";
+import { emptyCart } from "@/store/cartSlice";
+import { emptyWishList } from "@/store/wishListSlice";
+import { emptyScaleList } from "@/store/scaleListSlice";
+import { emptyReviewRating } from "@/store/reviewSlice";
 
 export default function MyCabinet(props) {
     const router = useRouter();
     const { data: session, status } = useSession();
+    const dispatch = useDispatch();
     const [userId, setUserId] = useState(props.userid);
     const [authShow, setAuthShow] = useState(session?.user ? false : true);
     const [logShow, setLogShow] = useState(false);
@@ -25,18 +31,20 @@ export default function MyCabinet(props) {
     const logInFormShow = () => {
         setLogShow(true)
         setAuthShow(false)
-
     }
     const registerFormShow = () => {
         setRegShow(true)
         setAuthShow(false)
-
     }
     const signOutHandler = () => {
         signOut({ redirect: false, callbackUrl: "/" });
         // props.onHide();
         setUserProfileShow(false);
-        setAuthShow(true)
+        setAuthShow(true);
+        dispatch(emptyCart());
+        dispatch(emptyWishList());
+        dispatch(emptyScaleList());
+        dispatch(emptyReviewRating());
     }
 
     return (

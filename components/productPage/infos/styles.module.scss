@@ -252,3 +252,20 @@
 .active_size {
     outline: 2px solid $green-color;
 }
+.error {
+    // background: $light-error-color;
+    // margin-top: 5rem;
+    padding-bottom: 0rem;
+
+    input {
+        color: #fff !important;
+
+        &::placeholder {
+            color: #fff !important;
+        }
+    }
+
+    svg {
+        fill: #fff !important;
+    }
+}

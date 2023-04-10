@@ -6,8 +6,9 @@ import { persistReducer } from "redux-persist";
 import cart from "./cartSlice"
 import wishList from "./wishListSlice"
 import scaleList from "./scaleListSlice"
+import reviewRating from "./reviewSlice"
 
-const reducers = combineReducers({ cart, wishList, scaleList });
+const reducers = combineReducers({ cart, wishList, scaleList, reviewRating });
 
 const createNoopStorage = () => {
     return {

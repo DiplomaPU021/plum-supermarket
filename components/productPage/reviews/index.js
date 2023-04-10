@@ -2,15 +2,15 @@ import styles from "./styles.module.scss";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { Container, Row, Col, Image } from "react-bootstrap";
 import ChevronRight from "@/components/icons/ChevronRight";
-import StarIcon from "@/components/icons/StarIcon";
 import DisLikeIcon from "@/components/icons/DisLikeIcon";
 import LikeIcon from "@/components/icons/LikeIkon";
 import ReplyToFeedback from "../replyToFeedback";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import LeaveFeedback from "../leaveFeedback";
 import { useSession } from "next-auth/react";
 import MyCabinet from "@/components/mycabinet";
 import Star from "@/components/icons/Star";
+import { useSelector } from "react-redux";
 
 
 export default function Reviews({ product, productReview, setProductReview }) {
@@ -18,7 +18,11 @@ export default function Reviews({ product, productReview, setProductReview }) {
   const [answer, setAnswer] = useState(false);
   const [feedback, setFeedback] = useState(false);
   const [loginModalShow, setLoginModalShow] = useState(false);
+  const reviewRating = useSelector((state) => state.reviewRating);
 
+  useEffect(() => {
+    setProductReview(product?.reviews?.reverse());
+  }, [product.slug]);
   const handleFeedBack = () => {
     if (session) {
       setFeedback(true);
@@ -27,8 +31,6 @@ export default function Reviews({ product, productReview, setProductReview }) {
     }
 
   }
-
-
   return (
     <Container fluid className={styles.reviews}>
       <Row className={styles.reviews__title}>

@@ -12,14 +12,14 @@ import { useRouter } from "next/router"
 import { saveCart } from "@/requests/user"
 import MyCabinet from "@/components/mycabinet"
 
-export default function Cart({error, setError, ...props}) {
+export default function Cart({ error, setError, ...props }) {
     // console.log("cartIndex");
     const router = useRouter();
     const { data: session } = useSession();
     const cart = useSelector((state) => state.cart);
     const [footerVisible, setFooterVis] = useState("none");
     const [loginModalShow, setLoginModalShow] = useState(false);
-
+    const [deleteConfirm, setDeleteConfirm] = useState(cart.deleteAtOnce);
 
     const getTotalPrice = () => {
         return cart.cartItems.reduce(
@@ -65,17 +65,23 @@ export default function Cart({error, setError, ...props}) {
         >
              <div className={styles.modal_main}>
             {loginModalShow ? (
-                <MyCabinet show={loginModalShow} onHide={()=>setLoginModalShow(false)}/>
+                <MyCabinet show={loginModalShow} onHide={() => setLoginModalShow(false)} />
             ) : (
                 <div className={styles.modaldiv}>
                     <Modal.Header className="modal-header" closeButton>Корзина</Modal.Header>
                     {cart == null || cart?.cartItems?.length == 0 || cart.cartItems == null ? (
-                        <EmptyCart  { ...props }/>
+                        <EmptyCart  {...props} />
                     ) : (
                         <Modal.Body className={styles.modalbody} scrollable="true">
                             {
                                 cart.cartItems?.map((product, i) => (
-                                    <CartItem key={i} product={product} error={error} setError={setError}/>
+                                    <CartItem
+                                        key={i}
+                                        product={product}
+                                        error={error}
+                                        setError={setError}
+                                        deleteConfirm={deleteConfirm}
+                                        setDeleteConfirm={setDeleteConfirm} />
                                 ))
                             }
                         </Modal.Body>
@@ -86,7 +92,7 @@ export default function Cart({error, setError, ...props}) {
                             <button className={styles.addbtn}
                                 onClick={() => saveCartToDbHandler()}
                             >Оформити замовлення</button>
-                            <Link href="/" className={styles.link} onClick={()=>props.onHide()}>Повернутись до покупок</Link>
+                            <Link href="/" className={styles.link} onClick={() => props.onHide()}>Повернутись до покупок</Link>
                         </div>
                     </Modal.Footer>
                 </div>

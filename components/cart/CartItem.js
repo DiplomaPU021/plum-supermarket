@@ -14,11 +14,10 @@ import { useSession } from "next-auth/react";
 import { Tooltip } from "react-tooltip";
 import "react-tooltip/dist/react-tooltip.css";
 
-export default function CartItem({ product, error, setError }) {
+export default function CartItem({ product, error, setError, deleteConfirm, setDeleteConfirm }) {
   const { data: session } = useSession();
   const [showExtra, setShowExtra] = useState("none");
   const [notificationShow, setNotificationShow] = useState(false);
-  const [deleteConfirm, setDeleteConfirm] = useState(false);
   const cart = useSelector((state) => state.cart);
   const wishList = useSelector((state) => state.wishList);
   const dispatch = useDispatch();
@@ -108,6 +107,9 @@ export default function CartItem({ product, error, setError }) {
         content="Будь ласка зареєструйтесь!"
         isOpen={isOpen}
         place="top"
+        // style={{ backgroundColor: "#70BF63", color: "#fff" }}
+        className={styles.tooltip_rounded}
+        // classNameArrow={styles.tooltip_arrow}
       />
       <Card.Body className={styles.cardbody}>
         {product.discount > 0 ? (

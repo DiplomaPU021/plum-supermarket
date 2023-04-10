@@ -18,14 +18,16 @@ import LoopIcon from "@/components/icons/LoopIcon";
 import { getCountryData } from "@/utils/country";
 import RangeSlider from "./RangeSlider";
 import ViewedProducts from "@/components/viewedProducts";
+import User from "@/models/User";
 
 export default function subCategory({
   country,
   viewedProducts,
   category,
   brands,
-  products,
+  products
 }) {
+  // console.log("CategorySub", products);
   const [radioValue, setRadioValue] = useState(category.subcategories[0].slug);
   const [subCategoryName, setSubCategoryName] = useState(
     category.subcategories[0].name
@@ -286,7 +288,7 @@ export default function subCategory({
             </Col>
           </Col>
         ) : null}
-        <Col style={{padding: "0"}}>
+        <Col style={{ padding: "0" }}>
           <Row
             className={styles.subcategorypage__row_cards}
             lg={showSideBlock ? numCards : numCards + 1}
@@ -294,7 +296,7 @@ export default function subCategory({
           >
             {products.map((p, i) => (
               <Col key={i} className={styles.col}>
-                <ProductCard product={p} />
+                <ProductCard product={p} style={p.style} mode={p.mode}/>
               </Col>
             ))}
           </Row>
@@ -359,8 +361,42 @@ export async function getServerSideProps(context) {
     { $match: { subCategories: { $in: subcategories } } },
   ]);
 
+  let newProducts = products.map((product) => {
+    let style = -1;
+    let mode = -1;  
+    // знайдемо індекс першого підпродукту з ненульовим залишком
+    for (let i = 0; i < product.subProducts.length; i++) {
+      let subProduct = product.subProducts[i];
+      for (let j = 0; j < subProduct.sizes.length; j++) {
+        if (subProduct.sizes[j].qty > 0) {
+          style = i;
+          mode = j;
+          break;
+        }
+      }
+      if (style !== -1) {
+        break;
+      }
+    }
+  
+    let color = product.subProducts[style] ? product.subProducts[style].color?.color : '';
+    let size = product.subProducts[style].sizes[mode].size;
+  
+    return {
+      ...product,
+      style,
+      mode,
+      color,
+      size
+    };
+  });
+  
   //TODO Should be with mark "viewed products"
   let viewedProducts = await Product.find()
+  .populate({ path: "category", model: Category })
+  .populate({ path: "subCategories", model: SubCategory })
+  .populate({ path: "reviews.reviewBy", model: User })
+  .populate({ path: "reviews.replies.replyBy", model: User })
     .sort({ createdAt: -1 })
     .lean();
 
@@ -370,7 +406,7 @@ export async function getServerSideProps(context) {
       country: countryData,
       category: JSON.parse(JSON.stringify(newCategory)),
       brands: JSON.parse(JSON.stringify(brandNames)),
-      products: JSON.parse(JSON.stringify(products)),
+      products: JSON.parse(JSON.stringify(newProducts)),
       viewedProducts: JSON.parse(JSON.stringify(viewedProducts)),
     },
   };

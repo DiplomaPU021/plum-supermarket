@@ -16,6 +16,8 @@ import Product from "@/models/Product";
 import axios from "axios";
 import Category from "@/models/Category";
 import { getCountryData } from "@/utils/country";
+import SubCategory from "@/models/SubCategory";
+import User from "@/models/User";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -43,15 +45,44 @@ export async function getServerSideProps() {
   await db.connectDb();
 
   //code below is for component TopSales
-  let products = await Product.find();
+  let products = await Product.find()
+  .populate({ path: "category", model: Category })
+  .populate({ path: "subCategories", model: SubCategory })
+  .populate({ path: "reviews.reviewBy", model: User })
+  .populate({ path: "reviews.replies.replyBy", model: User })
+  .lean();
+  let newProducts = products.map((product) => {
+    let style = -1;
+    let mode = -1;
+  
+    product.subProducts.forEach((subProduct, subIndex) => {
+      subProduct.sizes.forEach((size, sizeIndex) => {
+        if (size.qty > 0 && style === -1) {
+          style = subIndex;
+          mode = sizeIndex;
+        }
+      });
+    });
+  
+    let color = product.subProducts[style] ? product.subProducts[style].color?.color : '';
+    let size = mode !== -1 ? product.subProducts[style].sizes[mode].size : "";
+  
+    return {
+      ...product,
+      style,
+      mode,
+      color,
+      size,
+    };
+  });
 
   //code below is for component Categories
-  let categories = await Category.find();
+  let categories = await Category.find().lean();
 
   return {
     props: {
       country: countryData,
-      products: JSON.parse(JSON.stringify(products)),
+      products: JSON.parse(JSON.stringify(newProducts)),
       categories: JSON.parse(JSON.stringify(categories)),
     },
   };

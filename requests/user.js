@@ -85,7 +85,7 @@ export const checkout = async (cart, user_id) => {
 
 export const saveWishList = async ({productId, size, image, color, code}) => {
     try {
-        console.log("apiusersavewish",productId, size, image, color, code);
+        // console.log("apiusersavewish",productId, size, image, color, code);
         const { data } = await axios.post('/api/user/wishlist', {
             productId, size, image, color, code,
         });
@@ -112,7 +112,7 @@ export const updateOneInWishList = async ({productId, size, image, color, code})
 }
 export const deleteOneFromWishList = async ({productId, code}) => {
     try {
-          console.log("apiuserdeletewish",productId, code);
+        //   console.log("apiuserdeletewish",productId, code);
         const { data } = await axios.put('/api/user/wishlist', {
             productId,
             code

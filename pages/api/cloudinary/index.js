@@ -38,7 +38,7 @@ handler.post(async (req, res) => {
         }
         res.json(images);
     } catch (error) {
-        console.log("errorOnCoudinaryIndex", error);
+        console.log("errorOnCloudinaryIndex", error);
         return res.status(500).json({ message: error.message });
     }
 });
@@ -57,7 +57,7 @@ const uploadToCloudinaryHandler = async (file, path) => {
         }, (err, res) => {
             if (err) {
                 removeTmp(file.tempFilePath);
-                console.log(err);
+                console.log("cloudinaryUploadError",err);
                 return res.status(400).json({ message: "Не вдалося завантажити зображення" });
             }
             resolve({

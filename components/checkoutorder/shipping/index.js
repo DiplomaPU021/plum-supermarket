@@ -8,9 +8,10 @@ import { deliveryTypes } from "@/data/deliveryTypes";
 
 
 export default function Shipping({ user, activeAddress, setActiveAddress, country, delivery, setDelivery }) {
+    console.log("activeAddress", activeAddress);
     const [cityModalShow, setCityModalShow] = useState(false);
     const [selectedCity, setSelectedCity] = useState(
-        activeAddress ? { value: `${activeAddress?.cityType} ${activeAddress?.city}, ${activeAddress?.region}`, object_category: activeAddress?.cityType, object_name: activeAddress?.city, object_code: activeAddress?.zipCode, region: activeAddress?.region } : null);
+        activeAddress ? { value: `${activeAddress.cityType} ${activeAddress.city}, ${activeAddress.region}`, object_category: activeAddress.cityType, object_name: activeAddress.city, object_code: activeAddress.zipCode, region: activeAddress.region } : null);
     const [showSelfPickup, setSelfPickup] = useState("none");
     const [showPostmanDeliveryAll, setShowPostmanDeliveryAll] = useState("none");
     const [showPostmanDelivery, setShowPostmanDelivery] = useState("block");
@@ -295,6 +296,8 @@ export default function Shipping({ user, activeAddress, setActiveAddress, countr
     };
     return (
         <>
+        {/* {JSON.stringify(activeAddress, null,4)}
+        {JSON.stringify(selectedCity, null,4)} */}
             <Form onSubmit={(e) => e.preventDefault()}>
                 <Row className={styles.row}>
                     <div className={styles.panel}> <div className={styles.count}>2</div>Спосіб доставки</div>

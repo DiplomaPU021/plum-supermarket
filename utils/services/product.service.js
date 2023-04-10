@@ -1,4 +1,5 @@
 import Product from "@/models/Product";
+import User from "@/models/User";
 
 
 const getOneById = async (id) => {
@@ -20,7 +21,6 @@ const findByReviewByAndUpdate = async (
     disadvantages,
     images) => {
     const product = await Product.findById(productId);
-
     if (product) {
         const exist = product.reviews.findIndex((x) => x.reviewBy.toString() === userId);
         if (exist != -1) {
@@ -65,12 +65,52 @@ const findByReviewByAndUpdate = async (
             product.numReviews = product.reviews.length;
             product.rating = product.reviews.reduce((a, r) => r.rating + a, 0) / product.reviews.length;
             const res = await product.save();
-            await product.populate("reviews.reviewBy");
+            await product.populate({ path: "reviews.reviewBy", model: User })
             return product;
         }
 
     }
     return product;
+};
+const findByIdAndUpdateQuantity = async (products) => {
+    try {
+        let newProducts=[];
+        for (let j = 0;  j < products.length; j++) {
+            const product = await Product.findById(products[j].product);
+            if (!product) {
+                throw new Error(`Product with ID ${products[j].product} not found`);
+            }
+    
+            let subProductIndex = -1;
+            let sizeIndex = -1;
+    
+            // Шукаємо індекс підтовару та розміру у підтоварі
+            for (let i = 0; i < product.subProducts.length; i++) {
+                const subProduct = product.subProducts[i];
+                sizeIndex = subProduct.sizes.findIndex((size) => size.code.toString() === products[j].code.toString());
+                if (sizeIndex !== -1) {
+                    subProductIndex = i;
+                    break;
+                }
+            }
+            if (subProductIndex === -1 || sizeIndex === -1) {
+                throw new Error(`Sub-product with size code ${products[j].code} not found`);
+            }
+    
+            // Зменшуємо кількість товару на величину quantity
+            product.subProducts[subProductIndex].sizes[sizeIndex].qty -= products[j].qty;
+    
+            // Зберігаємо зміни у базі даних
+            await product.save();
+            newProducts.push(product);
+        }
+       
+
+        return newProducts;;
+    } catch (err) {
+        console.error(err);
+        throw err;
+    }
 };
 const findByIdAndUpdateReviews = async (userId, productId, review) => {
     // const updatedProduct = await Product.findByIdAndUpdate(
@@ -155,6 +195,7 @@ const productService = {
     findByIdAndDelete,
     createProduct,
     findBySlug,
+    findByIdAndUpdateQuantity
 };
 
 export default productService;

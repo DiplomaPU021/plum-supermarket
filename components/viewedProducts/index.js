@@ -4,7 +4,6 @@ import { Container, Row, Col } from "react-bootstrap";
 import ChevronLeft from "../icons/ChevronLeft";
 import ChevronRight from "../icons/ChevronRight";
 import { Swiper, SwiperSlide } from "swiper/react";
-// import Swiper and modules styles
 import "swiper/css";
 import "swiper/css/pagination";
 import { Navigation } from "swiper";
@@ -58,7 +57,7 @@ export default function ViewedProducts({ viewedProducts }) {
             {viewedProducts.map((p, i) => (
               <SwiperSlide key={i}>
                 <Col style={{ padding: "0", display: "flex" }}>
-                  <ProductCard product={p} />
+                  <ProductCard product={p} style={0} mode={0}/>
                 </Col>
               </SwiperSlide>
             ))}

@@ -20,6 +20,9 @@ import ChevronRight from "@/components/icons/ChevronRight";
 import { useSelector, useDispatch } from "react-redux";
 import Link from "next/link";
 import { removeFromScaleList } from "@/store/scaleListSlice";
+import Category from "@/models/Category";
+import SubCategory from "@/models/SubCategory";
+import GroupSubCategory from "@/models/GroupSubCategory";
 
 export default function ComparisonPage({ products, country, subCategory_id }) {
   const [checked, setChecked] = useState(false);
@@ -118,7 +121,7 @@ export default function ComparisonPage({ products, country, subCategory_id }) {
           <Col className={styles.colEmpty__empty}>
             <button className={styles.btnscales}>
               <Link href={"/"}>
-                <img src="../icons/plus_green.png" alt="" />
+                <img src="../icons/plus_green.png" alt="Green plus" />
               </Link>
             </button>
             <span>Додати до порівняння </span>
@@ -161,7 +164,7 @@ export default function ComparisonPage({ products, country, subCategory_id }) {
                     style={{ position: "absolute !important" }}
                   >
                     <Col className={styles.col}>
-                      <ComparisonCard product={p} />
+                      <ComparisonCard product={p} style={p.style} mode={p.mode}/>
                     </Col>
                   </SwiperSlide>
                 ))
@@ -307,13 +310,54 @@ export async function getServerSideProps(context) {
   await db.connectDb();
 
   //TODO should be products for component "View more"
-  let products = await Product.find().lean();
+ let category= await SubCategory.findById(subCategory_id)
+ .populate({ path: "top_parent", model: Category })
+ .populate({ path: "parent", model: GroupSubCategory })
+ .lean();
+ console.log("categoryCamprison", category);
+  //Should be with mark "popular"
+  let onlyFromCategory = await Product.find({ category: category.top_parent._id })
+    .lean();
+  let newFromCategory = onlyFromCategory.map((product) => {
+    let style = -1;
+    let mode = -1;
+    // знайдемо індекс першого підпродукту з ненульовим залишком
+    for (let i = 0; i < product.subProducts.length; i++) {
+      let subProduct = product.subProducts[i];
+      for (let j = 0; j < subProduct.sizes.length; j++) {
+        if (subProduct.sizes[j].qty > 0) {
+          style = i;
+          mode = j;
+          break;
+        }
+      }
+      if (style !== -1) {
+        break;
+      }
+    }
+
+    let color = product.subProducts[style] ? product.subProducts[style].color?.color : '';
+    let size = product.subProducts[style].sizes[mode].size;
+    let sold = product.subProducts[style].sold;
+    let priceAfter = ((100 - product.subProducts[style].discount) * product.subProducts[style].sizes[mode].price / 100).toFixed();
+    return {
+      ...product,
+      style,
+      mode,
+      color,
+      size,
+      sold,
+      priceAfter
+    };
+  });
+  let popularFromCategory = [...newFromCategory].sort((a, b) => b.sold - a.sold);
+
 
   await db.disconnectDb();
 
   return {
     props: {
-      products: JSON.parse(JSON.stringify(products)),
+      products: JSON.parse(JSON.stringify(popularFromCategory)),
       country: countryData,
       subCategory_id: subCategory_id,
     },
