@@ -12,34 +12,34 @@
         .back_svg {
             width: 50px;
             height: 50px;
-            border: 1px solid #66666657;
+            border: 2px solid $plum-dark-color;
             border-radius: 50%;
             display: grid;
             cursor: pointer;
             place-items: center;
 
             &:hover {
-                border-color: $plum-violet-color;
+                border-color: $plum-dark-color;
 
                 svg {
-                    fill: $plum-violet-color;
+                    fill: $plum-dark-color;
                 }
             }
 
             svg {
                 width: 20px;
                 height: 20px;
-                fill: #222;
+                fill: $plum-dark-color;
             }
         }
 
         span {
             font-weight: 600;
-            font-size: 14px;
+            font-size: 16px;
             a {
                 color: $plum-violet-color;
                 cursor: pointer;
-                border-bottom: 1px solid $plum-violet-color;
+                border-bottom: 2px solid $plum-violet-color;
                 padding-bottom: 5px;
             }
         }

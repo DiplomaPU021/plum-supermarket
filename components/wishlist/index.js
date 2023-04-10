@@ -61,6 +61,7 @@ export default function WishList({ error, setError, ...props}) {
             aria-labelledby="contained-modal-title-vcenter"
             className={styles.modal}
             centered>
+            <div className={styles.modal_main}>
                 <div className={styles.modaldiv}>
                     <Modal.Header className="modal-header" closeButton>Вподобані товари</Modal.Header>
                     {wishList == null || wishList?.wishListItems?.length == 0 || wishList.wishListItems == null ? (
@@ -79,6 +80,7 @@ export default function WishList({ error, setError, ...props}) {
                         <Link href="/" className={styles.link} onClick={() => props.onHide()}>Повернутись до покупок</Link>
                     </Modal.Footer>
                 </div>
+            </div>
         </Modal>
     )
 }

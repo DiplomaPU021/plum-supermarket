@@ -135,7 +135,7 @@ export default function Register({
             <Container className={styles.login_container}>
                 <Row>
                     <Col>
-                        <Image src='../../../images/register.jpg' width="463px" height="528px" />
+                        <Image src='../../../images/register.png' width="463px" height="528px" />
                     </Col>
                     <Col>
                         <Formik

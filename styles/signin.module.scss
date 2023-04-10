@@ -84,16 +84,18 @@
         }
 
         .forgot {
-            color: #666;
+            color: $plum-dark-color;
             padding-top: 1rem;
             font-size: 14px;
             width: fit-content;
             height: 40px;
 
             &:hover {
-                color: $plum-violet-color;
-                border-bottom: 1px solid $plum-violet-color;
+                color: $plum-dark-color;
+                border-bottom: 1px solid $plum-dark-color;
             }
+
+
         }
     }
 

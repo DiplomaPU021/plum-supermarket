@@ -63,6 +63,7 @@ export default function Cart({error, setError, ...props}) {
             className={styles.modal}
             centered
         >
+             <div className={styles.modal_main}>
             {loginModalShow ? (
                 <MyCabinet show={loginModalShow} onHide={()=>setLoginModalShow(false)}/>
             ) : (
@@ -90,6 +91,7 @@ export default function Cart({error, setError, ...props}) {
                     </Modal.Footer>
                 </div>
             )}
+            </div>
         </Modal>
     )
 }

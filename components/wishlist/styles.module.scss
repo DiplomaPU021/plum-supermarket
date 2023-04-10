@@ -183,6 +183,10 @@
     box-shadow: inset 7px 7px 20px #FAF5FF, inset -7px -7px 20px #F7EEFF;
     border-radius: 23px;
     border: 2px solid #c4c3c8;
+
+    img{
+        object-fit: contain;
+    }
 }
 
 .card {
@@ -278,4 +282,9 @@
 .modal {
     background: rgba(87, 60, 145, 0.5);
     backdrop-filter: blur(2.5px);
+
+    &_main{
+        background: $light-wheet-color;
+        border-radius: 10px;
+    }
 }
