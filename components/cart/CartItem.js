@@ -22,6 +22,7 @@ export default function CartItem({ product, error, setError, deleteConfirm, setD
   const wishList = useSelector((state) => state.wishList);
   const dispatch = useDispatch();
   const [isOpen, setIsOpen] = useState(false);
+  const [errorWish, setErrorWish]=useState("");
   const updateQty = async (type) => {
     let newCart = cart.cartItems.map((item) => {
       if (item._uid == product._uid) {
@@ -60,6 +61,7 @@ export default function CartItem({ product, error, setError, deleteConfirm, setD
   };
   const addToWishHandler = async (product) => {
     if (session) {
+      setIsOpen(false);
       console.log("addToWishListHandlerCartItem", product);
       const { data } = await axios.get(
         `/api/product/${product._id}?style=${product.style}&code=${product.mode}`
@@ -76,6 +78,8 @@ export default function CartItem({ product, error, setError, deleteConfirm, setD
           inWishListError: true,
           uidPrInWish: product._uid,
         }));
+        setErrorWish("Товар уже в улюблених");
+        setIsOpen(true);
         console.error("Товар уже в улюблених");
         return;
       } else {
@@ -98,17 +102,18 @@ export default function CartItem({ product, error, setError, deleteConfirm, setD
       }
     } else {
       setIsOpen(true);
+      setErrorWish("Будь ласка зареєструйтесь!")
     }
   };
   return (
     <Card className={styles.card}>
       <Tooltip
         id="login-tooltip"
-        content="Будь ласка зареєструйтесь!"
+        content={errorWish}
         isOpen={isOpen}
         place="top"
-        // style={{ backgroundColor: "#70BF63", color: "#fff" }}
-        className={styles.tooltip_rounded}
+        style={{ backgroundColor: "#70BF63", color: "#fff", borderRadius: "30px" }}
+        // className={styles.tooltip_rounded}
         // classNameArrow={styles.tooltip_arrow}
       />
       <Card.Body className={styles.cardbody}>

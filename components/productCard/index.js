@@ -140,6 +140,7 @@ export default function ProductCard({ product, style, mode }) {
         content="Будь ласка зареєструйтесь!"
         isOpen={isOpen}
         offset={30}
+        style={{ backgroundColor: "#70BF63", color: "#fff", borderRadius: "30px" }}
       />
       <div className={styles.product__container}>
         <div className={styles.product__container_photobox}>

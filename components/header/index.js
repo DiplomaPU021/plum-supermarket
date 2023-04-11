@@ -111,6 +111,7 @@ export default function Header({ country }) {
         content="Будь ласка зареєструйтесь!"
         isOpen={isOpen}
         place="bottom"
+        style={{ backgroundColor: "#70BF63", color: "#fff", borderRadius: "30px" }}
       />
       <div className={styles.headertop} style={{ display: divVisible ? 'flex' : 'none' }}>
         <section>
