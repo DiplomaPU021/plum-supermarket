@@ -3,13 +3,13 @@
   padding-top: 30px;
   background-color: $light-wheet-color;
 
-  @media (min-width: 1200px) {  
-    max-width: 100%; 
+  @media (min-width: 1200px) {
+    max-width: 100%;
     padding-right: 40px;
   }
 
-  @media (min-width: 1300px) {  
-    max-width: 100%; 
+  @media (min-width: 1300px) {
+    max-width: 100%;
     padding-right: 50px;
   }
 
@@ -19,7 +19,7 @@
   }
 }
 
-.general_div {  
+.general_div {
   display: flex;
   flex-direction: row;
   align-items: flex-start;
@@ -34,7 +34,7 @@
   flex-direction: row;
   align-items: center;
   height: 54px;
- 
+
 }
 
 .checkout_form {
@@ -53,9 +53,9 @@
   }
 }
 
-.colcard{
+.colcard {
   padding: 0;
-  
+
 }
 
 .confirm {
@@ -106,7 +106,7 @@
   justify-content: flex-start;
   display: flex;
   padding-left: 60px;
-  
+
   @media (min-width: 1350px) {
     max-width: 770px;
   }
@@ -131,7 +131,7 @@
   border-radius: 23px;
   justify-content: center;
   align-items: center;
- 
+
   @media (min-width: 1300px) {
     max-width: 710px;
   }
@@ -147,7 +147,7 @@
 
 .err {
   padding-left: 10px;
- 
+
 }
 
 .col_contacts {
@@ -211,7 +211,9 @@
   background: linear-gradient(180deg, #FAF8FF 0%, #F2EDFF 100%);
   box-shadow: 0px 0px 15px rgba(34, 15, 75, 0.5), inset 7px 7px 20px #FAF5FF, inset -7px -7px 20px #F7EEFF;
   border-radius: 23px;
- 
+
+
+
   @media (min-width: 1300px) {
     max-width: 710px;
   }
@@ -229,7 +231,7 @@
   background: linear-gradient(180deg, #FAF8FF 0%, #F2EDFF 100%);
   box-shadow: 0px 0px 15px rgba(34, 15, 75, 0.5), inset 7px 7px 20px #FAF5FF, inset -7px -7px 20px #F7EEFF;
   border-radius: 23px;
-  
+
   @media (min-width: 1300px) {
     max-width: 710px;
   }
@@ -243,7 +245,7 @@
   padding: 0 24px;
   gap: 20px;
   max-width: 538px;
-  
+
 }
 
 .order_top {
@@ -254,7 +256,7 @@
   font-size: 25px;
   line-height: 34px;
   padding-right: 0;
- 
+
   .edit {
     width: 46px;
     height: 46px;
@@ -282,7 +284,7 @@
   padding-right: 0;
   width: 490px;
 
-  img{
+  img {
     cursor: pointer;
   }
 }
@@ -319,11 +321,11 @@
 
 // shipping----------------------------------------------------
 
-.street_div{
+.street_div {
   padding: 0px 4px 0px 4px;
 }
 
-.flex_row{
+.flex_row {
   align-items: flex-end;
   justify-content: center;
   display: flex;
@@ -342,12 +344,12 @@
   }
 }
 
-.bottom{
+.bottom {
   margin-bottom: 0px;
   padding-bottom: 0px;
 }
 
-.shipping_time{
+.shipping_time {
   justify-content: space-between;
   padding: 20px 12px 0px 12px;
 
@@ -370,11 +372,40 @@
   font-size: 14px;
   line-height: 19px;
   color: #220F4B;
-  padding-left: 24px; 
+  padding-left: 24px;
 }
 
 .lift_up {
   margin: 12px;
+
+  .checkbox {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: flex-start;
+    gap: 20px;
+
+    &_box {
+      min-width: 28px;
+      height: 28px;
+      border: 2px solid $green-color;
+      box-shadow: none;
+
+      &:checked {
+        border-color: $green-color;
+        background-color: transparent;
+        box-shadow: none;
+        background-image: url("../../public/icons/check.png");
+      }
+    }
+
+    &_label {
+      font-weight: 400;
+      font-size: 16px;
+      line-height: 22px;
+      color: $plum-dark-color;
+    }
+  }
 }
 
 .shiping_line {
@@ -456,6 +487,7 @@
   font-size: 18px;
   line-height: 24px;
   margin-left: 20px;
+
 }
 
 .text_span {
@@ -740,7 +772,7 @@
   &:hover {
     box-shadow: 0px 0px 5px 0px #220F4B;
     background-color: #220F4B;
-}
+  }
 
 
 }
@@ -826,4 +858,12 @@
   border-radius: 10px;
   // background: rgba(87, 60, 145, 0.5);
   // backdrop-filter: blur(2.5px);
+}
+
+.rrr {
+  &:checked {
+    border: 5px solid $green-color;
+    box-shadow: none;
+    background: none;
+  }
 }

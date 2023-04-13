@@ -13,6 +13,7 @@ import { deleteOneFromWishList } from "@/requests/user";
 import { useSession } from "next-auth/react";
 import { Tooltip } from "react-tooltip";
 import "react-tooltip/dist/react-tooltip.css";
+import Link from "next/link";
 
 export default function WishItem({ product, error, setError }) {
     const { data: session } = useSession();
@@ -24,6 +25,7 @@ export default function WishItem({ product, error, setError }) {
     const [addTocartDisabled, setAddTocartDisabled] = useState(false);
     const [isOpenDel, setIsOpenDel] = useState(false);
     const [isOpenCart, setIsOpenCart] = useState(false);
+    const [cartChosen, setCartChosen] = useState(false);
 
     useEffect(() => {
         if (error?.inCartError == true) {
@@ -56,8 +58,9 @@ export default function WishItem({ product, error, setError }) {
             `/api/product/${product._id}?style=${product.style}&code=${product.mode}`
         );
         let exist = null;
-        if (cart.cartItems) {
+        if (cart.cartItems) {  
             exist = cart.cartItems.find((item) => item._uid === product._uid);
+            setCartChosen(true)
         }
         if (exist) {
             setError((prevState) => ({ ...prevState, inCartError: true, uidPrInCart: product._uid }));
@@ -77,12 +80,14 @@ export default function WishItem({ product, error, setError }) {
                 content="Будь ласка зареєструйтесь!"
                 isOpen={isOpenDel}
                 offset={30}
+                className={styles.tooltip_rounded}
             />
             <Tooltip
                 id="add-to-cart-tooltip"
                 content="Уже в корзині!"
                 isOpen={isOpenCart}              
                 place="left"
+                className={styles.tooltip_rounded}
             />
             <Card.Body className={styles.cardbody}>
                 {
@@ -98,14 +103,14 @@ export default function WishItem({ product, error, setError }) {
                             </Row>
                         </Col>
                         <Col md={8} xs={12} sm={8} className={styles.cardtext}>
-                            <h5>
+                           <Link href={`/product/${product.slug}?style=${product.style}&code=${product.mode}`} className={styles.h5text}>
                                 {(product.name + " " + (product.color ? product.color.color : ""
                                 ) + " " + product.size).length > 55
                                     ? `${(product.name + " " + (product.color ? product.color.color : ""
                                     ) + " " + product.size).substring(0, 55)}...`
                                     : product.name + " " + (product.color ? product.color.color : "") + " " + product.size}
-                            </h5>
-                            <div className={styles.cardtext_line}></div>
+                            </Link>
+                            <div className={styles.line}></div>
                         </Col>
                         <Col md={1} xs={12} sm={1} className={styles.cardbtns}>
                             <button
@@ -113,8 +118,9 @@ export default function WishItem({ product, error, setError }) {
                                 onClick={() => addToCartHandler(product)}
                                 disabled={error.inCartError && error.uidProduct === product._uid ? true : false}
                                 data-tooltip-id="add-to-cart-tooltip"
+                                style={{ backgroundColor: cartChosen ? "#220F4B" : "#FAF8FF" }}
                                 onMouseLeave={() => setIsOpenCart(false)}>
-                                <CartIcon fillColor={"#220F4B"} />
+                                <CartIcon fillColor={cartChosen ? "#FAF8FF" : "#220F4B"} />
                             </button>
                             <button
                                 className={styles.itembtn}

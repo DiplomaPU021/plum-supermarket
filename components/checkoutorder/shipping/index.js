@@ -296,7 +296,7 @@ export default function Shipping({ user, activeAddress, setActiveAddress, countr
     };
     return (
         <>
-        {/* {JSON.stringify(activeAddress, null,4)}
+            {/* {JSON.stringify(activeAddress, null,4)}
         {JSON.stringify(selectedCity, null,4)} */}
             <Form onSubmit={(e) => e.preventDefault()}>
                 <Row className={styles.row}>
@@ -323,6 +323,7 @@ export default function Shipping({ user, activeAddress, setActiveAddress, countr
                                         id="selfPickup"
                                         name="selfPickup"
                                         type="radio"
+                                        className={styles.rrr}
                                         value={deliveryTypes[0].name}
                                         onChange={handleChangeDelivery}
                                         checked={delivery.deliveryType === `${deliveryTypes[0].name}`}
@@ -354,6 +355,7 @@ export default function Shipping({ user, activeAddress, setActiveAddress, countr
                                         name="postmanDelivery"
                                         id="postmanDelivery"
                                         type="radio"
+                                        className={styles.rrr}
                                         value={deliveryTypes[1].name}
                                         onChange={handleChangeDelivery}
                                         checked={delivery.deliveryType === `${deliveryTypes[1].name}`} />
@@ -453,8 +455,18 @@ export default function Shipping({ user, activeAddress, setActiveAddress, countr
                                 </Form.Group>
 
                             </div>
+
                             <Form.Group controlId="formBasicCheckbox" className={styles.lift_up}>
-                                <Form.Check type="checkbox" label="Підняти на поверх" />
+                                <Form.Check type="checkbox" className={styles.checkbox}>
+                                    <Form.Check.Input
+                                        className={styles.checkbox_box}
+                                        type="checkbox"
+                                    />
+                                    <Form.Check.Label className={styles.checkbox_label}>
+                                        Підняти на поверх
+                                    </Form.Check.Label>
+                                </Form.Check>
+                                {/* <Form.Check type="checkbox" label="Підняти на поверх" /> */}
                             </Form.Group>
                             <div className={styles.shiping_line}></div>
                             <Container className={styles.bottom}>
@@ -485,6 +497,7 @@ export default function Shipping({ user, activeAddress, setActiveAddress, countr
                                         value={deliveryTypes[2].name}
                                         name="novaPoshta"
                                         id="novaPoshta"
+                                        className={styles.rrr}
                                         checked={delivery.deliveryType === `${deliveryTypes[2].name}`}
                                         onChange={handleChangeDelivery}
                                     />
