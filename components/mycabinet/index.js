@@ -11,7 +11,7 @@ import { emptyWishList } from "@/store/wishListSlice";
 import { emptyScaleList } from "@/store/scaleListSlice";
 import { emptyReviewRating } from "@/store/reviewSlice";
 
-export default function MyCabinet(props) {
+export default function MyCabinet({user, setUser, orders,...props}) {
     const { data: session, status } = useSession();
     const dispatch = useDispatch();
     const [authShow, setAuthShow] = useState(session?.user ? false : true);
@@ -79,9 +79,9 @@ export default function MyCabinet(props) {
                         setAuthShow={setAuthShow}
                         setUserProfileShow={setUserProfileShow}
                         signOutHandler={signOutHandler}
-                        user={props.user}
-                        setUser={props.setUser}
-                        orders={props.orders}
+                        user={user}
+                        setUser={setUser}
+                        orders={orders}
                     />
                 )}
                 {/* {userProfileShow ? (

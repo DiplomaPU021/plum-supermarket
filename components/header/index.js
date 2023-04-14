@@ -35,7 +35,7 @@ export default function Header({ country }) {
   const [error, setError] = useState({ inCartError: false, uidPrInCart: "", inWishListError: false, uidPrInWish: "" });
   const [divVisible, setDivVisible] = useState(true);
   const [isOpen, setIsOpen] = useState(false);
-  const [user, setUser] = useState(null);
+  const [user, setUser] = useState();
   const [orders, setOrders] = useState([]);
   // useEffect(() => {
   //   // console.log('App comp value:', JSON.stringify(error));
@@ -90,7 +90,6 @@ export default function Header({ country }) {
       const data2 = res2.data;
       setOrders(data2.orders);
       setMyCabinetOpen(true);
-      console.log("user", JSON.stringify(data));
     } catch (error) {
       console.log(error);
     }
