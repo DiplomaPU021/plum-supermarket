@@ -17,7 +17,7 @@ import { saveWishList } from "@/requests/user";
 import ThemeSwitcher from "./ThemeSwitcher";
 import { Tooltip } from "react-tooltip";
 import "react-tooltip/dist/react-tooltip.css";
-
+import axios from 'axios';
 
 export default function Header({ country }) {
   const { data: session, status } = useSession();
@@ -35,7 +35,8 @@ export default function Header({ country }) {
   const [error, setError] = useState({ inCartError: false, uidPrInCart: "", inWishListError: false, uidPrInWish: "" });
   const [divVisible, setDivVisible] = useState(true);
   const [isOpen, setIsOpen] = useState(false);
-
+  const [user, setUser] = useState(null);
+  const [orders, setOrders] = useState([]);
   // useEffect(() => {
   //   // console.log('App comp value:', JSON.stringify(error));
   // }, [wishShow]);
@@ -80,6 +81,22 @@ export default function Header({ country }) {
     }
 
   };
+  const handlerUserProfile = async () => {
+    try {
+      const res1 = await axios.get('/api/user/manageProfile');
+      const data1 = res1.data;
+      setUser(data1.user);
+      const res2 = await axios.get('/api/user/manageOrders');
+      const data2 = res2.data;
+      setOrders(data2.orders);
+      setMyCabinetOpen(true);
+      console.log("user", JSON.stringify(data));
+    } catch (error) {
+      console.log(error);
+    }
+
+
+  }
   const handleBtn1Click = () => {
     setLanguage1(true)
     setLanguage2(false)
@@ -111,6 +128,7 @@ export default function Header({ country }) {
         content="Будь ласка зареєструйтесь!"
         isOpen={isOpen}
         place="bottom"
+        style={{ backgroundColor: "#70BF63", color: "#fff", borderRadius: "30px" }}
       />
       <div className={styles.headertop} style={{ display: divVisible ? 'flex' : 'none' }}>
         <section>
@@ -191,7 +209,7 @@ export default function Header({ country }) {
             <div className={styles.cart}>
               <button
                 style={{ backgroundColor: "#220F4B" }}
-                onClick={() => setMyCabinetOpen(true)}
+                onClick={handlerUserProfile}
               >
                 <AccountIcon fillColor={"#FAF8FF"} />
                 {/* <img src={"/"+session.user.image} alt="profile"/> */}
@@ -207,6 +225,9 @@ export default function Header({ country }) {
           <MyCabinet
             show={myCabinetOpen}
             onHide={() => setMyCabinetOpen(false)}
+            user={user}
+            setUser={setUser}
+            orders={orders}
           />
         </div>
       </div>

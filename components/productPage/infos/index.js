@@ -148,11 +148,13 @@ export default function Infos({ product, active, setActive, productError, setPro
         id="login-tooltip"
         content="Будь ласка зареєструйтесь!"
         isOpen={isOpen}
+        style={{ backgroundColor: "#70BF63", color: "#fff", borderRadius: "30px" }}
       />
       <Tooltip
         id="quantity-tooltip"
         content={productError}
         isOpen={isOpenQ}
+        style={{ backgroundColor: "#70BF63", color: "#fff", borderRadius: "30px" }}
       />
       <Row className={styles.infos__priceandaction}>
         <Col className={styles.infos__priceandaction_price}>

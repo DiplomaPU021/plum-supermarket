@@ -80,6 +80,7 @@ export default function WishItem({ product, error, setError }) {
                 content="Будь ласка зареєструйтесь!"
                 isOpen={isOpenDel}
                 offset={30}
+               // style={{ backgroundColor: "#70BF63", color: "#fff", borderRadius: "30px" }}
                 className={styles.tooltip_rounded}
             />
             <Tooltip

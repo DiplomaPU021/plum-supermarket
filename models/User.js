@@ -4,7 +4,6 @@ const { ObjectId } = mongoose.Schema;
 const userSchema = new mongoose.Schema({
     name: {
         type: String,
-        // required: "Please enter your full name",
     },
     firstName: {
         type: String,
@@ -20,6 +19,12 @@ const userSchema = new mongoose.Schema({
         required: "Please enter your email",
         trim: true,
         unique: true,
+    },
+    birthday: {
+        type: String,
+    },
+    gender: {
+        type: String
     },
     password: {
         type: String,
@@ -110,7 +115,7 @@ const userSchema = new mongoose.Schema({
             product: {
                 type: ObjectId,
                 ref: "Product",
-                required : true,
+                required: true,
             },
             name: {
                 type: String,
@@ -120,7 +125,7 @@ const userSchema = new mongoose.Schema({
             },
             size: {
                 type: String,
-            },        
+            },
             color: {
                 type: String,
             },

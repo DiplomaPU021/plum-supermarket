@@ -1,14 +1,13 @@
 import styles from "./styles.module.scss"
-import { Accordion, Nav, Container, Row, Col } from 'react-bootstrap'
+import { Container, Row, Col } from 'react-bootstrap'
 import Link from "next/link"
 import { useRouter } from "next/router"
 import LoopIcon from "@/components/icons/LoopIcon";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import OrderItem from "../orderitem/OrderItem";
 
 
 export default function MyOrders(props) {
-    const router = useRouter();
     const [showDirection, setShowDirection] = useState("desc")
 
     const setSortDirection = () => {
@@ -38,8 +37,9 @@ export default function MyOrders(props) {
 
             </Row>
             <Row className={styles.orders}>
-                <OrderItem/>
-                <OrderItem/>
+                {props.orders?.map((order) =>(
+                    <OrderItem order={order} key={order._id}/>
+                ))}                  
             </Row>
         </Container>
     )

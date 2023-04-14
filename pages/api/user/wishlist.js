@@ -9,7 +9,7 @@ handler.post(async (req, res) => {
     try {
         await db.connectDb();
         const { productId, size, image, color, code } = req.body;
-        let user = userService.addToWishList(req.user, productId, size, image, color, code);
+        let user = await userService.addToWishList(req.user, productId, size, image, color, code);
         await db.disconnectDb();
         return res.status(200).json({ message: "Продукт успішно додано до списку вподобань" });
 
@@ -21,7 +21,7 @@ handler.put(async (req, res) => {
     try {
         await db.connectDb();
         const { productId, code } = req.body;
-        userService.removeFromWishlist(req.user, productId, code);
+        await userService.removeFromWishlist(req.user, productId, code);
         // let user = userService.findByWishlistAndUpdate(req.user, productId);
         await db.disconnectDb();
         return res.status(200).json({ message: "Продукт успішно відредаговано" });
@@ -33,7 +33,7 @@ handler.put(async (req, res) => {
 handler.get(async (req, res) => {
     try {
         await db.connectDb();
-        let wishList = userService.getWishlist(req.user);
+        let wishList = await userService.getWishlist(req.user);
         await db.disconnectDb();
         if (wishList) {
             return res.status(200).json(wishList);
@@ -48,6 +48,6 @@ handler.delete(async (req, res) => {
     const { productId, code } = req.body;
     console.log("delete!!!!!!!!!!!!!!!!", productId, code);
     await db.connectDb();
-    userService.removeFromWishlist(req.user, productId, code);
+    await userService.removeFromWishlist(req.user, productId, code);
 });
 export default handler;

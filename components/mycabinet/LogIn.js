@@ -16,6 +16,7 @@ import {
 import { useEffect, useState } from "react";
 import { Formik } from "formik";
 import DotLoaderSpinner from "../loaders/dotLoader";
+import axios from "axios";
 
 const initialvalues = {
   login_email: "",
@@ -28,10 +29,11 @@ export default function LogIn({
   setCongratsShow,
   setAuthShow,
   setUserProfileShow,
+  setUser
 }) {
   const { data: session, status } = useSession();
   const [loading, setLoading] = useState(false);
-  const [user, setUser] = useState(initialvalues);
+  const [userLogin, setUserLogin] = useState(initialvalues);
   const [csrfToken, setCsrfToken] = useState("");
 
   // useEffect(() => {
@@ -52,7 +54,7 @@ export default function LogIn({
     fetchData();
   }, []); // Or [] if effect doesn't need props or state
 
-  const { login_email, login_password, login_error } = user;
+  const { login_email, login_password, login_error } = userLogin;
   const loginValidation = yup.object({
     login_email: yup
       .string()
@@ -65,14 +67,24 @@ export default function LogIn({
     // console.log("e.target.name, e.target.name");
     // console.log("e.target.value", e.target.value);
     const { name, value } = e.target;
-    setUser({ ...user, [name]: value });
+    setUserLogin({ ...userLogin, [name]: value });
   };
-  const switchToMyCabinet = () => {
-    setCongratsShow(false);
-    setRegShow(false);
-    setLogShow(false);
-    setAuthShow(false);
-    setUserProfileShow(true);
+  const switchToMyCabinet = async () => {
+    try {
+      const res = await axios.get('/api/user/manageProfile');
+      const data = res.data;
+
+      setUser(data.user);
+      setCongratsShow(false);
+      setRegShow(false);
+      setLogShow(false);
+      setAuthShow(false);
+      setUserProfileShow(true);
+      console.log("user", JSON.stringify(data));
+    } catch (error) {
+      console.log(error);
+    }
+
   };
   const signInHandler = async () => {
     try {
@@ -99,22 +111,22 @@ export default function LogIn({
       // //   session.user.role = data.user.role || "user";
 
       // console.log("sessionOnLogin///////////", session, status);
-      setUser({ ...user, login_error: res.error, success: "" });
+      setUserLogin({ ...userLogin, login_error: res.error, success: "" });
 
       setLoading(false);
       if (res.error) {
-        console.log("errorOnLogin", user.login_error);
+        console.log("errorOnLogin", userLogin.login_error);
       } else {
         switchToMyCabinet();
       }
     } catch (error) {
       setLoading(false);
-      setUser({ ...user, success: "", login_error: error });
+      setuserLogin({ ...userLogin, success: "", login_error: error });
       // switchToRegister();
     }
     // if (res?.error) {
     //     setLoading(false);
-    //     setUser({ ...user, login_error: res?.error });
+    //     setuserLogin({ ...userLogin, login_error: res?.error });
     // } else {
     //     switchToRegister();
     //     // return Router.push(callbackUrl || "/");
@@ -241,7 +253,7 @@ export default function LogIn({
             </div>
           </Col>
           <Col className={styles.login_col2}>
-             <Image src='../../../images/login.png' width="463px" height="528px" />
+            <Image src='../../../images/login.png' width="463px" height="528px" />
           </Col>
         </Row>
       </Container>

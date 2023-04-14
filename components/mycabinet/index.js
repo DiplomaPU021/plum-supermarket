@@ -12,10 +12,8 @@ import { emptyScaleList } from "@/store/scaleListSlice";
 import { emptyReviewRating } from "@/store/reviewSlice";
 
 export default function MyCabinet(props) {
-    const router = useRouter();
     const { data: session, status } = useSession();
     const dispatch = useDispatch();
-    const [userId, setUserId] = useState(props.userid);
     const [authShow, setAuthShow] = useState(session?.user ? false : true);
     const [logShow, setLogShow] = useState(false);
     const [regShow, setRegShow] = useState(false);
@@ -81,6 +79,9 @@ export default function MyCabinet(props) {
                         setAuthShow={setAuthShow}
                         setUserProfileShow={setUserProfileShow}
                         signOutHandler={signOutHandler}
+                        user={props.user}
+                        setUser={props.setUser}
+                        orders={props.orders}
                     />
                 )}
                 {/* {userProfileShow ? (
