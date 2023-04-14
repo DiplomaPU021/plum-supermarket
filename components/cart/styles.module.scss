@@ -67,9 +67,11 @@
 }
 
 .line {
-    width: 426px;
+    max-width: 426px;
     height: 0px;
     border: 2px solid #70BF63;
+    margin-top: 20px;
+    margin-bottom: 20px;
 }
 
 .addbtn {
@@ -185,16 +187,16 @@
     // width: 435px;
     padding-top: 10px;
 
-    h5 {
-        font-family: 'Noto Sans';
-        font-style: normal;
+    .h5text {
         font-weight: 400;
         font-size: 20px;
         line-height: 27px;
         color: #220F4B;
         padding-bottom: 20px;
-        border-bottom: 3px solid #70BF63;
+       // border-bottom: 3px solid #70BF63;
         max-width: 435px;
+
+        text-decoration: none;
     }
 
     &_extraservice {
@@ -227,7 +229,7 @@
 }
 
 .cardextrabtn {
-    width: 174px;
+    width: 204px;
     height: 30px;
     color: #573C90;
     background: none;
@@ -316,7 +318,8 @@
         }
 
         button {
-            background: linear-gradient(180deg, #FAF8FF 0%, #F2EDFF 100%);
+            background: transparent;
+           // background: linear-gradient(180deg, #FAF8FF 0%, #F2EDFF 100%);
         }
     }
 
@@ -398,7 +401,7 @@
 }
 
 .tooltip_rounded {
-    border-radius: 30%;
+    border-radius: 30px;
     color: #FAF8FF;
     background-color: #70BF63;
 }

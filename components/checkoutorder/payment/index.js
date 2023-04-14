@@ -30,6 +30,7 @@ export default function PaymentMethod({ paymentMethod, setPayment }) {
                                 name="payment"
                                 value={pm.name}
                                 id={pm.id}
+                                className={styles.rrr}
                                 onChange={handleChangePayment}
                                 checked={paymentMethod === `${pm.name}`} />
                             <Form.Check.Label htmlFor={pm.id}>{pm.name}</Form.Check.Label>

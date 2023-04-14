@@ -39,7 +39,7 @@
                 inset 7px 3px 20px #FAF5FF,
                 inset -7px -7px 20px #F7EEFF;
 
-              
+
             &_image {
                 height: 100%;
                 width: 100%;
@@ -65,6 +65,7 @@
                 order: 1;
                 flex-grow: 0;
                 z-index: 1;
+
                 &:hover {
                     background-color: $light-wheet-color;
                     border: 2px solid $plum-dark-color;
@@ -209,4 +210,18 @@
     background: linear-gradient(180deg, #FAF8FF 0%, #F2EDFF 100%);
     width: 239px;
     height: 145px;
+}
+
+.linktext {
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 22px;
+    display: flex;
+    align-items: center;
+    color: #220F4B;
+    text-decoration: none;
+
+    &:hover {
+        color: #220F4B;
+    }
 }

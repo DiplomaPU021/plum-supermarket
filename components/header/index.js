@@ -170,7 +170,7 @@ export default function Header({ country }) {
             <button onClick={() => setScaleShow(true)} style={{ backgroundColor: scaleShow ? "#220F4B" : "#FAF8FF" }}>
               <ScalesIcon fillColor={scaleShow ? "#FAF8FF" : "#220F4B"} />
             </button>
-            <span> {getScaleItemsCount()}</span>
+            {getScaleItemsCount() !== 0 ? <span> {getScaleItemsCount()}</span> : null}
           </div>
           <div className={styles.cart}>
             <button
@@ -180,13 +180,13 @@ export default function Header({ country }) {
               onMouseLeave={() => setIsOpen(false)}>
               <HeartIcon fillColor={wishShow ? "#FAF8FF" : "#220F4B"} />
             </button>
-            <span> {getWishItemsCount()}</span>
+            {getWishItemsCount() !== 0 ? <span> {getWishItemsCount()}</span> : null}
           </div>
           <div className={styles.cart}>
             <button onClick={() => setCartShow(true)} style={{ backgroundColor: cartShow ? "#220F4B" : "#FAF8FF" }}>
               <CartIcon fillColor={cartShow ? "#FAF8FF" : "#220F4B"} />
             </button>
-            <span> {getItemsCount()}</span>
+            {getItemsCount() !== 0 ? <span> {getItemsCount()}</span> : null}
           </div>
           <Cart
             show={cartShow}
