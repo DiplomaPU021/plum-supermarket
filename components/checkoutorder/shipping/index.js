@@ -8,7 +8,7 @@ import { deliveryTypes } from "@/data/deliveryTypes";
 
 
 export default function Shipping({ user, activeAddress, setActiveAddress, country, delivery, setDelivery }) {
-    console.log("activeAddress", activeAddress);
+    // console.log("activeAddress", activeAddress);
     const [cityModalShow, setCityModalShow] = useState(false);
     const [selectedCity, setSelectedCity] = useState(
         activeAddress ? { value: `${activeAddress.cityType} ${activeAddress.city}, ${activeAddress.region}`, object_category: activeAddress.cityType, object_name: activeAddress.city, object_code: activeAddress.zipCode, region: activeAddress.region } : null);

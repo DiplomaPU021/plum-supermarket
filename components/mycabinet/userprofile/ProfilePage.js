@@ -1,8 +1,7 @@
 import styles from "./styles.module.scss";
 import Modal from "react-bootstrap/Modal";
-import {  Nav, Container, Row, Col } from "react-bootstrap";
-import { useRouter } from "next/router";
-import { useEffect, useState } from "react";
+import { Nav, Container, Row, Col } from "react-bootstrap";
+import { useState } from "react";
 import Profile from "./Profile";
 import MyOrders from "./MyOrders";
 import Bonus from "./Bonus";
@@ -12,7 +11,7 @@ import Palette from "./Palette";
 
 
 export default function ProfilePage(props) {
-  const [activeKey, setActiveKey] = useState("profile");
+  const [activeKey, setActiveKey] = useState("orders");
 
   const handleSelect = (selectedKey) => {
     setActiveKey(selectedKey);
@@ -21,9 +20,9 @@ export default function ProfilePage(props) {
   const profilePages = () => {
     switch (activeKey) {
       case "profile":
-        return <Profile />;
+        return <Profile user={props.user}/>;
       case "orders":
-        return <MyOrders />;
+        return <MyOrders orders={props.orders} />;
       case "bonus":
         return <Bonus />;
       case "forum":
@@ -33,7 +32,7 @@ export default function ProfilePage(props) {
       case "palette":
         return <Palette />;
       default:
-        return <Profile />;
+        return <MyOrders user={props.orders}/>;
     }
   };
 
