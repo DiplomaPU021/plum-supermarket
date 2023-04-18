@@ -11,6 +11,46 @@ export default function ProductDescription({ product }) {
   return (
     <Container fluid className={styles.description}>
       <div>{parse(product.description)}</div>
+      {/* <Row className={styles.description__row}>
+        <Col className={styles.description__row_col}>
+          <span>MacBook Air. З новою силою.</span>
+            <Image fluid
+              className={styles.description__row_col_image}
+              src={product.images[0].url}
+              alt=""
+            />
+          <span>
+            MacBook Air — найтонший і найлегший ноутбук від Apple. А тепер завдяки чипу Apple M1 він іще й надпотужний.
+          </span>
+        </Col>
+      </Row>
+      <Row className={styles.description__row}>
+        <Col className={styles.description__row_col}>
+          <span>Легко виконуйте будь-які завдання завдяки надшвидкісному 8-ядерному центральному процесору.</span>
+            <Image
+              className={styles.description__row_col_image}
+              src={product.images[1].url}
+              alt=""
+            />
+           <ul>
+             <li>Графічний процесор із щонайбільше 7 ядрами забезпечує відмінне зображення в додатках та іграх зі складною графікою.</li>
+             <li>16-ядерна система Neural Engine прискорює виконання всіх операцій, у яких використовується машинне навчання.</li>
+             <li>Конструкція без вентилятора гарантує безшумну роботу.</li>
+             <li>Новий MacBook Air побив власний рекорд роботи від акумулятора — тепер він працює без підзарядки 18 годин.</li>
+            </ul>
+        </Col>
+      </Row>
+      <Row className={styles.description__row}>
+        <Col className={styles.description__row_col}>
+          <span>Комплект поставки</span>
+          <span>Адаптер живлення USB-C потужністю 30 Вт. Кабель USB-C для зарядки (2 м).</span>
+            <Image
+              className={styles.description__row_col_image}
+              src={product.images[1].url}
+              alt=""
+            />
+        </Col>
+      </Row> */}
       <Row>
       <Col className={styles.description__more} id="anchor_one" >
           <button onClick={()=>setShowDescription(true)}>

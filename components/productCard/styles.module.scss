@@ -85,12 +85,16 @@
                 margin: 0;
                 padding: 0;
                 height: 50px;
-                font-family: 'Noto Sans';
-                font-style: normal;
-                font-weight: 400;
-                font-size: 16px;
-                line-height: 22px;
-                color: $plum-dark-color;
+                
+                .link{
+                    text-decoration: none;
+                    font-family: 'Noto Sans';
+                    font-style: normal;
+                    font-weight: 400;
+                    font-size: 16px;
+                    line-height: 22px;
+                    color: $plum-dark-color;
+                }
             }
 
             &_line {
@@ -162,7 +166,7 @@
 .priceregular {
     font-weight: 500;
     font-size: 21px;
-    //font-size: 25px;
+    font-size: 25px;
     line-height: 34px;
 }
 

@@ -13,48 +13,40 @@ import axios from "axios";
 import { useRouter } from "next/router";
 import { useSelector, useDispatch } from "react-redux";
 import { addToCart, updateCart } from "@/store/cartSlice";
+import { useSession } from "next-auth/react";
 import {
   addToWishList,
-  removeFromWishList,
   updateWishList,
 } from "@/store/wishListSlice";
-
+import { updateOneInWishList, saveWishList } from "@/requests/user";
+import { Tooltip } from "react-tooltip";
+import "react-tooltip/dist/react-tooltip.css";
 import { updateScaleList } from "@/store/scaleListSlice";
 
 // сюди приходить продукт з бази даних напряму
-export default function ComparisonCard({ product, style,mode }) {
+export default function ComparisonCard({ product }) {
+  const { data: session, status } = useSession();
   const router = useRouter();
   const dispatch = useDispatch();
-  const [code, setCode] = useState(router.query.code);
   const [qty, setQty] = useState(1);
   const [error, setError] = useState("");
   const cart = useSelector((state) => state.cart);
   //const { cart } = useSelector((state) => ({ ...state }));
-
+  const [isOpen, setIsOpen] = useState(false);
   const wishList = useSelector((state) => state.wishList);
-  const [images, setImages] = useState(product.images);
-
-  const [price, setPrice] = useState(product.price);
 
   const addToCartHandler = async () => {
-    // if (!router.query.code) {
-    //   setError("Please select a product type");
-    //   return;
-    // }
-    // const { data } = await axios.get(`/api/product/${product._id}?style=${product.style}&code=${router.query.code}`);
-
     const { data } = await axios.get(
-      `/api/product/${product._id}?style=${style}&code=${mode}`
+      `/api/product/${product._id}?style=${product.style}&code=${product.mode}`
     );
 
     if (qty > data.quantity) {
-      setError("The quantity is bigger than in stock.");
+      setErrorInProductCard("The quantity is bigger than in stock.");
       return;
     } else if (data.quantity < 1) {
-      setError("This product is out of stock.");
+      setErrorInProductCard("This product is out of stock.");
       return;
     } else {
-      //let _uid = `${data._id}_${product.style}_${router.query.code}`;
       let _uid = `${data._id}_${data.style}_${data.code}`;
       let exist = null;
       if (cart.cartItems) {
@@ -73,27 +65,10 @@ export default function ComparisonCard({ product, style,mode }) {
       }
     }
   };
-
   const addToWishHandler = async () => {
-    // if (!router.query.code) {
-    //   setError("Please select a product type");
-    //   return;
-    // }
-    // const { data } = await axios.get(`/api/product/${product._id}?style=${product.style}&code=${router.query.code}`);
-
-    const { data } = await axios.get(
-      `/api/product/${product._id}?style=${style}&code=${mode}`
-    );
-
-    if (qty > data.quantity) {
-      setError("The quantity is bigger than in stock.");
-      return;
-    } else if (data.quantity < 1) {
-      setError("This product is out of stock.");
-      return;
-    } else {
-      //let _uid = `${data._id}_${product.style}_${router.query.code}`;
-      let _uid = `${data._id}_${data.style}_${data.code}`;
+    if (session) {
+      setIsOpen(false);
+      let _uid = `${product._id}_${product.style}_${product.code}`;
       let exist = null;
       if (wishList.wishListItems) {
         exist = wishList.wishListItems.find((item) => item._uid === _uid);
@@ -103,25 +78,49 @@ export default function ComparisonCard({ product, style,mode }) {
           return item._uid != _uid;
         });
         dispatch(updateWishList(newWishList));
+        updateOneInWishList({ productId: product._id });
       } else {
-        dispatch(addToWishList({ ...data, qty, size: data.size, _uid }));
+        const { data } = await axios.get(
+          `/api/product/${product._id}?style=${product.style}&code=${product.mode}`
+        );
+        dispatch(
+          addToWishList({ ...data, qty, size: data.size, _uid, mode: 0 })
+        );
+        saveWishList({
+          productId: product._id,
+          size: product.size,
+          image: product.images[0],
+          color: product.color?.color,
+          code: product.code,
+        });
       }
+    } else {
+      setIsOpen(true);
     }
   };
 
-  const deleteProductHadler =  () => {
+  const deleteProductHadler = () => {
     dispatch(updateScaleList({ ...product }));
   };
 
   return (
     <Card className={styles.product}>
+       <Tooltip
+        id="login-tooltip"
+        content="Будь ласка зареєструйтесь!"
+        isOpen={isOpen}
+        offset={30}
+      />
       <div className={styles.product__container}>
         <div className={styles.product__container_photobox}>
-          <Link href={`/product/${product.slug}?style=0&code=0`}>
-            <ProductSwiper images={images} />
+          <Link
+            href={`/product/${product.slug}?style=${product.style}&code=${product.mode}`}
+          >
+            <ProductSwiper images={product.images} />
           </Link>
-          <button className={styles.btnclose}
-           onClick={()=>deleteProductHadler(product)}
+          <button
+            className={styles.btnclose}
+            onClick={() => deleteProductHadler(product)}
           >
             <img src="../../icons/close_btn.png" alt="" />
           </button>
@@ -130,19 +129,24 @@ export default function ComparisonCard({ product, style,mode }) {
           <Row>
             <Col>
               <Card.Title className={styles.product__container_infos_title}>
-                {(
-                  product.name +
-                  " " +
-                  (product.color ? product.color.color : "") +
-                  " " +
-                  product.size
-                ).length > 55
-                  ? `${product.name.substring(0, 55)}...`
-                  : product.name +
+                <Link
+                  className={styles.link}
+                  href={`/product/${product.slug}?style=${product.style}&code=${product.mode}`}
+                >
+                  {(
+                    product.name +
                     " " +
                     (product.color ? product.color.color : "") +
                     " " +
-                    product.size}
+                    product.size
+                  ).length > 55
+                    ? `${product.name.substring(0, 55)}...`
+                    : product.name +
+                      " " +
+                      (product.color ? product.color.color : "") +
+                      " " +
+                      product.size}
+                </Link>
               </Card.Title>
             </Col>
           </Row>
@@ -154,12 +158,14 @@ export default function ComparisonCard({ product, style,mode }) {
           <Row className={styles.product__container_infos_pricebtn}>
             {product.discount > 0 ? (
               <Col className={styles.product__container_infos_pricebtn_price}>
-                <span className={styles.pricediscount}>{`${price.toLocaleString(
-                  "uk-UA"
-                )} ${product.price_unit}`}</span>
+                <span
+                  className={styles.pricediscount}
+                >{`${product.price.toLocaleString("uk-UA")} ${
+                  product.price_unit
+                }`}</span>
                 <span className={styles.priceregular}>
                   {`${Math.round(
-                    (price * (100 - product.discount)) / 100
+                    (product.price * (100 - product.discount)) / 100
                   ).toLocaleString("uk-UA")}`}{" "}
                   {product.price_unit}
                 </span>
@@ -168,7 +174,7 @@ export default function ComparisonCard({ product, style,mode }) {
               <Col className={styles.product__container_infos_pricebtn_price}>
                 <span
                   className={styles.priceregular}
-                >{`${price} ${product.price_unit}`}</span>
+                >{`${product.price.toLocaleString("uk-UA")} ${product.price_unit}`}</span>
               </Col>
             )}
             <Button onClick={addToWishHandler} className={styles.btnscales}>

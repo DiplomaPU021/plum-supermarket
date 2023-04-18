@@ -15,7 +15,12 @@ import { Rating } from "react-simple-star-rating";
 import Star from "@/components/icons/Star";
 import { useSelector } from "react-redux";
 
-export default function MainSwiper({ product, active, setActive, setProductReview }) {
+export default function MainSwiper({
+  product,
+  active,
+  setActive,
+  setProductReview,
+}) {
   const [activeImg, setActiveImg] = useState(product.images[0].url);
   const reviewRating = useSelector((state) => state.reviewRating);
   const router = useRouter();
@@ -27,7 +32,7 @@ export default function MainSwiper({ product, active, setActive, setProductRevie
       <Row className={styles.swiper__photoBox}>
         <Image
           className={styles.swiper__photoBox_image}
-          src={activeImg|| product.images[0].url}
+          src={activeImg || product.images[0].url}
           alt={product.name}
         />
       </Row>
@@ -49,6 +54,7 @@ export default function MainSwiper({ product, active, setActive, setProductRevie
               disabledClass: "swiper-button-disabled",
             }}
             modules={[Navigation]}
+            loop={true}
           >
             {product.images.map((img, i) => (
               <SwiperSlide key={i}>
@@ -75,15 +81,16 @@ export default function MainSwiper({ product, active, setActive, setProductRevie
         ""
       )}
       <Row className={styles.swiper__reviews}>
-
         <Col className={styles.swiper__reviews_stars}>
           {/* <button ><a href="#anchor_one">Відгуки</a></button> */}
-          <Link href="#anchor_one">Відгуки</Link>
+          <Link className={styles.link} href="#anchor_one">
+            Відгуки
+          </Link>
           <Rating
             readonly={true}
             size={30}
             allowFraction={2}
-            initialValue={reviewRating?.reviewRatingValue}
+            initialValue={(reviewRating?.reviewRatingValue).toFixed()}
             ratingValue
             emptyIcon={
               <Star
@@ -107,21 +114,34 @@ export default function MainSwiper({ product, active, setActive, setProductRevie
       {product.color ? (
         <div className={styles.swiper__colors}>
           {product.subProducts.map((el, i) => (
-            <span
+            <Link
               key={i}
-              className={i == router.query.style ? styles.active : ""}
-              onMouseOver={() => setActiveImg(el.images[i].url)}
-              onMouseLeave={() => setActiveImg("")}
-              onClick={() => setActive((prevState) => ({
-                ...prevState,
-                style: i,              
-              }))}
-              style={{ background: el.color.image }}
+              href={`/product/${product.slug}?style=${i}&code=${0}`}
             >
-              <Link
-                href={`/product/${product.slug}?style=${i}&code=${0}`}
-              ></Link>
-            </span>
+              <span
+                className={i == router.query.style ? styles.active : ""}
+                onMouseOver={() => setActiveImg(el.images[i].url)}
+                onMouseLeave={() => setActiveImg("")}
+                onClick={() =>
+                  setActive((prevState) => ({
+                    ...prevState,
+                    style: i,
+                  }))
+                }
+                style={{ background: el.color.image }}
+              >
+                <div
+                  style={{
+                    display:
+                      product.sizes[product.mode].qty < 1 &&
+                      product.color == el.color.color
+                        ? ""
+                        : "none",
+                  }}
+                  className={styles.swiper__colors_crossline}
+                ></div>
+              </span>
+            </Link>
           ))}
         </div>
       ) : (

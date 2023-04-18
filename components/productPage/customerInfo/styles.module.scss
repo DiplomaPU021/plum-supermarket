@@ -6,6 +6,7 @@
     padding:  50px 60px 0 60px;
     background-color: $light-wheet-color;
     &__row {
+        margin: 0;
         display: flex;
         flex-direction: row;
         align-items: flex-start;

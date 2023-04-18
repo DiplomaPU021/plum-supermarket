@@ -17,6 +17,7 @@ export const scaleListSlice = createSlice({
         subCategoryItems.items.push(newItem);
       } else {
         state.scaleListItems.push({
+          subCategory_slug: newItem.subCategory_slug,
           subCategory_id: newItem.subCategory_id,
           subCategoryName: newItem.subCategoryName,
           items: [newItem],
@@ -28,6 +29,7 @@ export const scaleListSlice = createSlice({
       const updatedsubCategoryItems = state.scaleListItems.find(
         (item) => item.subCategory_id === updatedItems.subCategory_id
       );
+
       if (updatedsubCategoryItems) {
         if (updatedsubCategoryItems.items.length === 1) {
           state.scaleListItems = state.scaleListItems.filter(

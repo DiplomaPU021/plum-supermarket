@@ -11,8 +11,6 @@ export default function CustomerInteraction() {
           <Col className={styles.list}>
             <span className={styles.title}>Доставка</span>
             <ul>
-              {/* <li>Pickup from the post office</li>
-              <li>Delivery by courier</li> */}
               <li>Самовивіз з відділення пошти</li>
               <li>Доставка кур'єром</li>
             </ul>
@@ -58,8 +56,6 @@ export default function CustomerInteraction() {
           <Col className={styles.list}>
             <span className={styles.title}>Гарантія</span>
             <ul>
-              {/* <li>12 months of official warranty from the manufacturer</li>
-              <li>Exchange/return of goods within 14 days</li> */}
               <li>12 місяців офіційної гарантії від виробника</li>
               <li>Обмін/повернення товару впродовж 14 днів</li>
             </ul>
@@ -69,12 +65,6 @@ export default function CustomerInteraction() {
           <Col className={styles.list}>
             <span className={styles.title}>Оплата</span>
             <ul>
-              {/* <li>
-                Payment. Payment upon receipt of goods, Google Pay, Card online,
-                Cashless for legal entities, Pay online with the{" "}
-                <q>Baby Package</q> social card, Cashless for individuals, Apple
-                Pay, Pay online with the <q>eSupport</q> card, Visa, Mastercard.
-              </li> */}
               <li>
                 Оплата. Оплата під час отримання товару, Google Pay, Картою
                 онлайн, Безготівковими для юридичних осіб, Оплатити онлайн

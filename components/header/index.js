@@ -215,7 +215,6 @@ export default function Header({ country }) {
                 {/* {session.user.name} */}
               </button>
             </div>
-
           ) : (
             <button onClick={() => setMyCabinetOpen(true)}>
               <AccountIcon fillColor={"#220F4B"} />

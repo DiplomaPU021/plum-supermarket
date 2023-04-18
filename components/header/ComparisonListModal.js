@@ -6,7 +6,7 @@ import Link from "next/link";
 import { useSelector, useDispatch } from "react-redux";
 import { removeFromScaleList } from "@/store/scaleListSlice";
 
-export default function ComparisonListModal({ show, onHide }) {
+export default function ComparisonListModal({ show, onHide, setScaleShow }) {
   const scaleList = useSelector((state) => state.scaleList);
 
   const dispatch = useDispatch();
@@ -34,8 +34,9 @@ export default function ComparisonListModal({ show, onHide }) {
                   <tr key={i}>
                     <td>
                       <Link
+                      onClick={()=>{setScaleShow(false)}}
                         style={{ textDecoration: "none" }}
-                        href={`/comparison/?subCategory=${subCategory.subCategory_id}`}
+                        href={`/comparison/${subCategory.subCategory_slug}`}
                       >
                         <span>{subCategory.subCategoryName}</span>
                       </Link>
