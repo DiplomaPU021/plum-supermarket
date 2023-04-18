@@ -7,7 +7,8 @@
         position: relative;
         display: flex;
         flex-direction: row;
-        align-items: center;
+        align-items:center;
+        justify-content: space-between;
         padding: 15px;
 
         &_price {
@@ -30,6 +31,10 @@
             justify-content: center;
             gap: 2rem;
             padding: 0;
+
+            @media (max-width: 1300px) {
+               gap: 1rem;
+            }
             
             .liked {
                 position: relative;
@@ -79,9 +84,10 @@
 
         &_buy {
             position: relative;
-            display: flex;
-            flex-direction: row;
+            display:flex;
+            flex-direction: column;
             justify-content: center;
+            align-items: center;
             padding: 0;
 
             button {
@@ -91,7 +97,8 @@
                 justify-content: center;
                 align-items: center;
                 gap: 10px;
-                width: 190px;
+                padding: 10px 20px;
+                min-width: 200px;
                 height: 53px;
                 background: $plum-dark-color;
                 border-radius: 30px;
@@ -103,9 +110,7 @@
                 color: $light-wheet-color;
 
                 @media (max-width: 1300px) {
-                    gap: 5px;
-                    width: 160px;
-                    font-size: 23px;
+                    padding: 10px 15px;
                 }
                 &:hover {
                     box-shadow: 0px 0px 5px 0px #220F4B;
@@ -184,7 +189,7 @@
         width: fit-content;
         display: flex;
         flex-direction: column;
-        padding: 30px 32px;
+        padding-left: 32px;
         gap: 14px;
 
         &_sizes {
@@ -200,8 +205,9 @@
             border: 2px solid $green-color;
 
             &_size {
-                width: 35px;
+                min-width: 35px;
                 height: 35px;
+                padding: 2px;
                 position: relative;
                 display: grid;
                 justify-content: center;

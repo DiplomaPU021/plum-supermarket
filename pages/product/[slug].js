@@ -71,7 +71,7 @@ export default function product({ product, popular, country, style, mode }) {
       </Row>
       <Container fluid className={styles.productpage}>
         <Container fluid className={styles.productpage__main}>
-          <Row>
+          <Row style={{margin: "0"}}>
             <Col style={{ padding: "0", width: "50%" }}>
               <MainSwiperCard
                 product={product}
@@ -89,7 +89,7 @@ export default function product({ product, popular, country, style, mode }) {
       </Container>
       <CustomerInfo />
       <CheaperTogether product={product} productsPlus={product.productsPlus} active={active} setActive={setActive} />
-        <ProductDescription product={product} />
+      <ProductDescription product={product} />
       <Reviews product={product} productReview={productReview} setProductReview={setProductReview} active={active} setActive={setActive} />
       <Popular title={"Популярне з категорії"} products={popular} category={product.category.name} />
       <Footer country={country} />
@@ -130,7 +130,7 @@ export async function getServerSideProps(context) {
   //Should be with mark "popular"
   let onlyFromCategory = await Product.find({ category: product.category._id })
     .lean();
-    console.log("onlyFromCategory", onlyFromCategory);
+   // console.log("onlyFromCategory", onlyFromCategory);
   let newFromCategory = onlyFromCategory.map((product) => {
     let style = -1;
     let mode = -1;

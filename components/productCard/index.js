@@ -24,7 +24,6 @@ import {
 } from "@/store/scaleListSlice";
 import { Tooltip } from "react-tooltip";
 import "react-tooltip/dist/react-tooltip.css";
-import useDeepCompareEffect from "use-deep-compare-effect";
 
 export default function ProductCard({ product, style, mode }) {
   const { data: session, status } = useSession();
@@ -36,14 +35,14 @@ export default function ProductCard({ product, style, mode }) {
   const cart = useSelector((state) => state.cart);
   const wishList = useSelector((state) => state.wishList);
   const scaleList = useSelector((state) => state.scaleList);
-  const [wishShow, setWishShow] = useState(false);
-  const [scaleShow, setScaleShow] = useState(false);
   const [opacity, setOpacity] = useState("1");
   const reviewRating = useSelector((state) => state.reviewRating);
   const [isOpen, setIsOpen] = useState(false);
+
   useEffect(() => {
     setImages(product.subProducts[style].images);
-  }, [style, product.slug]);
+    setOpacity((product.quantity < 1) ? "0.6" : "1")
+  }, [style, product.slug, product]);
 
   const addToCartHandler = async () => {
     const { data } = await axios.get(
@@ -84,14 +83,12 @@ export default function ProductCard({ product, style, mode }) {
         exist = wishList.wishListItems.find((item) => item._uid === _uid);
       }
       if (exist) {
-        setWishShow(false);
         let newWishList = wishList.wishListItems.filter((item) => {
           return item._uid != _uid;
         });
         dispatch(updateWishList(newWishList));
         updateOneInWishList({ productId: product._id });
       } else {
-        setWishShow(true);
         const { data } = await axios.get(
           `/api/product/${product._id}?style=${style}&code=${mode}`
         );
@@ -126,7 +123,6 @@ export default function ProductCard({ product, style, mode }) {
           (p) => p._id === data._id && p.code == data.code
         );
         if (existItem) {
-          setScaleShow(false);
           if (existSub.items.length === 1) {
             dispatch(removeFromScaleList({ ...existSub }));
           } else {
@@ -136,7 +132,6 @@ export default function ProductCard({ product, style, mode }) {
           dispatch(addToScaleList({ ...data }));
         }
       } else {
-        setScaleShow(true);
         dispatch(addToScaleList({ ...data }));
       }
     }
@@ -159,15 +154,12 @@ export default function ProductCard({ product, style, mode }) {
             <ProductSwiper images={images} />
           </Link>
           <Button
-           
             className={styles.btnheart}
             onClick={addToWishHandler}
             data-tooltip-id="login-tooltip"
             onMouseLeave={() => setIsOpen(false)}
-          
-            style={{ backgroundColor: wishShow ? "#220F4B" : "#FAF8FF" }}
           >
-            <HeartIcon fillColor={wishShow ? "#FAF8FF" : "#220F4B"} />
+            <HeartIcon fillColor={"#220F4B"} />
           </Button>
         </div>
         {product.subProducts[style]?.discount ? (
@@ -188,6 +180,7 @@ export default function ProductCard({ product, style, mode }) {
                 className={styles.product__container_infos_title}
               >
                 <Link
+                  className={styles.link}
                   href={`/product/${product.slug}?style=${style}&code=${mode}`}
                 >
                   {(
@@ -250,9 +243,8 @@ export default function ProductCard({ product, style, mode }) {
             <Button
               className={styles.btnscales}
               onClick={() => addToScaleHandler()}
-              style={{ backgroundColor: scaleShow ? "#220F4B" : "#FAF8FF" }}
             >
-              <ScalesIcon fillColor={scaleShow ? "#FAF8FF" : "#220F4B"} />
+              <ScalesIcon fillColor={"#220F4B"} />
             </Button>
             <Button
               className={styles.btncart}

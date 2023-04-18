@@ -28,7 +28,7 @@ export default function CheaperTogether({ product, productsPlus, active, setActi
         </div>
         <Swiper
           slidesPerView={1}
-          spaceBetween={60}
+          spaceBetween={10}
           navigation={{
             nextEl: ".image-swiper-button-next",
             prevEl: ".image-swiper-button-prev",
@@ -37,7 +37,7 @@ export default function CheaperTogether({ product, productsPlus, active, setActi
           modules={[Navigation]}
           loop={true}
           style={{
-            padding: "10px 0 10px 10px",
+            padding: "10px 0 10px 0"
           }}
         >
           {productsPlus.map((prod, i) => (
@@ -91,7 +91,7 @@ export default function CheaperTogether({ product, productsPlus, active, setActi
         <div
           className={`${styles.chevronR}  swiper-button image-swiper-button-next`}
         >
-          <ChevronRight fillColor="#70BF63" w="60px" h="60px" />
+          <ChevronRight fillColor="#70BF63" w="55px" h="55px" />
         </div>
       </div>
     </Container>

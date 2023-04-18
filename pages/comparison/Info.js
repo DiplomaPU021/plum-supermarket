@@ -1,38 +1,37 @@
 import styles from "../../styles/comparison.module.scss";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { Card } from "react-bootstrap";
-import Overlay from "react-bootstrap/Overlay";
+import { Tooltip } from "react-tooltip";
+import "react-tooltip/dist/react-tooltip.css";
 
-export default function Info({ target, show, setShow, tooltipData}) {
+export default function Info({showTooltip, setShowTooltip, tooltipData}) {
   return (
-    <Overlay
-      target={target}
-      container={target}
-      show={show}
-      placement="right"
-    > 
-      <Card  id="popover-contained"
-        style={{
-          zIndex: 2,
-        }}
-        className={styles.modal__main}
-      >
-        <Card.Body className={styles.modal__main_card}>
-          <Card.Title className={styles.header}>
+    <Tooltip
+    id="info-tooltip"
+    place="right"
+    offset={20}
+    className={styles.tooltip}
+    noArrow={true}
+    clickable={true}
+    isOpen={showTooltip}
+  >
+    <Card className={styles.tooltip__card}>
+      <Card.Body className={styles.tooltip__card_body}>
+        <Card.Title className={styles.header}>
           {tooltipData && tooltipData.title ? tooltipData.title : ""}
-            <button
-              onClick={() => {
-                setShow(false);
-              }}
-            >
-              <img src="../../icons/close_btn.png" alt="" />
-            </button>
-          </Card.Title>
-          <Card.Text className={styles.body} scrollable="true">
+          <button
+            onClick={() => {
+              setShowTooltip(false);
+            }}
+          >
+            <img src="../../icons/close_btn.png" alt="" />
+          </button>
+        </Card.Title>
+        <Card.Text className={styles.text} scrollable="true">
           {tooltipData && tooltipData.info ? tooltipData.info : ""}
-          </Card.Text>
-        </Card.Body>
-      </Card>
-    </Overlay>
+        </Card.Text>
+      </Card.Body>
+    </Card>
+  </Tooltip>
   );
 }

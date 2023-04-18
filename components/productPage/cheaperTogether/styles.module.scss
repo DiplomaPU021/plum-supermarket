@@ -32,6 +32,7 @@
     &__simillarswiper {
         display: flex;
         direction: row;
+        margin: 0;
 
         &_slide {
             position: relative;
@@ -39,9 +40,9 @@
             align-items: center;
             gap: 44px;
             border-radius: 23px 0 0 23px;
-            background: linear-gradient(90deg, $light-wheet-color 0%, #F0EBFB 20%);
+            background: linear-gradient(90deg, $light-wheet-color 0%, #F0EBFB 30%);
             height: 400px;
-
+            
             @media (max-width: 1300px) {
                 gap: 10px;
             }
@@ -143,14 +144,15 @@
         display: flex;
         align-items: center;
         padding: 0;
-        width: 48px;
+        width: 55px;
     }
 
     .chevronR {
         display: flex;
         align-items: center;
         padding: 0;
-        width: 50px;
+        margin: 0;
+        width: 65px; 
     }
 
     &__signPlus {

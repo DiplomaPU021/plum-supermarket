@@ -1,6 +1,6 @@
 import styles from "../../styles/comparison.module.scss";
 import "bootstrap/dist/css/bootstrap.min.css";
-import { Container, Row, Col, Accordion, Card } from "react-bootstrap";
+import { Container, Row, Col, Accordion } from "react-bootstrap";
 import Header from "@/components/header";
 import Footer from "@/components/footer";
 import { getCountryData } from "@/utils/country";
@@ -31,16 +31,15 @@ export default function ComparisonPage({
   group_subcategory_slug,
 }) {
   const [checked, setChecked] = useState(false);
-  const [showTooltip, setShowTooltop] = useState(false);
+  const [showTooltip, setShowTooltip] = useState(false);
   const [tooltipData, setTooltipData] = useState(null);
   const targetRef = useRef(null);
 
-  const handleMouseEnter = (event, data) => {
+  const handleMouseEnter = (data) => {
     setTooltipData({
-      target: event.target,
       ...data,
     });
-    setShowTooltop(true);
+    setShowTooltip(true);
   };
 
   const dispatch = useDispatch();
@@ -83,6 +82,7 @@ export default function ComparisonPage({
   );
 
   const [groups, setGroups] = useState([]);
+  const [groupsUniques, setGroupsUniques] = useState([]);
 
   useEffect(() => {
     if (subCategory && subCategory.items) {
@@ -98,40 +98,61 @@ export default function ComparisonPage({
         });
         return acc;
       }, {});
-   
-    const groupFields = Object.entries(categories)
-      .map(([group, data]) => {
-        const fields = Object.keys(data.fields).map((fieldName) => {
-          const values = data.fields[fieldName];
-          const uniqueValues = Array.from(new Set(values));
-          return { name: fieldName, values: uniqueValues };
-        });
-        return { group, fields };
-      })
-      .map(({ group, fields }) => {
-        const uniqueFields = Array.from(new Set(fields.map((f) => f.name)));
-        const newFields = uniqueFields.map((name) => {
-          const values = subCategory.items.map((item) => {
-            const detail = item.details.find(
-              (detail) => detail.group === group
-            );
-            if (!detail) {
-              return "-";
-            }
-            const field = detail.fields.find((f) => f.name === name);
-            if (!field) {
-              return "-";
-            }
-            return field.value || "-";
-          });
-          return { name, values };
-        });
-        return { group, fields: newFields };
-      });
 
-    setGroups(groupFields);
-  }
+      const groupFields = Object.entries(categories)
+        .map(([group, data]) => {
+          const fields = Object.keys(data.fields).map((fieldName) => {
+            const values = data.fields[fieldName];
+            const uniqueValues = Array.from(new Set(values));
+            return { name: fieldName, values: uniqueValues };
+          });
+          return { group, fields };
+        })
+        .map(({ group, fields }) => {
+          const uniqueFields = Array.from(new Set(fields.map((f) => f.name)));
+          const newFields = uniqueFields.map((name) => {
+            const values = subCategory.items.map((item) => {
+              const detail = item.details.find(
+                (detail) => detail.group === group
+              );
+              if (!detail) {
+                return "-";
+              }
+              const field = detail.fields.find((f) => f.name === name);
+              if (!field) {
+                return "-";
+              }
+              return field.value || "-";
+            });
+            return { name, values };
+          });
+          return { group, fields: newFields };
+        });
+
+      const uniquesGroups = JSON.parse(JSON.stringify(groupFields));
+      uniquesGroups.map((p, i) => {
+        p.fields.map((f, j) => {
+          let flag = true;
+          for (let k = 1; k < f.values.length; k++) {
+            if (f.values[k] !== f.values[0]) {
+              flag = false;
+              break;
+            }
+          }
+          if (flag) {
+            if (p.fields.length === 1) {
+              uniquesGroups.splice(i, 1);
+            }
+            p.fields.splice(j, 1);
+          }
+        });
+      }); 
+
+      setGroupsUniques(uniquesGroups);
+      setGroups(groupFields);
+    }
   }, [subCategory && subCategory.items]);
+
 
   const deleteGroupHadler = (subCategory) => {
     dispatch(removeFromScaleList({ ...subCategory }));
@@ -139,6 +160,11 @@ export default function ComparisonPage({
 
   return (
     <Container fluid className={styles.comparison}>
+      <Info
+        showTooltip={showTooltip}
+        setShowTooltip={setShowTooltip}
+        tooltipData={tooltipData}
+      />
       <Header country={country} />
       <Row className={styles.comparison__title}>
         <Col className={styles.comparison__title_name}>
@@ -231,7 +257,7 @@ export default function ComparisonPage({
         style={{ display: subCategory ? "block" : "none" }}
         className={styles.accordion}
       >
-        {groups.map((p, i) => (
+        {(checked? groupsUniques : groups).map((p, i) => (
           <Accordion.Item
             eventKey={i}
             key={i}
@@ -241,12 +267,6 @@ export default function ComparisonPage({
               <span>{p.group || "Загальні характеристики"}</span>
             </Accordion.Header>
             <Accordion.Body className={styles.accordion__item_body}>
-              <Info
-                target={targetRef.current}
-                show={showTooltip}
-                setShow={setShowTooltop}
-                tooltipData={tooltipData}
-              />
               <table>
                 <tbody>
                   {p.fields.map((f, j) => (
@@ -254,15 +274,16 @@ export default function ComparisonPage({
                       <td style={{ width: `${100 / (numCards + 1)}%` }}>
                         {f.name}
                         <img
+                          data-tooltip-id="info-tooltip"
                           ref={targetRef}
                           src="../../icons/help_light.png"
                           alt=""
-                          onMouseEnter={(event) =>
-                            handleMouseEnter(event, {
+                          onMouseEnter={() => {
+                            handleMouseEnter({
                               title: f.name,
                               info: "info",
-                            })
-                          }
+                            });
+                          }}
                         />
                       </td>
                       {f.values
@@ -306,49 +327,57 @@ export async function getServerSideProps(context) {
   }).lean();
   let group_slug = group_subcategory.slug;
 
-  //TODO should be products for component "View more"
-  //let products = await Product.find({ subCategories: id }).populate('subCategories');
-  let category= await SubCategory.findById(id)
-  .populate({ path: "top_parent", model: Category })
-  .populate({ path: "parent", model: GroupSubCategory })
-  .lean();
-  console.log("categoryCamprison", category);
-   //Should be with mark "popular"
-   let onlyFromCategory = await Product.find({ category: category.top_parent._id })
-     .lean();
-   let newFromCategory = onlyFromCategory.map((product) => {
-     let style = -1;
-     let mode = -1;
-     // знайдемо індекс першого підпродукту з ненульовим залишком
-     for (let i = 0; i < product.subProducts.length; i++) {
-       let subProduct = product.subProducts[i];
-       for (let j = 0; j < subProduct.sizes.length; j++) {
-         if (subProduct.sizes[j].qty > 0) {
-           style = i;
-           mode = j;
-           break;
-         }
-       }
-       if (style !== -1) {
-         break;
-       }
-     }
- 
-     let color = product.subProducts[style] ? product.subProducts[style].color?.color : '';
-     let size = product.subProducts[style].sizes[mode].size;
-     let sold = product.subProducts[style].sold;
-     let priceAfter = ((100 - product.subProducts[style].discount) * product.subProducts[style].sizes[mode].price / 100).toFixed();
-     return {
-       ...product,
-       style,
-       mode,
-       color,
-       size,
-       sold,
-       priceAfter
-     };
-   });
-   let popularFromCategory = [...newFromCategory].sort((a, b) => b.sold - a.sold);
+  //Should be products for component "View more"
+  let category = await SubCategory.findById(id)
+    .populate({ path: "top_parent", model: Category })
+    .populate({ path: "parent", model: GroupSubCategory })
+    .lean();
+  //console.log("categoryCamprison", category);
+  //Should be with mark "popular"
+  let onlyFromCategory = await Product.find({
+    category: category.top_parent._id,
+  }).lean();
+  let newFromCategory = onlyFromCategory.map((product) => {
+    let style = -1;
+    let mode = -1;
+    // знайдемо індекс першого підпродукту з ненульовим залишком
+    for (let i = 0; i < product.subProducts.length; i++) {
+      let subProduct = product.subProducts[i];
+      for (let j = 0; j < subProduct.sizes.length; j++) {
+        if (subProduct.sizes[j].qty > 0) {
+          style = i;
+          mode = j;
+          break;
+        }
+      }
+      if (style !== -1) {
+        break;
+      }
+    }
+
+    let color = product.subProducts[style]
+      ? product.subProducts[style].color?.color
+      : "";
+    let size = product.subProducts[style].sizes[mode].size;
+    let sold = product.subProducts[style].sold;
+    let priceAfter = (
+      ((100 - product.subProducts[style].discount) *
+        product.subProducts[style].sizes[mode].price) /
+      100
+    ).toFixed();
+    return {
+      ...product,
+      style,
+      mode,
+      color,
+      size,
+      sold,
+      priceAfter,
+    };
+  });
+  let popularFromCategory = [...newFromCategory].sort(
+    (a, b) => b.sold - a.sold
+  );
 
   await db.disconnectDb();
 
