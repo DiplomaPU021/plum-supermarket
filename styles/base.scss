@@ -102,6 +102,17 @@ $signin-error-color:#ed4337;
     font-size: 23px;
 }
 
+input[type="radio"].form-check-input:not(:checked) + .form-check-label:before {
+    border: 1px solid #ced4da;
+    background-color: #fff;
+  }
+  
+  /* Styles for the checked radio button */
+  input[type="radio"].form-check-input:checked + .form-check-label:before {
+    border-color: red;
+    background-color: red;
+  }
+
 
 
   

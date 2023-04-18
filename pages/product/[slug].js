@@ -130,7 +130,6 @@ export async function getServerSideProps(context) {
   //Should be with mark "popular"
   let onlyFromCategory = await Product.find({ category: product.category._id })
     .lean();
-   // console.log("onlyFromCategory", onlyFromCategory);
   let newFromCategory = onlyFromCategory.map((product) => {
     let style = -1;
     let mode = -1;

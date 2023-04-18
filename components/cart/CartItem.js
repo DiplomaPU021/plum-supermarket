@@ -12,6 +12,7 @@ import { addToWishList } from "@/store/wishListSlice";
 import { saveWishList } from "@/requests/user";
 import { useSession } from "next-auth/react";
 import { Tooltip } from "react-tooltip";
+import Link from "next/link";
 import "react-tooltip/dist/react-tooltip.css";
 
 export default function CartItem({ product, error, setError, deleteConfirm, setDeleteConfirm }) {
@@ -22,6 +23,8 @@ export default function CartItem({ product, error, setError, deleteConfirm, setD
   const wishList = useSelector((state) => state.wishList);
   const dispatch = useDispatch();
   const [isOpen, setIsOpen] = useState(false);
+  //const [errorWish, setErrorWish]=useState("");
+  const [wishChosen, setWishChosen] = useState(false);
   const updateQty = async (type) => {
     let newCart = cart.cartItems.map((item) => {
       if (item._uid == product._uid) {
@@ -60,6 +63,8 @@ export default function CartItem({ product, error, setError, deleteConfirm, setD
   };
   const addToWishHandler = async (product) => {
     if (session) {
+      //setIsOpen(false);
+      setWishChosen(wishChosen ? false : true)
       console.log("addToWishListHandlerCartItem", product);
       const { data } = await axios.get(
         `/api/product/${product._id}?style=${product.style}&code=${product.mode}`
@@ -76,6 +81,8 @@ export default function CartItem({ product, error, setError, deleteConfirm, setD
           inWishListError: true,
           uidPrInWish: product._uid,
         }));
+        setErrorWish("Товар уже в улюблених");
+        setIsOpen(true);
         console.error("Товар уже в улюблених");
         return;
       } else {
@@ -98,17 +105,18 @@ export default function CartItem({ product, error, setError, deleteConfirm, setD
       }
     } else {
       setIsOpen(true);
+      setErrorWish("Будь ласка зареєструйтесь!")
     }
   };
   return (
     <Card className={styles.card}>
       <Tooltip
         id="login-tooltip"
-        content="Будь ласка зареєструйтесь!"
+        content={errorWish}
         isOpen={isOpen}
         place="top"
-        // style={{ backgroundColor: "#70BF63", color: "#fff" }}
-        className={styles.tooltip_rounded}
+        style={{ backgroundColor: "#70BF63", color: "#fff", borderRadius: "30px" }}
+        // className={styles.tooltip_rounded}
         // classNameArrow={styles.tooltip_arrow}
       />
       <Card.Body className={styles.cardbody}>
@@ -130,7 +138,7 @@ export default function CartItem({ product, error, setError, deleteConfirm, setD
               </Row>
             </Col>
             <Col md={5} xs={12} sm={5} className={styles.cardtext}>
-              <h5>
+              <Link href={`/product/${product.slug}?style=${product.style}&code=${product.mode}`} className={styles.h5text}>
                 {(
                   product.name +
                   " " +
@@ -150,8 +158,8 @@ export default function CartItem({ product, error, setError, deleteConfirm, setD
                   (product.color ? product.color.color : "") +
                   " " +
                   product.size}
-              </h5>
-              <div className={styles.cardtext_line}></div>
+              </Link>
+              <div className={styles.line}></div>
               <div className={styles.cardtext_extraservice}>
                 <button
                   className={styles.cardextrabtn}
@@ -159,7 +167,7 @@ export default function CartItem({ product, error, setError, deleteConfirm, setD
                     setShowExtra(showExtra === "none" ? "block" : "none")
                   }
                 >
-                  Extra service{" "}
+                  Додаткові послуги{" "}
                   {showExtra === "none" ? (
                     <img
                       width="30px"
@@ -251,9 +259,10 @@ export default function CartItem({ product, error, setError, deleteConfirm, setD
                 onClick={() => addToWishHandler(product)}
                 data-tooltip-id="login-tooltip"
                 onMouseLeave={() => setIsOpen(false)}
+                style={{ backgroundColor: wishChosen ? "#220F4B" : "#FAF8FF" }}
               >
                 {" "}
-                <HeartIcon fillColor={"#220F4B"} />
+                <HeartIcon fillColor={wishChosen ? "#FAF8FF" : "#220F4B"} />
               </button>
               <button
                 className={styles.itembtn}

@@ -116,9 +116,11 @@
 }
 
 .line {
-    width: 426px;
+    max-width: 435px;
     height: 0px;
     border: 2px solid #70BF63;
+    margin-top: 20px;
+    margin-bottom: 20px;
 }
 
 .addbtn {
@@ -237,18 +239,18 @@
     justify-content: center;
     align-items: flex-start;
     //maxwidth: 435px;
-    padding-top: 10px;
+    padding-top: 20px;
 
-    h5 {
-        font-family: 'Noto Sans';
-        font-style: normal;
+    .h5text {
         font-weight: 400;
         font-size: 20px;
         line-height: 27px;
         color: #220F4B;
         padding-bottom: 20px;
-        border-bottom: 3px solid #70BF63;
+       // border-bottom: 3px solid #70BF63;
         max-width: 435px;
+
+        text-decoration: none;
     }
 
     @media(max-width: 1200px) {
@@ -287,4 +289,10 @@
         background: $light-wheet-color;
         border-radius: 10px;
     }
+}
+
+.tooltip_rounded {
+    border-radius: 30px;
+    color: #FAF8FF;
+    background-color: #70BF63;
 }

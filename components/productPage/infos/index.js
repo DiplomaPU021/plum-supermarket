@@ -164,8 +164,10 @@ export default function Infos({ product, active, setActive, productError, setPro
         id="login-tooltip"
         content="Будь ласка зареєструйтесь!"
         isOpen={isOpen}
+        style={{ backgroundColor: "#70BF63", color: "#fff", borderRadius: "30px" }}
       />
-      <Tooltip id="quantity-tooltip" content={productError} isOpen={isOpenQ} />
+      <Tooltip id="quantity-tooltip" content={productError} isOpen={isOpenQ} 
+       style={{ backgroundColor: "#70BF63", color: "#fff", borderRadius: "30px" }}/>
       <Col className={styles.infos__priceandaction}>
         <div className={styles.infos__priceandaction_price}>
           {product.subProducts[product.style].discount > 0 ? (

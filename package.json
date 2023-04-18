@@ -10,6 +10,7 @@
   },
   "dependencies": {
     "@google-pay/button-react": "^3.0.6",
+    "@hookform/resolvers": "^3.0.1",
     "@next-auth/mongodb-adapter": "^1.1.1",
     "@redux-devtools/extension": "^3.2.5",
     "@reduxjs/toolkit": "^1.9.2",
@@ -34,6 +35,7 @@
     "react": "18.2.0",
     "react-bootstrap": "^2.7.0",
     "react-dom": "18.2.0",
+    "react-hook-form": "^7.43.9",
     "react-icons": "^4.7.1",
     "react-redux": "^8.0.5",
     "react-responsive": "^9.0.2",

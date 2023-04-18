@@ -38,6 +38,9 @@ export default function ProductCard({ product, style, mode }) {
   const [opacity, setOpacity] = useState("1");
   const reviewRating = useSelector((state) => state.reviewRating);
   const [isOpen, setIsOpen] = useState(false);
+  const [wishChosen, setWishChosen] = useState(false);
+  const [cartChosen, setCartChosen] = useState(false);
+  const [scaleChosen, setScaleChosen] = useState(false);
 
   useEffect(() => {
     setImages(product.subProducts[style].images);
@@ -56,6 +59,7 @@ export default function ProductCard({ product, style, mode }) {
       setErrorInProductCard("This product is out of stock.");
       return;
     } else {
+      setCartChosen(cartChosen ? false : true)
       let _uid = `${data._id}_${data.style}_${data.code}`;
       let exist = null;
       if (cart.cartItems) {
@@ -76,6 +80,7 @@ export default function ProductCard({ product, style, mode }) {
   };
   const addToWishHandler = async () => {
     if (session) {
+      setWishChosen(wishChosen ? false : true)
       setIsOpen(false);
       let _uid = `${product._id}_${style}_${product.subProducts[style].sizes[mode].code}`;
       let exist = null;
@@ -109,12 +114,13 @@ export default function ProductCard({ product, style, mode }) {
   };
 
   const addToScaleHandler = async () => {
+    setScaleChosen(scaleChosen ? false : true)
     const { data } = await axios.get(
       `/api/product/${product._id}?style=${style}&code=${mode}`
     );
     let existSub = null;
     let existItem = null;
-    if (scaleList.scaleListItems) {
+    if (scaleList.scaleListItems) {   
       existSub = scaleList.scaleListItems.find(
         (item) => item.subCategory_id === data.subCategory_id
       );
@@ -144,6 +150,7 @@ export default function ProductCard({ product, style, mode }) {
         content="Будь ласка зареєструйтесь!"
         isOpen={isOpen}
         offset={30}
+        style={{ backgroundColor: "#70BF63", color: "#fff", borderRadius: "30px" }}
       />
       <div className={styles.product__container}>
         <div className={styles.product__container_photobox}>
@@ -158,8 +165,9 @@ export default function ProductCard({ product, style, mode }) {
             onClick={addToWishHandler}
             data-tooltip-id="login-tooltip"
             onMouseLeave={() => setIsOpen(false)}
+            style={{ backgroundColor: wishChosen ? "#220F4B" : "#FAF8FF" }}
           >
-            <HeartIcon fillColor={"#220F4B"} />
+            <HeartIcon fillColor={wishChosen ? "#FAF8FF" : "#220F4B"} />
           </Button>
         </div>
         {product.subProducts[style]?.discount ? (
@@ -182,6 +190,7 @@ export default function ProductCard({ product, style, mode }) {
                 <Link
                   className={styles.link}
                   href={`/product/${product.slug}?style=${style}&code=${mode}`}
+                  className={styles.linktext}
                 >
                   {(
                     product.name +
@@ -242,9 +251,10 @@ export default function ProductCard({ product, style, mode }) {
             )}
             <Button
               className={styles.btnscales}
+              style={{ backgroundColor: scaleChosen ? "#220F4B" : "#FAF8FF" }}
               onClick={() => addToScaleHandler()}
             >
-              <ScalesIcon fillColor={"#220F4B"} />
+              <ScalesIcon fillColor={scaleChosen ? "#FAF8FF" : "#220F4B"} />
             </Button>
             <Button
               className={styles.btncart}
@@ -252,10 +262,11 @@ export default function ProductCard({ product, style, mode }) {
               style={{
                 opacity: opacity,
                 cursor: `${product.quantity < 1 ? "not-allowed" : ""}`,
+                backgroundColor: cartChosen ? "#220F4B" : "#FAF8FF"
               }}
               onClick={() => addToCartHandler()}
             >
-              <CartIcon fillColor={"#FAF8FF"} />
+              <CartIcon fillColor={cartChosen ? "#FAF8FF" : "#220F4B"} />
             </Button>
           </Row>
           {errorInProductCard && <span>{errorInProductCard}</span>}
