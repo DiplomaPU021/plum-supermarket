@@ -261,7 +261,6 @@ export default function ProductCard({ product, style, mode }) {
                 <Link
                   className={styles.link}
                   href={`/product/${product.slug}?style=${style}&code=${mode}`}
-                  className={styles.linktext}
                 >
                   {(
                     product.name +

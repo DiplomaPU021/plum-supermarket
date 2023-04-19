@@ -228,8 +228,8 @@ export default function Infos({ product, active, setActive, productError, setPro
         isOpen={isOpenInWish}
         style={{ backgroundColor: "#70BF63", color: "#fff", borderRadius: "30px", zIndex:"999" }}
       />
-      <Row className={styles.infos__priceandaction}>
-        <Col className={styles.infos__priceandaction_price}>
+     <Col className={styles.infos__priceandaction}>
+        <div className={styles.infos__priceandaction_price}>
           {product.subProducts[product.style].discount > 0 ? (
             <div>
               <span className={styles.pricediscount}>{`${Number(
@@ -256,7 +256,6 @@ export default function Infos({ product, active, setActive, productError, setPro
           <div className={styles.liked}>
             {/* TODO onClick like below*/}
             <button
-              style={{ backgroundColor: wishBtnColor ? "#220F4B" : "#FAF8FF" }}
               onClick={addToWishListHandler}
               data-tooltip-id="wish-tooltip"
               onMouseLeave={() => setIsOpenInWish(false)}
