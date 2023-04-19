@@ -39,9 +39,9 @@ export default function MyCabinet({user, setUser, orders,...props}) {
         // props.onHide();
         setUserProfileShow(false);
         setAuthShow(true);
-        dispatch(emptyCart());
+        // dispatch(emptyCart());
         dispatch(emptyWishList());
-        dispatch(emptyScaleList());
+        // dispatch(emptyScaleList());
         dispatch(emptyReviewRating());
     }
 

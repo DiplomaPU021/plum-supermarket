@@ -17,6 +17,8 @@ import { useEffect, useState } from "react";
 import { Formik } from "formik";
 import DotLoaderSpinner from "../loaders/dotLoader";
 import axios from "axios";
+import { updateWishList } from "@/store/wishListSlice";
+import { useDispatch } from "react-redux";
 
 const initialvalues = {
   login_email: "",
@@ -32,6 +34,7 @@ export default function LogIn({
   setUser
 }) {
   const { data: session, status } = useSession();
+  const dispatch = useDispatch();
   const [loading, setLoading] = useState(false);
   const [userLogin, setUserLogin] = useState(initialvalues);
   const [csrfToken, setCsrfToken] = useState("");
@@ -80,7 +83,6 @@ export default function LogIn({
       setLogShow(false);
       setAuthShow(false);
       setUserProfileShow(true);
-      console.log("user", JSON.stringify(data));
     } catch (error) {
       console.log(error);
     }
@@ -112,7 +114,9 @@ export default function LogIn({
 
       // console.log("sessionOnLogin///////////", session, status);
       setUserLogin({ ...userLogin, login_error: res.error, success: "" });
-
+      const res2 = await axios.get('/api/user/wishlist');
+      const data = res2.data;
+      dispatch(updateWishList(data.wishList));
       setLoading(false);
       if (res.error) {
         console.log("errorOnLogin", userLogin.login_error);
@@ -156,6 +160,7 @@ export default function LogIn({
               validationSchema={loginValidation}
               onSubmit={(e) => {
                 e.preventDefault(e);
+              
               }}
             >
               {(formik) => (
