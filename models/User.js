@@ -131,6 +131,12 @@ const userSchema = new mongoose.Schema({
             },
             code: {
                 type: String,
+            },
+            mode:{
+                type: String,
+            },
+            style:{
+                type: String,
             }
         },
     ],

@@ -115,6 +115,8 @@ export default function ComparisonCard({ product, style, mode }) {
           image: product.images[0],
           color: product.color?.color,
           code: product.code,
+          mode: product.mode,
+          style: product.style
         });
       }
     } else {

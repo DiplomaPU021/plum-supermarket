@@ -73,7 +73,7 @@ export default function Profile(props) {
       phoneNumber: props.user?.phoneNumber || "",
       email: props.user?.email || "",
       gender: props.user?.gender || "",
-      birthday: props.user?.birthday || "1900-01-01",
+      birthday: props.user?.birthday || "1990-01-01",
     },
     resolver: yupResolver(validationSchema),
   });
@@ -207,7 +207,7 @@ export default function Profile(props) {
                 {isInEdit ? (
                   <Form.Group as={Col} controlId="groupButtons">
                     <Button type="submit">Зберегти</Button>
-                    <Button type="cancel">Скасувати</Button>
+                    <Button onClick={()=>setIsInEdit(false)}>Скасувати</Button>
                   </Form.Group>
                 ) : (
                   <Button onClick={() => setIsInEdit(true)}>Редагувати</Button>

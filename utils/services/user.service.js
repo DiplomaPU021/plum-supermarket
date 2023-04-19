@@ -1,6 +1,7 @@
 import Product from "@/models/Product";
 import User from "@/models/User";
 import productService from "./product.service";
+import Cart from "@/models/Cart";
 
 const getOneById = async (id) => {
     const user = await User.findById(id);
@@ -75,7 +76,7 @@ const findByUniqueStringAndConfirm = async (uniqueString) => {
     return result;
 
 };
-const addToWishList = async (userId, productId, size, image, color, code) => {
+const addToWishList = async (userId, productId, size, image, color, code, style, mode) => {
     const user = await User.findById(userId);
     const product = await Product.findById(productId);
     const existWishItem = user.wishlist.findIndex((x) => x.product.toString() == productId && x.code.toString() == code);
@@ -85,7 +86,9 @@ const addToWishList = async (userId, productId, size, image, color, code) => {
         size,
         image,
         color,
-        code
+        code,
+        style,
+        mode
     };
     if (existWishItem === -1) {
 
@@ -176,11 +179,81 @@ const removeFromWishlist = async (userId, productId, code) => {
 const getWishlist = async (userId) => {
     const user = await User.findById(userId);
     if (user) {
-        return user.wishlist;
+        const wishlist = user.wishlist;
+        const newProducts = wishlist.map(async (item) => {
+            const product = await Product.findById(item.product);
+            if (product) {
+                const style = item.style;
+                const mode = item.mode;
+                const _uid = `${item.product}_${style}_${mode}`;
+                const subProduct = product.subProducts[style];
+                if (subProduct) {
+                    const price = subProduct.sizes[mode].price;
+                    // const newFromCategory = await getProductsFromCategory(product.category);
+                    const newProduct = {
+                        ...product.toObject(),
+                        style,
+                        mode,
+                        size: subProduct.sizes[mode].size,
+                        discount: subProduct.discount,
+                        color: subProduct.color,
+                        price,
+                        priceAfter: ((100 - subProduct.discount) * price / 100).toFixed(),
+                        price_unit: subProduct.sizes[mode].price_unit,
+                        code: subProduct.sizes[mode].code,
+                        qty: 1,
+                        images: subProduct.images.map(img => img.url),
+                        _uid
+                    };
+                    return newProduct;
+                }
+            }
+        });
+        return Promise.all(newProducts);
     } else {
         throw new Error("Користувача не знайдено!");
     }
-
+}
+const getCartlist = async (userId) => {
+    const cart = await Cart.findOne({ user: userId });
+    if (cart) {
+       
+        const newProducts = cart.products.map(async (item) => {
+            const product = await Product.findById(item.product);
+            if (product) {
+                const style = item.style;
+                const mode = item.mode;
+                const qty = item.qty;
+                const _uid = `${item.product}_${style}_${mode}`;
+                const subProduct = product.subProducts[style];
+                if (subProduct) {
+                    const price = subProduct.sizes[mode].price;
+                    // const newFromCategory = await getProductsFromCategory(product.category);
+                    const newProduct = {
+                        ...product.toObject(),
+                        style,
+                        mode,
+                        size: subProduct.sizes[mode].size,
+                        discount: subProduct.discount,
+                        color: subProduct.color,
+                        price,
+                        priceAfter: ((100 - subProduct.discount) * price / 100).toFixed(),
+                        price_unit: subProduct.sizes[mode].price_unit,
+                        code: subProduct.sizes[mode].code,
+                        quantity: subProduct.sizes[mode].qty,
+                        qty,
+                        images: subProduct.images.map(img => img.url),
+                        image: subProduct.images[0].url,
+                        _uid
+                    };
+                    return newProduct;
+                }
+            }
+        });
+        return Promise.all(newProducts);
+    } else {
+        throw new Error("Користувача не знайдено!");
+    }
 }
 const userService = {
     getOneById,

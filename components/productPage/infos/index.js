@@ -63,7 +63,6 @@ export default function Infos({ product, active, setActive, productError, setPro
     if (wishList.wishListItems) {
       exist = wishList.wishListItems.some((item) => item._uid == _uid);
     }
-    console.log("exist", exist);
     if (exist) {
       setWishChosen(true);
       setIsOpenInWish(true);
@@ -166,6 +165,8 @@ export default function Infos({ product, active, setActive, productError, setPro
           image: product.images[0],
           color: product.color?.color,
           code: product.code,
+          mode: product.mode,
+          style: product.style
         });
       }
     } else {

@@ -116,6 +116,8 @@ export default function CartItem({ product, error, setError, deleteConfirm, setD
           image: product.images[0],
           color: product.color?.color,
           code: product.code,
+          mode: product.mode,
+          style: product.style
         });
       }
     } else {

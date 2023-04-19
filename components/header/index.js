@@ -1,5 +1,5 @@
 import styles from "./styles.module.scss";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { Image, InputGroup } from "react-bootstrap";
 import { useState, useEffect } from "react";
 import ComparisonListModal from "./ComparisonListModal";
@@ -17,9 +17,11 @@ import ThemeSwitcher from "./ThemeSwitcher";
 import { Tooltip } from "react-tooltip";
 import "react-tooltip/dist/react-tooltip.css";
 import axios from 'axios';
+import { updateWishList } from "@/store/wishListSlice";
 
 export default function Header({ country }) {
   const { data: session, status } = useSession();
+  const dispatch = useDispatch();
   const cart = useSelector((state) => state.cart);
   const wishList = useSelector((state) => state.wishList);
   const scaleList = useSelector((state) => state.scaleList);
@@ -57,10 +59,11 @@ export default function Header({ country }) {
   };
 
   const getWishItemsCount = () => {
-    return wishList.wishListItems.reduce(
-      (accumulator, item) => accumulator + item.qty,
-      0
-    );
+    // return wishList.wishListItems.reduce(
+    //   (accumulator, item) => accumulator + item.qty,
+    //   0
+    // );
+    return wishList.wishListTotal;
   };
 
   const getItemsCount = () => {
@@ -69,10 +72,19 @@ export default function Header({ country }) {
       0
     );
   };
-  const handleWishShow = () => {
+  const handleWishShow = async () => {
     if (session) {
-      setIsOpen(false);
-      setWishShow(true);
+      try {
+        const res = await axios.get('/api/user/wishlist');
+        const data = res.data;
+        // console.log("handleWishShow", data.wishList);
+        dispatch(updateWishList(data.wishList));
+        setIsOpen(false);
+        setWishShow(true);
+      } catch (error) {
+        console.log(error);
+      }
+
     } else {
       setWishShow(false);
       setIsOpen(true);

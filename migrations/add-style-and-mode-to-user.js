@@ -1,8 +1,8 @@
-import db from "@/utils/db";
-import User from "@/models/User";
-import { getSession } from "next-auth/react";
+import { getSession } from "next-auth/client";
 import { MongoDBAdapter } from "@next-auth/mongodb-adapter";
 import clientPromise from "./lib/mongodb";
+import db from "@/utils/db";
+import User from "@/models/User";
 
 export default async (req, res) => {
   const session = await getSession({ req });
@@ -13,9 +13,11 @@ export default async (req, res) => {
   }
 
   const { method } = req;
+
   const client = await clientPromise;
   const dbInstance = client.db();
   const adapter = new MongoDBAdapter(dbInstance);
+
   await adapter.getAdapter({});
 
   await db.connectDb();
@@ -23,10 +25,10 @@ export default async (req, res) => {
   switch (method) {
     case "PUT":
       try {
-        const { userId, style, mode } = req.body;
+        const { userId, birthday, gender } = req.body;
         const user = await User.findByIdAndUpdate(
           userId,
-          { style, mode },
+          { birthday, gender },
           { new: true }
         );
 

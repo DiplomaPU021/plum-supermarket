@@ -111,7 +111,6 @@ export default function ProductCard({ product, style, mode }) {
     } else {
       let _uid = `${data._id}_${data.style}_${data.mode}`;
       let exist = null;
-      console.log("cartHandler", _uid);
       if (cart.cartItems) {
         exist = cart.cartItems.find((item) => item._uid === _uid);
       }
@@ -162,6 +161,8 @@ export default function ProductCard({ product, style, mode }) {
           image: product.subProducts[style].images[0],
           color: product.subProducts[style].color?.color,
           code: product.subProducts[style].sizes[mode].code,
+          mode: mode,
+          style: style
         });
       }
     } else {
@@ -181,10 +182,10 @@ export default function ProductCard({ product, style, mode }) {
         (item) => item.subCategory_id === data.subCategory_id
       );
       if (existSub) {
-        console.log("existSub",existSub);
-        console.log("data",data);
+        // console.log("existSub",existSub);
+        // console.log("data",data);
         existItem = existSub.items.find((p) => p._id == data._id && p.style == data.style && p.mode == data.mode);
-        console.log("existItem", existItem);
+        // console.log("existItem", existItem);
         if (existItem) {
            if (existSub.items.length === 1) {
             dispatch(removeFromScaleList({ ...existSub }));
