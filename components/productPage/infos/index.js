@@ -53,13 +53,13 @@ export default function Infos({ product, active, setActive, productError, setPro
       return;
     } else {
       setIsOpenQ(false);
-      let _uid = `${data._id}_${data.style}_${data.code}`;
+      let _uid = `${data._id}_${data.style}_${data.mode}`;
       let exist = null;
       if (cart.cartItems) {
         exist = cart.cartItems.find((item) => item._uid === _uid);
       }
       if (exist) {
-        setProductError("Товар уже в корзині");
+        setProductError("Товар в корзині");
         setIsOpenQ(true);
         // let newCart = cart.cartItems.map((item) => {
         //   if (item._uid === exist._uid) {
@@ -76,7 +76,7 @@ export default function Infos({ product, active, setActive, productError, setPro
   const addToWishListHandler = async () => {
     if (session) {
       setIsOpen(false);
-      let _uid = `${product._id}_${product.style}_${product.subProducts[product.style].sizes[product.mode].code
+      let _uid = `${product._id}_${product.style}_${product.subProducts[product.style].sizes[product.mode]
         }`;
       let exist = null;
       if (wishList.wishListItems) {
@@ -127,7 +127,7 @@ export default function Infos({ product, active, setActive, productError, setPro
       setProductError("This product is out of stock.");
       return;
     } else {
-      let _uid = `${data._id}_${data.style}_${data.code}`;
+      let _uid = `${data._id}_${data.style}_${data.mode}`;
       let exist = null;
       if (scaleList.scaleListItems) {
         exist = scaleList.scaleListItems.find((item) => item._uid === _uid);
@@ -199,6 +199,8 @@ export default function Infos({ product, active, setActive, productError, setPro
             onClick={() => {
               addToCartHandler();
             }}
+            data-tooltip-id="quantity-tooltip"
+            onMouseLeave={() => setIsOpenQ(false)}
           >
             <CartIcon fillColor="#FAF8FF" />
             <span>Купити</span>
@@ -255,9 +257,7 @@ export default function Infos({ product, active, setActive, productError, setPro
                   onClick={() => setActive((prevState) => ({
                     ...prevState,
                     mode: i,              
-                  }))}
-                  data-tooltip-id="quantity-tooltip"
-                  onMouseLeave={() => setIsOpenQ(false)}
+                  }))}                 
                 >
                   {el.size}
                 </Col>

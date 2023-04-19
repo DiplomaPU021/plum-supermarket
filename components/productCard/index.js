@@ -30,7 +30,7 @@ export default function ProductCard({ product, style, mode }) {
   const { data: session, status } = useSession();
   const router = useRouter();
   const dispatch = useDispatch();
-  const [images, setImages] = useState(product.subProducts[style]?.images );
+  const [images, setImages] = useState(product.subProducts[style]?.images);
   const [qty, setQty] = useState(1);
   const [errorInProductCard, setErrorInProductCard] = useState("");
   const cart = useSelector((state) => state.cart);
@@ -38,6 +38,10 @@ export default function ProductCard({ product, style, mode }) {
   const scaleList = useSelector((state) => state.scaleList);
   const reviewRating = useSelector((state) => state.reviewRating);
   const [isOpen, setIsOpen] = useState(false);
+  const [isOpenInCart, setIsOpenInCart] = useState(false);
+  const [isOpenInWish, setIsOpenInWish] = useState(false);
+  const [isOpenInScale, setIsOpenInScale] = useState(false);
+
   const [wishChosen, setWishChosen] = useState(false);
   const [cartChosen, setCartChosen] = useState(false);
   const [scaleChosen, setScaleChosen] = useState(false);
@@ -45,6 +49,72 @@ export default function ProductCard({ product, style, mode }) {
   useEffect(() => {
     setImages(product.subProducts[style].images);
   }, [style, product.slug]);
+
+  useEffect(() => {
+    // handleInCart();
+    console.log("cartTotal", cart.cartTotal);
+    console.log("product", product);
+    let _uid = `${product._id}_${product.style}_${product.mode}`;
+    console.log("uid", _uid);
+    let exist = null;
+    if (cart.cartItems) {
+      exist = cart.cartItems.find((item) => item._uid == _uid);
+    }
+    if (exist) {
+      setCartChosen(true);
+      setIsOpenInCart(true);
+    } else {
+      setCartChosen(false);
+      setIsOpenInCart(false);
+    }
+  }, [cart.cartTotal, style, mode]);
+
+  useEffect(() => {
+    let _uid = `${product._id}_${product.style}_${product.mode}`;
+    let exist = null;
+    if (wishList.wishListItems) {
+      exist = wishList.wishListItems.find((item) => item._uid == _uid);
+    }
+    if (exist) {
+      setWishChosen(true);
+      setIsOpenInWish(true);
+    } else {
+      setWishChosen(false);
+      setIsOpenInWish(false);
+    }
+  }, [wishList.wishListTotal, style, mode]);
+
+  useEffect(() => {
+    let exist = null;
+    if (scaleList.scaleListItems) {
+      exist = scaleList.scaleListItems.map((items) => items._id == product._id && items.style == product.style && items.mode == product.mode);
+    }
+    if (exist) {
+      setScaleChosen(true);
+      setIsOpenInScale(true);
+    } else {
+      setScaleChosen(false);
+      setIsOpenInScale(false);
+    }
+  }, [scaleList.scaleListTotal, style, mode]);
+
+  // const handleInCart = useCallback(async () => {
+  //   console.log("style, mode", product._id, style, mode);
+  //   const { data } = await axios.get(
+  //     `/api/product/${product._id}?style=${style}&code=${mode}`
+  //   );
+  //   let _uid = `${data._id}_${data.style}_${data.code}`;
+  //   let exist = null;
+  //   if (cart.cartItems) {
+  //     exist = cart.cartItems.find((item) => item._uid === _uid);
+  //   }
+  //   if(exist){
+  //     setCartChosen(true);
+  //   } else{
+  //     setCartChosen(false);
+  //   }
+  //   console.log("exist", exist);
+  // }, [product, style, mode])
 
   const addToCartHandler = async () => {
     const { data } = await axios.get(
@@ -58,40 +128,43 @@ export default function ProductCard({ product, style, mode }) {
       setErrorInProductCard("This product is out of stock.");
       return;
     } else {
-      setCartChosen(cartChosen ? false : true)
-      let _uid = `${data._id}_${data.style}_${data.code}`;
+      let _uid = `${data._id}_${data.style}_${data.mode}`;
       let exist = null;
+      console.log("cartHandler",_uid);
       if (cart.cartItems) {
         exist = cart.cartItems.find((item) => item._uid === _uid);
       }
       if (exist) {
-        let newCart = cart.cartItems.map((item) => {
-          if (item._uid === exist._uid) {
-            return { ...item, qty: item.qty + 1 };
-          }
-          return item;
-        });
-        dispatch(updateCart(newCart));
+        // setIsOpenInCart(true);
+        // let newCart = cart.cartItems.map((item) => {
+        //   if (item._uid === exist._uid) {
+        //     return { ...item, qty: item.qty + 1 };
+        //   }
+        //   return item;
+        // });
+        // dispatch(updateCart(newCart));
+        // setCartChosen(true);
       } else {
         dispatch(addToCart({ ...data, qty, size: data.size, _uid }));
+        setCartChosen(true);
       }
     }
   };
   const addToWishHandler = async () => {
     if (session) {
-      setWishChosen(wishChosen ? false : true)
       setIsOpen(false);
-      let _uid = `${product._id}_${style}_${product.subProducts[style].sizes[mode].code}`;
+      let _uid = `${product._id}_${style}_${mode}`;
       let exist = null;
       if (wishList.wishListItems) {
         exist = wishList.wishListItems.find((item) => item._uid === _uid);
       }
       if (exist) {
-        let newWishList = wishList.wishListItems.filter((item) => {
-          return item._uid != _uid;
-        });
-        dispatch(updateWishList(newWishList));
-        updateOneInWishList({ productId: product._id });
+        // let newWishList = wishList.wishListItems.filter((item) => {
+        //   return item._uid != _uid;
+        // });
+        // dispatch(updateWishList(newWishList));
+        // updateOneInWishList({ productId: product._id });
+        // setWishChosen(false);
       } else {
         const { data } = await axios.get(
           `/api/product/${product._id}?style=${style}&code=${mode}`
@@ -99,6 +172,7 @@ export default function ProductCard({ product, style, mode }) {
         dispatch(
           addToWishList({ ...data, qty, size: data.size, _uid, mode: 0 })
         );
+        setWishChosen(true);
         saveWishList({
           productId: product._id,
           size: product.subProducts[style].sizes[mode].size,
@@ -119,7 +193,7 @@ export default function ProductCard({ product, style, mode }) {
     );
     let existSub = null;
     let existItem = null;
-    if (scaleList.scaleListItems) {   
+    if (scaleList.scaleListItems) {
       existSub = scaleList.scaleListItems.find(
         (item) => item.subCategory_id === data.subCategory_id
       );
@@ -149,6 +223,13 @@ export default function ProductCard({ product, style, mode }) {
         offset={30}
         style={{ backgroundColor: "#70BF63", color: "#fff", borderRadius: "30px" }}
       />
+      {/* <Tooltip
+        id="incart-tooltip"
+        content="Товар в корзині"
+        isOpenInCart={isOpenInCart}
+        offset={30}
+        style={{ backgroundColor: "#70BF63", color: "#fff", borderRadius: "30px" }}
+      /> */}
       <div className={styles.product__container}>
         <div className={styles.product__container_photobox}>
           <Link href={`/product/${product.slug}?style=${style}&code=${mode}`}>
@@ -242,6 +323,9 @@ export default function ProductCard({ product, style, mode }) {
                 backgroundColor: cartChosen ? "#220F4B" : "#FAF8FF"
               }}
               onClick={() => addToCartHandler()}
+
+            // data-tooltip-id={cartChosen?"incart-tooltip":"not-incart"}
+            // onMouseLeave={() => setIsOpenInCart(false)}
             >
               <CartIcon fillColor={cartChosen ? "#FAF8FF" : "#220F4B"} />
             </Button>

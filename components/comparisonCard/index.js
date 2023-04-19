@@ -55,7 +55,7 @@ export default function ComparisonCard({ product, style,mode }) {
       return;
     } else {
       //let _uid = `${data._id}_${product.style}_${router.query.code}`;
-      let _uid = `${data._id}_${data.style}_${data.code}`;
+      let _uid = `${data._id}_${data.style}_${data.mode}`;
       let exist = null;
       if (cart.cartItems) {
         exist = cart.cartItems.find((item) => item._uid === _uid);
@@ -93,7 +93,7 @@ export default function ComparisonCard({ product, style,mode }) {
       return;
     } else {
       //let _uid = `${data._id}_${product.style}_${router.query.code}`;
-      let _uid = `${data._id}_${data.style}_${data.code}`;
+      let _uid = `${data._id}_${data.style}_${data.mode}`;
       let exist = null;
       if (wishList.wishListItems) {
         exist = wishList.wishListItems.find((item) => item._uid === _uid);

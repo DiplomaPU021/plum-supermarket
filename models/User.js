@@ -24,7 +24,8 @@ const userSchema = new mongoose.Schema({
         type: String,
     },
     gender: {
-        type: String
+        type: String,
+        default: "Чоловік",
     },
     password: {
         type: String,
@@ -134,6 +135,104 @@ const userSchema = new mongoose.Schema({
             }
         },
     ],
+    // additionalInfo:[
+    //     {
+    //         children: Boolean,
+    //         description:"У мене є дитина"
+    //     },
+    //     {
+    //         vehicle: Boolean,
+    //         description:"Я є власником автомобіля"
+    //     }, 
+    //     {
+    //         motocicle: Boolean,
+    //         description:"Я є власником іншого виду транспорту"
+    //     }, 
+    //     {
+    //         business: Boolean,
+    //         description:"Цей аккаунт використовується юридичною особою, представником компанії або приватним підприємцем"
+    //     },
+
+    // ],
+    // admiration:[
+    //     {
+    //         fishing: Boolean,
+    //         description:"Рибальство"
+    //     },
+        //     {
+    //         hunting: Boolean,
+    //         description:"Полювання"
+    //     },
+       //     {
+    //         music: Boolean,
+    //         description:"Садівництво"
+    //     },
+        //     {
+    //         fitness: Boolean,
+    //         description:"Фітнес"
+    //     }, 
+       //     {
+    //         yoga: Boolean,
+    //         description:"Йога"
+    //     }, 
+        //     {
+    //         running: Boolean,
+    //         description:"Біг"
+    //     },
+        //     {
+    //         bicycle: Boolean,
+    //         description:"Велосипед"
+    //     }, 
+    //     {
+    //         yoga: Boolean,
+    //         description:"Музика"
+    //     },
+    //     {
+    //         music: Boolean,
+    //         description:"Музика"
+    //     },
+        //     {
+    //         tourism: Boolean,
+    //         description:"Туризм"
+    //     },
+        //     {
+    //         cybersport: Boolean,
+    //         description:"Кіберспорт"
+    //     },
+    //     {
+    //         handmade: Boolean,
+    //         description:"Рукоділля"
+    //     },
+    // ],
+        // pets:[
+    //     {
+    //         dog: Boolean,
+    //         description:"Песик"
+    //     },
+        //     {
+    //         bird: Boolean,
+    //         description:"Пташка"
+    //     },
+        //     {
+    //         cat: Boolean,
+    //         description:"Котик"
+    //     },
+    //     {
+    //         reptile: Boolean,
+    //         description:"Плазун"
+    //     }, 
+ 
+    //     {
+    //         fish: Boolean,
+    //         description:"Рибки"
+    //     },
+    //     {
+    //         rodent: Boolean,
+    //         description:"Гризун"
+    //     },
+
+
+    // ]
 },
     { timestamps: true, }
 

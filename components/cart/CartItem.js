@@ -23,7 +23,7 @@ export default function CartItem({ product, error, setError, deleteConfirm, setD
   const wishList = useSelector((state) => state.wishList);
   const dispatch = useDispatch();
   const [isOpen, setIsOpen] = useState(false);
-  //const [errorWish, setErrorWish]=useState("");
+  const [errorWish, setErrorWish]=useState("");
   const [wishChosen, setWishChosen] = useState(false);
   const updateQty = async (type) => {
     let newCart = cart.cartItems.map((item) => {
