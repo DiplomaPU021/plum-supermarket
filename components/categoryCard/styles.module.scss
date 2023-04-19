@@ -1,0 +1,51 @@
+.categorycard {
+    box-sizing: border-box;
+    padding: 24px;
+    gap: 20px;
+    //width: 315px;
+    height: 350px;
+    background: linear-gradient(180deg, #FAF8FF 0%, #F2EDFF 100%);
+    box-shadow: 0px 0px 15px rgba(34, 15, 75, 0.5), inset 7px 7px 20px #FAF5FF, inset -7px -7px 20px #F7EEFF;
+    border-radius: 23px;
+    margin: 10px;
+
+    &__photobox {
+        box-sizing: border-box;
+        display: flex;
+        align-self: center;
+        justify-content: center;
+        padding: 22.5px 14px;
+        gap: 10px;
+        height: 190px;
+        width: 100%;
+        background: linear-gradient(180deg, #FAF8FF 0%, #F2EDFF 100%),
+            linear-gradient(180deg, #220F4B 0%, #573C91 100%);
+        border-radius: 23px;
+        box-shadow: inset 0px 0px 4px rgba(34, 15, 75, 0.5),
+            inset 7px 3px 20px #FAF5FF,
+            inset -7px -7px 20px #F7EEFF;
+        border-radius: 23px;
+        object-fit: contain;
+        background: transparent;
+    }
+
+    .line {
+        height: 0px;
+        border: 2px solid $green-color;
+    }
+
+    &__body {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: flex-start;
+        padding: 0;
+        gap: 8px;
+        font-family: 'Noto Sans';
+        font-style: normal;
+        font-weight: 400;
+        font-size: 18px;
+        line-height: 25px;
+        color: $plum-dark-color;
+    }
+}

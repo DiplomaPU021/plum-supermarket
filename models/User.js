@@ -1,15 +1,30 @@
 import mongoose from "mongoose";
 
+const { ObjectId } = mongoose.Schema;
 const userSchema = new mongoose.Schema({
     name: {
         type: String,
-        required: "Please enter your full name",
+    },
+    firstName: {
+        type: String,
+    },
+    lastName: {
+        type: String,
+    },
+    phoneNumber: {
+        type: String,
     },
     email: {
         type: String,
         required: "Please enter your email",
         trim: true,
         unique: true,
+    },
+    birthday: {
+        type: String,
+    },
+    gender: {
+        type: String
     },
     password: {
         type: String,
@@ -23,7 +38,7 @@ const userSchema = new mongoose.Schema({
         type: String,
         default: "profile.gif",
     },
-    emailVerified: {
+    email_verified: {
         type: Boolean,
         default: false,
     },
@@ -31,7 +46,17 @@ const userSchema = new mongoose.Schema({
         type: String,
         default: "",
     },
-    adress: [
+    uniqueString: {
+        type: String,
+        unique: true,
+    },
+    // likedProducts: [
+    //     {
+    //         type: ObjectId,
+    //         ref: "Product",
+    //     },
+    // ],
+    address: [
         {
             firstName: {
                 type: String,
@@ -45,10 +70,32 @@ const userSchema = new mongoose.Schema({
             address: {
                 type: String,
             },
+
+            streetType: {
+                type: String,
+            },
+            street: {
+                type: String,
+            },
+            building: {
+                type: String,
+            },
+            flat: {
+                type: String,
+            },
+            ground: {
+                type: String,
+            },
+            elevator: {
+                type: String,
+            },
             region: {
                 type: String,
             },
             city: {
+                type: String,
+            },
+            cityType: {
                 type: String,
             },
             zipCode: {
@@ -61,6 +108,30 @@ const userSchema = new mongoose.Schema({
                 type: Boolean,
                 default: false,
             },
+        },
+    ],
+    wishlist: [
+        {
+            product: {
+                type: ObjectId,
+                ref: "Product",
+                required: true,
+            },
+            name: {
+                type: String,
+            },
+            image: {
+                type: String,
+            },
+            size: {
+                type: String,
+            },
+            color: {
+                type: String,
+            },
+            code: {
+                type: String,
+            }
         },
     ],
 },

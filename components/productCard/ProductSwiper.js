@@ -2,8 +2,6 @@ import styles from "./styles.module.scss";
 import { useEffect, useRef } from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
 import Card from "react-bootstrap/Card";
-
-// import Swiper and modules styles
 import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/pagination";
@@ -33,6 +31,7 @@ export default function ProductSwiper({ images }) {
         autoplay={{ delay: 500, stopOnLastSlide: false }}
         speed={500}
         modules={[Autoplay]}
+        loop={true}
       >
         {images.map((img, i) => (
           <SwiperSlide key={i}>

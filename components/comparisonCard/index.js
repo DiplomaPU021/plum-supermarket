@@ -1,0 +1,199 @@
+import { useEffect, useState } from "react";
+import styles from "./styles.module.scss";
+import ProductSwiper from "./ProductSwiper";
+import Link from "next/link";
+import Card from "react-bootstrap/Card";
+import Button from "react-bootstrap/Button";
+import Container from "react-bootstrap/Container";
+import Row from "react-bootstrap/Row";
+import Col from "react-bootstrap/Col";
+import HeartIcon from "../icons/HeartIcon";
+import CartIcon from "../icons/CartIcon";
+import axios from "axios";
+import { useRouter } from "next/router";
+import { useSelector, useDispatch } from "react-redux";
+import { addToCart, updateCart } from "@/store/cartSlice";
+import { useSession } from "next-auth/react";
+import {
+  addToWishList,
+  updateWishList,
+} from "@/store/wishListSlice";
+import { updateOneInWishList, saveWishList } from "@/requests/user";
+import { Tooltip } from "react-tooltip";
+import "react-tooltip/dist/react-tooltip.css";
+import { updateScaleList } from "@/store/scaleListSlice";
+
+// сюди приходить продукт з бази даних напряму
+export default function ComparisonCard({ product }) {
+  const { data: session, status } = useSession();
+  const router = useRouter();
+  const dispatch = useDispatch();
+  const [qty, setQty] = useState(1);
+  const [error, setError] = useState("");
+  const cart = useSelector((state) => state.cart);
+  //const { cart } = useSelector((state) => ({ ...state }));
+  const [isOpen, setIsOpen] = useState(false);
+  const wishList = useSelector((state) => state.wishList);
+
+  const addToCartHandler = async () => {
+    const { data } = await axios.get(
+      `/api/product/${product._id}?style=${product.style}&code=${product.mode}`
+    );
+
+    if (qty > data.quantity) {
+      setErrorInProductCard("The quantity is bigger than in stock.");
+      return;
+    } else if (data.quantity < 1) {
+      setErrorInProductCard("This product is out of stock.");
+      return;
+    } else {
+      let _uid = `${data._id}_${data.style}_${data.code}`;
+      let exist = null;
+      if (cart.cartItems) {
+        exist = cart.cartItems.find((item) => item._uid === _uid);
+      }
+      if (exist) {
+        let newCart = cart.cartItems.map((item) => {
+          if (item._uid === exist._uid) {
+            return { ...item, qty: item.qty + 1 };
+          }
+          return item;
+        });
+        dispatch(updateCart(newCart));
+      } else {
+        dispatch(addToCart({ ...data, qty, size: data.size, _uid }));
+      }
+    }
+  };
+  const addToWishHandler = async () => {
+    if (session) {
+      setIsOpen(false);
+      let _uid = `${product._id}_${product.style}_${product.code}`;
+      let exist = null;
+      if (wishList.wishListItems) {
+        exist = wishList.wishListItems.find((item) => item._uid === _uid);
+      }
+      if (exist) {
+        let newWishList = wishList.wishListItems.filter((item) => {
+          return item._uid != _uid;
+        });
+        dispatch(updateWishList(newWishList));
+        updateOneInWishList({ productId: product._id });
+      } else {
+        const { data } = await axios.get(
+          `/api/product/${product._id}?style=${product.style}&code=${product.mode}`
+        );
+        dispatch(
+          addToWishList({ ...data, qty, size: data.size, _uid, mode: 0 })
+        );
+        saveWishList({
+          productId: product._id,
+          size: product.size,
+          image: product.images[0],
+          color: product.color?.color,
+          code: product.code,
+        });
+      }
+    } else {
+      setIsOpen(true);
+    }
+  };
+
+  const deleteProductHadler = () => {
+    dispatch(updateScaleList({ ...product }));
+  };
+
+  return (
+    <Card className={styles.product}>
+       <Tooltip
+        id="login-tooltip"
+        content="Будь ласка зареєструйтесь!"
+        isOpen={isOpen}
+        offset={30}
+      />
+      <div className={styles.product__container}>
+        <div className={styles.product__container_photobox}>
+          <Link
+            href={`/product/${product.slug}?style=${product.style}&code=${product.mode}`}
+          >
+            <ProductSwiper images={product.images} />
+          </Link>
+          <button
+            className={styles.btnclose}
+            onClick={() => deleteProductHadler(product)}
+          >
+            <img src="../../icons/close_btn.png" alt="" />
+          </button>
+        </div>
+        <Container className={styles.product__container_infos}>
+          <Row>
+            <Col>
+              <Card.Title className={styles.product__container_infos_title}>
+                <Link
+                  className={styles.link}
+                  href={`/product/${product.slug}?style=${product.style}&code=${product.mode}`}
+                >
+                  {(
+                    product.name +
+                    " " +
+                    (product.color ? product.color.color : "") +
+                    " " +
+                    product.size
+                  ).length > 55
+                    ? `${product.name.substring(0, 55)}...`
+                    : product.name +
+                      " " +
+                      (product.color ? product.color.color : "") +
+                      " " +
+                      product.size}
+                </Link>
+              </Card.Title>
+            </Col>
+          </Row>
+          <Row>
+            <Col>
+              <div className={styles.product__container_infos_line}></div>
+            </Col>
+          </Row>
+          <Row className={styles.product__container_infos_pricebtn}>
+            {product.discount > 0 ? (
+              <Col className={styles.product__container_infos_pricebtn_price}>
+                <span
+                  className={styles.pricediscount}
+                >{`${product.price.toLocaleString("uk-UA")} ${
+                  product.price_unit
+                }`}</span>
+                <span className={styles.priceregular}>
+                  {`${Math.round(
+                    (product.price * (100 - product.discount)) / 100
+                  ).toLocaleString("uk-UA")}`}{" "}
+                  {product.price_unit}
+                </span>
+              </Col>
+            ) : (
+              <Col className={styles.product__container_infos_pricebtn_price}>
+                <span
+                  className={styles.priceregular}
+                >{`${product.price.toLocaleString("uk-UA")} ${product.price_unit}`}</span>
+              </Col>
+            )}
+            <Button onClick={addToWishHandler} className={styles.btnscales}>
+              <HeartIcon fillColor={"#220F4B"} />
+            </Button>
+            <Button
+              className={styles.btncart}
+              disabled={product.quantity < 1}
+              style={{
+                cursor: `${product.quantity < 1 ? "not-allowed" : ""}`,
+              }}
+              onClick={() => addToCartHandler()}
+            >
+              <CartIcon fillColor={"#FAF8FF"} />
+            </Button>
+          </Row>
+          {error && <span>{error}</span>}
+        </Container>
+      </div>
+    </Card>
+  );
+}

@@ -23,8 +23,6 @@ $green-color-light: #8AE37C;
 }
 $light-error-color: #fd010169;
 $signin-error-color:#ed4337;
-$green-color: #70BF63;
-$green-color-light: #8AE37C;
 
 .btn_plum {
     display: flex;
@@ -98,3 +96,29 @@ $green-color-light: #8AE37C;
     padding: 10px;
     color: $success-color;
 }
+
+.modal-header {
+    border-bottom: 2px solid $green-color !important;
+    margin-left: 20px;
+    margin-right: 20px;
+    font-weight: 500;
+    font-size: 23px;
+}
+
+input[type="radio"].form-check-input:not(:checked) + .form-check-label:before {
+    border: 1px solid #ced4da;
+    background-color: #fff;
+  }
+  
+  /* Styles for the checked radio button */
+  input[type="radio"].form-check-input:checked + .form-check-label:before {
+    border-color: red;
+    background-color: red;
+  }
+
+
+
+  
+
+
+

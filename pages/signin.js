@@ -14,6 +14,7 @@ import DotLoaderSpinner from '../components/loaders/dotLoader';
 import Router from "next/router"
 import { SiNumpy } from 'react-icons/si';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import { getCountryData } from '@/utils/country';
 
 
 const initialvalues = {
@@ -28,7 +29,7 @@ const initialvalues = {
     login_error: "",
 }
 
-export default function signin({ providers, callbackUrl, csrfToken }) {
+export default function signin({ providers, callbackUrl, csrfToken, country }) {
     const [loading, setLoading] = React.useState(false)
     const [user, setUser] = React.useState(initialvalues);
     const {
@@ -79,9 +80,10 @@ export default function signin({ providers, callbackUrl, csrfToken }) {
         if (res?.error) {
             setLoading(false);
             setUser({ ...user, login_error: res?.error });
-        } else {
-            return Router.push(callbackUrl || "/");
-        }
+        } 
+        // else {
+        //     return Router.push(callbackUrl || "/");
+        // }
     };
     const signUpHandler = async () => {
         try {
@@ -241,7 +243,7 @@ export default function signin({ providers, callbackUrl, csrfToken }) {
                     </div>
                 </div>
             </div>
-            <Footer country="Ukraine" />
+            <Footer country={country} />
         </>
     )
 }
@@ -250,17 +252,19 @@ export async function getServerSideProps(context) {
     const { req, query } = context;
     const session = await getSession({req});
     const { callbackUrl } = query;
-    if (session) {
-        return {
-            redirect: {
-                destination: callbackUrl,
-
-            },
-        };
-    };
+    const countryData = await getCountryData();
+    // if (session) {
+    //     return {
+    //         redirect: {
+    //             destination: callbackUrl,
+    //         },
+    //     };
+    // };
     const csrfToken = await getCsrfToken(context);
-    const providers = Object.values(await getProviders())
+    const providers = Object.values(await getProviders());
+   
     return {
-        props: { providers, csrfToken, callbackUrl },
+        props: { providers, csrfToken, country:countryData },
+       
     };
 }

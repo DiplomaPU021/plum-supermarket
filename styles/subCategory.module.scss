@@ -1,0 +1,325 @@
+.subcategorypage {
+    padding: 0;
+    background: $light-wheet-color;
+
+    &__links {
+        padding: 15px 0 0 60px;
+        margin: 0;
+
+        &_link {
+            font-family: 'Noto Sans';
+            font-style: normal;
+            font-weight: 500;
+            font-size: 16px;
+            line-height: 22px;
+            color: $plum-dark-color;
+            text-decoration: none;
+
+            &:hover {
+                color: $green-color;
+            }
+        }
+    }
+
+    &__title {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        padding-top: 23px;
+        padding-bottom: 40px;
+        margin: 0;
+
+        span {
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            padding: 10px 24px 10px 60px;
+            gap: 10px;
+            width: 487px;
+            height: 64px;
+            gap: 10px;
+            background: linear-gradient(90deg, #71C064 0%, #8AE37C 100%);
+            border-radius: 0px 23px 23px 0px;
+            font-family: 'Noto Sans';
+            font-weight: 600;
+            font-size: 25px;
+            line-height: 34px;
+            color: #FFFFFF;
+        }
+
+        &_colbtns {
+            display: flex;
+            padding-right: 60px;
+            justify-content: flex-end;
+            gap: 25px;
+
+            button {
+                font-family: 'Noto Sans';
+                font-style: normal;
+                font-weight: 500;
+                font-size: 25px;
+                line-height: 34px;
+                color: #573C91;
+                background: transparent;
+            }
+        }
+
+    }
+
+    &__settings {
+        display: flex;
+        align-items: center;
+        padding: 30px 0 20px 0;
+        margin: 0;
+
+        &_col {
+            display: flex;
+            padding-right: 60px;
+            justify-content: flex-end;
+            gap: 25px;
+
+            button {
+                font-family: 'Noto Sans';
+                font-style: normal;
+                font-weight: 500;
+                font-size: 18px;
+                line-height: 25px;
+                color: $plum-dark-color;
+                background: transparent;
+            }
+
+            select {
+                appearance: none;
+                -webkit-appearance: none;
+                -moz-appearance: none;
+                background: transparent;
+                border: none;
+                background-image: url("../public/icons/down-btn.png");
+                background-position: right;
+                background-size: 24px;
+                background-repeat: no-repeat;
+                cursor: pointer;
+                width: 235px;
+                font-family: 'Noto Sans';
+                font-style: normal;
+                font-weight: 500;
+                font-size: 18px;
+                line-height: 25px;
+                color: $plum-dark-color;
+
+                &:focus {
+                    outline: none;
+                }
+
+                option {
+                    background: $light-wheet-color;
+                }
+            }
+        }
+    }
+
+    &__row {
+        position: relative;
+        margin: 0;
+        padding: 0;
+
+        &_sidebar {
+            position: relative;
+            left: 0;
+            margin: 0;
+            padding: 10px 10px 10px 0;
+
+            @media (min-width: 1100px) {
+                width: 35% !important;
+            }
+
+            @media (min-width: 1400px) {
+                width: 25% !important;
+            }
+
+            .col {
+                padding: 24px 0 24px 0;
+                background: linear-gradient(180deg, #FAF8FF 0%, #F2EDFF 100%);
+                box-shadow: 0px 0px 15px rgba(34, 15, 75, 0.5), inset 7px 7px 20px #FAF5FF, inset -7px -7px 20px #F7EEFF;
+                border-radius: 0px 23px 23px 0px;
+                height: 100%;
+
+                .search {
+                    padding: 0 24px 23px 60px;
+
+                    &_field {
+                        display: flex;
+                        flex-direction: row;
+                        align-items: center;
+                        justify-content: space-between;
+                        padding-left: 20px;
+                        background: $light-wheet-color;
+                        border: 2px solid $plum-dark-color;
+                        border-radius: 23px;
+
+                        input {
+                            background: transparent;
+                            border: none;
+                            font-family: 'Noto Sans';
+                            font-style: normal;
+                            font-weight: 300;
+                            font-size: 14px;
+                            line-height: 19px;
+                            color: rgba(34, 15, 75, 0.7);
+
+                            &:focus {
+                                outline: none;
+                            }
+                        }
+
+                        button {
+                            display: flex;
+                            flex-direction: row;
+                            justify-content: center;
+                            align-items: center;
+                            // justify-self: flex-end !important;
+                            width: 45px;
+                            height: 32px;
+                            background: $plum-dark-color;
+                            border-radius: 23px;
+
+                            @media (min-width: 1600px) {
+                                width: 15%;
+                            }
+                        }
+                    }
+                }
+
+                .accordion {
+
+                    &__item {
+                        background: transparent;
+
+                        &_header {
+                            margin-top: 2px;
+
+                            button {
+                                padding: 10px 24px 10px 60px;
+                                background: #E6E1F1;
+                                box-shadow: none;
+
+                                span {
+                                    font-family: 'Noto Sans';
+                                    font-style: normal;
+                                    font-weight: 500;
+                                    font-size: 18px;
+                                    line-height: 25px;
+                                    color: $plum-dark-color;
+                                }
+
+                                &::after {
+                                    background-size: 30px 30px;
+                                    background-image: url("../public/icons/down-btn.png");
+                                    width: 30px;
+                                    height: 30px;
+                                }
+                            }
+                        }
+
+                        &_body {
+                            display: flex;
+                            flex-direction: column;
+                            padding: 20px 24px 20px 60px;
+                            gap: 12px;
+
+                            .group {
+                                max-height: 300px;
+                                overflow-y: scroll;
+
+                                &::-webkit-scrollbar {
+                                    width: 4px;
+                                }
+
+                                &::-webkit-scrollbar-track {
+                                    background: #70BF6380;
+                                    border-left: 1.5px solid $light-wheet-color;
+                                    border-right: 1.5px solid $light-wheet-color;
+
+                                }
+
+                                &::-webkit-scrollbar-thumb {
+                                    background: $green-color;
+                                    border-radius: 2px;
+                                }
+                            }
+
+                            .checkbox {
+                                display: flex;
+                                flex-direction: row;
+                                align-items: center;
+                                justify-content: flex-start;
+                                gap: 20px;
+
+                                &_box {
+                                    width: 24px;
+                                    height: 24px;
+                                    border: 2px solid $green-color;
+                                    box-shadow: none;
+
+                                    &:checked {
+                                        border-color: $green-color; // Change the border color when checked
+                                        background-color: transparent; // Change the background color when checked
+                                        box-shadow: none;
+                                        background-image: url("../public/icons/check.png");
+                                    }
+
+                                }
+
+                                &_label {
+                                    font-family: 'Noto Sans';
+                                    font-style: normal;
+                                    font-weight: 400;
+                                    font-size: 16px;
+                                    line-height: 22px;
+                                    color: $plum-dark-color;
+                                }
+                            }
+
+                            .prices {
+                                display: flex;
+                                flex-direction: row;
+                                align-items: center;
+                                justify-content: space-between;
+                                padding: 0px;
+
+                                div {
+                                    margin: 0;
+                                    padding: 0;
+                                    width: 35%;
+                                    font-family: 'Noto Sans';
+                                    font-style: normal;
+                                    font-weight: 500;
+                                    font-size: 14px;
+                                    line-height: 19px;
+                                    color: rgba(34, 15, 75, 0.6);
+                                    border-bottom: 2px solid $green-color;
+                                }
+                            }
+
+
+                        }
+                    }
+                }
+            }
+
+        }
+
+        &_cards {
+            display: flex;
+            align-items: flex-start;
+            padding-right: 50px;
+            margin: 0;
+
+            .col {
+                padding: 0;
+                display: flex;
+
+            }
+        }
+    }
+}

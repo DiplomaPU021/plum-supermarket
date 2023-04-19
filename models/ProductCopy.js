@@ -20,9 +20,9 @@ const reviewSchema = new mongoose.Schema({
     size: {
         type: String,
     },
-    style: {
-        color: String,
-        image: String,
+    color: {
+        type: String,
+        icon: String,
     },
     fit: {
         type: String,
@@ -67,6 +67,21 @@ const productSchema = new mongoose.Schema(
                 value: String,
             }
         ],
+
+        details: [
+            {
+                "group": "String",
+                "fields": [
+                    {
+                        "name": "String",
+                        "value": "String",
+                        "isMain": true
+                    }
+                ]
+            }
+        ],
+
+
         // questions: [
         //     {
         //         question: String,
@@ -96,7 +111,7 @@ const productSchema = new mongoose.Schema(
         description_images: [],
         subProducts: [
             {
-                images: [],    
+                images: [],
                 color: {
                     type: String,
                     icon: String,
@@ -104,7 +119,7 @@ const productSchema = new mongoose.Schema(
                 size: String,
                 qty: Number,
                 price: Number,
-                price_unit:  String,              
+                price_unit: String,
                 code: {
                     type: String,
                     required: true,

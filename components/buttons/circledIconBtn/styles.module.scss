@@ -6,16 +6,18 @@
     height: 55px;
     border-radius: 55px;
     font-weight: 600;
-    color: #fff;
-    background: $plum-violet-color;
+    font-size: 18px;
+    color: $light-wheet-color;
+    background:  $plum-dark-color;
     display: block;
     cursor: pointer;
     &:hover{
-        background: #fff;
-        color: $plum-violet-color;
+        background: $light-wheet-color;
+        color: $plum-dark-color;
+        border: 2px solid $plum-dark-color;
         .svg_wrap{
         svg{
-            fill: $plum-violet-color;
+            fill: $plum-dark-color;
         }
     }
     }
@@ -23,6 +25,7 @@
         width: 40px;
         height: 40px;
         border-radius: 50%;
+        border: 2px solid $plum-dark-color;
         display: grid;
         place-items: center;
         position: absolute;
@@ -30,7 +33,7 @@
         right: 5px;
         top: 7.5px;
         svg{
-            fill: $plum-violet-color;
+            fill: $plum-dark-color;
         }
     }
 

@@ -22,11 +22,16 @@ const cartSchema = new mongoose.Schema(
                 code:{
                     type: String,
                 },
-                // style: {
-                //     style: String,
-                //     color: String,
-                //     image: String,
-                // },
+                price: {
+                    type: Number,
+                },
+                priceAfter: {
+                    type: Number,
+                },
+                discount: {
+                    type: Number,
+                    default: 0,
+                },
                 qty: {
                     type: Number,
                 },
@@ -34,19 +39,16 @@ const cartSchema = new mongoose.Schema(
                     color: String,
                     image: String,
                 },
-                cost:{
-                    type: Number,
-                },
-            },
+            }
 
         ],
-        cartTotal: Number,
-        discount: Number,
-        coupons:String,
-        costAfterDiscount: Number,
+        cartTotalPrice: Number,
+        cartTotalAfterDiscount: Number,
+        cartTotalQty: Number,
         user: {
             type: ObjectId,
             ref: "User",
+            unique: true,
         }
     },
     {

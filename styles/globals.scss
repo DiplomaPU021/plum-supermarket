@@ -1,37 +1,57 @@
-
-
-*{
+* {
     margin: 0;
     box-sizing: border-box;
+
     &::before,
-    &::after{
+    &::after {
         box-sizing: border-box;
     }
+
+    font-family: 'Noto Sans';
 }
-body{
+
+body {
     font-family: 'Noto Sans';
     line-height: 1.5;
     -webkit-font-smoothing: antialiased;
 }
-button, input, select, textarea {
+
+button,
+input,
+select,
+textarea {
     font-family: inherit;
     font-size: inherit;
 }
-p,h1, h2, h3, h4, h5, h6 {
+
+p,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
     overflow-wrap: break-word;
 }
-img, video,canvas,svg {
+
+img,
+video,
+canvas,
+svg {
     max-width: 100%;
 }
+
 a {
     text-decoration: none;
     color: inherit;
 }
+
 ul {
     list-style: none;
     margin: 0;
     padding: 0;
 }
+
 button {
     border: none;
     outline: none;

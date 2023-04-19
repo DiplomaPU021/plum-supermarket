@@ -2,9 +2,11 @@
     display: grid;
     align-items: center;
     gap: 20px;
-    margin-top: 50px;
-
+    background: $light-wheet-color;
+    padding:  50px 60px 0 60px;
+    background-color: $light-wheet-color;
     &__row {
+        margin: 0;
         display: flex;
         flex-direction: row;
         align-items: flex-start;
@@ -20,7 +22,7 @@
 
             .title {
                 padding: 10px 24px;
-                width: 427px;
+                width: 65%;
                 height: 54px;
                 background: linear-gradient(90deg, #71C064 0%, #8AE37C 100%);
                 border-radius: 0px 23px 23px 0px;
@@ -50,7 +52,7 @@
                     font-weight: 500;
                     font-size: 18px;
                     line-height: 25px;
-                    color: #220F4B;
+                    color: $plum-dark-color;
 
                 }
             }
@@ -58,7 +60,7 @@
             .creditvariant {
                 display: flex;
                 flex-direction: column;
-                gap: 45px;
+                gap: 50px;
 
                 button {
                     width: fit-content;
@@ -69,7 +71,7 @@
                     align-items: center;
                     padding: 10px 35px;
                     gap: 10px;
-                    background: #220F4B;
+                    background: $plum-dark-color;
                     border-radius: 30px;
 
                     font-family: 'Noto Sans';
@@ -91,7 +93,7 @@
                     flex-direction: row;
                     justify-content: center;
                     align-items: center;
-                   // padding-bottom: 30px;
+                    padding-bottom: 23px;
                     
                     span {
                         font-family: 'Noto Sans';
@@ -99,7 +101,7 @@
                         font-weight: 600;
                         font-size: 20px;
                         line-height: 27px;
-                        color: #220F4B;
+                        color: $plum-dark-color;
                     }
 
                     .img {

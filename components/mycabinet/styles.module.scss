@@ -1,0 +1,256 @@
+.modal {
+    background: rgba(87, 60, 145, 0.5);
+    backdrop-filter: blur(2.5px);
+
+    &_main{
+        background: $light-wheet-color;
+        border-radius: 10px;
+    }
+}
+
+.modaldiv {
+    margin: 20px;
+    border: 2px solid $plum-dark-color;
+    border-radius: 10px;
+    color: $plum-dark-color;
+    background: $light-wheet-color;
+
+    span {
+        margin-left: 20px;
+    }
+}
+
+.modalbodyempty {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    gap: 20px;
+}
+
+.modalbodyreg {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+
+    p {
+        color: $plum-dark-color;
+        font-weight: 400;
+        font-size: 16px;
+    }
+
+    .policy {
+        font-weight: 300;
+        font-size: 14px;
+        line-height: 19px;
+        text-align: center;
+        color: #220F4B;
+        margin-bottom: 0;
+        margin-top: 30px;
+    }
+
+    .forminput {
+        padding: 15px 24px;
+        width: 377px;
+        height: 54px;
+        border: 2px solid #220F4B;
+        border-radius: 35px;
+    }
+
+    .formlabel {
+        margin-left: 18px;
+        font-family: 'Noto Sans';
+        font-style: normal;
+        font-weight: 400;
+        font-size: 16px;
+        line-height: 22px;
+        color: #220F4B;
+    }
+
+}
+
+.modalbody {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    gap: 20px;
+    max-height: 400px;
+    overflow: auto;
+}
+
+.line {
+    width: 426px;
+    height: 0px;
+    border: 2px solid #70BF63;
+}
+
+.line2 {
+    width: 63px;
+    height: 0px;
+    border: 2px solid #70BF63;
+}
+
+.loginbtn2 {
+    width: 377px;
+    height: 54px;
+    color: $light-wheet-color;
+    background: #220F4B;
+    border-radius: 30px;
+    border: none;
+    margin-top: 20px;
+    font-size: 25px;
+    font-weight: 600;
+    margin-bottom: 30px;
+}
+
+.loginbtn {
+    width: 315px;
+    height: 54px;
+    color: $light-wheet-color;
+    background: #220F4B;
+    border-radius: 30px;
+    border: none;
+    margin-top: 0px;
+    font-size: 25px;
+    font-weight: 600;
+    margin-bottom: 30px;
+}
+
+.regbtn {
+    width: 315px;
+    height: 54px;
+    color: $plum-dark-color;
+    background: $light-wheet-color;
+    border: 2px solid #220F4B;
+    border-radius: 30px;
+    margin-top: 0px;
+    font-size: 25px;
+    font-weight: 600;
+    margin-bottom: 30px;
+}
+
+.logbtns {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    padding: 10px 0px;
+    gap: 10px;
+
+}
+
+.forgot {
+    font-family: 'Noto Sans';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 15px;
+    color: #573C91;
+    text-decoration: none;
+    margin-left: 78px;
+}
+
+.register {
+    font-weight: 500;
+    font-size: 16px;
+    color: #573C91;
+    cursor: pointer;
+}
+
+.registerSwitch {
+    float: right;
+    padding: 40px 60px 0px 0px;
+
+    @media(max-width: 900px) {
+        padding-right: 25px;
+    }
+}
+
+.regSwitch {
+    text-align: center;
+    padding-top: 35px;
+    padding-right: 15px;
+
+    @media(min-width: 1200px) {
+        padding-right: 100px;
+        margin-bottom: 20px;
+    }
+}
+
+.devider {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    padding: 0px;
+    gap: 20px;
+    width: 377px;
+    height: 22px;
+
+    span {
+        color: $plum-dark-color;
+        font-weight: 400;
+        font-size: 16px;
+        margin: 0;
+    }
+}
+
+.linkicons {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 40px;
+    width: 304px;
+    height: 46px;
+    margin: auto;
+    padding-top: 30px;
+}
+
+.social_btn {
+    width: 178px;
+    height: 48px;
+    border-radius: 30px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: 2px solid #220F4B;
+    cursor: pointer;
+    color: $light-wheet-color;
+}
+
+// login-----------------------------
+
+.login_forms {
+    float: right;
+    padding-right: 40px;
+    padding-top: 20px;
+
+    @media(max-width: 900px) {
+        padding-right: 12px;
+    }
+}
+
+.forgot_flex {
+    display: flex;
+    padding-left: 12px;
+}
+
+.feedback {
+    padding-left: 10px;
+}
+
+.reg_forms {
+    padding-left: 12px;
+}
+
+.login_container {
+    display: flex;
+    flex-direction: column;
+}
+
+.container_frame {
+    flex-direction: column;
+    max-width: 377px;
+}

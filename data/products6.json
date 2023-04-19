@@ -1,0 +1,2086 @@
+[{
+  "_id": {
+    "$oid": "63e16c622c2a6482d698d972"
+  },
+  "name": "Ноутбук Apple MacBook Air 13\" M1 256GB 2020",
+  "description": " <div class=\"styles_description__row__EjSn6 row\">\n    <div class=\"styles_description__row_col__STi8x col\">\n      <span>MacBook Air. З новою силою.</span\n      ><img\n        src=\"https://res.cloudinary.com/dzctqbi3o/image/upload/v1680767371/Diploma/Notebooks/Apple/MacBook_Pro_13_x9qm82.png\"\n        alt=\"\"\n        class=\"styles_description__row_col_image__5AiBU img-fluid\"\n      /><span\n        >MacBook Air — найтонший і найлегший ноутбук від Apple. А тепер завдяки\n        чипу Apple M1 він іще й надпотужний.</span\n      >\n    </div>\n  </div>\n  <div class=\"styles_description__row__EjSn6 row\">\n    <div class=\"styles_description__row_col__STi8x col\">\n      <span\n        >Легко виконуйте будь-які завдання завдяки надшвидкісному 8-ядерному\n        центральному процесору.</span\n      ><img\n        src=\"https://res.cloudinary.com/dzctqbi3o/image/upload/v1680767371/Diploma/Notebooks/Apple/Apple-MacBook-Air-M1-Keyboard_1_iclcqu.png\"\n        alt=\"\"\n        class=\"styles_description__row_col_image__5AiBU\"\n      />\n      <ul>\n        <li>\n          Графічний процесор із щонайбільше 7 ядрами забезпечує відмінне\n          зображення в додатках та іграх зі складною графікою.\n        </li>\n        <li>\n          16-ядерна система Neural Engine прискорює виконання всіх операцій, у\n          яких використовується машинне навчання.\n        </li>\n        <li>Конструкція без вентилятора гарантує безшумну роботу.</li>\n        <li>\n          Новий MacBook Air побив власний рекорд роботи від акумулятора — тепер\n          він працює без підзарядки 18 годин.\n        </li>\n      </ul>\n    </div>\n  </div>\n  <div class=\"styles_description__row__EjSn6 row\">\n    <div class=\"styles_description__row_col__STi8x col\">\n      <span>Комплект поставки</span\n      ><span\n        >Адаптер живлення USB-C потужністю 30 Вт. Кабель USB-C для зарядки (2\n        м).</span\n      ><img\n        src=\"https://res.cloudinary.com/dzctqbi3o/image/upload/v1680767039/Diploma/Notebooks/Apple/Frame_5862_jekm7q.png\"\n        alt=\"\"\n        class=\"styles_description__row_col_image__5AiBU\"\n      />\n    </div>\n  </div>",
+  "brand": "Apple",
+  "slug": "apple_macbook_air_13_m1_256gb_20",
+  "category": {
+    "$oid": "63e370145ba7e472e6726ca2"
+  },
+  "subCategories": [
+    {
+      "$oid": "63e3a0b95ba7e472e6726cfe"
+    }
+  ],
+  "details": [
+    {
+      "group": "",
+      "fields": [
+        {
+          "name": "Серія (модельний ряд)",
+          "value": "Apple MacBook Air",
+          "isMain": true
+        }
+      ]
+    },
+    {
+      "group": "Екран",
+      "fields": [
+        {
+          "name": "Діагональ екрана",
+          "value": "13.3\"",
+          "isMain": true
+        },
+        {
+          "name": "Тип екрану",
+          "value": "Retina",
+          "isMain": false
+        },
+        {
+          "name": "Роздільна здатність",
+          "value": "2560x1600 (WQXGA)",
+          "isMain": true
+        },
+        {
+          "name": "Частота оновлення екрана",
+          "value": "60 Гц",
+          "isMain": true
+        },
+        {
+          "name": "Поверхня екрану",
+          "value": "Глянцева",
+          "isMain": true
+        }
+      ]
+    },
+    {
+      "group": "Відеокарта",
+      "fields": [
+        {
+          "name": "Відеокарта",
+          "value": "Інтегрована відеокарта",
+          "isMain": true
+        }
+      ]
+    },
+    {
+      "group": "Накопичувачі даних",
+      "fields": [
+        {
+          "name": "Типи внутрішніх накопичувачів",
+          "value": "SSD",
+          "isMain": true
+        },
+        {
+          "name": "Обсяг SSD",
+          "value": "256Гб",
+          "isMain": true
+        },
+        {
+          "name": "Кількість слотів М.2",
+          "value": "Без слота М.2",
+          "isMain": true
+        },
+        {
+          "name": "Кількість відсіків 2.5” SATA для HDD/SSD",
+          "value": "Без відсіків",
+          "isMain": true
+        }
+      ]
+    },
+    {
+      "group": "Процесор",
+      "fields": [
+        {
+          "name": "Процесор",
+          "value": "Восьмиядерний Apple M1",
+          "isMain": true
+        },
+        {
+          "name": "Операційна система",
+          "value": "macOS Big Sur",
+          "isMain": true
+        }
+      ]
+    },
+    {
+      "group": "Оперативна пам'ять",
+      "fields": [
+        {
+          "name": "Об'єм оперативної пам'яті",
+          "value": "8 Гб",
+          "isMain": true
+        },
+        {
+          "name": "Кількість слотів для оперативної пам'яті",
+          "value": "Немає",
+          "isMain": false
+        }
+      ]
+    },
+    {
+      "group": "Підключення",
+      "fields": [
+        {
+          "name": "Мережеві адаптери",
+          "value": "Wi‑Fi Під'єднання до мереж Wi-Fi 6 (802.11ax) Сумісність зі стандартами IEEE 802.11a/b/g/n/ac Bluetooth Бездротова технологія Bluetooth 5.0",
+          "isMain": false
+        },
+        {
+          "name": "Роз'єми та порти введення-виведення",
+          "value": "2 x Thunderbolt 3, до 40 Гбіт/сек (USB Type-C 3.1 до 10 Гбіт/сек, DisplayPort)/1 x 3.5 мм jack для навушників",
+          "isMain": false
+        }
+      ]
+    },
+    {
+      "group": "Корпус",
+      "fields": [
+        {
+          "name": "Ємність акумулятора",
+          "value": "49.9Вт*год",
+          "isMain": false
+        },
+        {
+          "name": "Вага",
+          "value": "1.29 кг",
+          "isMain": false
+        },
+        {
+          "name": "Характеристики батареї",
+          "value": "До 15 годин роботи в інтернеті через бездротову мережу до 18 годин під час відтворення фільмів з програми Apple TVВбудований літій-полімерний акумулятор ємністю 49,9 Вт*год",
+          "isMain": false
+        },
+        {
+          "name": "Габарити (Ш х Г х В)",
+          "value": "304.1 x 212.4 x 16.1 мм",
+          "isMain": false
+        },
+        {
+          "name": "Короткі характеристики",
+          "value": "Екран 13.3\" Retina (2560x1600) WQXGA, глянцевий/Apple M1/RAM 8 ГБ/SSD 256 ГБ/Apple M1 Graphics/Wi-Fi/Bluetooth/macOS Big Sur/1.29 кг/сріблястий",
+          "isMain": false
+        },
+        {
+          "name": "Додатково",
+          "value": "З підсвіткою, порт Thunderbolt",
+          "isMain": false
+        },
+        {
+          "name": "Додаткові можливості",
+          "value": "HD-камера FaceTime 720pТехнологія True ToneSSD-накопичувач PCIeTouch IDСтереодинамікиШироке стереоПідтримка відтворення контенту у форматі Dolby AtmosСистема з трьох спрямованих мікрофонівКлавіатура Magic Keyboard з підсвіткоюДатчик зовнішньої освітленостіТрекпад Force Touch",
+          "isMain": false
+        },
+        {
+          "name": "Країна виробник",
+          "value": "Китай",
+          "isMain": false
+        },
+        {
+          "name": "Комплект постачання",
+          "value": "MacBook AirАдаптер USB-C потужністю 30 ВтКабель USB-C для заряджання (2 м)",
+          "isMain": false
+        },
+        {
+          "name": "Країна реєстрації бренду",
+          "value": "США",
+          "isMain": false
+        },
+        {
+          "name": "Гарантія",
+          "value": "12 місяців офіційної гарантії від виробника",
+          "isMain": false
+        }
+      ]
+    }
+  ],
+  "reviews": [
+    {
+      "reviewBy": {
+        "$oid": "641ca39c5dc19cff1df48d44"
+      },
+      "rating": 3,
+      "reviewerName": "Андрій",
+      "review": "Перший макбук. Відчуття від роботи на ньому неймовірні. Довго вагався при виборі у порівнянні з ультрабуками за таку ж ціну. Після старенького ноутбуку який тримав від сили 2 години - 12 годин це просто чудо.",
+      "experience": "Кілька місяців",
+      "advantages": "Екосистема епл, екран, тач панель казкова, повсюду  метал що дуже приємно, нічого не гуде та шумить бо охолодження пасивне, автономність дуже круто допомагає в періоди  відсутності електрики",
+      "disadvantages": "Не знаю поки що тут писати. Є певні недоліки в осі,  але це терпимо. Також потрібен кишеньковий ССД якщо обираєте мінімальну комплектацію, або підписка на хмару.",
+      "images": [],
+      "likes": [],
+      "dislikes": [],
+      "_id": {
+        "$oid": "6425f88f5d130a88beb06692"
+      },
+      "replies": []
+    },
+    {
+      "reviewBy": {
+        "$oid": "641c264d4eb8c15c2fc9856d"
+      },
+      "rating": 3,
+      "reviewerName": "Фенікс",
+      "review": "Все супер. Рекомендую. Купіть собі, і всій своїй сім'ї, бо цей ноут єдине що треба для щастя. Я сказав! І купіть навушники.",
+      "experience": "",
+      "advantages": "багато переваг",
+      "disadvantages": "немає",
+      "images": [
+        {
+          "url": "https://res.cloudinary.com/dzctqbi3o/image/upload/v1680213346/review%20images/vrywygticwbtvha2u56o.png",
+          "public_url": "review images/vrywygticwbtvha2u56o"
+        }
+      ],
+      "likes": [],
+      "dislikes": [],
+      "_id": {
+        "$oid": "642603335d130a88beb06b68"
+      },
+      "replies": []
+    },
+    {
+      "reviewBy": {
+        "$oid": "642c5e2b0f90cbd84fd5b381"
+      },
+      "rating": 5,
+      "reviewerName": "Петро",
+      "review": "все супер",
+      "experience": "Більше року",
+      "advantages": "класний ноутбук",
+      "disadvantages": "немає",
+      "images": [],
+      "likes": [],
+      "dislikes": [],
+      "_id": {
+        "$oid": "642c62270f90cbd84fd5b528"
+      },
+      "replies": []
+    },
+    {
+      "reviewBy": {
+        "$oid": "642c7b540f90cbd84fd5baa1"
+      },
+      "rating": 1,
+      "reviewerName": "Oksana Muzyka",
+      "review": "4567гнш8щ9",
+      "experience": "Менше місяця",
+      "advantages": "цукуерконг",
+      "disadvantages": "34е5н46г57шг8",
+      "images": [
+        {
+          "url": "https://res.cloudinary.com/dzctqbi3o/image/upload/v1680713430/review%20images/bq6rdto4lhxjpefrlo9e.png",
+          "public_url": "review images/bq6rdto4lhxjpefrlo9e"
+        }
+      ],
+      "likes": [],
+      "dislikes": [],
+      "_id": {
+        "$oid": "642da6d52ae14c60348b17c3"
+      },
+      "replies": []
+    },
+    {
+      "reviewBy": {
+        "$oid": "642c66d70f90cbd84fd5b6b4"
+      },
+      "rating": 5,
+      "reviewerName": "Ptn",
+      "review": "крутий ноут",
+      "experience": "",
+      "advantages": "багато переваг",
+      "disadvantages": "немає",
+      "images": [],
+      "likes": [],
+      "dislikes": [],
+      "_id": {
+        "$oid": "642fe95792c8ee7acd6cc186"
+      },
+      "replies": []
+    }
+  ],
+  "refundPolicy": "30 днів",
+  "rating": 3.4,
+  "subProducts": [
+    {
+      "images": [
+        {
+          "url": "https://res.cloudinary.com/dzctqbi3o/image/upload/v1680733995/Diploma/Notebooks/Apple/mixeshrsjfzuypvq7dyf.png",
+          "public_url": "Diploma/Notebooks/Apple/mixeshrsjfzuypvq7dyf"
+        },
+        {
+          "url": "https://res.cloudinary.com/dzctqbi3o/image/upload/v1680733996/Diploma/Notebooks/Apple/ty0nqvna98fzgotog4ne.png",
+          "public_url": "Diploma/Notebooks/Apple/ty0nqvna98fzgotog4ne"
+        },
+        {
+          "url": "https://res.cloudinary.com/dzctqbi3o/image/upload/v1680733997/Diploma/Notebooks/Apple/xmgl2igu6qvzh85xdviy.png",
+          "public_url": "Diploma/Notebooks/Apple/xmgl2igu6qvzh85xdviy"
+        },
+        {
+          "url": "https://res.cloudinary.com/dzctqbi3o/image/upload/v1680733997/Diploma/Notebooks/Apple/g4f6mojz93n5jiw8kpi9.png",
+          "public_url": "Diploma/Notebooks/Apple/g4f6mojz93n5jiw8kpi9"
+        },
+        {
+          "url": "https://res.cloudinary.com/dzctqbi3o/image/upload/v1680733998/Diploma/Notebooks/Apple/hvcuqmxas9x99fdek2zp.png",
+          "public_url": "Diploma/Notebooks/Apple/hvcuqmxas9x99fdek2zp"
+        },
+        {
+          "url": "https://res.cloudinary.com/dzctqbi3o/image/upload/v1680733999/Diploma/Notebooks/Apple/jaugntl5hrk8eqkcf42f.png",
+          "public_url": "Diploma/Notebooks/Apple/jaugntl5hrk8eqkcf42f"
+        },
+        {
+          "url": "https://res.cloudinary.com/dzctqbi3o/image/upload/v1680733999/Diploma/Notebooks/Apple/naixiwulxwrrsgcyz9j3.png",
+          "public_url": "Diploma/Notebooks/Apple/naixiwulxwrrsgcyz9j3"
+        }
+      ],
+      "description_images": [],
+      "color": {
+        "color": "Срібний",
+        "image": "#CCCCCC"
+      },
+      "sizes": [
+        {
+          "size": "",
+          "qty": 12,
+          "price": 44499,
+          "price_unit": "₴",
+          "code": 245161903
+        }
+      ],
+      "discount": 10,
+      "sold": 0
+    },
+    {
+      "images": [
+        {
+          "url": "https://res.cloudinary.com/dzctqbi3o/image/upload/v1680733809/Diploma/Notebooks/Apple/a5qcjnbvlhn58nydo0by.png",
+          "public_url": "Diploma/Notebooks/Apple/a5qcjnbvlhn58nydo0by"
+        },
+        {
+          "url": "https://res.cloudinary.com/dzctqbi3o/image/upload/v1680733810/Diploma/Notebooks/Apple/uzt5f2iwg5uk0qcbmmkl.png",
+          "public_url": "Diploma/Notebooks/Apple/uzt5f2iwg5uk0qcbmmkl"
+        },
+        {
+          "url": "https://res.cloudinary.com/dzctqbi3o/image/upload/v1680733810/Diploma/Notebooks/Apple/v9mxpgnrwrjhlfof42j7.png",
+          "public_url": "Diploma/Notebooks/Apple/v9mxpgnrwrjhlfof42j7"
+        },
+        {
+          "url": "https://res.cloudinary.com/dzctqbi3o/image/upload/v1680733811/Diploma/Notebooks/Apple/bj6wgs9vtiqsvay13rpd.png",
+          "public_url": "Diploma/Notebooks/Apple/bj6wgs9vtiqsvay13rpd"
+        },
+        {
+          "url": "https://res.cloudinary.com/dzctqbi3o/image/upload/v1680733812/Diploma/Notebooks/Apple/jmflzk6n9bpw6naluije.png",
+          "public_url": "Diploma/Notebooks/Apple/jmflzk6n9bpw6naluije"
+        },
+        {
+          "url": "https://res.cloudinary.com/dzctqbi3o/image/upload/v1680733812/Diploma/Notebooks/Apple/iuo9bipgnmsqjl1bhule.png",
+          "public_url": "Diploma/Notebooks/Apple/iuo9bipgnmsqjl1bhule"
+        }
+      ],
+      "description_images": [],
+      "color": {
+        "color": "Золотий",
+        "image": "#FFCC66"
+      },
+      "sizes": [
+        {
+          "size": "",
+          "qty": 12,
+          "price": 44499,
+          "price_unit": "₴",
+          "code": 245161897
+        }
+      ],
+      "discount": 5,
+      "sold": 0
+    },
+    {
+      "images": [
+        {
+          "url": "https://res.cloudinary.com/dzctqbi3o/image/upload/v1680035404/Diploma/Notebooks/Apple/uiwetcmgpnhwwlude7yn.png",
+          "public_url": "Diploma/Notebooks/Apple/uiwetcmgpnhwwlude7yn"
+        },
+        {
+          "url": "https://res.cloudinary.com/dzctqbi3o/image/upload/v1680035218/Diploma/Notebooks/Apple/kvm9an4vfr71x8ewqq8c.png",
+          "public_url": "Diploma/Notebooks/Apple/kvm9an4vfr71x8ewqq8c"
+        },
+        {
+          "url": "https://res.cloudinary.com/dzctqbi3o/image/upload/v1680035219/Diploma/Notebooks/Apple/htrge4uep5n3tbhxi5hd.png",
+          "public_url": "Diploma/Notebooks/Apple/htrge4uep5n3tbhxi5hd"
+        },
+        {
+          "url": "https://res.cloudinary.com/dzctqbi3o/image/upload/v1680035220/Diploma/Notebooks/Apple/cqt0dps22y0dctmhxhl1.png",
+          "public_url": "Diploma/Notebooks/Apple/cqt0dps22y0dctmhxhl1"
+        },
+        {
+          "url": "https://res.cloudinary.com/dzctqbi3o/image/upload/v1680035220/Diploma/Notebooks/Apple/mhsnanlaeznn5xn7k6wu.png",
+          "public_url": "Diploma/Notebooks/Apple/mhsnanlaeznn5xn7k6wu"
+        }
+      ],
+      "description_images": [],
+      "color": {
+        "color": "Сірий",
+        "image": "#333333"
+      },
+      "sizes": [
+        {
+          "size": "",
+          "qty": 12,
+          "price": 44499,
+          "price_unit": "₴",
+          "code": 245161909
+        }
+      ],
+      "discount": 15,
+      "sold": 0
+    }
+  ],
+  "created_at": {
+    "$date": "2023-01-20T08:27:58.251Z"
+  },
+  "updated_at": {
+    "$date": "2023-01-20T08:27:58.251Z"
+  },
+  "numReviews": 5,
+  "__v": 3
+},{
+  "_id": {
+    "$oid": "642203da094cd528626a00bd"
+  },
+  "name": "Кросівки ICEBERG",
+  "description": "кросівки виробництва Італії",
+  "brand": "ICEBERG",
+  "slug": "sneakers_iceberg",
+  "category": {
+    "$oid": "63e7c985d77191b2d8a70f03"
+  },
+  "subCategories": [
+    {
+      "$oid": "640e4a24a919746cc46cbe90"
+    }
+  ],
+  "details": [
+    {
+      "group": "",
+      "fields": [
+        {
+          "name": "Призначення",
+          "value": "Для повсякденного носіння",
+          "isMain": true
+        },
+        {
+          "name": "Сезон",
+          "value": "Літній",
+          "isMain": true
+        },
+        {
+          "name": "Матеріал верху",
+          "value": "Натуральна шкіра",
+          "isMain": true
+        },
+        {
+          "name": "Матеріал підкладки",
+          "value": "Натуральна шкіра",
+          "isMain": true
+        },
+        {
+          "name": "Матеріал підошви",
+          "value": "Поліуритан"
+        },
+        {
+          "name": "Країна реєстрації бренду",
+          "value": "Італія",
+          "isMain": true
+        },
+        {
+          "name": "Країна виробник",
+          "value": "Італія",
+          "isMain": true
+        }
+      ]
+    }
+  ],
+  "reviews": [
+    {
+      "reviewBy": {
+        "$oid": "64271aa58d0137ab1120a5be"
+      },
+      "rating": 2,
+      "reviewerName": "Оксана",
+      "review": "треш",
+      "experience": "Менше місяця",
+      "advantages": "немає",
+      "disadvantages": "все погано",
+      "images": [],
+      "likes": [],
+      "dislikes": [],
+      "_id": {
+        "$oid": "642b40c639e043f654cf0851"
+      },
+      "replies": []
+    },
+    {
+      "reviewBy": {
+        "$oid": "642c67880f90cbd84fd5b71a"
+      },
+      "rating": 2,
+      "reviewerName": "Юстина",
+      "review": "khkjhkjh",
+      "experience": "",
+      "advantages": "багато переваг",
+      "disadvantages": "немає",
+      "images": [],
+      "likes": [],
+      "dislikes": [],
+      "_id": {
+        "$oid": "642d7f5e757eaa587e590e24"
+      },
+      "replies": []
+    },
+    {
+      "reviewBy": {
+        "$oid": "642c7b540f90cbd84fd5baa1"
+      },
+      "rating": 4,
+      "reviewerName": "Анастасія Смоляр",
+      "review": "Супер, гарні, але розміри трішки не співпадають. Бо я ношу 39 розмір, а замовила 40 і підійшли",
+      "experience": "Менше місяця",
+      "advantages": "Гарні, чудово сидять на ніжці",
+      "disadvantages": "Маломірять на один розмір",
+      "images": [],
+      "likes": [],
+      "dislikes": [],
+      "_id": {
+        "$oid": "642da1282ae14c60348b1652"
+      },
+      "replies": []
+    }
+  ],
+  "refundPolicy": "14 днів",
+  "rating": 2.6666666666666665,
+  "subProducts": [
+    {
+      "images": [
+        {
+          "url": "https://res.cloudinary.com/dzctqbi3o/image/upload/v1680034729/Diploma/shoes/hiolitzuzyv99lqwt9x2.png",
+          "public_url": "Diploma/shoes/hiolitzuzyv99lqwt9x2"
+        },
+        {
+          "url": "https://res.cloudinary.com/dzctqbi3o/image/upload/v1680034728/Diploma/shoes/vlceso291ex2cb53kxul.png",
+          "public_url": "Diploma/shoes/vlceso291ex2cb53kxul"
+        },
+        {
+          "url": "https://res.cloudinary.com/dzctqbi3o/image/upload/v1680034727/Diploma/shoes/nglqkcryjvyvkspzuodq.png",
+          "public_url": "Diploma/shoes/nglqkcryjvyvkspzuodq"
+        },
+        {
+          "url": "https://res.cloudinary.com/dzctqbi3o/image/upload/v1680034726/Diploma/shoes/udrmas6vo9pv6ni7cvic.png",
+          "public_url": "Diploma/shoes/udrmas6vo9pv6ni7cvic"
+        },
+        {
+          "url": "https://res.cloudinary.com/dzctqbi3o/image/upload/v1680034725/Diploma/shoes/kbhebvejvmuxkxrfrtnn.png",
+          "public_url": "Diploma/shoes/kbhebvejvmuxkxrfrtnn"
+        }
+      ],
+      "description_images": [],
+      "color": {
+        "color": "білі з малиновим",
+        "image": "#FE72A0"
+      },
+      "sizes": [
+        {
+          "size": "35",
+          "qty": 12,
+          "price": 11920,
+          "price_unit": "₴",
+          "code": 821812207
+        },
+        {
+          "size": "36",
+          "qty": 5,
+          "price": 11920,
+          "price_unit": "₴",
+          "code": 860050714
+        },
+        {
+          "size": "37",
+          "qty": 0,
+          "price": 11920,
+          "price_unit": "₴",
+          "code": 124316894
+        },
+        {
+          "size": "38",
+          "qty": 1,
+          "price": 11920,
+          "price_unit": "₴",
+          "code": 386728643
+        },
+        {
+          "size": "39",
+          "qty": 2,
+          "price": 11920,
+          "price_unit": "₴",
+          "code": 234991781
+        },
+        {
+          "size": "40",
+          "qty": 10,
+          "price": 11920,
+          "price_unit": "₴",
+          "code": 448503962
+        },
+        {
+          "size": "41",
+          "qty": 4,
+          "price": 11920,
+          "price_unit": "₴",
+          "code": 763782665
+        }
+      ],
+      "discount": 20,
+      "sold": 0
+    },
+    {
+      "images": [
+        {
+          "url": "https://res.cloudinary.com/dzctqbi3o/image/upload/v1678660411/Diploma/shoes/276603961_nvv0ve.png",
+          "public_url": "/Diploma/shoes/276603961_nvv0ve.png"
+        },
+        {
+          "url": "https://res.cloudinary.com/dzctqbi3o/image/upload/v1678660411/Diploma/shoes/276603977_oktlrq.png",
+          "public_url": "/Diploma/shoes/276603977_oktlrq.png"
+        }
+      ],
+      "description_images": [],
+      "color": {
+        "color": "білі",
+        "image": "#FFFFFF"
+      },
+      "sizes": [
+        {
+          "size": "36",
+          "qty": 0,
+          "price": 16350,
+          "price_unit": "₴",
+          "code": 266985057
+        },
+        {
+          "size": "37",
+          "qty": 4,
+          "price": 16350,
+          "price_unit": "₴",
+          "code": 209438209
+        },
+        {
+          "size": "38",
+          "qty": 2,
+          "price": 16350,
+          "price_unit": "₴",
+          "code": 255886484
+        },
+        {
+          "size": "39",
+          "qty": 0,
+          "price": 16350,
+          "price_unit": "₴",
+          "code": 229035707
+        },
+        {
+          "size": "40",
+          "qty": 5,
+          "price": 16350,
+          "price_unit": "₴",
+          "code": 876475321
+        },
+        {
+          "size": "41",
+          "qty": 5,
+          "price": 16350,
+          "price_unit": "₴",
+          "code": 293859631
+        }
+      ],
+      "discount": 30,
+      "sold": 0
+    }
+  ],
+  "created_at": {
+    "$date": "2023-01-20T08:27:58.251Z"
+  },
+  "updated_at": {
+    "$date": "2023-01-20T08:27:58.251Z"
+  },
+  "numReviews": 3
+},{
+  "_id": {
+    "$oid": "64220a20094cd528626a00c4"
+  },
+  "name": "Капсули для прання Tide Все-в-1 Color",
+  "description": "Tide Все в 1 Color — це приголомшлива ефективність усього в одній капсулі. Кришталева чистота та жодних слідів. Спробуйте інноваційний засіб для прання від Tide — Tide Все в 1 Pods. Кожна капсула складається з 3 секцій — у такий спосіб її інгредієнти не змішуються до початку прання. Під час контакту з водою спеціальна інноваційна плівка розчиняється, і капсула починає свою дію: очищає, видаляє плями, надає яскравості й освіжає; вона ефективна вже за 20 °C. Однієї капсули вистачає, щоб повністю випрати повний барабан брудних речей. Tide Все в 1 Pods — це надійний вибір для напрочуд ефективного прання. Використовуйте разом із кондиціонерами Lenor, які надають білизні ще більше м'якості та свіжості. УВАГА. Продукт може бути небезпечний. Бережіть капсули Tide від дітей.",
+  "brand": "Tide",
+  "slug": "tide_80018415821",
+  "category": {
+    "$oid": "63e39c465ba7e472e6726ce6"
+  },
+  "subCategories": [
+    {
+      "$oid": "63e373195ba7e472e6726ca8"
+    },
+    {
+      "$oid": "63e3a0b95ba7e472e6726d04"
+    }
+  ],
+  "details": [
+    {
+      "group": "",
+      "fields": [
+        {
+          "name": "Вид прання",
+          "value": "Автоматичне",
+          "isMain": true
+        },
+        {
+          "name": "Призначення типу білизни",
+          "value": "Всі види білизни",
+          "isMain": true
+        },
+        {
+          "name": "Тип засобу",
+          "value": "Капсули",
+          "isMain": true
+        },
+        {
+          "name": "За кольором",
+          "value": "Кольорове",
+          "isMain": true
+        },
+        {
+          "name": "Клас засобу",
+          "value": "Безфосфатні",
+          "isMain": true
+        },
+        {
+          "name": "Особливості",
+          "value": "Не можна одночасно використовувати с порошком або гелем",
+          "isMain": true
+        },
+        {
+          "name": "Склад",
+          "value": ">30% Anionic surfactants; 5-15% Non-ionic surfactants, Soap;",
+          "isMain": true
+        },
+        {
+          "name": "Термін придатності",
+          "value": "18 міс",
+          "isMain": true
+        },
+        {
+          "name": "Країна-виробник товару",
+          "value": "Франція",
+          "isMain": true
+        }
+      ]
+    }
+  ],
+  "reviews": [],
+  "refundPolicy": "30 днів",
+  "rating": 2,
+  "subProducts": [
+    {
+      "images": [
+        {
+          "url": "https://res.cloudinary.com/dzctqbi3o/image/upload/v1675872588/Diploma/detergents/298412218_gsbbnl.webp",
+          "public_url": "/Diploma/detergents/298412218_gsbbnl.webp"
+        },
+        {
+          "url": "https://res.cloudinary.com/dzctqbi3o/image/upload/v1675872588/Diploma/detergents/298412236_lbmklj.webp",
+          "public_url": "/Diploma/detergents/298412236_lbmklj.webp"
+        },
+        {
+          "url": "https://res.cloudinary.com/dzctqbi3o/image/upload/v1675872588/Diploma/detergents/298412230_efjh7c.webp",
+          "public_url": "/Diploma/detergents/298412230_efjh7c.webp"
+        }
+      ],
+      "description_images": [],
+      "color": null,
+      "sizes": [
+        {
+          "size": "30",
+          "qty": 0,
+          "price": 999,
+          "price_unit": "₴",
+          "code": 45101200
+        },
+        {
+          "size": "45",
+          "qty": 12,
+          "price": 1140,
+          "price_unit": "₴",
+          "code": 200300509
+        },
+        {
+          "size": "60",
+          "qty": 2,
+          "price": 1799,
+          "price_unit": "₴",
+          "code": 200326921
+        }
+      ],
+      "discount": 0,
+      "sold": 0
+    }
+  ],
+  "created_at": {
+    "$date": "2023-01-20T08:27:58.251Z"
+  },
+  "updated_at": {
+    "$date": "2023-01-20T08:27:58.251Z"
+  },
+  "numReviews": 0
+},{
+  "_id": {
+    "$oid": "64220a80094cd528626a00c8"
+  },
+  "name": "Пральний порошок Persil автомат Колор",
+  "description": "Новітня сучасна формула порошку Persil для кольорових речей проникає глибоко у волокна, виводячи молекули плям для бездоганного результату, яскравості та приємної тривалої свіжості вашого одягу.",
+  "brand": "Persil",
+  "slug": "persil_90001014287",
+  "category": {
+    "$oid": "63e39c465ba7e472e6726ce6"
+  },
+  "subCategories": [
+    {
+      "$oid": "63e373195ba7e472e6726ca8"
+    },
+    {
+      "$oid": "63e3a0b95ba7e472e6726d04"
+    }
+  ],
+  "details": [
+    {
+      "group": "",
+      "fields": [
+        {
+          "name": "Вид прання",
+          "value": "Автоматичне",
+          "isMain": true
+        },
+        {
+          "name": "Призначення типу білизни",
+          "value": "Всі види білизни",
+          "isMain": true
+        },
+        {
+          "name": "Тип засобу",
+          "value": "Порошок",
+          "isMain": false
+        },
+        {
+          "name": "За кольором",
+          "value": "Кольорове",
+          "isMain": false
+        },
+        {
+          "name": "Кількість прань",
+          "value": "17",
+          "isMain": false
+        },
+        {
+          "name": "Клас засобу",
+          "value": "Безфосфатні",
+          "isMain": true
+        },
+        {
+          "name": "Спосіб застосування",
+          "value": "Прочитайте інструкцію з прання на речах, які необхідно випрати Зверніть увагу на максимальну температуру прання Ознайомтеся з інструкціями заводу-виробника пральної машини Використовуйте 150 г порошку у разі середнього ступеня забруднення білизни та завантаження 4-5 кг (вода м'яка та середньої жорсткості)",
+          "isMain": false
+        },
+        {
+          "name": "Кількість в упаковці, шт",
+          "value": "1",
+          "isMain": true
+        },
+        {
+          "name": "Склад",
+          "value": "5-15% аніонні ПАР (поверхнево-активні речовини) <5% неіоногенні ПАР, мило, полікарбоксилати, фосфонати, ензими, запашник",
+          "isMain": false
+        },
+        {
+          "name": "Упаковка",
+          "value": "Поліетиленова",
+          "isMain": false
+        },
+        {
+          "name": "Склад",
+          "value": "5-15% аніонні ПАР (поверхнево-активні речовини) <5% неіоногенні ПАР, мило, полікарбоксилати, фосфонати, ензими, запашник",
+          "isMain": false
+        },
+        {
+          "name": "Термін придатності",
+          "value": "1065 днів",
+          "isMain": true
+        },
+        {
+          "name": "Виробник",
+          "value": "Henkel",
+          "isMain": true
+        },
+        {
+          "name": "Розміри упаковки",
+          "value": "190x385x90 мм",
+          "isMain": false
+        },
+        {
+          "name": "Країна-виробник товару",
+          "value": "Країна-виробник товару",
+          "isMain": false
+        },
+        {
+          "name": "Країна-виробник товару",
+          "value": "Німеччина",
+          "isMain": true
+        }
+      ]
+    }
+  ],
+  "reviews": [
+    {
+      "reviewBy": {
+        "$oid": "64271aa58d0137ab1120a5be"
+      },
+      "rating": 3,
+      "reviewerName": "Оксана",
+      "review": "rtesdyjokuytre[]wwrlgkhjoftpe[wrgklhjftrep[weglhkgtlrg mgfblkjrgtoirtiotoirioreoireoirtiojerio\nrettttttttttttttttttttttttttttttttttt",
+      "experience": "Кілька місяців",
+      "advantages": "багато переваг",
+      "disadvantages": "Не знаю поки що тут писати. Є певні недоліки в осі,  але це терпимо. Також потрібен кишеньковий ССД якщо обираєте мінімальну комплектацію, або підписка на хмару.",
+      "images": [
+        {
+          "url": "https://res.cloudinary.com/dzctqbi3o/image/upload/v1680544159/review%20images/dcxp3kdtpcthnljtsrbf.webp",
+          "public_url": "review images/dcxp3kdtpcthnljtsrbf"
+        },
+        {
+          "url": "https://res.cloudinary.com/dzctqbi3o/image/upload/v1680544160/review%20images/szmmwc9hict6czcw9m6d.png",
+          "public_url": "review images/szmmwc9hict6czcw9m6d"
+        }
+      ],
+      "likes": [],
+      "dislikes": [],
+      "_id": {
+        "$oid": "642b11a01ffb257c477bd84a"
+      },
+      "replies": []
+    }
+  ],
+  "refundPolicy": "30 днів",
+  "rating": 3,
+  "subProducts": [
+    {
+      "images": [
+        {
+          "url": "https://res.cloudinary.com/dzctqbi3o/image/upload/v1678662580/Diploma/detergents/242977776_iwl3jh.png",
+          "public_url": "/Diploma/detergents/242977776_iwl3jh.png"
+        },
+        {
+          "url": "https://res.cloudinary.com/dzctqbi3o/image/upload/v1678662538/Diploma/detergents/242977781_ch8oei.png",
+          "public_url": "/Diploma/detergents/242977781_ch8oei.png"
+        },
+        {
+          "url": "https://res.cloudinary.com/dzctqbi3o/image/upload/v1678662538/Diploma/detergents/242977778_mcqmlz.png",
+          "public_url": "/Diploma/detergents/242977778_mcqmlz.png"
+        },
+        {
+          "url": "https://res.cloudinary.com/dzctqbi3o/image/upload/v1678662538/Diploma/detergents/242977777_z33xbc.png",
+          "public_url": "/Diploma/detergents/242977777_z33xbc.png"
+        }
+      ],
+      "description_images": [],
+      "color": null,
+      "sizes": [
+        {
+          "size": "1 кг",
+          "qty": 12,
+          "price": 540,
+          "price_unit": "₴",
+          "code": 500300509
+        },
+        {
+          "size": "2 кг",
+          "qty": 2,
+          "price": 799,
+          "price_unit": "₴",
+          "code": 300326921
+        },
+        {
+          "size": "3 кг",
+          "qty": 10,
+          "price": 1500,
+          "price_unit": "₴",
+          "code": 35101200
+        }
+      ],
+      "discount": 10,
+      "sold": 0
+    }
+  ],
+  "created_at": {
+    "$date": "2023-01-20T08:27:58.251Z"
+  },
+  "updated_at": {
+    "$date": "2023-01-20T08:27:58.251Z"
+  },
+  "numReviews": 1
+},{
+  "_id": {
+    "$oid": "642dd5fd99fc395bdd745e2f"
+  },
+  "name": "Кросівки Armani Exchange",
+  "description": "",
+  "brand": "Armani",
+  "slug": "sneakers_armani",
+  "category": {
+    "$oid": "63e7c985d77191b2d8a70f03"
+  },
+  "subCategories": [
+    {
+      "$oid": "640e4a24a919746cc46cbe90"
+    }
+  ],
+  "details": [
+    {
+      "group": "",
+      "fields": [
+        {
+          "name": "Призначення",
+          "value": "Для повсякденного носіння",
+          "isMain": true
+        },
+        {
+          "name": "Сезон",
+          "value": "Весняний",
+          "isMain": true
+        },
+        {
+          "name": "Матеріал верху",
+          "value": "Шкіра",
+          "isMain": true
+        },
+        {
+          "name": "Матеріал підошви",
+          "value": "Поліуритан",
+          "isMain": true
+        },
+        {
+          "name": "Матеріал підкладки",
+          "value": "Текстиль",
+          "isMain": true
+        },
+        {
+          "name": "Країна реєстрації бренду",
+          "value": "Італія",
+          "isMain": true
+        },
+        {
+          "name": "Країна виробник",
+          "value": "Італія",
+          "isMain": true
+        }
+      ]
+    }
+  ],
+  "reviews": [],
+  "refundPolicy": "14 днів",
+  "rating": 0,
+  "subProducts": [
+    {
+      "images": [
+        {
+          "url": "https://res.cloudinary.com/dzctqbi3o/image/upload/v1680730204/Diploma/Sneakers/Armani/n9f3k9pglwbumoffalks.png",
+          "public_url": "Diploma/Sneakers/Armani/n9f3k9pglwbumoffalks"
+        },
+        {
+          "url": "https://res.cloudinary.com/dzctqbi3o/image/upload/v1680730204/Diploma/Sneakers/Armani/fsoooswrg7sfoomh5tgq.png",
+          "public_url": "Diploma/Sneakers/Armani/fsoooswrg7sfoomh5tgq"
+        },
+        {
+          "url": "https://res.cloudinary.com/dzctqbi3o/image/upload/v1680730205/Diploma/Sneakers/Armani/djte13om5yizmgfqbifv.png",
+          "public_url": "Diploma/Sneakers/Armani/djte13om5yizmgfqbifv"
+        },
+        {
+          "url": "https://res.cloudinary.com/dzctqbi3o/image/upload/v1680730206/Diploma/Sneakers/Armani/zymdmqunmoqisx4wtemm.png",
+          "public_url": "Diploma/Sneakers/Armani/zymdmqunmoqisx4wtemm"
+        }
+      ],
+      "description_images": [],
+      "color": {
+        "color": "чорний",
+        "image": "#000000"
+      },
+      "sizes": [
+        {
+          "size": "35",
+          "qty": 12,
+          "price": 10700,
+          "price_unit": "₴",
+          "code": 920140310
+        },
+        {
+          "size": "36",
+          "qty": 5,
+          "price": 10700,
+          "price_unit": "₴",
+          "code": 256369847
+        },
+        {
+          "size": "37",
+          "qty": 1,
+          "price": 10700,
+          "price_unit": "₴",
+          "code": 862817499
+        },
+        {
+          "size": "38",
+          "qty": 1,
+          "price": 10700,
+          "price_unit": "₴",
+          "code": 337389394
+        },
+        {
+          "size": "39",
+          "qty": 2,
+          "price": 10700,
+          "price_unit": "₴",
+          "code": 194074663
+        },
+        {
+          "size": "40",
+          "qty": 10,
+          "price": 10700,
+          "price_unit": "₴",
+          "code": 460559371
+        },
+        {
+          "size": "41",
+          "qty": 4,
+          "price": 10700,
+          "price_unit": "₴",
+          "code": 815271276
+        }
+      ],
+      "discount": 10,
+      "sold": 0
+    }
+  ],
+  "numReviews": 0
+},{
+  "_id": {
+    "$oid": "642dd5fd99fc395bdd745e30"
+  },
+  "name": "Ноутбук Acer Spin 5 SP514-51N-766U",
+  "description": "<div><p><strong>Чудовий 14-дюймовий сенсорний дисплей</strong><br>Незалежно від того, чи ви використовуєте екран для читання, нотаток, ескізів чи спільної роботи – його можна легко повертати й він не втомлює очі завдяки дисплею TÜV Certified із низьким рівнем синього світла.<br><br><strong>Готовий до будь-якого завдання</strong><br>На базі платформи Intel Evo для відповідності найвищим стандартам продуктивності та ресурсу батареї. Процесори та графіка Intel підвищують ваші потреби в продуктивності та редагуванні, забезпечуючи впевненість під час щоденних завдань.<br><br><strong>Візуалізуйте нові ідеї з точним стилусом</strong><br>Коли з'являється нова ідея, можна покластися на активний стилус Acer із Wacom AES 2.0, щоб зобразити свої концепції саме так, як ви уявляєте.<br><br><strong>Охолодження для ефективності</strong><br>Система TwinAir розроблена з архітектурою Vortex Flow, яка збільшує продуктивність системи до 75%. Дві мідні теплові трубки D6 допомагають підтримувати оптимальну температуру для найкращого досвіду роботи.\n<br><br><strong>З'єднання</strong><br>Модуль Intel Killer Wi-Fi 6E AX1675i спеціально розроблений для забезпечення найкращого досвіду потокової передачі та захоплюючого спілкування. А два роз'єми Type-C з Thunderbolt 4 підтримують швидкість до 40 Гбіт/с.<br><br><strong>Розумні функції</strong><br>Завдяки Acer PurifiedVoice із системою зменшення шумів на базі ШІ та аудіо DTS відеодзвінки ще ніколи не були такими чудовими. Отримуйте високоякісні зображення в умовах слабкого освітлення за допомогою FHD камери із технологією TNR (тимчасового пониження шумів) від Acer.</p>\n</div>",
+  "brand": "Acer",
+  "slug": "acer_spin_sp514_51n_766u",
+  "category": {
+    "$oid": "63e370145ba7e472e6726ca2"
+  },
+  "subCategories": [
+    {
+      "$oid": "63e3a0b95ba7e472e6726cfe"
+    }
+  ],
+  "details": [
+    {
+      "group": "",
+      "fields": [
+        {
+          "name": "Серія",
+          "value": "Spin",
+          "isMain": true
+        }
+      ]
+    },
+    {
+      "group": "Екран",
+      "fields": [
+        {
+          "name": "Діагональ екрана",
+          "value": "14.3\"",
+          "isMain": true
+        },
+        {
+          "name": "Тип екрану",
+          "value": "IPS",
+          "isMain": false
+        },
+        {
+          "name": "Роздільна здатність",
+          "value": "2560x1600 (WQXGA)",
+          "isMain": true
+        },
+        {
+          "name": "Частота оновлення екрана",
+          "value": "60 Гц",
+          "isMain": true
+        }
+      ]
+    },
+    {
+      "group": "Відеокарта",
+      "fields": [
+        {
+          "name": "Виробник відеокарти",
+          "value": "Intel",
+          "isMain": true
+        },
+        {
+          "name": "Відеокарта",
+          "value": "Інтегрована",
+          "isMain": true
+        }
+      ]
+    },
+    {
+      "group": "Накопичувачі даних",
+      "fields": [
+        {
+          "name": "Обсяг SSD",
+          "value": "1 ТБ",
+          "isMain": true
+        }
+      ]
+    },
+    {
+      "group": "Процесор",
+      "fields": [
+        {
+          "name": "Процесор",
+          "value": "Дванадцятидерний Intel Core i7-1260P (3.4 - 4.7 ГГц)1",
+          "isMain": true
+        },
+        {
+          "name": "Операційна система",
+          "value": "Windows 11 Home",
+          "isMain": true
+        },
+        {
+          "name": "Покоління процесора Intel",
+          "value": "12-е Alder Lake",
+          "isMain": true
+        },
+        {
+          "name": "Вибір мови в попередньо встановленій Windows",
+          "value": "украинский, русский, английский",
+          "isMain": true
+        }
+      ]
+    },
+    {
+      "group": "Оперативна пам'ять",
+      "fields": [
+        {
+          "name": "Об'єм оперативної пам'яті",
+          "value": "16 Гб",
+          "isMain": true
+        },
+        {
+          "name": "Тип оперативної пам'яті",
+          "value": "LPDDR5",
+          "isMain": false
+        },
+        {
+          "name": "Кількість слотів для оперативної пам'яті",
+          "value": "Немає",
+          "isMain": false
+        }
+      ]
+    },
+    {
+      "group": "Підключення",
+      "fields": [
+        {
+          "name": "Мережеві адаптери",
+          "value": "Wi-Fi 802.11a/b/g/n/ac/ax Bluetooth 5.2",
+          "isMain": false
+        },
+        {
+          "name": "Роз'єми та порти введення-виведення",
+          "value": "2 х Thunderbolt 4 / 2 x USB 3.2 Gen 2 / HDMI / комбинированный аудиоразъем для наушников/микрофона / кардридер",
+          "isMain": false
+        },
+        {
+          "name": "Безпровідний зв'язок",
+          "value": "Bluetooth 5.2 Wi-Fi 6E",
+          "isMain": false
+        }
+      ]
+    },
+    {
+      "group": "Корпус",
+      "fields": [
+        {
+          "name": "Ємність акумулятора",
+          "value": "56 Вт*год",
+          "isMain": false
+        },
+        {
+          "name": "Вага",
+          "value": "1.3 кг",
+          "isMain": false
+        },
+        {
+          "name": "Характеристики батареї",
+          "value": "Літій-іонна, 4-ячеєчна, 56 Вт*ч",
+          "isMain": false
+        },
+        {
+          "name": "Габарити (Ш х Г х В)",
+          "value": "311.2 x 218.2 x 16.9 мм",
+          "isMain": false
+        },
+        {
+          "name": "Короткі характеристики",
+          "value": "Экран 14\" IPS (2560x1600) Multi-touch, глянцевый / Intel Core i7-1260P (3.4 - 4.7 ГГц) / RAM 16 ГБ / SSD 1 ТБ / Intel Iris Xe Graphics / без ОД / Wi-Fi / Bluetooth / веб-камера / Windows 11 Home / 1.3 кг / серый / стилус",
+          "isMain": false
+        },
+        {
+          "name": "Додатково",
+          "value": "Ідентифікація відбитка пальця З Українською розкладкою З підсвіткою клавіатури З сенсорним екраном Зарядка від USB Порт Thunderbolt",
+          "isMain": false
+        },
+        {
+          "name": "Додаткові можливості",
+          "value": "HD-камера FaceTime 720pТехнологія True ToneSSD-накопичувач PCIeTouch IDСтереодинамікиШироке стереоПідтримка відтворення контенту у форматі Dolby AtmosСистема з трьох спрямованих мікрофонівКлавіатура Magic Keyboard з підсвіткоюДатчик зовнішньої освітленостіТрекпад Force Touch",
+          "isMain": false
+        },
+        {
+          "name": "Країна виробник",
+          "value": "Китай",
+          "isMain": false
+        },
+        {
+          "name": "Комплект постачання",
+          "value": "MacBook AirАдаптер USB-C потужністю 30 ВтКабель USB-C для заряджання (2 м)",
+          "isMain": false
+        },
+        {
+          "name": "Країна реєстрації бренду",
+          "value": "Китай (Тайвань)",
+          "isMain": false
+        },
+        {
+          "name": "Гарантія",
+          "value": "12 місяців офіційної гарантії від виробника",
+          "isMain": false
+        },
+        {
+          "name": "Вид",
+          "value": "Ноутбуки",
+          "isMain": false
+        },
+        {
+          "name": "Додаткові можливості",
+          "value": "Веб-камера Вбудований мікрофон Вбудована стереодинаміка Сканер відбитків пальців (працює тільки під управлінням Windows)",
+          "isMain": false
+        },
+        {
+          "name": "Комплект постачання",
+          "value": "Ноутбук Адаптер харчування Документация Стилус",
+          "isMain": false
+        },
+        {
+          "name": "Гаряча лінія виробника",
+          "value": "Acer 0-800-301-032 Пн~Пт, 10:00-18:00",
+          "isMain": false
+        },
+        {
+          "name": "Додаткові гарантійні умови",
+          "value": "Acer «З будинку у ремонт» Крок ТТЦ 0-800-504-504 Пн-Пт 09:00-19:00, Сб 10:00-18:00",
+          "isMain": false
+        }
+      ]
+    }
+  ],
+  "reviews": [
+    {
+      "reviewBy": {
+        "$oid": "642c67880f90cbd84fd5b71a"
+      },
+      "rating": 5,
+      "reviewerName": "Юстина",
+      "review": "yu78i9",
+      "experience": "Більше року",
+      "advantages": "багато переваг",
+      "disadvantages": "немає",
+      "images": [],
+      "likes": [],
+      "dislikes": [],
+      "_id": {
+        "$oid": "642efea1801803274b4ba6cd"
+      },
+      "replies": []
+    },
+    {
+      "reviewBy": {
+        "$oid": "642c66d70f90cbd84fd5b6b4"
+      },
+      "rating": 3,
+      "reviewerName": "Петро",
+      "review": "все одно купив",
+      "experience": "Кілька місяців",
+      "advantages": "Стильний",
+      "disadvantages": "дорогий",
+      "images": [],
+      "likes": [],
+      "dislikes": [],
+      "_id": {
+        "$oid": "642fe49892c8ee7acd6cc0a8"
+      },
+      "replies": []
+    }
+  ],
+  "refundPolicy": "14 днів",
+  "rating": 4,
+  "subProducts": [
+    {
+      "images": [
+        {
+          "url": "https://res.cloudinary.com/dzctqbi3o/image/upload/v1680734581/Diploma/Notebooks/Acer/i8ryudqr2qf8jztfmkfh.png",
+          "public_url": "Diploma/Notebooks/Acer/i8ryudqr2qf8jztfmkfh"
+        },
+        {
+          "url": "https://res.cloudinary.com/dzctqbi3o/image/upload/v1680734582/Diploma/Notebooks/Acer/hs5qh9cq5mgsv9ptobem.png",
+          "public_url": "Diploma/Notebooks/Acer/hs5qh9cq5mgsv9ptobem"
+        },
+        {
+          "url": "https://res.cloudinary.com/dzctqbi3o/image/upload/v1680734583/Diploma/Notebooks/Acer/iaoap7saydv0moasgw4s.png",
+          "public_url": "Diploma/Notebooks/Acer/iaoap7saydv0moasgw4s"
+        },
+        {
+          "url": "https://res.cloudinary.com/dzctqbi3o/image/upload/v1680734584/Diploma/Notebooks/Acer/yn68naowkepzt77lbvlr.png",
+          "public_url": "Diploma/Notebooks/Acer/yn68naowkepzt77lbvlr"
+        },
+        {
+          "url": "https://res.cloudinary.com/dzctqbi3o/image/upload/v1680734584/Diploma/Notebooks/Acer/mgmhbjzctayb0tov5vp0.png",
+          "public_url": "Diploma/Notebooks/Acer/mgmhbjzctayb0tov5vp0"
+        },
+        {
+          "url": "https://res.cloudinary.com/dzctqbi3o/image/upload/v1680734585/Diploma/Notebooks/Acer/y72ffjdlj7dahymzmzpl.png",
+          "public_url": "Diploma/Notebooks/Acer/y72ffjdlj7dahymzmzpl"
+        },
+        {
+          "url": "https://res.cloudinary.com/dzctqbi3o/image/upload/v1680734586/Diploma/Notebooks/Acer/xns0zeflbxcbnma7ovxv.png",
+          "public_url": "Diploma/Notebooks/Acer/xns0zeflbxcbnma7ovxv"
+        },
+        {
+          "url": "https://res.cloudinary.com/dzctqbi3o/image/upload/v1680734587/Diploma/Notebooks/Acer/mdqm4r3vrjzr2z1e1bqe.png",
+          "public_url": "Diploma/Notebooks/Acer/mdqm4r3vrjzr2z1e1bqe"
+        },
+        {
+          "url": "https://res.cloudinary.com/dzctqbi3o/image/upload/v1680734588/Diploma/Notebooks/Acer/tlofkzwxupuhxudx9amt.png",
+          "public_url": "Diploma/Notebooks/Acer/tlofkzwxupuhxudx9amt"
+        },
+        {
+          "url": "https://res.cloudinary.com/dzctqbi3o/image/upload/v1680734588/Diploma/Notebooks/Acer/yl62xduohxwgihochoup.png",
+          "public_url": "Diploma/Notebooks/Acer/yl62xduohxwgihochoup"
+        },
+        {
+          "url": "https://res.cloudinary.com/dzctqbi3o/image/upload/v1680734589/Diploma/Notebooks/Acer/xii6zep31cqphkjfoxku.png",
+          "public_url": "Diploma/Notebooks/Acer/xii6zep31cqphkjfoxku"
+        },
+        {
+          "url": "https://res.cloudinary.com/dzctqbi3o/image/upload/v1680734590/Diploma/Notebooks/Acer/xs809ypmlnbbc9daxb2d.png",
+          "public_url": "Diploma/Notebooks/Acer/xs809ypmlnbbc9daxb2d"
+        },
+        {
+          "url": "https://res.cloudinary.com/dzctqbi3o/image/upload/v1680734590/Diploma/Notebooks/Acer/gdb8hitmpt8tmyvjxisb.png",
+          "public_url": "Diploma/Notebooks/Acer/gdb8hitmpt8tmyvjxisb"
+        },
+        {
+          "url": "https://res.cloudinary.com/dzctqbi3o/image/upload/v1680734591/Diploma/Notebooks/Acer/iwmazettnldd5udgqqf9.png",
+          "public_url": "Diploma/Notebooks/Acer/iwmazettnldd5udgqqf9"
+        }
+      ],
+      "description_images": [],
+      "color": {
+        "color": "Сірий",
+        "image": "#b0afb1"
+      },
+      "sizes": [
+        {
+          "size": "",
+          "qty": 34,
+          "price": 71199,
+          "price_unit": "₴",
+          "code": 723610747
+        }
+      ],
+      "discount": 0,
+      "sold": 0
+    }
+  ],
+  "__v": 2,
+  "numReviews": 2
+},{
+  "_id": {
+    "$oid": "642dd5fd99fc395bdd745e31"
+  },
+  "name": "Ноутбук Samsung Galaxy Book 2 Pro",
+  "description": "<div class=\"styles_description__row__EjSn6 row\">    \n<span>Вид: Ноутбук / Діагональ екрану: 13.3\" / Роздільна здатність: 1920x1080 / Процесор: Intel Core i7-1165G7 / Кількість ядер процесора: 4 ядра / Об'єм оперативної пам'яті: 8 ГБ / Тип оперативної пам'яті: LPDDR5 / Об'єм накопичувача: 512 ГБ Intel Iris Xe Graphics / Об'єм пам'яті відеокарти: Використовує оперативну пам'ять / Операційна система: Windows 11 Home / Характеристики батареї: Li-Ion 63 Вт * год, Незнімна / Габарити (Ш х Г х В): 304,4 x 199,8 x 11,2 мм / Вага: 0,87 кг /</span></div>",
+  "brand": "Samsung",
+  "slug": "samsung_galaxy_book_2_pro",
+  "category": {
+    "$oid": "63e370145ba7e472e6726ca2"
+  },
+  "subCategories": [
+    {
+      "$oid": "63e3a0b95ba7e472e6726cfe"
+    }
+  ],
+  "details": [
+    {
+      "group": "",
+      "fields": [
+        {
+          "name": "Серія (NP930XED-KA1US)",
+          "value": "Samsung Galaxy Book 2 Pro",
+          "isMain": true
+        }
+      ]
+    },
+    {
+      "group": "Екран",
+      "fields": [
+        {
+          "name": "Діагональ екрана",
+          "value": "13.3\" (1024x768) XGA",
+          "isMain": true
+        },
+        {
+          "name": "Тип екрану",
+          "value": "AMOLED",
+          "isMain": false
+        },
+        {
+          "name": "Роздільна здатність",
+          "value": "1920x1080",
+          "isMain": true
+        },
+        {
+          "name": "Частота оновлення екрана",
+          "value": "60 Гц",
+          "isMain": true
+        }
+      ]
+    },
+    {
+      "group": "Відеокарта",
+      "fields": [
+        {
+          "name": "Відеокарта",
+          "value": "Інтегрована",
+          "isMain": true
+        }
+      ]
+    },
+    {
+      "group": "Накопичувачі даних",
+      "fields": [
+        {
+          "name": "Типи внутрішніх накопичувачів",
+          "value": "SSD",
+          "isMain": true
+        },
+        {
+          "name": "Обсяг SSD",
+          "value": "512 ГБ",
+          "isMain": true
+        }
+      ]
+    },
+    {
+      "group": "Процесор",
+      "fields": [
+        {
+          "name": "Процесор",
+          "value": "Чотириядерний Intel Core i7-1165G7 (2.8 — 4.7 ГГц)",
+          "isMain": true
+        },
+        {
+          "name": "Операційна система",
+          "value": "Windows 11 Home",
+          "isMain": true
+        }
+      ]
+    },
+    {
+      "group": "Оперативна пам'ять",
+      "fields": [
+        {
+          "name": "Об'єм оперативної пам'яті",
+          "value": "8 Гб",
+          "isMain": true
+        },
+        {
+          "name": "Характеристики оперативної пам'яті",
+          "value": "LPDDR5",
+          "isMain": false
+        }
+      ]
+    },
+    {
+      "group": "Підключення",
+      "fields": [
+        {
+          "name": "Мережеві адаптери",
+          "value": "Немає",
+          "isMain": false
+        },
+        {
+          "name": "Роз'єми та порти введення-виведення",
+          "value": "1x Thunderbolt 4, 1x USB Type-C, 1x USB 3.2, 1x HDMI, 1x Headphone/mic",
+          "isMain": false
+        }
+      ]
+    },
+    {
+      "group": "Корпус",
+      "fields": [
+        {
+          "name": "Вага",
+          "value": "0.87 кг",
+          "isMain": false
+        },
+        {
+          "name": "Характеристики батареї",
+          "value": "Li-Ion 63 Вт*год, Незнімна",
+          "isMain": false
+        },
+        {
+          "name": "Габарити (Ш х Г х В)",
+          "value": "304,4 x 199,8 x 11,2 мм",
+          "isMain": false
+        },
+        {
+          "name": "Додаткові можливості",
+          "value": "Картридер, Веб-камера, Підсвічування клавіш, Сканер відбитка пальця",
+          "isMain": false
+        },
+        {
+          "name": "Країна виробник",
+          "value": "Китай",
+          "isMain": false
+        },
+        {
+          "name": "Комплект постачання",
+          "value": "Ноутбук, кабель, зарядний пристрій.",
+          "isMain": false
+        },
+        {
+          "name": "Гарантія",
+          "value": "1 місяць гарантії від продавця",
+          "isMain": false
+        }
+      ]
+    }
+  ],
+  "reviews": [
+    {
+      "reviewBy": {
+        "$oid": "642c67880f90cbd84fd5b71a"
+      },
+      "rating": 3,
+      "reviewerName": "Юстина",
+      "review": "все супер",
+      "experience": "Менше місяця",
+      "advantages": "багато переваг",
+      "disadvantages": "немає",
+      "images": [],
+      "likes": [],
+      "dislikes": [],
+      "_id": {
+        "$oid": "642efe5d801803274b4ba5a1"
+      },
+      "replies": []
+    }
+  ],
+  "refundPolicy": "30 днів",
+  "rating": 3,
+  "subProducts": [
+    {
+      "images": [
+        {
+          "url": "https://res.cloudinary.com/dzctqbi3o/image/upload/v1680732328/Diploma/Notebooks/Samsung/uwsfia07gsvdsmwolxzf.png",
+          "public_url": "Diploma/Notebooks/Samsung/uwsfia07gsvdsmwolxzf"
+        },
+        {
+          "url": "https://res.cloudinary.com/dzctqbi3o/image/upload/v1680732328/Diploma/Notebooks/Samsung/woug47svkfwx58w6paxt.png",
+          "public_url": "Diploma/Notebooks/Samsung/woug47svkfwx58w6paxt"
+        },
+        {
+          "url": "https://res.cloudinary.com/dzctqbi3o/image/upload/v1680732329/Diploma/Notebooks/Samsung/cutihy1z4vhiyeomg2o7.png",
+          "public_url": "Diploma/Notebooks/Samsung/cutihy1z4vhiyeomg2o7"
+        },
+        {
+          "url": "https://res.cloudinary.com/dzctqbi3o/image/upload/v1680732330/Diploma/Notebooks/Samsung/crhlqrksdymmkw45ng79.png",
+          "public_url": "Diploma/Notebooks/Samsung/crhlqrksdymmkw45ng79"
+        },
+        {
+          "url": "https://res.cloudinary.com/dzctqbi3o/image/upload/v1680732331/Diploma/Notebooks/Samsung/lu8zcg4bwbbz12nyjhll.png",
+          "public_url": "Diploma/Notebooks/Samsung/lu8zcg4bwbbz12nyjhll"
+        },
+        {
+          "url": "https://res.cloudinary.com/dzctqbi3o/image/upload/v1680732331/Diploma/Notebooks/Samsung/omgshncckfvou26dwvkq.png",
+          "public_url": "Diploma/Notebooks/Samsung/omgshncckfvou26dwvkq"
+        },
+        {
+          "url": "https://res.cloudinary.com/dzctqbi3o/image/upload/v1680732332/Diploma/Notebooks/Samsung/pdcedodre2bkrkhkdhf0.png",
+          "public_url": "Diploma/Notebooks/Samsung/pdcedodre2bkrkhkdhf0"
+        },
+        {
+          "url": "https://res.cloudinary.com/dzctqbi3o/image/upload/v1680732333/Diploma/Notebooks/Samsung/bsrzcjm9bp31gcpg2noz.png",
+          "public_url": "Diploma/Notebooks/Samsung/bsrzcjm9bp31gcpg2noz"
+        }
+      ],
+      "description_images": [],
+      "color": {
+        "color": "Чорний",
+        "image": "#000000"
+      },
+      "sizes": [
+        {
+          "size": "",
+          "qty": 5,
+          "price": 55369,
+          "price_unit": "₴",
+          "code": 866985331
+        }
+      ],
+      "discount": 15,
+      "sold": 16
+    },
+    {
+      "images": [
+        {
+          "url": "https://res.cloudinary.com/dzctqbi3o/image/upload/v1680735534/Diploma/Notebooks/Samsung/fba0zi1rbio5frkp4uiw.png",
+          "public_url": "Diploma/Notebooks/Samsung/fba0zi1rbio5frkp4uiw"
+        },
+        {
+          "url": "https://res.cloudinary.com/dzctqbi3o/image/upload/v1680735535/Diploma/Notebooks/Samsung/e55ajffl0nfv0scttawa.png",
+          "public_url": "Diploma/Notebooks/Samsung/e55ajffl0nfv0scttawa"
+        },
+        {
+          "url": "https://res.cloudinary.com/dzctqbi3o/image/upload/v1680735536/Diploma/Notebooks/Samsung/qfhktmzssfzmmmgxpvpw.png",
+          "public_url": "Diploma/Notebooks/Samsung/qfhktmzssfzmmmgxpvpw"
+        },
+        {
+          "url": "https://res.cloudinary.com/dzctqbi3o/image/upload/v1680735537/Diploma/Notebooks/Samsung/agp6kswdisjhe5zgcesx.png",
+          "public_url": "Diploma/Notebooks/Samsung/agp6kswdisjhe5zgcesx"
+        },
+        {
+          "url": "https://res.cloudinary.com/dzctqbi3o/image/upload/v1680735537/Diploma/Notebooks/Samsung/z4vjyloicdrcqjemjiif.png",
+          "public_url": "Diploma/Notebooks/Samsung/z4vjyloicdrcqjemjiif"
+        }
+      ],
+      "color": {
+        "color": "Темно сірий",
+        "image": "#C0C0C0"
+      },
+      "sizes": [
+        {
+          "size": "",
+          "qty": 3,
+          "price": 56499,
+          "price_unit": "₴",
+          "code": 581763623
+        }
+      ],
+      "discount": 0,
+      "sold": 7
+    }
+  ],
+  "__v": 1,
+  "numReviews": 1
+},{
+  "_id": {
+    "$oid": "642dd5fd99fc395bdd745e32"
+  },
+  "name": "Ноутбук HP Pavilion 15-eh2234nw",
+  "description": "<p><strong>Зустрічайте HP Pavilion</strong>, який затьмарить усі ваші уявлення про ноутбуки та надасть справжню свободу творчості. Він має стильний дизайн та оснащений усіма функціями, необхідними для втілення ваших ідей.</p>\n\n<p><strong>Все необхідне для роботи</strong> Завдяки потужному акумулятору виконуйте завдання будь-якої складності і будьте впевнені, що у вас залишиться достатньо заряду для того, щоб розслабитися ввечері за улюбленими розвагами.</p>\n\n<p><strong>Стильний дизайн</strong> Цей ноутбук чудово доповнить ваш образ і допоможе виділитися з натовпу. Він відрізняється тонким та легким корпусом, яскравим дизайном та продуманими деталями.</p>\n\n<p><strong>Неперевершена якість звуку</strong> Ноутбук подарує неймовірно насичене та реалістичне звучання завдяки двом динамікам HP, технології HP Audio Boost та професійній аудіосистемі. Живіть у ритмі улюбленої музики.</p>\n\n<p><strong>Дисплей високої роздільної здатності</strong> Погляньте на світ цифрових технологій по-новому. Оцініть чудову якість фотографій та зображень завдяки екрана високої роздільної здатності.</p>",
+  "brand": "HP",
+  "slug": "notebook_hp_pavilion_15",
+  "category": {
+    "$oid": "63e370145ba7e472e6726ca2"
+  },
+  "subCategories": [
+    {
+      "$oid": "63e3a0b95ba7e472e6726cfe"
+    }
+  ],
+  "details": [
+    {
+      "group": "",
+      "fields": [
+        {
+          "name": "Серія  (715A9EA_V1)",
+          "value": "Pavilion 15",
+          "isMain": true
+        }
+      ]
+    },
+    {
+      "group": "Екран",
+      "fields": [
+        {
+          "name": "Діагональ екрана",
+          "value": "15.6\" (1900x1080) Full HD",
+          "isMain": true
+        },
+        {
+          "name": "Тип екрану",
+          "value": "IPS",
+          "isMain": false
+        },
+        {
+          "name": "Роздільна здатність",
+          "value": "1920x1080",
+          "isMain": true
+        },
+        {
+          "name": "Частота оновлення екрана",
+          "value": "60 Гц",
+          "isMain": true
+        },
+        {
+          "name": "Вбудована камера",
+          "value": "HP Wide Vision 720p HD со встроенными двунаправленными цифровыми микрофонами",
+          "isMain": true
+        }
+      ]
+    },
+    {
+      "group": "Відеокарта",
+      "fields": [
+        {
+          "name": "Відеокарта",
+          "value": "Інтегрована",
+          "isMain": true
+        },
+        {
+          "name": "Виробник відеокарти",
+          "value": "AMD",
+          "isMain": true
+        }
+      ]
+    },
+    {
+      "group": "Накопичувачі даних",
+      "fields": [
+        {
+          "name": "Типи внутрішніх накопичувачів",
+          "value": "SSD",
+          "isMain": true
+        },
+        {
+          "name": "Обсяг SSD",
+          "value": "1 ТБ",
+          "isMain": true
+        }
+      ]
+    },
+    {
+      "group": "Процесор",
+      "fields": [
+        {
+          "name": "Процесор",
+          "value": "Восьмиядерний AMD Ryzen 7 5825U (2.0 - 4.5 ГГц)",
+          "isMain": true
+        },
+        {
+          "name": "Операційна система",
+          "value": "Windows 11 Home",
+          "isMain": true
+        },
+        {
+          "name": "Вибір мови в попередньо встановленій Windows",
+          "value": "Українська",
+          "isMain": true
+        }
+      ]
+    },
+    {
+      "group": "Оперативна пам'ять",
+      "fields": [
+        {
+          "name": "Об'єм оперативної пам'яті",
+          "value": "16 ГБ",
+          "isMain": true
+        },
+        {
+          "name": "Тип оперативної пам'яті",
+          "value": "DDR4",
+          "isMain": false
+        },
+        {
+          "name": "Кількість слотів для оперативної пам'яті",
+          "value": "2",
+          "isMain": false
+        },
+        {
+          "name": "Характеристики оперативної пам'яті",
+          "value": "DDR4-3200 МГц",
+          "isMain": false
+        }
+      ]
+    },
+    {
+      "group": "Підключення",
+      "fields": [
+        {
+          "name": "Мережеві адаптери",
+          "value": "Wi-Fi 802.11ax Bluetooth 5.2",
+          "isMain": false
+        },
+        {
+          "name": "Роз'єми та порти введення-виведення",
+          "value": "1 х USB Type C 10 Гбит/с (Power Delivery, DisplayPort 1.4, HP Sleep and Charge) / 2 х USB Type-A 5 Гбит/с / HDMI / комбинированный аудиоразъем для наушников и микрофона / SD кардридер",
+          "isMain": false
+        },
+        {
+          "name": "Безпровідний зв'язок",
+          "value": "Bluetooth 5.2 Wi-Fi 6",
+          "isMain": false
+        }
+      ]
+    },
+    {
+      "group": "Корпус",
+      "fields": [
+        {
+          "name": "Вага",
+          "value": "1.75 кг",
+          "isMain": false
+        },
+        {
+          "name": "Характеристики батареї",
+          "value": "3-элементный литий-ионный аккумулятор, 41 Вт*ч",
+          "isMain": false
+        },
+        {
+          "name": "Габарити (Ш х Г х В)",
+          "value": "360.2 x 234 х 17.9 мм",
+          "isMain": false
+        },
+        {
+          "name": "Додаткові можливості",
+          "value": "Веб-камера HP с двумя встроенными цифровыми микрофонами. Встроенные стереодинамики",
+          "isMain": false
+        },
+        {
+          "name": "Країна виробник",
+          "value": "Китай",
+          "isMain": false
+        },
+        {
+          "name": "Короткі характеристики",
+          "value": "Экран 15.6” IPS (1920x1080) Full HD, матовый / AMD Ryzen 7 5825U (2.0 — 4.5 ГГц) / RAM 16 ГБ / SSD 1 ТБ / AMD Radeon Graphics / без ОД / Wi-Fi / Bluetooth / веб-камера / Windows 11 Home / 1.75 кг / серебристый",
+          "isMain": false
+        },
+        {
+          "name": "Матеріал корпусу",
+          "value": "Метал + пластик",
+          "isMain": false
+        },
+        {
+          "name": "Країна реєстрації бренду",
+          "value": "США",
+          "isMain": false
+        },
+        {
+          "name": "Гарантія",
+          "value": "12 місяців офіційної гарантії від виробника",
+          "isMain": false
+        }
+      ]
+    }
+  ],
+  "reviews": [],
+  "refundPolicy": "30 днів",
+  "rating": 0,
+  "subProducts": [
+    {
+      "images": [
+        {
+          "url": "https://res.cloudinary.com/dzctqbi3o/image/upload/v1680731632/Diploma/Notebooks/HP/a4xm6m9g299vs5ekbb68.png",
+          "public_url": "Diploma/Notebooks/HP/a4xm6m9g299vs5ekbb68"
+        },
+        {
+          "url": "https://res.cloudinary.com/dzctqbi3o/image/upload/v1680731633/Diploma/Notebooks/HP/xlap6w0rxzmesn1qes1v.png",
+          "public_url": "Diploma/Notebooks/HP/xlap6w0rxzmesn1qes1v"
+        },
+        {
+          "url": "https://res.cloudinary.com/dzctqbi3o/image/upload/v1680731634/Diploma/Notebooks/HP/xmzco8zdkawu53dn0jjf.png",
+          "public_url": "Diploma/Notebooks/HP/xmzco8zdkawu53dn0jjf"
+        },
+        {
+          "url": "https://res.cloudinary.com/dzctqbi3o/image/upload/v1680731634/Diploma/Notebooks/HP/mxgxwymruua9xyj6gut7.png",
+          "public_url": "Diploma/Notebooks/HP/mxgxwymruua9xyj6gut7"
+        },
+        {
+          "url": "https://res.cloudinary.com/dzctqbi3o/image/upload/v1680731635/Diploma/Notebooks/HP/cmljlizz1fo08d036da7.png",
+          "public_url": "Diploma/Notebooks/HP/cmljlizz1fo08d036da7"
+        }
+      ],
+      "description_images": [],
+      "color": {
+        "color": "Чорний",
+        "image": "#000000"
+      },
+      "sizes": [
+        {
+          "size": "",
+          "qty": 18,
+          "price": 42999,
+          "price_unit": "₴",
+          "code": 341035109
+        }
+      ],
+      "discount": 5,
+      "sold": 6
+    },
+    {
+      "images": [
+        {
+          "url": "https://res.cloudinary.com/dzctqbi3o/image/upload/v1680730892/Diploma/Notebooks/HP/d8yqe8qkcxcqp9y64guw.png",
+          "public_url": "Diploma/Notebooks/HP/d8yqe8qkcxcqp9y64guw"
+        },
+        {
+          "url": "https://res.cloudinary.com/dzctqbi3o/image/upload/v1680730893/Diploma/Notebooks/HP/aihvf6v4hd9bnxqz3fr2.png",
+          "public_url": "Diploma/Notebooks/HP/aihvf6v4hd9bnxqz3fr2"
+        },
+        {
+          "url": "https://res.cloudinary.com/dzctqbi3o/image/upload/v1680730893/Diploma/Notebooks/HP/tjeytuqmjbjl8dn0hecm.png",
+          "public_url": "Diploma/Notebooks/HP/tjeytuqmjbjl8dn0hecm"
+        },
+        {
+          "url": "https://res.cloudinary.com/dzctqbi3o/image/upload/v1680771067/Diploma/Notebooks/HP/hp4_awfje1.png",
+          "public_url": "Diploma/Notebooks/HP/hp4_awfje1.png"
+        }
+      ],
+      "color": {
+        "color": "Сріблястий",
+        "image": "#C0C0C0"
+      },
+      "sizes": [
+        {
+          "size": "",
+          "qty": 13,
+          "price": 38999,
+          "price_unit": "₴",
+          "code": 599875754
+        }
+      ],
+      "discount": 0,
+      "sold": 2
+    }
+  ]
+}]

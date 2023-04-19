@@ -1,53 +1,54 @@
-import styles from "./styles.module.scss"
-import Card from 'react-bootstrap/Card'
-import Button from 'react-bootstrap/Button'
+import "bootstrap/dist/css/bootstrap.min.css";
+import { Container, Row, Col } from "react-bootstrap";
+import styles from "./styles.module.scss";
 
 export default function FAQ() {
-    return (
-        <div>
-            <div className={styles.topfaq}>
-                <div className={styles.circle}>
-                    <h1>?</h1>
-                </div>
-                <div className={styles.textcenter}>
-                    <h5>Any questions?</h5>
-                    <h4>USE THE HELP CENTER</h4>
-                </div>
-            </div>
-            <div className={styles.container}>
-                <Card className={styles.cartst}>
-                    <Card.Body className={styles.cardbody}>
-                        <Button className={styles.cartbtn}>Payment</Button>
-                        <p>This section contains the necessary information about available payment methods and how to use them</p>
-                    </Card.Body>
-                </Card>
-                <Card className={styles.cartst}>
-                    <Card.Body className={styles.cardbody}>
-                        <Button className={styles.cartbtn}>Delivery</Button>
-                        <p>Information on terms and methods of delivery, terms of receipt and storage, can be found here</p>
-                    </Card.Body>
-                </Card>
-                <Card className={styles.cartst}>
-                    <Card.Body className={styles.cardbody}>
-                        <Button className={styles.cartbtn}>Order</Button>
-                        <p>Information on how to check the status of the order, cancel it, or change the reservation period</p>
-
-                    </Card.Body>
-                </Card>
-                <Card className={styles.cartst}>
-                    <Card.Body className={styles.cardbody}>
-                        <Button className={styles.cartbtn}>Guarantee</Button>
-                        <p>Need help with an item you've already purchased? Useful information here</p>
-                    </Card.Body>
-                </Card>
-            </div>
-            <div className={styles.topfaq}>
-                <div className={styles.textcenter}>
-                    <h4>More answers here</h4>
-                </div>
-                <Button className={styles.helpbtn}>HELP CENTER PLUM</Button>
-            </div>
-        </div>
-
-    )
+  return (
+    <Container fluid className={styles.helpCenter}>
+      <Row>
+        <Col className={styles.helpCenter__titleCentr}>
+          <img src="../../icons/help.png" alt="" />
+          <div>
+            <span>Виникли запитання?</span>
+            <span>Скористайтесь довідковим центром</span>
+          </div>
+        </Col>
+      </Row>
+      <Row className={styles.helpCenter__helps}>
+        <Col className={styles.helpCenter__helps_card}>
+          <button>Оплата</button>
+          <span>
+            У цьому розділі є необхідна інформація про доступні способи оплати
+            та про те як ними скористатись
+          </span>
+        </Col>
+        <Col className={styles.helpCenter__helps_card}>
+          <button>Доставка</button>
+          <span>
+            Інформацію про терміни та способи доставки, умови отримання і
+            зберігання, можна знайти тут
+          </span>
+        </Col>
+        <Col className={styles.helpCenter__helps_card}>
+          <button>Замовлення</button>
+          <span>
+            Інформація про те, як перевірити статус замовлення, скасувати його,
+            або змінити термін резерву
+          </span>
+        </Col>
+        <Col className={styles.helpCenter__helps_card}>
+          <button>Гарантія</button>
+          <span>
+            Потрібна допомога із вже придбаним товаром? Корисна інформація тут
+          </span>
+        </Col>
+      </Row>
+      <Row>
+        <Col className={styles.helpCenter__more}>
+          <span>Більше відповідей шукайте тут</span>
+          <button>Довідковий центр PLUM</button>
+        </Col>
+      </Row>
+    </Container>
+  );
 }

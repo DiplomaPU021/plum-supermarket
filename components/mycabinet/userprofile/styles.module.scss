@@ -1,0 +1,363 @@
+.container {
+    padding: 20px 0px 0px 0px;
+}
+
+.modaldiv {
+    padding: 0;
+    
+}
+
+.navselector {
+    align-items: flex-start;
+    padding: 20px 20px 20px 0px;
+    margin-bottom: 5px;
+    gap: 10px;
+    max-width: 274px;
+    height: 511px;
+    background: linear-gradient(180deg, #FAF8FF 0%, #F2EDFF 100%);
+    box-shadow: 5px 0px 15px rgba(34, 15, 75, 0.5);
+    border-radius: 0px 23px 23px 0px;
+}
+
+.profilerow {
+    margin: 0;
+    padding: 0;
+}
+
+.navlink_active {
+    padding: 15px 0px 10px 35px;
+    gap: 40px;
+    align-items: center;
+    width: 254px;
+    height: 56px;
+    background: linear-gradient(90deg, #220F4B 0%, #573C91 100%);
+    border-radius: 0px 23px 23px 0px;
+
+    span {
+        font-weight: 600;
+        font-size: 16px;
+        line-height: 22px;
+        color: #FAF8FF;
+    }
+}
+
+.navlink {
+    padding: 15px 0px 10px 35px;
+    gap: 40px;
+    align-items: center;
+    width: 254px;
+    height: 56px;
+    border-radius: 0px 23px 23px 0px;
+
+    span {
+        font-weight: 600;
+        font-size: 16px;
+        line-height: 22px;
+        color: $plum-dark-color;
+    }
+}
+
+.logout {
+    display: flex;
+    padding-top: 100px;
+
+    a {
+        width: 50%;
+        text-align: center;
+        cursor: pointer;
+
+        span {
+            color: $plum-dark-color;
+            padding-right: 10px;
+            font-weight: 600;
+            font-size: 16px;
+        }
+    }
+}
+
+.accordion {
+    padding-bottom: 20px;
+
+    &__item {
+        background: transparent;
+        margin-left: 30px;
+
+        &_header {
+            margin-top: 2px;
+
+            button {
+                padding: 10px 24px 10px 20px;
+                background: #E6E1F1 !important;
+                box-shadow: none !important;
+
+                span {
+                    font-weight: 500;
+                    font-size: 20px;
+                    line-height: 27px;
+                    color: $plum-dark-color;
+                }
+
+                &::after {
+                    background-size: 30px 30px;
+                    background-image: url("../../../public/icons/down-btn.png") !important;
+                    width: 30px;
+                    height: 30px;
+                    border: none;
+                    box-shadow: none;
+                    color: $plum-dark-color;
+                }
+            }
+        }
+
+        &_body {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+
+            .checkbox {
+                display: flex;
+                flex-direction: row;
+                align-items: center;
+                justify-content: flex-start;
+                gap: 20px;
+
+                &_box {
+                    min-width: 28px;
+                    height: 28px;
+                    border: 2px solid $green-color;
+                    box-shadow: none;
+
+                    &:checked {
+                        border-color: $green-color;
+                        background-color: transparent;
+                        box-shadow: none;
+                        background-image: url("../../../public/icons/check.png");
+                    }
+                }
+
+                &_label {
+                    font-weight: 400;
+                    font-size: 16px;
+                    line-height: 22px;
+                    color: $plum-dark-color;
+                }
+            }
+        }
+
+        &_hobby {
+
+            display: flex;
+            flex-direction: row;
+            align-items: flex-start;
+
+            .checkbox {
+                display: flex;
+                flex-direction: row;
+                align-items: center;
+                justify-content: flex-start;
+                gap: 20px;
+
+                &_box {
+                    width: 28px;
+                    height: 28px;
+                    border: 2px solid $green-color;
+                    box-shadow: none;
+
+                    &:checked {
+                        border-color: $green-color;
+                        background-color: transparent;
+                        box-shadow: none;
+                        background-image: url("../../../public/icons/check.png");
+                    }
+                }
+
+                &_label {
+                    font-weight: 400;
+                    font-size: 16px;
+                    line-height: 22px;
+                    color: $plum-dark-color;
+                }
+            }
+        }
+    }
+}
+
+.contacts {
+    flex-direction: column;
+    gap: 15px;
+    justify-content: center;
+    align-items: center;
+}
+
+.col_contacts {
+    display: flex;
+    padding: 0px;
+    gap: 2rem;
+    max-width: 850px;
+    height: 216px;
+}
+
+.form_input {
+    padding: 15px 24px;
+    max-width: 850px;
+    height: 60px;
+    border: 2px solid #220F4B;
+    border-radius: 35px;
+    color: $plum-dark-color;
+    font-weight: 500;
+    font-size: 18px;
+    line-height: 25px;
+}
+
+.form_label {
+    margin-left: 18px;
+    font-family: 'Noto Sans';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 25px;
+    color: #220F4B;
+}
+
+.profilebtn {
+    border: 2px solid #220F4B;
+    background-color: $light-wheet-color;
+    color: $plum-dark-color;
+    font-weight: 500;
+    font-size: 16px;
+    line-height: 22px;
+    height: 46px;
+    border-radius: 60px;
+
+    &:hover {
+        box-shadow: 0px 0px 5px 0px #220F4B;
+    }
+}
+
+.cardsbtns {
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+
+    button {
+        border: 2px solid #220F4B;
+        background-color: $light-wheet-color;
+        color: $plum-dark-color;
+        font-weight: 500;
+        font-size: 16px;
+        line-height: 22px;
+        height: 46px;
+        border-radius: 60px;
+        width: 48%;
+
+        &:hover {
+            box-shadow: 0px 0px 5px 0px #220F4B;
+        }
+    }
+}
+
+.orderpagehead {
+    padding: 12px 24px 12px 35px;
+    margin-left: 20px;
+    max-width: 748px;
+    height: 51px;
+    background: #E6E1F1;
+    text-align: end;
+
+    .col {
+        min-width: fit-content;
+    }
+
+    .link {
+        text-decoration: none;
+        color: #573C90;
+        font-weight: 500;
+        font-size: 20px;
+
+        &:hover {
+            font-weight: 600;
+            color: #573C90;
+        }
+    }
+}
+
+.searchrow {
+    padding: 20px 0px 5px 0px;
+    max-width: 748px;
+    justify-content: space-between;
+    margin-left: 20px;
+
+    .search {
+
+        width: 380px;
+        height: 46px;
+        padding-left: 0px;
+
+        &_field {
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            justify-content: space-between;
+            padding-left: 20px;
+            background: $light-wheet-color;
+            border: 2px solid $plum-dark-color;
+            border-radius: 23px;
+
+            input {
+                background: transparent;
+                border: none;
+                font-family: 'Noto Sans';
+                font-style: normal;
+                font-weight: 300;
+                font-size: 16px;
+                line-height: 19px;
+                color: rgba(34, 15, 75, 0.7);
+
+                &:focus {
+                    outline: none;
+                }
+            }
+
+            button {
+                display: flex;
+                flex-direction: row;
+                justify-content: center;
+                align-items: center;
+                width: 72px;
+                height: 46px;
+                background: $plum-dark-color;
+                border-radius: 21px;
+
+                @media (min-width: 1600px) {
+                    width: 15%;
+                }
+            }
+        }
+    }
+
+    .cardextrabtn {
+        width: 284px;
+        height: 46px;
+        color: #573C90;
+        background: none;
+        font-size: 18px;
+        font-weight: 500;
+        padding-left: 24px;
+        text-align: start;
+        border: none;
+
+        &:hover {
+            background-color: none;
+        }
+
+        &:active {
+            background-color: none;
+        }
+    }
+}
+
+.orders {
+    margin-left: 20px;
+    padding: 20px 0px 0px 0px;
+    max-width: 748px;
+}

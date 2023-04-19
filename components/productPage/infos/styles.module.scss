@@ -1,22 +1,21 @@
 .infos {
-    //position: relative;
-    //display: flex;
-    //flex-direction: row;
-    //width: 819px;
-    height: 750px;
+    height: 700px;
     background: #F0EBFB;
-    border: 2px solid red;
-    //padding: 0;
+    padding: 0;
 
     &__priceandaction {
         position: relative;
         display: flex;
         flex-direction: row;
+        align-items:center;
         justify-content: space-between;
-        align-items: center;
         padding: 15px;
 
         &_price {
+            display: flex;
+            align-items: center;
+            height: 100px;
+            
             span {
                 display: flex;
                 flex-direction: column;
@@ -29,9 +28,14 @@
             position: relative;
             display: flex;
             flex-direction: row;
-            justify-content: space-between;
-            gap: 2.5rem;
+            justify-content: center;
+            gap: 2rem;
+            padding: 0;
 
+            @media (max-width: 1300px) {
+               gap: 1rem;
+            }
+            
             .liked {
                 position: relative;
 
@@ -45,7 +49,7 @@
                     height: 28px;
                     right: -30px;
                     top: -15px;
-                    background: #70BF63;
+                    background: $green-color;
                     border-radius: 30px;
 
                     span {
@@ -55,7 +59,7 @@
                         font-size: 12px;
                         line-height: 16px;
                         text-align: center;
-                        color: #FAF8FF;
+                        color: $light-wheet-color;
                     }
                 }
             }
@@ -67,17 +71,25 @@
                 flex-direction: column;
                 justify-content: center;
                 align-items: center;
-                padding: 11px;
-                gap: 51px;
                 width: 46px;
                 height: 46px;
                 background: #F0EBFB;
-                border: 2px solid #220F4B;
+                border: 2px solid $plum-dark-color;
                 border-radius: 23px;
+                &:hover {
+                    box-shadow: 0px 0px 5px 0px #220F4B;
+                }
             }
         }
 
         &_buy {
+            position: relative;
+            display:flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 0;
+
             button {
                 position: relative;
                 display: flex;
@@ -85,16 +97,24 @@
                 justify-content: center;
                 align-items: center;
                 gap: 10px;
-                width: 190px;
+                padding: 10px 20px;
+                min-width: 200px;
                 height: 53px;
-                background: #220F4B;
+                background: $plum-dark-color;
                 border-radius: 30px;
                 font-family: 'Noto Sans';
                 font-style: normal;
                 font-weight: 600;
                 font-size: 24px;
                 line-height: 33px;
-                color: #FAF8FF;
+                color: $light-wheet-color;
+
+                @media (max-width: 1300px) {
+                    padding: 10px 15px;
+                }
+                &:hover {
+                    box-shadow: 0px 0px 5px 0px #220F4B;
+                }
             }
         }
     }
@@ -103,30 +123,29 @@
         display: flex;
         align-items: center;
         height: 60px;
-        background: #FAF8FF;
+        background: $light-wheet-color;
 
         span {
             position: relative;
-            left: 21px;
+            left: 20px;
             font-family: 'Noto Sans';
             font-style: normal;
             font-weight: 500;
             font-size: 32px;
             line-height: 44px;
-            color: #220F4B;
+            color: $plum-dark-color;
         }
     }
 
-    &__container {
-        // position: relative;
+    &__details {
+        max-height: 350px;
         display: flex;
         flex-direction: column;
         gap: 1px;
 
         &_row {
-            //position: relative;
-            //width: 100%;
-            height: 38px;
+            min-height: 36px;
+            height: fit-content;
             display: flex;
             flex-direction: row;
             align-items: center;
@@ -134,10 +153,9 @@
 
             div {
                 width: 50%;
-
+                padding-left: 20px;
                 span {
-                    position: relative;
-                    left: 21px;
+                    
                     font-family: 'Noto Sans';
                     font-style: normal;
                     font-weight: 500;
@@ -150,10 +168,10 @@
     }
 
     &__more {
-        position: relative;
         display: flex;
+        flex-direction: row;
         justify-content: flex-end;
-        padding: 15px 0 0 0;
+        padding-top: 15px;
 
         button {
             font-family: 'Noto Sans';
@@ -161,7 +179,7 @@
             font-weight: 400;
             font-size: 16px;
             line-height: 22px;
-            color: #70BF63;
+            color: $green-color;
             background: transparent;
         }
     }
@@ -171,10 +189,10 @@
         width: fit-content;
         display: flex;
         flex-direction: column;
-        padding: 44px 0 0 20px;
-        gap: 17px;
+        padding-left: 32px;
+        gap: 14px;
+
         &_sizes {
-            border: 2px solid rgb(30, 0, 70);
             width: fit-content;
             display: flex;
             flex-direction: row;
@@ -182,15 +200,19 @@
             padding: 16px 20px;
             gap: 20px;
             height: 62px;
-
             background: #E1DCEC;
             border-radius: 10px;
-            &_size{
+            border: 2px solid $green-color;
+
+            &_size {
+                min-width: 35px;
+                height: 35px;
+                padding: 2px;
+                position: relative;
                 display: grid;
-                place-items: center;
+                justify-content: center;
+                align-items: center;
                 display: flex;
-                padding:  5px 5px;
-                gap: 5px;
                 background: #FFFFFF;
                 border-radius: 5px;
                 font-family: 'Noto Sans';
@@ -199,25 +221,35 @@
                 font-size: 20px;
                 line-height: 27px;
                 cursor: pointer;
-                color: #220F4B;
-                
+                color: $plum-dark-color;
+
                 &:hover {
-                    outline: 1px solid#70BF63;
+                    outline: 1px solid $green-color;
                     outline-offset: 2px;
                 }
-                }
+            }
+
+            &_crossline{
+                position: absolute;
+                width: 50px;
+                border: 2px solid #70BF63;
+                transform: rotate(45deg);
+            }
         }
 
-            button {
-                font-family: 'Noto Sans';
-                font-style: normal;
-                font-weight: 400;
-                font-size: 16px;
-                line-height: 22px;
-                color: #70BF63;
-                background: transparent;
-            }
-        
+        button {
+            display: flex;
+            flex-direction: row;
+            padding: 0;
+            font-family: 'Noto Sans';
+            font-style: normal;
+            font-weight: 400;
+            font-size: 16px;
+            line-height: 22px;
+            color: $green-color;
+            background: transparent;
+        }
+
     }
 }
 
@@ -225,16 +257,35 @@
     text-decoration: line-through;
     font-weight: 300;
     font-size: 24px;
-    line-height: 33px;
-    color: #220F4B;
+    color: $plum-dark-color;
 }
 
 .priceregular {
     font-weight: 500;
-    font-size: 36px;
-    line-height: 49px;
-    color: #70BF63;
+    font-size: 34px;
+    color: $green-color;
+    @media (max-width: 1300px) {
+        font-size: 28px;
+    }
 }
-.active_size{
-    outline: 2px solid #70BF63;
+
+.active_size {
+    outline: 2px solid $green-color;
+}
+.error {
+    // background: $light-error-color;
+    // margin-top: 5rem;
+    padding-bottom: 0rem;
+
+    input {
+        color: #fff !important;
+
+        &::placeholder {
+            color: #fff !important;
+        }
+    }
+
+    svg {
+        fill: #fff !important;
+    }
 }

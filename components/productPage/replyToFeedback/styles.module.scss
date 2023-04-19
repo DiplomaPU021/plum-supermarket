@@ -1,0 +1,147 @@
+.modal {
+    background: rgba(87, 60, 145, 0.5);
+    backdrop-filter: blur(2.5px);
+
+    color: #5A5A5A;
+
+    &__main {
+        padding: 24px;
+        background: linear-gradient(180deg, #FAF8FF 0%, #F2EDFF 100%);
+        box-shadow: 0px 0px 15px rgba(34, 15, 75, 0.5), inset 7px 7px 20px #FAF5FF, inset -7px -7px 20px #F7EEFF;
+        border-radius: 10px;
+
+        &_card {
+
+            background: #F5F1FF;
+            border: 2px solid $plum-dark-color;
+            border-radius: 10px;
+
+            .header {
+                border-bottom: 2px solid $green-color;
+                margin: 24px;
+
+                font-family: 'Noto Sans';
+                font-style: normal;
+                display: flex;
+                flex-direction: row;
+                align-items: center;
+                font-weight: 500;
+                font-size: 23px;
+                line-height: 31px;
+                color: $plum-dark-color;
+            }
+
+            .form {
+                margin: 24px;
+
+                font-family: 'Noto Sans';
+                font-style: normal;
+                font-weight: 400;
+                font-size: 14px;
+                line-height: 19px;
+                color: $plum-dark-color;
+
+                &_input {
+                    border: 2px solid $plum-dark-color;
+                    border-radius: 23px;
+                    background: transparent;
+                    padding: 12px 20px;
+
+                    &:focus {
+                        box-shadow: 0px 0px 5px $plum-dark-color;
+                    }
+
+                }
+
+                &__btns {
+                    display: flex;
+                    flex-direction: row;
+                    align-items: center;
+                    justify-content: center;
+                    gap: 60px;
+                    padding: 30px;
+
+                    button {
+                        box-sizing: border-box;
+                        display: flex;
+                        flex-direction: row;
+                        justify-content: center;
+                        align-items: center;
+                        padding: 10px 35px;
+                        gap: 10px;
+
+                        width: 196px;
+                        height: 54px;
+
+                        background: $plum-dark-color;
+                        border-radius: 30px;
+                        &:hover {
+                            box-shadow: 0px 0px 5px 0px #220F4B;
+                        }
+
+                        span {
+
+                            font-family: 'Noto Sans';
+                            font-style: normal;
+                            font-weight: 600;
+                            font-size: 25px;
+                            line-height: 34px;
+                            color: #E7DBEA;
+                        }
+                    }
+                }
+
+                &_checkbox {
+                    display: flex;
+                    flex-direction: row;
+                    align-items: center;
+                    justify-content: center;
+
+                    &_box {
+                        width: 24px;
+                        height: 24px;
+                       //background: transparent;
+                        border: 2px solid $green-color;
+                        box-shadow: none;
+
+                          &:checked {
+                              border-color: $green-color; // Change the border color when checked
+                              background-color: transparent; // Change the background color when checked
+                              box-shadow: none;
+                              background-image: url("../../../public/icons/check.png");
+                            }
+                          
+                    }
+
+                    &_label {
+                        font-family: 'Noto Sans';
+                        font-style: normal;
+                        font-weight: 400;
+                        font-size: 16px;
+                        line-height: 22px;
+                        color: $plum-dark-color;
+
+                        display: flex;
+                        flex-direction: column;
+                        align-self: flex-end;
+                        justify-content: center;
+                    }
+                }
+            }
+
+            .info {
+                padding: 0 60px;
+                padding-bottom: 10px;
+
+                p {
+                    font-family: 'Noto Sans';
+                    font-style: normal;
+                    font-weight: 400;
+                    font-size: 16px;
+                    line-height: 22px;
+                    color: $plum-dark-color;
+                }
+            }
+        }
+    }
+}
