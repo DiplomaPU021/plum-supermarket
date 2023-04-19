@@ -80,7 +80,6 @@ export default function LogIn({
       setLogShow(false);
       setAuthShow(false);
       setUserProfileShow(true);
-      console.log("user", JSON.stringify(data));
     } catch (error) {
       console.log(error);
     }

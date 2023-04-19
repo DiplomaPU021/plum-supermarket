@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useMemo, useState } from "react";
+import { useEffect, useState } from "react";
 import styles from "./styles.module.scss";
 import ProductSwiper from "./ProductSwiper";
 import Link from "next/link";
@@ -13,9 +13,9 @@ import ScalesIcon from "../icons/ScalesIcon";
 import axios from "axios";
 import { useRouter } from "next/router";
 import { useSelector, useDispatch } from "react-redux";
-import { addToCart, updateCart } from "@/store/cartSlice";
-import { addToWishList, updateWishList } from "@/store/wishListSlice";
-import { updateOneInWishList, saveWishList } from "@/requests/user";
+import { addToCart } from "@/store/cartSlice";
+import { addToWishList } from "@/store/wishListSlice";
+import { saveWishList } from "@/requests/user";
 import { useSession } from "next-auth/react";
 import {
   addToScaleList,
@@ -24,7 +24,6 @@ import {
 } from "@/store/scaleListSlice";
 import { Tooltip } from "react-tooltip";
 import "react-tooltip/dist/react-tooltip.css";
-import useDeepCompareEffect from "use-deep-compare-effect";
 
 export default function ProductCard({ product, style, mode }) {
   const { data: session, status } = useSession();
@@ -38,6 +37,7 @@ export default function ProductCard({ product, style, mode }) {
   const scaleList = useSelector((state) => state.scaleList);
   const reviewRating = useSelector((state) => state.reviewRating);
   const [isOpen, setIsOpen] = useState(false);
+  const [wishError, setWishError] = useState(false);
   const [isOpenInCart, setIsOpenInCart] = useState(false);
   const [isOpenInWish, setIsOpenInWish] = useState(false);
   const [isOpenInScale, setIsOpenInScale] = useState(false);
@@ -51,11 +51,7 @@ export default function ProductCard({ product, style, mode }) {
   }, [style, product.slug]);
 
   useEffect(() => {
-    // handleInCart();
-    console.log("cartTotal", cart.cartTotal);
-    console.log("product", product);
     let _uid = `${product._id}_${product.style}_${product.mode}`;
-    console.log("uid", _uid);
     let exist = null;
     if (cart.cartItems) {
       exist = cart.cartItems.find((item) => item._uid == _uid);
@@ -87,7 +83,11 @@ export default function ProductCard({ product, style, mode }) {
   useEffect(() => {
     let exist = null;
     if (scaleList.scaleListItems) {
-      exist = scaleList.scaleListItems.map((items) => items._id == product._id && items.style == product.style && items.mode == product.mode);
+      exist = scaleList.scaleListItems.some((item) => {
+        return item.items.some((p) =>
+        p._id == product._id && p.style == product.style && p.mode == product.mode
+        )
+      });
     }
     if (exist) {
       setScaleChosen(true);
@@ -98,29 +98,10 @@ export default function ProductCard({ product, style, mode }) {
     }
   }, [scaleList.scaleListTotal, style, mode]);
 
-  // const handleInCart = useCallback(async () => {
-  //   console.log("style, mode", product._id, style, mode);
-  //   const { data } = await axios.get(
-  //     `/api/product/${product._id}?style=${style}&code=${mode}`
-  //   );
-  //   let _uid = `${data._id}_${data.style}_${data.code}`;
-  //   let exist = null;
-  //   if (cart.cartItems) {
-  //     exist = cart.cartItems.find((item) => item._uid === _uid);
-  //   }
-  //   if(exist){
-  //     setCartChosen(true);
-  //   } else{
-  //     setCartChosen(false);
-  //   }
-  //   console.log("exist", exist);
-  // }, [product, style, mode])
-
   const addToCartHandler = async () => {
     const { data } = await axios.get(
       `/api/product/${product._id}?style=${style}&code=${mode}`
     );
-
     if (qty > data.quantity) {
       setErrorInProductCard("The quantity is bigger than in stock.");
       return;
@@ -130,7 +111,7 @@ export default function ProductCard({ product, style, mode }) {
     } else {
       let _uid = `${data._id}_${data.style}_${data.mode}`;
       let exist = null;
-      console.log("cartHandler",_uid);
+      console.log("cartHandler", _uid);
       if (cart.cartItems) {
         exist = cart.cartItems.find((item) => item._uid === _uid);
       }
@@ -152,13 +133,16 @@ export default function ProductCard({ product, style, mode }) {
   };
   const addToWishHandler = async () => {
     if (session) {
-      setIsOpen(false);
+      setWishError("");
+      setIsOpenInWish(false);
       let _uid = `${product._id}_${style}_${mode}`;
       let exist = null;
       if (wishList.wishListItems) {
         exist = wishList.wishListItems.find((item) => item._uid === _uid);
       }
       if (exist) {
+        setWishError("Товар уже в списку улюблених");
+        setIsOpenInWish(true);
         // let newWishList = wishList.wishListItems.filter((item) => {
         //   return item._uid != _uid;
         // });
@@ -170,9 +154,8 @@ export default function ProductCard({ product, style, mode }) {
           `/api/product/${product._id}?style=${style}&code=${mode}`
         );
         dispatch(
-          addToWishList({ ...data, qty, size: data.size, _uid, mode: 0 })
+          addToWishList({ ...data, qty, size: data.size, _uid, mode: mode })
         );
-        setWishChosen(true);
         saveWishList({
           productId: product._id,
           size: product.subProducts[style].sizes[mode].size,
@@ -182,12 +165,12 @@ export default function ProductCard({ product, style, mode }) {
         });
       }
     } else {
-      setIsOpen(true);
+      setWishError("Будь ласка зареєструйтесь!");
+      setIsOpenInWish(true);
     }
   };
 
   const addToScaleHandler = async () => {
-    setScaleChosen(scaleChosen ? false : true)
     const { data } = await axios.get(
       `/api/product/${product._id}?style=${style}&code=${mode}`
     );
@@ -198,18 +181,25 @@ export default function ProductCard({ product, style, mode }) {
         (item) => item.subCategory_id === data.subCategory_id
       );
       if (existSub) {
-        existItem = existSub.items.find((p) => p._id === data._id);
+        console.log("existSub",existSub);
+        console.log("data",data);
+        existItem = existSub.items.find((p) => p._id == data._id && p.style == data.style && p.mode == data.mode);
+        console.log("existItem", existItem);
         if (existItem) {
-          if (existSub.items.length === 1) {
+           if (existSub.items.length === 1) {
             dispatch(removeFromScaleList({ ...existSub }));
+            setScaleChosen(false);
           } else {
             dispatch(updateScaleList({ ...data }));
+            setScaleChosen(true);
           }
         } else {
           dispatch(addToScaleList({ ...data }));
+          setScaleChosen(true);
         }
       } else {
         dispatch(addToScaleList({ ...data }));
+        setScaleChosen(true);
       }
     }
   };
@@ -217,11 +207,11 @@ export default function ProductCard({ product, style, mode }) {
   return (
     <Card className={styles.product}>
       <Tooltip
-        id="login-tooltip"
-        content="Будь ласка зареєструйтесь!"
-        isOpen={isOpen}
-        offset={30}
-        style={{ backgroundColor: "#70BF63", color: "#fff", borderRadius: "30px" }}
+        id="wish-tooltip"
+        content={wishError}
+        isOpen={isOpenInWish}
+        style={{ backgroundColor: "#70BF63", color: "#fff", borderRadius: "30px", zIndex:"999" }}
+       
       />
       {/* <Tooltip
         id="incart-tooltip"
@@ -238,8 +228,8 @@ export default function ProductCard({ product, style, mode }) {
           <Button
             className={styles.btnheart}
             onClick={addToWishHandler}
-            data-tooltip-id="login-tooltip"
-            onMouseLeave={() => setIsOpen(false)}
+            data-tooltip-id="wish-tooltip"
+            onMouseLeave={() => setIsOpenInWish(false)}
             style={{ backgroundColor: wishChosen ? "#220F4B" : "#FAF8FF" }}
           >
             <HeartIcon fillColor={wishChosen ? "#FAF8FF" : "#220F4B"} />

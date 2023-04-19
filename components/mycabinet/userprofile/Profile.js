@@ -86,11 +86,9 @@ export default function Profile(props) {
       gender: data.gender,
       birthday: data.birthday,
     });
-    console.log("UserChanged",result);
+    console.log("UserChanged", result);
     setIsInEdit(false);
   }
-
-  console.log("watch", watch("gender"));
 
   return (
     <Accordion
@@ -192,10 +190,9 @@ export default function Profile(props) {
                     disabled={!isInEdit}
                     name="gender"
                     className={`${styles.form_input} ${errors.gender ? "is-invalid" : ""}`}>
-                    <option value="" disabled={true}>Стать</option>
-                    <option >жінка</option>
-                    <option >чоловік</option>
-                    <option >дитина</option>
+                    <option value="Стать" disabled={true}>Стать</option>
+                    <option >Жінка</option>
+                    <option >Чоловік</option>
                   </Form.Select>
                   <Form.Control.Feedback type="invalid">
                     {errors.gender?.message}

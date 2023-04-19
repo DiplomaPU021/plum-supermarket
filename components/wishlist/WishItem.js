@@ -21,6 +21,7 @@ export default function WishItem({ product, error, setError }) {
     const wishList = useSelector((state) => state.wishList);
     const [deleteConfirm, setDeleteConfirm] = useState(true);
     const cart = useSelector((state) => state.cart);
+    const [cartError, setCartError] = useState(false);
     const dispatch = useDispatch();
     const [addTocartDisabled, setAddTocartDisabled] = useState(false);
     const [isOpenDel, setIsOpenDel] = useState(false);
@@ -33,7 +34,22 @@ export default function WishItem({ product, error, setError }) {
         } else {
             setAddTocartDisabled(false);
         }
-    }, [error])
+    }, [error]);
+
+    useEffect(() => {
+        let _uid = `${product._id}_${product.style}_${product.mode}`;
+        let exist = null;
+        if (cart.cartItems) {
+            exist = cart.cartItems.find((item) => item._uid == _uid);
+        }
+        if (exist) {
+            setCartChosen(true);
+            // setIsOpenInCart(true);
+        } else {
+            setCartChosen(false);
+            // setIsOpenInCart(false);
+        }
+    }, [cart.cartTotal, product.style, product.mode]);
 
     const removeProduct = (_uid, id, code) => {
         if (session) {
@@ -54,23 +70,36 @@ export default function WishItem({ product, error, setError }) {
 
     };
     const addToCartHandler = async (product) => {
+        setCartError("");
+        setIsOpenCart(false);
         const { data } = await axios.get(
             `/api/product/${product._id}?style=${product.style}&code=${product.mode}`
         );
-        let exist = null;
-        if (cart.cartItems) {  
-            exist = cart.cartItems.find((item) => item._uid === product._uid);
-            setCartChosen(true)
-        }
-        if (exist) {
-            setError((prevState) => ({ ...prevState, inCartError: true, uidPrInCart: product._uid }));
-            console.error('Товар уже в корзині');
+        if (data.quantity < 1) {
+            // setProductError("Цей товар закінчився");
+            setCartError("Цей товар закінчився");
+            // setIsOpenQ(true);
             setIsOpenCart(true);
             return;
         } else {
-            setIsOpenCart(false);
-            dispatch(addToCart({ ...data, qty: 1, size: data.size, _uid: product._uid }));
+            let exist = null;
+            if (cart.cartItems) {
+                exist = cart.cartItems.find((item) => item._uid === product._uid);
+                setCartChosen(true);
+            }
+            if (exist) {
+                setError((prevState) => ({ ...prevState, inCartError: true, uidPrInCart: product._uid }));
+                setCartError("Товар уже в корзині");
+                setIsOpenCart(true);
+                return;
+            } else {
+                setIsOpenCart(false);
+                dispatch(addToCart({ ...data, qty: 1, size: data.size, _uid: product._uid }));
+                setCartChosen(true);
+                setCartError("");
+            }
         }
+
     }
 
     return (
@@ -80,13 +109,13 @@ export default function WishItem({ product, error, setError }) {
                 content="Будь ласка зареєструйтесь!"
                 isOpen={isOpenDel}
                 offset={30}
-               // style={{ backgroundColor: "#70BF63", color: "#fff", borderRadius: "30px" }}
+                // style={{ backgroundColor: "#70BF63", color: "#fff", borderRadius: "30px" }}
                 className={styles.tooltip_rounded}
             />
             <Tooltip
                 id="add-to-cart-tooltip"
-                content="Уже в корзині!"
-                isOpen={isOpenCart}              
+                content={cartError}
+                isOpen={isOpenCart}
                 place="left"
                 className={styles.tooltip_rounded}
             />
@@ -104,7 +133,7 @@ export default function WishItem({ product, error, setError }) {
                             </Row>
                         </Col>
                         <Col md={8} xs={12} sm={8} className={styles.cardtext}>
-                           <Link href={`/product/${product.slug}?style=${product.style}&code=${product.mode}`} className={styles.h5text}>
+                            <Link href={`/product/${product.slug}?style=${product.style}&code=${product.mode}`} className={styles.h5text}>
                                 {(product.name + " " + (product.color ? product.color.color : ""
                                 ) + " " + product.size).length > 55
                                     ? `${(product.name + " " + (product.color ? product.color.color : ""
@@ -117,9 +146,12 @@ export default function WishItem({ product, error, setError }) {
                             <button
                                 className={styles.itembtn}
                                 onClick={() => addToCartHandler(product)}
-                                disabled={error.inCartError && error.uidProduct === product._uid ? true : false}
+                                // disabled={product.quantity <1 ? true : false}
                                 data-tooltip-id="add-to-cart-tooltip"
-                                style={{ backgroundColor: cartChosen ? "#220F4B" : "#FAF8FF" }}
+                                style={{
+                                    backgroundColor: cartChosen ? "#220F4B" : "#FAF8FF",
+                                    cursor: `${product.quantity < 1 ? "not-allowed" :  cartChosen ? "auto":"pointer"}`,
+                                }}
                                 onMouseLeave={() => setIsOpenCart(false)}>
                                 <CartIcon fillColor={cartChosen ? "#FAF8FF" : "#220F4B"} />
                             </button>

@@ -3,7 +3,6 @@ import User from "@/models/User";
 import productService from "./product.service";
 
 const getOneById = async (id) => {
-    console.log("id", id);
     const user = await User.findById(id);
     // console.log("userServise", user);
     return user;

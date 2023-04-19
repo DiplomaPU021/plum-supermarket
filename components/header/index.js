@@ -13,7 +13,6 @@ import Cart from "../cart";
 import WishList from "../wishlist";
 import MyCabinet from "../mycabinet";
 import ScalesIcon from "../icons/ScalesIcon";
-import { saveWishList } from "@/requests/user";
 import ThemeSwitcher from "./ThemeSwitcher";
 import { Tooltip } from "react-tooltip";
 import "react-tooltip/dist/react-tooltip.css";
@@ -31,7 +30,6 @@ export default function Header({ country }) {
   const [language2, setLanguage2] = useState(false);
   const [themeChange, setThemeChange] = useState(false);
   const [myCabinetOpen, setMyCabinetOpen] = useState(false);
-  const [comparisonChange, setСomparisonChange] = useState(false);
   const [error, setError] = useState({ inCartError: false, uidPrInCart: "", inWishListError: false, uidPrInWish: "" });
   const [divVisible, setDivVisible] = useState(true);
   const [isOpen, setIsOpen] = useState(false);

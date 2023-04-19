@@ -10,39 +10,62 @@ import Col from "react-bootstrap/Col";
 import HeartIcon from "../icons/HeartIcon";
 import CartIcon from "../icons/CartIcon";
 import axios from "axios";
+import { saveWishList } from "@/requests/user";
 import { useRouter } from "next/router";
 import { useSelector, useDispatch } from "react-redux";
-import { addToCart, updateCart } from "@/store/cartSlice";
-import {
-  addToWishList,
-  removeFromWishList,
-  updateWishList,
-} from "@/store/wishListSlice";
-
+import { addToCart } from "@/store/cartSlice";
+import { addToWishList } from "@/store/wishListSlice";
 import { updateScaleList } from "@/store/scaleListSlice";
+import { useSession } from "next-auth/react";
+import { Tooltip } from "react-tooltip";
+import "react-tooltip/dist/react-tooltip.css";
 
 // сюди приходить продукт з бази даних напряму
-export default function ComparisonCard({ product, style,mode }) {
+export default function ComparisonCard({ product, style, mode }) {
+  const { data: session, status } = useSession();
   const router = useRouter();
   const dispatch = useDispatch();
-  const [code, setCode] = useState(router.query.code);
   const [qty, setQty] = useState(1);
   const [error, setError] = useState("");
   const cart = useSelector((state) => state.cart);
-  //const { cart } = useSelector((state) => ({ ...state }));
-
   const wishList = useSelector((state) => state.wishList);
-  const [images, setImages] = useState(product.images);
+  const [wishError, setWishError] = useState(false);
+  const [isOpenInCart, setIsOpenInCart] = useState(false);
+  const [isOpenInWish, setIsOpenInWish] = useState(false);
+  const [wishChosen, setWishChosen] = useState(false);
+  const [cartChosen, setCartChosen] = useState(false);
+  //const { cart } = useSelector((state) => ({ ...state }));
+  useEffect(() => {
+    let _uid = `${product._id}_${product.style}_${product.mode}`;
+    let exist = null;
+    if (cart.cartItems) {
+      exist = cart.cartItems.find((item) => item._uid == _uid);
+    }
+    if (exist) {
+      setCartChosen(true);
+      setIsOpenInCart(true);
+    } else {
+      setCartChosen(false);
+      setIsOpenInCart(false);
+    }
+  }, [cart.cartTotal, style, mode]);
 
-  const [price, setPrice] = useState(product.price);
+  useEffect(() => {
+    let _uid = `${product._id}_${product.style}_${product.mode}`;
+    let exist = null;
+    if (wishList.wishListItems) {
+      exist = wishList.wishListItems.find((item) => item._uid == _uid);
+    }
+    if (exist) {
+      setWishChosen(true);
+      setIsOpenInWish(true);
+    } else {
+      setWishChosen(false);
+      setIsOpenInWish(false);
+    }
+  }, [wishList.wishListTotal, style, mode]);
 
   const addToCartHandler = async () => {
-    // if (!router.query.code) {
-    //   setError("Please select a product type");
-    //   return;
-    // }
-    // const { data } = await axios.get(`/api/product/${product._id}?style=${product.style}&code=${router.query.code}`);
-
     const { data } = await axios.get(
       `/api/product/${product._id}?style=${style}&code=${mode}`
     );
@@ -54,74 +77,72 @@ export default function ComparisonCard({ product, style,mode }) {
       setError("This product is out of stock.");
       return;
     } else {
-      //let _uid = `${data._id}_${product.style}_${router.query.code}`;
       let _uid = `${data._id}_${data.style}_${data.mode}`;
       let exist = null;
       if (cart.cartItems) {
         exist = cart.cartItems.find((item) => item._uid === _uid);
       }
       if (exist) {
-        let newCart = cart.cartItems.map((item) => {
-          if (item._uid === exist._uid) {
-            return { ...item, qty: item.qty + 1 };
-          }
-          return item;
-        });
-        dispatch(updateCart(newCart));
       } else {
         dispatch(addToCart({ ...data, qty, size: data.size, _uid }));
+        setCartChosen(true);
       }
     }
   };
 
   const addToWishHandler = async () => {
-    // if (!router.query.code) {
-    //   setError("Please select a product type");
-    //   return;
-    // }
-    // const { data } = await axios.get(`/api/product/${product._id}?style=${product.style}&code=${router.query.code}`);
-
-    const { data } = await axios.get(
-      `/api/product/${product._id}?style=${style}&code=${mode}`
-    );
-
-    if (qty > data.quantity) {
-      setError("The quantity is bigger than in stock.");
-      return;
-    } else if (data.quantity < 1) {
-      setError("This product is out of stock.");
-      return;
-    } else {
-      //let _uid = `${data._id}_${product.style}_${router.query.code}`;
-      let _uid = `${data._id}_${data.style}_${data.mode}`;
+    if (session) {
+      setWishError("");
+      setIsOpenInWish(false);
+      let _uid = `${product._id}_${style}_${mode}`;
       let exist = null;
       if (wishList.wishListItems) {
         exist = wishList.wishListItems.find((item) => item._uid === _uid);
       }
       if (exist) {
-        let newWishList = wishList.wishListItems.filter((item) => {
-          return item._uid != _uid;
-        });
-        dispatch(updateWishList(newWishList));
+        setWishError("Товар уже в списку улюблених");
+        setIsOpenInWish(true);
       } else {
-        dispatch(addToWishList({ ...data, qty, size: data.size, _uid }));
+        const { data } = await axios.get(
+          `/api/product/${product._id}?style=${style}&code=${mode}`
+        );
+        dispatch(
+          addToWishList({ ...data, qty, size: data.size, _uid, mode: product.mode })
+        );
+        saveWishList({
+          productId: product._id,
+          size: product.size,
+          image: product.images[0],
+          color: product.color?.color,
+          code: product.code,
+        });
       }
+    } else {
+      setWishError("Будь ласка зареєструйтесь!");
+      setIsOpenInWish(true);
     }
   };
 
-  const deleteProductHadler =  () => {
+  const deleteProductHadler = () => {
     dispatch(updateScaleList({ ...product }));
   };
 
   return (
     <Card className={styles.product}>
+      <Tooltip
+        id="wish-tooltip"
+        content={wishError}
+        isOpen={isOpenInWish}
+        style={{ backgroundColor: "#70BF63", color: "#fff", borderRadius: "30px", zIndex: "999" }}
+
+      />
       <div className={styles.product__container}>
         <div className={styles.product__container_photobox}>
-          <Link href={`/product/${product.slug}?style=0&code=0`}>
-            <ProductSwiper images={images} />
+          <Link href={`/product/${product.slug}?style=${style}&code=${mode}`}>
+            <ProductSwiper images={product.images} />
           </Link>
           <button className={styles.btnclose}
-           onClick={()=>deleteProductHadler(product)}
+            onClick={() => deleteProductHadler(product)}
           >
             <img src="../../icons/close_btn.png" alt="" />
           </button>
@@ -139,10 +160,10 @@ export default function ComparisonCard({ product, style,mode }) {
                 ).length > 55
                   ? `${product.name.substring(0, 55)}...`
                   : product.name +
-                    " " +
-                    (product.color ? product.color.color : "") +
-                    " " +
-                    product.size}
+                  " " +
+                  (product.color ? product.color.color : "") +
+                  " " +
+                  product.size}
               </Card.Title>
             </Col>
           </Row>
@@ -154,12 +175,12 @@ export default function ComparisonCard({ product, style,mode }) {
           <Row className={styles.product__container_infos_pricebtn}>
             {product.discount > 0 ? (
               <Col className={styles.product__container_infos_pricebtn_price}>
-                <span className={styles.pricediscount}>{`${price.toLocaleString(
+                <span className={styles.pricediscount}>{`${product.price.toLocaleString(
                   "uk-UA"
                 )} ${product.price_unit}`}</span>
                 <span className={styles.priceregular}>
                   {`${Math.round(
-                    (price * (100 - product.discount)) / 100
+                    (product.price * (100 - product.discount)) / 100
                   ).toLocaleString("uk-UA")}`}{" "}
                   {product.price_unit}
                 </span>
@@ -168,21 +189,26 @@ export default function ComparisonCard({ product, style,mode }) {
               <Col className={styles.product__container_infos_pricebtn_price}>
                 <span
                   className={styles.priceregular}
-                >{`${price} ${product.price_unit}`}</span>
+                >{`${product.price} ${product.price_unit}`}</span>
               </Col>
             )}
-            <Button onClick={addToWishHandler} className={styles.btnscales}>
-              <HeartIcon fillColor={"#220F4B"} />
+            <Button onClick={addToWishHandler} className={styles.btnscales} data-tooltip-id="wish-tooltip"
+              onMouseLeave={() => setIsOpenInWish(false)}
+              onBlur={() => setIsOpenInWish(false)}
+              style={{ backgroundColor: wishChosen ? "#220F4B" : "#FAF8FF" }}
+            >
+              <HeartIcon fillColor={wishChosen ? "#FAF8FF" : "#220F4B"} />
             </Button>
             <Button
               className={styles.btncart}
               disabled={product.quantity < 1}
               style={{
                 cursor: `${product.quantity < 1 ? "not-allowed" : ""}`,
+                backgroundColor: cartChosen ? "#220F4B" : "#FAF8FF"
               }}
               onClick={() => addToCartHandler()}
             >
-              <CartIcon fillColor={"#FAF8FF"} />
+              <CartIcon fillColor={cartChosen ? "#FAF8FF" : "#220F4B"} />
             </Button>
           </Row>
           {error && <span>{error}</span>}
