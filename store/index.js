@@ -6,11 +6,12 @@ import thunk from "redux-thunk";
 //import AsyncStorage from '@react-native-async-storage/async-storage';
 import createWebStorage from "redux-persist/lib/storage/createWebStorage";
 import { persistReducer } from "redux-persist";
-import cart from "./cartSlice"
+import cart from "./cartSlice";
+import expandSidebar from "./ExpandSlice";
 //import {cartReducer} from "./cartSlice";
 
 
-const reducers = combineReducers({ cart });
+const reducers = combineReducers({ cart, expandSidebar });
 
 
 const createNoopStorage = () => {
