@@ -31,6 +31,7 @@ export default function ProductSwiper({ images }) {
         autoplay={{ delay: 500, stopOnLastSlide: false }}
         speed={500}
         modules={[Autoplay]}
+        loop={true}
       >
         {images.map((img, i) => (
           <SwiperSlide key={i}>

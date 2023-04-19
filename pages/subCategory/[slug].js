@@ -25,7 +25,9 @@ export default function subCategory({
   viewedProducts,
   category,
   brands,
-  products
+  products,
+  minPrice,
+  maxPrice,
 }) {
   // console.log("CategorySub", products);
   const [radioValue, setRadioValue] = useState(category.subcategories[0].slug);
@@ -33,10 +35,10 @@ export default function subCategory({
     category.subcategories[0].name
   );
   const [showSideBlock, setShowSideBlock] = useState(true);
-
-  const [value, setValue] = useState({ min: 10, max: 70 });
+  const [value, setValue] = useState({ min: 10, max: maxPrice-minPrice });
 
   const [numCards, setNumCards] = useState(3);
+  const [unints, setUnits] = useState(10);
 
   useEffect(() => {
     const handleResize = () => {
@@ -133,124 +135,47 @@ export default function subCategory({
                 <Accordion.Item eventKey="0" className={styles.accordion__item}>
                   <Accordion.Header className={styles.accordion__item_header}>
                     <span>Бренд&nbsp;</span>
-                    {/*TODO if more than 10 units, add code below*/}
-                    <span style={{ color: "rgba(34, 15, 75, 0.6)" }}>
-                      (125)
-                    </span>
+                    {brands.length > unints ? (
+                      <span style={{ color: "rgba(34, 15, 75, 0.6)" }}>
+                        ({brands.length})
+                      </span>
+                    ) : (
+                      <></>
+                    )}
                   </Accordion.Header>
                   <Accordion.Body className={styles.accordion__item_body}>
-                    {/*TODO if more than 10 units, add component below */}
-                    <div className={styles.search_field}>
-                      <input type="text" placeholder="Пошук" />
-                      <button>
-                        <LoopIcon fillColor="#FAF8FF" />
-                      </button>
-                    </div>
+                    {brands.length > unints ? (
+                      <div className={styles.search_field}>
+                        <input type="text" placeholder="Пошук" />
+                        <button>
+                          <LoopIcon fillColor="#FAF8FF" />
+                        </button>
+                      </div>
+                    ) : (
+                      <></>
+                    )}
                     <Form.Group
                       controlId="formBasicCheckbox"
-                      //TODO if more than 10 units, add style below
-                      //style={{ overflowY: units ? 'scroll' : 'hidden'}}
+                      style={{
+                        overflowY: brands.length > unints ? "scroll" : "hidden",
+                      }}
                       className={styles.group}
                     >
-                      <Form.Check type="checkbox" className={styles.checkbox}>
-                        <Form.Check.Input
-                          className={styles.checkbox_box}
+                      {brands.map((brand, i) => (
+                        <Form.Check
+                          key={i}
                           type="checkbox"
-                        />
-                        <Form.Check.Label className={styles.checkbox_label}>
-                          Label
-                        </Form.Check.Label>
-                      </Form.Check>
-                      <Form.Check type="checkbox" className={styles.checkbox}>
-                        <Form.Check.Input
-                          className={styles.checkbox_box}
-                          type="checkbox"
-                        />
-                        <Form.Check.Label className={styles.checkbox_label}>
-                          Label
-                        </Form.Check.Label>
-                      </Form.Check>
-                      <Form.Check type="checkbox" className={styles.checkbox}>
-                        <Form.Check.Input
-                          className={styles.checkbox_box}
-                          type="checkbox"
-                        />
-                        <Form.Check.Label className={styles.checkbox_label}>
-                          Label
-                        </Form.Check.Label>
-                      </Form.Check>
-                      <Form.Check type="checkbox" className={styles.checkbox}>
-                        <Form.Check.Input
-                          className={styles.checkbox_box}
-                          type="checkbox"
-                        />
-                        <Form.Check.Label className={styles.checkbox_label}>
-                          Label
-                        </Form.Check.Label>
-                      </Form.Check>
-                      <Form.Check type="checkbox" className={styles.checkbox}>
-                        <Form.Check.Input
-                          className={styles.checkbox_box}
-                          type="checkbox"
-                        />
-                        <Form.Check.Label className={styles.checkbox_label}>
-                          Label
-                        </Form.Check.Label>
-                      </Form.Check>
-                      <Form.Check type="checkbox" className={styles.checkbox}>
-                        <Form.Check.Input
-                          className={styles.checkbox_box}
-                          type="checkbox"
-                        />
-                        <Form.Check.Label className={styles.checkbox_label}>
-                          Label
-                        </Form.Check.Label>
-                      </Form.Check>
-                      <Form.Check type="checkbox" className={styles.checkbox}>
-                        <Form.Check.Input
-                          className={styles.checkbox_box}
-                          type="checkbox"
-                        />
-                        <Form.Check.Label className={styles.checkbox_label}>
-                          Label
-                        </Form.Check.Label>
-                      </Form.Check>
-                      <Form.Check type="checkbox" className={styles.checkbox}>
-                        <Form.Check.Input
-                          className={styles.checkbox_box}
-                          type="checkbox"
-                        />
-                        <Form.Check.Label className={styles.checkbox_label}>
-                          Label
-                        </Form.Check.Label>
-                      </Form.Check>
-                      <Form.Check type="checkbox" className={styles.checkbox}>
-                        <Form.Check.Input
-                          className={styles.checkbox_box}
-                          type="checkbox"
-                        />
-                        <Form.Check.Label className={styles.checkbox_label}>
-                          Label
-                        </Form.Check.Label>
-                      </Form.Check>
-                      <Form.Check type="checkbox" className={styles.checkbox}>
-                        <Form.Check.Input
-                          className={styles.checkbox_box}
-                          type="checkbox"
-                        />
-                        <Form.Check.Label className={styles.checkbox_label}>
-                          Label
-                        </Form.Check.Label>
-                      </Form.Check>
-                      <Form.Check type="checkbox" className={styles.checkbox}>
-                        <Form.Check.Input
-                          className={styles.checkbox_box}
-                          type="checkbox"
-                        />
-                        <Form.Check.Label className={styles.checkbox_label}>
-                          Label
-                        </Form.Check.Label>
-                      </Form.Check>
+                          className={styles.checkbox}
+                        >
+                          <Form.Check.Input
+                            className={styles.checkbox_box}
+                            type="checkbox"
+                          />
+                          <Form.Check.Label className={styles.checkbox_label}>
+                            {brand}
+                          </Form.Check.Label>
+                        </Form.Check>
+                      ))}
                     </Form.Group>
                   </Accordion.Body>
                 </Accordion.Item>
@@ -260,9 +185,8 @@ export default function subCategory({
                   </Accordion.Header>
                   <Accordion.Body className={styles.accordion__item_body}>
                     <RangeSlider
-                      //TODO max & min should be prices from data base
                       min={0}
-                      max={100}
+                      max={maxPrice}
                       step={1}
                       value={value}
                       onChange={setValue}
@@ -296,7 +220,7 @@ export default function subCategory({
           >
             {products.map((p, i) => (
               <Col key={i} className={styles.col}>
-                <ProductCard product={p} style={p.style} mode={p.mode}/>
+                <ProductCard product={p} style={p.style} mode={p.mode} />
               </Col>
             ))}
           </Row>
@@ -361,9 +285,29 @@ export async function getServerSideProps(context) {
     { $match: { subCategories: { $in: subcategories } } },
   ]);
 
+  let cheapestPrice = null;
+  let mostExpensivePrice = null;
+
+  for (const product of products) {
+    for (const subProduct of product.subProducts) {
+      for (const size of subProduct.sizes) {
+        if (cheapestPrice === null || size.price < cheapestPrice) {
+          cheapestPrice = size.price;
+        }
+
+        if (mostExpensivePrice === null || size.price > mostExpensivePrice) {
+          mostExpensivePrice = size.price;
+        }
+      }
+    }
+  }
+
+  console.log("Cheapest Price:", cheapestPrice);
+  console.log("Most Expensive Price:", mostExpensivePrice);
+
   let newProducts = products.map((product) => {
     let style = -1;
-    let mode = -1;  
+    let mode = -1;
     // знайдемо індекс першого підпродукту з ненульовим залишком
     for (let i = 0; i < product.subProducts.length; i++) {
       let subProduct = product.subProducts[i];
@@ -378,25 +322,27 @@ export async function getServerSideProps(context) {
         break;
       }
     }
-  
-    let color = product.subProducts[style] ? product.subProducts[style].color?.color : '';
+
+    let color = product.subProducts[style]
+      ? product.subProducts[style].color?.color
+      : "";
     let size = product.subProducts[style].sizes[mode].size;
-  
+
     return {
       ...product,
       style,
       mode,
       color,
-      size
+      size,
     };
   });
-  
+
   //TODO Should be with mark "viewed products"
   let viewedProducts = await Product.find()
-  .populate({ path: "category", model: Category })
-  .populate({ path: "subCategories", model: SubCategory })
-  .populate({ path: "reviews.reviewBy", model: User })
-  .populate({ path: "reviews.replies.replyBy", model: User })
+    .populate({ path: "category", model: Category })
+    .populate({ path: "subCategories", model: SubCategory })
+    .populate({ path: "reviews.reviewBy", model: User })
+    .populate({ path: "reviews.replies.replyBy", model: User })
     .sort({ createdAt: -1 })
     .lean();
 
@@ -408,6 +354,8 @@ export async function getServerSideProps(context) {
       brands: JSON.parse(JSON.stringify(brandNames)),
       products: JSON.parse(JSON.stringify(newProducts)),
       viewedProducts: JSON.parse(JSON.stringify(viewedProducts)),
+      minPrice: cheapestPrice,
+      maxPrice: mostExpensivePrice,
     },
   };
 }

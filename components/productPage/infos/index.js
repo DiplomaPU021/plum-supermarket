@@ -41,7 +41,12 @@ export default function Infos({ product, active, setActive, productError, setPro
   const [wishChosen, setWishChosen] = useState(false);
   const [cartChosen, setCartChosen] = useState(false);
   const [scaleChosen, setScaleChosen] = useState(false);
+  const [opacity, setOpacity] = useState("1");
+  let count = 0;
 
+  useEffect(() => {
+    setOpacity(product.quantity < 1 ? "0.6" : "1");
+  }, [product]);
   useEffect(() => {
     let _uid = `${product._id}_${product.style}_${product.mode}`;
     let exist = null;
@@ -118,7 +123,7 @@ export default function Infos({ product, active, setActive, productError, setPro
         //   }
         //   return item;
         // });
-        // dispatch(updateCart(newCart)); 
+        // dispatch(updateCart(newCart));
       } else {
         dispatch(addToCart({ ...data, qty, size: data.size, _uid }));
         setCartChosen(true);
@@ -175,10 +180,11 @@ export default function Infos({ product, active, setActive, productError, setPro
       setIsOpenInWish(true);
     }
   };
+
   const addToScaleHandler = async () => {
     //need to connect to data base
     const { data } = await axios.get(
-      `/api/product/${product._id}?style=${router.query.style}&code=${router.query.code}`
+      `/api/product/${product._id}?style=${product.style}&code=${product.mode}`
     );
       let existSub = null;
       let existItem = null;
@@ -207,6 +213,7 @@ export default function Infos({ product, active, setActive, productError, setPro
       }
     
   };
+
   return (
     <Container fluid className={styles.infos}>
       <Tooltip
@@ -228,22 +235,28 @@ export default function Infos({ product, active, setActive, productError, setPro
               <span className={styles.pricediscount}>{`${Number(
                 product.price
               ).toLocaleString("uk-UA")} ${product.price_unit}`}</span>
-              <span className={styles.priceregular}>
-                {`${Number(product.priceAfter).toLocaleString("uk-UA")} ${product.price_unit
-                  }`}
+              <span
+                style={{ opacity: opacity }}
+                className={styles.priceregular}
+              >
+                {`${Number(product.priceAfter).toLocaleString("uk-UA")} ${
+                  product.price_unit
+                }`}
               </span>
             </div>
           ) : (
             <div>
               <span className={styles.priceregular}>{`${Number(
                 product.price
-              ).toLocaleString()} ${product.price_unit}`}</span>
+              ).toLocaleString("uk-UA")} ${product.price_unit}`}</span>
             </div>
           )}
-        </Col>
-        <Col className={styles.infos__priceandaction_react}>
+        </div>
+        <div className={styles.infos__priceandaction_react}>
           <div className={styles.liked}>
+            {/* TODO onClick like below*/}
             <button
+              style={{ backgroundColor: wishBtnColor ? "#220F4B" : "#FAF8FF" }}
               onClick={addToWishListHandler}
               data-tooltip-id="wish-tooltip"
               onMouseLeave={() => setIsOpenInWish(false)}
@@ -260,8 +273,15 @@ export default function Infos({ product, active, setActive, productError, setPro
             style={{ backgroundColor: scaleChosen ? "#220F4B" : "#FAF8FF" }}>
             <ScalesIcon fillColor={scaleChosen ? "#FAF8FF" : "#220F4B"} />
           </button>
-        </Col>
-        <Col className={styles.infos__priceandaction_buy}>
+        </div>
+        <div className={styles.infos__priceandaction_buy}>
+          {product.quantity < 1 ? (
+            <span style={{ color: "#70BF63" }}>
+              Немає в наявності
+            </span>
+          ) : (
+            <></>
+          )}
           <button
             onClick={() => {
               addToCartHandler();
@@ -273,35 +293,45 @@ export default function Infos({ product, active, setActive, productError, setPro
               // backgroundColor: cartChosen ? "#220F4B" : "#FAF8FF"
             }}
           >
-            {/* <CartIcon fillColor={cartChosen ? "#FAF8FF" : "#220F4B"} /> */}
-            <CartIcon fillColor="#FAF8FF" />
-            {cartChosen ? (
+            {product.quantity < 1 ? (
+              <span style={{ fontSize: "18px", lineHeight: "25px" }}>
+                Повідомити коли з’явиться
+              </span>
+            ) : (
+              <>
+                <CartIcon fillColor="#FAF8FF" />
+                {cartChosen ? (
               <span>В корзині</span>
             ) : (
               <span>Купити</span>
             )}
-
+              </>
+            )}
           </button>
-        </Col>
-      </Row>
+        </div>
+      </Col>
 
       <Row className={styles.infos__characteristics}>
         <span>Основні характеристики</span>
       </Row>
       <Col className={styles.infos__details}>
-        {product.details.slice(0, product.details.lenght).map((info, i) =>
-          i < 9 ?
-            info.fields.map((name, index) => (
-              <div className={styles.infos__details_row} key={index}>
+        {product.details.slice(0, product.details.length).map((info, i) =>
+          info.fields.map((field, j) =>
+            count < 8 && field.isMain ? (
+              <div
+                className={styles.infos__details_row}
+                key={j}
+                {...(count += 1)}
+              >
                 <div>
-                  <span>{name.name}</span>
-
+                  <span>{field.name}</span>
                 </div>
                 <div>
-                  <span>{name.value}</span>
+                  <span>{field.value}</span>
                 </div>
               </div>
-            )) : null
+            ) : null
+          )
         )}
       </Col>
       <Col className={styles.infos__more}>
@@ -315,7 +345,6 @@ export default function Infos({ product, active, setActive, productError, setPro
           onHide={() => setShowDetails(false)}
         />
       </Col>
-
       {product.size ? (
         <Row className={styles.infos__sizesInfo}>
           <span className={`${styles.input} ${productError ? styles.error : ""}`}>
@@ -329,6 +358,7 @@ export default function Infos({ product, active, setActive, productError, setPro
                 href={`/product/${product.slug}?style=${router.query.style}&code=${i}`}
               >
                 <Col
+                  style={{ opacity: el.qty == 0 ? "0.6" : "" }}
                   className={`${styles.infos__sizesInfo_sizes_size}
                   ${i == router.query.code && styles.active_size}`}
                   onClick={() => setActive((prevState) => ({
@@ -337,6 +367,10 @@ export default function Infos({ product, active, setActive, productError, setPro
                   }))}
                 >
                   {el.size}
+                  <div
+                    style={{ display: el.qty == 0 ? "" : "none" }}
+                    className={styles.infos__sizesInfo_sizes_crossline}
+                  ></div>
                 </Col>
               </Link>
             ))}
@@ -345,6 +379,7 @@ export default function Infos({ product, active, setActive, productError, setPro
             Таблиця розмірів{" "}
             <ChevronRight fillColor="#70BF63" w="30px" h="30px" />
           </button>
+
           <SizesTable show={showSizes} onHide={() => setShowSizes(false)} />
         </Row>
       ) : null}

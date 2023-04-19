@@ -67,14 +67,14 @@ export default function ComparisonCard({ product, style, mode }) {
 
   const addToCartHandler = async () => {
     const { data } = await axios.get(
-      `/api/product/${product._id}?style=${style}&code=${mode}`
+      `/api/product/${product._id}?style=${product.style}&code=${product.mode}`
     );
 
     if (qty > data.quantity) {
-      setError("The quantity is bigger than in stock.");
+      setErrorInProductCard("The quantity is bigger than in stock.");
       return;
     } else if (data.quantity < 1) {
-      setError("This product is out of stock.");
+      setErrorInProductCard("This product is out of stock.");
       return;
     } else {
       let _uid = `${data._id}_${data.style}_${data.mode}`;
@@ -89,7 +89,6 @@ export default function ComparisonCard({ product, style, mode }) {
       }
     }
   };
-
   const addToWishHandler = async () => {
     if (session) {
       setWishError("");
@@ -153,19 +152,24 @@ export default function ComparisonCard({ product, style, mode }) {
           <Row>
             <Col>
               <Card.Title className={styles.product__container_infos_title}>
-                {(
-                  product.name +
-                  " " +
-                  (product.color ? product.color.color : "") +
-                  " " +
-                  product.size
-                ).length > 55
-                  ? `${product.name.substring(0, 55)}...`
-                  : product.name +
-                  " " +
-                  (product.color ? product.color.color : "") +
-                  " " +
-                  product.size}
+                <Link
+                  className={styles.link}
+                  href={`/product/${product.slug}?style=${product.style}&code=${product.mode}`}
+                >
+                  {(
+                    product.name +
+                    " " +
+                    (product.color ? product.color.color : "") +
+                    " " +
+                    product.size
+                  ).length > 55
+                    ? `${product.name.substring(0, 55)}...`
+                    : product.name +
+                      " " +
+                      (product.color ? product.color.color : "") +
+                      " " +
+                      product.size}
+                </Link>
               </Card.Title>
             </Col>
           </Row>
@@ -177,9 +181,11 @@ export default function ComparisonCard({ product, style, mode }) {
           <Row className={styles.product__container_infos_pricebtn}>
             {product.discount > 0 ? (
               <Col className={styles.product__container_infos_pricebtn_price}>
-                <span className={styles.pricediscount}>{`${product.price.toLocaleString(
-                  "uk-UA"
-                )} ${product.price_unit}`}</span>
+                <span
+                  className={styles.pricediscount}
+                >{`${product.price.toLocaleString("uk-UA")} ${
+                  product.price_unit
+                }`}</span>
                 <span className={styles.priceregular}>
                   {`${Math.round(
                     (product.price * (100 - product.discount)) / 100
@@ -191,7 +197,7 @@ export default function ComparisonCard({ product, style, mode }) {
               <Col className={styles.product__container_infos_pricebtn_price}>
                 <span
                   className={styles.priceregular}
-                >{`${product.price} ${product.price_unit}`}</span>
+                >{`${product.price.toLocaleString("uk-UA")} ${product.price_unit}`}</span>
               </Col>
             )}
             <Button onClick={addToWishHandler} className={styles.btnscales} data-tooltip-id="wish-tooltip"

@@ -84,7 +84,8 @@
                 margin-right: 9px;
             }
 
-            button {
+            .link {
+                text-decoration: none;
                 background: transparent;
                 font-family: 'Noto Sans';
                 font-style: normal;
@@ -115,9 +116,10 @@
         border-radius: 20px;
 
         span {
-            display: grid;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
             padding: 0px;
-            gap: 10px;
             width: 30px;
             height: 30px;
             border-radius: 50%;
@@ -128,6 +130,13 @@
                 outline: 1px solid $green-color;
                 outline-offset: 2px;
             }
+
+            
+        }
+        &_crossline {
+            width: 30px;
+            border: 1.5px solid $green-color;
+            transform: rotate(45deg);
         }
     }
 

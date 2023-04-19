@@ -20,16 +20,28 @@ import ChevronRight from "@/components/icons/ChevronRight";
 import { useSelector, useDispatch } from "react-redux";
 import Link from "next/link";
 import { removeFromScaleList } from "@/store/scaleListSlice";
-import Category from "@/models/Category";
 import SubCategory from "@/models/SubCategory";
 import GroupSubCategory from "@/models/GroupSubCategory";
+import Category from "@/models/Category";
 
-export default function ComparisonPage({ products, country, subCategory_id }) {
+export default function ComparisonPage({
+  products,
+  country,
+  subCategory_id,
+  group_subcategory_slug,
+}) {
   const [checked, setChecked] = useState(false);
-  const [showTooltip, setShowTooltop] = useState(false);
+  const [showTooltip, setShowTooltip] = useState(false);
+  const [tooltipData, setTooltipData] = useState(null);
+  const targetRef = useRef(null);
 
-  const tooltipShow = () => setShowTooltop(!showTooltip);
-  const target = useRef(null);
+  const handleMouseEnter = (data) => {
+    setTooltipData({
+      ...data,
+    });
+    setShowTooltip(true);
+  };
+
   const dispatch = useDispatch();
 
   const [numCards, setNumCards] = useState(3);
@@ -64,28 +76,83 @@ export default function ComparisonPage({ products, country, subCategory_id }) {
     return () => window.removeEventListener("resize", handleResize);
   }, []);
 
+  const [activeIndex, setActiveIdnex] = useState(0);
   const subCategory = scaleList.scaleListItems.find(
     (item) => item.subCategory_id === subCategory_id
   );
-  // const [groupedProducts, setGroupedProducts] = useState({});
-  // const [detailNames, setDetailNames] = useState([]);
-  
-  // useEffect(() => {
-  //   const groups = subCategory.items.reduce((acc, product) => {
-  //     product.details.forEach(detail => {
-  //       if (!acc[detail.name]) {
-  //         acc[detail.name] = [];
-  //       }
-  //       acc[detail.name].push(product);
-  //     });
-  //     return acc;
-  //   }, {});
 
-  //   const names = Object.keys(groups);
-  //   setGroupedProducts(groups);
-  //   setDetailNames(names);
-  // }, [subCategory.items]);
-  // console.log("prods", detailNames);
+  const [groups, setGroups] = useState([]);
+  const [groupsUniques, setGroupsUniques] = useState([]);
+
+  useEffect(() => {
+    if (subCategory && subCategory.items) {
+      const categories = subCategory.items.reduce((acc, product) => {
+        product.details.forEach((detail) => {
+          const groupName = detail.group; // || "Загальні характеристики";
+          let fields = acc[groupName]?.fields || {};
+          detail.fields.forEach((field) => {
+            fields[field.name] = fields[field.name] || [];
+            fields[field.name].push(field.value || "-"); // add "-" if value is falsy
+          });
+          acc[groupName] = { group: groupName, fields };
+        });
+        return acc;
+      }, {});
+
+      const groupFields = Object.entries(categories)
+        .map(([group, data]) => {
+          const fields = Object.keys(data.fields).map((fieldName) => {
+            const values = data.fields[fieldName];
+            const uniqueValues = Array.from(new Set(values));
+            return { name: fieldName, values: uniqueValues };
+          });
+          return { group, fields };
+        })
+        .map(({ group, fields }) => {
+          const uniqueFields = Array.from(new Set(fields.map((f) => f.name)));
+          const newFields = uniqueFields.map((name) => {
+            const values = subCategory.items.map((item) => {
+              const detail = item.details.find(
+                (detail) => detail.group === group
+              );
+              if (!detail) {
+                return "-";
+              }
+              const field = detail.fields.find((f) => f.name === name);
+              if (!field) {
+                return "-";
+              }
+              return field.value || "-";
+            });
+            return { name, values };
+          });
+          return { group, fields: newFields };
+        });
+
+      const uniquesGroups = JSON.parse(JSON.stringify(groupFields));
+      uniquesGroups.map((p, i) => {
+        p.fields.map((f, j) => {
+          let flag = true;
+          for (let k = 1; k < f.values.length; k++) {
+            if (f.values[k] !== f.values[0]) {
+              flag = false;
+              break;
+            }
+          }
+          if (flag) {
+            if (p.fields.length === 1) {
+              uniquesGroups.splice(i, 1);
+            }
+            p.fields.splice(j, 1);
+          }
+        });
+      }); 
+
+      setGroupsUniques(uniquesGroups);
+      setGroups(groupFields);
+    }
+  }, [subCategory && subCategory.items]);
+
 
   const deleteGroupHadler = (subCategory) => {
     dispatch(removeFromScaleList({ ...subCategory }));
@@ -93,6 +160,11 @@ export default function ComparisonPage({ products, country, subCategory_id }) {
 
   return (
     <Container fluid className={styles.comparison}>
+      <Info
+        showTooltip={showTooltip}
+        setShowTooltip={setShowTooltip}
+        tooltipData={tooltipData}
+      />
       <Header country={country} />
       <Row className={styles.comparison__title}>
         <Col className={styles.comparison__title_name}>
@@ -120,8 +192,8 @@ export default function ComparisonPage({ products, country, subCategory_id }) {
         <Col lg={widthEmptyCard} className={styles.colEmpty}>
           <Col className={styles.colEmpty__empty}>
             <button className={styles.btnscales}>
-              <Link href={"/"}>
-                <img src="../icons/plus_green.png" alt="Green plus" />
+              <Link href={`/subCategory/${group_subcategory_slug}`}>
+                <img src="../icons/plus_green.png" alt="" />
               </Link>
             </button>
             <span>Додати до порівняння </span>
@@ -156,6 +228,7 @@ export default function ComparisonPage({ products, country, subCategory_id }) {
               disabledClass: "swiper-button-disabled",
             }}
             modules={[Navigation]}
+            onActiveIndexChange={(swiper) => setActiveIdnex(swiper.activeIndex)}
           >
             {subCategory
               ? subCategory.items.map((p, i) => (
@@ -164,7 +237,7 @@ export default function ComparisonPage({ products, country, subCategory_id }) {
                     style={{ position: "absolute !important" }}
                   >
                     <Col className={styles.col}>
-                      <ComparisonCard product={p} style={p.style} mode={p.mode}/>
+                      <ComparisonCard product={p} />
                     </Col>
                   </SwiperSlide>
                 ))
@@ -180,120 +253,59 @@ export default function ComparisonPage({ products, country, subCategory_id }) {
       <Accordion
         flush
         alwaysOpen
-        defaultActiveKey="0"
+        defaultActiveKey={0}
         style={{ display: subCategory ? "block" : "none" }}
         className={styles.accordion}
       >
-        <Accordion.Item eventKey="0" className={styles.accordion__item}>
-          <Accordion.Header className={styles.accordion__item_header}>
-            <span>First Name</span>
-          </Accordion.Header>
-          {/* {subCategory.items.slice(0, numCards).map(( p, i) => (
-            <Accordion.Body key={i} className={styles.accordion__item_body}>
-              {console.log(p)}
-              <Info
-                target={target}
-                show={showTooltip}
-                setShow={setShowTooltop}
-                title={"title"}
-                info={"info"}
-              />
+        {(checked? groupsUniques : groups).map((p, i) => (
+          <Accordion.Item
+            eventKey={i}
+            key={i}
+            className={styles.accordion__item}
+          >
+            <Accordion.Header className={styles.accordion__item_header}>
+              <span>{p.group || "Загальні характеристики"}</span>
+            </Accordion.Header>
+            <Accordion.Body className={styles.accordion__item_body}>
               <table>
                 <tbody>
-                  <tr>
-                    <td>
-                     fg
-                      <img
-                        src="../../icons/help_light.png"
-                        alt=""
-                        onMouseEnter={tooltipShow}
-                      />
-                    </td>
-                    <td>Восьмиядерний Apple M1</td>
-                    <td>Otto</td>
-                    <td>-</td>
-                  </tr>
-                  <tr>
-                    <td>
-                      Jacob
-                      <img
-                        src="../../icons/help_light.png"
-                        alt=""
-                        ref={target}
-                        onMouseEnter={tooltipShow}
-                      />
-                    </td>
-                    <td>Thornton</td>
-                    <td>
-                      HD-камера FaceTime. 720p Технологія True
-                      ToneSSD-накопичувач. PCIeTouch ID. Стереодинаміки. Широке
-                      стерео. Підтримка відтворення контенту у форматі Dolby
-                      Atmos. Система з трьох спрямованих мікрофонів. Клавіатура
-                      Magic Keyboard з підсвіткою. Датчик зовнішньої
-                      освітленості. Трекпад Force Touch
-                    </td>
-                    <td>trtrtr</td>
-                  </tr>
-                  <tr>
-                    <td>
-                      Larry the Bird
-                      <img
-                        src="../../icons/help_light.png"
-                        alt=""
-                        onMouseEnter={tooltipShow}
-                      />
-                    </td>
-                    <td>Larry the Bird</td>
-                    <td>Larry the Bird</td>
-                    <td>
-                      2 х USB 3.2 Type-C Gen 2 (Thunderbolt 4)/2 x USB 3.2 Gen
-                      1/HDMI/комбінований аудіороз'єм для
-                      навушників/мікрофона/кардридер MicroSD
-                    </td>
-                  </tr>
+                  {p.fields.map((f, j) => (
+                    <tr key={j}>
+                      <td style={{ width: `${100 / (numCards + 1)}%` }}>
+                        {f.name}
+                        <img
+                          data-tooltip-id="info-tooltip"
+                          ref={targetRef}
+                          src="../../icons/help_light.png"
+                          alt=""
+                          onMouseEnter={() => {
+                            handleMouseEnter({
+                              title: f.name,
+                              info: "info",
+                            });
+                          }}
+                        />
+                      </td>
+                      {f.values
+                        .slice(
+                          activeIndex,
+                          numCards + activeIndex || f.values.length
+                        )
+                        .map((v, k) => (
+                          <td
+                            key={k}
+                            style={{ width: `${100 / (numCards + 1)}%` }}
+                          >
+                            {v}
+                          </td>
+                        ))}
+                    </tr>
+                  ))}
                 </tbody>
               </table>
             </Accordion.Body>
-          ))} */}
-        </Accordion.Item>
-        <Accordion.Item eventKey="1" className={styles.accordion__item}>
-          <Accordion.Header className={styles.accordion__item_header}>
-            <span>First Name</span>
-          </Accordion.Header>
-          <Accordion.Body className={styles.accordion__item_body}>
-            <table>
-              <tbody>
-                <tr>
-                  <td>
-                    Mark
-                    <img src="../../icons/help_light.png" alt="" />
-                  </td>
-                  <td>Mark</td>
-                  <td>Otto</td>
-                  <td>@mdo</td>
-                </tr>
-                <tr>
-                  <td>
-                    Jacob
-                    <img src="../../icons/help_light.png" alt="" />
-                  </td>
-                  <td>Thornton</td>
-                  <td>Thornton</td>
-                  <td>trtrtr</td>
-                </tr>
-                <tr>
-                  <td>
-                    Larry the Bird
-                    <img src="../../icons/help_light.png" alt="" />
-                  </td>
-                  <td>Larry the Bird</td>
-                  <td>Larry the Bird</td>
-                  <td>@twitter</td>
-                </tr>
-              </tbody>
-            </table>
-          </Accordion.Body>
-        </Accordion.Item>
+          </Accordion.Item>
+        ))}
       </Accordion>
       <Row className={styles.comparison__tables}></Row>
       <Popular title={"Подивіться ще"} products={products} />
@@ -305,19 +317,26 @@ export default function ComparisonPage({ products, country, subCategory_id }) {
 export async function getServerSideProps(context) {
   const countryData = await getCountryData();
   const { query } = context;
-  const subCategory_id = query.subCategory;
-
+  const slug = query.slug;
   await db.connectDb();
 
-  //TODO should be products for component "View more"
- let category= await SubCategory.findById(subCategory_id)
- .populate({ path: "top_parent", model: Category })
- .populate({ path: "parent", model: GroupSubCategory })
- .lean();
- console.log("categoryCamprison", category);
-  //Should be with mark "popular"
-  let onlyFromCategory = await Product.find({ category: category.top_parent._id })
+  let subCategory = await SubCategory.findOne({ slug }).lean();
+  let id = subCategory._id;
+  let group_subcategory = await GroupSubCategory.findOne({
+    _id: subCategory.parent,
+  }).lean();
+  let group_slug = group_subcategory.slug;
+
+  //Should be products for component "View more"
+  let category = await SubCategory.findById(id)
+    .populate({ path: "top_parent", model: Category })
+    .populate({ path: "parent", model: GroupSubCategory })
     .lean();
+  //console.log("categoryCamprison", category);
+  //Should be with mark "popular"
+  let onlyFromCategory = await Product.find({
+    category: category.top_parent._id,
+  }).lean();
   let newFromCategory = onlyFromCategory.map((product) => {
     let style = -1;
     let mode = -1;
@@ -336,10 +355,16 @@ export async function getServerSideProps(context) {
       }
     }
 
-    let color = product.subProducts[style] ? product.subProducts[style].color?.color : '';
+    let color = product.subProducts[style]
+      ? product.subProducts[style].color?.color
+      : "";
     let size = product.subProducts[style].sizes[mode].size;
     let sold = product.subProducts[style].sold;
-    let priceAfter = ((100 - product.subProducts[style].discount) * product.subProducts[style].sizes[mode].price / 100).toFixed();
+    let priceAfter = (
+      ((100 - product.subProducts[style].discount) *
+        product.subProducts[style].sizes[mode].price) /
+      100
+    ).toFixed();
     return {
       ...product,
       style,
@@ -347,11 +372,12 @@ export async function getServerSideProps(context) {
       color,
       size,
       sold,
-      priceAfter
+      priceAfter,
     };
   });
-  let popularFromCategory = [...newFromCategory].sort((a, b) => b.sold - a.sold);
-
+  let popularFromCategory = [...newFromCategory].sort(
+    (a, b) => b.sold - a.sold
+  );
 
   await db.disconnectDb();
 
@@ -359,7 +385,8 @@ export async function getServerSideProps(context) {
     props: {
       products: JSON.parse(JSON.stringify(popularFromCategory)),
       country: countryData,
-      subCategory_id: subCategory_id,
+      subCategory_id: JSON.parse(JSON.stringify(id)),
+      group_subcategory_slug: group_slug,
     },
   };
 }

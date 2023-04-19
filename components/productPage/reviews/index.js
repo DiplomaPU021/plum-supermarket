@@ -12,7 +12,6 @@ import MyCabinet from "@/components/mycabinet";
 import Star from "@/components/icons/Star";
 import { useSelector } from "react-redux";
 
-
 export default function Reviews({ product, productReview, setProductReview }) {
   const { data: session } = useSession();
   const [answer, setAnswer] = useState(false);
@@ -27,10 +26,9 @@ export default function Reviews({ product, productReview, setProductReview }) {
     if (session) {
       setFeedback(true);
     } else {
-      setLoginModalShow(true)
+      setLoginModalShow(true);
     }
-
-  }
+  };
   return (
     <Container fluid className={styles.reviews}>
       <Row className={styles.reviews__title}>
@@ -42,34 +40,54 @@ export default function Reviews({ product, productReview, setProductReview }) {
           Залишити відгук
         </button>
         {session ? (
-          <LeaveFeedback show={feedback} onHide={() => setFeedback(false)} product={product} setProductReview={setProductReview} />
+          <LeaveFeedback
+            show={feedback}
+            onHide={() => setFeedback(false)}
+            product={product}
+            setProductReview={setProductReview}
+          />
         ) : (
-          <MyCabinet show={loginModalShow} onHide={() => setLoginModalShow(false)} />
+          <MyCabinet
+            show={loginModalShow}
+            onHide={() => setLoginModalShow(false)}
+          />
         )}
-
       </Row>
       <div className={styles.reviews__row} scrolable="true">
         <Col className={styles.reviews__row_col}>
-          <Col className={styles.reviews__scrollFrame}>
+          <Col 
+           style={{
+            overflowY: productReview?.length > 1 ? "scroll" : "hidden",
+          }}
+          className={styles.reviews__scrollFrame}>
             {productReview?.length > 0 ? (
               productReview.map((review, i) => (
                 <Row className={styles.reviews__scrollFrame_review} key={i}>
                   <Col className={styles.text}>
                     <span>{review.reviewerName}</span>
                     <span>{review.review}</span>
-                    <span><b>Досвід використання:</b> {review.experience}</span>                   
-                    <span><b>Переваги:</b> {review.advantages}</span>
-                    <span><b>Недоліки:</b> {review.disadvantages}</span>
-                    <span>{review.images.map((img) => (
-                      <Image key={img.public_url}
-                        className={styles.swiper__simillarswiper_image}
-                        src={img.url}
-                        alt=""
-                        width="100px"
-                        height="100px"
-                      />
-                    ))}</span>
-
+                    <span>
+                      <b>Досвід використання:</b> {review.experience}
+                    </span>
+                    <span>
+                      <b>Переваги:</b> {review.advantages}
+                    </span>
+                    <span>
+                      <b>Недоліки:</b> {review.disadvantages}
+                    </span>
+                    <div className={styles.imags}>
+                      {review.images.map((img) => (
+                        <span key={img.public_url}>
+                          <Image
+                            src={img.url}
+                            alt=""
+                            width="100%"
+                            height="150px"
+                            objectfit="cover"
+                          />
+                        </span>
+                      ))}
+                    </div>
                   </Col>
                   <Col className={styles.answer}>
                     <button onClick={() => setAnswer(true)}>
@@ -85,25 +103,38 @@ export default function Reviews({ product, productReview, setProductReview }) {
                   <Col className={styles.line}></Col>
                   <Col className={styles.starsLikes}>
                     <div className={styles.starsLikes_stars}>
-                      {/* {Array(review.rating).fill().map((_, index) => (
-                        <StarIcon key={index} fillColor="#220F4B" />
-                      ))} */}
-                      {Array(5).fill().map((_, index) => (
-                        index < review.rating ? (
-                          <Star key={index} fillColor="#220F4B" height={24} width={24} stroke="#220F4B" />
-                        ) : (
-                          <Star key={index} fillColor="transparent" height={24} width={24} stroke="#70BF63" />
-                        )
-                      ))}
+                      {Array(5)
+                        .fill()
+                        .map((_, index) =>
+                          index < review.rating ? (
+                            <Star
+                              key={index}
+                              fillColor="#220F4B"
+                              height={24}
+                              width={24}
+                              stroke="#220F4B"
+                            />
+                          ) : (
+                            <Star
+                              key={index}
+                              fillColor="transparent"
+                              height={24}
+                              width={24}
+                              stroke="#70BF63"
+                            />
+                          )
+                        )}
                     </div>
                     <div className={styles.starsLikes_likes}>
                       <div className={styles.starsLikes_likes_like}>
+                        {/* TODO */}
                         <span>0</span>
                         <button>
                           <DisLikeIcon fillColor="#220F4B" />
                         </button>
                       </div>
                       <div className={styles.starsLikes_likes_like}>
+                        {/* TODO */}
                         <span>12</span>
                         <button>
                           <LikeIcon fillColor="#220F4B" />
@@ -115,12 +146,11 @@ export default function Reviews({ product, productReview, setProductReview }) {
               ))
             ) : (
               <Row>
-                <Col>
+                <Col style={{display: "flex", alignItems: "center", justifyContent: "center"}}>
                   <span>Тут ще немає відгуків. Ви можете бути першим.</span>
                 </Col>
               </Row>
-            )
-            }
+            )}
           </Col>
         </Col>
       </div>

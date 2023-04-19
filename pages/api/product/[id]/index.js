@@ -28,6 +28,7 @@ handler.get(async (req, res) => {
             slug: product.slug,
             brand: product.brand,
             category_id: product.category,
+            subCategory_slug: product.subCategories[0].slug,
             subCategory_id: product.subCategories[0]._id,
             subCategoryName: product.subCategories[0].name,
             details: product.details,

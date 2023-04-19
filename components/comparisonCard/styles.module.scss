@@ -77,12 +77,16 @@
                 margin: 0;
                 padding: 0;
                 height: 44px;
-                font-family: 'Noto Sans';
-                font-style: normal;
-                font-weight: 400;
-                font-size: 16px;
-                line-height: 22px;
-                color: $plum-dark-color;
+                
+                .link{
+                    text-decoration: none;
+                    font-family: 'Noto Sans';
+                    font-style: normal;
+                    font-weight: 400;
+                    font-size: 16px;
+                    line-height: 22px;
+                    color: $plum-dark-color;
+                }
             }
 
             &_line {

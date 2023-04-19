@@ -66,10 +66,10 @@
             .details {
                 display: flex;
                 flex-direction: column;
-                gap: 1px;
+                margin-top: 1px;
 
                 &_row {
-                    min-height: 38px;
+                    min-height: 36px;
                     display: flex;
                     flex-direction: row;
                     justify-content: flex-start;

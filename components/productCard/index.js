@@ -35,6 +35,7 @@ export default function ProductCard({ product, style, mode }) {
   const cart = useSelector((state) => state.cart);
   const wishList = useSelector((state) => state.wishList);
   const scaleList = useSelector((state) => state.scaleList);
+  const [opacity, setOpacity] = useState("1");
   const reviewRating = useSelector((state) => state.reviewRating);
   const [isOpen, setIsOpen] = useState(false);
   const [wishError, setWishError] = useState(false);
@@ -48,7 +49,8 @@ export default function ProductCard({ product, style, mode }) {
 
   useEffect(() => {
     setImages(product.subProducts[style].images);
-  }, [style, product.slug]);
+    setOpacity((product.quantity < 1) ? "0.6" : "1")
+  }, [style, product.slug, product]);
 
   useEffect(() => {
     let _uid = `${product._id}_${product.style}_${product.mode}`;
@@ -223,7 +225,10 @@ export default function ProductCard({ product, style, mode }) {
       /> */}
       <div className={styles.product__container}>
         <div className={styles.product__container_photobox}>
-          <Link href={`/product/${product.slug}?style=${style}&code=${mode}`}>
+          <Link
+            style={{ opacity: opacity }}
+            href={`/product/${product.slug}?style=${style}&code=${mode}`}
+          >
             <ProductSwiper images={images} />
           </Link>
           <Button
@@ -237,7 +242,10 @@ export default function ProductCard({ product, style, mode }) {
           </Button>
         </div>
         {product.subProducts[style]?.discount ? (
-          <div className={styles.product__discount}>
+          <div
+            style={{ opacity: opacity }}
+            className={styles.product__discount}
+          >
             -{product.subProducts[style]?.discount}%
           </div>
         ) : (
@@ -246,8 +254,12 @@ export default function ProductCard({ product, style, mode }) {
         <Container className={styles.product__container_infos}>
           <Row>
             <Col>
-              <Card.Title className={styles.product__container_infos_title}>
+              <Card.Title
+                style={{ opacity: opacity }}
+                className={styles.product__container_infos_title}
+              >
                 <Link
+                  className={styles.link}
                   href={`/product/${product.slug}?style=${style}&code=${mode}`}
                   className={styles.linktext}
                 >
@@ -274,12 +286,18 @@ export default function ProductCard({ product, style, mode }) {
           </Row>
           <Row>
             <Col>
-              <div className={styles.product__container_infos_line}></div>
+              <div
+                style={{ opacity: opacity }}
+                className={styles.product__container_infos_line}
+              ></div>
             </Col>
           </Row>
           <Row className={styles.product__container_infos_pricebtn}>
             {product.subProducts[style]?.discount > 0 ? (
-              <Col className={styles.product__container_infos_pricebtn_price}>
+              <Col
+                style={{ opacity: opacity }}
+                className={styles.product__container_infos_pricebtn_price}
+              >
                 <span
                   className={styles.pricediscount}
                 >{`${product.subProducts[style]?.sizes[mode].price.toLocaleString("uk-UA")} ${product.subProducts[style]?.sizes[mode].price_unit
@@ -293,7 +311,10 @@ export default function ProductCard({ product, style, mode }) {
                 </span>
               </Col>
             ) : (
-              <Col className={styles.product__container_infos_pricebtn_price}>
+              <Col
+                style={{ opacity: opacity }}
+                className={styles.product__container_infos_pricebtn_price}
+              >
                 <span
                   className={styles.priceregular}
                 >{`${product.subProducts[style]?.sizes[mode].price} ${product.subProducts[style]?.sizes[mode].price_unit}`}</span>
@@ -310,6 +331,7 @@ export default function ProductCard({ product, style, mode }) {
               className={styles.btncart}
               disabled={product.quantity < 1}
               style={{
+                opacity: opacity,
                 cursor: `${product.quantity < 1 ? "not-allowed" : ""}`,
                 backgroundColor: cartChosen ? "#220F4B" : "#FAF8FF"
               }}
