@@ -181,10 +181,10 @@ const getWishlist = async (userId) => {
     if (user) {
         const wishlist = user.wishlist;
         const newProducts = wishlist.map(async (item) => {
-            const product = await Product.findById(item.product);
+            const product = await Product.findById(item.product, '-reviews');
             if (product) {
-                const style = item.style;
-                const mode = item.mode;
+                const style = Number(item.style);
+                const mode = Number(item.mode);
                 const _uid = `${item.product}_${style}_${mode}`;
                 const subProduct = product.subProducts[style];
                 if (subProduct) {
