@@ -152,104 +152,171 @@ const userSchema = new mongoose.Schema({
             }
         },
     ],
-    // additionalInfo:[
-    //     {
-    //         children: Boolean,
-    //         description:"У мене є дитина"
-    //     },
-    //     {
-    //         vehicle: Boolean,
-    //         description:"Я є власником автомобіля"
-    //     }, 
-    //     {
-    //         motocicle: Boolean,
-    //         description:"Я є власником іншого виду транспорту"
-    //     }, 
-    //     {
-    //         business: Boolean,
-    //         description:"Цей аккаунт використовується юридичною особою, представником компанії або приватним підприємцем"
-    //     },
+    additionalInfo: [
+        {
+            children: Boolean,
+            field: {
+                type: String,
+                description: "У мене є дитина"
+            }
+        },
+        {
+            vehicle: Boolean,
+            field: {
+                type: String,
+            description: "Я є власником автомобіля"
+            }
+        },
+        {
+            motocicle: Boolean,
+            field: {
+                type: String,
+            description: "Я є власником іншого виду транспорту"
+            }
+        },
+        {
+            business: Boolean,
+            field: {
+                type: String,
+            description: "Цей аккаунт використовується юридичною особою, представником компанії або приватним підприємцем"
+            }
+        },
 
-    // ],
-    // admiration:[
-    //     {
-    //         fishing: Boolean,
-    //         description:"Рибальство"
-    //     },
-    //     {
-    //         hunting: Boolean,
-    //         description:"Полювання"
-    //     },
-    //     {
-    //         music: Boolean,
-    //         description:"Садівництво"
-    //     },
-    //     {
-    //         fitness: Boolean,
-    //         description:"Фітнес"
-    //     }, 
-    //     {
-    //         yoga: Boolean,
-    //         description:"Йога"
-    //     }, 
-    //     {
-    //         running: Boolean,
-    //         description:"Біг"
-    //     },
-    //     {
-    //         bicycle: Boolean,
-    //         description:"Велосипед"
-    //     }, 
-    //     {
-    //         yoga: Boolean,
-    //         description:"Музика"
-    //     },
-    //     {
-    //         music: Boolean,
-    //         description:"Музика"
-    //     },
-    //     {
-    //         tourism: Boolean,
-    //         description:"Туризм"
-    //     },
-    //     {
-    //         cybersport: Boolean,
-    //         description:"Кіберспорт"
-    //     },
-    //     {
-    //         handmade: Boolean,
-    //         description:"Рукоділля"
-    //     },
-    // ],
-    // pets:[
-    //     {
-    //         dog: Boolean,
-    //         description:"Песик"
-    //     },
-    //     {
-    //         bird: Boolean,
-    //         description:"Пташка"
-    //     },
-    //     {
-    //         cat: Boolean,
-    //         description:"Котик"
-    //     },
-    //     {
-    //         reptile: Boolean,
-    //         description:"Плазун"
-    //     }, 
+    ],
+    admiration: [
+        {
+            fishing: Boolean,
+            field: {
+                type: String,
+            description: "Рибальство"
+            }
+        },
+        {
+            hunting: Boolean,
+            field: {
+                type: String,
+            description: "Полювання"
+            }
+        },
+        {
+            music: Boolean,
+            field: {
+                type: String,
+            description: "Садівництво"
+            }
+        },
+        {
+            fitness: Boolean,
+            field: {
+                type: String,
+            description: "Фітнес"
+            }
+        },
+        {
+            yoga: Boolean,
+            field: {
+                type: String,
+            description: "Йога"
+            }
+        },
+        {
+            running: Boolean,
+            field: {
+                type: String,
+            description: "Біг"
+        }
 
-    //     {
-    //         fish: Boolean,
-    //         description:"Рибки"
-    //     },
-    //     {
-    //         rodent: Boolean,
-    //         description:"Гризун"
-    //     },
+        },
+        {
+            bicycle: Boolean,
+            field: {
+                type: String,
+            description: "Велосипед"
+            }
+        },
+        {
+            yoga: Boolean,
+            field: {
+                type: String,
+            description: "Музика"
+            }
+        },
+        {
+            music: Boolean,
+            field: {
+                type: String,
+            description: "Музика"
+            }
+        },
+        {
+            tourism: Boolean,
+            field: {
+                type: String,
+            description: "Туризм"
+            }
+        },
+        {
+            cybersport: Boolean,
+            field: {
+                type: String,
+            description: "Кіберспорт"
+            }
+        },
+        {
+            handmade: Boolean,
+            field: {
+                type: String,
+            description: "Рукоділля"
+            }
+        },
+    ],
+    pets: [
+        {
+            dog: Boolean,
+            field: {
+                type: String,
+            description: "Песик"
+            }
+        },
+        {
+            bird: Boolean,
+            field: {
+                type: String,
+            description: "Пташка"
+            }
+        },
+        {
+            cat: Boolean,
+            field: {
+                type: String,
+            description: "Котик"
+            }
+        },
+        {
+            reptile: Boolean,
+            field: {
+                type: String,
+            description: "Плазун"
+            }
+        },
+
+        {
+            fish: Boolean,
+            field: {
+                type: String,
+            description: "Рибки"
+            }
+        },
+        {
+            rodent: Boolean,
+            field: {
+                type: String,
+            description: "Гризун"
+            }
+        },
 
 
-    // ]
+    ]
 },
     { timestamps: true, }
 

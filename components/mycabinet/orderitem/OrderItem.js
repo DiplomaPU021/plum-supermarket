@@ -48,8 +48,8 @@ export default function OrderItem(props) {
                                 </tr>
                             </thead>
                             <tbody>
-                                {props.order.products.slice(0, 2).map(product => (
-                                    <tr>
+                                {props.order.products.slice(0, 2).map((product,i) => (
+                                    <tr key={i}>
                                         <td> <div className={styles.picture}>
                                             <img src={product.image} width='74px' height='45px' style={{ objectFit: "contain" }} />
                                         </div>
@@ -75,7 +75,7 @@ export default function OrderItem(props) {
                             <p>Оплата</p>
                             {props.order.discount > 0 ? (
                                 <div>
-                                    <span>Застосовано промокод {orderData.promocode}</span><br />
+                                    <span>Застосовано промокод {props.order.promocode}</span><br />
                                     <span>Знижка {props.order.discount}%</span><br />
                                 </div>
                             ) : <></>}

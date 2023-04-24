@@ -50,7 +50,7 @@ export default function ProductCard({ product, style, mode }) {
   const [scaleChosen, setScaleChosen] = useState(false);
 
   useEffect(() => {
-    setImages(product.subProducts[style].images);
+    setImages(product.subProducts[style]?.images);
     setOpacity(product.quantity < 1 ? "0.6" : "1");
   }, [style, product.slug, product]);
 
@@ -249,7 +249,7 @@ export default function ProductCard({ product, style, mode }) {
           borderRadius: "30px",
           zIndex: "2",
         }}
-      />
+      />*/}
       <div className={styles.product__container}>
         <div className={styles.product__container_photobox}>
           <Link

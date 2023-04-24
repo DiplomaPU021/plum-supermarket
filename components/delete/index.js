@@ -23,7 +23,7 @@ export default function DelNotification({ setDeleteConfirm, productId, setError,
         let newCart = cart.cartItems.filter((item) => {
             return item._uid != productId;
         });
-        setError((prevState) => ({ ...prevState, inCartError: false, uidProduct: "" }));
+        // setError((prevState) => ({ ...prevState, inCartError: false, uidProduct: "" }));
         dispatch(updateCart(newCart));
         if (dontAsk.askType != "") {
             setDeleteConfirm(true);

@@ -33,7 +33,7 @@ export default function ProductSwiper({ images }) {
         modules={[Autoplay]}
         loop={true}
       >
-        {images.map((img, i) => (
+        {images?.map((img, i) => (
           <SwiperSlide key={i}>
             <Card.Img
               src={img.url}
