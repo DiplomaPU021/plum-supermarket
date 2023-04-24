@@ -23,8 +23,15 @@ import {
   removeFromScaleList,
   updateScaleList,
 } from "@/store/scaleListSlice";
+import { addToViewedList } from "@/store/viewedListSlice";
 
-export default function Infos({ product, active, setActive, productError, setProductError }) {
+export default function Infos({
+  product,
+  active,
+  setActive,
+  productError,
+  setProductError,
+}) {
   const router = useRouter();
   const { data: session, status } = useSession();
   const dispatch = useDispatch();
@@ -32,12 +39,14 @@ export default function Infos({ product, active, setActive, productError, setPro
   const cart = useSelector((state) => state.cart);
   const wishList = useSelector((state) => state.wishList);
   const scaleList = useSelector((state) => state.scaleList);
+  const viewedList = useSelector((state) => state.viewedList);
   const [showDetails, setShowDetails] = useState(false);
   const [showSizes, setShowSizes] = useState(false);
   const [isOpen, setIsOpen] = useState(false);
   const [isOpenQ, setIsOpenQ] = useState(false);
   const [wishBtnColor, setWishBtnColor] = useState(false);
   const [scaleBtnColor, setScaleBtnColor] = useState(false);
+  const [scaleChosen, setScaleChosen] = useState(false);
   const [opacity, setOpacity] = useState("1");
 
   let count = 0;
@@ -84,8 +93,9 @@ export default function Infos({ product, active, setActive, productError, setPro
   const addToWishListHandler = async () => {
     if (session) {
       setIsOpen(false);
-      let _uid = `${product._id}_${product.style}_${product.subProducts[product.style].sizes[product.mode].code
-        }`;
+      let _uid = `${product._id}_${product.style}_${
+        product.subProducts[product.style].sizes[product.mode].code
+      }`;
       let exist = null;
       if (wishList.wishListItems) {
         exist = wishList.wishListItems.find((item) => item._uid === _uid);
@@ -93,9 +103,9 @@ export default function Infos({ product, active, setActive, productError, setPro
       if (exist) {
         let newWishList = wishList.wishListItems.filter((item) => {
           return item._uid != _uid;
-          });
-          dispatch(updateWishList(newWishList));
-          updateOneInWishList({  productId: product._id  });
+        });
+        dispatch(updateWishList(newWishList));
+        updateOneInWishList({ productId: product._id });
       } else {
         const { data } = await axios.get(
           `/api/product/${product._id}?style=${product.style}&code=${product.mode}`
@@ -135,29 +145,47 @@ export default function Infos({ product, active, setActive, productError, setPro
         (item) => item.subCategory_id === data.subCategory_id
       );
       if (existSub) {
-        existItem = existSub.items.find(
-          (p) => p._id === data._id //&& p.code == data.code
-        );
+        existItem = existSub.items.some((p) => {
+          return (
+            p._id == data._id && p.style == data.style && p.mode == data.mode
+          );
+        });
         if (existItem) {
-          if (existItem.code === data.code) {
-            if (existSub.items.length === 1) {
-              dispatch(removeFromScaleList({ ...existSub }));
-            } else {
-              dispatch(updateScaleList({ ...data }));
-            }
+          if (existSub.items.length === 1) {
+            dispatch(removeFromScaleList({ ...existSub }));
+            setScaleChosen(false);
           } else {
             dispatch(updateScaleList({ ...data }));
-            dispatch(addToScaleList({ ...data }));
+            setScaleChosen(false);
           }
         } else {
           dispatch(addToScaleList({ ...data }));
+          setScaleChosen(true);
         }
       } else {
         dispatch(addToScaleList({ ...data }));
+        setScaleChosen(true);
       }
     }
   };
+  const addToViewedHandler = async () => {
+    const { data } = await axios.get(
+      `/api/product/${product._id}?style=${product.style}&code=${product.mode}`
+    );
 
+    if (viewedList.viewedListItems) {
+      const existItem = viewedList.viewedListItems.find(
+        (item) =>
+          item._id == data._id &&
+          item.style == data.style &&
+          item.mode == data.mode
+      );
+      
+      if (!existItem) {
+        dispatch(addToViewedList({ ...data }));
+      }
+    }
+  };
   return (
     <Container fluid className={styles.infos}>
       <Tooltip
@@ -209,10 +237,10 @@ export default function Infos({ product, active, setActive, productError, setPro
             </div> */}
           </div>
           <button
-            style={{ backgroundColor: scaleBtnColor ? "#220F4B" : "#FAF8FF" }}
+            style={{ backgroundColor: scaleChosen ? "#220F4B" : "#FAF8FF" }}
             onClick={addToScaleHandler}
           >
-            <ScalesIcon fillColor={scaleBtnColor ? "#FAF8FF" : "#220F4B"} />
+            <ScalesIcon fillColor={scaleChosen ? "#FAF8FF" : "#220F4B"} />
           </button>
         </div>
         <div className={styles.infos__priceandaction_buy}>
@@ -286,6 +314,7 @@ export default function Infos({ product, active, setActive, productError, setPro
               <Link
                 style={{ textDecoration: "none" }}
                 key={i}
+                onClick={addToViewedHandler}
                 href={`/product/${product.slug}?style=${router.query.style}&code=${i}`}
               >
                 <Col

@@ -120,7 +120,7 @@ export default function Reviews({ product, productReview, setProductReview }) {
                               fillColor="transparent"
                               height={24}
                               width={24}
-                              stroke="#70BF63"
+                              stroke="#220F4B"
                             />
                           )
                         )}

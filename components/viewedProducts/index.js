@@ -9,9 +9,11 @@ import "swiper/css/pagination";
 import { Navigation } from "swiper";
 import ProductCard from "../productCard";
 import { useEffect, useState } from "react";
+import { useSelector } from "react-redux";
 
-export default function ViewedProducts({ viewedProducts }) {
+export default function ViewedProducts() {
   const [numCards, setNumCards] = useState(3);
+  const viewedList = useSelector((state) => state.viewedList);
 
   useEffect(() => {
     const handleResize = () => {
@@ -54,10 +56,10 @@ export default function ViewedProducts({ viewedProducts }) {
             loop={true}
             modules={[Navigation]}
           >
-            {viewedProducts.map((p, i) => (
+            {viewedList.viewedListItems.map((p, i) => (
               <SwiperSlide key={i}>
                 <Col style={{ padding: "0", display: "flex" }}>
-                  <ProductCard product={p} style={0} mode={0}/>
+                  <ProductCard product={p} style={p.style} mode={p.mode}/>
                 </Col>
               </SwiperSlide>
             ))}

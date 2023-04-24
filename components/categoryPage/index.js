@@ -18,7 +18,7 @@ export default function CategoryPage({ category }) {
                 <Col className={styles.col} key={i}>
                   <Link
                     style={{ textDecoration: "none" }}
-                    href={`/subCategory/${group.slug}`}
+                    href={`/subCategory/${group.slug}?sub=${group.group_subcategory[0].slug}`}
                   >
                     <CategoryCard group={group} />
                   </Link>

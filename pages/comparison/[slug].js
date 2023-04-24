@@ -27,7 +27,7 @@ import Category from "@/models/Category";
 export default function ComparisonPage({
   products,
   country,
-  subCategory_id,
+  subCategory,
   group_subcategory_slug,
 }) {
   const [checked, setChecked] = useState(false);
@@ -77,22 +77,23 @@ export default function ComparisonPage({
   }, []);
 
   const [activeIndex, setActiveIdnex] = useState(0);
-  const subCategory = scaleList.scaleListItems.find(
-    (item) => item.subCategory_id === subCategory_id
+  const subCateg = scaleList.scaleListItems.find(
+    (item) => item.subCategory_id === subCategory._id
   );
 
   const [groups, setGroups] = useState([]);
   const [groupsUniques, setGroupsUniques] = useState([]);
 
   useEffect(() => {
-    if (subCategory && subCategory.items) {
-      const categories = subCategory.items.reduce((acc, product) => {
+    if (subCateg && subCateg.items) {
+      const categories = subCateg.items.reduce((acc, product) => {
         product.details.forEach((detail) => {
-          const groupName = detail.group; // || "Загальні характеристики";
+          const groupName = detail.group;
           let fields = acc[groupName]?.fields || {};
+
           detail.fields.forEach((field) => {
             fields[field.name] = fields[field.name] || [];
-            fields[field.name].push(field.value || "-"); // add "-" if value is falsy
+            //fields[field.name].push(field.value || "-");
           });
           acc[groupName] = { group: groupName, fields };
         });
@@ -111,7 +112,7 @@ export default function ComparisonPage({
         .map(({ group, fields }) => {
           const uniqueFields = Array.from(new Set(fields.map((f) => f.name)));
           const newFields = uniqueFields.map((name) => {
-            const values = subCategory.items.map((item) => {
+            const values = subCateg.items.map((item) => {
               const detail = item.details.find(
                 (detail) => detail.group === group
               );
@@ -129,33 +130,92 @@ export default function ComparisonPage({
           return { group, fields: newFields };
         });
 
+      subCateg.items.forEach((product) => {
+        if (product.color) {
+          const colorField = groupFields[0].fields.find(
+            (f) => f.name === "Колір"
+          );
+          if (!colorField) {
+            groupFields[0].fields.push({
+              name: "Колір",
+              values: [product.color.color],
+            });
+          } else {
+            colorField.values.push(product.color.color);
+          }
+        }
+        if (product.size) {
+          const sizeField = groupFields[0].fields.find(
+            (f) => f.name === "Розмір"
+          );
+          if (!sizeField) {
+            groupFields[0].fields.push({
+              name: "Розмір",
+              values: [product.size],
+            });
+          } else {
+            sizeField.values.push(product.size);
+          }
+        }
+      });
+
       const uniquesGroups = JSON.parse(JSON.stringify(groupFields));
-      uniquesGroups.map((p, i) => {
-        p.fields.map((f, j) => {
-          let flag = true;
-          for (let k = 1; k < f.values.length; k++) {
-            if (f.values[k] !== f.values[0]) {
-              flag = false;
+      for (let i = uniquesGroups.length - 1; i >= 0; i--) {
+        const fields = uniquesGroups[i].fields;
+        let allSame = true;
+        for (let j = 1; j < fields.length; j++) {
+          const values1 = fields[j - 1].values;
+          const values2 = fields[j].values;
+          if (values1.length !== values2.length) {
+            allSame = false;
+            break;
+          }
+          for (let k = 0; k < values1.length; k++) {
+            if (
+              values1[k].trim().toLowerCase() !==
+              values2[k].trim().toLowerCase()
+            ) {
+              allSame = false;
               break;
             }
           }
-          if (flag) {
-            if (p.fields.length === 1) {
-              uniquesGroups.splice(i, 1);
-            }
-            p.fields.splice(j, 1);
+          if (!allSame) {
+            break;
           }
-        });
-      }); 
+        }
+        if (allSame) {
+          uniquesGroups.splice(i, 1);
+        } else {
+          for (let j = fields.length - 1; j >= 0; j--) {
+            const values = fields[j].values;
+            let allSame = true;
+            for (let k = 1; k < values.length; k++) {
+              if (
+                values[k].trim().toLowerCase() !==
+                values[0].trim().toLowerCase()
+              ) {
+                allSame = false;
+                break;
+              }
+            }
+            if (allSame) {
+              if (fields.length === 1) {
+                uniquesGroups.splice(i, 1);
+              } else {
+                fields.splice(j, 1);
+              }
+            }
+          }
+        }
+      }
 
       setGroupsUniques(uniquesGroups);
       setGroups(groupFields);
     }
-  }, [subCategory && subCategory.items]);
+  }, [subCateg && subCateg.items]);
 
-
-  const deleteGroupHadler = (subCategory) => {
-    dispatch(removeFromScaleList({ ...subCategory }));
+  const deleteGroupHadler = (subCateg) => {
+    dispatch(removeFromScaleList({ ...subCateg }));
   };
 
   return (
@@ -168,9 +228,7 @@ export default function ComparisonPage({
       <Header country={country} />
       <Row className={styles.comparison__title}>
         <Col className={styles.comparison__title_name}>
-          <span>
-            Порівнюємо {subCategory ? subCategory.subCategoryName : ""}
-          </span>
+          <span>Порівнюємо {subCateg ? subCateg.subCategoryName : ""}</span>
         </Col>
       </Row>
       <Row className={styles.comparison__parameters}>
@@ -192,7 +250,9 @@ export default function ComparisonPage({
         <Col lg={widthEmptyCard} className={styles.colEmpty}>
           <Col className={styles.colEmpty__empty}>
             <button className={styles.btnscales}>
-              <Link href={`/subCategory/${group_subcategory_slug}`}>
+              <Link
+                href={`/subCategory/${group_subcategory_slug}?sub=${subCategory.slug}`}
+              >
                 <img src="../icons/plus_green.png" alt="" />
               </Link>
             </button>
@@ -202,7 +262,7 @@ export default function ComparisonPage({
               <span>Очистити все</span>
               <button
                 className={styles.btnscales}
-                onClick={() => deleteGroupHadler(subCategory)}
+                onClick={() => deleteGroupHadler(subCateg)}
               >
                 <DeleteIcon fillColor={"#220F4B"} />
               </button>
@@ -210,7 +270,7 @@ export default function ComparisonPage({
           </Col>
         </Col>
         <Col
-          style={{ display: subCategory ? "block" : "none" }}
+          style={{ display: subCateg ? "block" : "none" }}
           lg={widthCards}
           className={styles.row}
         >
@@ -230,8 +290,8 @@ export default function ComparisonPage({
             modules={[Navigation]}
             onActiveIndexChange={(swiper) => setActiveIdnex(swiper.activeIndex)}
           >
-            {subCategory
-              ? subCategory.items.map((p, i) => (
+            {subCateg
+              ? subCateg.items.map((p, i) => (
                   <SwiperSlide
                     key={i}
                     style={{ position: "absolute !important" }}
@@ -254,10 +314,10 @@ export default function ComparisonPage({
         flush
         alwaysOpen
         defaultActiveKey={0}
-        style={{ display: subCategory ? "block" : "none" }}
+        style={{ display: subCateg ? "block" : "none" }}
         className={styles.accordion}
       >
-        {(checked? groupsUniques : groups).map((p, i) => (
+        {(checked ? groupsUniques : groups).map((p, i) => (
           <Accordion.Item
             eventKey={i}
             key={i}
@@ -278,7 +338,7 @@ export default function ComparisonPage({
                           ref={targetRef}
                           src="../../icons/help_light.png"
                           alt=""
-                          onMouseEnter={() => {
+                          onClick={() => {
                             handleMouseEnter({
                               title: f.name,
                               info: "info",
@@ -294,7 +354,16 @@ export default function ComparisonPage({
                         .map((v, k) => (
                           <td
                             key={k}
-                            style={{ width: `${100 / (numCards + 1)}%` }}
+                            // style={{ width: `${100 / (numCards + 1)}%` }}
+                            style={{
+                              width:
+                                k + 1 === f.values.length &&
+                                f.values.length < numCards + 1
+                                  ? f.values.length === 1
+                                    ? "80%"
+                                    : `${100 / (f.values.length - 1)}%`
+                                  : `${100 / (numCards + 1)}%`,
+                            }}
                           >
                             {v}
                           </td>
@@ -385,7 +454,7 @@ export async function getServerSideProps(context) {
     props: {
       products: JSON.parse(JSON.stringify(popularFromCategory)),
       country: countryData,
-      subCategory_id: JSON.parse(JSON.stringify(id)),
+      subCategory: JSON.parse(JSON.stringify(subCategory)),
       group_subcategory_slug: group_slug,
     },
   };

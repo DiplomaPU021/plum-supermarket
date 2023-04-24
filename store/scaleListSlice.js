@@ -38,7 +38,7 @@ export const scaleListSlice = createSlice({
           );
         } else {
           const index = updatedsubCategoryItems.items.findIndex(
-            (item) => item._id === updatedItems._id
+            (item) => item._id === updatedItems._id && item.style == updatedItems.style && item.mod == updatedItems.mod
           );
           if (index !== -1) {
             updatedsubCategoryItems.items.splice(index, 1);

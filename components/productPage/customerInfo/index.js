@@ -20,7 +20,7 @@ export default function CustomerInteraction() {
           <Container fluid className={styles.creditvariant}>
             <Row className={styles.creditvariant__credit}>
               <span className={styles.title}>В кредит</span>
-              <button>В кредит</button>
+              <button>Оформити</button>
             </Row>
             <Row>
               <Col className={styles.creditvariant__banks}>

@@ -52,7 +52,7 @@ export default function product({ product, popular, country, style, mode }) {
             <GreenChevronRight fillColor="#70BF63" w="30px" h="30px" />
           </Link>
           <Link
-            href={`/subCategory/${product.subCategories[0].parent.slug}`}
+            href={`/subCategory/${product.subCategories[0].parent.slug}?sub=${product.subCategories[0].slug}`}
             className={styles.links__link}
           >
             <span> {product.subCategories[0].name}</span>

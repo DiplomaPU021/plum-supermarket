@@ -7,8 +7,9 @@ import cart from "./cartSlice"
 import wishList from "./wishListSlice"
 import scaleList from "./scaleListSlice"
 import reviewRating from "./reviewSlice"
+import viewedList from "./viewedListSlice";
 
-const reducers = combineReducers({ cart, wishList, scaleList, reviewRating });
+const reducers = combineReducers({ cart, wishList, scaleList, viewedList, reviewRating });
 
 const createNoopStorage = () => {
     return {
