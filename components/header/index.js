@@ -18,10 +18,12 @@ import { Tooltip } from "react-tooltip";
 import "react-tooltip/dist/react-tooltip.css";
 import axios from 'axios';
 import { updateWishList } from "@/store/wishListSlice";
+import { useRouter } from "next/router";
 
 export default function Header({ country }) {
   const { data: session, status } = useSession();
   const dispatch = useDispatch();
+  const router = useRouter();
   const cart = useSelector((state) => state.cart);
   const wishList = useSelector((state) => state.wishList);
   const scaleList = useSelector((state) => state.scaleList);
@@ -37,6 +39,7 @@ export default function Header({ country }) {
   const [isOpen, setIsOpen] = useState(false);
   const [user, setUser] = useState();
   const [orders, setOrders] = useState([]);
+  const [query, setQuery] = useState("");
   // useEffect(() => {
   //   // console.log('App comp value:', JSON.stringify(error));
   // }, [wishShow]);
@@ -129,6 +132,10 @@ export default function Header({ country }) {
       alert("Залогінтесь");
     }
   }
+  const handlerSubmit = (e) => {
+    e.preventDefault();
+    router.push(`/search?text=${query}`);
+  }
 
   return (
     <div className={styles.main}>
@@ -165,8 +172,8 @@ export default function Header({ country }) {
         </Link>
         <div className={styles.search} style={{ width: divVisible ? '65%' : '10%' }}>
           <div className={styles.search_flex} style={{ display: divVisible ? 'flex' : 'none' }}>
-            <input type="text" placeholder="Я шукаю..." />
-            <button>
+            <input type="text" placeholder="Я шукаю..." onChange={(e) => setQuery(e.target.value)} />
+            <button onClick={handlerSubmit}>
               <LoopIcon fillColor="#FAF8FF" />
             </button>
           </div>
@@ -189,7 +196,7 @@ export default function Header({ country }) {
               onMouseLeave={() => setIsOpen(false)}>
               <HeartIcon fillColor={wishShow ? "#FAF8FF" : "#220F4B"} />
             </button>
-            {getWishItemsCount() !== 0 ? <span> {getWishItemsCount()}</span> : null}
+            {getWishItemsCount() !== 0 && getWishItemsCount()>0 ? <span> {getWishItemsCount()}</span> : null}
           </div>
           <div className={styles.cart}>
             <button onClick={() => setCartShow(true)} style={{ backgroundColor: cartShow ? "#220F4B" : "#FAF8FF" }}>

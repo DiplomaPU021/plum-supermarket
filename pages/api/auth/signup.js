@@ -37,7 +37,7 @@ handler.post(async (req, res) => {
         });
         const addedUser = await newUser.save();
         const activation_token = createActivationToken({
-            id: addedUser._id.toString(),
+            id: addedUser?._id.toString(),
         });
         // console.log("activation_token////////////////",activation_token);
         const url = `${process.env.BASE_URL}/activate/${activation_token}`;

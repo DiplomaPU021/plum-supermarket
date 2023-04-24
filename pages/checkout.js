@@ -17,7 +17,7 @@ export default function Checkout({ cart, user, country }) {
   return (
     <div className={styles.container}>
       <Header />
-      <CheckoutOrder cart={cart} user={user} country={country} />
+      <CheckoutOrder cart={cart} user={user} country={country}/>
     </div>
 
   );
@@ -30,6 +30,7 @@ export async function getServerSideProps(context) {
   var user = {}; var cart = {};
   const { req } = context;
   const session = await getSession({ req });
+  // let stripe_public_key = process.env.STRIPE_PUBLIC_KEY;
   if (session) {
     user = await User.findById(session.user.id);
     if (user) {
@@ -46,6 +47,14 @@ export async function getServerSideProps(context) {
         }
       }
     }
+   
+  }
+  else {
+    return {
+      redirect: {
+        destination: "/",
+      }
+    }
   }
   await db.disconnectDb();
   return {
@@ -53,6 +62,7 @@ export async function getServerSideProps(context) {
       cart,
       user,
       country: countryData,
+      // stripe_public_key
     },
   };
 }

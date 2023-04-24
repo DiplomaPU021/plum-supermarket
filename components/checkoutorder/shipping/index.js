@@ -205,11 +205,11 @@ export default function Shipping({ user, activeAddress, setActiveAddress, countr
     };
 
     const handleSelectPickup = (e) => {
-        const options = e.target.options;
-        if (options[0].selected) {
-            options[0].disabled = true;
-        }
-        // console.log("handleSelectPickup", e.target.id);
+        // const options = e.target.options;
+        // if (options[0].selected) {
+        //     options[0].disabled = true;
+        // }
+        //  console.log("handleSelectPickup", e.target.value);
         setDelivery({
             ...delivery,
             deliveryAddress: e.target.value,
@@ -276,10 +276,10 @@ export default function Shipping({ user, activeAddress, setActiveAddress, countr
         });
     }
     const handleSelectElevator = (e) => {
-        const options = e.target.options;
-        if (options[0].selected) {
-            options[0].disabled = true;
-        }
+        // const options = e.target.options;
+        // if (options[0].selected) {
+        //     options[0].disabled = true;
+        // }
         setActiveAddress({
             ...activeAddress,
             elevator: e.target.value
@@ -313,38 +313,40 @@ export default function Shipping({ user, activeAddress, setActiveAddress, countr
                             ref={cityRef}
                         />
                         <CityModal show={cityModalShow} onClose={handleCityModalClose} />
-                        <Row>
-                            <Col>
-                                <Form.Check
-                                    type="radio"
-                                    className={styles.radio}
-                                    aria-label="radio 9">
-                                    <Form.Check.Input
-                                        id="selfPickup"
-                                        name="selfPickup"
+                        {deliveryTypes[0].adresses.some(item => item.city === selectedCity?.object_name) &&
+                            <Row>
+                                <Col>
+                                    <Form.Check
                                         type="radio"
-                                        className={styles.rrr}
-                                        value={deliveryTypes[0].name}
-                                        onChange={handleChangeDelivery}
-                                        checked={delivery.deliveryType === `${deliveryTypes[0].name}`}
-                                    />
-                                    <Form.Check.Label htmlFor="selfPickup" className={styles.labeltext}>{deliveryTypes[0].name}</Form.Check.Label>
-                                </Form.Check>
-                            </Col>
-                            <Col className={styles.text_span}>{deliveryTypes[0].price}</Col>
-                            <Row style={{ display: showSelfPickup }} >
-                                <Form.Select className={styles.form_input2}
-                                    onClick={handleSelectPickup}
-                                >
-                                    <option value="" disabled={false} key="selfpick1">Вибрати адресу відділення...</option>
-                                    {deliveryTypes[0].adresses.map((item, i) => (
-                                        item.city == selectedCity?.object_name ?
-                                            <option key={item.id} >{item.cityType}{item.city}, {item.street}</option> :
-                                            <React.Fragment key={i} />
-                                    ))}
-                                </Form.Select>
+                                        className={styles.radio}
+                                        aria-label="radio 9">
+                                        <Form.Check.Input
+                                            id="selfPickup"
+                                            name="selfPickup"
+                                            type="radio"
+                                            className={styles.rrr}
+                                            value={deliveryTypes[0].name}
+                                            onChange={handleChangeDelivery}
+                                            checked={delivery.deliveryType === `${deliveryTypes[0].name}`}
+                                        />
+                                        <Form.Check.Label htmlFor="selfPickup" className={styles.labeltext}>{deliveryTypes[0].name}</Form.Check.Label>
+                                    </Form.Check>
+                                </Col>
+                                <Col className={styles.text_span}>{deliveryTypes[0].price}</Col>
+                                <Row style={{ display: showSelfPickup }} >
+                                    <Form.Select className={styles.form_input2}
+                                        onClick={handleSelectPickup}
+                                    >
+                                        <option value="Вибрати адресу відділення..." disabled={true} key="selfpick1">Вибрати адресу відділення...</option>
+                                        {deliveryTypes[0].adresses.map((item, i) => (
+                                            item.city === selectedCity?.object_name &&
+                                            <option key={item.id} >{item.cityType}{item.city}, {item.street}</option>
+                                        ))}
+                                    </Form.Select>
+                                </Row>
                             </Row>
-                        </Row>
+                        }
+
                         <Row>
                             <Col>
                                 <Form.Check
@@ -385,15 +387,13 @@ export default function Shipping({ user, activeAddress, setActiveAddress, countr
                                             ) : <></>}
                                     </Form.Select>
                                     <Col>
-
                                         <button onClick={handleShowAddAdress} id="btn-add-another-address">Додати адресу</button>
 
                                     </Col>
                                 </div>
 
-                            ) : (
-                                <></>
-                            )}
+                            ) : null
+                            }
                             <div style={{ display: showAddAddressBlock }} className={styles.street_div}>
                                 <Form.Group >
                                     <Form.Label className={styles.form_label} htmlFor="street">Вулиця</Form.Label>
@@ -411,6 +411,7 @@ export default function Shipping({ user, activeAddress, setActiveAddress, countr
                                                 <li
                                                     key={street._id}
                                                     id={street._id}
+                                                    style={{cursor:"pointer"}}
                                                     onClick={() => handleSelectStreet(street)}
                                                 >
                                                     {`${street.street_type} ${street.name}`}
@@ -448,7 +449,7 @@ export default function Shipping({ user, activeAddress, setActiveAddress, countr
                                         id="idElevator"
                                         value={activeAddress ? activeAddress.elevator : ""}
                                         onChange={handleSelectElevator}>
-                                        <option value="" disabled={false} id="optEl1" key="optEl1">Наявність ліфта</option>
+                                        <option value="Наявність ліфта" disabled={true} id="optEl1" key="optEl1">Наявність ліфта</option>
                                         <option id="optEl2" key="optEl2">Відсутній</option>
                                         <option id="optEl3" key="optEl3">Присутній</option>
                                     </Form.Select>

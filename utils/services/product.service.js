@@ -87,7 +87,7 @@ const findByIdAndUpdateQuantity = async (products) => {
             // Шукаємо індекс підтовару та розміру у підтоварі
             for (let i = 0; i < product.subProducts.length; i++) {
                 const subProduct = product.subProducts[i];
-                sizeIndex = subProduct.sizes.findIndex((size) => size.code.toString() === products[j].code.toString());
+                sizeIndex = subProduct.sizes.findIndex((size) => size.code?.toString() === products[j].code?.toString());
                 if (sizeIndex !== -1) {
                     subProductIndex = i;
                     break;
@@ -133,7 +133,7 @@ const findByIdAndUpdateReviews = async (userId, productId, review) => {
 
     // Перевіряємо, чи є вже review з вказаним userId
     const existingReviewIndex = product.reviews.findIndex(
-        (r) => r.reviewBy.toString() === userId
+        (r) => r.reviewBy?.toString() === userId
     );
 
     if (existingReviewIndex === -1) {

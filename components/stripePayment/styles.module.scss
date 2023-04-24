@@ -1,0 +1,18 @@
+.small_sbm {
+    width: 490px;
+    height: 54px;
+    font-family: 'Noto Sans';
+    font-weight: 320;
+    font-size: 23px;
+    border-radius: 30px;
+    color: #FAF8FF;
+    background-color: #220F4B;
+    border: none;
+  
+    &:hover {
+      box-shadow: 0px 0px 5px 0px #220F4B;
+      background-color: #220F4B;
+    }
+  
+  
+  }

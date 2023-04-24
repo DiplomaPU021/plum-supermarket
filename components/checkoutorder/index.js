@@ -16,7 +16,8 @@ import { useRouter } from "next/router"
 export default function CheckoutOrder({
     cart,
     user,
-    country
+    country,
+    // stripe_public_key
 }) {
     const router = useRouter();
     const [loading, setLoading] = useState(false)
@@ -25,9 +26,10 @@ export default function CheckoutOrder({
     const [delivery, setDelivery] = useState({ deliveryType: "Нова пошта", deliveryCost: "за тарифами перевізника", deliveryAddress: "", deliveryId: "novaPoshta" });
     const [deliveryCost, setDeliveryCost] = useState(0);
     const [userAdresses, setUserAdresses] = useState(user?.address || []);
-    const [activeAddress, setActiveAddress] = useState(userAdresses?.find(address => address.active === true)||null);
+    const [activeAddress, setActiveAddress] = useState(userAdresses?.find(address => address.active === true) || null);
     const [order_error, setOrder_Error] = useState("");
     const [totalAfterDiscount, setTotalAfterDiscount] = useState(cart?.cartTotalPrice);
+    const [isPaid, setIsPaid] = useState(false);
 
     // useEffect(() => {
     //     if (!cart || !user) {
@@ -38,7 +40,7 @@ export default function CheckoutOrder({
     // }, []);
 
     return (
-      <div>
+        <div>
             <Container fluid className={styles.container}>
                 <Row className={styles.row}>
                     <div className={styles.leftsale}>Оформлення замовлення</div>
@@ -53,7 +55,13 @@ export default function CheckoutOrder({
                                 country={country}
                                 delivery={delivery}
                                 setDelivery={setDelivery} />
-                            <PaymentMethod paymentMethod={paymentMethod} setPayment={setPayment} />
+                            <PaymentMethod
+                                paymentMethod={paymentMethod}
+                                setPayment={setPayment}
+                                totalAfterDiscount={totalAfterDiscount}
+                                // stripe_public_key={stripe_public_key}
+                                setIsPaid={setIsPaid}
+                                user={user} />
                         </div>
                     </Col>
                     <Col className={styles.summary_form} xs lg="4">
@@ -66,12 +74,13 @@ export default function CheckoutOrder({
                             activeAddress={activeAddress}
                             delivery={delivery}
                             setDelivery={setDelivery}
+                            isPaid={isPaid}                
                         />
                     </Col>
                 </Row>
             </Container>
-             <SimpleCopyright />
-         </div>
+            <SimpleCopyright />
+        </div>
     )
 }
 
