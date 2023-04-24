@@ -32,6 +32,7 @@ handler.get(async (req, res) => {
             subCategory_id: product.subCategories[0]._id,
             subCategoryName: product.subCategories[0].name,
             details: product.details,
+            subProducts: product.subProducts,
             // shipping: product.shipping,
             code: product.subProducts[style].sizes[mode].code,
            // images: product.subProducts[style].images.map(image => image.public_url),

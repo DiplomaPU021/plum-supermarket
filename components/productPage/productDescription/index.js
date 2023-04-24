@@ -1,6 +1,6 @@
 import ChevronRight from "@/components/icons/ChevronRight";
 import "bootstrap/dist/css/bootstrap.min.css";
-import { Col, Container, Image, Row } from "react-bootstrap";
+import { Col, Container, Row } from "react-bootstrap";
 import styles from "./styles.module.scss";
 import { useState } from "react";
 import AllDescription from "../allDescription";
@@ -10,7 +10,10 @@ export default function ProductDescription({ product }) {
   const [showDescription, setShowDescription] = useState(false)
   return (
     <Container fluid className={styles.description}>
-      <div>{parse(product.description)}</div>
+       <Row className={styles.description__title}>
+        <span>Опис</span>
+      </Row>
+      <Row style={{padding: "0 60px"}}>{parse(product.description)}</Row>
       {/* <Row className={styles.description__row}>
         <Col className={styles.description__row_col}>
           <span>MacBook Air. З новою силою.</span>

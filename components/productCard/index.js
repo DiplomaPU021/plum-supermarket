@@ -24,6 +24,7 @@ import {
 } from "@/store/scaleListSlice";
 import { Tooltip } from "react-tooltip";
 import "react-tooltip/dist/react-tooltip.css";
+import { addToViewedList } from "@/store/viewedListSlice";
 
 export default function ProductCard({ product, style, mode }) {
   const { data: session, status } = useSession();
@@ -35,6 +36,7 @@ export default function ProductCard({ product, style, mode }) {
   const cart = useSelector((state) => state.cart);
   const wishList = useSelector((state) => state.wishList);
   const scaleList = useSelector((state) => state.scaleList);
+  const viewedList = useSelector((state) => state.viewedList);
   const [opacity, setOpacity] = useState("1");
   const reviewRating = useSelector((state) => state.reviewRating);
   const [isOpen, setIsOpen] = useState(false);
@@ -49,7 +51,7 @@ export default function ProductCard({ product, style, mode }) {
 
   useEffect(() => {
     setImages(product.subProducts[style].images);
-    setOpacity((product.quantity < 1) ? "0.6" : "1")
+    setOpacity(product.quantity < 1 ? "0.6" : "1");
   }, [style, product.slug, product]);
 
   useEffect(() => {
@@ -194,6 +196,7 @@ export default function ProductCard({ product, style, mode }) {
             setScaleChosen(false);
           } else {
             dispatch(updateScaleList({ ...data }));
+            //setScaleChosen(false);
             setScaleChosen(true);
           }
         } else {
@@ -203,6 +206,25 @@ export default function ProductCard({ product, style, mode }) {
       } else {
         dispatch(addToScaleList({ ...data }));
         setScaleChosen(true);
+      }
+    }
+  };
+
+  const addToViewedHandler = async () => {
+    const { data } = await axios.get(
+      `/api/product/${product._id}?style=${style}&code=${mode}`
+    );
+    
+    if (viewedList.viewedListItems) {
+      const existItem = viewedList.viewedListItems.find(
+        (item) =>
+          item._id == data._id &&
+          item.style == data.style &&
+          item.mode == data.mode
+      );
+      
+      if (!existItem) {
+        dispatch(addToViewedList({ ...data }));
       }
     }
   };
@@ -221,12 +243,18 @@ export default function ProductCard({ product, style, mode }) {
         content="Товар в корзині"
         isOpenInCart={isOpenInCart}
         offset={30}
-        style={{ backgroundColor: "#70BF63", color: "#fff", borderRadius: "30px" }}
-      /> */}
+        style={{
+          backgroundColor: "#70BF63",
+          color: "#fff",
+          borderRadius: "30px",
+          zIndex: "2",
+        }}
+      />
       <div className={styles.product__container}>
         <div className={styles.product__container_photobox}>
           <Link
             style={{ opacity: opacity }}
+            onClick={addToViewedHandler}
             href={`/product/${product.slug}?style=${style}&code=${mode}`}
           >
             <ProductSwiper images={images} />
@@ -260,6 +288,7 @@ export default function ProductCard({ product, style, mode }) {
               >
                 <Link
                   className={styles.link}
+                  onClick={addToViewedHandler}
                   href={`/product/${product.slug}?style=${style}&code=${mode}`}
                 >
                   {(
@@ -273,12 +302,12 @@ export default function ProductCard({ product, style, mode }) {
                   ).length > 55
                     ? `${product.name.substring(0, 55)}...`
                     : product.name +
-                    " " +
-                    (product.subProducts[style]?.color
-                      ? product.subProducts[style]?.color.color
-                      : "") +
-                    " " +
-                    product.subProducts[style]?.sizes[mode].size}
+                      " " +
+                      (product.subProducts[style]?.color
+                        ? product.subProducts[style]?.color.color
+                        : "") +
+                      " " +
+                      product.subProducts[style]?.sizes[mode].size}
                 </Link>
               </Card.Title>
             </Col>
@@ -297,14 +326,16 @@ export default function ProductCard({ product, style, mode }) {
                 style={{ opacity: opacity }}
                 className={styles.product__container_infos_pricebtn_price}
               >
-                <span
-                  className={styles.pricediscount}
-                >{`${product.subProducts[style]?.sizes[mode].price.toLocaleString("uk-UA")} ${product.subProducts[style]?.sizes[mode].price_unit
-                  }`}</span>
+                <span className={styles.pricediscount}>{`${product.subProducts[
+                  style
+                ]?.sizes[mode].price.toLocaleString("uk-UA")} ${
+                  product.subProducts[style]?.sizes[mode].price_unit
+                }`}</span>
                 <span className={styles.priceregular}>
                   {`${Math.round(
-                    (product.subProducts[style]?.sizes[mode].price * (100 - product.subProducts[style]?.discount)) /
-                    100
+                    (product.subProducts[style]?.sizes[mode].price *
+                      (100 - product.subProducts[style]?.discount)) /
+                      100
                   ).toLocaleString("uk-UA")}`}{" "}
                   {product.subProducts[style].sizes[mode].price_unit}
                 </span>
@@ -314,9 +345,11 @@ export default function ProductCard({ product, style, mode }) {
                 style={{ opacity: opacity }}
                 className={styles.product__container_infos_pricebtn_price}
               >
-                <span
-                  className={styles.priceregular}
-                >{`${product.subProducts[style]?.sizes[mode].price} ${product.subProducts[style]?.sizes[mode].price_unit}`}</span>
+                <span className={styles.priceregular}>{`${product.subProducts[
+                  style
+                ]?.sizes[mode].price.toLocaleString("uk-UA")} ${
+                  product.subProducts[style]?.sizes[mode].price_unit
+                }`}</span>
               </Col>
             )}
             <Button
@@ -332,7 +365,7 @@ export default function ProductCard({ product, style, mode }) {
               style={{
                 opacity: opacity,
                 cursor: `${product.quantity < 1 ? "not-allowed" : ""}`,
-                backgroundColor: cartChosen ? "#220F4B" : "#FAF8FF"
+                backgroundColor: cartChosen ? "#220F4B" : "#FAF8FF",
               }}
               onClick={() => addToCartHandler()}
 

@@ -23,8 +23,15 @@ import {
   removeFromScaleList,
   updateScaleList,
 } from "@/store/scaleListSlice";
+import { addToViewedList } from "@/store/viewedListSlice";
 
-export default function Infos({ product, active, setActive, productError, setProductError }) {
+export default function Infos({
+  product,
+  active,
+  setActive,
+  productError,
+  setProductError,
+}) {
   const router = useRouter();
   const { data: session, status } = useSession();
   const dispatch = useDispatch();
@@ -32,6 +39,7 @@ export default function Infos({ product, active, setActive, productError, setPro
   const cart = useSelector((state) => state.cart);
   const wishList = useSelector((state) => state.wishList);
   const scaleList = useSelector((state) => state.scaleList);
+  const viewedList = useSelector((state) => state.viewedList);
   const [showDetails, setShowDetails] = useState(false);
   const [showSizes, setShowSizes] = useState(false);
   const [isOpen, setIsOpen] = useState(false);
@@ -211,9 +219,26 @@ export default function Infos({ product, active, setActive, productError, setPro
           setScaleChosen(true);
         }
       }
-    
   };
+  
+  const addToViewedHandler = async () => {
+    const { data } = await axios.get(
+      `/api/product/${product._id}?style=${product.style}&code=${product.mode}`
+    );
 
+    if (viewedList.viewedListItems) {
+      const existItem = viewedList.viewedListItems.find(
+        (item) =>
+          item._id == data._id &&
+          item.style == data.style &&
+          item.mode == data.mode
+      );
+      
+      if (!existItem) {
+        dispatch(addToViewedList({ ...data }));
+      }
+    }
+  };
   return (
     <Container fluid className={styles.infos}>
       <Tooltip
@@ -354,6 +379,7 @@ export default function Infos({ product, active, setActive, productError, setPro
               <Link
                 style={{ textDecoration: "none" }}
                 key={i}
+                onClick={addToViewedHandler}
                 href={`/product/${product.slug}?style=${router.query.style}&code=${i}`}
               >
                 <Col

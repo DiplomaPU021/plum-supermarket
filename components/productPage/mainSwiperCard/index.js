@@ -1,5 +1,6 @@
 import "bootstrap/dist/css/bootstrap.min.css";
 import styles from "./styles.module.scss";
+import axios from "axios";
 import { useEffect, useState } from "react";
 import Image from "react-bootstrap/Image";
 import Link from "next/link";
@@ -13,7 +14,8 @@ import ChevronLeft from "@/components/icons/ChevronLeft";
 import { Container, Row, Col } from "react-bootstrap";
 import { Rating } from "react-simple-star-rating";
 import Star from "@/components/icons/Star";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
+import { addToViewedList } from "@/store/viewedListSlice";
 
 export default function MainSwiper({
   product,
@@ -23,10 +25,31 @@ export default function MainSwiper({
 }) {
   const [activeImg, setActiveImg] = useState(product.images[0].url);
   const reviewRating = useSelector((state) => state.reviewRating);
+  const viewedList = useSelector((state) => state.viewedList);
   const router = useRouter();
+  const dispatch = useDispatch();
   useEffect(() => {
     setActiveImg(product.images[0].url);
   }, [product.slug]);
+
+  const addToViewedHandler = async () => {
+    const { data } = await axios.get(
+      `/api/product/${product._id}?style=${product.style}&code=${product.mode}`
+    );
+
+    if (viewedList.viewedListItems) {
+      const existItem = viewedList.viewedListItems.find(
+        (item) =>
+          item._id == data._id &&
+          item.style == data.style &&
+          item.mod == data.mod
+      );
+      
+      if (!existItem) {
+        dispatch(addToViewedList({ ...data }));
+      }
+    }
+  };
   return (
     <Container fluid className={styles.swiper}>
       <Row className={styles.swiper__photoBox}>
@@ -97,7 +120,7 @@ export default function MainSwiper({
                 fillColor="transparent"
                 height={24}
                 width={24}
-                stroke="#70BF63"
+                stroke="#220F4B"
               />
             }
             fillIcon={
@@ -116,6 +139,7 @@ export default function MainSwiper({
           {product.subProducts.map((el, i) => (
             <Link
               key={i}
+              onClick={addToViewedHandler}
               href={`/product/${product.slug}?style=${i}&code=${0}`}
             >
               <span
