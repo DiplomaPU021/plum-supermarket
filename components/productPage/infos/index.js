@@ -44,22 +44,69 @@ export default function Infos({
   const [showSizes, setShowSizes] = useState(false);
   const [isOpen, setIsOpen] = useState(false);
   const [isOpenQ, setIsOpenQ] = useState(false);
-  const [wishBtnColor, setWishBtnColor] = useState(false);
-  const [scaleBtnColor, setScaleBtnColor] = useState(false);
+  const [isOpenInWish, setIsOpenInWish] = useState(false);
+  const [wishError, setWishError] = useState(false);
+  const [wishChosen, setWishChosen] = useState(false);
+  const [cartChosen, setCartChosen] = useState(false);
   const [scaleChosen, setScaleChosen] = useState(false);
   const [opacity, setOpacity] = useState("1");
-
   let count = 0;
 
   useEffect(() => {
     setOpacity(product.quantity < 1 ? "0.6" : "1");
   }, [product]);
+  useEffect(() => {
+    let _uid = `${product._id}_${product.style}_${product.mode}`;
+    let exist = null;
+    if (cart.cartItems) {
+      exist = cart.cartItems.find((item) => item._uid == _uid);
+    }
+    if (exist) {
+      setCartChosen(true);
+      // setIsOpenInCart(true);
+    } else {
+      setCartChosen(false);
+      // setIsOpenInCart(false);
+    }
+  }, [cart.cartTotal, product.style, product.mode]);
+
+  useEffect(() => {
+    let _uid = `${product._id}_${product.style}_${product.mode}`;
+    let exist = null;
+    if (wishList.wishListItems) {
+      exist = wishList.wishListItems.some((item) => item._uid == _uid);
+    }
+    if (exist) {
+      setWishChosen(true);
+      setIsOpenInWish(true);
+    } else {
+      setWishChosen(false);
+      setIsOpenInWish(false);
+    }
+  }, [wishList.wishListTotal, product.style, product.mode]);
+
+  useEffect(() => {
+    let exist = null;
+    if (scaleList.scaleListItems) {
+      exist = scaleList.scaleListItems.some((item) => {
+        return item.items.some((p) =>
+          p._id == product._id && p.style == product.style && p.mode == product.mode
+        )
+      });
+    }
+    if (exist) {
+      setScaleChosen(true);
+      // setIsOpenInScale(true);
+    } else {
+      setScaleChosen(false);
+      // setIsOpenInScale(false);
+    }
+  }, [scaleList.scaleListTotal, product.style, product.mode]);
 
   const addToCartHandler = async () => {
     const { data } = await axios.get(
       `/api/product/${product._id}?style=${product.style}&code=${product.mode}`
     );
-
     if (qty > data.quantity) {
       setProductError("На складі обмежена кількість товару");
       setIsOpenQ(true);
@@ -70,13 +117,13 @@ export default function Infos({
       return;
     } else {
       setIsOpenQ(false);
-      let _uid = `${data._id}_${data.style}_${data.code}`;
+      let _uid = `${data._id}_${data.style}_${data.mode}`;
       let exist = null;
       if (cart.cartItems) {
         exist = cart.cartItems.find((item) => item._uid === _uid);
       }
       if (exist) {
-        setProductError("Товар уже в корзині");
+        setProductError("Товар в корзині");
         setIsOpenQ(true);
         // let newCart = cart.cartItems.map((item) => {
         //   if (item._uid === exist._uid) {
@@ -87,30 +134,35 @@ export default function Infos({
         // dispatch(updateCart(newCart));
       } else {
         dispatch(addToCart({ ...data, qty, size: data.size, _uid }));
+        setCartChosen(true);
       }
     }
   };
   const addToWishListHandler = async () => {
     if (session) {
-      setIsOpen(false);
-      let _uid = `${product._id}_${product.style}_${
-        product.subProducts[product.style].sizes[product.mode].code
-      }`;
+      setWishError("");
+      setIsOpenInWish(false);
+      // setIsOpen(false);
+      let _uid = `${product._id}_${product.style}_${product.mode}`;
       let exist = null;
       if (wishList.wishListItems) {
         exist = wishList.wishListItems.find((item) => item._uid === _uid);
       }
       if (exist) {
-        let newWishList = wishList.wishListItems.filter((item) => {
-          return item._uid != _uid;
-        });
-        dispatch(updateWishList(newWishList));
-        updateOneInWishList({ productId: product._id });
+        setWishError("Товар уже в списку улюблених");
+        setIsOpenInWish(true);
+        // let newWishList = wishList.wishListItems.filter((item) => {
+        //   return item._uid != _uid;
+        // });
+        // dispatch(updateWishList(newWishList));
+        // updateOneInWishList({ productId: product._id });
       } else {
         const { data } = await axios.get(
           `/api/product/${product._id}?style=${product.style}&code=${product.mode}`
         );
-
+        // setWishChosen(true);
+        // setIsOpenInWish(true);
+        // console.log("chosen");
         dispatch(
           addToWishList({
             ...data,
@@ -122,14 +174,18 @@ export default function Infos({
         );
         saveWishList({
           productId: product._id,
-          size: product.subProducts[product.style].sizes[product.mode].size,
-          image: product.subProducts[product.style].images[0],
-          color: product.subProducts[product.style].color?.color,
-          code: product.subProducts[product.style].sizes[product.mode].code,
+          size: product.size,
+          image: product.images[0],
+          color: product.color?.color,
+          code: product.code,
+          mode: product.mode,
+          style: product.style
         });
       }
     } else {
-      setIsOpen(true);
+      // setIsOpen(true);
+      setWishError("Будь ласка зареєструйтесь!");
+      setIsOpenInWish(true);
     }
   };
 
@@ -138,36 +194,33 @@ export default function Infos({
     const { data } = await axios.get(
       `/api/product/${product._id}?style=${product.style}&code=${product.mode}`
     );
-    let existSub = null;
-    let existItem = null;
-    if (scaleList.scaleListItems) {
-      existSub = scaleList.scaleListItems.find(
-        (item) => item.subCategory_id === data.subCategory_id
-      );
-      if (existSub) {
-        existItem = existSub.items.some((p) => {
-          return (
-            p._id == data._id && p.style == data.style && p.mode == data.mode
-          );
-        });
-        if (existItem) {
-          if (existSub.items.length === 1) {
-            dispatch(removeFromScaleList({ ...existSub }));
-            setScaleChosen(false);
+      let existSub = null;
+      let existItem = null;
+      if (scaleList.scaleListItems) {
+        existSub = scaleList.scaleListItems.find(
+          (item) => item.subCategory_id === data.subCategory_id
+        );
+        if (existSub) {
+          existItem = existSub.items.some((p) =>{ return p._id == data._id && p.style == data.style && p.mode == data.mode});
+          if (existItem) {
+            if (existSub.items.length === 1) {
+              dispatch(removeFromScaleList({ ...existSub }));
+              setScaleChosen(false);
+            } else {
+              dispatch(updateScaleList({ ...data }));
+              setScaleChosen(true);
+            }
           } else {
-            dispatch(updateScaleList({ ...data }));
-            setScaleChosen(false);
+            dispatch(addToScaleList({ ...data }));
+            setScaleChosen(true);
           }
         } else {
           dispatch(addToScaleList({ ...data }));
           setScaleChosen(true);
         }
-      } else {
-        dispatch(addToScaleList({ ...data }));
-        setScaleChosen(true);
       }
-    }
   };
+  
   const addToViewedHandler = async () => {
     const { data } = await axios.get(
       `/api/product/${product._id}?style=${product.style}&code=${product.mode}`
@@ -189,14 +242,18 @@ export default function Infos({
   return (
     <Container fluid className={styles.infos}>
       <Tooltip
-        id="login-tooltip"
-        content="Будь ласка зареєструйтесь!"
-        isOpen={isOpen}
+        id="quantity-tooltip"
+        content={productError}
+        isOpen={isOpenQ}
         style={{ backgroundColor: "#70BF63", color: "#fff", borderRadius: "30px" }}
       />
-      <Tooltip id="quantity-tooltip" content={productError} isOpen={isOpenQ} 
-       style={{ backgroundColor: "#70BF63", color: "#fff", borderRadius: "30px" }}/>
-      <Col className={styles.infos__priceandaction}>
+      <Tooltip
+        id="wish-tooltip"
+        content={wishError}
+        isOpen={isOpenInWish}
+        style={{ backgroundColor: "#70BF63", color: "#fff", borderRadius: "30px", zIndex:"999" }}
+      />
+     <Col className={styles.infos__priceandaction}>
         <div className={styles.infos__priceandaction_price}>
           {product.subProducts[product.style].discount > 0 ? (
             <div>
@@ -224,22 +281,20 @@ export default function Infos({
           <div className={styles.liked}>
             {/* TODO onClick like below*/}
             <button
-              style={{ backgroundColor: wishBtnColor ? "#220F4B" : "#FAF8FF" }}
               onClick={addToWishListHandler}
-              data-tooltip-id="login-tooltip"
-              onMouseLeave={() => setIsOpen(false)}
+              data-tooltip-id="wish-tooltip"
+              onMouseLeave={() => setIsOpenInWish(false)}
+              style={{ backgroundColor: wishChosen ? "#220F4B" : "#FAF8FF" }}
             >
-              <HeartIcon fillColor={wishBtnColor ? "#FAF8FF" : "#220F4B"} />
+              <HeartIcon fillColor={wishChosen ? "#FAF8FF" : "#220F4B"} />
             </button>
             {/* TODO count of liked below*/}
             {/* <div>
               <span>6015</span>
             </div> */}
           </div>
-          <button
-            style={{ backgroundColor: scaleChosen ? "#220F4B" : "#FAF8FF" }}
-            onClick={addToScaleHandler}
-          >
+          <button onClick={addToScaleHandler}
+            style={{ backgroundColor: scaleChosen ? "#220F4B" : "#FAF8FF" }}>
             <ScalesIcon fillColor={scaleChosen ? "#FAF8FF" : "#220F4B"} />
           </button>
         </div>
@@ -255,6 +310,12 @@ export default function Infos({
             onClick={() => {
               addToCartHandler();
             }}
+            data-tooltip-id="quantity-tooltip"
+            onMouseLeave={() => setIsOpenQ(false)}
+            style={{
+              cursor: `${product.quantity < 1 ? "not-allowed" : ""}`,
+              // backgroundColor: cartChosen ? "#220F4B" : "#FAF8FF"
+            }}
           >
             {product.quantity < 1 ? (
               <span style={{ fontSize: "18px", lineHeight: "25px" }}>
@@ -263,7 +324,11 @@ export default function Infos({
             ) : (
               <>
                 <CartIcon fillColor="#FAF8FF" />
-                <span>Купити</span>
+                {cartChosen ? (
+              <span>В корзині</span>
+            ) : (
+              <span>Купити</span>
+            )}
               </>
             )}
           </button>
@@ -321,14 +386,10 @@ export default function Infos({
                   style={{ opacity: el.qty == 0 ? "0.6" : "" }}
                   className={`${styles.infos__sizesInfo_sizes_size}
                   ${i == router.query.code && styles.active_size}`}
-                  onClick={() =>
-                    setActive((prevState) => ({
-                      ...prevState,
-                      mode: i,
-                    }))
-                  }
-                  data-tooltip-id="quantity-tooltip"
-                  onMouseLeave={() => setIsOpenQ(false)}
+                  onClick={() => setActive((prevState) => ({
+                    ...prevState,
+                    mode: i,
+                  }))}
                 >
                   {el.size}
                   <div

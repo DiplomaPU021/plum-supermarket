@@ -83,11 +83,11 @@ export const checkout = async (cart, user_id) => {
     }
 }
 
-export const saveWishList = async ({productId, size, image, color, code}) => {
+export const saveWishList = async ({productId, size, image, color, code, style, mode}) => {
     try {
         // console.log("apiusersavewish",productId, size, image, color, code);
         const { data } = await axios.post('/api/user/wishlist', {
-            productId, size, image, color, code,
+            productId, size, image, color, code, style, mode
         });
         return data;
 

@@ -4,6 +4,8 @@ import styles from "./styles.module.scss"
 import { getProviders, signIn } from "next-auth/react"
 import { useState } from "react";
 import useDeepCompareEffect from "use-deep-compare-effect";
+import { updateWishList } from "@/store/wishListSlice";
+import { useDispatch } from "react-redux";
 
 export default function ContinueWith(
     {
@@ -15,6 +17,7 @@ export default function ContinueWith(
     }
 ) {
     const router = useRouter();
+    const dispatch = useDispatch();
     const [providers, setProviders] = useState([]);
     const [loading, setLoading] = useState(false);
 
@@ -29,11 +32,14 @@ export default function ContinueWith(
         fetchData();
     }, [providers]); // Or [] if effect doesn't need props or state
 
-    const signInHandler = (id) => {
+    const signInHandler =async (id) => {
         try {
         setLoading(true);
         const res = signIn(id);
         setUserProfileShow(true);
+        const res2 = await axios.get('/api/user/wishlist');
+        const data = res2.data;
+        dispatch(updateWishList(data.wishList));
         setLoading(false);
         } catch(error) {
             console.error(error);

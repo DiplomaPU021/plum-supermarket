@@ -8,8 +8,8 @@ const handler = nc().use(auth);
 handler.post(async (req, res) => {
     try {
         await db.connectDb();
-        const { productId, size, image, color, code } = req.body;
-        let user = await userService.addToWishList(req.user, productId, size, image, color, code);
+        const { productId, size, image, color, code, style, mode } = req.body;
+        let user = await userService.addToWishList(req.user, productId, size, image, color, code, style, mode);
         await db.disconnectDb();
         return res.status(200).json({ message: "Продукт успішно додано до списку вподобань" });
 
@@ -36,12 +36,11 @@ handler.get(async (req, res) => {
         let wishList = await userService.getWishlist(req.user);
         await db.disconnectDb();
         if (wishList) {
-            return res.status(200).json(wishList);
+            return res.status(200).json({wishList});
         }
 
     } catch (error) {
         return res.status(500).json({ error: error.message });
-
     }
 });
 handler.delete(async (req, res) => {
