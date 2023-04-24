@@ -1,16 +1,21 @@
 import styles from "./styles.module.scss"
-import Modal from 'react-bootstrap/Modal'
-import { Accordion, Nav, Container, Row, Col } from 'react-bootstrap'
-import Link from "next/link"
+import { Container, Row, Col, Image } from 'react-bootstrap'
 import { useRouter } from "next/router"
-import { signOut } from "next-auth/react"
 import { useEffect, useState } from "react";
-
 
 export default function Palette(props) {
     const router = useRouter();
 
     return (
-        <h2>Palette</h2>
+        <Container>
+            <Row >
+                <Col className={styles.group}>
+                    <Image src='../../../images/qws.png' width="202px" height="177px" />
+                    <h5>Упс, здається, у Ви ще не брали участі в акціях</h5>
+                    <div className={styles.line}></div>
+                    <p>Але це ніколи не пізно виправити!</p>
+                </Col>
+            </Row>
+        </Container>
     )
 }

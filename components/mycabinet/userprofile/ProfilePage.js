@@ -20,7 +20,7 @@ export default function ProfilePage(props) {
   const profilePages = () => {
     switch (activeKey) {
       case "profile":
-        return <Profile user={props.user}/>;
+        return <Profile user={props.user} />;
       case "orders":
         return <MyOrders orders={props.orders} />;
       case "bonus":
@@ -32,7 +32,7 @@ export default function ProfilePage(props) {
       case "palette":
         return <Palette />;
       default:
-        return <MyOrders user={props.orders}/>;
+        return <MyOrders user={props.orders} />;
     }
   };
 

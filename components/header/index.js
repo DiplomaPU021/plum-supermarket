@@ -116,7 +116,7 @@ export default function Header({ country }) {
   }
 
   useEffect(() => {
-    if (window.location.pathname === "/checkout") {
+    if (window.location.pathname === "/checkout" || window.location.pathname.startsWith('/order/')) {
       setDivVisible(false)
     } else {
       setDivVisible(true)

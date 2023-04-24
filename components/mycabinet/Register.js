@@ -133,9 +133,9 @@ export default function Register({
                 loading && <DotLoaderSpinner loading={loading} />
             }
             <Container className={styles.login_container}>
-                <Row>
-                    <Col>
-                        <Image src='../../../images/register.png' width="463px" height="528px" />
+                <Row className={styles.body_row}>
+                    <Col className={styles.image_col}>
+                        <Image src='../../../images/register.png' width="416px" height="556px" />
                     </Col>
                     <Col>
                         <Formik
