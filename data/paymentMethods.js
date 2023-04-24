@@ -6,7 +6,7 @@ export const paymentMethods = [
     //     images: [],
     // },
     {
-        name: "Оплатити зараз",
+        name: "Оплата онлайн",
         id: "paymentOnline",
         description: "",
         images: [

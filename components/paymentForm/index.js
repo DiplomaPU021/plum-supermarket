@@ -1,7 +1,10 @@
+import styles from "./styles.module.scss";
 import { Button, Col, Form, Modal, Row } from "react-bootstrap";
-import React, { useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import Cards from 'react-credit-cards-2';
-import 'react-credit-cards-2/dist/es/styles-compiled.css';
+import {toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css'; // імпортуємо стилі
+import axios from 'axios';
 import {
     formatCreditCardNumber,
     formatCVC,
@@ -9,8 +12,9 @@ import {
     formatFormData
 } from './cardUtils'
 import "bootstrap/dist/css/bootstrap.min.css";
+import 'react-credit-cards-2/dist/es/styles-compiled.css';
 
-const PaymentForm = ({ total, setIsPaid }) => {
+const PaymentForm = ({ total, setIsPaid, userCreditCards, setUserCreditCards, setShowAddCard, setShowCard }) => {
     const [state, setState] = useState({
         number: '',
         expiry: '',
@@ -20,12 +24,87 @@ const PaymentForm = ({ total, setIsPaid }) => {
         issuer: "",
         formData: null
     });
-
+    const [isButtonDisabled, setIsButtonDisabled] = useState(true);
+    useEffect(() => {
+        if (state.number && state.expiry && state.name && state.cvc !== '') {
+            setIsButtonDisabled(false);
+        } else {
+            setIsButtonDisabled(true);
+        }
+    }, [state])
     const handleCallback = ({ issuer }, isValid) => {
         if (isValid) {
             setState((prev) => ({ ...prev, issuer }));
         }
     };
+
+    const handleUpload = async () => {
+        console.log("formData", state.formData);
+        console.log("state", state);
+        let toastId = null;
+
+        try {
+            const { data } = await axios.post(
+                '/api/user/saveCreditCard',
+                {
+                    name: state.name,
+                    number: state.number,
+                    expiry: state.expiry,
+                    cvc: state.cvc,
+                },
+                {
+                    onUploadProgress: (p) => {
+                        const progress = p.loaded / p.total;
+                        setTimeout(() => {
+                            if (toastId === null) {
+                                toastId = toast('Додаємо карту...', { progress });
+                            } else {
+                                toast.update(toastId, { progress });
+                            }
+                        }, 500);
+                    },
+                }
+            );
+             console.log("data", data);
+              setTimeout(() => {
+            toast.update(toastId, {
+                render: data?.message,
+                type: toast.TYPE.SUCCESS,
+            });
+            setIsPaid(true);
+            handleReset();
+
+            }, 3000);
+            // let newCreditCard = {
+            //     name: state.name,
+            //     number: state.number,
+            //     expiry: state.expiry,
+            //     cvc: state.cvc,
+            //     isDefault: true
+            // };
+            // // setActiveUserCard(newCreditCard);
+            // let creditCards = [];
+            // for (let i = 0; i < userCreditCards.length; i++) {
+            //     let temp_creditCards = {};
+            //     temp_creditCards = { ...userCreditCards[i], isDefault: false };
+            //     creditCards.push(temp_creditCards);
+            // }
+            // creditCards.push(newCreditCard);
+             setUserCreditCards(data.creditCards);
+            // console.log("90", userCreditCards);
+
+        } catch (error) {
+            // console.log("error", error);
+            if (error.response?.data?.error) {
+                toast.update(toastId, {
+                    render: error.response.data.error,
+                    type: toast.TYPE.ERROR,
+                });
+            }
+        }
+    };
+
+
     const handleInputChange = (e) => {
         const { name, value } = e.target;
         if (e.target.name === "number") {
@@ -41,8 +120,7 @@ const PaymentForm = ({ total, setIsPaid }) => {
     const handleInputFocus = (e) => {
         setState((prev) => ({ ...prev, focus: e.target.name }));
     }
-    const handleSubmit = (e) => {
-
+    const handleSubmit = async (e) => {
         e.preventDefault();
         const { issuer } = state;
         const formData = [...e.target.elements]
@@ -51,8 +129,25 @@ const PaymentForm = ({ total, setIsPaid }) => {
                 acc[d.name] = d.value;
                 return acc;
             }, {});
-
         setState((prev) => ({ ...prev, formData: formData }));
+        handleUpload();
+        setShowAddCard(false);
+        setShowCard(true);
+        // console.log();
+        // setIsPaid(true);
+    }
+    const handleReset = () => {
+        setState((prev) => ({
+            ...prev, number: '',
+            expiry: '',
+            cvc: '',
+            name: '',
+            focus: '',
+            issuer: '',
+            formData: null
+        }));
+        setShowCard(true);
+        setShowAddCard(false);
     }
 
     return (
@@ -68,18 +163,17 @@ const PaymentForm = ({ total, setIsPaid }) => {
                     />
                 </Col>
             </Row>
-            <Form onSubmit={handleSubmit}>
+            <Form onSubmit={handleSubmit} onReset={handleReset}>
                 <Form.Group className="mb-3" controlId="cardNumber">
                     <Form.Control
-                        type="tel"
+                        type="text"
                         pattern="[\d ]{16,22}"
-                        // pattern={`^\d{4}\s?\d{4}\s?\d{4}\s?\d{4}$`}
                         placeholder="Номер карти"
                         name="number"
                         required
                         onChange={handleInputChange}
                         onFocus={handleInputFocus}
-                        format={formatCreditCardNumber}
+                        value={formatCreditCardNumber(state.number)}
                     />
                 </Form.Group>
                 <Form.Group className="mb-3" controlId="cardHolderName">
@@ -87,6 +181,7 @@ const PaymentForm = ({ total, setIsPaid }) => {
                         type="text"
                         placeholder="Прізвище Ім'я"
                         name="name"
+                        value={state.name}
                         onChange={handleInputChange}
                         onFocus={handleInputFocus}
                     />
@@ -99,7 +194,7 @@ const PaymentForm = ({ total, setIsPaid }) => {
                                 name="expiry"
                                 pattern="\d\d/\d\d"
                                 placeholder="Термін дії"
-                                format={formatExpirationDate}
+                                value={formatExpirationDate(state.expiry)}
                                 onChange={handleInputChange}
                                 onFocus={handleInputFocus}
                             />
@@ -112,7 +207,7 @@ const PaymentForm = ({ total, setIsPaid }) => {
                                 name="cvc"
                                 pattern="\d{3,4}"
                                 placeholder="CVV"
-                                format={formatCVC}
+                                value={formatCVC(state.cvc)}
                                 onChange={handleInputChange}
                                 onFocus={handleInputFocus}
                             />
@@ -120,25 +215,16 @@ const PaymentForm = ({ total, setIsPaid }) => {
                     </Col>
                 </Row>
                 <Row>
-                    <Col>
-                        <div>До оплати: <span>{Number(total).toLocaleString("uk-UA")} ₴</span></div>
+                    <Col className={styles.litext_btn}>
+                        <p>До оплати:</p><h3>{Number(total).toLocaleString("uk-UA")} ₴</h3>
                     </Col>
                     <Col>
                         <Form.Group as={Col} controlId="groupButtons">
-                            <Button type="submit" >Оплатити</Button>
-                            <Button type="reset">Скасувати</Button>
+                            <Button type="submit" className={styles.small_sbm} disabled={isButtonDisabled}>Додати карту</Button>
+                            <Button type="reset" className={styles.small_sbm}>Скасувати</Button>
                         </Form.Group>
                     </Col>
                 </Row>
-                {/* {state.formData && (
-                    <div>
-                        {formatFormData(state.formData).map((d, i) => (
-                            <div key={i}>{d}</div>
-                        ))}
-                    </div>
-                )} */}
-
-
             </Form>
         </div>
     );

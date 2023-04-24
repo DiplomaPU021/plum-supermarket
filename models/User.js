@@ -46,6 +46,18 @@ const userSchema = new mongoose.Schema({
         type: String,
         default: "",
     },
+    creditCards: [
+        {
+            name: String,
+            number: String,
+            expiry: String,
+            cvc: String,
+            isDefault: {
+                type: Boolean,
+                default: false,
+            },
+        }
+    ],
     uniqueString: {
         type: String,
         unique: true,
@@ -132,10 +144,10 @@ const userSchema = new mongoose.Schema({
             code: {
                 type: String,
             },
-            mode:{
+            mode: {
                 type: String,
             },
-            style:{
+            style: {
                 type: String,
             }
         },
@@ -164,27 +176,27 @@ const userSchema = new mongoose.Schema({
     //         fishing: Boolean,
     //         description:"Рибальство"
     //     },
-        //     {
+    //     {
     //         hunting: Boolean,
     //         description:"Полювання"
     //     },
-       //     {
+    //     {
     //         music: Boolean,
     //         description:"Садівництво"
     //     },
-        //     {
+    //     {
     //         fitness: Boolean,
     //         description:"Фітнес"
     //     }, 
-       //     {
+    //     {
     //         yoga: Boolean,
     //         description:"Йога"
     //     }, 
-        //     {
+    //     {
     //         running: Boolean,
     //         description:"Біг"
     //     },
-        //     {
+    //     {
     //         bicycle: Boolean,
     //         description:"Велосипед"
     //     }, 
@@ -196,11 +208,11 @@ const userSchema = new mongoose.Schema({
     //         music: Boolean,
     //         description:"Музика"
     //     },
-        //     {
+    //     {
     //         tourism: Boolean,
     //         description:"Туризм"
     //     },
-        //     {
+    //     {
     //         cybersport: Boolean,
     //         description:"Кіберспорт"
     //     },
@@ -209,16 +221,16 @@ const userSchema = new mongoose.Schema({
     //         description:"Рукоділля"
     //     },
     // ],
-        // pets:[
+    // pets:[
     //     {
     //         dog: Boolean,
     //         description:"Песик"
     //     },
-        //     {
+    //     {
     //         bird: Boolean,
     //         description:"Пташка"
     //     },
-        //     {
+    //     {
     //         cat: Boolean,
     //         description:"Котик"
     //     },
@@ -226,7 +238,7 @@ const userSchema = new mongoose.Schema({
     //         reptile: Boolean,
     //         description:"Плазун"
     //     }, 
- 
+
     //     {
     //         fish: Boolean,
     //         description:"Рибки"

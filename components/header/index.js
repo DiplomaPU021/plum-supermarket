@@ -196,7 +196,7 @@ export default function Header({ country }) {
               onMouseLeave={() => setIsOpen(false)}>
               <HeartIcon fillColor={wishShow ? "#FAF8FF" : "#220F4B"} />
             </button>
-            {getWishItemsCount() !== 0 ? <span> {getWishItemsCount()}</span> : null}
+            {getWishItemsCount() !== 0 && getWishItemsCount()>0 ? <span> {getWishItemsCount()}</span> : null}
           </div>
           <div className={styles.cart}>
             <button onClick={() => setCartShow(true)} style={{ backgroundColor: cartShow ? "#220F4B" : "#FAF8FF" }}>

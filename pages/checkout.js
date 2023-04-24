@@ -49,6 +49,13 @@ export async function getServerSideProps(context) {
     }
    
   }
+  else {
+    return {
+      redirect: {
+        destination: "/",
+      }
+    }
+  }
   await db.disconnectDb();
   return {
     props: {

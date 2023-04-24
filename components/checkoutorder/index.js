@@ -60,7 +60,8 @@ export default function CheckoutOrder({
                                 setPayment={setPayment}
                                 totalAfterDiscount={totalAfterDiscount}
                                 // stripe_public_key={stripe_public_key}
-                                setIsPaid={setIsPaid} />
+                                setIsPaid={setIsPaid}
+                                user={user} />
                         </div>
                     </Col>
                     <Col className={styles.summary_form} xs lg="4">

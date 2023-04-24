@@ -11,15 +11,24 @@ const getOneById = async (id) => {
 const getAll = async () => {
     const result = await User.find();
     return result;
-}
+};
 const findByIdAndUpdateAddress = async (id, address) => {
     const result = await User.updateOne(
         { _id: id },
         { $set: { address } },
-        { new: true });
+        { new: true }
+    );
     return result;
 };
-const findByIdAndUpdateProfile = async (id, firstName, lastName, phoneNumber, email, gender, birthday) => {
+const findByIdAndUpdateProfile = async (
+    id,
+    firstName,
+    lastName,
+    phoneNumber,
+    email,
+    gender,
+    birthday
+) => {
     try {
         const user = await User.findOneAndUpdate(
             { _id: id, email },
@@ -43,17 +52,14 @@ const createUser = async (
     password,
     uniqueString
 ) => {
-    const user = await new User(
-        {
-            firstName,
-            lastName,
-            phoneNumber,
-            email,
-            password,
-            uniqueString
-        }
-    ).save();
-
+    const user = await new User({
+        firstName,
+        lastName,
+        phoneNumber,
+        email,
+        password,
+        uniqueString,
+    }).save();
 
     return user;
 };
@@ -68,18 +74,31 @@ const findEmail = async (email) => {
 const findByUniqueStringAndConfirm = async (uniqueString) => {
     const result = await User.findOne({ uniqueString });
     if (result) {
-        await result.updateOne({
-            emailVerified: true,
-        }, { new: true });
+        await result.updateOne(
+            {
+                emailVerified: true,
+            },
+            { new: true }
+        );
         return user;
     }
     return result;
-
 };
-const addToWishList = async (userId, productId, size, image, color, code, style, mode) => {
+const addToWishList = async (
+    userId,
+    productId,
+    size,
+    image,
+    color,
+    code,
+    style,
+    mode
+) => {
     const user = await User.findById(userId);
     const product = await Product.findById(productId);
-    const existWishItem = user.wishlist.findIndex((x) => x.product.toString() == productId && x.code.toString() == code);
+    const existWishItem = user.wishlist.findIndex(
+        (x) => x.product?.toString() == productId && x.code?.toString() == code
+    );
     let wishItem = {
         product: product._id,
         name: product.name,
@@ -88,10 +107,9 @@ const addToWishList = async (userId, productId, size, image, color, code, style,
         color,
         code,
         style,
-        mode
+        mode,
     };
     if (existWishItem === -1) {
-
         if (!user.wishlist) {
             user.wishlist = []; // створюємо поле, якщо його немає
         }
@@ -101,7 +119,6 @@ const addToWishList = async (userId, productId, size, image, color, code, style,
 
         return result;
     } else {
-
         // const updateResult = user.updateOne(
         //     {
         //         "wishlist.product": productId,
@@ -111,7 +128,7 @@ const addToWishList = async (userId, productId, size, image, color, code, style,
         //         $set: {
         //             "wishlist.$.color": color,
         //             "wishlist.$.size": size,
-        //             "wishlist.$.image": image,                    
+        //             "wishlist.$.image": image,
         //         },
         //     },
         //     {
@@ -119,10 +136,16 @@ const addToWishList = async (userId, productId, size, image, color, code, style,
         //         // upsert: true // додаємо опцію upsert
         //     });
         // return updateResult;
-
     }
-}
-const findByWishlistAndUpdate = async (userId, productId, size, image, color, code) => {
+};
+const findByWishlistAndUpdate = async (
+    userId,
+    productId,
+    size,
+    image,
+    color,
+    code
+) => {
     // console.log("findByWishlistAndUpdate", userId, productId);
     const user = await User.findById(userId);
     // if (user) {
@@ -147,13 +170,14 @@ const findByWishlistAndUpdate = async (userId, productId, size, image, color, co
             {
                 new: true,
                 // upsert: true // додаємо опцію upsert
-            });
+            }
+        );
         return updateResult;
     } catch (error) {
         // console.log(error);
         throw new Error("Error removing wishlist item");
     }
-}
+};
 
 const removeFromWishlist = async (userId, productId, code) => {
     // console.log("removeFromDb", userId, productId, code);
@@ -174,14 +198,14 @@ const removeFromWishlist = async (userId, productId, code) => {
         // console.log(error);
         throw new Error("Error removing wishlist item");
     }
-}
+};
 
 const getWishlist = async (userId) => {
     const user = await User.findById(userId);
     if (user) {
         const wishlist = user.wishlist;
         const newProducts = wishlist.map(async (item) => {
-            const product = await Product.findById(item.product, '-reviews');
+            const product = await Product.findById(item.product, "-reviews");
             if (product) {
                 const style = Number(item.style);
                 const mode = Number(item.mode);
@@ -198,12 +222,12 @@ const getWishlist = async (userId) => {
                         discount: subProduct.discount,
                         color: subProduct.color,
                         price,
-                        priceAfter: ((100 - subProduct.discount) * price / 100).toFixed(),
+                        priceAfter: (((100 - subProduct.discount) * price) / 100).toFixed(),
                         price_unit: subProduct.sizes[mode].price_unit,
                         code: subProduct.sizes[mode].code,
                         qty: 1,
-                        images: subProduct.images.map(img => img.url),
-                        _uid
+                        images: subProduct.images.map((img) => img.url),
+                        _uid,
                     };
                     return newProduct;
                 }
@@ -213,11 +237,10 @@ const getWishlist = async (userId) => {
     } else {
         throw new Error("Користувача не знайдено!");
     }
-}
+};
 const getCartlist = async (userId) => {
     const cart = await Cart.findOne({ user: userId });
     if (cart) {
-       
         const newProducts = cart.products.map(async (item) => {
             const product = await Product.findById(item.product);
             if (product) {
@@ -237,14 +260,14 @@ const getCartlist = async (userId) => {
                         discount: subProduct.discount,
                         color: subProduct.color,
                         price,
-                        priceAfter: ((100 - subProduct.discount) * price / 100).toFixed(),
+                        priceAfter: (((100 - subProduct.discount) * price) / 100).toFixed(),
                         price_unit: subProduct.sizes[mode].price_unit,
                         code: subProduct.sizes[mode].code,
                         quantity: subProduct.sizes[mode].qty,
                         qty,
-                        images: subProduct.images.map(img => img.url),
+                        images: subProduct.images.map((img) => img.url),
                         image: subProduct.images[0].url,
-                        _uid
+                        _uid,
                     };
                     return newProduct;
                 }
@@ -254,7 +277,65 @@ const getCartlist = async (userId) => {
     } else {
         throw new Error("Користувача не знайдено!");
     }
-}
+};
+const addCreditCard = async (userId, name, number, expiry, cvc) => {
+    try {
+        const user = await User.findById(userId);
+
+        console.log("userService", userId, name, number, expiry, cvc);
+        const existCreditCardItem = user.creditCards?.findIndex(
+            (x) => x.name?.toString() == name && x.number?.toString() == number
+        );
+        let creditCardItem = { name, number, expiry, cvc, isDefault: true };
+        let user_creditCards = user.creditCards;
+        let creditCards = [];
+        for (let i = 0; i < user_creditCards.length; i++) {
+            let temp_creditCard = {};
+            if (existCreditCardItem !== i) {
+                temp_creditCard = { ...user_creditCards[i].toObject(), isDefault: false };
+                creditCards.push(temp_creditCard);
+            } else {
+                creditCards.push(creditCardItem);
+            }
+        }
+        if (existCreditCardItem == -1) {
+            creditCards.push(creditCardItem);
+        } else {
+            throw new Error("Карта вже існує!");
+        }
+        console.log("306");
+        await user.updateOne({
+            creditCards: creditCards,
+        }, { new: true });
+console.log("309");
+        const result = await User.findById(userId);
+        console.log("311");
+        // console.log("temp_addressUser2", user);
+        return result;
+        // if (existCreditCardItem === -1) {
+        //     if (!user.creditCards) {
+        //         user.creditCards = []; // створюємо поле, якщо його немає
+        //     }
+        //     // Якщо  ще не існує, додаємо новий
+        //     user.creditCards.push(creditCardItem);
+        //     const result = await user.save({ validateBeforeSave: false });
+        //     return result;
+
+    } catch (error) {
+        throw new Error(error.message);
+    }
+};
+const removeFromCreditCards = async (userId, creditCardId) => {
+    console.log("removeFromDb", userId, creditCardId);
+    const user = await User.findById(userId);
+    if (user) {
+        user.wishlist = user.creditCards.filter((item) => item._id.toString() !== creditCardId);
+        await user.save({ validateBeforeSave: false });
+        return true;
+    }
+    return false;
+
+};
 const userService = {
     getOneById,
     getAll,
@@ -267,7 +348,9 @@ const userService = {
     findByWishlistAndUpdate,
     removeFromWishlist,
     getWishlist,
-    findByIdAndUpdateProfile
+    findByIdAndUpdateProfile,
+    addCreditCard,
+    removeFromCreditCards
 };
 
 export default userService;
