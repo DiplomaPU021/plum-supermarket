@@ -14,9 +14,15 @@ import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import axios from "axios";
 import { useState } from "react";
+import CityModal from "@/components/checkoutorder/citymodal";
 
 export default function Profile(props) {
   const [isInEdit, setIsInEdit] = useState(false)
+  const [showAddress, setShowAddress] = useState("none")
+  const [showCard, setShowCard] = useState("none")
+  const [profileCityModalShow, setProfileCityModalShow] = useState(false);
+
+
   const today = new Date();
   // const minDate = new Date(today.getFullYear() - 12, today.getMonth(), today.getDate());
   const cutoffYear = today.getFullYear() - 12;
@@ -86,11 +92,58 @@ export default function Profile(props) {
       gender: data.gender,
       birthday: data.birthday,
     });
-    console.log("UserChanged",result);
+    console.log("UserChanged", result);
     setIsInEdit(false);
   }
 
   console.log("watch", watch("gender"));
+
+  const handleSearchCity = (e) => {
+    e.preventDefault();
+    // cityRef.current.focus();
+    setProfileCityModalShow(true);
+
+  };
+
+  const handleCityModalClose = (selectedCity) => {
+    setProfileCityModalShow(false);
+  }
+
+  const handleChangeAdress = (e) => {
+    //implement handler
+
+  };
+
+  const handleAddAdress = (e) => {
+    //implement handler
+
+  };
+
+  const handleCancelAddAdress = (e) => {
+    //implement handler
+
+  };
+
+  const handleChangeCardNumber = (e) => {
+    //implement handler
+
+  };
+  const handleChangeTerm = (e) => {
+    //implement handler
+
+  };
+  const handleChangeCVV = (e) => {
+    //implement handler
+
+  };
+  const handleAddCard = (e) => {
+    //implement handler
+
+  };
+  const handleCancelAddCard = (e) => {
+    //implement handler
+
+  };
 
   return (
     <Accordion
@@ -186,7 +239,7 @@ export default function Profile(props) {
                     {errors.birthday?.message}
                   </Form.Control.Feedback>
                 </Form.Group>
-                <Form.Group as={Col} controlId="groupGender">
+                <Form.Group as={Col} controlId="groupGender" className={styles.sex}>
                   <Form.Select
                     {...register("gender")}
                     disabled={!isInEdit}
@@ -204,20 +257,15 @@ export default function Profile(props) {
               </Col>
 
             </Row>
-            <Row className={styles.contacts}>
-              <Col className={styles.col_contacts}>
-
-                {isInEdit ? (
-                  <Form.Group as={Col} controlId="groupButtons">
-                    <Button type="submit">Зберегти</Button>
-                    <Button type="cancel">Скасувати</Button>
-                  </Form.Group>
-                ) : (
-                  <Button onClick={() => setIsInEdit(true)}>Редагувати</Button>
-                )}
-
-
-              </Col>
+            <Row className={styles.cont_btn}>
+              {isInEdit ? (
+                <Form.Group as={Row} controlId="groupButtons" className={styles.save}>
+                  <Button type="cancel" className={styles.light_button}>Скасувати</Button>
+                  <Button type="submit" className={styles.dark_button}>Зберегти</Button>
+                </Form.Group>
+              ) : (
+                <Button className={styles.edit_btn} onClick={() => setIsInEdit(true)}>Редагувати <img src="../../../icons/circle_edit.png" width="24px" height="24px" alt="" /></Button>
+              )}
             </Row>
           </Form>
         </Accordion.Body>
@@ -228,7 +276,56 @@ export default function Profile(props) {
         </Accordion.Header>
         <Accordion.Body className={styles.accordion__item_body}>
           <Row className={styles.contacts}>
-            <button className={styles.profilebtn}>+ Додати адресу</button>
+            <button className={styles.profilebtn} onClick={() => setShowAddress(showAddress === "none" ? "block" : "none")}>+ Додати адресу</button>
+          </Row>
+          <Row style={{ display: showAddress }}>
+            <Col className={styles.ordertable}>
+              <Form.Label className={styles.form_label} htmlFor="city-name">Ваше місто</Form.Label>
+              <Form.Control className={styles.form_input} placeholder="Оберіть місто..."
+                // value={selectedCity ? selectedCity.value : ""} name="city"
+                onClick={handleSearchCity}
+                readOnly={true}
+                id="city-name"
+              // ref={cityRef}
+              />
+              <CityModal show={profileCityModalShow} onClose={handleCityModalClose} />
+              <Form.Group >
+                <Form.Label className={styles.form_label} htmlFor="street">Вулиця</Form.Label>
+                <Form.Control className={styles.form_floor}
+                  type="text"
+                  //  value={searchStreet}
+                  name="street"
+                  id="street"
+                //  onChange={(e) => setSearchStreet(e.target.value)}
+                //  ref={selectRef}
+                />
+                {/* {filteredStreets.length > 0 && (
+                  <ul className={styles.city_list} id="ulStreetSelect">
+                    {filteredStreets.map((street) => (
+                      <li
+                        key={street._id}
+                        id={street._id}
+                        onClick={() => handleSelectStreet(street)}
+                      >
+                        {`${street.street_type} ${street.name}`}
+                      </li>
+                    ))}
+                  </ul>
+                )} */}
+              </Form.Group>
+              <div className={styles.flex_row}>
+                <Form.Group controlId="buildingGroup">
+                  <Form.Label className={styles.form_label}>Будинок</Form.Label>
+                  <Form.Control className={styles.form_floor} name="building" onChange={handleChangeAdress} />
+                </Form.Group>
+                <Form.Group controlId="flatGroup">
+                  <Form.Label className={styles.form_label}>Квартира</Form.Label>
+                  <Form.Control className={styles.form_floor} name="flat" onChange={handleChangeAdress} />
+                </Form.Group>
+                <button onClick={handleAddAdress} id="btnAddAddress">Додати</button>
+                <button onClick={handleCancelAddAdress} id="btnCancelAddAddress">Скасувати</button>
+              </div>
+            </Col>
           </Row>
         </Accordion.Body>
       </Accordion.Item>
@@ -241,7 +338,31 @@ export default function Profile(props) {
             <button className={styles.profilebtn}>
               Mastercard із закінчкнням 5368
             </button>
-            <button className={styles.profilebtn}>+ Додати картку</button>
+            <button className={styles.profilebtn} onClick={() => setShowCard(showCard === "none" ? "block" : "none")}>+ Додати картку</button>
+          </Row>
+          <Row style={{ display: showCard }}>
+            <Col className={styles.ordertable}>
+              <Form.Group controlId="cardNumberGroup">
+                <Form.Label className={styles.form_label}>Номер картки</Form.Label>
+                <Form.Control className={styles.form_floor}
+                  type="number"
+                  name="card_number"
+                  onChange={handleChangeCardNumber}>
+                </Form.Control>
+              </Form.Group>
+              <div className={styles.flex_row}>
+                <Form.Group controlId="cardTermGroup">
+                  <Form.Label className={styles.form_label}>Термін дії</Form.Label>
+                  <Form.Control className={styles.form_floor} name="card_term" onChange={handleChangeTerm} />
+                </Form.Group>
+                <Form.Group controlId="cardCvvGroup">
+                  <Form.Label className={styles.form_label}>CVV</Form.Label>
+                  <Form.Control className={styles.form_floor} name="card_cvv" type="number" onChange={handleChangeCVV} />
+                </Form.Group>
+                <button onClick={handleAddCard} id="btnAddAddress">Додати</button>
+                <button onClick={handleCancelAddCard} id="btnCancelAddAddress">Скасувати</button>
+              </div>
+            </Col>
           </Row>
         </Accordion.Body>
       </Accordion.Item>

@@ -5,10 +5,6 @@
     align-items: center;
     gap: 20px;
     padding: 10px;
-    //max-width: 50px;
-
-    // padding-left: 80px;
-
 
     @media(max-width: 900px) {
         flex-direction: row;
@@ -25,8 +21,6 @@
         margin: 0px !important;
         justify-content: center;
     }
-
-
 }
 
 .itembtn {
@@ -41,11 +35,6 @@
     }
 }
 
-
-
-////////////////////
-/// 
-/// 
 .modaldiv {
     margin: 20px;
     border: 2px solid $plum-dark-color;
@@ -62,7 +51,7 @@
     flex-direction: column;
     justify-content: flex-start;
     align-items: center;
-    gap: 20px;
+    gap: 10px;
     margin-top: 20px;
 
     h5 {
@@ -71,10 +60,10 @@
     }
 
     p {
+      
         font-weight: 400;
         font-size: 20px;
     }
-
 }
 
 .modalbody {
@@ -106,17 +95,11 @@
 }
 
 .modalfoot {
-   // display: flex;
-   // flex-direction: column;
-    // justify-content: center;
-    // align-items: center;
-    // border: 1px solid red;
     text-align: center;
-
 }
 
 .line {
-    max-width: 435px;
+    width: 435px;
     height: 0px;
     border: 2px solid #70BF63;
     margin-top: 20px;
@@ -238,7 +221,6 @@
     flex-direction: column;
     justify-content: center;
     align-items: flex-start;
-    //maxwidth: 435px;
     padding-top: 20px;
 
     .h5text {
@@ -247,7 +229,6 @@
         line-height: 27px;
         color: #220F4B;
         padding-bottom: 20px;
-       // border-bottom: 3px solid #70BF63;
         max-width: 435px;
 
         text-decoration: none;
@@ -268,7 +249,6 @@
     display: flex;
     align-items: center;
 
-
     @media(min-width: 900px) {
         justify-content: center;
         align-items: center;
@@ -278,7 +258,6 @@
         justify-content: center;
         align-items: center;
     }
-
 }
 
 .modal {

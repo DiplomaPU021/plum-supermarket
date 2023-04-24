@@ -112,7 +112,7 @@ export default function CartItem({ product, error, setError, deleteConfirm, setD
     <Card className={styles.card}>
       <Tooltip
         id="login-tooltip"
-        content={errorWish}
+        content={error}
         isOpen={isOpen}
         place="top"
         style={{ backgroundColor: "#70BF63", color: "#fff", borderRadius: "30px" }}

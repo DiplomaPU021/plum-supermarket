@@ -2,7 +2,7 @@
     background: rgba(87, 60, 145, 0.5);
     backdrop-filter: blur(2.5px);
 
-    &_main{
+    &_main {
         background: $light-wheet-color;
         border-radius: 10px;
     }
@@ -85,6 +85,25 @@
     width: 426px;
     height: 0px;
     border: 2px solid #70BF63;
+}
+
+.image_col {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 0;
+    padding: 0;
+}
+
+.body_row {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+
+    @media(min-width: 1000px) {
+        padding-left: 40px;
+    }
 }
 
 .line2 {
