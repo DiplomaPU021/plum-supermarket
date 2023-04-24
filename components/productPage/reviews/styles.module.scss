@@ -62,11 +62,12 @@
     }
     
     &__scrollFrame {
+        width: 100%;
         display: flex;
         flex-direction: column;
         justify-content: flex-start;
         align-items: flex-start;
-        padding: 15px 30px;
+        padding: 15px 20px;
         gap: 20px;
         max-height: 1004px;
         overflow-y: scroll;
@@ -92,6 +93,7 @@
             flex-direction: column;
             justify-content: center;
             align-items: center;
+            margin: 0;
             padding: 20px 24px;
             gap: 10px;
             background: linear-gradient(180deg, #FAF8FF 0%, #F2EDFF 100%);
@@ -123,6 +125,14 @@
 
                     }
                 }
+            }
+
+            .imags {
+                margin-top: 1rem;
+                display: flex;
+                flex-direction: row;
+                gap: 1rem;
+    
             }
 
             .answer {

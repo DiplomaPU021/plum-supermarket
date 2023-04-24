@@ -4,11 +4,14 @@ import thunk from "redux-thunk";
 import createWebStorage from "redux-persist/lib/storage/createWebStorage";
 import { persistReducer } from "redux-persist";
 import cart from "./cartSlice"
+import expandSidebar from "./ExpandSlice";
 import wishList from "./wishListSlice"
 import scaleList from "./scaleListSlice"
 import reviewRating from "./reviewSlice"
+import viewedList from "./viewedListSlice";
 
-const reducers = combineReducers({ cart, wishList, scaleList, reviewRating });
+
+const reducers = combineReducers({ cart, wishList, scaleList, viewedList, reviewRating, expandSidebar });
 
 const createNoopStorage = () => {
     return {

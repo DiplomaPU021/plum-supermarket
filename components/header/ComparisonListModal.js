@@ -34,8 +34,9 @@ export default function ComparisonListModal({ show, onHide }) {
                   <tr key={i}>
                     <td>
                       <Link
+                        onClick={()=>onHide()}
                         style={{ textDecoration: "none" }}
-                        href={`/comparison/?subCategory=${subCategory.subCategory_id}`}
+                        href={`/comparison/${subCategory.subCategory_slug}`}
                       >
                         <span>{subCategory.subCategoryName}</span>
                       </Link>

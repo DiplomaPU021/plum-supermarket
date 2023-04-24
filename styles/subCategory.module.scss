@@ -53,7 +53,8 @@
             justify-content: flex-end;
             gap: 25px;
 
-            button {
+            .link {
+                text-decoration: none;
                 font-family: 'Noto Sans';
                 font-style: normal;
                 font-weight: 500;
@@ -109,10 +110,12 @@
 
                 &:focus {
                     outline: none;
+                    cursor: pointer;
                 }
 
                 option {
                     background: $light-wheet-color;
+                    cursor: pointer;
                 }
             }
         }
@@ -228,7 +231,10 @@
                             gap: 12px;
 
                             .group {
-                                max-height: 300px;
+                                display: grid;
+                                flex-direction: column;
+                                gap: 5px;
+                                max-height: 350px;
                                 overflow-y: scroll;
 
                                 &::-webkit-scrollbar {
@@ -251,7 +257,7 @@
                             .checkbox {
                                 display: flex;
                                 flex-direction: row;
-                                align-items: center;
+                                align-items: flex-start;
                                 justify-content: flex-start;
                                 gap: 20px;
 
@@ -260,6 +266,7 @@
                                     height: 24px;
                                     border: 2px solid $green-color;
                                     box-shadow: none;
+                                    cursor: pointer;
 
                                     &:checked {
                                         border-color: $green-color; // Change the border color when checked
@@ -271,6 +278,8 @@
                                 }
 
                                 &_label {
+                                    width: 90%;
+                                    align-self: center;
                                     font-family: 'Noto Sans';
                                     font-style: normal;
                                     font-weight: 400;

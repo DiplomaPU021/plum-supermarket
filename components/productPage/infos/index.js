@@ -23,8 +23,15 @@ import {
   removeFromScaleList,
   updateScaleList,
 } from "@/store/scaleListSlice";
+import { addToViewedList } from "@/store/viewedListSlice";
 
-export default function Infos({ product, active, setActive, productError, setProductError }) {
+export default function Infos({
+  product,
+  active,
+  setActive,
+  productError,
+  setProductError,
+}) {
   const router = useRouter();
   const { data: session, status } = useSession();
   const dispatch = useDispatch();
@@ -32,17 +39,74 @@ export default function Infos({ product, active, setActive, productError, setPro
   const cart = useSelector((state) => state.cart);
   const wishList = useSelector((state) => state.wishList);
   const scaleList = useSelector((state) => state.scaleList);
+  const viewedList = useSelector((state) => state.viewedList);
   const [showDetails, setShowDetails] = useState(false);
   const [showSizes, setShowSizes] = useState(false);
   const [isOpen, setIsOpen] = useState(false);
   const [isOpenQ, setIsOpenQ] = useState(false);
+  const [isOpenInWish, setIsOpenInWish] = useState(false);
+  const [wishError, setWishError] = useState(false);
+  const [wishChosen, setWishChosen] = useState(false);
+  const [cartChosen, setCartChosen] = useState(false);
+  const [scaleChosen, setScaleChosen] = useState(false);
+  const [opacity, setOpacity] = useState("1");
+  let count = 0;
 
+  useEffect(() => {
+    setOpacity(product.quantity < 1 ? "0.6" : "1");
+  }, [product]);
+  useEffect(() => {
+    let _uid = `${product._id}_${product.style}_${product.mode}`;
+    let exist = null;
+    if (cart.cartItems) {
+      exist = cart.cartItems.find((item) => item._uid == _uid);
+    }
+    if (exist) {
+      setCartChosen(true);
+      // setIsOpenInCart(true);
+    } else {
+      setCartChosen(false);
+      // setIsOpenInCart(false);
+    }
+  }, [cart.cartTotal, product.style, product.mode]);
+
+  useEffect(() => {
+    let _uid = `${product._id}_${product.style}_${product.mode}`;
+    let exist = null;
+    if (wishList.wishListItems) {
+      exist = wishList.wishListItems.some((item) => item._uid == _uid);
+    }
+    if (exist) {
+      setWishChosen(true);
+      setIsOpenInWish(true);
+    } else {
+      setWishChosen(false);
+      setIsOpenInWish(false);
+    }
+  }, [wishList.wishListTotal, product.style, product.mode]);
+
+  useEffect(() => {
+    let exist = null;
+    if (scaleList.scaleListItems) {
+      exist = scaleList.scaleListItems.some((item) => {
+        return item.items.some((p) =>
+          p._id == product._id && p.style == product.style && p.mode == product.mode
+        )
+      });
+    }
+    if (exist) {
+      setScaleChosen(true);
+      // setIsOpenInScale(true);
+    } else {
+      setScaleChosen(false);
+      // setIsOpenInScale(false);
+    }
+  }, [scaleList.scaleListTotal, product.style, product.mode]);
 
   const addToCartHandler = async () => {
     const { data } = await axios.get(
       `/api/product/${product._id}?style=${product.style}&code=${product.mode}`
     );
-
     if (qty > data.quantity) {
       setProductError("На складі обмежена кількість товару");
       setIsOpenQ(true);
@@ -53,13 +117,13 @@ export default function Infos({ product, active, setActive, productError, setPro
       return;
     } else {
       setIsOpenQ(false);
-      let _uid = `${data._id}_${data.style}_${data.code}`;
+      let _uid = `${data._id}_${data.style}_${data.mode}`;
       let exist = null;
       if (cart.cartItems) {
         exist = cart.cartItems.find((item) => item._uid === _uid);
       }
       if (exist) {
-        setProductError("Товар уже в корзині");
+        setProductError("Товар в корзині");
         setIsOpenQ(true);
         // let newCart = cart.cartItems.map((item) => {
         //   if (item._uid === exist._uid) {
@@ -67,32 +131,38 @@ export default function Infos({ product, active, setActive, productError, setPro
         //   }
         //   return item;
         // });
-        // dispatch(updateCart(newCart)); 
+        // dispatch(updateCart(newCart));
       } else {
         dispatch(addToCart({ ...data, qty, size: data.size, _uid }));
+        setCartChosen(true);
       }
     }
   };
   const addToWishListHandler = async () => {
     if (session) {
-      setIsOpen(false);
-      let _uid = `${product._id}_${product.style}_${product.subProducts[product.style].sizes[product.mode].code
-        }`;
+      setWishError("");
+      setIsOpenInWish(false);
+      // setIsOpen(false);
+      let _uid = `${product._id}_${product.style}_${product.mode}`;
       let exist = null;
       if (wishList.wishListItems) {
         exist = wishList.wishListItems.find((item) => item._uid === _uid);
       }
       if (exist) {
-        let newWishList = wishList.wishListItems.filter((item) => {
-          return item._uid != _uid;
-        });
-        dispatch(updateWishList(newWishList));
-        updateOneInWishList({ productId: product._id });
+        setWishError("Товар уже в списку улюблених");
+        setIsOpenInWish(true);
+        // let newWishList = wishList.wishListItems.filter((item) => {
+        //   return item._uid != _uid;
+        // });
+        // dispatch(updateWishList(newWishList));
+        // updateOneInWishList({ productId: product._id });
       } else {
         const { data } = await axios.get(
           `/api/product/${product._id}?style=${product.style}&code=${product.mode}`
         );
-
+        // setWishChosen(true);
+        // setIsOpenInWish(true);
+        // console.log("chosen");
         dispatch(
           addToWishList({
             ...data,
@@ -104,125 +174,188 @@ export default function Infos({ product, active, setActive, productError, setPro
         );
         saveWishList({
           productId: product._id,
-          size: product.subProducts[product.style].sizes[product.mode].size,
-          image: product.subProducts[product.style].images[0],
-          color: product.subProducts[product.style].color?.color,
-          code: product.subProducts[product.style].sizes[product.mode].code,
+          size: product.size,
+          image: product.images[0],
+          color: product.color?.color,
+          code: product.code,
+          mode: product.mode,
+          style: product.style
         });
       }
     } else {
-      setIsOpen(true);
+      // setIsOpen(true);
+      setWishError("Будь ласка зареєструйтесь!");
+      setIsOpenInWish(true);
     }
   };
+
   const addToScaleHandler = async () => {
     //need to connect to data base
     const { data } = await axios.get(
-      `/api/product/${product._id}?style=${router.query.style}&code=${router.query.code}`
+      `/api/product/${product._id}?style=${product.style}&code=${product.mode}`
+    );
+      let existSub = null;
+      let existItem = null;
+      if (scaleList.scaleListItems) {
+        existSub = scaleList.scaleListItems.find(
+          (item) => item.subCategory_id === data.subCategory_id
+        );
+        if (existSub) {
+          existItem = existSub.items.some((p) =>{ return p._id == data._id && p.style == data.style && p.mode == data.mode});
+          if (existItem) {
+            if (existSub.items.length === 1) {
+              dispatch(removeFromScaleList({ ...existSub }));
+              setScaleChosen(false);
+            } else {
+              dispatch(updateScaleList({ ...data }));
+              setScaleChosen(true);
+            }
+          } else {
+            dispatch(addToScaleList({ ...data }));
+            setScaleChosen(true);
+          }
+        } else {
+          dispatch(addToScaleList({ ...data }));
+          setScaleChosen(true);
+        }
+      }
+  };
+  
+  const addToViewedHandler = async () => {
+    const { data } = await axios.get(
+      `/api/product/${product._id}?style=${product.style}&code=${product.mode}`
     );
 
-    if (qty > data.quantity) {
-      setProductError("The quantity is bigger than in stock.");
-      return;
-    } else if (data.quantity < 1) {
-      setProductError("This product is out of stock.");
-      return;
-    } else {
-      let _uid = `${data._id}_${data.style}_${data.code}`;
-      let exist = null;
-      if (scaleList.scaleListItems) {
-        exist = scaleList.scaleListItems.find((item) => item._uid === _uid);
-      }
-      if (exist) {
-        let newScaleList = scaleList.scaleListItems.filter((item) => {
-          return item._uid != _uid;
-        });
-        dispatch(updateScaleList(newScaleList));
-      } else {
-        dispatch(addToScaleList({ ...data, qty, size: data.size, _uid }));
+    if (viewedList.viewedListItems) {
+      const existItem = viewedList.viewedListItems.find(
+        (item) =>
+          item._id == data._id &&
+          item.style == data.style &&
+          item.mode == data.mode
+      );
+      
+      if (!existItem) {
+        dispatch(addToViewedList({ ...data }));
       }
     }
   };
   return (
     <Container fluid className={styles.infos}>
       <Tooltip
-        id="login-tooltip"
-        content="Будь ласка зареєструйтесь!"
-        isOpen={isOpen}
-        style={{ backgroundColor: "#70BF63", color: "#fff", borderRadius: "30px" }}
-      />
-      <Tooltip
         id="quantity-tooltip"
         content={productError}
         isOpen={isOpenQ}
         style={{ backgroundColor: "#70BF63", color: "#fff", borderRadius: "30px" }}
       />
-      <Row className={styles.infos__priceandaction}>
-        <Col className={styles.infos__priceandaction_price}>
+      <Tooltip
+        id="wish-tooltip"
+        content={wishError}
+        isOpen={isOpenInWish}
+        style={{ backgroundColor: "#70BF63", color: "#fff", borderRadius: "30px", zIndex:"999" }}
+      />
+     <Col className={styles.infos__priceandaction}>
+        <div className={styles.infos__priceandaction_price}>
           {product.subProducts[product.style].discount > 0 ? (
             <div>
               <span className={styles.pricediscount}>{`${Number(
                 product.price
               ).toLocaleString("uk-UA")} ${product.price_unit}`}</span>
-              <span className={styles.priceregular}>
-                {`${Number(product.priceAfter).toLocaleString("uk-UA")} ${product.price_unit
-                  }`}
+              <span
+                style={{ opacity: opacity }}
+                className={styles.priceregular}
+              >
+                {`${Number(product.priceAfter).toLocaleString("uk-UA")} ${
+                  product.price_unit
+                }`}
               </span>
             </div>
           ) : (
             <div>
               <span className={styles.priceregular}>{`${Number(
                 product.price
-              ).toLocaleString()} ${product.price_unit}`}</span>
+              ).toLocaleString("uk-UA")} ${product.price_unit}`}</span>
             </div>
           )}
-        </Col>
-        <Col className={styles.infos__priceandaction_react}>
+        </div>
+        <div className={styles.infos__priceandaction_react}>
           <div className={styles.liked}>
+            {/* TODO onClick like below*/}
             <button
               onClick={addToWishListHandler}
-              data-tooltip-id="login-tooltip"
-              onMouseLeave={() => setIsOpen(false)}
+              data-tooltip-id="wish-tooltip"
+              onMouseLeave={() => setIsOpenInWish(false)}
+              style={{ backgroundColor: wishChosen ? "#220F4B" : "#FAF8FF" }}
             >
-              <HeartIcon fillColor="#220F4B" />
+              <HeartIcon fillColor={wishChosen ? "#FAF8FF" : "#220F4B"} />
             </button>
             {/* TODO count of liked below*/}
             {/* <div>
               <span>6015</span>
             </div> */}
           </div>
-          <button onClick={addToScaleHandler}>
-            <ScalesIcon fillColor="#220F4B" />
+          <button onClick={addToScaleHandler}
+            style={{ backgroundColor: scaleChosen ? "#220F4B" : "#FAF8FF" }}>
+            <ScalesIcon fillColor={scaleChosen ? "#FAF8FF" : "#220F4B"} />
           </button>
-        </Col>
-        <Col className={styles.infos__priceandaction_buy}>
+        </div>
+        <div className={styles.infos__priceandaction_buy}>
+          {product.quantity < 1 ? (
+            <span style={{ color: "#70BF63" }}>
+              Немає в наявності
+            </span>
+          ) : (
+            <></>
+          )}
           <button
             onClick={() => {
               addToCartHandler();
             }}
+            data-tooltip-id="quantity-tooltip"
+            onMouseLeave={() => setIsOpenQ(false)}
+            style={{
+              cursor: `${product.quantity < 1 ? "not-allowed" : ""}`,
+              // backgroundColor: cartChosen ? "#220F4B" : "#FAF8FF"
+            }}
           >
-            <CartIcon fillColor="#FAF8FF" />
-            <span>Купити</span>
+            {product.quantity < 1 ? (
+              <span style={{ fontSize: "18px", lineHeight: "25px" }}>
+                Повідомити коли з’явиться
+              </span>
+            ) : (
+              <>
+                <CartIcon fillColor="#FAF8FF" />
+                {cartChosen ? (
+              <span>В корзині</span>
+            ) : (
+              <span>Купити</span>
+            )}
+              </>
+            )}
           </button>
-        </Col>
-      </Row>
+        </div>
+      </Col>
 
       <Row className={styles.infos__characteristics}>
         <span>Основні характеристики</span>
       </Row>
       <Col className={styles.infos__details}>
-        {product.details.slice(0, product.details.lenght).map((info, i) =>
-          i < 9 ?
-            info.fields.map((name, index) => (
-              <div className={styles.infos__details_row} key={index}>
+        {product.details.slice(0, product.details.length).map((info, i) =>
+          info.fields.map((field, j) =>
+            count < 8 && field.isMain ? (
+              <div
+                className={styles.infos__details_row}
+                key={j}
+                {...(count += 1)}
+              >
                 <div>
-                  <span>{name.name}</span>
-
+                  <span>{field.name}</span>
                 </div>
                 <div>
-                  <span>{name.value}</span>
+                  <span>{field.value}</span>
                 </div>
               </div>
-            )) : null
+            ) : null
+          )
         )}
       </Col>
       <Col className={styles.infos__more}>
@@ -236,7 +369,6 @@ export default function Infos({ product, active, setActive, productError, setPro
           onHide={() => setShowDetails(false)}
         />
       </Col>
-
       {product.size ? (
         <Row className={styles.infos__sizesInfo}>
           <span className={`${styles.input} ${productError ? styles.error : ""}`}>
@@ -247,19 +379,23 @@ export default function Infos({ product, active, setActive, productError, setPro
               <Link
                 style={{ textDecoration: "none" }}
                 key={i}
+                onClick={addToViewedHandler}
                 href={`/product/${product.slug}?style=${router.query.style}&code=${i}`}
               >
                 <Col
+                  style={{ opacity: el.qty == 0 ? "0.6" : "" }}
                   className={`${styles.infos__sizesInfo_sizes_size}
                   ${i == router.query.code && styles.active_size}`}
                   onClick={() => setActive((prevState) => ({
                     ...prevState,
-                    mode: i,              
+                    mode: i,
                   }))}
-                  data-tooltip-id="quantity-tooltip"
-                  onMouseLeave={() => setIsOpenQ(false)}
                 >
                   {el.size}
+                  <div
+                    style={{ display: el.qty == 0 ? "" : "none" }}
+                    className={styles.infos__sizesInfo_sizes_crossline}
+                  ></div>
                 </Col>
               </Link>
             ))}
@@ -268,6 +404,7 @@ export default function Infos({ product, active, setActive, productError, setPro
             Таблиця розмірів{" "}
             <ChevronRight fillColor="#70BF63" w="30px" h="30px" />
           </button>
+
           <SizesTable show={showSizes} onHide={() => setShowSizes(false)} />
         </Row>
       ) : null}

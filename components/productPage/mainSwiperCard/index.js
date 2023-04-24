@@ -1,5 +1,6 @@
 import "bootstrap/dist/css/bootstrap.min.css";
 import styles from "./styles.module.scss";
+import axios from "axios";
 import { useEffect, useState } from "react";
 import Image from "react-bootstrap/Image";
 import Link from "next/link";
@@ -13,21 +14,48 @@ import ChevronLeft from "@/components/icons/ChevronLeft";
 import { Container, Row, Col } from "react-bootstrap";
 import { Rating } from "react-simple-star-rating";
 import Star from "@/components/icons/Star";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
+import { addToViewedList } from "@/store/viewedListSlice";
 
-export default function MainSwiper({ product, active, setActive, setProductReview }) {
+export default function MainSwiper({
+  product,
+  active,
+  setActive,
+  setProductReview,
+}) {
   const [activeImg, setActiveImg] = useState(product.images[0].url);
   const reviewRating = useSelector((state) => state.reviewRating);
+  const viewedList = useSelector((state) => state.viewedList);
   const router = useRouter();
+  const dispatch = useDispatch();
   useEffect(() => {
     setActiveImg(product.images[0].url);
   }, [product.slug]);
+
+  const addToViewedHandler = async () => {
+    const { data } = await axios.get(
+      `/api/product/${product._id}?style=${product.style}&code=${product.mode}`
+    );
+
+    if (viewedList.viewedListItems) {
+      const existItem = viewedList.viewedListItems.find(
+        (item) =>
+          item._id == data._id &&
+          item.style == data.style &&
+          item.mod == data.mod
+      );
+      
+      if (!existItem) {
+        dispatch(addToViewedList({ ...data }));
+      }
+    }
+  };
   return (
     <Container fluid className={styles.swiper}>
       <Row className={styles.swiper__photoBox}>
         <Image
           className={styles.swiper__photoBox_image}
-          src={activeImg|| product.images[0].url}
+          src={activeImg || product.images[0].url}
           alt={product.name}
         />
       </Row>
@@ -49,6 +77,7 @@ export default function MainSwiper({ product, active, setActive, setProductRevie
               disabledClass: "swiper-button-disabled",
             }}
             modules={[Navigation]}
+            loop={true}
           >
             {product.images.map((img, i) => (
               <SwiperSlide key={i}>
@@ -75,22 +104,23 @@ export default function MainSwiper({ product, active, setActive, setProductRevie
         ""
       )}
       <Row className={styles.swiper__reviews}>
-
         <Col className={styles.swiper__reviews_stars}>
           {/* <button ><a href="#anchor_one">Відгуки</a></button> */}
-          <Link href="#anchor_one">Відгуки</Link>
+          <Link className={styles.link} href="#anchor_one">
+            Відгуки
+          </Link>
           <Rating
             readonly={true}
             size={30}
             allowFraction={2}
-            initialValue={reviewRating?.reviewRatingValue}
+            initialValue={(reviewRating?.reviewRatingValue).toFixed()}
             ratingValue
             emptyIcon={
               <Star
                 fillColor="transparent"
                 height={24}
                 width={24}
-                stroke="#70BF63"
+                stroke="#220F4B"
               />
             }
             fillIcon={
@@ -107,21 +137,35 @@ export default function MainSwiper({ product, active, setActive, setProductRevie
       {product.color ? (
         <div className={styles.swiper__colors}>
           {product.subProducts.map((el, i) => (
-            <span
+            <Link
               key={i}
-              className={i == router.query.style ? styles.active : ""}
-              onMouseOver={() => setActiveImg(el.images[i].url)}
-              onMouseLeave={() => setActiveImg("")}
-              onClick={() => setActive((prevState) => ({
-                ...prevState,
-                style: i,              
-              }))}
-              style={{ background: el.color.image }}
+              onClick={addToViewedHandler}
+              href={`/product/${product.slug}?style=${i}&code=${0}`}
             >
-              <Link
-                href={`/product/${product.slug}?style=${i}&code=${0}`}
-              ></Link>
-            </span>
+              <span
+                className={i == router.query.style ? styles.active : ""}
+                onMouseOver={() => setActiveImg(el.images[i].url)}
+                onMouseLeave={() => setActiveImg("")}
+                onClick={() =>
+                  setActive((prevState) => ({
+                    ...prevState,
+                    style: i,
+                  }))
+                }
+                style={{ background: el.color.image }}
+              >
+                <div
+                  style={{
+                    display:
+                      product.sizes[product.mode].qty < 1 &&
+                      product.color == el.color.color
+                        ? ""
+                        : "none",
+                  }}
+                  className={styles.swiper__colors_crossline}
+                ></div>
+              </span>
+            </Link>
           ))}
         </div>
       ) : (

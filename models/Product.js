@@ -1,4 +1,5 @@
 import mongoose from "mongoose";
+import { bool } from "yup";
 
 const { ObjectId } = mongoose.Schema;
 const replySchema = new mongoose.Schema({
@@ -100,12 +101,12 @@ const productSchema = new mongoose.Schema(
         // ],
         details: [
             {
-                "group": String,
-                "fields": [
+                group: String,
+                fields: [
                     {
-                        "name": String,
-                        "value": String,
-                        "isMain": Boolean
+                        name: String,
+                        value: String,
+                        isMain: Boolean
                     }
                 ]
             }

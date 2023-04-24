@@ -1,5 +1,5 @@
 import styles from "./styles.module.scss";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Card from "react-bootstrap/Card";
 import HeartIcon from "../icons/HeartIcon";
 import DeleteIcon from "../icons/DeleteIcon";
@@ -22,9 +22,26 @@ export default function CartItem({ product, error, setError, deleteConfirm, setD
   const cart = useSelector((state) => state.cart);
   const wishList = useSelector((state) => state.wishList);
   const dispatch = useDispatch();
-  const [isOpen, setIsOpen] = useState(false);
-  //const [errorWish, setErrorWish]=useState("");
+  const [isOpenInWish, setIsOpenInWish] = useState(false);
+  const [errorWish, setErrorWish]=useState("");
+  const [wishError, setWishError] = useState(false);
   const [wishChosen, setWishChosen] = useState(false);
+
+  useEffect(() => {
+    let _uid = `${product._id}_${product.style}_${product.mode}`;
+    let exist = null;
+    if (wishList.wishListItems) {
+      exist = wishList.wishListItems.some((item) => item._uid == _uid);
+    }
+    if (exist) {
+      setWishChosen(true);
+      setIsOpenInWish(true);
+    } else {
+      setWishChosen(false);
+      setIsOpenInWish(false);
+    }
+  }, [wishList.wishListTotal, product.style, product.mode]);
+
   const updateQty = async (type) => {
     let newCart = cart.cartItems.map((item) => {
       if (item._uid == product._uid) {
@@ -43,11 +60,11 @@ export default function CartItem({ product, error, setError, deleteConfirm, setD
       let newCart = cart.cartItems.filter((item) => {
         return item._uid != id;
       });
-      setError((prevState) => ({
-        ...prevState,
-        inCartError: false,
-        uidPrInCart: "",
-      }));
+      // setError((prevState) => ({
+      //   ...prevState,
+      //   inCartError: false,
+      //   uidPrInCart: "",
+      // }));
       dispatch(updateCart(newCart));
     } else {
       setNotificationShow(true);
@@ -63,9 +80,8 @@ export default function CartItem({ product, error, setError, deleteConfirm, setD
   };
   const addToWishHandler = async (product) => {
     if (session) {
-      //setIsOpen(false);
-      setWishChosen(wishChosen ? false : true)
-      console.log("addToWishListHandlerCartItem", product);
+      setWishError("");
+      setIsOpenInWish(false);
       const { data } = await axios.get(
         `/api/product/${product._id}?style=${product.style}&code=${product.mode}`
       );
@@ -76,14 +92,13 @@ export default function CartItem({ product, error, setError, deleteConfirm, setD
         );
       }
       if (exist) {
-        setError((prevState) => ({
-          ...prevState,
-          inWishListError: true,
-          uidPrInWish: product._uid,
-        }));
-        setErrorWish("Товар уже в улюблених");
-        setIsOpen(true);
-        console.error("Товар уже в улюблених");
+        // setError((prevState) => ({
+        //   ...prevState,
+        //   inWishListError: true,
+        //   uidPrInWish: product._uid,
+        // }));
+        setWishError("Товар уже в улюблених");
+        setIsOpenInWish(true);
         return;
       } else {
         dispatch(
@@ -101,21 +116,23 @@ export default function CartItem({ product, error, setError, deleteConfirm, setD
           image: product.images[0],
           color: product.color?.color,
           code: product.code,
+          mode: product.mode,
+          style: product.style
         });
       }
     } else {
-      setIsOpen(true);
-      setErrorWish("Будь ласка зареєструйтесь!")
+      setIsOpenInWish("Будь ласка зареєструйтесь!");
+      isOpenInWish(true);
     }
   };
   return (
     <Card className={styles.card}>
       <Tooltip
-        id="login-tooltip"
-        content={error}
-        isOpen={isOpen}
+         id="wish-tooltip"
+        content={wishError}
+        isOpen={isOpenInWish}
         place="top"
-        style={{ backgroundColor: "#70BF63", color: "#fff", borderRadius: "30px" }}
+        style={{ backgroundColor: "#70BF63", color: "#fff", borderRadius: "30px", zIndex:"999" }}
         // className={styles.tooltip_rounded}
         // classNameArrow={styles.tooltip_arrow}
       />
@@ -257,8 +274,8 @@ export default function CartItem({ product, error, setError, deleteConfirm, setD
               <button
                 className={styles.itembtn}
                 onClick={() => addToWishHandler(product)}
-                data-tooltip-id="login-tooltip"
-                onMouseLeave={() => setIsOpen(false)}
+                data-tooltip-id="wish-tooltip"
+                onMouseLeave={() => setIsOpenInWish(false)}
                 style={{ backgroundColor: wishChosen ? "#220F4B" : "#FAF8FF" }}
               >
                 {" "}

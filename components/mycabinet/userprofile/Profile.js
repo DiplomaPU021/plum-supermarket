@@ -79,7 +79,7 @@ export default function Profile(props) {
       phoneNumber: props.user?.phoneNumber || "",
       email: props.user?.email || "",
       gender: props.user?.gender || "",
-      birthday: props.user?.birthday || "1900-01-01",
+      birthday: props.user?.birthday || "1990-01-01",
     },
     resolver: yupResolver(validationSchema),
   });
@@ -245,17 +245,15 @@ export default function Profile(props) {
                     disabled={!isInEdit}
                     name="gender"
                     className={`${styles.form_input} ${errors.gender ? "is-invalid" : ""}`}>
-                    <option value="" disabled={true}>Стать</option>
-                    <option >жінка</option>
-                    <option >чоловік</option>
-                    <option >дитина</option>
+                    <option value="Стать" disabled={true}>Стать</option>
+                    <option >Жінка</option>
+                    <option >Чоловік</option>
                   </Form.Select>
                   <Form.Control.Feedback type="invalid">
                     {errors.gender?.message}
                   </Form.Control.Feedback>
                 </Form.Group>
               </Col>
-
             </Row>
             <Row className={styles.cont_btn}>
               {isInEdit ? (

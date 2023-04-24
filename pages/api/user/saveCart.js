@@ -38,6 +38,8 @@ handler.post(async (req, res) => {
                 color: cart.cartItems[i].color?.color,
                 image: cart.cartItems[i].color?.image,
             }
+            tempProduct.style=cart.cartItems[i].style;
+            tempProduct.mode=cart.cartItems[i].mode;
             products.push(tempProduct);
         }
         let cartTotalPrice = 0;
@@ -75,7 +77,7 @@ handler.post(async (req, res) => {
             let user = await User.findById(id);
             let existing_cart = await Cart.findOne({ user: user._id });
             if (existing_cart) {
-                return res.status(200).json(existing_cart);
+                return res.status(200).json({existing_cart});
             }
            
             await db.disconnectDb();

@@ -47,10 +47,10 @@ export default function Summary({
         setTotalQty(cart?.cartTotalQty);
         setTotalPrice(getTotalPrice());
         if (delivery.deliveryId == "postmanDelivery") {
-            setTotalAfterDiscount((100 - discount) * getTotalPrice() / 100 + Number(delivery.deliveryCost));
+            setTotalAfterDiscount(((100 - discount) * getTotalPrice() / 100 + Number(delivery.deliveryCost)).toFixed());
         }
         else {
-            setTotalAfterDiscount((100 - discount) * getTotalPrice() / 100);
+            setTotalAfterDiscount(((100 - discount) * getTotalPrice() / 100).toFixed());
         }
     }, [cart, setPromocode, totalPrice, delivery]);
 
