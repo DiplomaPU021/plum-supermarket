@@ -23,7 +23,8 @@ export default function Summary({
     activeAddress,
     paymentMethod,
     delivery,
-    setDelivery
+    setDelivery,
+    isPaid
 }) {
     const { data: session } = useSession();
     const dispatch = useDispatch();
@@ -95,7 +96,8 @@ export default function Summary({
                         totalQty: cart.cartTotalQty,
                         costAfterDiscount: totalAfterDiscount,
                         promocode,
-                        discount
+                        discount,
+                        isPaid
                     });
                     router.push(`/order/${data.order_id}`);
                 } else {
@@ -119,7 +121,8 @@ export default function Summary({
                         totalQty: cart.cartTotalQty,
                         costAfterDiscount: totalAfterDiscount,
                         promocode,
-                        discount
+                        discount,
+                        isPaid
                     });
                     router.push(`/order/${data.order_id}`);
                 }
@@ -182,6 +185,8 @@ export default function Summary({
                                     <li><div className={styles.litext_btn}><p>Доставка</p><h6>{delivery.deliveryType}</h6></div></li>
                                     <li><div className={styles.litext_btn}><p>Вартість доставки</p><h6>{delivery.deliveryType == "Кур'єр на вашу адресу" ? `${Number(delivery.deliveryCost)} ₴` : delivery.deliveryCost}</h6></div></li>
                                     <li><div className={styles.litext_btn}><p>Оплата</p><h6>{paymentMethod}</h6></div></li>
+                                    {/* TODO вытянуть isPaid из базы */}
+                                    <li><div className={styles.litext_btn}><p>Статус оплати</p><h6>{isPaid ? "Оплачено" : "Очікується оплата"}</h6></div></li>
                                     {discount > 0 && (
                                         <li><div className={styles.litext_btn}><p>Купон застосовано:</p><h6><b>-{discount}%</b></h6></div></li>
                                     )}

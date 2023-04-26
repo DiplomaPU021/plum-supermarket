@@ -24,8 +24,9 @@ export default function order({ orderData }) {
             </Row>
             <Row className={styles.row}>
             <div className={styles.repete}>
-                <button className={styles.light_button}>Продовжити покупки</button>
-                <button className={styles.dark_button}>Мої замовлення</button>
+                <Link type="button" href="/" className={styles.light_button}>Продовжити покупки</Link>
+                {/* TODO перехід на мої замовлення профіль*/}
+                <button className={styles.dark_button}>Мої замовлення</button>   
             </div>
             </Row>
         </Container>

@@ -2,7 +2,7 @@ import styles from "./styles.module.scss";
 import { Button, Col, Form, Modal, Row } from "react-bootstrap";
 import React, { useEffect, useRef, useState } from 'react';
 import Cards from 'react-credit-cards-2';
-import {toast } from 'react-toastify';
+import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css'; // імпортуємо стилі
 import axios from 'axios';
 import {
@@ -65,14 +65,14 @@ const PaymentForm = ({ total, setIsPaid, userCreditCards, setUserCreditCards, se
                     },
                 }
             );
-             console.log("data", data);
-              setTimeout(() => {
-            toast.update(toastId, {
-                render: data?.message,
-                type: toast.TYPE.SUCCESS,
-            });
-            setIsPaid(true);
-            handleReset();
+            console.log("data", data);
+            setTimeout(() => {
+                toast.update(toastId, {
+                    render: data?.message,
+                    type: toast.TYPE.SUCCESS,
+                });
+                setIsPaid(true);      //TODO в профілі викидає помилку поки таймаут
+                handleReset();
 
             }, 3000);
             // let newCreditCard = {
@@ -90,7 +90,7 @@ const PaymentForm = ({ total, setIsPaid, userCreditCards, setUserCreditCards, se
             //     creditCards.push(temp_creditCards);
             // }
             // creditCards.push(newCreditCard);
-             setUserCreditCards(data.creditCards);
+            setUserCreditCards(data.creditCards);
             // console.log("90", userCreditCards);
 
         } catch (error) {
@@ -152,7 +152,7 @@ const PaymentForm = ({ total, setIsPaid, userCreditCards, setUserCreditCards, se
 
     return (
         <div>
-            <Row>
+            <Row className={styles.card_image}>
                 <Col>
                     <Cards
                         number={state.number || ''}
@@ -174,6 +174,7 @@ const PaymentForm = ({ total, setIsPaid, userCreditCards, setUserCreditCards, se
                         onChange={handleInputChange}
                         onFocus={handleInputFocus}
                         value={formatCreditCardNumber(state.number)}
+                        className={styles.form_input_card}
                     />
                 </Form.Group>
                 <Form.Group className="mb-3" controlId="cardHolderName">
@@ -184,6 +185,7 @@ const PaymentForm = ({ total, setIsPaid, userCreditCards, setUserCreditCards, se
                         value={state.name}
                         onChange={handleInputChange}
                         onFocus={handleInputFocus}
+                        className={styles.form_input_card}
                     />
                 </Form.Group>
                 <Row>
@@ -197,6 +199,7 @@ const PaymentForm = ({ total, setIsPaid, userCreditCards, setUserCreditCards, se
                                 value={formatExpirationDate(state.expiry)}
                                 onChange={handleInputChange}
                                 onFocus={handleInputFocus}
+                                className={styles.form_input_card}
                             />
                         </Form.Group>
                     </Col>
@@ -210,18 +213,19 @@ const PaymentForm = ({ total, setIsPaid, userCreditCards, setUserCreditCards, se
                                 value={formatCVC(state.cvc)}
                                 onChange={handleInputChange}
                                 onFocus={handleInputFocus}
+                                className={styles.form_input_card}
                             />
                         </Form.Group>
                     </Col>
                 </Row>
                 <Row>
                     <Col className={styles.litext_btn}>
-                        <p>До оплати:</p><h3>{Number(total).toLocaleString("uk-UA")} ₴</h3>
+                        {total == null ? (<></>) : (<><p>До оплати:</p><h3>{Number(total).toLocaleString("uk-UA")} ₴</h3></>)}
                     </Col>
                     <Col>
-                        <Form.Group as={Col} controlId="groupButtons">
-                            <Button type="submit" className={styles.small_sbm} disabled={isButtonDisabled}>Додати карту</Button>
-                            <Button type="reset" className={styles.small_sbm}>Скасувати</Button>
+                        <Form.Group as={Col} controlId="groupButtons" className={styles.flex_row_card}>
+                            <Button type="submit" className={styles.light_button} disabled={isButtonDisabled}>Додати карту</Button>
+                            <Button type="reset" className={styles.dark_button}>Скасувати</Button>
                         </Form.Group>
                     </Col>
                 </Row>
