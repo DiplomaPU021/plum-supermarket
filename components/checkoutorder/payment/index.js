@@ -94,19 +94,15 @@ export default function PaymentMethod({
                                 {showCard ? (
                                     userCreditCards.length > 0 ? (
                                         <div key={`${pm.id}-select-${index}`}>
-                                            <Form.Select name="creditselect">
+                                            <Form.Select name="creditselect" className={styles.form_input_card}>
                                                 <option value="Вибрати карту" disabled={true} id="optcred1" key="optcred1">Вибрати карту...</option>
                                                 {userCreditCards.map((cc) => (
                                                     <option key={`${cc._id}-${index}`} value={cc.id}>{`**** **** **** ${cc.number.slice(-4)}`}</option>
                                                 ))}
                                             </Form.Select>
-                                            <Row>
-                                                <Col>
-                                                    <button onClick={handleMakePayment}>Оплатити</button>
-                                                </Col>
-                                                <Col>
-                                                    <button onClick={handleAddCard}>Додати карту</button>
-                                                </Col>
+                                            <Row className={styles.flex_row_card}>
+                                                <button className={styles.dark_button} onClick={handleMakePayment}>Оплатити</button>
+                                                <button className={styles.light_button} onClick={handleAddCard}>Додати карту</button>
                                             </Row>
 
                                         </div>
