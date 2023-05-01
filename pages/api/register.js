@@ -9,7 +9,6 @@ const handler = nc()
     try {
       await db.connectDb();
       const {  email, password } =req.body;
-      console.log( email, password);
       const user = await authService.registerUser( email, password);
       await db.disconnectDb();
       return res.status(201).json({

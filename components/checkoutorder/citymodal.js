@@ -10,8 +10,6 @@ import Col from 'react-bootstrap/Col';
 
 
 export default function CityModal(props) {
-
-    // console.log("props onCityModal", props);
     const clickRef = useRef(null);
     const [searchCity, setSearchCity] = useState();
     const [isClearable, setIsClearable] = useState(true);

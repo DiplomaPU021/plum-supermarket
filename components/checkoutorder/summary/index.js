@@ -87,14 +87,12 @@ export default function Summary({
                         //     activeAddress.phoneNumber=userData.phoneNumber;  
                         await saveAddress(activeAddress);
                     } else {
-                        console.log("fff");
                         setActiveAddress({
                             ...activeAddress, firstName: userData.firstName,
                             lastName: userData.lastName,
                             phoneNumber: userData.phoneNumber
                         }
                         );
-                        console.log("activeSummary", JSON.stringify(activeAddress, null, 4));
                     }
 
 

@@ -58,12 +58,10 @@ export default function Shipping({
   );
 
   useEffect(() => {
-    console.log("selectedAddress 60", selectedAddress);
     if (selectedAddress && selectedAddress!="") {
         const selectedOption = filteredUserAdresses.find(
           (item) => item.address == selectedAddress
         );
-        console.log("selected option 66", JSON.stringify(selectedOption, null, 4));
         if(selectedOption) {
                    setActiveAddress(selectedOption);
         setDelivery({
@@ -192,7 +190,6 @@ export default function Shipping({
   }, [addressValues]);
 
   useDeepCompareEffect(() => {
-    console.log("174");
     if (
       filteredUserAdresses.length > 0 &&
       delivery.deliveryId == "postmanDelivery"
@@ -203,12 +200,10 @@ export default function Shipping({
       setSelectedAddress(
         filteredUserAdresses.find((item) => item.active === true).address || ""
       );
-      console.log("179");
     } else {
       setShowAddAddressBlock("block");
       setShowPostmanDeliveryAll("none");
       setVisibleAddressField(false);
-      console.log("184");
     }
   }, [filteredUserAdresses]);
 
@@ -246,7 +241,6 @@ export default function Shipping({
         deliveryAddress: `${selectedCity?.value}, ${deliveryAddressSelected}`,
         deliveryId: "novaPoshta",
       }));
-      console.log("220");
       setActiveAddress(null);
       setShowPostmanDeliveryAll("none");
       setVisibleAddressField(false);
@@ -279,7 +273,6 @@ export default function Shipping({
   const handleSelectStreet = (street) => {
     selectRef.current.focus();
     setSelectedStreet(street);
-    console.log("street selected", street);
     setSearchStreet(`${street.street_type} ${street.name}`);
   };
   const handleStreetChange = (e) => {
@@ -293,16 +286,6 @@ export default function Shipping({
   };
   const handleSelectPostman = (e) => {
     postmanRef.current.focus();
-
-    console.log("handleSelectPostman", e.target);
-    console.log("handleSelectPostmanIndex", e.target.selectedIndex);
-    console.log("handleSelectPostmanValue", e.target.value);
-    //    e.target.value = selectedAddress;
-    // setSelectedAddress(e.target.value);
-    // const activeAddress2 = filteredUserAdresses.find(
-    //     (item) => item.active === true
-    // );
-    console.log("selectedAddress: 283", selectedAddress);
     if (selectedAddress) {
       // змінюємо властивість active для вибраного елемента
       const updatedAddresses = filteredUserAdresses.map((item) =>
@@ -310,23 +293,12 @@ export default function Shipping({
           ? { ...item, active: true }
           : { ...item, active: false }
       );
-      console.log("updateAddress: ", updatedAddresses);
-
-      //     // оновлюємо масив filteredUserAdresses з оновленими адресами
       setFilteredUserAdresses(updatedAddresses);
-      //     // оновлюємо значення value у <Form.Select>
-      // e.target.value = selectedAddress;
     }
-
     setSelectedAddress(e.target.value);
-
-    // console.log("filterOnHandle", filteredUserAdresses[e.target.selectedIndex]);
-    // setSelectedAddress(filteredUserAdresses[e.target.selectedIndex])
-    //  setActiveAddress(filteredUserAdresses[e.target.selectedIndex]);
   };
 
   const handleChangeDelivery = (e) => {
-    console.log("269", e.target.name);
     if (e.target.name === "selfPickup") {
       const addressDefault = deliveryTypes[0].adresses.find(
         (item) => item.city === selectedCity?.object_name
@@ -349,9 +321,6 @@ export default function Shipping({
           (c) => c.active === true
         );
         setSelectedAddress(selectedAddressActive.address);
-        console.log("default address", defaultAddress);
-        console.log("selected addressActive", selectedAddressActive);
-        console.log("selected address", selectedAddress);
         setDelivery((prevState) => ({
           ...prevState,
           deliveryAddress: `${selectedCity?.value}, ${selectedAddressActive.address}, ${selectedAddressActive.ground} поверх, ліфт ${selectedAddressActive.elevator}`,
@@ -363,7 +332,6 @@ export default function Shipping({
           deliveryAddress: "",
         }));
       }
-      console.log("308");
       setShowPostmanDeliveryAll("block");
       if (filteredUserAdresses.length > 0) {
         setVisibleAddressField(true);
@@ -372,7 +340,6 @@ export default function Shipping({
       setSelfPickup("none");
       setShowNovaPoshtaDelivery("none");
     } else {
-      console.log("313");
       setShowPostmanDeliveryAll("none");
     }
     if (e.target.name === "novaPoshta") {
@@ -383,7 +350,6 @@ export default function Shipping({
       setActiveAddress(null);
       setShowNovaPoshtaDelivery("block");
       setVisibleAddressField(false);
-      console.log("324");
       setShowPostmanDeliveryAll("none");
       setSelfPickup("none");
     } else {
