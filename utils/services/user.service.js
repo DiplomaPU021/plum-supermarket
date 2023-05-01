@@ -45,17 +45,11 @@ const findByIdAndDelete = async (id) => {
     return result;
 };
 const createUser = async (
-    firstName,
-    lastName,
-    phoneNumber,
     email,
     password,
     uniqueString
 ) => {
     const user = await new User({
-        firstName,
-        lastName,
-        phoneNumber,
         email,
         password,
         uniqueString,
@@ -307,7 +301,7 @@ const addCreditCard = async (userId, name, number, expiry, cvc) => {
         await user.updateOne({
             creditCards: creditCards,
         }, { new: true });
-console.log("309");
+        console.log("309");
         const result = await User.findById(userId);
         console.log("311");
         // console.log("temp_addressUser2", user);
@@ -336,6 +330,34 @@ const removeFromCreditCards = async (userId, creditCardId) => {
     return false;
 
 };
+
+const addAdmirations = async (userId, fishing, hunting, gardening, fitness, yoga, running, bicycle, music, tourism, cybersport, handmade) => {
+    const foundUser = await User.findById(userId);
+    if (foundUser) {
+        foundUser.admiration = {
+            fishing,
+            hunting,
+            gardening,
+            fitness,
+            yoga,
+            running,
+            bicycle,
+            music,
+            tourism,
+            cybersport,
+            handmade
+        };
+        await foundUser.save({ validateBeforeSave: false });
+        return foundUser;
+    } else {
+        throw new Error("Користувача не знайдено");
+    }
+
+};
+const getAddmirations = async (userId) => {
+    const foundUser = await User.findById(userId);
+    return foundUser.admiration;
+}
 const userService = {
     getOneById,
     getAll,
@@ -350,7 +372,10 @@ const userService = {
     getWishlist,
     findByIdAndUpdateProfile,
     addCreditCard,
-    removeFromCreditCards
+    removeFromCreditCards,
+    addAdmirations,
+    getAddmirations
+
 };
 
 export default userService;

@@ -105,8 +105,8 @@ export default function MainSwiper({
       )}
       <Row className={styles.swiper__reviews}>
         <Col className={styles.swiper__reviews_stars}>
-          {/* <button ><a href="#anchor_one">Відгуки</a></button> */}
-          <Link className={styles.link} href="#anchor_one">
+          {/* <button ><a href="#anchor_feedback">Відгуки</a></button> */}
+          <Link className={styles.link} href="#anchor_feedback">
             Відгуки
           </Link>
           <Rating

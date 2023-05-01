@@ -6,6 +6,7 @@ import auth from "@/middleware/auth";
 import Coupon from "@/models/Coupon";
 import Cart from "@/models/Cart";
 import productService from "@/utils/services/product.service";
+import orderService from "@/utils/services/order.service";
 
 const handler = nc().use(auth);
 
@@ -22,30 +23,42 @@ handler.post(async (req, res) => {
             totalQty,
             costAfterDiscount,
             promocode,
-            discount
+            discount,
+            isPaid
         } = req.body;
-       
-        let user = await User.findById(req.user);
-        const newOrder = await new Order({
-            user: user._id,
-            products,
-            shippingAddress,         
-            deliveryMethod,
-            paymentMethod,
-            totalPrice,
-            totalQty,
-            costAfterDiscount,
-            // promocode:coupon?coupon._id:null
-            promocode,
-            discount
-        }).save();
-        await Cart.deleteOne({ user: user._id });
+  
+       let result= await orderService.createOrder(req.user,  products,
+        shippingAddress,         
+        paymentMethod,
+        deliveryMethod,
+        totalPrice,
+        totalQty,
+        costAfterDiscount,
+        promocode,
+        discount,
+        isPaid);
+ 
+        // let user = await User.findById(req.user);
+        // const newOrder = await new Order({
+        //     user: user._id,
+        //     products,
+        //     shippingAddress,         
+        //     deliveryMethod,
+        //     paymentMethod,
+        //     totalPrice,
+        //     totalQty,
+        //     costAfterDiscount,
+        //     // promocode:coupon?coupon._id:null
+        //     promocode,
+        //     discount
+        // }).save(); 
+        await Cart.deleteOne({ user: req.user });
     
        await productService.findByIdAndUpdateQuantity(products);
-        console.log("46");
+        console.log("64");
         await db.disconnectDb();
         return res.status(200).json({
-            order_id: newOrder._id,
+            order_id: result._id,
         });
 
     } catch (error) {

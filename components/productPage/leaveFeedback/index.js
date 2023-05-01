@@ -55,7 +55,6 @@ export default function LeaveFeedback({ show, onHide, product, setProductReview 
     if (!disadvantages || disadvantages === "") {
       newErrors.disadvantages = "Будь ласка заповніть недоліки!";
     }
-
     return newErrors;
   }
 

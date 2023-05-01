@@ -37,7 +37,7 @@ export default function LogIn({
   const dispatch = useDispatch();
   const [loading, setLoading] = useState(false);
   const [userLogin, setUserLogin] = useState(initialvalues);
-  const [csrfToken, setCsrfToken] = useState("");
+  // const [csrfToken, setCsrfToken] = useState("");
 
   // useEffect(() => {
   //     if (session &&(status=="authenticated"||status=="loading")) {
@@ -45,17 +45,17 @@ export default function LogIn({
   //     }
   // }, []);
 
-  useEffect(() => {
-    async function fetchData() {
-      const response = await getCsrfToken();
-      // console.log("token2", Object.values(response));
-      // console.log("sessionOnLogin///////////", session, status);
-      if (response) {
-        setCsrfToken(response);
-      }
-    }
-    fetchData();
-  }, []); // Or [] if effect doesn't need props or state
+  // useEffect(() => {
+  //   async function fetchData() {
+  //     const response = await getCsrfToken();
+  //     //  console.log("token2", Object.values(response));
+  //     // console.log("sessionOnLogin///////////", session, status);
+  //     if (response) {
+  //       setCsrfToken(response);
+  //     }
+  //   }
+  //   fetchData();
+  // }, []); // Or [] if effect doesn't need props or state
 
   const { login_email, login_password, login_error } = userLogin;
   const loginValidation = yup.object({
@@ -67,10 +67,9 @@ export default function LogIn({
     login_password: yup.string().required("Введіть пароль"),
   });
   const handleChangeCredencials = (e) => {
-    // console.log("e.target.name, e.target.name");
-    // console.log("e.target.value", e.target.value);
     const { name, value } = e.target;
-    setUserLogin({ ...userLogin, [name]: value });
+    setUserLogin({ ...userLogin, [name]: value, login_error: ""});
+
   };
   const switchToMyCabinet = async () => {
     try {
@@ -114,9 +113,16 @@ export default function LogIn({
 
       // console.log("sessionOnLogin///////////", session, status);
       setUserLogin({ ...userLogin, login_error: res.error, success: "" });
-      const res2 = await axios.get('/api/user/wishlist');
+      if(userLogin.login_error===""){
+        const res2 = await axios.get('/api/user/wishlist');
       const data = res2.data;
       dispatch(updateWishList(data.wishList));
+      } else {
+        console.log("nok");
+      }
+      // const res2 = await axios.get('/api/user/wishlist');
+      // const data = res2.data;
+      // dispatch(updateWishList(data.wishList));
       setLoading(false);
       if (res.error) {
         console.log("errorOnLogin", userLogin.login_error);
@@ -125,7 +131,7 @@ export default function LogIn({
       }
     } catch (error) {
       setLoading(false);
-      setuserLogin({ ...userLogin, success: "", login_error: error });
+      setUserLogin({ ...userLogin, success: "", login_error: error.response.data.message });
       // switchToRegister();
     }
     // if (res?.error) {
@@ -170,12 +176,12 @@ export default function LogIn({
                   }}
                   className={styles.login_forms}
                 >
-                  <input
+                  {/* <input
                     type="hidden"
                     readOnly
                     name="csrfToken"
                     value={csrfToken}
-                  />
+                  /> */}
                   <Form.Group className="mb-3" controlId="groupLoginEmail">
                     <Form.Label className={styles.formlabel}>
                       Електронна пошта
