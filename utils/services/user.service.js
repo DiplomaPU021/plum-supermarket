@@ -40,6 +40,24 @@ const findByIdAndUpdateProfile = async (
         console.error(err);
     }
 };
+const findByIdAndUpdateProfileFromCheckout = async (
+    id,
+    firstName,
+    lastName,
+    phoneNumber,
+    email
+) => {
+    try {
+        const user = await User.findOneAndUpdate(
+            { _id: id, email },
+            { firstName, lastName, phoneNumber },
+            { new: true }
+        );
+        return user;
+    } catch (err) {
+        console.error(err);
+    }
+};
 const findByIdAndDelete = async (id) => {
     const result = await User.findByIdAndDelete(id);
     return result;
@@ -371,6 +389,7 @@ const userService = {
     removeFromWishlist,
     getWishlist,
     findByIdAndUpdateProfile,
+    findByIdAndUpdateProfileFromCheckout,
     addCreditCard,
     removeFromCreditCards,
     addAdmirations,

@@ -31,7 +31,7 @@ export default function CheckoutOrder({
         firstName: activeAddress ? activeAddress.firstName : user.firstName ? user.firstName : "",
         lastName: activeAddress ? activeAddress.lastName : user.lastName ? user.lastName : "",
         phoneNumber: activeAddress ? activeAddress.phoneNumber : user.phoneNumber ? user.phoneNumber : "",
-        email:user ? user.email : "",
+        email: user ? user.email : "",
         errorLastName: "",
         errorFirstName: "",
         errorPhoneNumber: "",
@@ -72,6 +72,14 @@ export default function CheckoutOrder({
         }
 
     }, []);
+    useEffect(() => {
+        setActiveAddress((prevState) => ({
+            ...prevState,
+            firstName: userData?.firstName,
+            lastName: userData?.lastName,
+            phoneNumber: userData?.phoneNumber,
+        }));
+    }, [userData])
 
 
     return (
@@ -83,9 +91,9 @@ export default function CheckoutOrder({
                 <Row className={styles.general_div}>
                     <Col className={styles.colcard}>
                         <div className={styles.checkout_form}>
-                            <UserData                             
+                            <UserData
                                 userData={userData}
-                                setUserData={setUserData}                                
+                                setUserData={setUserData}
                                 setOrderError={setOrderError}
                             />
                             <Shipping

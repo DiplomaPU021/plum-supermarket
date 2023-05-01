@@ -32,7 +32,7 @@ export default function ProfilePage(props) {
       case "palette":
         return <Palette />;
       default:
-        return <MyOrders user={props.orders} />;
+        return <MyOrders orders={props.orders} />;
     }
   };
 
