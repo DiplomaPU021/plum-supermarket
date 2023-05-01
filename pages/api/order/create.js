@@ -26,6 +26,18 @@ handler.post(async (req, res) => {
             discount,
             isPaid
         } = req.body;
+  
+       let result= await orderService.createOrder(req.user,  products,
+        shippingAddress,         
+        paymentMethod,
+        deliveryMethod,
+        totalPrice,
+        totalQty,
+        costAfterDiscount,
+        promocode,
+        discount,
+        isPaid);
+ 
         // let user = await User.findById(req.user);
         // const newOrder = await new Order({
         //     user: user._id,
@@ -43,6 +55,7 @@ handler.post(async (req, res) => {
         await Cart.deleteOne({ user: req.user });
     
        await productService.findByIdAndUpdateQuantity(products);
+        console.log("64");
         await db.disconnectDb();
         return res.status(200).json({
             order_id: result._id,
