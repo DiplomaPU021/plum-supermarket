@@ -94,10 +94,6 @@ export default function Summary({
                         }
                         );
                     }
-
-
-
-
                     const { data } = await axios.post("/api/order/create", {
                         products: cart.products,
                         shippingAddress: activeAddress,

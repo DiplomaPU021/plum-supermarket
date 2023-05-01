@@ -479,24 +479,6 @@ export default function Shipping({
   };
   return (
     <>
-      <div>activeAddress</div>
-      {JSON.stringify(activeAddress, null, 4)}
-      <div>delivery</div>
-      {JSON.stringify(delivery, null, 4)}
-      <div>SelectedCity</div>
-      {JSON.stringify(selectedCity, null, 4)}
-      <div>SearchStreet</div>
-      {JSON.stringify(searchStreet, null, 4)}
-      <div>SelectedStreet</div>
-      {JSON.stringify(selectedStreet, null, 4)}
-      <div>addressValues</div>
-      {JSON.stringify(addressValues, null, 4)}
-      <div>userAddresses</div>
-      {JSON.stringify(userAddresses, null, 4)}
-      <div>filteredUserAdresses</div>
-      {JSON.stringify(filteredUserAdresses, null, 4)}
-      <div>DeliveryAddressSelected</div>
-      {deliveryAddressSelected}
       <Form onSubmit={(e) => e.preventDefault()}>
         <Row className={styles.row}>
           <div className={styles.panel}>

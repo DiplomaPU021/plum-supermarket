@@ -124,10 +124,6 @@ export default function UserData({
 
     return (
         <>
-            {/* <div> activeAddress</div>
-            {JSON.stringify(activeAddress, null, 4)} */}
-            <div>UserData</div>
-            {JSON.stringify(userData, null, 4)}
             <Formik
                 enableReinitialize
                 initialValues={{
