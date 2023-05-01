@@ -17,13 +17,17 @@ import UserConditions from "../../checkoutorder/info/PersonalDataPolicy"
 
 export default function Summary({
     cart,
-    user,
+    userData,
     totalAfterDiscount,
     setTotalAfterDiscount,
     activeAddress,
+    setActiveAddress,
     paymentMethod,
     delivery,
-    setDelivery
+    setDelivery,
+    isPaid,
+    orderError,
+    setOrderError
 }) {
     const { data: session } = useSession();
     const dispatch = useDispatch();
@@ -33,7 +37,7 @@ export default function Summary({
     const [promocode, setPromocode] = useState("");
     const [discount, setDiscount] = useState(0);
     const [couponError, setCouponError] = useState("");
-    
+
     const validatePromoCode = yup.object({
         promocode: yup.string().required("Введіть промокод"),
     });
@@ -75,17 +79,27 @@ export default function Summary({
     const sendOrder = async (e) => {
 
         if (session) {
-            try {
-                console.log("activeAddress", activeAddress);
-                if(activeAddress==="undefined"||activeAddress.firstName==null||activeAddress.firstName==""){
-                    activeAddress.firstName=user.firstName;
-                }
-                if(activeAddress==="undefined"||activeAddress.lastName==null||activeAddress.lastName==""){
-                    activeAddress.lastName=user.lastName;
-                }
-                if (delivery.deliveryId == "postmanDelivery") {                     
-                    await saveAddress(activeAddress);            
-                     console.log("deliveryCost80", delivery.deliveryCost);
+            if (orderError.userError === "" && orderError.shippingError === "" && orderError.paymentError === "") {
+                try {
+                    if (activeAddress != null) {
+                        //   activeAddress.firstName=userData.firstName;
+                        //     activeAddress.lastName=userData.lastName;
+                        //     activeAddress.phoneNumber=userData.phoneNumber;  
+                        await saveAddress(activeAddress);
+                    } else {
+                        console.log("fff");
+                        setActiveAddress({
+                            ...activeAddress, firstName: userData.firstName,
+                            lastName: userData.lastName,
+                            phoneNumber: userData.phoneNumber
+                        }
+                        );
+                        console.log("activeSummary", JSON.stringify(activeAddress, null, 4));
+                    }
+
+
+
+
                     const { data } = await axios.post("/api/order/create", {
                         products: cart.products,
                         shippingAddress: activeAddress,
@@ -95,36 +109,17 @@ export default function Summary({
                         totalQty: cart.cartTotalQty,
                         costAfterDiscount: totalAfterDiscount,
                         promocode,
-                        discount
+                        discount,
+                        isPaid
                     });
                     router.push(`/order/${data.order_id}`);
-                } else {
-                    console.log("deliveryCost102", delivery.deliveryCost);
-                    const { data } = await axios.post("/api/order/create", {
-                        products: cart.products,
-                        shippingAddress: {
-                            firstName: activeAddress.firstName,
-                            lastName: activeAddress.lastName,
-                            phoneNumber: activeAddress.phoneNumber,
-                            region: activeAddress.region,
-                            city: activeAddress.city,
-                            cityType: activeAddress.cityType,
-                            zipCode: activeAddress.zipCode,
-                            country: activeAddress.country,
-                        },
+                    var empty = dispatch(emptyCart());
+                } catch (error) { console.error("summary129", error) }
+            }
+            else {
+                console.error("Заповніть поля", JSON.stringify(orderError, null, 4))
+            }
 
-                        paymentMethod,
-                        deliveryMethod: delivery,
-                        totalPrice,
-                        totalQty: cart.cartTotalQty,
-                        costAfterDiscount: totalAfterDiscount,
-                        promocode,
-                        discount
-                    });
-                    router.push(`/order/${data.order_id}`);
-                }
-                var empty = dispatch(emptyCart());
-            } catch (error) { console.error(error) }
 
         } else {
             // e.preventDefault();
@@ -140,7 +135,7 @@ export default function Summary({
                 initialValues={{
                     promocode,
                 }}
-                initialErrors={{ couponError }}
+                initialErrors={{ couponError, orderError }}
                 //   error={{}}
                 initialTouched={{ promocode: false }}
                 validationSchema={validatePromoCode}
@@ -180,6 +175,7 @@ export default function Summary({
                                 <ul>
                                     <li><div className={styles.litext_btn}><p>{totalQty} товарів на сумму</p><h6>{totalPrice.toLocaleString()} ₴</h6></div></li>
                                     <li><div className={styles.litext_btn}><p>Доставка</p><h6>{delivery.deliveryType}</h6></div></li>
+                                    <li><div className={styles.litext_btn}><p>Адреса доставки</p><h6>{delivery.deliveryAddress}</h6></div></li>
                                     <li><div className={styles.litext_btn}><p>Вартість доставки</p><h6>{delivery.deliveryType == "Кур'єр на вашу адресу" ? `${Number(delivery.deliveryCost)} ₴` : delivery.deliveryCost}</h6></div></li>
                                     <li><div className={styles.litext_btn}><p>Оплата</p><h6>{paymentMethod}</h6></div></li>
                                     {discount > 0 && (
@@ -188,7 +184,13 @@ export default function Summary({
                                     <li><div className={styles.litext_btn}><p>До сплати:</p><h3>{Math.round(totalAfterDiscount).toLocaleString()} ₴</h3></div></li>
                                 </ul>
                                 <Button className={styles.small_sbm} onClick={() => sendOrder()}>Підтвердити</Button>
-        
+                                <Form.Control className={styles.form_input3}
+                                    name="errorHidden"
+                                    hidden
+                                    isInvalid={orderError.userError != "" || orderError.shippingError != "" || orderError.paymentError != ""}
+                                />
+                                <Form.Control.Feedback type="invalid">{formik.errors.orderError.userError || formik.errors.orderError.shippingError || formik.errors.orderError.paymentError}
+                                </Form.Control.Feedback>
                             </div>
                             <div>
                                 <div className={styles.form_line}></div>

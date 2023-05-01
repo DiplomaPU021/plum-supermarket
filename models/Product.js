@@ -1,5 +1,4 @@
 import mongoose from "mongoose";
-import { bool } from "yup";
 
 const { ObjectId } = mongoose.Schema;
 const replySchema = new mongoose.Schema({

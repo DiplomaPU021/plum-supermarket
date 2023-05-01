@@ -28,26 +28,28 @@ const createOrder = async (
     userId,
     products,
     shippingAddress,
-    deliveryMethod,
     paymentMethod,
+    deliveryMethod,    
     totalPrice,
     totalQty,
     costAfterDiscount,
     promocode,
-    discount
+    discount,
+    isPaid
 ) => {
     const order = await new Order(
         {
             user: userId,
             products,
             shippingAddress,
-            deliveryMethod,
             paymentMethod,
+            deliveryMethod,
             totalPrice,
             totalQty,
             costAfterDiscount,
             promocode,
-            discount
+            discount,
+            isPaid
         }
     ).save();
     return order;

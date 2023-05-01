@@ -5,6 +5,9 @@ import CityModal from "../citymodal";
 import { getStreets } from "@/requests/street";
 import useDeepCompareEffect from "use-deep-compare-effect";
 import { deliveryTypes } from "@/data/deliveryTypes";
+import { useForm } from "react-hook-form";
+import * as yup from "yup";
+import { yupResolver } from "@hookform/resolvers/yup";
 
 export default function Shipping({
   user,
@@ -18,6 +21,29 @@ export default function Shipping({
 }) {
   const [cityModalShow, setCityModalShow] = useState(false);
   const [selectedCity, setSelectedCity] = useState();
+  const validationSchema = yup.object({
+    city: yup.string().required("Виберіть місто"),
+    street: yup
+      .string()
+      .matches(
+        /^[А-Яа-яЇїІі'-]*[^\s][А-Яа-яЇїІі' -]*$/,
+        "Цифри та спец.символи заборонено"
+      )
+      .required("Вулиця обов'язково"),
+  });
+  const {
+    register,
+    handleSubmit,
+    watch,
+    formState: { errors },
+    reset,
+  } = useForm({
+    defaultValues: {
+      city: "",
+      street: "",
+    },
+    resolver: yupResolver(validationSchema),
+  });
   const [showSelfPickup, setSelfPickup] = useState("none");
   const [showPostmanDeliveryAll, setShowPostmanDeliveryAll] = useState("none");
   const [showNovaPoshtaDelivery, setShowNovaPoshtaDelivery] = useState("block");
@@ -31,12 +57,31 @@ export default function Shipping({
           address.region === selectedCity.region
     )
   );
-
+  // const [filteredUserAdresses, setFilteredUserAdresses] = useState(() => {
+  //     const filteredAddresses = userAddresses?.filter(address => address.zipCode === selectedCity.object_code);
+  //     const uniqueAddresses = [...new Set(filteredAddresses.map(address => address.address))];
+  //     return uniqueAddresses.map(address => {
+  //       return filteredAddresses.find(item => item.address === address);
+  //     });
+  //   });
   //вулиці в випадаючому списку (з бази)
   const [filteredStreets, setFilteredStreets] = useState([]);
   const [searchStreet, setSearchStreet] = useState("");
-  const [selectedStreet, setSelectedStreet] = useState({});
-  const [visibleAddressField, setVisibleAddressField] = useState(false);
+  const [selectedStreet, setSelectedStreet] = useState(
+    {}
+    // activeAddress
+    //     ? {
+    //         value: activeAddress?.address,
+    //         name: activeAddress?.street,
+    //         street_type: activeAddress?.streetType,
+    //         city_name: activeAddress?.city,
+    //         city_code: activeAddress?.zipCode,
+    //     }
+    //     : null
+  );
+  const [visibleAddressField, setVisibleAddressField] = useState(
+    filteredUserAdresses?.length > 0 ? true : false
+  );
   const [addressValues, setAddressValues] = useState({
     street: "",
     building: "",
@@ -51,29 +96,7 @@ export default function Shipping({
   const selfRef = useRef();
   const [deliveryAddressSelected, setDeliveryAddressSelected] =
     useState("відділення №1");
-  const [selectedAddress, setSelectedAddress] = useState(
-    filteredUserAdresses.length > 0
-      ? filteredUserAdresses.find((item) => item.active === true).address
-      : ""
-  );
-
-  useEffect(() => {
-    console.log("selectedAddress 60", selectedAddress);
-    if (selectedAddress && selectedAddress!="") {
-        const selectedOption = filteredUserAdresses.find(
-          (item) => item.address == selectedAddress
-        );
-        console.log("selected option 66", JSON.stringify(selectedOption, null, 4));
-        if(selectedOption) {
-                   setActiveAddress(selectedOption);
-        setDelivery({
-          ...delivery,
-          deliveryAddress: `${selectedCity?.value}, ${selectedOption.address}, ${selectedOption.ground} поверх, ліфт ${selectedOption.elevator}`,
-        });
-      }
-        }
- 
-  }, [selectedAddress]);
+const[selectedAddress, setSelectedAddress]= useState("");
 
   useEffect(() => {
     if (
@@ -180,6 +203,11 @@ export default function Shipping({
           setFilteredStreets([]);
         }
       }, 1000);
+      //   console.log("186");
+      //          setAddressValues({
+      //         ...addressValues,
+      //         street: searchStreet,
+      //       });
     }
   }, [searchStreet]);
 
@@ -189,29 +217,31 @@ export default function Shipping({
     } else {
       setIsButtonDisabled(true);
     }
+    console.log("212");
   }, [addressValues]);
 
   useDeepCompareEffect(() => {
-    console.log("174");
-    if (
-      filteredUserAdresses.length > 0 &&
-      delivery.deliveryId == "postmanDelivery"
-    ) {
+    console.log("225");
+    if (filteredUserAdresses.length > 0) {
       setShowAddAddressBlock("none");
       setShowPostmanDeliveryAll("block");
       setVisibleAddressField(true);
-      setSelectedAddress(
-        filteredUserAdresses.find((item) => item.active === true).address || ""
-      );
-      console.log("179");
+      console.log("230");
     } else {
       setShowAddAddressBlock("block");
       setShowPostmanDeliveryAll("none");
       setVisibleAddressField(false);
-      console.log("184");
+      console.log("235");
     }
   }, [filteredUserAdresses]);
 
+  //     const updateFilteredAddresses = useCallback((selectedCity, userAddresses) => {
+  //   const filteredAddresses = userAddresses?.filter(address => address.zipCode === selectedCity.object_code);
+
+  //   if (JSON.stringify(filteredAddresses) !== JSON.stringify(filteredUserAdresses)) {
+  //     setFilteredUserAdresses(filteredAddresses);
+  //   }
+  // }, [filteredUserAdresses]);
   useEffect(() => {
     if (selectedCity) {
       setFilteredUserAdresses(
@@ -223,8 +253,16 @@ export default function Shipping({
         )
       );
       setDeliveryAddressSelected("відділення №1");
+      // setFilteredUserAdresses(() => {
+      //     const filteredAddresses = userAddresses?.filter(address => address.zipCode === selectedCity.object_code);
+      //     const uniqueAddresses = [...new Set(filteredAddresses.map(address => address.address))];
+      //     return uniqueAddresses.map(address => {
+      //       return filteredAddresses.find(item => item.address === address);
+      //     });
+      //   })
       if (filteredUserAdresses && filteredUserAdresses.length > 0) {
-        // setVisibleAddressField(true);
+        console.log("265");
+        setVisibleAddressField(true);
         setActiveAddress((prevState) => ({
           ...prevState,
           address: filteredUserAdresses[0].address,
@@ -246,19 +284,14 @@ export default function Shipping({
         deliveryAddress: `${selectedCity?.value}, ${deliveryAddressSelected}`,
         deliveryId: "novaPoshta",
       }));
-      console.log("220");
       setActiveAddress(null);
       setShowPostmanDeliveryAll("none");
-      setVisibleAddressField(false);
-      setSelfPickup("none");
       setShowNovaPoshtaDelivery("block");
     }
-    // setVisibleAddressField(false);
-    // setShowPostmanDeliveryAll("none")
   }, [selectedCity]);
-
   useDeepCompareEffect(() => {
     if (selectedCity) {
+      console.log("295");
       setFilteredUserAdresses(
         userAddresses?.filter((address) =>
           address.zipCode
@@ -268,11 +301,23 @@ export default function Shipping({
         )
       );
 
-      //   if (filteredUserAdresses && filteredUserAdresses.length > 0) {
-      //     setVisibleAddressField(true);
-      //   } else {
-      //     setVisibleAddressField(false);
-      //   }
+      if (filteredUserAdresses && filteredUserAdresses.length > 0) {
+        console.log("306");
+        setVisibleAddressField(true);
+        // setActiveAddress((prevState) => ({
+        //     ...prevState,
+        //     address: filteredUserAdresses[0].address,
+        //     streetType: filteredUserAdresses[0].street_type,
+        //     street: filteredUserAdresses[0].name,
+        //     building: filteredUserAdresses[0].building,
+        //     flat: filteredUserAdresses[0].flat,
+        //     ground: filteredUserAdresses[0].ground,
+        //     elevator: filteredUserAdresses[0].elevator,
+        //     active: true,
+        // }));
+      } else {
+        setVisibleAddressField(false);
+      }
     }
   }, [userAddresses]);
 
@@ -281,11 +326,28 @@ export default function Shipping({
     setSelectedStreet(street);
     console.log("street selected", street);
     setSearchStreet(`${street.street_type} ${street.name}`);
+    // setAddressValues({
+    //     ...addressValues,
+    //     street: selectedStreet? `${street.street_type} ${street.name}`:searchStreet,
+    //     filled: true,
+    // });
+    // console.log("309");
+    // setActiveAddress((prevState) => ({
+    //     ...prevState,
+    //     active: true,
+    // }));
+    // setDelivery((prevState) => ({
+    //     ...prevState,
+    //     deliveryAddress: `${selectedCity?.value}, ${activeAddress?.address}, ${activeAddress?.ground} поверх, ліфт ${activeAddress?.elevator}`,
+    // }));
+    console.log("344");
   };
   const handleStreetChange = (e) => {
+    console.log("347");
     setSearchStreet(e.target.value);
   };
   const handleChangeAdress = (e) => {
+    console.log("351");
     setAddressValues({
       ...addressValues,
       [e.target.name]: e.target.value,
@@ -293,40 +355,49 @@ export default function Shipping({
   };
   const handleSelectPostman = (e) => {
     postmanRef.current.focus();
-
-    console.log("handleSelectPostman", e.target);
-    console.log("handleSelectPostmanIndex", e.target.selectedIndex);
-    console.log("handleSelectPostmanValue", e.target.value);
-    //    e.target.value = selectedAddress;
-    // setSelectedAddress(e.target.value);
-    // const activeAddress2 = filteredUserAdresses.find(
-    //     (item) => item.active === true
-    // );
-    console.log("selectedAddress: 283", selectedAddress);
-    if (selectedAddress) {
+    console.log("359", e.target.selectedIndex);
+    console.log("360", JSON.stringify(e.target.value));
+    console.log("361", JSON.stringify(filteredUserAdresses[e.target.selectedIndex],null,4));
+    const activeAddress = filteredUserAdresses[e.target.selectedIndex].address;
       // змінюємо властивість active для вибраного елемента
-      const updatedAddresses = filteredUserAdresses.map((item) =>
-        item.address == e.target.value
-          ? { ...item, active: true }
-          : { ...item, active: false }
-      );
-      console.log("updateAddress: ", updatedAddresses);
+    // const updatedAddresses = filteredUserAdresses.map((item) =>
+    //   item.address === activeAddress.address
+    //     ? { ...item, active: true }
+    //     : { ...item, active: false }
+    // );
+    // console.log("updatedAddresses", updatedAddresses);
+    //     // оновлюємо масив filteredUserAdresses з оновленими адресами
+    // setFilteredUserAdresses(updatedAddresses);
+    //     // оновлюємо значення value у <Form.Select>
+   e.target.value = activeAddress;
+ setActiveAddress(filteredUserAdresses[e.target.selectedIndex]);
 
-      //     // оновлюємо масив filteredUserAdresses з оновленими адресами
-      setFilteredUserAdresses(updatedAddresses);
-      //     // оновлюємо значення value у <Form.Select>
-      // e.target.value = selectedAddress;
-    }
+//     const selectedValue = e.target.value;
+//   const activeAddress = filteredUserAdresses.find(
+//     (item) => item.active === true
+//   );
+//   console.log("selectedAddress: 367" , activeAddress);
+//   if (selectedAddress && !selectedAddress.active) {
+//     // змінюємо властивість active для вибраного елемента
+//     const updatedAddresses = filteredUserAdresses.map((item) =>
+//       item.address === selectedAddress.address
+//         ? { ...item, active: true }
+//         : { ...item, active: false }
+//     );
 
-    setSelectedAddress(e.target.value);
+//     // оновлюємо масив filteredUserAdresses з оновленими адресами
+//     setFilteredUserAdresses(updatedAddresses);
 
-    // console.log("filterOnHandle", filteredUserAdresses[e.target.selectedIndex]);
-    // setSelectedAddress(filteredUserAdresses[e.target.selectedIndex])
-    //  setActiveAddress(filteredUserAdresses[e.target.selectedIndex]);
+//     // оновлюємо значення value у <Form.Select>
+//     e.target.value = selectedAddress;
+//   }
+   
+    // const selectedOption = filteredUserAdresses.find((item) => item === e.target.value);
+    // console.log("selected option", JSON.stringify(selectedOption,null,4));
+    // setActiveAddress(selectedOption);
   };
 
   const handleChangeDelivery = (e) => {
-    console.log("269", e.target.name);
     if (e.target.name === "selfPickup") {
       const addressDefault = deliveryTypes[0].adresses.find(
         (item) => item.city === selectedCity?.object_name
@@ -337,25 +408,41 @@ export default function Shipping({
       }));
       setActiveAddress(null);
       setSelfPickup("block");
-      setShowPostmanDeliveryAll("none");
-      setShowNovaPoshtaDelivery("none");
+    } else {
+      setSelfPickup("none");
     }
     if (e.target.name === "postmanDelivery") {
       const defaultAddress = filteredUserAdresses.filter(
         (c) => c.city == selectedCity?.object_name
       );
+      console.log("default address", defaultAddress);
       if (defaultAddress && defaultAddress.length > 0) {
-        const selectedAddressActive = defaultAddress.find(
-          (c) => c.active === true
-        );
+        const selectedAddressActive = defaultAddress.find((c) => c.active === true);
         setSelectedAddress(selectedAddressActive.address);
-        console.log("default address", defaultAddress);
         console.log("selected addressActive", selectedAddressActive);
-        console.log("selected address", selectedAddress);
+        console.log("selected addressActive", selectedAddress);
         setDelivery((prevState) => ({
           ...prevState,
           deliveryAddress: `${selectedCity?.value}, ${selectedAddressActive.address}, ${selectedAddressActive.ground} поверх, ліфт ${selectedAddressActive.elevator}`,
         }));
+        // let newAddress = {
+        //     firstName: userData?.firstName || "",
+        //     lastName: userData?.lastName || "",
+        //     phoneNumber: userData?.phoneNumber || "",
+        //     address: selectedAddress.address,
+        //     streetType: selectedAddress.streetType,
+        //     street: selectedAddress.street,
+        //     building: selectedAddress.building,
+        //     flat: selectedAddress.flat,
+        //     ground: selectedAddress.ground,
+        //     elevator: selectedAddress.elevator,
+        //     cityType: selectedCity.object_category,
+        //     country: country.name,
+        //     city: selectedCity.object_name,
+        //     region: selectedCity.region,
+        //     zipCode: selectedCity.object_code,
+        //     active: true,
+        // };
         setActiveAddress(selectedAddressActive);
       } else {
         setDelivery((prevState) => ({
@@ -363,16 +450,8 @@ export default function Shipping({
           deliveryAddress: "",
         }));
       }
-      console.log("308");
       setShowPostmanDeliveryAll("block");
-      if (filteredUserAdresses.length > 0) {
-        setVisibleAddressField(true);
-        setShowAddAddressBlock("none");
-      }
-      setSelfPickup("none");
-      setShowNovaPoshtaDelivery("none");
     } else {
-      console.log("313");
       setShowPostmanDeliveryAll("none");
     }
     if (e.target.name === "novaPoshta") {
@@ -382,12 +461,8 @@ export default function Shipping({
       }));
       setActiveAddress(null);
       setShowNovaPoshtaDelivery("block");
-      setVisibleAddressField(false);
-      console.log("324");
-      setShowPostmanDeliveryAll("none");
-      setSelfPickup("none");
     } else {
-      //   setShowNovaPoshtaDelivery("none");
+      setShowNovaPoshtaDelivery("none");
     }
     const deliveryPrice = deliveryTypes
       .filter((d) => d.name === e.target.value)
@@ -406,6 +481,7 @@ export default function Shipping({
     //     options[0].disabled = true;
     // }
     selfRef.current.focus();
+    console.log("handleSelectPickup", e.target.selectedIndex);
     setDelivery({
       ...delivery,
       deliveryAddress: e.target.value,
@@ -413,6 +489,7 @@ export default function Shipping({
   };
   const handleAddAdress = () => {
     if (selectedCity) {
+      // const addressString = selectedStreet.street_type + " " + selectedStreet.name + ", буд." + addressValues.building + ", кв." + addressValues.flat + ", пов." + addressValues.ground + ", ліфт: " + addressValues.elevator;
       const addressString =
         selectedStreet?.street_type +
         " " +
@@ -440,6 +517,7 @@ export default function Shipping({
         active: true,
       };
       if (newAddress) {
+        console.log("504");
         setActiveAddress(newAddress);
         let addresses = [];
         for (let i = 0; i < userAddresses.length; i++) {
@@ -451,9 +529,9 @@ export default function Shipping({
         setUserAdresses(addresses);
         setDelivery((prevState) => ({
           ...prevState,
-          deliveryAddress: `${newAddress.address}, поверх ${newAddress.ground}, ліфт ${newAddress.elevator}`,
+          deliveryAddress: newAddress.address,
         }));
-        setSelectedAddress(newAddress);
+        setSelectedAddress(newAddress.address);
       }
 
       setShowAddAddressBlock("none");
@@ -464,7 +542,11 @@ export default function Shipping({
         building: "",
         flat: "",
       });
-
+     
+      // document.getElementById("buildingGroup").value = "";
+      // document.getElementById("flatGroup").value = "";
+      // document.getElementById("groundGroup").value = "";
+      // document.getElementById("idElevator").value = "";
       setSearchStreet("");
     }
   };
@@ -473,6 +555,11 @@ export default function Shipping({
     setShowAddAddressBlock("block");
   };
   const handleChangeGround = (e) => {
+    console.log("541");
+    // setActiveAddress({
+    //     ...activeAddress,
+    //     ground: e.target.value,
+    // });
     setAddressValues({
       ...addressValues,
       ground: e.target.value,
@@ -483,6 +570,11 @@ export default function Shipping({
     if (options[0].selected) {
       options[0].disabled = true;
     }
+    console.log("556");
+    // setActiveAddress({
+    //     ...activeAddress,
+    //     elevator: e.target.value,
+    // });
     setAddressValues({
       ...addressValues,
       elevator: e.target.value,
@@ -491,7 +583,7 @@ export default function Shipping({
   const handleCancelAddAdress = () => {
     if (filteredUserAdresses.length > 0) {
       setShowAddAddressBlock("none");
-      setVisibleAddressField(true);
+      setVisibleAddressField("block");
       setAddressValues({
         street: "",
         building: "",
@@ -499,8 +591,14 @@ export default function Shipping({
         ground: "",
         elevator: "Відсутній",
       });
+      // document.getElementById("buildingGroup").value = "";
+      // document.getElementById("flatGroup").value = "";
+      // document.getElementById("groundGroup").value = "";
+      // document.getElementById("idElevator").value = "";
       setSearchStreet("");
     } else {
+      // document.getElementById("buildingGroup").value = "";
+      // document.getElementById("flatGroup").value = "";
       setSearchStreet("");
       setAddressValues({
         street: "",
@@ -591,6 +689,7 @@ export default function Shipping({
                     className={styles.form_input2}
                     onChange={(e) => handleSelectPickup(e)}
                     ref={selfRef}
+                    // onChange={(e)=>handleSelectPostman(e)}
                   >
                     <option
                       value="Вибрати адресу відділення..."
@@ -654,7 +753,15 @@ export default function Shipping({
                     id="selectPostmanDelivery"
                     onChange={(e) => handleSelectPostman(e)}
                     ref={postmanRef}
-                    defaultValue={selectedAddress}
+                    value={selectedAddress}
+                    // value={
+                    //   filteredUserAdresses != null &&
+                    //   filteredUserAdresses.lenght > 0
+                    //     ? filteredUserAdresses
+                    //         .filter((c) => c.city == selectedCity?.object_name)
+                    //         .find((item) => item.active === true).address
+                    //     : ""
+                    // }
                   >
                     {/* <option key ="addressOPt0" value="Вибрати адресу доставки..." disabled={true}>Вибрати адресу доставки...</option>  */}
                     {filteredUserAdresses != null &&
@@ -662,10 +769,7 @@ export default function Shipping({
                       (c) => c.city == selectedCity?.object_name
                     )
                       ? filteredUserAdresses.map((item, index) => (
-                          <option
-                            key={`${item.address}-${index}`}
-                            value={item.address}
-                          >
+                          <option key={`${item.address}-${index}`} value={item.address}>
                             {item.address}
                           </option>
                         ))

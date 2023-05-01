@@ -69,7 +69,7 @@ export default function OrderItem(props) {
                     <Row className={styles.deliveryinfo}>
                         <div className={styles.delivery_item}>
                             <p>Отримувач</p>
-                            <span>{props.order.shippingAddress.firstName} {props.order.shippingAddress.lastName}</span>
+                            <span>{props.order.shippingAddress?.firstName} {props.order.shippingAddress?.lastName}</span>
                         </div>
                         <div className={styles.delivery_item}>
                             <p>Оплата</p>
@@ -88,7 +88,7 @@ export default function OrderItem(props) {
                                 (<span><small>{props.order.deliveryMethod.deliveryCost}</small></span>
                                 ) : <span><b>{props.order.deliveryMethod.deliveryCost} ₴</b></span>}</span>
                             {props.order.deliveryMethod.deliveryId === "postmanDelivery" ? (
-                                <span><small>{props.order.shippingAddress.address}</small></span>
+                                <span><small>{props.order.shippingAddress?.address}</small></span>
                             ) : props.order.deliveryMethod.deliveryId === "selfPickup" ? (
                                 <span>Адреса магазину: <small>{props.order.deliveryMethod.deliveryAddress}</small></span>
                             ) : props.order.deliveryMethod.deliveryId === "novaPoshta" ? (

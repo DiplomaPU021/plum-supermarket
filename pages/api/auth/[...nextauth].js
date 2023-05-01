@@ -54,7 +54,7 @@ export default NextAuth({
           }
         } else {
           // If you return null then an error will be displayed advising the user to check their details.
-          throw new Error("Incorrect email or password");
+          throw new Error("Email або пароль вказано невірно");
           // You can also Reject this callback with an Error thus the user will be sent to the error page with the error message as a query parameter
         }
       },
@@ -264,7 +264,7 @@ const SingnInUser = async ({ password, user }) => {
   return user;
 };
 const createUniqueString = async () => {
-  const uniqueString = await emailService.createUniqueString();
+  const uniqueString = emailService.createUniqueString();
   return uniqueString;
 }
 // const login = async ({ password, user }) => {

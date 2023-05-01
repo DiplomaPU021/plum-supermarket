@@ -122,8 +122,7 @@ export default function Register({
             }, 2000);
         } catch (error) {
             setLoading(false);
-            console.error(error);
-            setUser({ ...user, success: "", error: error.response.data.message });
+            setUser({ ...user, success: "", error: error.response.data.error });
         }
     };
 
@@ -150,7 +149,6 @@ export default function Register({
                             }}
                             initialErrors={{ error }}
                             validationSchema={registerValidation}
-
                             onSubmit={(e) => {
                                 e.preventDefault(e);
                             }}>

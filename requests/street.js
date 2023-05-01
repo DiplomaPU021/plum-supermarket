@@ -11,7 +11,7 @@ export const getStreets = async (city, street) => {
         }
     } catch (error) {
         console.log("streetDB error", error);
-        return response.data.error.message;
+        return error.message;
 
     }
 }

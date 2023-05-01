@@ -9,7 +9,7 @@ const handler = nc();//.use(auth);
 handler.post(async(req,res) => {
     try {
         const { name } = req.body;
-        db.connectDb();
+     await   db.connectDb();
         const test = await Category.findOne({name});
         if (test) {
             return res
@@ -18,13 +18,13 @@ handler.post(async(req,res) => {
 
         }
         await new Category({name, slug:slugify(name)}).save();
-        db.disconnectDb();
+      await  db.disconnectDb();
         res.json({
             message:`Category ${name} has been created successfully`,
             categories: await Category.find({}).sort({updateAt:-1}),
         })
     } catch (error) {
-        db.disconnectDb();
+      await  db.disconnectDb();
         res.status(500).json({message: error.message});    
     }
 });

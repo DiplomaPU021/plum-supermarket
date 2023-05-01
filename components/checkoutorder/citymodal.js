@@ -28,10 +28,9 @@ export default function CityModal(props) {
     // };
     const handleCityChange = (selectedOption) => {
         setSearchCity(selectedOption);
-        // props.onChange && props.onChange(selectedOption);
-        // console.log("selectedOption onCityModal", selectedOption);
-        // console.log("selectedCity onCityModal", searchCity);
-
+        if (selectedOption != null) {
+           props.onClose(selectedOption);
+        }
     };
     const filterCities = async (inputValue) => {
         if (inputValue.length > 0) {
@@ -84,7 +83,7 @@ export default function CityModal(props) {
     //       }, [props.search_сity]);     
     const handleCityClick = async (e) => {
         // clickRef.current.focus();
-        console.log(e.target.textContent);
+        // console.log(e.target.textContent);
 
         let selectedCity = "";
         if (e.target.id == "zaporizhzhya") {
@@ -174,52 +173,52 @@ export default function CityModal(props) {
 
     const customStyles = {
         control: (provided, state) => ({
-          ...provided,
-          backgroundColor: '#FAF8FF',
-          borderRadius: '23px',
-          borderWidth: '1px',
-          borderColor: state.isFocused ? '#220F4B' : provided.borderColor,
-          boxShadow: state.isFocused ? '0 0 0 1px #220F4B' : provided.boxShadow,
-          '&:hover': {
-            borderColor: state.isFocused ? '#220F4B' : '#220F4B',
+            ...provided,
+            backgroundColor: '#FAF8FF',
+            borderRadius: '23px',
             borderWidth: '1px',
-          }
+            borderColor: state.isFocused ? '#220F4B' : provided.borderColor,
+            boxShadow: state.isFocused ? '0 0 0 1px #220F4B' : provided.boxShadow,
+            '&:hover': {
+                borderColor: state.isFocused ? '#220F4B' : '#220F4B',
+                borderWidth: '1px',
+            }
         }),
         menu: (provided) => ({
-          ...provided,
-          backgroundColor: '#f2f2f2',
-          borderRadius: '12px',
-          borderColor: '#b2b2b2',
-          boxShadow: '0 4px 8px rgba(0, 0, 0, 0.1)',
+            ...provided,
+            backgroundColor: '#f2f2f2',
+            borderRadius: '12px',
+            borderColor: '#b2b2b2',
+            boxShadow: '0 4px 8px rgba(0, 0, 0, 0.1)',
         }),
         option: (provided, state) => ({
-          ...provided,
-          backgroundColor: state.isSelected ? '#e6e6e6' : 'transparent',
-          color: '#333',
-          '&:hover': {
-            backgroundColor: '#e6e6e6',
-          }
+            ...provided,
+            backgroundColor: state.isSelected ? '#e6e6e6' : 'transparent',
+            color: '#333',
+            '&:hover': {
+                backgroundColor: '#e6e6e6',
+            }
         }),
-      };       
+    };
 
     return (
         <Modal show={props.show} onHide={handleClose}
             aria-labelledby="contained-modal-title-vcenter"
             dialogClassName={styles.modal}
             centered>
-                <Modal.Body className={styles.modalbody}>
-                    <Container >
-                        <Row className={styles.product_row}>
-                            <button onClick={handleCityClick} id="kiev">Київ</button>
-                            <button onClick={handleCityClick} id="kharkiv">Харків</button>
-                            <button onClick={handleCityClick} id="lviv">Львів</button>
-                        </Row>
-                        <Row className={styles.product_row}>
-                            <button onClick={handleCityClick} id="zaporizhzhya">Запоріжжя</button>
-                            <button onClick={handleCityClick} id="odesa">Одеса</button>
-                            <button onClick={handleCityClick} id="dnipro">Дніпро</button>
-                        </Row>
-                        <AsyncSelect
+            <Modal.Body className={styles.modalbody}>
+                <Container >
+                    <Row className={styles.product_row}>
+                        <button onClick={handleCityClick} id="kiev">Київ</button>
+                        <button onClick={handleCityClick} id="kharkiv">Харків</button>
+                        <button onClick={handleCityClick} id="lviv">Львів</button>
+                    </Row>
+                    <Row className={styles.product_row}>
+                        <button onClick={handleCityClick} id="zaporizhzhya">Запоріжжя</button>
+                        <button onClick={handleCityClick} id="odesa">Одеса</button>
+                        <button onClick={handleCityClick} id="dnipro">Дніпро</button>
+                    </Row>
+                    <AsyncSelect
                         cacheOptions
                         defaultOptions
                         loadOptions={loadOptions}
@@ -231,9 +230,9 @@ export default function CityModal(props) {
                         styles={customStyles}
                     // ref={clickRef}
                     />
-                    </Container>
-                   
-                </Modal.Body>
+                </Container>
+
+            </Modal.Body>
         </Modal>
     )
 }

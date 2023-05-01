@@ -6,6 +6,8 @@ import { useState } from "react";
 import useDeepCompareEffect from "use-deep-compare-effect";
 import { updateWishList } from "@/store/wishListSlice";
 import { useDispatch } from "react-redux";
+import axios from "axios";
+import DotLoaderSpinner from "../loaders/dotLoader";
 
 export default function ContinueWith(
     {
@@ -37,15 +39,12 @@ export default function ContinueWith(
         setLoading(true);
         const res = signIn(id);
         setUserProfileShow(true);
-        const res2 = await axios.get('/api/user/wishlist');
-        const data = res2.data;
-        dispatch(updateWishList(data.wishList));
+       
         setLoading(false);
         } catch(error) {
             console.error(error);
             setLoading(false);
         }
-        //  alert(res);
     }
     return (
         <div className={styles.container_frame}>

@@ -13,7 +13,7 @@ import "yup-phone";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import axios from "axios";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import CityModal from "@/components/checkoutorder/citymodal";
 
 export default function Profile(props) {
@@ -21,7 +21,23 @@ export default function Profile(props) {
   const [showAddress, setShowAddress] = useState("none")
   const [showCard, setShowCard] = useState("none")
   const [profileCityModalShow, setProfileCityModalShow] = useState(false);
-
+   const [admiration, setAdmiration] = useState([]);
+//   useEffect(async()=>{
+//     const result = await axios.get('/api/user/admiration');
+//     console.log("data",result);
+// // setAdmiration((prev)=>{...prev,
+//   // fishing,
+//   // hunting,
+//   // gardening,
+//   // fitness,
+//   // yoga,
+//   // running,
+//   // bicycle,
+//   // music,
+//   // tourism,
+//   // cybersport,
+//   // handmade})
+//   },[])
 
   const today = new Date();
   // const minDate = new Date(today.getFullYear() - 12, today.getMonth(), today.getDate());
@@ -48,6 +64,7 @@ export default function Profile(props) {
       .required("Прізвище обов'язково"),
     phoneNumber: yup
       .string()
+      .required("Введіть номер телефону")
       .test("phone", "Некоректний номер телефону", (value) => {
         if (!value) return true;
         return (
@@ -72,13 +89,14 @@ export default function Profile(props) {
     handleSubmit,
     watch,
     formState: { errors },
+    reset
   } = useForm({
     defaultValues: {
       firstName: props.user?.firstName || "",
       lastName: props.user?.lastName || "",
       phoneNumber: props.user?.phoneNumber || "",
       email: props.user?.email || "",
-      gender: props.user?.gender || "",
+      gender: props.user?.gender || "Стать",
       birthday: props.user?.birthday || "1990-01-01",
     },
     resolver: yupResolver(validationSchema),
@@ -95,6 +113,21 @@ export default function Profile(props) {
     console.log("UserChanged", result);
     setIsInEdit(false);
   }
+  const handleCancelCredencialsEdit = () => {
+    setIsInEdit(false);
+    reset({
+      firstName: props.user?.firstName || "",
+      lastName: props.user?.lastName || "",
+      phoneNumber: props.user?.phoneNumber || "",
+      email: props.user?.email || "",
+      gender: props.user?.gender || "Стать",
+      birthday: props.user?.birthday || "1990-01-01",
+    }, {
+      keepErrors: false,
+      keepDirty: true,
+    });
+  }
+
 
   console.log("watch", watch("gender"));
 
@@ -258,7 +291,7 @@ export default function Profile(props) {
             <Row className={styles.cont_btn}>
               {isInEdit ? (
                 <Form.Group as={Row} controlId="groupButtons" className={styles.save}>
-                  <Button type="cancel" className={styles.light_button}>Скасувати</Button>
+                  <Button type="cancel" onClick={handleCancelCredencialsEdit} className={styles.light_button}>Скасувати</Button>
                   <Button type="submit" className={styles.dark_button}>Зберегти</Button>
                 </Form.Group>
               ) : (
@@ -457,6 +490,6 @@ const hobbies = [
   "Музика",
   "Туризм",
   "Кіберстпорт",
-  "Handmade",
+  "Рукоділля",
 ];
 const animals = ["Собачка", "Пташка", "Котик", "Плазун", "Рибки", "Гризун"];

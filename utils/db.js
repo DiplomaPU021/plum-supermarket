@@ -14,13 +14,16 @@ export async function connectDb() {
         }
         await mongoose.disconnect();
     }
-    const db = await mongoose.connect(process.env.MONGODB_URL, {
+    const db = mongoose.connect(process.env.MONGODB_URL, {
         useNewUrlParser: true,
         useUnifiedTopology: true,
     }
     );
     console.log("New connection to database");
-    connection.isConnected = db.connections[0].readyState;
+    // connection.isConnected = db.connections[0].readyState;
+    connection.isConnected = db && db.connections && db.connections[0] && db.connections[0].readyState;
+
+    return db;
 }
 export async function disconnectDb() {
     if (connection.isConnected) {

@@ -139,7 +139,7 @@ export default function ComparisonCard({ product, style, mode }) {
       />
       <div className={styles.product__container}>
         <div className={styles.product__container_photobox}>
-          <Link href={`/product/${product.slug}?style=${style}&code=${mode}`}>
+          <Link href={`/product/${product.slug}?style=${product.style}&code=${product.mode}`}>
             <ProductSwiper images={product.images} />
           </Link>
           <button className={styles.btnclose}
