@@ -1,0 +1,21 @@
+.select {
+    width: 100%;
+    margin-bottom: 1rem !important;
+    border: 1px solid gray !important;
+    height: 50px;
+
+    input {
+        border: 1px solid gray !important;
+    }
+}
+
+.error_select {
+    background: rgba(255, 0, 0, 0.031) !important;
+    border: 1px solid #cc674f;
+
+}
+
+.error_msg {
+    color: red;
+    font-size: 13px;
+}

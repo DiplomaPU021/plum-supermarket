@@ -27,10 +27,11 @@
 
         input {
             padding: 1rem;
-            border: none;
+            border: 1px solid rgb(41, 41, 42);
             outline: none;
             color: #fff;
             background: transparent;
+            margin-left: 10px;
 
         }
 
@@ -44,6 +45,19 @@
                 color: #fff;
                 border-color: #fff;
             }
+
+            .input_discount {
+                width: 40px;
+                height: 46px;
+                padding: 4px;
+                text-align: center;
+                border: 1px solid rgb(41, 41, 42);
+                outline: none;
+                color: #fff;
+                background: transparent;
+                margin-right: 20px;
+
+            }
         }
 
     }
@@ -52,5 +66,30 @@
 .open {
     background: #fff !important;
     color: #111 !important;
+}
 
+.date_picker {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: center;
+    width: 100%;
+    gap: 10px;
+}
+
+.form_control {
+    padding: 5px;
+    height: 46px;
+}
+
+.form_label {
+    color: gray;
+    padding-left: 10px;
+    padding-right: 10px;
+}
+
+.form_label {
+    color: rgb(41, 41, 42);
+    padding-left: 10px;
+    padding-right: 10px;
 }
