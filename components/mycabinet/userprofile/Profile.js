@@ -15,11 +15,13 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import axios from "axios";
 import { useEffect, useState } from "react";
 import CityModal from "@/components/checkoutorder/citymodal";
+import PaymentForm from "@/components/paymentForm";
 
 export default function Profile(props) {
   const [isInEdit, setIsInEdit] = useState(false)
   const [showAddress, setShowAddress] = useState("none")
   const [showCard, setShowCard] = useState("none")
+  const [showAddCard, setShowAddCard] = useState(false);
   const [profileCityModalShow, setProfileCityModalShow] = useState(false);
    const [admiration, setAdmiration] = useState([]);
 //   useEffect(async()=>{
@@ -38,6 +40,10 @@ export default function Profile(props) {
 //   // cybersport,
 //   // handmade})
 //   },[])
+
+  const [userCreditCards, setUserCreditCards] = useState(props.user?.creditCards || []);
+  const [selectedCard, setSelectedCard] = useState(userCreditCards?.find(creditCard => creditCard.isDefault === true || null));
+
 
   const today = new Date();
   // const minDate = new Date(today.getFullYear() - 12, today.getMonth(), today.getDate());
@@ -169,14 +175,19 @@ export default function Profile(props) {
     //implement handler
 
   };
-  const handleAddCard = (e) => {
-    //implement handler
+  // const handleAddCard = (e) => {
+  //   //implement handler
 
-  };
+  // };
   const handleCancelAddCard = (e) => {
     //implement handler
 
   };
+
+  const handleAddCard = () => {
+    setShowAddCard(true);
+    setShowCard(false)
+  }
 
   return (
     <Accordion
@@ -307,7 +318,11 @@ export default function Profile(props) {
         </Accordion.Header>
         <Accordion.Body className={styles.accordion__item_body}>
           <Row className={styles.contacts}>
-            <button className={styles.profilebtn} onClick={() => setShowAddress(showAddress === "none" ? "block" : "none")}>+ Додати адресу</button>
+            <button
+              style={{ display: showAddress !== "block" ? "block" : "none" }}
+              className={styles.profilebtn}
+              onClick={() => setShowAddress("block")}
+            >+ Додати адресу</button>
           </Row>
           <Row style={{ display: showAddress }}>
             <Col className={styles.ordertable}>
@@ -354,7 +369,7 @@ export default function Profile(props) {
                   <Form.Control className={styles.form_floor} name="flat" onChange={handleChangeAdress} />
                 </Form.Group>
                 <button onClick={handleAddAdress} id="btnAddAddress">Додати</button>
-                <button onClick={handleCancelAddAdress} id="btnCancelAddAddress">Скасувати</button>
+                <button onClick={() => setShowAddress("none")} id="btnCancelAddAddress">Скасувати</button>
               </div>
             </Col>
           </Row>
@@ -365,35 +380,31 @@ export default function Profile(props) {
           <span>Мої картки</span>
         </Accordion.Header>
         <Accordion.Body className={styles.accordion__item_body}>
-          <Row className={styles.cardsbtns}>
-            <button className={styles.profilebtn}>
-              Mastercard із закінчкнням 5368
-            </button>
-            <button className={styles.profilebtn} onClick={() => setShowCard(showCard === "none" ? "block" : "none")}>+ Додати картку</button>
-          </Row>
-          <Row style={{ display: showCard }}>
-            <Col className={styles.ordertable}>
-              <Form.Group controlId="cardNumberGroup">
-                <Form.Label className={styles.form_label}>Номер картки</Form.Label>
-                <Form.Control className={styles.form_floor}
-                  type="number"
-                  name="card_number"
-                  onChange={handleChangeCardNumber}>
-                </Form.Control>
-              </Form.Group>
-              <div className={styles.flex_row}>
-                <Form.Group controlId="cardTermGroup">
-                  <Form.Label className={styles.form_label}>Термін дії</Form.Label>
-                  <Form.Control className={styles.form_floor} name="card_term" onChange={handleChangeTerm} />
-                </Form.Group>
-                <Form.Group controlId="cardCvvGroup">
-                  <Form.Label className={styles.form_label}>CVV</Form.Label>
-                  <Form.Control className={styles.form_floor} name="card_cvv" type="number" onChange={handleChangeCVV} />
-                </Form.Group>
-                <button onClick={handleAddCard} id="btnAddAddress">Додати</button>
-                <button onClick={handleCancelAddCard} id="btnCancelAddAddress">Скасувати</button>
-              </div>
-            </Col>
+          <Row className={styles.mark_border}>
+            {showCard ? (
+              <Col className={styles.mark_border}>
+                <Form.Select name="creditselect" className={styles.form_input_card}>
+                  <option value="Вибрати карту" disabled={true} id="optcred1" key="optcred1">Вибрати карту...</option>
+                  {userCreditCards.map((cc) => (
+                    <option key={`${cc._id}`} value={cc.id}>{`**** **** **** ${cc.number.slice(-4)}`}</option>
+                  ))}
+                </Form.Select>
+                <Row className={styles.flex_row_card}>
+                  <button className={styles.dark_button} onClick={handleAddCard}>+ Додати карту</button>
+                </Row>
+
+              </Col>
+            ) : (
+              <PaymentForm key={`${props.user.id}-form`}
+                total={null}
+                setIsPaid={null}
+                userCreditCards={userCreditCards}
+                setUserCreditCards={setUserCreditCards}
+                setShowAddCard={setShowAddCard}
+                setShowCard={setShowCard}
+                setSelectedCard={setSelectedCard}
+              />
+            )}
           </Row>
         </Accordion.Body>
       </Accordion.Item>
@@ -429,6 +440,7 @@ export default function Profile(props) {
               компанії або приватним підприємцем
             </Form.Check.Label>
           </Form.Check>
+          <button className={styles.profilebtn} onClick={() => setIsInEdit(true)}>Підтвердити</button>
         </Accordion.Body>
       </Accordion.Item>
       <Accordion.Item eventKey="4" className={styles.accordion__item}>
@@ -450,6 +462,7 @@ export default function Profile(props) {
                 </Form.Check>
               </Col>
             ))}
+            <button className={styles.edit_btn2} onClick={() => setIsInEdit(true)}>Підтвердити</button>
           </Row>
         </Accordion.Body>
       </Accordion.Item>
@@ -472,6 +485,7 @@ export default function Profile(props) {
                 </Form.Check>
               </Col>
             ))}
+            <button className={styles.edit_btn2} onClick={() => setIsInEdit(true)}>Підтвердити</button>
           </Row>
         </Accordion.Body>
       </Accordion.Item>

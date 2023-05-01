@@ -1,11 +1,19 @@
 import styles from "./styles.module.scss"
 import { Container, Row, Col, Table, Form } from 'react-bootstrap'
 import { useState } from "react";
+import LeaveFeedback from "../../productPage/leaveFeedback"
 
 
 export default function OrderItem(props) {
     const [showFulllOrder, setShowFulllOrder] = useState("none")
+    const [feedback, setFeedback] = useState(false);
+    const handleFeedBack = () => {
 
+        setFeedback(true);
+
+        //  setLoginModalShow(true);
+
+    };
     return (
         <Container className={styles.container}>
             <Row className={styles.orderitem}>
@@ -48,7 +56,7 @@ export default function OrderItem(props) {
                                 </tr>
                             </thead>
                             <tbody>
-                                {props.order.products.slice(0, 2).map((product,i) => (
+                                {props.order.products.slice(0, 2).map((product, i) => (
                                     <tr key={i}>
                                         <td> <div className={styles.picture}>
                                             <img src={product.image} width='74px' height='45px' style={{ objectFit: "contain" }} />
@@ -98,10 +106,17 @@ export default function OrderItem(props) {
                         </div>
                     </Row>
                     <div className={styles.repete}>
-                        <button className={styles.light_button}>Залишити відгук</button>
+                        <button className={styles.light_button} onClick={handleFeedBack}>Залишити відгук</button>
                         <button className={styles.dark_button}>Повторити замовлення</button>
                     </div>
                 </Col>
+
+                <LeaveFeedback
+                    show={feedback}
+                    onHide={() => setFeedback(false)}
+                    product={null}   //TODO Как передать сюда продукт ???
+                    setProductReview={null}  //TODO Как передать сюда setProductReview ???
+                />
             </Row>
         </Container>
     )

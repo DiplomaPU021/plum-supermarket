@@ -16,41 +16,41 @@ export default function Create({ setCategories }) {
             .matches(/^[абвгдеєжзиіїйклмнопрстуфхцчшщьюяАБВГДЕЄЖЗИЇІКЛМНОПРСТУФХЦЧШЩЬЮЯa-zA-Z\s]*$/, "Numbers and special characters are not allowed.")
         ,
     });
-    const submitHandler=async()=>{
+    const submitHandler = async () => {
         try {
-            const {data} = await axios.post('/api/admin/category', {name});
-            setCategories(data.setCategories);
+            const { data } = await axios.post('/api/admin/category', { name });
+            setCategories(data.categories);
             setName("");
             toast.success(data.message);
         } catch (error) {
-            toast.error(error.response.data.message);    
-        }    
+            toast.error(error.response.data.message);
+        }
     };
     return (<>
-        <Formik 
-            enableReinitialize 
+        <Formik
+            enableReinitialize
             initialValues={{ name }}
             validationSchema={validate}
-            onSubmit={()=>{
+            onSubmit={() => {
                 submitHandler();
             }}
         >
             {
-                (formik)=>(
+                (formik) => (
                     <Form>
-                        <div className={styles.header}>Create a Category</div>    
+                        <div className={styles.header}>Create a Category</div>
                         <AdminInput
-                        type="text"
-                        label="Name"
-                        name="name"
-                        placeholder="Category name"
-                        onChange={(e)=>setName(e.target.value)}
+                            type="text"
+                            label="Name"
+                            name="name"
+                            placeholder="Category name"
+                            onChange={(e) => setName(e.target.value)}
                         />
                         <div className={styles.btnWrap}>
                             <button type="submit" className={`${styles.btn}`}>
                                 <span>Add Category</span>
                             </button>
-                        </div>                        
+                        </div>
                     </Form>
                 )
             }

@@ -1,0 +1,29 @@
+import Layout from "../../../components/admin/layout";
+import db from '../../../utils/db';
+import Coupon from "../../../models/Coupon";
+import { useState } from 'react'
+import Create from "../../../components/admin/coupons/Create";
+import CouponList from "../../../components/admin/coupons/CouponList";
+
+export default function coupons({ coupons }) {
+    const [data, setData] = useState(coupons);
+    return <Layout>
+        <div>
+            <Create setCoupons={setData} />
+            <CouponList
+                coupons={data}
+                setCoupons={setData}
+            />
+        </div>
+    </Layout>;
+}
+
+export async function getServerSideProps(context) {
+    db.connectDb();
+    const coupons = await Coupon.find({}).sort({ updateAt: -1 }).lean();
+    return {
+        props: {
+            coupons: JSON.parse(JSON.stringify(coupons)),
+        },
+    };
+}

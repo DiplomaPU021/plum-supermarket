@@ -28,6 +28,7 @@ export default function Summary({
     isPaid,
     orderError,
     setOrderError
+
 }) {
     const { data: session } = useSession();
     const dispatch = useDispatch();
@@ -114,7 +115,6 @@ export default function Summary({
                 console.error("Заповніть поля", JSON.stringify(orderError, null, 4))
             }
 
-
         } else {
             // e.preventDefault();
             setUserSigninShow(true);
@@ -172,6 +172,8 @@ export default function Summary({
                                     <li><div className={styles.litext_btn}><p>Адреса доставки</p><h6>{delivery.deliveryAddress}</h6></div></li>
                                     <li><div className={styles.litext_btn}><p>Вартість доставки</p><h6>{delivery.deliveryType == "Кур'єр на вашу адресу" ? `${Number(delivery.deliveryCost)} ₴` : delivery.deliveryCost}</h6></div></li>
                                     <li><div className={styles.litext_btn}><p>Оплата</p><h6>{paymentMethod}</h6></div></li>
+                                    {/* TODO вытянуть isPaid из базы */}
+                                    <li><div className={styles.litext_btn}><p>Статус оплати</p><h6>{isPaid ? "Оплачено" : "Очікується оплата"}</h6></div></li>
                                     {discount > 0 && (
                                         <li><div className={styles.litext_btn}><p>Купон застосовано:</p><h6><b>-{discount}%</b></h6></div></li>
                                     )}
