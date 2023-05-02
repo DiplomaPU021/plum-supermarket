@@ -529,10 +529,6 @@ export default function Profile({ country, ...props }) {
           </Form>
         </Accordion.Body>
       </Accordion.Item>
-      <div>userAddresses</div>
-      {JSON.stringify(userAddresses)}
-      <div>activeAddresses</div>
-      {JSON.stringify(activeAddress)}
       <Accordion.Item eventKey="1" className={styles.accordion__item}>
         <Accordion.Header className={styles.accordion__item_header}>
           <span>Мої адреси</span>
