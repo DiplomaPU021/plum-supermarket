@@ -16,7 +16,8 @@ export default function Authorization({
   signOutHandler,
   user,
   setUser,
-  orders
+  orders,
+  country
 }) {
   if (logShow) {
     console.log("LOG IN");
@@ -67,6 +68,7 @@ export default function Authorization({
         signOutHandler={signOutHandler}
         user={user}
         orders={orders}
+        country={country}
       />
     );
   }

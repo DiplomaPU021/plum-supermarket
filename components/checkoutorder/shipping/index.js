@@ -22,7 +22,7 @@ export default function Shipping({
   const [showPostmanDeliveryAll, setShowPostmanDeliveryAll] = useState("none");
   const [showNovaPoshtaDelivery, setShowNovaPoshtaDelivery] = useState("block");
   const [showAddAddressBlock, setShowAddAddressBlock] = useState("none");
-  const [userAddresses, setUserAdresses] = useState(user?.address || []);
+  const [userAddresses, setUserAddresses] = useState(user?.address != "" ? user?.address : []);
   const [filteredUserAdresses, setFilteredUserAdresses] = useState(
     userAddresses?.filter((address) =>
       address.zipCode
@@ -51,8 +51,10 @@ export default function Shipping({
   const selfRef = useRef();
   const [deliveryAddressSelected, setDeliveryAddressSelected] =
     useState("відділення №1");
+  const hasActiveAddress = filteredUserAdresses.some((item) => item.active === true);
+
   const [selectedAddress, setSelectedAddress] = useState(
-    filteredUserAdresses.length > 0
+    hasActiveAddress
       ? filteredUserAdresses.find((item) => item.active === true).address
       : ""
   );
@@ -141,7 +143,7 @@ export default function Shipping({
   };
   const handleCityModalClose = (selectedCity) => {
     if (selectedCity) {
-      setUserAdresses(user?.address || []);
+      setUserAddresses(user?.address || []);
       setSelectedCity(selectedCity);
       setActiveAddress((prevState) => ({
         ...prevState,
@@ -190,9 +192,11 @@ export default function Shipping({
   }, [addressValues]);
 
   useDeepCompareEffect(() => {
+    const hasActiveAddress = filteredUserAdresses.some((item) => item.active === true);
     if (
       filteredUserAdresses.length > 0 &&
-      delivery.deliveryId == "postmanDelivery"
+      delivery.deliveryId == "postmanDelivery" &&
+      hasActiveAddress
     ) {
       setShowAddAddressBlock("none");
       setShowPostmanDeliveryAll("block");
@@ -212,9 +216,9 @@ export default function Shipping({
       setFilteredUserAdresses(
         userAddresses?.filter((address) =>
           address.zipCode
-            ? address.zipCode === selectedCity?.object_code
+            ? address.zipCode === selectedCity?.object_code  && address.address != ""
             : address.city === selectedCity.object_name &&
-            address.region === selectedCity.region
+            address.region === selectedCity.region  && address.address != ""
         )
       );
       setDeliveryAddressSelected("відділення №1");
@@ -272,17 +276,11 @@ export default function Shipping({
       setFilteredUserAdresses(
         userAddresses?.filter((address) =>
           address.zipCode
-            ? address.zipCode === selectedCity?.object_code
+            ? address.zipCode === selectedCity?.object_code  && address.address != ""
             : address.city === selectedCity.object_name &&
-            address.region === selectedCity.region
+            address.region === selectedCity.region && address.address != ""
         )
       );
-
-      //   if (filteredUserAdresses && filteredUserAdresses.length > 0) {
-      //     setVisibleAddressField(true);
-      //   } else {
-      //     setVisibleAddressField(false);
-      //   }
     }
   }, [userAddresses]);
 
@@ -352,11 +350,14 @@ export default function Shipping({
         const selectedAddressActive = defaultAddress.find(
           (c) => c.active === true
         );
-        setSelectedAddress(selectedAddressActive.address);
-        setDelivery((prevState) => ({
-          ...prevState,
-          deliveryAddress: `${selectedCity?.value}, ${selectedAddressActive.address}, ${selectedAddressActive.ground} поверх, ліфт ${selectedAddressActive.elevator}`,
-        }));
+        if (selectedAddressActive) {
+          setSelectedAddress(selectedAddressActive?.address);
+          setDelivery((prevState) => ({
+            ...prevState,
+            deliveryAddress: `${selectedCity?.value}, ${selectedAddressActive.address}, ${selectedAddressActive.ground} поверх, ліфт ${selectedAddressActive.elevator}`,
+          }));
+        }
+
         setActiveAddress(selectedAddressActive);
       } else {
         setDelivery((prevState) => ({
@@ -462,7 +463,7 @@ export default function Shipping({
           addresses.push(temp_address);
         }
         addresses.push(newAddress);
-        setUserAdresses(addresses);
+        setUserAddresses(addresses);
         setDelivery((prevState) => ({
           ...prevState,
           deliveryAddress: `${newAddress.address}, поверх ${newAddress.ground}, ліфт ${newAddress.elevator}`,

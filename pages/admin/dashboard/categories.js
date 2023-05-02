@@ -20,8 +20,9 @@ export default function categories({ categories }) {
 }
 
 export async function getServerSideProps(context) {
-    db.connectDb();
-    const categories = await Category.find({}).sort({ updateAt: -1 }).lean();
+    await db.connectDb();
+    const categories = await Category.find({}).sort({ updatedAt: -1 }).lean();
+await db.disconnectDb();
     return {
         props: {
             categories: JSON.parse(JSON.stringify(categories)),

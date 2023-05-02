@@ -39,8 +39,8 @@ const PaymentForm = ({ total, setIsPaid, userCreditCards, setUserCreditCards, se
     };
 
     const handleUpload = async () => {
-        console.log("formData", state.formData);
-        console.log("state", state);
+        // console.log("formData", state.formData);
+        // console.log("state", state);
         let toastId = null;
 
         try {
@@ -65,13 +65,15 @@ const PaymentForm = ({ total, setIsPaid, userCreditCards, setUserCreditCards, se
                     },
                 }
             );
-            console.log("data", data);
             setTimeout(() => {
                 toast.update(toastId, {
                     render: data?.message,
                     type: toast.TYPE.SUCCESS,
                 });
-                setIsPaid(true);      //TODO в профілі викидає помилку поки таймаут
+                if(setIsPaid!=null){
+                     setIsPaid(true);      //TODO в профілі викидає помилку поки таймаут 
+                }
+              
                 handleReset();
 
             }, 3000);

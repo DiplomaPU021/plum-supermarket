@@ -21,7 +21,7 @@ handler.post(async (req, res) => {
         db.disconnectDb();
         res.json({
             message: `Coupon ${promocode} has been created successfully`,
-            coupons: await Coupon.find({}).sort({ updateAt: -1 }),
+            coupons: await Coupon.find({}).sort({ updatedAt: -1 }),
         })
     } catch (error) {
         db.disconnectDb();
@@ -37,7 +37,7 @@ handler.delete(async (req, res) => {
         db.disconnectDb;
         return res.json({
             message: "Coupon has been deleted succesfuly",
-            coupons: await Coupon.find({}).sort({ updateAt: -1 })
+            coupons: await Coupon.find({}).sort({ updatedAt: -1 })
         })
     } catch (error) {
         res.status(500).json({ message: error.message });
@@ -52,7 +52,7 @@ handler.put(async (req, res) => {
         db.disconnectDb;
         return res.json({
             message: "Coupon has been updated succesfuly",
-            coupons: await Coupon.find({}).sort({ updateAt: -1 })
+            coupons: await Coupon.find({}).sort({ updatedAt: -1 })
         })
     } catch (error) {
         res.status(500).json({ message: error.message });

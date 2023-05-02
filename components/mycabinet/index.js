@@ -11,7 +11,7 @@ import { emptyWishList, updateWishList } from "@/store/wishListSlice";
 import { emptyScaleList } from "@/store/scaleListSlice";
 import { emptyReviewRating } from "@/store/reviewSlice";
 
-export default function MyCabinet({user, setUser, orders,...props}) {
+export default function MyCabinet({user, setUser, orders, country,...props}) {
     const { data: session, status } = useSession();
     const dispatch = useDispatch();
     const [authShow, setAuthShow] = useState(session?.user ? false : true);
@@ -82,6 +82,7 @@ export default function MyCabinet({user, setUser, orders,...props}) {
                         user={user}
                         setUser={setUser}
                         orders={orders}
+                        country={country}
                     />
                 )}
                 {/* {userProfileShow ? (
@@ -89,7 +90,6 @@ export default function MyCabinet({user, setUser, orders,...props}) {
                         <span onClick={signOutHandler}>Вийти</span>
                     </a></Modal.Footer>
                 ) : <></>} */}
-
             </div>
             </div>
         </Modal>
