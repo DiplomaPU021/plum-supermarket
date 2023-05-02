@@ -243,6 +243,7 @@ export default function Header({ country }) {
             user={user}
             setUser={setUser}
             orders={orders}
+            country={country}
           />
         </div>
       </div>

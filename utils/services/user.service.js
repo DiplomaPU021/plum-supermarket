@@ -40,6 +40,24 @@ const findByIdAndUpdateProfile = async (
         console.error(err);
     }
 };
+const findByIdAndUpdateProfileFromCheckout = async (
+    id,
+    firstName,
+    lastName,
+    phoneNumber,
+    email
+) => {
+    try {
+        const user = await User.findOneAndUpdate(
+            { _id: id, email },
+            { firstName, lastName, phoneNumber },
+            { new: true }
+        );
+        return user;
+    } catch (err) {
+        console.error(err);
+    }
+};
 const findByIdAndDelete = async (id) => {
     const result = await User.findByIdAndDelete(id);
     return result;
@@ -275,8 +293,6 @@ const getCartlist = async (userId) => {
 const addCreditCard = async (userId, name, number, expiry, cvc) => {
     try {
         const user = await User.findById(userId);
-
-        console.log("userService", userId, name, number, expiry, cvc);
         const existCreditCardItem = user.creditCards?.findIndex(
             (x) => x.name?.toString() == name && x.number?.toString() == number
         );
@@ -297,14 +313,10 @@ const addCreditCard = async (userId, name, number, expiry, cvc) => {
         } else {
             throw new Error("Карта вже існує!");
         }
-        console.log("306");
         await user.updateOne({
             creditCards: creditCards,
         }, { new: true });
-        console.log("309");
         const result = await User.findById(userId);
-        console.log("311");
-        // console.log("temp_addressUser2", user);
         return result;
         // if (existCreditCardItem === -1) {
         //     if (!user.creditCards) {
@@ -320,7 +332,6 @@ const addCreditCard = async (userId, name, number, expiry, cvc) => {
     }
 };
 const removeFromCreditCards = async (userId, creditCardId) => {
-    console.log("removeFromDb", userId, creditCardId);
     const user = await User.findById(userId);
     if (user) {
         user.wishlist = user.creditCards.filter((item) => item._id.toString() !== creditCardId);
@@ -371,6 +382,7 @@ const userService = {
     removeFromWishlist,
     getWishlist,
     findByIdAndUpdateProfile,
+    findByIdAndUpdateProfileFromCheckout,
     addCreditCard,
     removeFromCreditCards,
     addAdmirations,

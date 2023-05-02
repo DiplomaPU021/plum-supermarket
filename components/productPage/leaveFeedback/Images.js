@@ -10,8 +10,6 @@ export default function Images({ images, setImages }) {
   const handleImages = (e) => {
     let files = Array.from(e.target.files);
     files.forEach((img, i) => {
-      console.log("images", images);
-      console.log("i",i);
       if (images.length == 10 || i == 2) {
         setError("Дзволено максимум 10 фото.");
         return;

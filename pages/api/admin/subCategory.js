@@ -23,7 +23,7 @@ handler.post(async (req, res) => {
         db.disconnectDb();
         res.json({
             message: `SubCategory ${name} has been created successfully`,
-            subCategories: await SubCategory.find({}).sort({ updateAt: -1 }),
+            subCategories: await SubCategory.find({}).sort({ updatedAt: -1 }),
         })
     } catch (error) {
         db.disconnectDb();
@@ -39,7 +39,7 @@ handler.delete(async (req, res) => {
         db.disconnectDb;
         return res.json({
             message: "SubCategory has been deleted succesfuly",
-            subCategories: await SubCategory.find({}).sort({ updateAt: -1 })
+            subCategories: await SubCategory.find({}).sort({ updatedAt: -1 })
         })
     } catch (error) {
         res.status(500).json({ message: error.message });
@@ -54,7 +54,7 @@ handler.put(async (req, res) => {
         db.disconnectDb;
         return res.json({
             message: "SubCategory has been updated succesfuly",
-            subCategories: await SubCategory.find({}).sort({ updateAt: -1 })
+            subCategories: await SubCategory.find({}).sort({ updatedAt: -1 })
         })
     } catch (error) {
         res.status(500).json({ message: error.message });

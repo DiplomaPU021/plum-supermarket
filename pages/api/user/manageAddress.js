@@ -9,7 +9,6 @@ handler.post(async (req, res) => {
     try {
         await db.connectDb();
         const { address } = req.body;
-        console.log("apiMangeadress", address);
         let user = await User.findById(req.user);
         let user_addresses = user.address;
         address.active = true;
@@ -34,7 +33,7 @@ handler.post(async (req, res) => {
             }, { new: true });
      
         user = await User.findById(req.user);
-         console.log("temp_addressUser2", user?.address);
+
         await db.disconnectDb();
         return res.status(200).json({ addresses: user.address });
     } catch (error) {

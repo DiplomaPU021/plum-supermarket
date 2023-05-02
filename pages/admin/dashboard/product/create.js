@@ -268,10 +268,10 @@ export default function create({ parents, categories }) {
 }
 
 export async function getServerSideProps(context) {
-    db.connectDb();
+    await db.connectDb();
     const results = await Product.find({}).select("name subProducts").lean();
-    const categories = await Category.find({}).sort({ updateAt: -1 }).lean();
-
+    const categories = await Category.find({}).sort({ updatedAt: -1 }).lean();
+    await db.disconnectDb();
     return {
         props: {
             parents: JSON.parse(JSON.stringify(results)),

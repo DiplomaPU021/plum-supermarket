@@ -7,6 +7,7 @@ import LeaveFeedback from "../../productPage/leaveFeedback"
 export default function OrderItem(props) {
     const [showFulllOrder, setShowFulllOrder] = useState("none")
     const [feedback, setFeedback] = useState(false);
+console.log("10", props);
     const handleFeedBack = () => {
 
         setFeedback(true);
