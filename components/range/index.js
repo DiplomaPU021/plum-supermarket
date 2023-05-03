@@ -1,7 +1,7 @@
 import styles from "./style.module.scss";
 import { useState, useEffect } from "react";
 
-export default function RangeSlider({ min, max, value, step, onChange }) {
+export default function RangeSlider({ min, max, value, step, onChange, setPriceChecked }) {
   const [minValue, setMinValue] = useState(value ? value.min : min);
   const [maxValue, setMaxValue] = useState(value ? value.max : max);
 
@@ -17,6 +17,7 @@ export default function RangeSlider({ min, max, value, step, onChange }) {
     const newMinVal = Math.min(+e.target.value, maxValue - step);
     if (!value) setMinValue(newMinVal);
     onChange({ min: newMinVal, max: maxValue });
+    setPriceChecked(false);
   };
 
   const handleMaxChange = (e) => {
@@ -24,6 +25,7 @@ export default function RangeSlider({ min, max, value, step, onChange }) {
     const newMaxVal = Math.max(+e.target.value, minValue + step);
     if (!value) setMaxValue(newMaxVal);
     onChange({ min: minValue, max: newMaxVal });
+    setPriceChecked(false);
   };
   const minPos = ((minValue - min) / (max - min)) * 100;
   const maxPos = ((maxValue - min) / (max - min)) * 100;
