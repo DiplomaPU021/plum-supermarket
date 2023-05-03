@@ -7,13 +7,9 @@ import LeaveFeedback from "../../productPage/leaveFeedback"
 export default function OrderItem(props) {
     const [showFulllOrder, setShowFulllOrder] = useState("none")
     const [feedback, setFeedback] = useState(false);
-console.log("10", props);
     const handleFeedBack = () => {
-
         setFeedback(true);
-
         //  setLoginModalShow(true);
-
     };
     return (
         <Container className={styles.container}>
@@ -57,7 +53,7 @@ console.log("10", props);
                                 </tr>
                             </thead>
                             <tbody>
-                                {props.order.products.slice(0, 2).map((product, i) => (
+                                {props.order.products.map((product, i) => (
                                     <tr key={i}>
                                         <td> <div className={styles.picture}>
                                             <img src={product.image} width='74px' height='45px' style={{ objectFit: "contain" }} />

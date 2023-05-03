@@ -9,7 +9,7 @@ const handler = nc();//.use(auth);
 handler.post(async (req, res) => {
     try {
         const { promocode, discount, startDate, endDate } = req.body;
-        db.connectDb();
+        await db.connectDb();
         const test = await Coupon.findOne({ promocode });
         if (test) {
             return res
@@ -18,13 +18,13 @@ handler.post(async (req, res) => {
 
         }
         await new Coupon({ promocode, discount, startDate, endDate }).save();
-        db.disconnectDb();
+        await db.disconnectDb();
         res.json({
             message: `Coupon ${promocode} has been created successfully`,
             coupons: await Coupon.find({}).sort({ updatedAt: -1 }),
         })
     } catch (error) {
-        db.disconnectDb();
+        await db.disconnectDb();
         res.status(500).json({ message: error.message });
     }
 });
@@ -32,9 +32,9 @@ handler.post(async (req, res) => {
 handler.delete(async (req, res) => {
     try {
         const { id } = req.body;
-        db.connectDb();
+        await db.connectDb();
         await Coupon.findByIdAndRemove(id);
-        db.disconnectDb;
+        await db.disconnectDb();
         return res.json({
             message: "Coupon has been deleted succesfuly",
             coupons: await Coupon.find({}).sort({ updatedAt: -1 })
@@ -47,9 +47,9 @@ handler.delete(async (req, res) => {
 handler.put(async (req, res) => {
     try {
         const { id, promocode, discount, startDate, endDate } = req.body;
-        db.connectDb();
-        await Coupon.findByIdAndUpdate(id, {promocode, discount, startDate, endDate});
-        db.disconnectDb;
+        await db.connectDb();
+        await Coupon.findByIdAndUpdate(id, { promocode, discount, startDate, endDate });
+        await db.disconnectDb();
         return res.json({
             message: "Coupon has been updated succesfuly",
             coupons: await Coupon.find({}).sort({ updatedAt: -1 })

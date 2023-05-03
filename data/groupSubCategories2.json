@@ -1,0 +1,109 @@
+[{
+  "_id": {
+    "$oid": "64000bc050fc81079dcb17aa"
+  },
+  "parent": {
+    "$oid": "63e39c465ba7e472e6726ce6"
+  },
+  "slug": "household_cleaners",
+  "name": "Побутова хімія"
+},{
+  "_id": {
+    "$oid": "640006db50fc81079dcb17a1"
+  },
+  "parent": {
+    "$oid": "63e370145ba7e472e6726ca2"
+  },
+  "slug": "system_blocks",
+  "name": "Комп'ютерні комплектуючі"
+},{
+  "_id": {
+    "$oid": "6400086550fc81079dcb17a6"
+  },
+  "parent": {
+    "$oid": "63e370145ba7e472e6726ca2"
+  },
+  "slug": "office_equipment",
+  "name": "Офісна техніка"
+},{
+  "_id": {
+    "$oid": "63fffd0450fc81079dcb179c"
+  },
+  "parent": {
+    "$oid": "63e370145ba7e472e6726ca2"
+  },
+  "slug": "laptop",
+  "name": "Ноутбуки, комп'ютери, неттопи, моноблоки"
+},{
+  "_id": {
+    "$oid": "6400082f50fc81079dcb17a5"
+  },
+  "parent": {
+    "$oid": "63e370145ba7e472e6726ca2"
+  },
+  "slug": "accessories",
+  "name": "Навушники та аксесуари"
+},{
+  "_id": {
+    "$oid": "640007c150fc81079dcb17a2"
+  },
+  "parent": {
+    "$oid": "63e370145ba7e472e6726ca2"
+  },
+  "slug": "monitor",
+  "name": "Монітори, клавіатури"
+},{
+  "_id": {
+    "$oid": "640007f150fc81079dcb17a3"
+  },
+  "parent": {
+    "$oid": "63e370145ba7e472e6726ca2"
+  },
+  "slug": "tablet",
+  "name": "Планшети"
+},{
+  "_id": {
+    "$oid": "6400080650fc81079dcb17a4"
+  },
+  "parent": {
+    "$oid": "63e370145ba7e472e6726ca2"
+  },
+  "slug": "server",
+  "name": "Мережеве обладнання"
+},{
+  "_id": {
+    "$oid": "640009c450fc81079dcb17a7"
+  },
+  "parent": {
+    "$oid": "63e39c465ba7e472e6726ce5"
+  },
+  "slug": "phone",
+  "name": "Мобільні телефони"
+},{
+  "_id": {
+    "$oid": "64000a1350fc81079dcb17a8"
+  },
+  "parent": {
+    "$oid": "63e39c465ba7e472e6726ce5"
+  },
+  "slug": "tv",
+  "name": "Телевізори"
+},{
+  "_id": {
+    "$oid": "64000ab050fc81079dcb17a9"
+  },
+  "parent": {
+    "$oid": "63e39c465ba7e472e6726ce6"
+  },
+  "slug": "laundry",
+  "name": "Засоби для прання"
+},{
+  "_id": {
+    "$oid": "640e4885a919746cc46cbe8a"
+  },
+  "slug": "shoes",
+  "parent": {
+    "$oid": "63e7c985d77191b2d8a70f03"
+  },
+  "name": "Взуття"
+}]

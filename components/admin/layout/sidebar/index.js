@@ -112,6 +112,14 @@ export default function Sidebar() {
                                 <span className={styles.show}>Categories</span>
                             </Link>
                         </li>
+                        <li className={route == "groupSubCategories" ? styles.active : ""}>
+                            <Link href="/admin/dashboard/groupSubCategories">
+                            <div style={{ transform: "rotate(90deg)" }}>
+                                <MdOutlineCategory />
+                                </div>
+                                <span className={styles.show}>GroupSubCategories</span>
+                            </Link>
+                        </li>
                         <li className={route == "subCategories" ? styles.active : ""}>
                             <Link href="/admin/dashboard/subCategories">
                                 <div style={{ transform: "rotate(180deg)" }}>
