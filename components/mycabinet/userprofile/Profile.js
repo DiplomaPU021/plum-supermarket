@@ -17,7 +17,6 @@ import { useEffect, useRef, useState } from "react";
 import CityModal from "@/components/checkoutorder/citymodal";
 import PaymentForm from "@/components/paymentForm";
 import { getStreets } from "@/requests/street";
-import useDeepCompareEffect from "use-deep-compare-effect";
 import { saveAddress } from "@/requests/user";
 
 export default function Profile({ country, ...props }) {

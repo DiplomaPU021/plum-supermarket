@@ -6,35 +6,29 @@ import AdminInput from '../../inputs/adminInput';
 import { toast } from "react-toastify";
 import axios from "axios";
 import SingularSelect from "../select/SingularSelect"
-import Categories from '@/components/categories';
 
-export default function Create({ categories, setSubCategories, groupSubCategories }) {
+export default function Create({ categories, setGroupSubCategories }) {
     const [name, setName] = useState("");
     const [parent, setParent] = useState("");
-    const [topParent, setTopParent] = useState("");
-    const [filteredGroupSubCategories, setFilteredGroupSubCategories] = useState(groupSubCategories);
     const validate = Yup.object({
         name: Yup.string()
-            .required('SubCategory name is required.')
-            .min(2, "SubCategory name must be between 2 and 30 characters.")
-            .max(30, "SubCategory name must be between 2 and 30 characters.")
+            .required('GroupSubCategory name is required.')
+            .min(2, "GroupSubCategory name must be between 2 and 30 characters.")
+            .max(30, "GroupSubCategory name must be between 2 and 30 characters.")
             .matches(/^[абвгдеєжзиіїйклмнопрстуфхцчшщьюяАБВГДЕЄЖЗИЇІКЛМНОПРСТУФХЦЧШЩЬЮЯa-zA-Z\s]*$/, "Numbers and special characters are not allowed.")
         ,
         parent: Yup.string().required("Please choose a parent category"),
-        topParent: Yup.string().required("Please choose a top parent category")
     });
-    const handleChangeTopParent = (e) => {
-        setTopParent(e.target.value);
-        setFilteredGroupSubCategories(groupSubCategories?.filter(item => e.target.value === item.parent._id));
+    const handleChangeTopParent=(e)=>{
+        setParent(e.target.value);
     }
     const submitHandler = async () => {
         try {
-            console.log(name, parent, topParent);
-            const { data } = await axios.post('/api/admin/subCategory', { name, parent, topParent });
-            setSubCategories(data.subCategories);
+            console.log("27", name, parent);
+            const { data } = await axios.post('/api/admin/groupSubCategory', { name, parent });
+            setGroupSubCategories(data.groupSubCategories);
             setName("");
             setParent("");
-            setTopParent("");
             toast.success(data.message);
         } catch (error) {
             toast.error(error.response.data.message);
@@ -43,37 +37,38 @@ export default function Create({ categories, setSubCategories, groupSubCategorie
     return (<>
         <Formik
             enableReinitialize
-            initialValues={{ name, parent, topParent }}
+            initialValues={{ name, parent }}
             validationSchema={validate}
-            onSubmit={() => { submitHandler(); }}>
+            onSubmit={() => {
+                submitHandler();
+            }}
+        >
             {
                 (formik) => (
                     <Form>
-                        <div className={styles.header}>Create a SubCategory</div>
+                        {/* {JSON.stringify(groupSubCategories)}
+                        <div>top_parent</div>
+                        {topParent}
+                        <div>parent</div>
+                        {parent} */}
+                        <div className={styles.header}>Create a Group of SubCategories</div>
                         <AdminInput
                             type="text"
                             label="Name"
                             name="name"
-                            placeholder="Sub-Category name"
+                            placeholder="Group-Sub-Category name"
                             onChange={(e) => setName(e.target.value)}
                         />
                         <SingularSelect
-                            name="topParent"
-                            value={topParent}
+                            name="parent"
+                            value={parent}
                             data={categories}
                             placeholder="Select category"
                             header="Виберіть категорію"
                             handleChange={handleChangeTopParent} />
-                        <SingularSelect
-                            name="parent"
-                            value={parent}
-                            data={filteredGroupSubCategories}
-                            placeholder="Select group of category"
-                            header="Виберіть групу підкатегорій"
-                            handleChange={(e) => setParent(e.target.value)} />
                         <div className={styles.btnWrap}>
                             <button type="submit" className={`${styles.btn}`}>
-                                <span>Add Sub Category</span>
+                                <span>Add Group Sub Category</span>
                             </button>
                         </div>
                     </Form>

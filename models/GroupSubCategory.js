@@ -12,6 +12,10 @@ const groupSubCategorySchema = new mongoose.Schema({
     ref: "Category",
     required: true,
   },
+  name: {
+    type: String,
+  },
+
 });
 
 const GroupSubCategory =
