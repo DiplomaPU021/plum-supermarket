@@ -10,9 +10,9 @@ import scaleList from "./scaleListSlice"
 import reviewRating from "./reviewSlice"
 import viewedList from "./viewedListSlice";
 import searchedList from "./searchedListSlice";
+import dialog from "./DialogSlice"
 
-
-const reducers = combineReducers({ cart, wishList, scaleList, viewedList, reviewRating, expandSidebar, searchedList });
+const reducers = combineReducers({ cart, wishList, scaleList, viewedList, reviewRating, expandSidebar, searchedList, dialog });
 
 const createNoopStorage = () => {
     return {

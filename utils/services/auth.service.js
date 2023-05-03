@@ -5,26 +5,22 @@ import emailService from "./email.service";
 import tokenService from "./token.service";
 import userService from "./user.service";
 
-const registerUser = async (firstName, lastName, phoneNumber, email, password) => {
+const registerUser = async ( email, password) => {
   // check if user already exist
   const oldUser = await userService.findEmail(email);
   if (oldUser) {
-    throw new Error(`User ${email} already exists`);
+    throw new Error(`Такий ${email} вже зареєстровано! Будь ласка залогіньтесь!`);
   }
   // Encrypt user password
   const encryptedPassword = await bcrypt.hash(password, 10);
-  const uniqueString = await emailService.createUniqueString();
+  const uniqueString =  emailService.createUniqueString();
   // Create user in our database
   const user = await userService.createUser(
-    firstName,
-    lastName,
-    phoneNumber,
     email,
     encryptedPassword,
     uniqueString
   );
-
-  await emailService.sendEmail(email, uniqueString, "Активуйте вашу електронну адресу", activateEmailTemplate);
+  emailService.sendEmail(email, uniqueString, "Активуйте вашу електронну адресу", activateEmailTemplate);
   return user;
 };
 

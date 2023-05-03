@@ -69,11 +69,17 @@
         background-color: #FAF8FF;
         border: 2px solid #220F4B;
         border-radius: 23px;
+        text-align: center;
 
         &:hover {
             box-shadow: 0px 0px 5px 0px #220F4B;
             background-color: #FAF8FF;
         }
+    }
+
+    a{
+        text-decoration: none;
+        padding-top: 8px;
     }
 }
 

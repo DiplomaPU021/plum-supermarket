@@ -12,18 +12,24 @@ import { useRouter } from "next/router";
 import CheckoutCart from "../cartitems";
 import PersonalDataPolicy from '../../checkoutorder/info/PersonalDataPolicy'
 import UserConditions from "../../checkoutorder/info/PersonalDataPolicy"
+import MyCabinet from "@/components/mycabinet";
 
 
 
 export default function Summary({
     cart,
-    user,
+    userData,
     totalAfterDiscount,
     setTotalAfterDiscount,
     activeAddress,
+    setActiveAddress,
     paymentMethod,
     delivery,
-    setDelivery
+    setDelivery,
+    isPaid,
+    orderError,
+    setOrderError
+
 }) {
     const { data: session } = useSession();
     const dispatch = useDispatch();
@@ -33,7 +39,7 @@ export default function Summary({
     const [promocode, setPromocode] = useState("");
     const [discount, setDiscount] = useState(0);
     const [couponError, setCouponError] = useState("");
-    
+
     const validatePromoCode = yup.object({
         promocode: yup.string().required("Введіть промокод"),
     });
@@ -75,18 +81,16 @@ export default function Summary({
     const sendOrder = async (e) => {
 
         if (session) {
-            try {
-                console.log("activeAddress", activeAddress);
-                if(activeAddress==="undefined"||activeAddress.firstName==null||activeAddress.firstName==""){
-                    activeAddress.firstName=user.firstName;
-                }
-                if(activeAddress==="undefined"||activeAddress.lastName==null||activeAddress.lastName==""){
-                    activeAddress.lastName=user.lastName;
-                }
-                if (delivery.deliveryId == "postmanDelivery") {                     
-                    await saveAddress(activeAddress);            
-                     console.log("deliveryCost80", delivery.deliveryCost);
+            if (orderError.userError === "" && orderError.shippingError === "" && orderError.paymentError === "") {
+                try {
+                    if (activeAddress != null) {
+                        await saveAddress(activeAddress);
+                    }
                     const { data } = await axios.post("/api/order/create", {
+                        firstName: userData.firstName,
+                        lastName: userData.lastName,
+                        phoneNumber: userData.phoneNumber,
+                        email: userData.email,
                         products: cart.products,
                         shippingAddress: activeAddress,
                         paymentMethod,
@@ -95,40 +99,21 @@ export default function Summary({
                         totalQty: cart.cartTotalQty,
                         costAfterDiscount: totalAfterDiscount,
                         promocode,
-                        discount
+                        discount,
+                        isPaid
                     });
                     router.push(`/order/${data.order_id}`);
-                } else {
-                    console.log("deliveryCost102", delivery.deliveryCost);
-                    const { data } = await axios.post("/api/order/create", {
-                        products: cart.products,
-                        shippingAddress: {
-                            firstName: activeAddress.firstName,
-                            lastName: activeAddress.lastName,
-                            phoneNumber: activeAddress.phoneNumber,
-                            region: activeAddress.region,
-                            city: activeAddress.city,
-                            cityType: activeAddress.cityType,
-                            zipCode: activeAddress.zipCode,
-                            country: activeAddress.country,
-                        },
-
-                        paymentMethod,
-                        deliveryMethod: delivery,
-                        totalPrice,
-                        totalQty: cart.cartTotalQty,
-                        costAfterDiscount: totalAfterDiscount,
-                        promocode,
-                        discount
-                    });
-                    router.push(`/order/${data.order_id}`);
-                }
-                var empty = dispatch(emptyCart());
-            } catch (error) { console.error(error) }
+                    var empty = dispatch(emptyCart());
+                } catch (error) { console.error("summary129", error) }
+            }
+            else {
+                console.error("Заповніть поля", JSON.stringify(orderError, null, 4))
+            }
 
         } else {
             // e.preventDefault();
             setUserSigninShow(true);
+            router.push(`/`);
             //TODO: open Modal MyCabinet            
             // signIn();
         }
@@ -140,7 +125,7 @@ export default function Summary({
                 initialValues={{
                     promocode,
                 }}
-                initialErrors={{ couponError }}
+                initialErrors={{ couponError, orderError }}
                 //   error={{}}
                 initialTouched={{ promocode: false }}
                 validationSchema={validatePromoCode}
@@ -180,15 +165,24 @@ export default function Summary({
                                 <ul>
                                     <li><div className={styles.litext_btn}><p>{totalQty} товарів на сумму</p><h6>{totalPrice.toLocaleString()} ₴</h6></div></li>
                                     <li><div className={styles.litext_btn}><p>Доставка</p><h6>{delivery.deliveryType}</h6></div></li>
+                                    <li><div className={styles.litext_btn}><p>Адреса доставки</p><h6>{delivery.deliveryAddress}</h6></div></li>
                                     <li><div className={styles.litext_btn}><p>Вартість доставки</p><h6>{delivery.deliveryType == "Кур'єр на вашу адресу" ? `${Number(delivery.deliveryCost)} ₴` : delivery.deliveryCost}</h6></div></li>
                                     <li><div className={styles.litext_btn}><p>Оплата</p><h6>{paymentMethod}</h6></div></li>
+                                    {/* TODO вытянуть isPaid из базы */}
+                                    <li><div className={styles.litext_btn}><p>Статус оплати</p><h6>{isPaid ? "Оплачено" : "Очікується оплата"}</h6></div></li>
                                     {discount > 0 && (
                                         <li><div className={styles.litext_btn}><p>Купон застосовано:</p><h6><b>-{discount}%</b></h6></div></li>
                                     )}
                                     <li><div className={styles.litext_btn}><p>До сплати:</p><h3>{Math.round(totalAfterDiscount).toLocaleString()} ₴</h3></div></li>
                                 </ul>
                                 <Button className={styles.small_sbm} onClick={() => sendOrder()}>Підтвердити</Button>
-        
+                                <Form.Control className={styles.form_input3}
+                                    name="errorHidden"
+                                    hidden
+                                    isInvalid={orderError.userError != "" || orderError.shippingError != "" || orderError.paymentError != ""}
+                                />
+                                <Form.Control.Feedback type="invalid">{formik.errors.orderError.userError || formik.errors.orderError.shippingError || formik.errors.orderError.paymentError}
+                                </Form.Control.Feedback>
                             </div>
                             <div>
                                 <div className={styles.form_line}></div>
@@ -208,6 +202,7 @@ export default function Summary({
                 onHide={() => setInfoShow(false)} />
             <UserConditions show={info2Show}
                 onHide={() => setInfo2Show(false)} />
+            {/* <MyCabinet show={userSinginShow} onHide={()=>setUserSigninShow(false)}/> */}
         </>
     )
 }

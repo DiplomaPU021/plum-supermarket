@@ -55,7 +55,6 @@ export default function ProductDescription({ product }) {
             />
         </Col>
       </Row> */}
-
       {additionalDescription.length > 1 ? (
         <Row>
           <Col className={styles.description__more} id="anchor_one">

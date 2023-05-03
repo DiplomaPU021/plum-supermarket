@@ -1,11 +1,20 @@
 import styles from "./styles.module.scss"
 import { Container, Row, Col, Table, Form } from 'react-bootstrap'
 import { useState } from "react";
+import LeaveFeedback from "../../productPage/leaveFeedback"
 
 
 export default function OrderItem(props) {
     const [showFulllOrder, setShowFulllOrder] = useState("none")
+    const [feedback, setFeedback] = useState(false);
+console.log("10", props);
+    const handleFeedBack = () => {
 
+        setFeedback(true);
+
+        //  setLoginModalShow(true);
+
+    };
     return (
         <Container className={styles.container}>
             <Row className={styles.orderitem}>
@@ -48,7 +57,7 @@ export default function OrderItem(props) {
                                 </tr>
                             </thead>
                             <tbody>
-                                {props.order.products.slice(0, 2).map((product,i) => (
+                                {props.order.products.slice(0, 2).map((product, i) => (
                                     <tr key={i}>
                                         <td> <div className={styles.picture}>
                                             <img src={product.image} width='74px' height='45px' style={{ objectFit: "contain" }} />
@@ -69,7 +78,7 @@ export default function OrderItem(props) {
                     <Row className={styles.deliveryinfo}>
                         <div className={styles.delivery_item}>
                             <p>Отримувач</p>
-                            <span>{props.order.shippingAddress.firstName} {props.order.shippingAddress.lastName}</span>
+                            <span>{props.order.shippingAddress?.firstName} {props.order.shippingAddress?.lastName}</span>
                         </div>
                         <div className={styles.delivery_item}>
                             <p>Оплата</p>
@@ -88,7 +97,7 @@ export default function OrderItem(props) {
                                 (<span><small>{props.order.deliveryMethod.deliveryCost}</small></span>
                                 ) : <span><b>{props.order.deliveryMethod.deliveryCost} ₴</b></span>}</span>
                             {props.order.deliveryMethod.deliveryId === "postmanDelivery" ? (
-                                <span><small>{props.order.shippingAddress.address}</small></span>
+                                <span><small>{props.order.shippingAddress?.address}</small></span>
                             ) : props.order.deliveryMethod.deliveryId === "selfPickup" ? (
                                 <span>Адреса магазину: <small>{props.order.deliveryMethod.deliveryAddress}</small></span>
                             ) : props.order.deliveryMethod.deliveryId === "novaPoshta" ? (
@@ -98,10 +107,17 @@ export default function OrderItem(props) {
                         </div>
                     </Row>
                     <div className={styles.repete}>
-                        <button className={styles.light_button}>Залишити відгук</button>
+                        <button className={styles.light_button} onClick={handleFeedBack}>Залишити відгук</button>
                         <button className={styles.dark_button}>Повторити замовлення</button>
                     </div>
                 </Col>
+
+                <LeaveFeedback
+                    show={feedback}
+                    onHide={() => setFeedback(false)}
+                    product={null}   //TODO Как передать сюда продукт ???
+                    setProductReview={null}  //TODO Как передать сюда setProductReview ???
+                />
             </Row>
         </Container>
     )

@@ -867,3 +867,57 @@
     background: none;
   }
 }
+
+
+//-------------------------------
+.form_input_card {
+  padding: 15px 24px;
+  max-width: 860px;
+  height: 52px;
+  border: 2px solid #220F4B;
+  border-radius: 35px;
+}
+
+.flex_row_card {
+  align-items: flex-end;
+  justify-content: center;
+  display: flex;
+  flex-direction: row;
+  column-gap: 48px;
+  padding-top: 18px;
+
+  .dark_button {
+    width: 230px;
+    height: 46px;
+    font-weight: 500;
+    font-size: 18px;
+    line-height: 25px;
+    border-radius: 30px;
+    color: #FAF8FF;
+    background-color: #220F4B;
+    border: none;
+
+    &:hover {
+        box-shadow: 0px 0px 5px 0px #220F4B;
+        background-color: #220F4B;
+    }
+}
+
+.light_button {
+    width: 230px;
+    height: 46px;
+    font-weight: 500;
+    font-size: 18px;
+    line-height: 25px;
+    border-radius: 30px;
+    color: #220F4B;
+    background-color: #FAF8FF;
+    border: 2px solid #220F4B;
+    border-radius: 23px;
+
+    &:hover {
+        box-shadow: 0px 0px 5px 0px #220F4B;
+        background-color: #FAF8FF;
+    }
+}
+}

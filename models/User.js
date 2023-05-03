@@ -154,13 +154,6 @@ const userSchema = new mongoose.Schema({
     ],
     additionalInfo: [
         {
-            children: Boolean,
-            field: {
-                type: String,
-                description: "У мене є дитина"
-            }
-        },
-        {
             vehicle: Boolean,
             field: {
                 type: String,
@@ -172,6 +165,13 @@ const userSchema = new mongoose.Schema({
             field: {
                 type: String,
             description: "Я є власником іншого виду транспорту"
+            }
+        },
+        {
+            children: Boolean,
+            field: {
+                type: String,
+                description: "У мене є дитина"
             }
         },
         {
@@ -199,7 +199,7 @@ const userSchema = new mongoose.Schema({
             }
         },
         {
-            music: Boolean,
+            gardening: Boolean,
             field: {
                 type: String,
             description: "Садівництво"
@@ -232,13 +232,6 @@ const userSchema = new mongoose.Schema({
             field: {
                 type: String,
             description: "Велосипед"
-            }
-        },
-        {
-            yoga: Boolean,
-            field: {
-                type: String,
-            description: "Музика"
             }
         },
         {

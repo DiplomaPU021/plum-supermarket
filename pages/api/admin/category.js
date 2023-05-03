@@ -6,27 +6,57 @@ import slugify from "slugify";
 
 const handler = nc();//.use(auth);
 
-handler.post(async(req,res) => {
+handler.post(async (req, res) => {
     try {
         const { name } = req.body;
-        db.connectDb();
+     await   db.connectDb();
         const test = await Category.findOne({name});
         if (test) {
             return res
                 .status(400)
-                .json({message: "Category already exist, try a different name"});
+                .json({ message: "Category already exist, try a different name" });
 
         }
         await new Category({name, slug:slugify(name)}).save();
-        db.disconnectDb();
+      await  db.disconnectDb();
         res.json({
-            message:`Category ${name} has been created successfully`,
-            categories: await Category.find({}).sort({updateAt:-1}),
+            message: `Category ${name} has been created successfully`,
+            categories: await Category.find({}).sort({ updatedAt: -1 }),
         })
     } catch (error) {
-        db.disconnectDb();
+      await  db.disconnectDb();
         res.status(500).json({message: error.message});    
     }
 });
+
+handler.delete(async (req, res) => {
+    try {
+        const { id } = req.body;
+        db.connectDb();
+        await Category.findByIdAndRemove(id);
+        db.disconnectDb;
+        return res.json({
+            message: "Category has been deleted succesfuly",
+            categories: await Category.find({}).sort({ updatedAt: -1 })
+        })
+    } catch (error) {
+        res.status(500).json({ message: error.message });
+    }
+})
+
+handler.put(async (req, res) => {
+    try {
+        const { id, name } = req.body;
+        db.connectDb();
+        await Category.findByIdAndUpdate(id, {name});
+        db.disconnectDb;
+        return res.json({
+            message: "Category has been updated succesfuly",
+            categories: await Category.find({}).sort({ updatedAt: -1 })
+        })
+    } catch (error) {
+        res.status(500).json({ message: error.message });
+    }
+})
 
 export default handler;

@@ -222,13 +222,23 @@
     line-height: 25px;
     color: #220F4B;
 }
+.form_address {
+    padding: 15px 24px;
+    max-width: 850px;
+    height: 60px;
+    border: 2px solid #220F4B;
+    border-radius: 35px;
+    &:focus {
+        box-shadow: 0px 0px 5px 0px #220F4B;
+    }
+  }
 
 .profilebtn {
     border: 2px solid #220F4B;
     background-color: $light-wheet-color;
     color: $plum-dark-color;
     font-weight: 500;
-    font-size: 16px;
+    font-size: 18px;
     line-height: 22px;
     height: 46px;
     border-radius: 60px;
@@ -292,8 +302,6 @@
     height: 70px;
     background: #E6E1F1;
     align-items: center;
-
-    img {}
 
     span {
         font-weight: 500;
@@ -400,24 +408,6 @@
     justify-content: end;
     padding-top: 20px;
 
-
-    //  button{
-    //     width: 210px;
-    //     height: 46px;
-    //     font-family: 'Noto Sans';
-    //     font-weight: 320;
-    //     font-size: 22px;
-    //     border-radius: 30px;
-    //     color: #FAF8FF;
-    //     background-color: #220F4B;
-    //     border: none;
-
-    //     &:hover {
-    //       box-shadow: 0px 0px 5px 0px #220F4B;
-    //       background-color: #220F4B;
-    //     }
-    // }
-
     .dark_button {
         width: 260px;
         height: 46px;
@@ -468,7 +458,6 @@
 }
 
 .edit_btn {
-    // width: 260px;
     height: 46px;
     font-weight: 500;
     font-size: 18px;
@@ -529,10 +518,13 @@
 
 .form_floor {
     padding: 15px 24px;
-    max-width: 100%;
+    max-width: 850px;
     height: 60px;
     border: 2px solid #220F4B;
     border-radius: 35px;
+    &:focus {
+        box-shadow: 0px 0px 5px 0px #220F4B;
+    }
 }
 
 .fixed_bottom {
@@ -565,6 +557,7 @@
             z-index: 3;
         }
     }
+
     a {
         &:active {
             color: $light-wheet-color;
@@ -603,5 +596,63 @@
         width: 235px;
         text-align: center;
         padding-top: 20px;
+    }
+}
+
+//-----------------------------------
+
+.form_input_card {
+    padding: 15px 24px;
+    margin: 0;
+    max-width: 860px;
+    height: 52px;
+    border: 2px solid #220F4B;
+    border-radius: 35px;
+}
+
+.flex_row_card {
+    align-items: flex-end;
+    justify-content: center;
+    display: flex;
+    flex-direction: row;
+    column-gap: 48px;
+    padding-top: 18px;
+
+    .dark_button {
+        max-width: 748px;
+        height: 46px;
+        font-weight: 500;
+        font-size: 18px;
+        line-height: 25px;
+        border-radius: 30px;
+        color: #FAF8FF;
+        background-color: #220F4B;
+        border: none;
+
+        &:hover {
+            box-shadow: 0px 0px 5px 0px #220F4B;
+            background-color: #220F4B;
+        }
+    }
+}
+
+.mark_border {
+    padding: 0;
+}
+
+.edit_btn2 {
+    height: 46px;
+    font-weight: 500;
+    font-size: 18px;
+    line-height: 25px;
+    border-radius: 30px;
+    color: #220F4B;
+    background-color: $light-wheet-color;
+    border: 2px solid #220F4B;
+    margin: 16px 10px 0px 10px;
+    max-width: 730px;
+
+    &:hover {
+        box-shadow: 0px 0px 5px 0px #220F4B;
     }
 }

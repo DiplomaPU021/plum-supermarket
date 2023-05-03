@@ -1,4 +1,6 @@
 import Order from "@/models/Order";
+import Product from "@/models/Product";
+import User from "@/models/User";
 
 
 const getOneById = async (id) => {
@@ -16,7 +18,11 @@ const findByIdAndDelete = async (id) => {
 };
 const findByUserId = async (userId) => {
     try {
-        const orders = await Order.find({ user: userId });
+        const orders = await Order.find({ user: userId })
+            // .populate({ path: "products.product", model: Product })
+            // .populate({ path: "user", model: User })
+            .sort({ updatedAt: -1 })
+            // .lean();
         return orders;
     } catch (error) {
         console.error(error);
@@ -28,26 +34,28 @@ const createOrder = async (
     userId,
     products,
     shippingAddress,
-    deliveryMethod,
     paymentMethod,
+    deliveryMethod,
     totalPrice,
     totalQty,
     costAfterDiscount,
     promocode,
-    discount
+    discount,
+    isPaid
 ) => {
     const order = await new Order(
         {
             user: userId,
             products,
             shippingAddress,
-            deliveryMethod,
             paymentMethod,
+            deliveryMethod,
             totalPrice,
             totalQty,
             costAfterDiscount,
             promocode,
-            discount
+            discount,
+            isPaid
         }
     ).save();
     return order;

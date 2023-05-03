@@ -13,15 +13,63 @@ import "yup-phone";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import axios from "axios";
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import CityModal from "@/components/checkoutorder/citymodal";
+import PaymentForm from "@/components/paymentForm";
+import { getStreets } from "@/requests/street";
+import useDeepCompareEffect from "use-deep-compare-effect";
+import { saveAddress } from "@/requests/user";
 
-export default function Profile(props) {
-  const [isInEdit, setIsInEdit] = useState(false)
-  const [showAddress, setShowAddress] = useState("none")
-  const [showCard, setShowCard] = useState("none")
+export default function Profile({ country, ...props }) {
+  const [isInEdit, setIsInEdit] = useState(false);
+  const [showAddress, setShowAddress] = useState("none");
+  const [showCard, setShowCard] = useState("none");
+  const [showAddCard, setShowAddCard] = useState(false);
+  const [showAddAddressBlock, setShowAddAddressBlock] = useState("none");
   const [profileCityModalShow, setProfileCityModalShow] = useState(false);
 
+  const [admiration, setAdmiration] = useState([]);
+  const selectRef = useRef();
+  const cityRef = useRef();
+  const postmanRef = useRef();
+  const [selectedCity, setSelectedCity] = useState();
+  const [userAddresses, setUserAddresses] = useState(props.user?.address || []);
+  const [activeAddress, setActiveAddress] = useState(
+    userAddresses?.find((address) => address.active === true) || null);
+  const [filteredStreets, setFilteredStreets] = useState([]);
+  const [searchStreet, setSearchStreet] = useState("");
+  const [selectedStreet, setSelectedStreet] = useState({});
+  const [addressValues, setAddressValues] = useState({
+    street: "",
+    building: "",
+    flat: "",
+    ground: "",
+    elevator: "Відсутній",
+  });
+  const [selectedAddress, setSelectedAddress] = useState(
+    `${activeAddress.cityType} ${activeAddress.city}, ${activeAddress.address}`
+  );
+  const [isSavedAddress, setIsSavedAddress] = useState(false);
+  //   useEffect(async()=>{
+  //     const result = await axios.get('/api/user/admiration');
+  //     console.log("data",result);
+  // // setAdmiration((prev)=>{...prev,
+  //   // fishing,
+  //   // hunting,
+  //   // gardening,
+  //   // fitness,
+  //   // yoga,
+  //   // running,
+  //   // bicycle,
+  //   // music,
+  //   // tourism,
+  //   // cybersport,
+  //   // handmade})
+  //   },[])
+
+  const [userCreditCards, setUserCreditCards] = useState(props.user?.creditCards || []);
+  const [selectedCard, setSelectedCard] = useState(userCreditCards?.find(creditCard => creditCard.isDefault === true || null));
+// const [isPaid, setIsPaid] = useState(false);
 
   const today = new Date();
   // const minDate = new Date(today.getFullYear() - 12, today.getMonth(), today.getDate());
@@ -48,6 +96,7 @@ export default function Profile(props) {
       .required("Прізвище обов'язково"),
     phoneNumber: yup
       .string()
+      .required("Введіть номер телефону")
       .test("phone", "Некоректний номер телефону", (value) => {
         if (!value) return true;
         return (
@@ -72,13 +121,14 @@ export default function Profile(props) {
     handleSubmit,
     watch,
     formState: { errors },
+    reset
   } = useForm({
     defaultValues: {
       firstName: props.user?.firstName || "",
       lastName: props.user?.lastName || "",
       phoneNumber: props.user?.phoneNumber || "",
       email: props.user?.email || "",
-      gender: props.user?.gender || "",
+      gender: props.user?.gender || "Стать",
       birthday: props.user?.birthday || "1990-01-01",
     },
     resolver: yupResolver(validationSchema),
@@ -95,8 +145,32 @@ export default function Profile(props) {
     console.log("UserChanged", result);
     setIsInEdit(false);
   }
+  const handleCancelCredencialsEdit = () => {
+    setIsInEdit(false);
+    reset({
+      firstName: props.user?.firstName || "",
+      lastName: props.user?.lastName || "",
+      phoneNumber: props.user?.phoneNumber || "",
+      email: props.user?.email || "",
+      gender: props.user?.gender || "Стать",
+      birthday: props.user?.birthday || "1990-01-01",
+    }, {
+      keepErrors: false,
+      keepDirty: true,
+    });
+  }
 
-  console.log("watch", watch("gender"));
+  useEffect(() => {
+    if (selectedAddress && selectedAddress != "") {
+      const selectedOption = userAddresses.find(
+        (item) =>
+          `${item.cityType} ${item.city}, ${item.address}` == selectedAddress
+      );
+      if (selectedOption) {
+        setActiveAddress(selectedOption);
+      }
+    }
+  }, [selectedAddress]);
 
   const handleSearchCity = (e) => {
     e.preventDefault();
@@ -106,23 +180,174 @@ export default function Profile(props) {
   };
 
   const handleCityModalClose = (selectedCity) => {
+    if (selectedCity) {
+      setUserAddresses(props.user?.address || []);
+      setSelectedCity(selectedCity);
+      setActiveAddress((prevState) => ({
+        ...prevState,
+        address: "",
+        streetType: "",
+        street: "",
+        building: "",
+        flat: "",
+        ground: "",
+        elevator: "",
+        cityType: selectedCity.object_category,
+        country: "Україна",
+        city: selectedCity.object_name,
+        region: selectedCity.region,
+        zipCode: selectedCity.object_code,
+        active: true,
+      }));
+    }
     setProfileCityModalShow(false);
   }
-
+  useEffect(() => {
+    if (selectedCity && searchStreet) {
+      setAddressValues({
+        ...addressValues,
+        street: searchStreet,
+      });
+      let streets = [];
+      setTimeout(async () => {
+        streets = await getStreets(selectedCity, searchStreet);
+        if (streets && streets.length > 0) {
+          setFilteredStreets(streets);
+        } else {
+          setFilteredStreets([]);
+        }
+      }, 1000);
+    }
+  }, [searchStreet])
+ 
+  const handleSelectStreet = (street) => {
+    selectRef.current.focus();
+    setSelectedStreet(street);
+    setSearchStreet(`${street.street_type} ${street.name}`);
+  };
+  const handleStreetChange = (e) => {
+    setSearchStreet(e.target.value);
+  };
   const handleChangeAdress = (e) => {
-    //implement handler
-
+    setAddressValues({
+      ...addressValues,
+      [e.target.name]: e.target.value,
+    });
   };
 
-  const handleAddAdress = (e) => {
-    //implement handler
 
+  const handleAddAdress = () => {
+    if (selectedCity) {
+      const addressString =
+        selectedStreet?.street_type +
+        " " +
+        selectedStreet?.name +
+        ", буд. " +
+        addressValues.building +
+        ", кв. " +
+        addressValues.flat;
+      let newAddress = {
+        firstName: watch("firstName") || "",
+        lastName: watch("lastName") || "",
+        phoneNumber: watch("phoneNumber") || "",
+        address: addressString,
+        streetType: selectedStreet?.street_type,
+        street: selectedStreet?.name,
+        building: addressValues.building,
+        flat: addressValues.flat,
+        ground: addressValues.ground,
+        elevator: addressValues.elevator,
+        cityType: selectedCity.object_category,
+        country: "Україна",
+        city: selectedCity.object_name,
+        region: selectedCity.region,
+        zipCode: selectedCity.object_code,
+        active: true,
+      };
+      if (newAddress) {
+        setActiveAddress(newAddress);
+        let addresses = [];
+        for (let i = 0; i < userAddresses.length; i++) {
+          let temp_address = {};
+          temp_address = { ...userAddresses[i], active: false };
+          addresses.push(temp_address);
+        }
+        addresses.push(newAddress);
+        setUserAddresses(addresses);
+        setSelectedAddress( `${newAddress.cityType} ${newAddress.city}, ${newAddress.address}`);
+      }
+      setShowAddress("none");
+      setShowAddAddressBlock("none");
+      setAddressValues({
+        ...addressValues,
+        street: "",
+        building: "",
+        flat: "",
+      });
+
+      setSearchStreet("");
+    }
   };
 
-  const handleCancelAddAdress = (e) => {
-    //implement handler
 
+  // const handleChangeGround = (e) => {
+  //   setAddressValues({
+  //     ...addressValues,
+  //     ground: e.target.value,
+  //   });
+  // };
+  // const handleSelectElevator = (e) => {
+  //   const options = e.target.options;
+  //   if (options[0].selected) {
+  //     options[0].disabled = true;
+  //   }
+  //   setAddressValues({
+  //     ...addressValues,
+  //     elevator: e.target.value,
+  //   });
+  // };
+  const handleCancelAddAdress = () => {
+    if (userAddresses.length > 0) {
+      setShowAddAddressBlock("none");
+      setShowAddress("none");
+      setAddressValues({
+        street: "",
+        building: "",
+        flat: "",
+        ground: "",
+        elevator: "Відсутній",
+      });
+      setSearchStreet("");
+    } else {
+      setSearchStreet("");
+      setAddressValues({
+        street: "",
+        building: "",
+        flat: "",
+        ground: "",
+        elevator: "Відсутній",
+      });
+    }
   };
+  const handleSelectPostman = (e) => {
+    postmanRef.current.focus();
+    if (selectedAddress) {
+      // змінюємо властивість active для вибраного елемента
+      const updatedAddresses = userAddresses.map((item) =>
+      `${item.cityType} ${item.city}, ${item.address}` == e.target.value
+          ? { ...item, active: true }
+          : { ...item, active: false }
+      );
+      setUserAddresses(updatedAddresses);
+    }
+    setSelectedAddress(e.target.value);
+  };
+ const handleSaveAdress =async ()=>{
+  if (activeAddress != null) {
+    await saveAddress(activeAddress);
+    setIsSavedAddress(true);
+}
+ }
 
   const handleChangeCardNumber = (e) => {
     //implement handler
@@ -136,14 +361,19 @@ export default function Profile(props) {
     //implement handler
 
   };
-  const handleAddCard = (e) => {
-    //implement handler
+  // const handleAddCard = (e) => {
+  //   //implement handler
 
-  };
+  // };
   const handleCancelAddCard = (e) => {
     //implement handler
 
   };
+
+  const handleAddCard = () => {
+    setShowAddCard(true);
+    setShowCard(false)
+  }
 
   return (
     <Accordion
@@ -239,15 +469,23 @@ export default function Profile(props) {
                     {errors.birthday?.message}
                   </Form.Control.Feedback>
                 </Form.Group>
-                <Form.Group as={Col} controlId="groupGender" className={styles.sex}>
+                <Form.Group
+                  as={Col}
+                  controlId="groupGender"
+                  className={styles.sex}
+                >
                   <Form.Select
                     {...register("gender")}
                     disabled={!isInEdit}
                     name="gender"
-                    className={`${styles.form_input} ${errors.gender ? "is-invalid" : ""}`}>
-                    <option value="Стать" disabled={true}>Стать</option>
-                    <option >Жінка</option>
-                    <option >Чоловік</option>
+                    className={`${styles.form_input} ${errors.gender ? "is-invalid" : ""
+                      }`}
+                  >
+                    <option value="Стать" disabled={true}>
+                      Стать
+                    </option>
+                    <option>Жінка</option>
+                    <option>Чоловік</option>
                   </Form.Select>
                   <Form.Control.Feedback type="invalid">
                     {errors.gender?.message}
@@ -257,12 +495,35 @@ export default function Profile(props) {
             </Row>
             <Row className={styles.cont_btn}>
               {isInEdit ? (
-                <Form.Group as={Row} controlId="groupButtons" className={styles.save}>
-                  <Button type="cancel" className={styles.light_button}>Скасувати</Button>
-                  <Button type="submit" className={styles.dark_button}>Зберегти</Button>
+                <Form.Group
+                  as={Row}
+                  controlId="groupButtons"
+                  className={styles.save}
+                >
+                  <Button
+                    type="cancel"
+                    onClick={handleCancelCredencialsEdit}
+                    className={styles.light_button}
+                  >
+                    Скасувати
+                  </Button>
+                  <Button type="submit" className={styles.dark_button}>
+                    Зберегти
+                  </Button>
                 </Form.Group>
               ) : (
-                <Button className={styles.edit_btn} onClick={() => setIsInEdit(true)}>Редагувати <img src="../../../icons/circle_edit.png" width="24px" height="24px" alt="" /></Button>
+                <Button
+                  className={styles.edit_btn}
+                  onClick={() => setIsInEdit(true)}
+                >
+                  Редагувати{" "}
+                  <img
+                    src="../../../icons/circle_edit.png"
+                    width="24px"
+                    height="24px"
+                    alt=""
+                  />
+                </Button>
               )}
             </Row>
           </Form>
@@ -273,55 +534,122 @@ export default function Profile(props) {
           <span>Мої адреси</span>
         </Accordion.Header>
         <Accordion.Body className={styles.accordion__item_body}>
+          <Row >
+          <div className={styles.flex_row}>
+            <Form.Select
+              className={styles.form_address}
+              name="selectPostmanDelivery"
+              id="selectPostmanDelivery"
+              onChange={(e) => handleSelectPostman(e)}
+              ref={postmanRef}
+              defaultValue={selectedAddress}
+            >
+              {/* <option key ="addressOPt0" value="Вибрати адресу доставки..." disabled={true}>Вибрати адресу доставки...</option>  */}
+              {userAddresses != null &&
+                userAddresses.filter(
+                  (c) => c.address !=""
+                )
+                ? userAddresses.map((item, index) => (
+                  <option
+                    key={`${item.address}-${index}`}
+                    value={`${item.cityType} ${item.city}, ${item.address}`}
+                  >
+                    {item.cityType} {item.city}, {item.address}
+                  </option>
+                ))
+                : null}
+            </Form.Select>
+            <button onClick={handleSaveAdress} id="btnSaveAddress" disabled={isSavedAddress}>
+                  Зберегти
+                </button>
+            </div>
+          </Row>
           <Row className={styles.contacts}>
-            <button className={styles.profilebtn} onClick={() => setShowAddress(showAddress === "none" ? "block" : "none")}>+ Додати адресу</button>
+            <button
+              style={{ display: showAddress !== "block" ? "block" : "none" }}
+              className={styles.profilebtn}
+              onClick={() => setShowAddress("block")}
+            >
+              + Додати адресу
+            </button>
           </Row>
           <Row style={{ display: showAddress }}>
             <Col className={styles.ordertable}>
-              <Form.Label className={styles.form_label} htmlFor="city-name">Ваше місто</Form.Label>
-              <Form.Control className={styles.form_input} placeholder="Оберіть місто..."
-                // value={selectedCity ? selectedCity.value : ""} name="city"
+              <Form.Label className={styles.form_label} htmlFor="city-name">
+                Ваше місто
+              </Form.Label>
+              <Form.Control
+                className={styles.form_input}
+                placeholder="Оберіть місто..."
+                value={selectedCity ? selectedCity.value : ""}
+                name="city"
                 onClick={handleSearchCity}
                 readOnly={true}
                 id="city-name"
-              // ref={cityRef}
+                ref={cityRef}
               />
-              <CityModal show={profileCityModalShow} onClose={handleCityModalClose} />
-              <Form.Group >
-                <Form.Label className={styles.form_label} htmlFor="street">Вулиця</Form.Label>
-                <Form.Control className={styles.form_floor}
+              <CityModal
+                show={profileCityModalShow}
+                onClose={handleCityModalClose}
+              />
+              <Form.Group>
+                <Form.Label className={styles.form_label} htmlFor="street">
+                  Вулиця
+                </Form.Label>
+                <Form.Control
+                  className={styles.form_floor}
                   type="text"
-                  //  value={searchStreet}
+                  value={searchStreet}
                   name="street"
                   id="street"
-                //  onChange={(e) => setSearchStreet(e.target.value)}
-                //  ref={selectRef}
+                  onChange={(e) => handleStreetChange(e)}
+                  ref={selectRef}
                 />
-                {/* {filteredStreets.length > 0 && (
+                {filteredStreets.length > 0 && (
                   <ul className={styles.city_list} id="ulStreetSelect">
                     {filteredStreets.map((street) => (
                       <li
                         key={street._id}
                         id={street._id}
+                        style={{ cursor: "pointer" }}
                         onClick={() => handleSelectStreet(street)}
                       >
                         {`${street.street_type} ${street.name}`}
                       </li>
                     ))}
                   </ul>
-                )} */}
+                )}
               </Form.Group>
               <div className={styles.flex_row}>
                 <Form.Group controlId="buildingGroup">
                   <Form.Label className={styles.form_label}>Будинок</Form.Label>
-                  <Form.Control className={styles.form_floor} name="building" onChange={handleChangeAdress} />
+                  <Form.Control
+                    className={styles.form_floor}
+                    name="building"
+                    value={addressValues.building}
+                    onChange={(e) => handleChangeAdress(e)}
+                  />
                 </Form.Group>
                 <Form.Group controlId="flatGroup">
-                  <Form.Label className={styles.form_label}>Квартира</Form.Label>
-                  <Form.Control className={styles.form_floor} name="flat" onChange={handleChangeAdress} />
+                  <Form.Label className={styles.form_label}>
+                    Квартира
+                  </Form.Label>
+                  <Form.Control
+                    className={styles.form_floor}
+                    name="flat"
+                    value={addressValues.flat}
+                    onChange={(e) => handleChangeAdress(e)}
+                  />
                 </Form.Group>
-                <button onClick={handleAddAdress} id="btnAddAddress">Додати</button>
-                <button onClick={handleCancelAddAdress} id="btnCancelAddAddress">Скасувати</button>
+                <button onClick={handleAddAdress} id="btnAddAddress">
+                  Додати
+                </button>
+                <button
+                  onClick={handleCancelAddAdress}
+                  id="btnCancelAddAddress"
+                >
+                  Скасувати
+                </button>
               </div>
             </Col>
           </Row>
@@ -332,35 +660,49 @@ export default function Profile(props) {
           <span>Мої картки</span>
         </Accordion.Header>
         <Accordion.Body className={styles.accordion__item_body}>
-          <Row className={styles.cardsbtns}>
-            <button className={styles.profilebtn}>
-              Mastercard із закінчкнням 5368
-            </button>
-            <button className={styles.profilebtn} onClick={() => setShowCard(showCard === "none" ? "block" : "none")}>+ Додати картку</button>
-          </Row>
-          <Row style={{ display: showCard }}>
-            <Col className={styles.ordertable}>
-              <Form.Group controlId="cardNumberGroup">
-                <Form.Label className={styles.form_label}>Номер картки</Form.Label>
-                <Form.Control className={styles.form_floor}
-                  type="number"
-                  name="card_number"
-                  onChange={handleChangeCardNumber}>
-                </Form.Control>
-              </Form.Group>
-              <div className={styles.flex_row}>
-                <Form.Group controlId="cardTermGroup">
-                  <Form.Label className={styles.form_label}>Термін дії</Form.Label>
-                  <Form.Control className={styles.form_floor} name="card_term" onChange={handleChangeTerm} />
-                </Form.Group>
-                <Form.Group controlId="cardCvvGroup">
-                  <Form.Label className={styles.form_label}>CVV</Form.Label>
-                  <Form.Control className={styles.form_floor} name="card_cvv" type="number" onChange={handleChangeCVV} />
-                </Form.Group>
-                <button onClick={handleAddCard} id="btnAddAddress">Додати</button>
-                <button onClick={handleCancelAddCard} id="btnCancelAddAddress">Скасувати</button>
-              </div>
-            </Col>
+          <Row className={styles.mark_border}>
+            {showCard ? (
+              <Col className={styles.mark_border}>
+                <Form.Select
+                  name="creditselect"
+                  className={styles.form_input_card}
+                >
+                  <option
+                    value="Вибрати карту"
+                    disabled={true}
+                    id="optcred1"
+                    key="optcred1"
+                  >
+                    Вибрати карту...
+                  </option>
+                  {userCreditCards.map((cc) => (
+                    <option
+                      key={`${cc._id}`}
+                      value={cc.id}
+                    >{`**** **** **** ${cc.number.slice(-4)}`}</option>
+                  ))}
+                </Form.Select>
+                <Row className={styles.flex_row_card}>
+                  <button
+                    className={styles.dark_button}
+                    onClick={handleAddCard}
+                  >
+                    + Додати карту
+                  </button>
+                </Row>
+              </Col>
+            ) : (
+              <PaymentForm
+                key={`${props.user.id}-form`}
+                total={null}
+                setIsPaid={null}
+                userCreditCards={userCreditCards}
+                setUserCreditCards={setUserCreditCards}
+                setShowAddCard={setShowAddCard}
+                setShowCard={setShowCard}
+                setSelectedCard={setSelectedCard}
+              />
+            )}
           </Row>
         </Accordion.Body>
       </Accordion.Item>
@@ -396,6 +738,12 @@ export default function Profile(props) {
               компанії або приватним підприємцем
             </Form.Check.Label>
           </Form.Check>
+          <button
+            className={styles.profilebtn}
+            onClick={() => setIsInEdit(true)}
+          >
+            Підтвердити
+          </button>
         </Accordion.Body>
       </Accordion.Item>
       <Accordion.Item eventKey="4" className={styles.accordion__item}>
@@ -417,6 +765,12 @@ export default function Profile(props) {
                 </Form.Check>
               </Col>
             ))}
+            <button
+              className={styles.edit_btn2}
+              onClick={() => setIsInEdit(true)}
+            >
+              Підтвердити
+            </button>
           </Row>
         </Accordion.Body>
       </Accordion.Item>
@@ -439,6 +793,12 @@ export default function Profile(props) {
                 </Form.Check>
               </Col>
             ))}
+            <button
+              className={styles.edit_btn2}
+              onClick={() => setIsInEdit(true)}
+            >
+              Підтвердити
+            </button>
           </Row>
         </Accordion.Body>
       </Accordion.Item>
@@ -457,6 +817,6 @@ const hobbies = [
   "Музика",
   "Туризм",
   "Кіберстпорт",
-  "Handmade",
+  "Рукоділля",
 ];
 const animals = ["Собачка", "Пташка", "Котик", "Плазун", "Рибки", "Гризун"];

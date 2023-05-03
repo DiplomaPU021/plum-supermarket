@@ -12,7 +12,6 @@ import Palette from "./Palette";
 
 export default function ProfilePage(props) {
   const [activeKey, setActiveKey] = useState("orders");
-
   const handleSelect = (selectedKey) => {
     setActiveKey(selectedKey);
   };
@@ -32,7 +31,7 @@ export default function ProfilePage(props) {
       case "palette":
         return <Palette />;
       default:
-        return <MyOrders user={props.orders} />;
+        return <MyOrders orders={props.orders} />;
     }
   };
 

@@ -9,8 +9,8 @@ handler.get(async (req, res) => {
     try {
        await db.connectDb();
         const id = req.query.id;
-        const style = req.query.style;
-        const mode = req.query.code;
+        const style = req.query.style || 0;   //added or 0
+        const mode = req.query.code || 0;         //added or 0
          //const code = 0;
         const product = await Product.findById(id)
         .populate({ path: "subCategories", model: SubCategory })
