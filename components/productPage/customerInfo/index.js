@@ -18,11 +18,11 @@ export default function CustomerInteraction() {
         </Col>
         <Col className={styles.info__row_col}>
           <Container fluid className={styles.creditvariant}>
-            <Row className={styles.creditvariant__credit}>
+            <Col className={styles.creditvariant__credit}>
               <span className={styles.title}>В кредит</span>
               <button>Оформити</button>
-            </Row>
-            <Row>
+            </Col>
+            <Row style={{margin: "0"}}>
               <Col className={styles.creditvariant__banks}>
                 <Image
                   className={styles.img}

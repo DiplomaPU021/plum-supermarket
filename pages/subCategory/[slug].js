@@ -12,34 +12,36 @@ import Category from "../../models/Category";
 import SubCategory from "@/models/SubCategory";
 import GroupSubCategory from "@/models/GroupSubCategory";
 import Product from "@/models/Product";
-import { useEffect, useState } from "react";
+import { useEffect, useState, use } from "react";
+import { useRouter } from "next/router";
 import ProductCard from "@/components/productCard";
 import LoopIcon from "@/components/icons/LoopIcon";
 import { getCountryData } from "@/utils/country";
-import RangeSlider from "./RangeSlider";
+import RangeSlider from "@/components/range";
 import ViewedProducts from "@/components/viewedProducts";
 
 export default function subCategory({
   country,
   category,
   brands,
+  colors,
+  sizes,
   products,
   minPrice,
   maxPrice,
   sideBlockData,
 }) {
-  const [radioValue, setRadioValue] = useState(category.subcategories[0].slug);
-  const [valueSort, setValueSort] = useState("");
+  const router = useRouter();
+  const [localProducts, setLocalProducts] = useState(products);
+
+  const [radioValue, setRadioValue] = useState(router.query.sub); // || category.subcategories[0].slug);
+  const [valueSort, setValueSort] = useState("byRating");
   const [subCategoryName, setSubCategoryName] = useState(
     category.subcategories[0].name
   );
   const [showSideBlock, setShowSideBlock] = useState(true);
-  const [valuePrice, setValuePrice] = useState({
-    min: 10,
-    max: maxPrice - minPrice,
-  });
   const [numCards, setNumCards] = useState(3);
-  const [unints, setUnits] = useState(10);
+  const [units, setUnits] = useState(10);
 
   useEffect(() => {
     const handleResize = () => {
@@ -70,7 +72,6 @@ export default function subCategory({
     }
     return lowestPrice;
   }
-
   function getBigestPrice(product) {
     let biggestPrice = -Number.MAX_VALUE;
     for (const subProduct of product.subProducts) {
@@ -82,7 +83,6 @@ export default function subCategory({
     }
     return biggestPrice;
   }
-
   const handlerSortChanged = (data) => {
     let sortedProducts = [];
     switch (data) {
@@ -90,8 +90,11 @@ export default function subCategory({
         sortedProducts = products.sort((a, b) => b.rating - a.rating);
         break;
       case "byNewest":
-        // TODO do not have this field in data base
-        sortedProducts = products.sort((a, b) => b.created_at - a.created_at);
+        sortedProducts = products.sort((a, b) => {
+          const dateA = new Date(a.created_at);
+          const dateB = new Date(b.created_at);
+          return dateB - dateA;
+        });
         break;
       case "byPriceLowest":
         sortedProducts = products.sort((a, b) => {
@@ -113,8 +116,138 @@ export default function subCategory({
     products = sortedProducts;
   };
 
+  //--------------------------------------------------------->>
+
+  const [accordionKeys, setAccordionKeys] = useState([
+    "brands",
+    "prices",
+    "colors",
+    "sizes",
+  ]);
+
+  useEffect(() => {
+    let keys = accordionKeys;
+    sideBlockData.map((b) => {
+      b.fields.map((f) => keys.push(f.name));
+    });
+    setAccordionKeys(keys);
+  }, [sideBlockData]);
+
+  //--------------------------------------------------------->>
+
+  const [valuePrice, setValuePrice] = useState({
+    min: minPrice,
+    max: maxPrice,
+  });
+  const [priceChecked, setPriceChecked] = useState(false);
+
+  const [brandsChecked, setBrandsChecked] = useState([]);
+  const [colorsChecked, setColorsChecked] = useState([]);
+  const [sizesChecked, setSizesChecked] = useState([]);
+  const [sideBarChecked, setSideBarChecked] = useState([]);
+
+  function replaseSearchParamsQuery(searchArr, setArr, value) {
+    if (searchArr.length > 0) {
+      const valueCheck = searchArr.findIndex((el) => el == value);
+      if (valueCheck !== -1) {
+        setArr((prev) => prev.filter((v) => v !== value));
+      } else {
+        setArr((prev) => [...prev, value]);
+      }
+    } else {
+      setArr((prev) => [...prev, value]);
+    }
+  }
+
+  function replaseSideBarSearchParamsQuery(fName, value) {
+    const existingObj = sideBarChecked.find((el) => el.fieldName === fName);
+
+    if (existingObj) {
+      const updatedValues = existingObj.values.includes(value)
+        ? existingObj.values.filter((v) => v !== value)
+        : [...existingObj.values, value];
+
+      if (updatedValues.length === 0) {
+        setSideBarChecked((prev) =>
+          prev.filter((obj) => obj.fieldName !== fName)
+        );
+      } else {
+        const updatedObj = Object.assign({}, existingObj, {
+          values: updatedValues,
+        });
+        const objIndex = sideBarChecked.indexOf(existingObj);
+        setSideBarChecked((prev) => [
+          ...prev.slice(0, objIndex),
+          updatedObj,
+          ...prev.slice(objIndex + 1),
+        ]);
+      }
+    } else {
+      const newObj = { fieldName: fName, values: [value] };
+      setSideBarChecked((prev) => [...prev, newObj]);
+    }
+  }
+
+  //--------------------------------------------------------->>
+
+  const clearFiltersHandler = () => {
+    setLocalProducts(products);
+    setPriceChecked(false);
+    setBrandsChecked([]);
+    setColorsChecked([]);
+    setSizesChecked([]);
+    setSideBarChecked([]);
+  };
+
+  //--------------------------------------------------------->>
+
   const handlerFilter = () => {
-    //TODO !!!!!!!!!!
+    let filteredProducts = products;
+
+    if (brandsChecked.length > 0) {
+      filteredProducts = filteredProducts.filter((p) =>
+        brandsChecked.includes(p.brand)
+      );
+    }
+
+    if (colorsChecked.length > 0) {
+      filteredProducts = filteredProducts.filter((product) =>
+        product.subProducts.some((p) => colorsChecked.includes(p.color.color))
+      );
+    }
+
+    if (sizesChecked.length > 0) {
+      filteredProducts = filteredProducts.filter((product) =>
+        product.subProducts.some((p) =>
+          p.sizes.some((s) => sizesChecked.includes(s.size))
+        )
+      );
+    }
+
+    if (priceChecked) {
+      filteredProducts = filteredProducts.filter((product) =>
+        product.subProducts.some((p) =>
+          p.sizes.some(
+            (s) => s.price > valuePrice.min && s.price < valuePrice.max
+          )
+        )
+      );
+    }
+
+    if (sideBarChecked.length > 0) {
+      filteredProducts = filteredProducts.filter((product) =>
+        product.details.some((detail) =>
+          detail.fields.some((field) =>
+            sideBarChecked.some(
+              (el) =>
+                el.fieldName === field.name && el.values.includes(field.value)
+            )
+          )
+        )
+      );
+    }
+
+    setLocalProducts(filteredProducts);
   };
 
   return (
@@ -152,9 +285,8 @@ export default function subCategory({
               name="radio"
               value={sub.slug}
               checked={radioValue === sub.slug}
-              onClick={(e) => {
-                setRadioValue(e.currentTarget.value);
-                setSubCategoryName(sub.name);
+              onClick={() => {
+                setRadioValue(sub.slug), setSubCategoryName(sub.name);
               }}
             >
               {sub.name}
@@ -167,6 +299,11 @@ export default function subCategory({
         <>
           <Row className={styles.subcategorypage__settings}>
             <Col className={styles.subcategorypage__settings_col}>
+              {localProducts.length == 0 ? (
+                <span>Співпадінь не знайдено</span>
+              ) : (
+                <></>
+              )}
               <button
                 style={{
                   fontWeight: valueSort === `${"byRating"}` ? "800" : "500",
@@ -208,10 +345,9 @@ export default function subCategory({
                 <option value="byPriceBiggest">Від дорогих до дешевих</option>
               </select>
               <button
-                //TODO filter !!!
                 onClick={() => {
                   handlerFilter(),
-                  setShowSideBlock(showSideBlock ? false : true);
+                    setShowSideBlock(showSideBlock ? false : true);
                 }}
               >
                 Фільтр
@@ -223,14 +359,19 @@ export default function subCategory({
               <Col lg={4} className={styles.subcategorypage__row_sidebar}>
                 <Col className={styles.col}>
                   <div className={styles.search}>
-                    <div className={styles.search_field}>
-                      <input type="text" placeholder="Пошук параметрів" />
-                      <button>
-                        <LoopIcon fillColor="#FAF8FF" />
-                      </button>
-                    </div>
+                    <button
+                      className={styles.btn}
+                      onClick={clearFiltersHandler}
+                    >
+                      Скинути всі фільтри
+                    </button>
                   </div>
-                  <Accordion flush alwaysOpen className={styles.accordion}>
+                  <Accordion
+                    flush
+                    alwaysOpen
+                    defaultActiveKey={accordionKeys}
+                    className={styles.accordion}
+                  >
                     <Accordion.Item
                       eventKey={"brands"}
                       className={styles.accordion__item}
@@ -239,7 +380,7 @@ export default function subCategory({
                         className={styles.accordion__item_header}
                       >
                         <span>Бренд&nbsp;</span>
-                        {brands.length > unints ? (
+                        {brands.length > units ? (
                           <span style={{ color: "rgba(34, 15, 75, 0.6)" }}>
                             ({brands.length})
                           </span>
@@ -248,7 +389,7 @@ export default function subCategory({
                         )}
                       </Accordion.Header>
                       <Accordion.Body className={styles.accordion__item_body}>
-                        {brands.length > unints ? (
+                        {brands.length > units ? (
                           <div className={styles.search_field}>
                             <input type="text" placeholder="Пошук" />
                             <button>
@@ -260,9 +401,10 @@ export default function subCategory({
                         )}
                         <Form.Group
                           controlId="formBasicCheckbox"
-                          // style={{
-                          //   overflowY: brands.length > unints ? "scroll" : "hidden",
-                          // }}
+                          style={{
+                            overflowY:
+                              brands.length > units ? "scroll" : "hidden",
+                          }}
                           className={styles.group}
                         >
                           {brands.map((brand, i) => (
@@ -274,6 +416,20 @@ export default function subCategory({
                               <Form.Check.Input
                                 className={styles.checkbox_box}
                                 type="checkbox"
+                                onChange={() =>
+                                  replaseSearchParamsQuery(
+                                    brandsChecked,
+                                    setBrandsChecked,
+                                    brand
+                                  )
+                                }
+                                checked={
+                                  brandsChecked.findIndex(
+                                    (el) => el == brand
+                                  ) !== -1
+                                    ? true
+                                    : false
+                                }
                               />
                               <Form.Check.Label
                                 className={styles.checkbox_label}
@@ -286,7 +442,7 @@ export default function subCategory({
                       </Accordion.Body>
                     </Accordion.Item>
                     <Accordion.Item
-                      eventKey={"price"}
+                      eventKey={"prices"}
                       className={styles.accordion__item}
                     >
                       <Accordion.Header
@@ -296,11 +452,12 @@ export default function subCategory({
                       </Accordion.Header>
                       <Accordion.Body className={styles.accordion__item_body}>
                         <RangeSlider
-                          min={0}
+                          min={minPrice}
                           max={maxPrice}
                           step={1}
                           value={valuePrice}
                           onChange={setValuePrice}
+                          setPriceChecked={setPriceChecked}
                         />
                         <div className={styles.prices}>
                           <div>
@@ -317,22 +474,172 @@ export default function subCategory({
                           <Form.Check.Input
                             className={styles.checkbox_box}
                             type="checkbox"
+                            checked={priceChecked}
+                            onChange={(e) => {
+                              setPriceChecked(e.target.checked ? true : false);
+                            }}
                           />
                         </div>
                       </Accordion.Body>
                     </Accordion.Item>
+                    {colors.length > 0 ? (
+                      <Accordion.Item
+                        eventKey={"colors"}
+                        className={styles.accordion__item}
+                      >
+                        <Accordion.Header
+                          className={styles.accordion__item_header}
+                        >
+                          <span>Колір&nbsp;</span>
+                          {colors.length > units ? (
+                            <span style={{ color: "rgba(34, 15, 75, 0.6)" }}>
+                              ({colors.length})
+                            </span>
+                          ) : (
+                            <></>
+                          )}
+                        </Accordion.Header>
+                        <Accordion.Body className={styles.accordion__item_body}>
+                          {colors.length > units ? (
+                            <div className={styles.search_field}>
+                              <input type="text" placeholder="Пошук" />
+                              <button>
+                                <LoopIcon fillColor="#FAF8FF" />
+                              </button>
+                            </div>
+                          ) : (
+                            <></>
+                          )}
+                          <Form.Group
+                            controlId="formBasicCheckbox"
+                            style={{
+                              overflowY:
+                                colors.length > units ? "scroll" : "hidden",
+                            }}
+                            className={styles.group}
+                          >
+                            {colors.map((color, i) => (
+                              <Form.Check
+                                key={`color-${i}`}
+                                type="checkbox"
+                                className={styles.checkbox}
+                              >
+                                <Form.Check.Input
+                                  className={styles.checkbox_box}
+                                  type="checkbox"
+                                  onChange={() =>
+                                    replaseSearchParamsQuery(
+                                      colorsChecked,
+                                      setColorsChecked,
+                                      color
+                                    )
+                                  }
+                                  checked={
+                                    colorsChecked.findIndex(
+                                      (el) => el == color
+                                    ) !== -1
+                                      ? true
+                                      : false
+                                  }
+                                />
+                                <Form.Check.Label
+                                  className={styles.checkbox_label}
+                                >
+                                  {color}
+                                </Form.Check.Label>
+                              </Form.Check>
+                            ))}
+                          </Form.Group>
+                        </Accordion.Body>
+                      </Accordion.Item>
+                    ) : (
+                      <></>
+                    )}
+                    {sizes.length > 0 ? (
+                      <Accordion.Item
+                        eventKey={"sizes"}
+                        className={styles.accordion__item}
+                      >
+                        <Accordion.Header
+                          className={styles.accordion__item_header}
+                        >
+                          <span>Бренд&nbsp;</span>
+                          {brands.length > units ? (
+                            <span style={{ color: "rgba(34, 15, 75, 0.6)" }}>
+                              ({brands.length})
+                            </span>
+                          ) : (
+                            <></>
+                          )}
+                        </Accordion.Header>
+                        <Accordion.Body className={styles.accordion__item_body}>
+                          {sizes.length > units ? (
+                            <div className={styles.search_field}>
+                              <input type="text" placeholder="Пошук" />
+                              <button>
+                                <LoopIcon fillColor="#FAF8FF" />
+                              </button>
+                            </div>
+                          ) : (
+                            <></>
+                          )}
+                          <Form.Group
+                            controlId="formBasicCheckbox"
+                            style={{
+                              overflowY:
+                                sizes.length > units ? "scroll" : "hidden",
+                            }}
+                            className={styles.group}
+                          >
+                            {sizes.map((size, i) => (
+                              <Form.Check
+                                key={`size-${i}`}
+                                type="checkbox"
+                                className={styles.checkbox}
+                              >
+                                <Form.Check.Input
+                                  className={styles.checkbox_box}
+                                  type="checkbox"
+                                  onChange={() =>
+                                    replaseSearchParamsQuery(
+                                      sizesChecked,
+                                      setSizesChecked,
+                                      size
+                                    )
+                                  }
+                                  checked={
+                                    sizesChecked.findIndex(
+                                      (el) => el == size
+                                    ) !== -1
+                                      ? true
+                                      : false
+                                  }
+                                />
+                                <Form.Check.Label
+                                  className={styles.checkbox_label}
+                                >
+                                  {size}
+                                </Form.Check.Label>
+                              </Form.Check>
+                            ))}
+                          </Form.Group>
+                        </Accordion.Body>
+                      </Accordion.Item>
+                    ) : (
+                      <></>
+                    )}
                     {sideBlockData.map((d, i) =>
                       d.fields.map((field, j) => (
                         <Accordion.Item
-                          eventKey={`${i}-${j}`}
-                          key={`accordion-${i}-${j}`}
+                          eventKey={field.name}
+                          key={field.name}
                           className={styles.accordion__item}
                         >
                           <Accordion.Header
                             className={styles.accordion__item_header}
                           >
                             <span>{field.name}&nbsp;</span>
-                            {field.values.length > unints ? (
+                            {field.values.length > units ? (
                               <span style={{ color: "rgba(34, 15, 75, 0.6)" }}>
                                 ({field.values.length})
                               </span>
@@ -343,7 +650,7 @@ export default function subCategory({
                           <Accordion.Body
                             className={styles.accordion__item_body}
                           >
-                            {field.values.length > unints ? (
+                            {field.values.length > units ? (
                               <div className={styles.search_field}>
                                 <input type="text" placeholder="Пошук" />
                                 <button>
@@ -355,23 +662,38 @@ export default function subCategory({
                             )}
                             <Form.Group
                               controlId="formBasicCheckbox"
-                              // style={{
-                              //   overflowY:
-                              //     field.values.length > units
-                              //       ? "scroll"
-                              //       : "hidden",
-                              // }}
+                              style={{
+                                overflowY:
+                                  field.values.length > units
+                                    ? "scroll"
+                                    : "hidden",
+                              }}
                               className={styles.group}
                             >
                               {field.values.map((value, j) => (
                                 <Form.Check
-                                  key={j}
+                                  key={value}
                                   type="checkbox"
                                   className={styles.checkbox}
                                 >
                                   <Form.Check.Input
                                     className={styles.checkbox_box}
                                     type="checkbox"
+                                    onChange={() =>
+                                      replaseSideBarSearchParamsQuery(
+                                        field.name,
+                                        value
+                                      )
+                                    }
+                                    checked={
+                                      sideBarChecked
+                                        .find(
+                                          (el) => el.fieldName === field.name
+                                        )
+                                        ?.values.includes(value)
+                                        ? true
+                                        : false
+                                    }
                                   />
                                   <Form.Check.Label
                                     className={styles.checkbox_label}
@@ -397,7 +719,7 @@ export default function subCategory({
                 lg={showSideBlock ? numCards : numCards + 1}
                 style={{ paddingLeft: showSideBlock ? "0" : "50px" }}
               >
-                {products.map((p, i) => (
+                {localProducts.map((p, i) => (
                   <Col key={i} className={styles.col}>
                     <ProductCard product={p} style={p.style} mode={p.mode} />
                   </Col>
@@ -438,23 +760,28 @@ export async function getServerSideProps(context) {
     subcategories: subcategories,
   };
 
-  let brands = await Product.aggregate([
-    {
-      $lookup: {
-        from: "subcategories",
-        localField: "subCategories",
-        foreignField: "_id",
-        as: "subCategories",
-      },
+  //--------------------------------------------------------->>
+
+  let subcategoryIds = subcategories.map((subcategory) => subcategory._id);
+
+  let brands = await Product.distinct("brand", {
+    subCategories: {
+      $in: subcategoryIds,
     },
-    { $unwind: "$subCategories" },
-    { $match: { "subCategories.slug": sub } },
-    { $group: { _id: "$brand" } },
-    { $group: { _id: null, brands: { $addToSet: "$_id" } } },
-    { $project: { _id: 0, brands: 1 } },
-    { $limit: 10 },
-  ]);
-  let brandNames = brands.length > 0 ? brands[0].brands : [];
+  });
+
+  let colors = await Product.distinct("subProducts.color.color", {
+    subCategories: {
+      $in: subcategoryIds,
+    },
+  });
+
+  let sizes = await Product.distinct("subProducts.sizes.size", {
+    subCategories: {
+      $in: subcategoryIds,
+    },
+    "subProducts.sizes.size": { $ne: "" },
+  });
 
   let products = await Product.aggregate([
     {
@@ -466,12 +793,11 @@ export async function getServerSideProps(context) {
       },
     },
     { $unwind: "$subCategories" },
-    { $match: { "subCategories.slug" : sub} },
+    { $match: { "subCategories.slug": sub } },
   ]);
 
   let cheapestPrice = null;
   let mostExpensivePrice = null;
-
   for (const product of products) {
     for (const subProduct of product.subProducts) {
       for (const size of subProduct.sizes) {
@@ -491,11 +817,13 @@ export async function getServerSideProps(context) {
       const groupName = detail.group;
       let fields = acc[groupName]?.fields || {};
       detail.fields.forEach((field) => {
-        if (!fields[field.name]) {
-          fields[field.name] = [];
-        }
-        if (field.value) {
-          fields[field.name].push(field.value);
+        if (field.isMain) {
+          if (!fields[field.name]) {
+            fields[field.name] = [];
+          }
+          if (field.value) {
+            fields[field.name].push(field.value);
+          }
         }
       });
       acc[groupName] = { group: groupName, fields };
@@ -512,44 +840,7 @@ export async function getServerSideProps(context) {
     return { group, fields };
   });
 
-  const colorSet = new Set();
-  const sizeSet = new Set();
-
-  products.forEach((product) => {
-    product.subProducts.forEach((p, i) => {
-      if (p.color && !colorSet.has(p.color.color)) {
-        const colorField = groupFields[0].fields.find(
-          (f) => f.name === "Колір"
-        );
-        if (!colorField) {
-          groupFields[0].fields.push({
-            name: "Колір",
-            values: [p.color.color],
-          });
-        } else {
-          colorField.values.push(p.color.color);
-        }
-        colorSet.add(p.color.color);
-      }
-
-      p.sizes.forEach((s, j) => {
-        if (s.size && !sizeSet.has(s.size)) {
-          const sizeField = groupFields[0].fields.find(
-            (f) => f.name === "Розмір"
-          );
-          if (!sizeField) {
-            groupFields[0].fields.push({
-              name: "Розмір",
-              values: [s.size],
-            });
-          } else {
-            sizeField.values.push(s.size);
-          }
-          sizeSet.add(s.size);
-        }
-      });
-    });
-  });
+  //--------------------------------------------------------->>
 
   let newProducts = products.map((product) => {
     let style = -1;
@@ -584,11 +875,14 @@ export async function getServerSideProps(context) {
   });
 
   await db.disconnectDb();
+
   return {
     props: {
       country: countryData,
       category: JSON.parse(JSON.stringify(newCategory)),
-      brands: JSON.parse(JSON.stringify(brandNames)),
+      brands: JSON.parse(JSON.stringify(brands)),
+      colors: JSON.parse(JSON.stringify(colors)),
+      sizes: JSON.parse(JSON.stringify(sizes)),
       products: JSON.parse(JSON.stringify(newProducts)),
       minPrice: cheapestPrice,
       maxPrice: mostExpensivePrice,
@@ -596,3 +890,10 @@ export async function getServerSideProps(context) {
     },
   };
 }
+
+[
+  { name: "Acer", isChecked: false },
+  { name: "Samsung", isChecked: false },
+  { name: "HP", isChecked: false },
+  { name: "Apple", isChecked: false },
+];

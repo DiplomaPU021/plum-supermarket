@@ -8,12 +8,13 @@ import parse from 'html-react-parser';
 
 export default function ProductDescription({ product }) {
   const [showDescription, setShowDescription] = useState(false)
+  const [additionalDescription, setAddetionalDescription] = useState("")
   return (
     <Container fluid className={styles.description}>
-       <Row className={styles.description__title}>
+      <Row className={styles.description__title}>
         <span>Опис</span>
       </Row>
-      <Row style={{padding: "0 60px"}}>{parse(product.description)}</Row>
+      <Row style={{ padding: "0 60px" }}>{parse(product.description)}</Row>
       {/* <Row className={styles.description__row}>
         <Col className={styles.description__row_col}>
           <span>MacBook Air. З новою силою.</span>
@@ -54,18 +55,23 @@ export default function ProductDescription({ product }) {
             />
         </Col>
       </Row> */}
-      <Row>
-      <Col className={styles.description__more} id="anchor_feedback" >
-          <button onClick={()=>setShowDescription(true)}>
-            Дивитися всі характеристики{" "}
-            <ChevronRight fillColor="#70BF63" w="30px" h="30px" />
-          </button>
-          <AllDescription
-          product={product}
-          show={showDescription}
-          onHide={() => setShowDescription(false)}/>
-        </Col>
-      </Row>
+      {additionalDescription.length > 1 ? (
+        <Row>
+          <Col className={styles.description__more} id="anchor_one">
+            <button onClick={() => setShowDescription(true)}>
+              Дивитися всі характеристики{" "}
+              <ChevronRight fillColor="#70BF63" w="30px" h="30px" />
+            </button>
+            <AllDescription
+              product={product}
+              show={showDescription}
+              onHide={() => setShowDescription(false)}
+            />
+          </Col>
+        </Row>
+      ) : (
+        <></>
+      )}
     </Container>
   );
 }

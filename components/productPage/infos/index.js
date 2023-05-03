@@ -245,15 +245,24 @@ export default function Infos({
         id="quantity-tooltip"
         content={productError}
         isOpen={isOpenQ}
-        style={{ backgroundColor: "#70BF63", color: "#fff", borderRadius: "30px" }}
+        style={{
+          backgroundColor: "#70BF63",
+          color: "#fff",
+          borderRadius: "30px",
+        }}
       />
       <Tooltip
         id="wish-tooltip"
         content={wishError}
         isOpen={isOpenInWish}
-        style={{ backgroundColor: "#70BF63", color: "#fff", borderRadius: "30px", zIndex:"999" }}
+        style={{
+          backgroundColor: "#70BF63",
+          color: "#fff",
+          borderRadius: "30px",
+          zIndex: "999",
+        }}
       />
-     <Col className={styles.infos__priceandaction}>
+      <Col className={styles.infos__priceandaction}>
         <div className={styles.infos__priceandaction_price}>
           {product.subProducts[product.style].discount > 0 ? (
             <div>
@@ -279,7 +288,6 @@ export default function Infos({
         </div>
         <div className={styles.infos__priceandaction_react}>
           <div className={styles.liked}>
-            {/* TODO onClick like below*/}
             <button
               onClick={addToWishListHandler}
               data-tooltip-id="wish-tooltip"
@@ -288,21 +296,17 @@ export default function Infos({
             >
               <HeartIcon fillColor={wishChosen ? "#FAF8FF" : "#220F4B"} />
             </button>
-            {/* TODO count of liked below*/}
-            {/* <div>
-              <span>6015</span>
-            </div> */}
           </div>
-          <button onClick={addToScaleHandler}
-            style={{ backgroundColor: scaleChosen ? "#220F4B" : "#FAF8FF" }}>
+          <button
+            onClick={addToScaleHandler}
+            style={{ backgroundColor: scaleChosen ? "#220F4B" : "#FAF8FF" }}
+          >
             <ScalesIcon fillColor={scaleChosen ? "#FAF8FF" : "#220F4B"} />
           </button>
         </div>
         <div className={styles.infos__priceandaction_buy}>
           {product.quantity < 1 ? (
-            <span style={{ color: "#70BF63" }}>
-              Немає в наявності
-            </span>
+            <span style={{ color: "#70BF63" }}>Немає в наявності</span>
           ) : (
             <></>
           )}
@@ -324,11 +328,7 @@ export default function Infos({
             ) : (
               <>
                 <CartIcon fillColor="#FAF8FF" />
-                {cartChosen ? (
-              <span>В корзині</span>
-            ) : (
-              <span>Купити</span>
-            )}
+                {cartChosen ? <span>В корзині</span> : <span>Купити</span>}
               </>
             )}
           </button>
@@ -371,7 +371,9 @@ export default function Infos({
       </Col>
       {product.size ? (
         <Row className={styles.infos__sizesInfo}>
-          <span className={`${styles.input} ${productError ? styles.error : ""}`}>
+          <span
+            className={`${styles.input} ${productError ? styles.error : ""}`}
+          >
             {/* {productError} */}
           </span>
           <Col className={styles.infos__sizesInfo_sizes}>
@@ -386,10 +388,12 @@ export default function Infos({
                   style={{ opacity: el.qty == 0 ? "0.6" : "" }}
                   className={`${styles.infos__sizesInfo_sizes_size}
                   ${i == router.query.code && styles.active_size}`}
-                  onClick={() => setActive((prevState) => ({
-                    ...prevState,
-                    mode: i,
-                  }))}
+                  onClick={() =>
+                    setActive((prevState) => ({
+                      ...prevState,
+                      mode: i,
+                    }))
+                  }
                 >
                   {el.size}
                   <div
@@ -400,12 +404,17 @@ export default function Infos({
               </Link>
             ))}
           </Col>
-          <button onClick={() => setShowSizes(true)}>
-            Таблиця розмірів{" "}
-            <ChevronRight fillColor="#70BF63" w="30px" h="30px" />
-          </button>
-
-          <SizesTable show={showSizes} onHide={() => setShowSizes(false)} />
+          {product.category.slug == "сlothes_shoes_decoration" ? (
+            <>
+              <button onClick={() => setShowSizes(true)}>
+                Таблиця розмірів{" "}
+                <ChevronRight fillColor="#70BF63" w="30px" h="30px" />
+              </button>
+              <SizesTable show={showSizes} onHide={() => setShowSizes(false)} />
+            </>
+          ) : (
+            <></>
+          )}
         </Row>
       ) : null}
     </Container>
