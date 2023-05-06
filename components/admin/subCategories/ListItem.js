@@ -66,13 +66,12 @@ export default function ListItem({ categories, groupSubCategories, subCategory, 
                         }
                     </select>
                     <select
-                    name="parent" 
-                    value={parent || subCategory.parent._id}
+                        name="parent"
+                        value={parent || subCategory.parent._id}
                         onChange={(e) => setParent(e.target.value)}
                         disabled={!open}
                         className={styles.select}>
                         <option value={""} key={""}>Вибрати групу субкатегорій</option>
-                        {/* { TODO mapping don't work*/}
                         {filteredGroupSubCategories.map((c, i) => (
                             <option value={c._id} key={c._id}>{c.name}</option>
                         ))

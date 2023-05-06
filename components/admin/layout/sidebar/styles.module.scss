@@ -1,4 +1,7 @@
-$blue-color: #2f82ff;
+$plum-violet-color: #81528C;
+$plum-dark-color: #220F4B;
+$light-wheet-color: #FAF8FF;
+$green-color: #70BF63;
 
 
 
@@ -6,7 +9,7 @@ $blue-color: #2f82ff;
     position: fixed;
     top: 0;
     left: 0;
-    background: #fafafa;
+    background: $light-wheet-color;
     height: 100%;
     width: 80px;
     transition: all .1s ease;
@@ -17,7 +20,7 @@ $blue-color: #2f82ff;
         top: 50px;
         height: 50px;
         width: 20px;
-        background: #fafafa;
+        background: $light-wheet-color;
         cursor: pointer;
         border-top-right-radius: 10px;
         border-bottom-right-radius: 10px;
@@ -44,48 +47,40 @@ $blue-color: #2f82ff;
     &__header {
         display: flex;
         align-items: center;
+        justify-content: center;
         width: 100%;
-        gap: 7px;
 
-        span {
-            width: 15px;
-            height: 15px;
-            border-radius: 50%;
-
-            &:nth-child(1) {
-                background: #fe4a3f;
-            }
-
-            &:nth-child(2) {
-                background: #ffb51f;
-            }
-
-            &:nth-child(3) {
-                background: #4fea32;
-            }
+        img {
+            width: 150px;
+            object-fit: contain;
+            cursor: pointer;
         }
 
     }
 
     &__user {
-        margin-top: 1rem;
         display: flex;
         align-items: center;
         gap: 10px;
-        border-top: 1px solid #ccc;
-        padding-bottom: 1rem;
+        justify-content: flex-start;
+        border-top: 1px solid $green-color;
+        padding-left: 0;
+        margin-left: 0;
 
         img {
             width: 60px;
             height: 60px;
             border-radius: 50%;
             object-fit: cover;
-            border: 5px solid #fff;
-            background-color: #fe4a3f;
+            border: 5px solid $light-wheet-color;
+            background-color: $plum-dark-color;
+
         }
     }
 
     &__list {
+
+
         li {
             width: 50px;
             height: 50px;
@@ -95,18 +90,20 @@ $blue-color: #2f82ff;
             padding-left: 13px;
             margin-bottom: 10px;
             cursor: pointer;
+            margin-right: 15px;
 
             &:hover {
-                background: $blue-color;
-                color: #fff;
+                background: $plum-dark-color;
+                color: $light-wheet-color;
                 font-weight: 600;
+                box-shadow: 0px 0px 5px 0px #220F4B;
 
                 svg {
-                    fill: #fff;
+                    fill: $light-wheet-color;
                 }
 
                 .show {
-                    color: #fff !important;
+                    color: $light-wheet-color !important;
                 }
             }
 
@@ -114,11 +111,14 @@ $blue-color: #2f82ff;
                 display: flex;
                 align-items: center;
                 gap: 10px;
+                text-decoration: none;
+                justify-content: flex-start;
 
                 svg {
                     width: 25px;
                     height: 25px;
-                    fill: #111111d2;
+                    fill: $plum-dark-color;
+                    padding: 0;
                 }
 
                 span {
@@ -132,8 +132,8 @@ $blue-color: #2f82ff;
     &__dropdown {
         &_header {
             font-weight: 600;
-            border-bottom: 1px solid #ccc;
-            padding: 5px;
+            border-bottom: 1px solid $green-color;
+            padding: 5px 5px 5px 25px;
 
             .show {
                 font-size: 16px;
@@ -156,11 +156,14 @@ $blue-color: #2f82ff;
     nav {
         ul {
             li {
-                background: #1a28f1dc;
+                background: $plum-dark-color;
                 border-radius: 50%;
+                justify-content: flex-start;
+                align-items: center;
+                display: flex;
 
                 svg {
-                    fill: #fff;
+                    fill: $light-wheet-color;
                 }
             }
         }
@@ -168,21 +171,21 @@ $blue-color: #2f82ff;
 }
 
 .active {
-    background: $blue-color !important;
+    background: $plum-dark-color !important;
 
     a span {
-        color: #fff !important;
+        color: $light-wheet-color !important;
         font-weight: 600 !important;
     }
 
     svg {
-        fill: #fff !important;
+        fill: $light-wheet-color !important;
     }
 }
 
 .show {
     font-size: 14px;
-    color: #111111d2;
+    color: $plum-dark-color;
     display: none;
 
     span {

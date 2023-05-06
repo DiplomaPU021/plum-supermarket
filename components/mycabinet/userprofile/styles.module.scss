@@ -551,24 +551,26 @@
         text-align: center;
         margin-left: 1px;
 
-        &:active {
-            color: $light-wheet-color;
-            background-color: #220F4B;
-            z-index: 3;
-        }
+        // &:active {
+        //     color: $light-wheet-color;
+        //     background-color: #220F4B;
+        //     z-index: 3;
+        // }
     }
 
     a {
         &:active {
             color: $light-wheet-color;
-            background-color: #220F4B !important;
+           // background-color: #220F4B !important;
             z-index: 3;
+            box-shadow: 0px 0px 5px 0px #220F4B;
         }
 
         &:focus {
             color: $light-wheet-color;
-            background-color: #220F4B !important;
+           // background-color: #220F4B !important;
             z-index: 3;
+            box-shadow: 0px 0px 5px 0px #220F4B;
         }
     }
 }

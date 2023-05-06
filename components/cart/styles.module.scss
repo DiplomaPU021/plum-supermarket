@@ -132,7 +132,7 @@
     border-radius: 23px;
     border: 2px solid #c4c3c8;
 
-    img{
+    img {
         object-fit: contain;
     }
 }
@@ -193,7 +193,7 @@
         line-height: 27px;
         color: #220F4B;
         padding-bottom: 20px;
-       // border-bottom: 3px solid #70BF63;
+        // border-bottom: 3px solid #70BF63;
         max-width: 435px;
 
         text-decoration: none;
@@ -319,7 +319,7 @@
 
         button {
             background: transparent;
-           // background: linear-gradient(180deg, #FAF8FF 0%, #F2EDFF 100%);
+            // background: linear-gradient(180deg, #FAF8FF 0%, #F2EDFF 100%);
         }
     }
 
@@ -394,7 +394,7 @@
     background: rgba(87, 60, 145, 0.5);
     backdrop-filter: blur(2.5px);
 
-    &_main{
+    &_main {
         background: $light-wheet-color;
         border-radius: 10px;
     }

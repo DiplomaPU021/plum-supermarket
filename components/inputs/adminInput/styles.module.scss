@@ -1,5 +1,10 @@
+$plum-violet-color: #81528C;
+$plum-dark-color: #220F4B;
+$light-wheet-color: #FAF8FF;
+$green-color: #70BF63;
+
 .label {
-    border: 1px solid #cccccc8e ;
+    border: 1px solid $plum-violet-color ;
     display:flex;
     align-items: center;
     height: 42px;
@@ -8,10 +13,10 @@
     span {
         display: flex;
         width: 42px;
-        background: $blue-color;
+        background: $plum-violet-color;
         font-size: 15px;
         font-weight: 700;
-        color: #fff;
+        color: $light-wheet-color;
         display: grid;
         place-items: center;
         padding: 0 10px;
@@ -25,11 +30,12 @@
         height: 100%;
         flex: 1;
         background: transparent;
-        color: #111 !important;
+        color: $plum-dark-color !important;
         padding-left: 5px;
         &::placeholder {
-            color:#666;    
+            color: $plum-violet-color;    
         }
+       
     }
 }
 .inputError {
@@ -38,7 +44,9 @@
     }
     input {
         background: rgba(255, 0, 0, 0.031) !important;
-        border: px solid $error-secondary-color !important;
+        border: 1px solid $error-secondary-color !important;
+      
+    
     }
     &__msg {
         color: $error-secondary-color;

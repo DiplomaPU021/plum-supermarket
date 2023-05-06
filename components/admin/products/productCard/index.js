@@ -47,6 +47,7 @@ export default function ProdcutCard({ product }) {
                             </Link>
                             <Link href="#">
                                 <RiDeleteBin2Line />
+
                             </Link>
                         </div>
                     </div>
