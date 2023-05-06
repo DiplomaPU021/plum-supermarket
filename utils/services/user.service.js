@@ -342,6 +342,46 @@ const removeFromCreditCards = async (userId, creditCardId) => {
 
 };
 
+const addAdditionalInfo = async ( userId, additionalInfo ) => {
+  console.log("log->346");
+    const user = await User.findById(userId);
+    console.log("log->348");
+    try {
+
+        const user = await User.findOneAndUpdate(
+            { _id: userId },
+            { additionalInfo },
+            { new: true }
+        );
+        return user;
+
+        // const updateResult = user.updateOne(
+        //     {
+        //         additionalInfo.vehicle: vehicle,
+        //         $set: {
+        //             additionalInfo.vehicle: vehicle,
+        //             "additionalInfo.$.vehicle": vehicle,
+        //             "additionalInfo.$.motorcycle": motorcycle,
+        //             "additionalInfo.$.children": children,
+        //             "additionalInfo.$.business": business,
+        //         },
+        //     },
+        //     {
+        //         new: true,
+        //         upsert: true // додаємо опцію upsert
+        //     }
+        // );
+        // console.log("log->364");
+        // return updateResult;
+    } catch (err) {
+        console.error(err);
+    }
+};
+
+const getAdditionalInfo = async (userId) => {
+    const foundUser = await User.findById(userId);
+    return foundUser.additionalInfo;
+}
 const addAdmirations = async (userId, fishing, hunting, gardening, fitness, yoga, running, bicycle, music, tourism, cybersport, handmade) => {
     const foundUser = await User.findById(userId);
     if (foundUser) {
@@ -386,8 +426,9 @@ const userService = {
     addCreditCard,
     removeFromCreditCards,
     addAdmirations,
-    getAddmirations
-
+    getAddmirations,
+    getAdditionalInfo,
+    addAdditionalInfo
 };
 
 export default userService;

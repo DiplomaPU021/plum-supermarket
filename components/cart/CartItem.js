@@ -214,7 +214,7 @@ export default function CartItem({ product, error, setError, deleteConfirm, setD
                       Операційна система Windows 11 Для дому на 1ПК (ESD -
                       електронна ліцензія в конверті, всі мови) (KW9-00664)
                     </p>
-                    <h4>9899 $</h4>
+                    <h4>9 899 $</h4>
                   </div>
                   <div className={styles.check}>
                     <Form.Check type={"checkbox"} id={`check-api-2`}>
@@ -228,7 +228,7 @@ export default function CartItem({ product, error, setError, deleteConfirm, setD
                       користувача (ESD - електронний ключ в конверті)
                       (QQ2-00004)
                     </p>
-                    <h4>2899 $</h4>
+                    <h4>2 899 $</h4>
                   </div>
                 </div>
               </div>

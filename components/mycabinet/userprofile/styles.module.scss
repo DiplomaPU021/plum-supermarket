@@ -231,7 +231,7 @@
     &:focus {
         box-shadow: 0px 0px 5px 0px #220F4B;
     }
-  }
+}
 
 .profilebtn {
     border: 2px solid #220F4B;
@@ -281,16 +281,30 @@
     .col {
         min-width: fit-content;
     }
+    
+    .status {
+        display: flex;
+        flex-direction: row;
+        justify-content: flex-end;
+        align-items: center;
+        padding: 0;
+        gap: 20px !important;
 
-    .link {
-        text-decoration: none;
-        color: #573C90;
-        font-weight: 500;
-        font-size: 20px;
-
-        &:hover {
-            font-weight: 600;
+        &__radiobtn {
+            font-family: 'Noto Sans';
             color: #573C90;
+            font-weight: 500;
+            font-size: 20px;
+
+            input[type="radio"]:checked+label {
+                font-weight: bold !important;
+            }
+
+            input {
+                opacity: 0;
+                width: 0;
+                height: 0;
+            }
         }
     }
 }
@@ -528,7 +542,7 @@
 }
 
 .fixed_bottom {
-    justify-content: end;
+    justify-content: flex-end;
     align-items: center;
     position: sticky;
     bottom: 0;
@@ -550,10 +564,10 @@
         font-weight: 600;
         text-align: center;
         margin-left: 1px;
-
+           
         &:active {
             color: $light-wheet-color;
-            background-color: #220F4B;
+            background-color: #220F4B !important;
             z-index: 3;
         }
     }
@@ -572,6 +586,42 @@
         }
     }
 }
+.pagination {
+    justify-content: flex-end;
+    align-items: center;
+    position: sticky;
+    bottom: 0;
+    padding-top: 15px;
+  
+    > li > a,
+    > li > span {
+      color: #573c90 !important;
+      background-color: transparent !important;
+      border-color: #573c90 !important;
+
+      span{
+        &:focus,
+        &:hover,
+        &:active {
+          color: #fff !important;
+          background-color: #220f4b !important;
+          border-color: #220f4b !important;
+          box-shadow: 0px 0px 4px 0px #220f4b !important;
+        }
+      }
+        
+     
+    }
+  
+    > li.active > a,
+    > li > span {
+            background: #220f4b !important;
+            border-color: #220f4b !important;
+            color: #fff !important;
+            box-shadow: 0px 0px 4px 0px #220f4b !important;
+    }
+  }
+  
 
 .line {
     width: 426px;

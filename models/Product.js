@@ -177,7 +177,7 @@ const productSchema = new mongoose.Schema(
         ],
     },
     {
-        timestamps: false,
+        timestamps: true,
     }
 );
 
