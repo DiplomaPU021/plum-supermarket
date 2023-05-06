@@ -21,7 +21,7 @@ export default function Images({
     const handleImages = (e) => {
         let files = Array.from(e.target.files);
         files.forEach((img, i) => {
-            if (i == 5 || images.length >= 6) {
+            if (images.length >= 6) {
                 dispatch(showDialog({
                     header: 'Maximum 6 images are allowed',
                     msgs: [
@@ -34,7 +34,7 @@ export default function Images({
                 }))
                 return;
             }
-            else if (img.type !== "image/jpeg" && img.type !== "image/jpg" && img.type !== "image/webp") {
+            else if (img.type !== "image/jpeg" && img.type !== "image/jpg" && img.type !== "image/webp" && img.type !== "image/png") {
                 dispatch(showDialog({
                     header: 'Unsupported Format.',
                     msgs: [

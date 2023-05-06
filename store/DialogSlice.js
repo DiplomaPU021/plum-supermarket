@@ -6,9 +6,6 @@ const initialState = {
     msgs: [{
         msg: "Виберіть принаймі 2 зображення",
         type: "error",
-    },
-    {
-
     }],
     link: {
         link: "",
@@ -21,6 +18,7 @@ export const DialogSlice = createSlice({
     initialState,
     reducers: {
         showDialog(state, action) {
+            const { header, msgs, link } = action.payload || {};
             state.show = true;
             state.header = action.payload.header;
             state.msgs = action.payload.msgs;

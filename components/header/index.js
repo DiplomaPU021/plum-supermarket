@@ -148,8 +148,9 @@ export default function Header({ country }) {
     }
   };
 
-  const handlerOnSearch = () =>{
-     //e.preventDefault();
+  const handlerOnSearch = (e) =>{
+     e.preventDefault();
+     e.stopPropagation();
      //console.log("iv---", e);
 
     const newOption = {
@@ -159,7 +160,9 @@ export default function Header({ country }) {
     setOptions((prev) => [...prev, newOption]);
     setValue(newOption);
     
-    router.push(`/search?text=${str}`);
+    // router.push(`/search?text=${str}`);
+    const event = new KeyboardEvent('keypress', { key: 'Enter' })
+    e.target.dispatchEvent(event)
     // handlerSubmit(newOption.value);
   }
 
@@ -308,7 +311,7 @@ export default function Header({ country }) {
               value={value}
             />
             <button
-              onClick={handlerOnSearch}
+              onClick={(e)=>handlerOnSearch(e)}
             >
               <LoopIcon fillColor="#FAF8FF" />
             </button>

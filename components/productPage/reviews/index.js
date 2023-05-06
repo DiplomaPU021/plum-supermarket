@@ -5,7 +5,7 @@ import ChevronRight from "@/components/icons/ChevronRight";
 import DisLikeIcon from "@/components/icons/DisLikeIcon";
 import LikeIcon from "@/components/icons/LikeIkon";
 import ReplyToFeedback from "../replyToFeedback";
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import LeaveFeedback from "../leaveFeedback";
 import { useSession } from "next-auth/react";
 import MyCabinet from "@/components/mycabinet";
@@ -30,7 +30,7 @@ export default function Reviews({ product, productReview, setProductReview }) {
     }
   };
   return (
-    <Container fluid className={styles.reviews}>
+    <Container fluid className={styles.reviews} id="anchor_feedback">
       <Row className={styles.reviews__title}>
         <span>Найпопулярніші відгуки</span>
         <button
@@ -55,11 +55,11 @@ export default function Reviews({ product, productReview, setProductReview }) {
       </Row>
       <div className={styles.reviews__row} scrolable="true">
         <Col className={styles.reviews__row_col}>
-          <Col 
-           style={{
-            overflowY: productReview?.length > 1 ? "scroll" : "hidden",
-          }}
-          className={styles.reviews__scrollFrame}>
+          <Col
+            style={{
+              overflowY: productReview?.length > 1 ? "scroll" : "hidden",
+            }}
+            className={styles.reviews__scrollFrame}>
             {productReview?.length > 0 ? (
               productReview.map((review, i) => (
                 <Row className={styles.reviews__scrollFrame_review} key={i}>
@@ -146,7 +146,7 @@ export default function Reviews({ product, productReview, setProductReview }) {
               ))
             ) : (
               <Row>
-                <Col style={{display: "flex", alignItems: "center", justifyContent: "center"}}>
+                <Col style={{ display: "flex", alignItems: "center", justifyContent: "center" }}>
                   <span>Тут ще немає відгуків. Ви можете бути першим.</span>
                 </Col>
               </Row>

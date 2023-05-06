@@ -23,6 +23,7 @@ import User from "@/models/User";
 import { useDispatch } from "react-redux";
 import { updateNumberReviews, updateReviewRating } from "@/store/reviewSlice";
 import GroupSubCategory from "@/models/GroupSubCategory";
+import FloatingButton from '@/components/FloatingButton';
 
 export default function product({ product, popular, country, style, mode }) {
   const [active, setActive] = useState({ style: style, mode: mode });
@@ -90,6 +91,7 @@ export default function product({ product, popular, country, style, mode }) {
       <CustomerInfo />
       <CheaperTogether product={product} productsPlus={product.productsPlus} active={active} setActive={setActive} />
       <ProductDescription product={product} />
+      <FloatingButton />
       <Reviews product={product} productReview={productReview} setProductReview={setProductReview} active={active} setActive={setActive} />
       <Popular title={"Популярне з категорії"} products={popular} category={product.category.name} />
       <Footer country={country} />

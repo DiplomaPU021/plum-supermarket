@@ -18,6 +18,7 @@ import Category from "@/models/Category";
 import { getCountryData } from "@/utils/country";
 import SubCategory from "@/models/SubCategory";
 import User from "@/models/User";
+import FloatingButton from "@/components/FloatingButton";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -29,6 +30,7 @@ export default function Home({ country, products, categories, searchHandler }) {
     <div className={styles.container}>
       <Header country={country} searchHandler={searchHandler}/>
       <HomeCarousel />
+      <FloatingButton />
       <Categories categories={categories} />
       <TopSales products={products} />
       <YoutubeVideo />
