@@ -18,7 +18,10 @@ import { Tooltip } from "react-tooltip";
 import "react-tooltip/dist/react-tooltip.css";
 import axios from 'axios';
 import { updateWishList } from "@/store/wishListSlice";
+import { addToSearchedList } from "@/store/searchedListSlice";
 import { useRouter } from "next/router";
+import CreatableSelect from 'react-select/creatable';
+
 
 export default function Header({ country }) {
   const { data: session, status } = useSession();
@@ -27,6 +30,7 @@ export default function Header({ country }) {
   const cart = useSelector((state) => state.cart);
   const wishList = useSelector((state) => state.wishList);
   const scaleList = useSelector((state) => state.scaleList);
+  const searchedList = useSelector((state) => state.searchedList);
   const [cartShow, setCartShow] = useState(false);
   const [wishShow, setWishShow] = useState(false);
   const [scaleShow, setScaleShow] = useState(false);
@@ -39,7 +43,6 @@ export default function Header({ country }) {
   const [isOpen, setIsOpen] = useState(false);
   const [user, setUser] = useState();
   const [orders, setOrders] = useState([]);
-  const [query, setQuery] = useState("");
   // useEffect(() => {
   //   // console.log('App comp value:', JSON.stringify(error));
   // }, [wishShow]);
@@ -132,13 +135,60 @@ export default function Header({ country }) {
       alert("Залогінтесь");
     }
   }
-  const handlerSubmit = (e) => {
-    e.preventDefault();
-    router.push(`/search?text=${query}`);
+
+  const [str, setStr] = useState( router.query.text || "");
+  const [isLoading, setIsLoading] = useState(false);
+  const [options, setOptions] = useState(searchedList.searchedListItems);
+  const [value, setValue] = useState(null);
+
+
+  const handlerSubmit = (searchQuery) => {
+    if(searchQuery && searchQuery.length > 1) {
+      router.push(`/search?text=${searchQuery}`);
+    }
+  };
+
+  const handlerOnSearch = () =>{
+     //e.preventDefault();
+     //console.log("iv---", e);
+
+    const newOption = {
+      label: str,
+      value: str.toLowerCase().trim(),
+    };
+    setOptions((prev) => [...prev, newOption]);
+    setValue(newOption);
+    
+    router.push(`/search?text=${str}`);
+    // handlerSubmit(newOption.value);
   }
+
+  // const handleInputChange = (e) => {
+  //   console.log("iv---", e);
+  //   setStr(e);
+  //   console.log("q---",  str);
+  // }
+
+  const handleCreate = ( inputValue) => {
+    setIsLoading(true);
+    setTimeout(() => {
+      const newOption = {
+        label: inputValue,
+        value: inputValue.toLowerCase().trim(),
+      };
+      setIsLoading(false);
+      dispatch(addToSearchedList(newOption));
+      setOptions((prev) => [...prev, newOption]);
+      setValue(newOption);
+      //setStr(newOption.value);
+      handlerSubmit(newOption.value);
+    }, 700);
+  };
 
   return (
     <div className={styles.main}>
+      {/* {JSON.stringify(value)}
+      {JSON.stringify(str)} */}
       <Tooltip
         id="header-login-tooltip"
         content="Будь ласка зареєструйтесь!"
@@ -170,10 +220,96 @@ export default function Header({ country }) {
             <Image src="../../../logo/logo_light.png" alt="logo" height="60px" />
           </div>
         </Link>
-        <div className={styles.search} style={{ width: divVisible ? '65%' : '10%' }}>
-          <div className={styles.search_flex} style={{ display: divVisible ? 'flex' : 'none' }}>
-            <input type="text" placeholder="Я шукаю..." onChange={(e) => setQuery(e.target.value)} />
-            <button onClick={handlerSubmit}>
+        <div
+          className={styles.search}
+          style={{ width: divVisible ? "65%" : "10%" }}
+        >
+          <div
+            className={styles.search_flex}
+            style={{ display: divVisible ? "flex" : "none" }}
+          >
+            <CreatableSelect
+              styles={{
+                control: (base) => ({
+                  ...base,
+                  paddingLeft: "20px",
+                  borderRadius: "25px",
+                  background: "#FAF8FF",
+                  //border: "2px solid #220F4B",
+                  border: "none",
+                  boxShadow: "none",
+                  "&:hover": {
+                    outline: "none",
+                    boxShadow: "none",
+                  },
+                }),
+                menu: (base) => ({
+                  ...base,
+                  padding: "12px",
+                  border: "0",
+                  borderRadius: "23px",
+                  background: "#FAF8FF",
+                }),
+                singleValue: (base) => ({
+                  ...base,
+                  fontSize: "16px",
+                  color: "#220F4B",
+                  fontFamily: "Noto Sans",
+                }),
+                option: (base, state) => ({
+                  ...base,
+                  paddingLeft: "20px",
+                  marginTop: "2px",
+                  borderRadius: "23px",
+                  background: state.isSelected
+                    ? "rgba(138, 227, 124, 0.4)"
+                    : "#FAF8FF",
+                  color: "#220F4B",
+                  height: "100%",
+                  "&:hover": {
+                    outline: "none",
+                    boxShadow: "none",
+                    background: "#FAF8FF",
+                    background: "rgba(138, 227, 124, 0.2)",
+                    cursor: "pointer",
+                  },
+                }),
+                clearIndicator: () => ({
+                  display: "none",
+                }),
+                dropdownIndicator: () => ({
+                  display: "none",
+                }),
+                indicatorSeparator: () => ({
+                  display: "none",
+                }),
+              }}
+              className={styles.container}
+              placeholder="Я шукаю..."
+              isClearable
+              search={true}
+              isSearchable={true}
+              isDisabled={isLoading}
+              isLoading={isLoading}
+              //onInputChange={handleInputChange}
+              onInputChange={(e) => { setStr(e);}}
+              //onInputChange={(e)=>handleInputChange(e)}
+             
+              //onChange={(e)=>handleInputChange(e)}
+
+              onChange={(newValue) => {
+                setValue(newValue);
+                if (newValue) {
+                  handlerSubmit(newValue.value);
+                }
+              }}
+              onCreateOption={handleCreate}
+              options={options}
+              value={value}
+            />
+            <button
+              onClick={handlerOnSearch}
+            >
               <LoopIcon fillColor="#FAF8FF" />
             </button>
           </div>
@@ -243,6 +379,7 @@ export default function Header({ country }) {
             user={user}
             setUser={setUser}
             orders={orders}
+            country={country}
           />
         </div>
       </div>

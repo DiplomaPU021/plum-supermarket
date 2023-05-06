@@ -35,42 +35,48 @@ export default function ViewedProducts() {
 
   return (
     <Container fluid className={styles.viewed}>
-      <Row className={styles.viewed__title}>
-        <span>Переглянуті товари</span>
-      </Row>
-      <Row className={styles.viewed__simillarswiper}>
-        <Col
-          className={`${styles.viewed__simillarswiper_chevron} swiper-button image-swiper-button-prev`}
-        >
-          <ChevronLeft fillColor="#70BF63" w="50px" h="50px" />
-        </Col>
-        <Col lg={11} className={styles.viewed__simillarswiper_swiper}>
-          <Swiper
-            slidesPerView={numCards}
-            spaceBetween={0}
-            navigation={{
-              prevEl: ".image-swiper-button-prev",
-              nextEl: ".image-swiper-button-next",
-              disabledClass: "swiper-button-disabled",
-            }}
-            loop={true}
-            modules={[Navigation]}
-          >
-            {viewedList.viewedListItems.map((p, i) => (
-              <SwiperSlide key={i}>
-                <Col style={{ padding: "0", display: "flex" }}>
-                  <ProductCard product={p} style={p.style} mode={p.mode}/>
-                </Col>
-              </SwiperSlide>
-            ))}
-          </Swiper>
-        </Col>
-        <Col
-          className={`${styles.viewed__simillarswiper_chevron} swiper-button image-swiper-button-next`}
-        >
-          <ChevronRight fillColor="#70BF63" w="50px" h="50px" />
-        </Col>
-      </Row>
+      {viewedList.viewedListItems.length > 0 ? (
+        <>
+          <Row className={styles.viewed__title}>
+            <span>Переглянуті товари</span>
+          </Row>
+          <Row className={styles.viewed__simillarswiper}>
+            <Col
+              className={`${styles.viewed__simillarswiper_chevron} swiper-button image-swiper-button-prev`}
+            >
+              <ChevronLeft fillColor="#70BF63" w="50px" h="50px" />
+            </Col>
+            <Col lg={11} className={styles.viewed__simillarswiper_swiper}>
+              <Swiper
+                slidesPerView={numCards}
+                spaceBetween={0}
+                navigation={{
+                  prevEl: ".image-swiper-button-prev",
+                  nextEl: ".image-swiper-button-next",
+                  disabledClass: "swiper-button-disabled",
+                }}
+                loop={viewedList.viewedListItems.length > 2 ? true : false}
+                modules={[Navigation]}
+              >
+                {viewedList.viewedListItems.map((p, i) => (
+                  <SwiperSlide key={i}>
+                    <Col style={{ padding: "0", display: "flex" }}>
+                      <ProductCard product={p} style={p.style} mode={p.mode} />
+                    </Col>
+                  </SwiperSlide>
+                ))}
+              </Swiper>
+            </Col>
+            <Col
+              className={`${styles.viewed__simillarswiper_chevron} swiper-button image-swiper-button-next`}
+            >
+              <ChevronRight fillColor="#70BF63" w="50px" h="50px" />
+            </Col>
+          </Row>
+        </>
+      ) : (
+        <></>
+      )}
     </Container>
   );
 }

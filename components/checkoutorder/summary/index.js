@@ -12,6 +12,7 @@ import { useRouter } from "next/router";
 import CheckoutCart from "../cartitems";
 import PersonalDataPolicy from '../../checkoutorder/info/PersonalDataPolicy'
 import UserConditions from "../../checkoutorder/info/PersonalDataPolicy"
+import MyCabinet from "@/components/mycabinet";
 
 
 
@@ -83,19 +84,13 @@ export default function Summary({
             if (orderError.userError === "" && orderError.shippingError === "" && orderError.paymentError === "") {
                 try {
                     if (activeAddress != null) {
-                        //   activeAddress.firstName=userData.firstName;
-                        //     activeAddress.lastName=userData.lastName;
-                        //     activeAddress.phoneNumber=userData.phoneNumber;  
                         await saveAddress(activeAddress);
-                    } else {
-                        setActiveAddress({
-                            ...activeAddress, firstName: userData.firstName,
-                            lastName: userData.lastName,
-                            phoneNumber: userData.phoneNumber
-                        }
-                        );
                     }
                     const { data } = await axios.post("/api/order/create", {
+                        firstName: userData.firstName,
+                        lastName: userData.lastName,
+                        phoneNumber: userData.phoneNumber,
+                        email: userData.email,
                         products: cart.products,
                         shippingAddress: activeAddress,
                         paymentMethod,
@@ -118,6 +113,7 @@ export default function Summary({
         } else {
             // e.preventDefault();
             setUserSigninShow(true);
+            router.push(`/`);
             //TODO: open Modal MyCabinet            
             // signIn();
         }
@@ -206,6 +202,7 @@ export default function Summary({
                 onHide={() => setInfoShow(false)} />
             <UserConditions show={info2Show}
                 onHide={() => setInfo2Show(false)} />
+            {/* <MyCabinet show={userSinginShow} onHide={()=>setUserSigninShow(false)}/> */}
         </>
     )
 }

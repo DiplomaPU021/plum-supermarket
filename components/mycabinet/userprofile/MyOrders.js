@@ -20,7 +20,6 @@ export default function MyOrders(props) {
     function displayComponentsForActivePage() {
         const startIndex = (activePage - 1) * itemsPerPage;
         const endIndex = startIndex + itemsPerPage;
-
         return props.orders.slice(startIndex, endIndex);
     }
 

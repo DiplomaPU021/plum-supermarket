@@ -222,6 +222,16 @@
     line-height: 25px;
     color: #220F4B;
 }
+.form_address {
+    padding: 15px 24px;
+    max-width: 850px;
+    height: 60px;
+    border: 2px solid #220F4B;
+    border-radius: 35px;
+    &:focus {
+        box-shadow: 0px 0px 5px 0px #220F4B;
+    }
+  }
 
 .profilebtn {
     border: 2px solid #220F4B;
@@ -508,10 +518,13 @@
 
 .form_floor {
     padding: 15px 24px;
-    max-width: 100%;
+    max-width: 850px;
     height: 60px;
     border: 2px solid #220F4B;
     border-radius: 35px;
+    &:focus {
+        box-shadow: 0px 0px 5px 0px #220F4B;
+    }
 }
 
 .fixed_bottom {

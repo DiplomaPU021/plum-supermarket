@@ -22,13 +22,13 @@ export default function Shipping({
   const [showPostmanDeliveryAll, setShowPostmanDeliveryAll] = useState("none");
   const [showNovaPoshtaDelivery, setShowNovaPoshtaDelivery] = useState("block");
   const [showAddAddressBlock, setShowAddAddressBlock] = useState("none");
-  const [userAddresses, setUserAdresses] = useState(user?.address || []);
+  const [userAddresses, setUserAddresses] = useState(user?.address != "" ? user?.address : []);
   const [filteredUserAdresses, setFilteredUserAdresses] = useState(
     userAddresses?.filter((address) =>
       address.zipCode
         ? address.zipCode === selectedCity?.object_code
         : address.city === selectedCity.object_name &&
-          address.region === selectedCity.region
+        address.region === selectedCity.region
     )
   );
 
@@ -51,26 +51,28 @@ export default function Shipping({
   const selfRef = useRef();
   const [deliveryAddressSelected, setDeliveryAddressSelected] =
     useState("відділення №1");
+  const hasActiveAddress = filteredUserAdresses.some((item) => item.active === true);
+
   const [selectedAddress, setSelectedAddress] = useState(
-    filteredUserAdresses.length > 0
+    hasActiveAddress
       ? filteredUserAdresses.find((item) => item.active === true).address
       : ""
   );
 
   useEffect(() => {
-    if (selectedAddress && selectedAddress!="") {
-        const selectedOption = filteredUserAdresses.find(
-          (item) => item.address == selectedAddress
-        );
-        if(selectedOption) {
-                   setActiveAddress(selectedOption);
+    if (selectedAddress && selectedAddress != "") {
+      const selectedOption = filteredUserAdresses.find(
+        (item) => item.address == selectedAddress
+      );
+      if (selectedOption) {
+        setActiveAddress(selectedOption);
         setDelivery({
           ...delivery,
           deliveryAddress: `${selectedCity?.value}, ${selectedOption.address}, ${selectedOption.ground} поверх, ліфт ${selectedOption.elevator}`,
         });
       }
-        }
- 
+    }
+
   }, [selectedAddress]);
 
   useEffect(() => {
@@ -103,34 +105,34 @@ export default function Shipping({
     setSelectedCity(
       activeAddress
         ? {
-            value: `${activeAddress.cityType} ${activeAddress.city}, ${activeAddress.region}`,
-            object_category: activeAddress.cityType,
-            object_name: activeAddress.city,
-            object_code: activeAddress.zipCode,
-            region: activeAddress.region,
-          }
+          value: `${activeAddress.cityType} ${activeAddress.city}, ${activeAddress.region}`,
+          object_category: activeAddress.cityType,
+          object_name: activeAddress.city,
+          object_code: activeAddress.zipCode,
+          region: activeAddress.region,
+        }
         : {
-            community: "Київ",
-            level_1: "3200000000",
-            level_2: "8000000000",
-            object_category: "м.",
-            object_code: "8000000000",
-            object_name: "Київ",
-            region: "Київська Область",
-            _id: "63fd04b68cbfb5572cac4442",
-            value: "м. Київ, Київська Область",
-            label: "м. Київ, Київська Область",
-          }
+          community: "Київ",
+          level_1: "3200000000",
+          level_2: "8000000000",
+          object_category: "м.",
+          object_code: "8000000000",
+          object_name: "Київ",
+          region: "Київська Область",
+          _id: "63fd04b68cbfb5572cac4442",
+          value: "м. Київ, Київська Область",
+          label: "м. Київ, Київська Область",
+        }
     );
     setSelectedStreet(
       activeAddress
         ? {
-            value: activeAddress?.address,
-            name: activeAddress?.street,
-            street_type: activeAddress?.streetType,
-            city_name: activeAddress?.city,
-            city_code: activeAddress?.zipCode,
-          }
+          value: activeAddress?.address,
+          name: activeAddress?.street,
+          street_type: activeAddress?.streetType,
+          city_name: activeAddress?.city,
+          city_code: activeAddress?.zipCode,
+        }
         : null
     );
   }, []);
@@ -141,7 +143,7 @@ export default function Shipping({
   };
   const handleCityModalClose = (selectedCity) => {
     if (selectedCity) {
-      setUserAdresses(user?.address || []);
+      setUserAddresses(user?.address || []);
       setSelectedCity(selectedCity);
       setActiveAddress((prevState) => ({
         ...prevState,
@@ -190,9 +192,11 @@ export default function Shipping({
   }, [addressValues]);
 
   useDeepCompareEffect(() => {
+    const hasActiveAddress = filteredUserAdresses.some((item) => item.active === true);
     if (
       filteredUserAdresses.length > 0 &&
-      delivery.deliveryId == "postmanDelivery"
+      delivery.deliveryId == "postmanDelivery" &&
+      hasActiveAddress
     ) {
       setShowAddAddressBlock("none");
       setShowPostmanDeliveryAll("block");
@@ -212,9 +216,9 @@ export default function Shipping({
       setFilteredUserAdresses(
         userAddresses?.filter((address) =>
           address.zipCode
-            ? address.zipCode === selectedCity?.object_code
+            ? address.zipCode === selectedCity?.object_code  && address.address != ""
             : address.city === selectedCity.object_name &&
-              address.region === selectedCity.region
+            address.region === selectedCity.region  && address.address != ""
         )
       );
       setDeliveryAddressSelected("відділення №1");
@@ -241,7 +245,23 @@ export default function Shipping({
         deliveryAddress: `${selectedCity?.value}, ${deliveryAddressSelected}`,
         deliveryId: "novaPoshta",
       }));
-      setActiveAddress(null);
+      setActiveAddress((prevState) => ({
+        ...prevState,
+        address: "",
+        streetType: "",
+        street: "",
+        building: "",
+        flat: "",
+        ground: "",
+        elevator: "",
+        cityType: selectedCity.object_category,
+        country: country.name,
+        city: selectedCity.object_name,
+        region: selectedCity.region,
+        zipCode: selectedCity.object_code,
+        active: true,
+      }));
+      // setActiveAddress(null);
       setShowPostmanDeliveryAll("none");
       setVisibleAddressField(false);
       setSelfPickup("none");
@@ -256,17 +276,11 @@ export default function Shipping({
       setFilteredUserAdresses(
         userAddresses?.filter((address) =>
           address.zipCode
-            ? address.zipCode === selectedCity?.object_code
+            ? address.zipCode === selectedCity?.object_code  && address.address != ""
             : address.city === selectedCity.object_name &&
-              address.region === selectedCity.region
+            address.region === selectedCity.region && address.address != ""
         )
       );
-
-      //   if (filteredUserAdresses && filteredUserAdresses.length > 0) {
-      //     setVisibleAddressField(true);
-      //   } else {
-      //     setVisibleAddressField(false);
-      //   }
     }
   }, [userAddresses]);
 
@@ -307,7 +321,23 @@ export default function Shipping({
         ...prevState,
         deliveryAddress: `${addressDefault.cityType} ${addressDefault.city} ${addressDefault.street}`,
       }));
-      setActiveAddress(null);
+      setActiveAddress((prevState) => ({
+        ...prevState,
+        address: "",
+        streetType: "",
+        street: "",
+        building: "",
+        flat: "",
+        ground: "",
+        elevator: "",
+        cityType: selectedCity.object_category,
+        country: country.name,
+        city: selectedCity.object_name,
+        region: selectedCity.region,
+        zipCode: selectedCity.object_code,
+        active: true,
+      }));
+      // setActiveAddress(null);
       setSelfPickup("block");
       setShowPostmanDeliveryAll("none");
       setShowNovaPoshtaDelivery("none");
@@ -320,11 +350,14 @@ export default function Shipping({
         const selectedAddressActive = defaultAddress.find(
           (c) => c.active === true
         );
-        setSelectedAddress(selectedAddressActive.address);
-        setDelivery((prevState) => ({
-          ...prevState,
-          deliveryAddress: `${selectedCity?.value}, ${selectedAddressActive.address}, ${selectedAddressActive.ground} поверх, ліфт ${selectedAddressActive.elevator}`,
-        }));
+        if (selectedAddressActive) {
+          setSelectedAddress(selectedAddressActive?.address);
+          setDelivery((prevState) => ({
+            ...prevState,
+            deliveryAddress: `${selectedCity?.value}, ${selectedAddressActive.address}, ${selectedAddressActive.ground} поверх, ліфт ${selectedAddressActive.elevator}`,
+          }));
+        }
+
         setActiveAddress(selectedAddressActive);
       } else {
         setDelivery((prevState) => ({
@@ -347,7 +380,23 @@ export default function Shipping({
         ...prevState,
         deliveryAddress: `${selectedCity?.value}, ${deliveryAddressSelected}`,
       }));
-      setActiveAddress(null);
+      // setActiveAddress(null);
+      setActiveAddress((prevState) => ({
+        ...prevState,
+        address: "",
+        streetType: "",
+        street: "",
+        building: "",
+        flat: "",
+        ground: "",
+        elevator: "",
+        cityType: selectedCity.object_category,
+        country: country.name,
+        city: selectedCity.object_name,
+        region: selectedCity.region,
+        zipCode: selectedCity.object_code,
+        active: true,
+      }));
       setShowNovaPoshtaDelivery("block");
       setVisibleAddressField(false);
       setShowPostmanDeliveryAll("none");
@@ -414,7 +463,7 @@ export default function Shipping({
           addresses.push(temp_address);
         }
         addresses.push(newAddress);
-        setUserAdresses(addresses);
+        setUserAddresses(addresses);
         setDelivery((prevState) => ({
           ...prevState,
           deliveryAddress: `${newAddress.address}, поверх ${newAddress.ground}, ліфт ${newAddress.elevator}`,
@@ -507,59 +556,59 @@ export default function Shipping({
             {deliveryTypes[0].adresses.some(
               (item) => item.city === selectedCity?.object_name
             ) && (
-              <Row>
-                <Col>
-                  <Form.Check
-                    type="radio"
-                    className={styles.radio}
-                    aria-label="radio 9"
-                  >
-                    <Form.Check.Input
-                      id="selfPickup"
-                      name="selfPickup"
+                <Row>
+                  <Col>
+                    <Form.Check
                       type="radio"
-                      className={styles.rrr}
-                      value={deliveryTypes[0].name}
-                      onChange={handleChangeDelivery}
-                      checked={
-                        delivery.deliveryType === `${deliveryTypes[0].name}`
-                      }
-                    />
-                    <Form.Check.Label
-                      htmlFor="selfPickup"
-                      className={styles.labeltext}
+                      className={styles.radio}
+                      aria-label="radio 9"
                     >
-                      {deliveryTypes[0].name}
-                    </Form.Check.Label>
-                  </Form.Check>
-                </Col>
-                <Col className={styles.text_span}>{deliveryTypes[0].price}</Col>
-                <Row style={{ display: showSelfPickup }}>
-                  <Form.Select
-                    className={styles.form_input2}
-                    onChange={(e) => handleSelectPickup(e)}
-                    ref={selfRef}
-                  >
-                    <option
-                      value="Вибрати адресу відділення..."
-                      disabled={true}
-                      key="selfpick1"
+                      <Form.Check.Input
+                        id="selfPickup"
+                        name="selfPickup"
+                        type="radio"
+                        className={styles.rrr}
+                        value={deliveryTypes[0].name}
+                        onChange={handleChangeDelivery}
+                        checked={
+                          delivery.deliveryType === `${deliveryTypes[0].name}`
+                        }
+                      />
+                      <Form.Check.Label
+                        htmlFor="selfPickup"
+                        className={styles.labeltext}
+                      >
+                        {deliveryTypes[0].name}
+                      </Form.Check.Label>
+                    </Form.Check>
+                  </Col>
+                  <Col className={styles.text_span}>{deliveryTypes[0].price}</Col>
+                  <Row style={{ display: showSelfPickup }}>
+                    <Form.Select
+                      className={styles.form_input2}
+                      onChange={(e) => handleSelectPickup(e)}
+                      ref={selfRef}
                     >
-                      Вибрати адресу відділення...
-                    </option>
-                    {deliveryTypes[0].adresses.map(
-                      (item, i) =>
-                        item.city === selectedCity?.object_name && (
-                          <option key={item.id}>
-                            {item.cityType}
-                            {item.city}, {item.street}
-                          </option>
-                        )
-                    )}
-                  </Form.Select>
+                      <option
+                        value="Вибрати адресу відділення..."
+                        disabled={true}
+                        key="selfpick1"
+                      >
+                        Вибрати адресу відділення...
+                      </option>
+                      {deliveryTypes[0].adresses.map(
+                        (item, i) =>
+                          item.city === selectedCity?.object_name && (
+                            <option key={item.id}>
+                              {item.cityType}
+                              {item.city}, {item.street}
+                            </option>
+                          )
+                      )}
+                    </Form.Select>
+                  </Row>
                 </Row>
-              </Row>
-            )}
+              )}
 
             <Row>
               <Col>
@@ -606,17 +655,17 @@ export default function Shipping({
                   >
                     {/* <option key ="addressOPt0" value="Вибрати адресу доставки..." disabled={true}>Вибрати адресу доставки...</option>  */}
                     {filteredUserAdresses != null &&
-                    filteredUserAdresses.filter(
-                      (c) => c.city == selectedCity?.object_name
-                    )
+                      filteredUserAdresses.filter(
+                        (c) => c.city == selectedCity?.object_name
+                      )
                       ? filteredUserAdresses.map((item, index) => (
-                          <option
-                            key={`${item.address}-${index}`}
-                            value={item.address}
-                          >
-                            {item.address}
-                          </option>
-                        ))
+                        <option
+                          key={`${item.address}-${index}`}
+                          value={item.address}
+                        >
+                          {item.address}
+                        </option>
+                      ))
                       : null}
                   </Form.Select>
                   <Col>

@@ -9,13 +9,25 @@ import GreenChevronRight from "@/components/icons/ChevronRight";
 import Link from "next/link";
 import { Container, Row, Col, Button, Image } from "react-bootstrap";
 import Table from 'react-bootstrap/Table';
+import { getSession } from 'next-auth/react';
+import { getCountryData } from '@/utils/country';
+import { useState } from 'react';
+import MyCabinet from '@/components/mycabinet';
+import db from '@/utils/db';
+import orderService from '@/utils/services/order.service';
+// import User from '@/models/User';
 
 
 
-export default function order({ orderData }) {
+export default function order({ country, orderData, user }) {
+    const [showMyCabinet, setShowMyCabinet] = useState(false);
+    const handlerMyOrders = () => {
+        console.log("loggg", orderData);
+        setShowMyCabinet(true);
+    }
     return (
         <Container fluid className={styles.cont}>
-             <Header />
+            <Header country={country} />
             <Row className={styles.row}>
                 <Col className={styles.group}>
                     <Image src='../../../images/order_done.png' width="339px" height="310px" />
@@ -23,11 +35,16 @@ export default function order({ orderData }) {
                 </Col>
             </Row>
             <Row className={styles.row}>
-            <div className={styles.repete}>
-                <Link type="button" href="/" className={styles.light_button}>Продовжити покупки</Link>
-                {/* TODO перехід на мої замовлення профіль*/}
-                <button className={styles.dark_button}>Мої замовлення</button>   
-            </div>
+                <div className={styles.repete}>
+                    <Link type="button" href="/" className={styles.light_button}>Продовжити покупки</Link>
+                    {/* TODO перехід на мої замовлення профіль*/}
+                    <MyCabinet show={showMyCabinet} onHide={() => setShowMyCabinet(false)}
+                        user={user}
+                        orders={orderData}
+                        country={country}
+                    />
+                    <button className={styles.dark_button} onClick={handlerMyOrders}>Мої замовлення</button>
+                </div>
             </Row>
         </Container>
 
@@ -149,15 +166,29 @@ export default function order({ orderData }) {
 }
 
 export async function getServerSideProps(context) {
-    // const countryData = await getCountryData();
-    const { query } = context;
+    const countryData = await getCountryData();
+    const { query, req } = context;
     const id = query.id;
-    const orderData = await Order.findById(id).populate('user').lean();
-    // console.log("order", orderData);
+    const session = await getSession({ req });
+    let orderData = {};
+    let orders = [];
+     if (session) {
+        orders = await orderService.findByUserId(session.user.id);
+        await db.connectDb();
+        orderData = await Order.findById(id).populate('user').lean();
+        await db.disconnectDb();
+    } else {
+        return {
+            redirect: {
+                destination: "/",
+            }
+        }
+    }
     return {
         props: {
-            // country: countryData,
-            orderData: JSON.parse(JSON.stringify(orderData)),
+            country: countryData,
+            user: JSON.parse(JSON.stringify(orderData.user)),
+            orderData: JSON.parse(JSON.stringify(orders)),
         },
     };
 }

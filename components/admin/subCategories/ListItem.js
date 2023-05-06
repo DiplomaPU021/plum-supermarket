@@ -3,16 +3,20 @@ import styles from './styles.module.scss';
 import { AiTwotoneEdit, AiFillDelete } from "react-icons/ai";
 import { toast } from "react-toastify";
 import axios from "axios";
-import Categories from "@/components/categories";
-import SingularSelect from "../select/SingularSelect"
 
 export default function ListItem({ categories, groupSubCategories, subCategory, setSubCategories }) {
+    
     const [open, setOpen] = useState(false);
     const [name, setName] = useState('');
     const [parent, setParent] = useState("");
     const [topParent, setTopParent] = useState("");
+    const [filteredGroupSubCategories, setFilteredGroupSubCategories]=useState(groupSubCategories);
     const input = useRef(null);
 
+    const handleChangeTopParent=(e)=>{
+        setTopParent(e.target.value);
+        setFilteredGroupSubCategories(groupSubCategories?.filter(item=>e.target.value===item.parent._id));
+    }
     const handleRemove = async (id) => {
         try {
             const { data } = await axios.delete('/api/admin/subCategory', { data: { id }, })
@@ -49,16 +53,27 @@ export default function ListItem({ categories, groupSubCategories, subCategory, 
             />
             {
                 open && (<div className={styles.list__item_expand}>
+                                        <select
+                    name="topParent" 
+                    value={topParent || subCategory.top_parent._id}
+                        onChange={handleChangeTopParent}
+                        disabled={!open}
+                        className={styles.select}>
+                        <option value={""} key={""}>Вибрати категорію</option>
+                        {categories.map((c, i) => (
+                            <option value={c._id} key={c._id}>{c.name}</option>
+                        ))
+                        }
+                    </select>
                     <select
                         name="parent"
                         value={parent || subCategory.parent._id}
                         onChange={(e) => setParent(e.target.value)}
                         disabled={!open}
                         className={styles.select}>
-                        <option value={""} key={""}>Select Category</option>
-                        {/* { TODO mapping don't work*/}
-                        {groupSubCategories.forEach((c, i) => (
-                            <></> // <option value={c.parent.id} key={c.parent._id}>{c.parent.name}</option>
+                        <option value={""} key={""}>Вибрати групу субкатегорій</option>
+                        {filteredGroupSubCategories.map((c, i) => (
+                            <option value={c._id} key={c._id}>{c.name}</option>
                         ))
                         }
 

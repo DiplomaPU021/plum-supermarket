@@ -28,10 +28,10 @@ export default function CheckoutOrder({
         userAdresses?.find((address) => address.active === true) || null
     );
     const [userData, setUserData] = useState({
-        firstName: activeAddress ? activeAddress.firstName : user.firstName ? user.firstName : "",
-        lastName: activeAddress ? activeAddress.lastName : user.lastName ? user.lastName : "",
-        phoneNumber: activeAddress ? activeAddress.phoneNumber : user.phoneNumber ? user.phoneNumber : "",
-        email:user ? user.email : "",
+        firstName: activeAddress ? activeAddress.firstName? activeAddress.firstName: user.firstName ? user.firstName : "":"",
+        lastName: activeAddress ? activeAddress.lastName?  activeAddress.lastName:user.lastName ? user.lastName : "":"",
+        phoneNumber: activeAddress ? activeAddress.phoneNumber ? activeAddress.phoneNumber: user.phoneNumber ? user.phoneNumber : "":"",
+        email: user ? user.email : "",
         errorLastName: "",
         errorFirstName: "",
         errorPhoneNumber: "",
@@ -72,6 +72,14 @@ export default function CheckoutOrder({
         }
 
     }, []);
+    useEffect(() => {
+        setActiveAddress((prevState) => ({
+            ...prevState,
+            firstName: userData?.firstName,
+            lastName: userData?.lastName,
+            phoneNumber: userData?.phoneNumber,
+        }));
+    }, [userData])
 
 
     return (
@@ -83,9 +91,9 @@ export default function CheckoutOrder({
                 <Row className={styles.general_div}>
                     <Col className={styles.colcard}>
                         <div className={styles.checkout_form}>
-                            <UserData                             
+                            <UserData
                                 userData={userData}
-                                setUserData={setUserData}                                
+                                setUserData={setUserData}
                                 setOrderError={setOrderError}
                             />
                             <Shipping
