@@ -1,66 +1,67 @@
 import mongoose from "mongoose";
 
 const { ObjectId } = mongoose.Schema;
-const userSchema = new mongoose.Schema({
+const userSchema = new mongoose.Schema(
+  {
     name: {
-        type: String,
+      type: String,
     },
     firstName: {
-        type: String,
+      type: String,
     },
     lastName: {
-        type: String,
+      type: String,
     },
     phoneNumber: {
-        type: String,
+      type: String,
     },
     email: {
-        type: String,
-        required: "Please enter your email",
-        trim: true,
-        unique: true,
+      type: String,
+      required: "Please enter your email",
+      trim: true,
+      unique: true,
     },
     birthday: {
-        type: String,
+      type: String,
     },
     gender: {
-        type: String
+      type: String,
     },
     password: {
-        type: String,
-        required: "Please enter your password",
+      type: String,
+      required: "Please enter your password",
     },
     role: {
-        type: String,
-        default: "user",
+      type: String,
+      default: "user",
     },
     image: {
-        type: String,
-        default: "profile.gif",
+      type: String,
+      default: "profile.gif",
     },
     email_verified: {
-        type: Boolean,
-        default: false,
+      type: Boolean,
+      default: false,
     },
     defaultPaymentMethod: {
-        type: String,
-        default: "",
+      type: String,
+      default: "",
     },
     creditCards: [
-        {
-            name: String,
-            number: String,
-            expiry: String,
-            cvc: String,
-            isDefault: {
-                type: Boolean,
-                default: false,
-            },
-        }
+      {
+        name: String,
+        number: String,
+        expiry: String,
+        cvc: String,
+        isDefault: {
+          type: Boolean,
+          default: false,
+        },
+      },
     ],
     uniqueString: {
-        type: String,
-        unique: true,
+      type: String,
+      unique: true,
     },
     // likedProducts: [
     //     {
@@ -69,250 +70,308 @@ const userSchema = new mongoose.Schema({
     //     },
     // ],
     address: [
-        {
-            firstName: {
-                type: String,
-            },
-            lastName: {
-                type: String,
-            },
-            phoneNumber: {
-                type: String,
-            },
-            address: {
-                type: String,
-            },
-
-            streetType: {
-                type: String,
-            },
-            street: {
-                type: String,
-            },
-            building: {
-                type: String,
-            },
-            flat: {
-                type: String,
-            },
-            ground: {
-                type: String,
-            },
-            elevator: {
-                type: String,
-            },
-            region: {
-                type: String,
-            },
-            city: {
-                type: String,
-            },
-            cityType: {
-                type: String,
-            },
-            zipCode: {
-                type: String,
-            },
-            country: {
-                type: String,
-            },
-            active: {
-                type: Boolean,
-                default: false,
-            },
+      {
+        firstName: {
+          type: String,
         },
+        lastName: {
+          type: String,
+        },
+        phoneNumber: {
+          type: String,
+        },
+        address: {
+          type: String,
+        },
+
+        streetType: {
+          type: String,
+        },
+        street: {
+          type: String,
+        },
+        building: {
+          type: String,
+        },
+        flat: {
+          type: String,
+        },
+        ground: {
+          type: String,
+        },
+        elevator: {
+          type: String,
+        },
+        region: {
+          type: String,
+        },
+        city: {
+          type: String,
+        },
+        cityType: {
+          type: String,
+        },
+        zipCode: {
+          type: String,
+        },
+        country: {
+          type: String,
+        },
+        active: {
+          type: Boolean,
+          default: false,
+        },
+      },
     ],
     wishlist: [
-        {
-            product: {
-                type: ObjectId,
-                ref: "Product",
-                required: true,
-            },
-            name: {
-                type: String,
-            },
-            image: {
-                type: String,
-            },
-            size: {
-                type: String,
-            },
-            color: {
-                type: String,
-            },
-            code: {
-                type: String,
-            },
-            mode: {
-                type: String,
-            },
-            style: {
-                type: String,
-            }
+      {
+        product: {
+          type: ObjectId,
+          ref: "Product",
+          required: true,
         },
+        name: {
+          type: String,
+        },
+        image: {
+          type: String,
+        },
+        size: {
+          type: String,
+        },
+        color: {
+          type: String,
+        },
+        code: {
+          type: String,
+        },
+        mode: {
+          type: String,
+        },
+        style: {
+          type: String,
+        },
+      },
     ],
-    additionalInfo: [
-        {
-            vehicle: Boolean,
-            field: {
-                type: String,
-            description: "Я є власником автомобіля"
-            }
+    additionalInfo: {
+      vehicle: {
+        vehicle: {
+          type: Boolean,
+          default: false,
         },
-        {
-            motocicle: Boolean,
-            field: {
-                type: String,
-            description: "Я є власником іншого виду транспорту"
-            }
+        field: {
+          type: String,
+          default: "Я є власником автомобіля",
         },
-        {
-            children: Boolean,
-            field: {
-                type: String,
-                description: "У мене є дитина"
-            }
+      },
+      motorcycle: {
+        motorcycle: {
+          type: Boolean,
+          default: false,
         },
-        {
-            business: Boolean,
-            field: {
-                type: String,
-            description: "Цей аккаунт використовується юридичною особою, представником компанії або приватним підприємцем"
-            }
+        field: {
+          type: String,
+          default: "Я є власником іншого виду транспорту",
         },
-
-    ],
-    admiration: [
-        {
-            fishing: Boolean,
-            field: {
-                type: String,
-            description: "Рибальство"
-            }
+      },
+      children: {
+        children: {
+          type: Boolean,
+          default: false,
         },
-        {
-            hunting: Boolean,
-            field: {
-                type: String,
-            description: "Полювання"
-            }
+        field: {
+          type: String,
+          default: "У мене є дитина",
         },
-        {
-            gardening: Boolean,
-            field: {
-                type: String,
-            description: "Садівництво"
-            }
+      },
+      business: {
+        business: {
+          type: Boolean,
+          default: false,
         },
-        {
-            fitness: Boolean,
-            field: {
-                type: String,
-            description: "Фітнес"
-            }
+        field: {
+          type: String,
+          default:
+            "Цей аккаунт використовується юридичною особою, представником компанії або приватним підприємцем",
         },
-        {
-            yoga: Boolean,
-            field: {
-                type: String,
-            description: "Йога"
-            }
+      },
+    },
+    admiration: {
+      fishing: {
+        fishing: {
+          type: Boolean,
+          default: false,
         },
-        {
-            running: Boolean,
-            field: {
-                type: String,
-            description: "Біг"
-        }
-
+        field: {
+          type: String,
+          default: "Рибальство",
         },
-        {
-            bicycle: Boolean,
-            field: {
-                type: String,
-            description: "Велосипед"
-            }
+      },
+      hunting: {
+        hunting: {
+          type: Boolean,
+          default: false,
         },
-        {
-            music: Boolean,
-            field: {
-                type: String,
-            description: "Музика"
-            }
+        field: {
+          type: String,
+          default: "Полювання",
         },
-        {
-            tourism: Boolean,
-            field: {
-                type: String,
-            description: "Туризм"
-            }
+      },
+      gardening: {
+        gardening: {
+          type: Boolean,
+          default: false,
         },
-        {
-            cybersport: Boolean,
-            field: {
-                type: String,
-            description: "Кіберспорт"
-            }
+        field: {
+          type: String,
+          default: "Садівництво",
         },
-        {
-            handmade: Boolean,
-            field: {
-                type: String,
-            description: "Рукоділля"
-            }
+      },
+      fitness: {
+        fitness: {
+          type: Boolean,
+          default: false,
         },
-    ],
-    pets: [
-        {
-            dog: Boolean,
-            field: {
-                type: String,
-            description: "Песик"
-            }
+        field: {
+          type: String,
+          default: "Фітнес",
         },
-        {
-            bird: Boolean,
-            field: {
-                type: String,
-            description: "Пташка"
-            }
+      },
+      yoga: {
+        yoga: {
+          type: Boolean,
+          default: false,
         },
-        {
-            cat: Boolean,
-            field: {
-                type: String,
-            description: "Котик"
-            }
+        field: {
+          type: String,
+          default: "Йога",
         },
-        {
-            reptile: Boolean,
-            field: {
-                type: String,
-            description: "Плазун"
-            }
+      },
+      running: {
+        running: {
+          type: Boolean,
+          default: false,
         },
-
-        {
-            fish: Boolean,
-            field: {
-                type: String,
-            description: "Рибки"
-            }
+        field: {
+          type: String,
+          default: "Біг",
         },
-        {
-            rodent: Boolean,
-            field: {
-                type: String,
-            description: "Гризун"
-            }
+      },
+      bicycle: {
+        bicycle: {
+          type: Boolean,
+          default: false,
         },
-
-
-    ]
-},
-    { timestamps: true, }
-
+        field: {
+          type: String,
+          default: "Велосипед",
+        },
+      },
+      music: {
+        music: {
+          type: Boolean,
+          default: false,
+        },
+        field: {
+          type: String,
+          default: "Музика",
+        },
+      },
+      tourism: {
+        tourism: {
+          type: Boolean,
+          default: false,
+        },
+        field: {
+          type: String,
+          default: "Туризм",
+        },
+      },
+      cybersport: {
+        cybersport: {
+          type: Boolean,
+          default: false,
+        },
+        field: {
+          type: String,
+          default: "Кіберспорт",
+        },
+      },
+      handmade: {
+        handmade: {
+          type: Boolean,
+          default: false,
+        },
+        field: {
+          type: String,
+          default: "Рукоділля",
+        },
+      },
+    },
+    pets: {
+      dog: {
+        dog: {
+          type: Boolean,
+          default: false,
+        },
+        field: {
+          type: String,
+          default: "Песик",
+        },
+      },
+      bird: {
+        bird: {
+          type: Boolean,
+          default: false,
+        },
+        field: {
+          type: String,
+          default: "Пташка",
+        },
+      },
+      cat: {
+        cat: {
+          type: Boolean,
+          default: false,
+        },
+        field: {
+          type: String,
+          default: "Котик",
+        },
+      },
+      reptile: {
+        reptile: {
+          type: Boolean,
+          default: false,
+        },
+        field: {
+          type: String,
+          default: "Плазун",
+        },
+      },
+      fish: {
+        fish: {
+          type: Boolean,
+          default: false,
+        },
+        field: {
+          type: String,
+          default: "Рибки",
+        },
+      },
+      rodent: {
+        rodent: {
+          type: Boolean,
+          default: false,
+        },
+        field: {
+          type: String,
+          default: "Гризун",
+        },
+      },
+    },
+  },
+  { timestamps: true }
 );
 const User = mongoose.models.User || mongoose.model("User", userSchema);
 

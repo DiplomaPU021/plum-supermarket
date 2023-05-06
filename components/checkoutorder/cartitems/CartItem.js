@@ -14,7 +14,7 @@ export default function CartItem({ product }) {
                             : product.name + " " + (product.color ? product.color.color : "") + " " + product.size}</h5>
                     </div>
                     <div className={styles.cardcontrols}>                  
-                            <p>{product.priceAfter.toLocaleString()} ₴</p>
+                            <p>{product.priceAfter.toLocaleString("uk-UA")} ₴</p>
                             <span>{product.qty} шт.</span>
                     </div>
                 </Card.Body>

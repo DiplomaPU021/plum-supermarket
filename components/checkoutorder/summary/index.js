@@ -163,7 +163,7 @@ export default function Summary({
                             </div>
                             <div className={styles.total}>
                                 <ul>
-                                    <li><div className={styles.litext_btn}><p>{totalQty} товарів на сумму</p><h6>{totalPrice.toLocaleString()} ₴</h6></div></li>
+                                    <li><div className={styles.litext_btn}><p>{totalQty} товарів на сумму</p><h6>{totalPrice.toLocaleString("uk-UA")} ₴</h6></div></li>
                                     <li><div className={styles.litext_btn}><p>Доставка</p><h6>{delivery.deliveryType}</h6></div></li>
                                     <li><div className={styles.litext_btn}><p>Адреса доставки</p><h6>{delivery.deliveryAddress}</h6></div></li>
                                     <li><div className={styles.litext_btn}><p>Вартість доставки</p><h6>{delivery.deliveryType == "Кур'єр на вашу адресу" ? `${Number(delivery.deliveryCost)} ₴` : delivery.deliveryCost}</h6></div></li>
@@ -173,7 +173,7 @@ export default function Summary({
                                     {discount > 0 && (
                                         <li><div className={styles.litext_btn}><p>Купон застосовано:</p><h6><b>-{discount}%</b></h6></div></li>
                                     )}
-                                    <li><div className={styles.litext_btn}><p>До сплати:</p><h3>{Math.round(totalAfterDiscount).toLocaleString()} ₴</h3></div></li>
+                                    <li><div className={styles.litext_btn}><p>До сплати:</p><h3>{Math.round(totalAfterDiscount).toLocaleString("uk-UA")} ₴</h3></div></li>
                                 </ul>
                                 <Button className={styles.small_sbm} onClick={() => sendOrder()}>Підтвердити</Button>
                                 <Form.Control className={styles.form_input3}

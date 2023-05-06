@@ -139,7 +139,7 @@ export default function Header({ country }) {
   const [str, setStr] = useState( router.query.text || "");
   const [isLoading, setIsLoading] = useState(false);
   const [options, setOptions] = useState(searchedList.searchedListItems);
-  const [value, setValue] = useState(null);
+  const [searchValue, setSearchValue] = useState(null);
 
 
   const handlerSubmit = (searchQuery) => {
@@ -149,6 +149,7 @@ export default function Header({ country }) {
   };
 
   const handlerOnSearch = (e) =>{
+    handleCreate(str)
      e.preventDefault();
      e.stopPropagation();
      //console.log("iv---", e);
@@ -182,15 +183,16 @@ export default function Header({ country }) {
       setIsLoading(false);
       dispatch(addToSearchedList(newOption));
       setOptions((prev) => [...prev, newOption]);
-      setValue(newOption);
+      setSearchValue(newOption);
       //setStr(newOption.value);
-      handlerSubmit(newOption.value);
+      //handlerSubmit(newOption.value);
+      router.push(`/search?text=${newOption.value}`);
     }, 700);
   };
 
   return (
     <div className={styles.main}>
-      {/* {JSON.stringify(value)}
+      {/* {JSON.stringify(searchValue)}
       {JSON.stringify(str)} */}
       <Tooltip
         id="header-login-tooltip"
@@ -297,18 +299,18 @@ export default function Header({ country }) {
               //onInputChange={handleInputChange}
               onInputChange={(e) => { setStr(e);}}
               //onInputChange={(e)=>handleInputChange(e)}
-             
-              //onChange={(e)=>handleInputChange(e)}
+              inputValue={str}
 
               onChange={(newValue) => {
-                setValue(newValue);
+                //setStr(newValue),
+                setSearchValue(newValue);
                 if (newValue) {
                   handlerSubmit(newValue.value);
                 }
               }}
               onCreateOption={handleCreate}
               options={options}
-              value={value}
+              value={searchValue}
             />
             <button
               onClick={(e)=>handlerOnSearch(e)}

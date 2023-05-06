@@ -203,3 +203,57 @@
         }
     }
 }
+
+.modalbody {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    gap: 20px;
+    border-radius: 8px;
+    color: #FAF8FF;
+    background-color: #220F4B;
+
+    h3 {
+        padding: 20px 0px 0px 0px;
+    }
+}
+
+.modal {
+    width: 360px !important;
+    height: 378px;
+}
+
+.line {
+    width: 272px;
+    height: 0px;
+    border: 2px solid #70BF63;
+    margin-bottom: 20px;
+}
+
+.addbtn {
+    width: 272px;
+    height: 47px;
+    color: $light-wheet-color;
+    background: $green-color;
+    border-radius: 30px;
+    border: none;
+    font-size: 20px;
+    font-weight: 600;
+}
+
+.addbtn2 {
+    width: 272px;
+    height: 47px;
+    color: $light-wheet-color;
+    background: $plum-dark-color;
+    border-radius: 30px;
+    border: none;
+    font-size: 20px;
+    font-weight: 600;
+
+    &:hover{
+        border: 2px solid $green-color;
+    }
+}

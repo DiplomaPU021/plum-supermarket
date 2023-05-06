@@ -27,7 +27,10 @@ export default function Profile({ country, ...props }) {
   const [showAddAddressBlock, setShowAddAddressBlock] = useState("none");
   const [profileCityModalShow, setProfileCityModalShow] = useState(false);
 
-  const [admiration, setAdmiration] = useState([]);
+  const [admiration, setAdmiration] = useState(props.user?.admiration || []);
+  const [additionalInfo, setAdditionalInfo] = useState(props.user?.additionalInfo || {});
+  //console.log("addi----->", props.user.additionalInfo);
+  const [pets, setPets] = useState(props.user?.pets || []);
   const selectRef = useRef();
   const cityRef = useRef();
   const postmanRef = useRef();
@@ -46,7 +49,7 @@ export default function Profile({ country, ...props }) {
     elevator: "Відсутній",
   });
   const [selectedAddress, setSelectedAddress] = useState(
-    `${activeAddress.cityType} ${activeAddress.city}, ${activeAddress.address}`
+    `${activeAddress?.cityType} ${activeAddress?.city}, ${activeAddress?.address}`
   );
   const [isSavedAddress, setIsSavedAddress] = useState(false);
   //   useEffect(async()=>{
@@ -374,6 +377,54 @@ export default function Profile({ country, ...props }) {
     setShowCard(false)
   }
 
+  function replaseSelectedInfo(selectedArr, setArr, value) {
+    if (selectedArr.length > 0) {
+      const valueCheck = selectedArr.findIndex((el) => el == value);
+      if (valueCheck !== -1) {
+        setArr((prev) => prev.filter((v) => v !== value));
+      } else {
+        setArr((prev) => [...prev, value]);
+      }
+    } else {
+      setArr((prev) => [...prev, value]);
+    }
+    console.log(selectedArr);
+  }
+
+const [vehicle, setVehicle] = useState({
+  vehicle: props.user.additionalInfo.vehicle.vehicle, 
+  field: props.user.additionalInfo.vehicle.field
+});
+const [motorcycle, setMotorcycle] = useState({
+  motorcycle: props.user.additionalInfo.motorcycle.motorcycle, 
+  field: props.user.additionalInfo.motorcycle.field
+});
+const [children, setChildren] = useState({
+  children: props.user.additionalInfo.children.children, 
+  field: props.user.additionalInfo.children.field
+});
+const [business, setBusiness] = useState({
+  business: props.user.additionalInfo.business.business, 
+  field: props.user.additionalInfo.business.field
+});
+
+  const additionalInfoHandler = async () => {
+    const result = await axios.put('/api/user/additionalInfo', {
+     additionalInfo:{
+      vehicle,
+      motorcycle,
+      children,
+      business
+     }
+    });
+    console.log("UserChanged", result);
+    setIsInEdit(false);
+
+  }
+
+
+
+
   return (
     <Accordion
       flush
@@ -395,12 +446,12 @@ export default function Profile({ country, ...props }) {
                   </Form.Label>
                   <Form.Control
                     className={`${styles.form_input} ${errors.lastName ? "is-invalid" : ""
-                      }`}
+                    }`}
                     type="text"
                     name="lastName"
                     {...register("lastName")}
                     readOnly={!isInEdit}
-                  // aria-invalid={errors.lastName ? "true" : "false"}
+                    // aria-invalid={errors.lastName ? "true" : "false"}
                   />
                   <Form.Control.Feedback type="invalid">
                     {errors.lastName?.message}
@@ -412,7 +463,7 @@ export default function Profile({ country, ...props }) {
                   </Form.Label>
                   <Form.Control
                     className={`${styles.form_input} ${errors.phoneNumber ? "is-invalid" : ""
-                      }`}
+                    }`}
                     name="phoneNumber"
                     {...register("phoneNumber")}
                     readOnly={!isInEdit}
@@ -427,7 +478,7 @@ export default function Profile({ country, ...props }) {
                   <Form.Label className={styles.form_label}>Ім'я</Form.Label>
                   <Form.Control
                     className={`${styles.form_input} ${errors.firstName ? "is-invalid" : ""
-                      }`}
+                    }`}
                     type="text"
                     name="firstName"
                     {...register("firstName")}
@@ -457,7 +508,7 @@ export default function Profile({ country, ...props }) {
                   </Form.Label>
                   <Form.Control
                     className={`${styles.form_input} ${errors.birthday ? "is-invalid" : ""
-                      }`}
+                    }`}
                     type="date"
                     name="birthday"
                     {...register("birthday")}
@@ -478,7 +529,7 @@ export default function Profile({ country, ...props }) {
                     disabled={!isInEdit}
                     name="gender"
                     className={`${styles.form_input} ${errors.gender ? "is-invalid" : ""
-                      }`}
+                    }`}
                   >
                     <option value="Стать" disabled={true}>
                       Стать
@@ -534,33 +585,33 @@ export default function Profile({ country, ...props }) {
         </Accordion.Header>
         <Accordion.Body className={styles.accordion__item_body}>
           <Row >
-          <div className={styles.flex_row}>
-            <Form.Select
-              className={styles.form_address}
-              name="selectPostmanDelivery"
-              id="selectPostmanDelivery"
-              onChange={(e) => handleSelectPostman(e)}
-              ref={postmanRef}
-              defaultValue={selectedAddress}
-            >
-              {/* <option key ="addressOPt0" value="Вибрати адресу доставки..." disabled={true}>Вибрати адресу доставки...</option>  */}
-              {userAddresses != null &&
+            <div className={styles.flex_row}>
+              <Form.Select
+                className={styles.form_address}
+                name="selectPostmanDelivery"
+                id="selectPostmanDelivery"
+                onChange={(e) => handleSelectPostman(e)}
+                ref={postmanRef}
+                defaultValue={selectedAddress}
+              >
+                {/* <option key ="addressOPt0" value="Вибрати адресу доставки..." disabled={true}>Вибрати адресу доставки...</option>  */}
+                {userAddresses != null &&
                 userAddresses.filter(
                   (c) => c.address !=""
                 )
-                ? userAddresses.map((item, index) => (
-                  <option
-                    key={`${item.address}-${index}`}
-                    value={`${item.cityType} ${item.city}, ${item.address}`}
-                  >
-                    {item.cityType} {item.city}, {item.address}
-                  </option>
-                ))
-                : null}
-            </Form.Select>
+                  ? userAddresses.map((item, index) => (
+                      <option
+                        key={`${item.address}-${index}`}
+                        value={`${item.cityType} ${item.city}, ${item.address}`}
+                      >
+                        {item.cityType} {item.city}, {item.address}
+                      </option>
+                    ))
+                  : null}
+              </Form.Select>
             <button onClick={handleSaveAdress} id="btnSaveAddress" disabled={isSavedAddress}>
-                  Зберегти
-                </button>
+                Зберегти
+              </button>
             </div>
           </Row>
           <Row className={styles.contacts}>
@@ -711,27 +762,39 @@ export default function Profile({ country, ...props }) {
         </Accordion.Header>
         <Accordion.Body className={styles.accordion__item_body}>
           <Form.Check type="checkbox" className={styles.checkbox}>
-            <Form.Check.Input className={styles.checkbox_box} type="checkbox" />
+            <Form.Check.Input
+              className={styles.checkbox_box}
+              type="checkbox"
+            />
             <Form.Check.Label className={styles.checkbox_label}>
               У мене є дитина
             </Form.Check.Label>
           </Form.Check>
 
           <Form.Check type="checkbox" className={styles.checkbox}>
-            <Form.Check.Input className={styles.checkbox_box} type="checkbox" />
+            <Form.Check.Input
+              className={styles.checkbox_box}
+              type="checkbox"
+            />
             <Form.Check.Label className={styles.checkbox_label}>
               Я є власником автомобіля
             </Form.Check.Label>
           </Form.Check>
 
           <Form.Check type="checkbox" className={styles.checkbox}>
-            <Form.Check.Input className={styles.checkbox_box} type="checkbox" />
+            <Form.Check.Input
+              className={styles.checkbox_box}
+              type="checkbox"
+            />
             <Form.Check.Label className={styles.checkbox_label}>
               Я є власником іншого виду транспорту
             </Form.Check.Label>
           </Form.Check>
           <Form.Check type="checkbox" className={styles.checkbox}>
-            <Form.Check.Input className={styles.checkbox_box} type="checkbox" />
+            <Form.Check.Input
+              className={styles.checkbox_box}
+              type="checkbox"
+            />
             <Form.Check.Label className={styles.checkbox_label}>
               Цей аккаунт використовується юридичною особою, представником
               компанії або приватним підприємцем
@@ -739,7 +802,7 @@ export default function Profile({ country, ...props }) {
           </Form.Check>
           <button
             className={styles.profilebtn}
-            onClick={() => setIsInEdit(true)}
+           // onClick={() =>{ setIsInEdit(true), additionalInfoHandler()}}
           >
             Підтвердити
           </button>

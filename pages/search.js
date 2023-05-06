@@ -36,10 +36,6 @@ export default function Search({
   const brandsToDisplay =
     brands.length > MAX_BRANDS ? brands.slice(0, MAX_BRANDS) : brands;
 
-  const [localBrands, setLocalBrands] = useState(brands);
-  const [localColors, setLocalColors] = useState(colors);
-  const [localSizes, setLocalSizes] = useState(sizes);
-
   const router = useRouter();
 
   const filter = ({ text, brand, color, size, price }) => {
@@ -152,15 +148,10 @@ export default function Search({
         return 0;
       }
     });
-    return sorted;
+    return (arr = [...sorted]);
   }
 
   //--------------------------------------------------------->>
-
-  const [valueSort, setValueSort] = useState("byRating");
-  const [showSideBlock, setShowSideBlock] = useState(true);
-  const [numCards, setNumCards] = useState(3);
-  const [units, setUnits] = useState(10);
 
   useEffect(() => {
     const handleResize = () => {
@@ -177,9 +168,13 @@ export default function Search({
     };
     handleResize();
     window.addEventListener("resize", handleResize);
-    setLocalBrands(brands);
     return () => window.removeEventListener("resize", handleResize);
   }, []);
+
+  const [valueSort, setValueSort] = useState("byRating");
+  const [showSideBlock, setShowSideBlock] = useState(true);
+  const [numCards, setNumCards] = useState(3);
+  const [units, setUnits] = useState(10);
 
   function getLowestPrice(product) {
     let lowestPrice = Number.MAX_VALUE;
@@ -352,7 +347,7 @@ export default function Search({
                             value={searchBrand}
                             onChange={(e) => {
                               setSearchBrand(e.target.value);
-                              searchBrandHandler();
+                              searchByParam(brands, searchBrand);
                             }}
                           />
                           <button onClick={() => searchBrandHandler()}>
@@ -370,7 +365,7 @@ export default function Search({
                         }}
                         className={styles.group}
                       >
-                        {localBrands.map((brand, i) => {
+                        {brands.map((brand, i) => {
                           const checkb = replaseQuery("brand", brand);
                           return (
                             <Form.Check
@@ -439,6 +434,7 @@ export default function Search({
                         onChange={(e) => {
                           e.preventDefault();
                           setPriceChecked(e.target.checked ? true : false),
+                          // priceHandler(e.target.checked);
                           priceHandler(e);
                         }}
                       />
@@ -469,7 +465,7 @@ export default function Search({
                             placeholder="Пошук"
                             onChange={(e) => {
                               setSearchColor(e.target.value),
-                                searchColorHandler();
+                                searchByParam(colors, searchColor);
                             }}
                           />
                           <button onClick={() => searchColorHandler()}>
@@ -487,7 +483,7 @@ export default function Search({
                         }}
                         className={styles.group}
                       >
-                        {localColors.map((color, i) => {
+                        {colors.map((color, i) => {
                           const checkc = replaseQuery("color", color);
                           return (
                             <Form.Check
@@ -539,7 +535,7 @@ export default function Search({
                             placeholder="Пошук"
                             onChange={(e) => {
                               setSearchSize(e.target.value),
-                                searchSizeHandler();
+                                searchByParam(sizes, searchSize);
                             }}
                           />
                           <button onClick={() => searchSizeHandler()}>
@@ -556,7 +552,7 @@ export default function Search({
                         }}
                         className={styles.group}
                       >
-                        {localSizes.map((size, i) => {
+                        {sizes.map((size, i) => {
                           const checks = replaseQuery("size", size);
                           return (
                             <Form.Check

@@ -1,75 +1,183 @@
-import styles from "./styles.module.scss"
-import { Container, Row, Col, Pagination } from 'react-bootstrap'
-import Link from "next/link"
-import { useRouter } from "next/router"
+import styles from "./styles.module.scss";
+import { Container, Row, Col, Pagination, Form } from "react-bootstrap";
+import { useRouter } from "next/router";
 import LoopIcon from "@/components/icons/LoopIcon";
-import { useState } from "react";
-import OrderItem from "../orderitem/OrderItem";
-
+import { useEffect, useState } from "react";
+import OrderItem from "../orderitem/OrderItem"
 
 export default function MyOrders(props) {
-    const [showDirection, setShowDirection] = useState("desc")
+  const [orders, setOrders] = useState(props.orders);
 
-    const setSortDirection = () => {
-        showDirection == "desc" ? setShowDirection("asc") : setShowDirection("desc")
+  const [showDirection, setShowDirection] = useState("desc");
+
+  const setSortDirection = () => {
+    showDirection == "desc"
+      ? (setShowDirection("asc"),
+        setOrders(
+          orders.sort((a, b) => a.costAfterDiscount - b.costAfterDiscount)
+        ))
+      : (setShowDirection("desc"),
+        setOrders(
+          orders.sort((a, b) => b.costAfterDiscount - a.costAfterDiscount)
+        ));
+  };
+
+  const sortByStatus = (status) => {
+    if(status === "all"){
+        setOrders(props.orders)
     }
-
-    const [activePage, setActivePage] = useState(1);
-    const itemsPerPage = 4;
-
-    function displayComponentsForActivePage() {
-        const startIndex = (activePage - 1) * itemsPerPage;
-        const endIndex = startIndex + itemsPerPage;
-        return props.orders.slice(startIndex, endIndex);
+    else if (status.length > 1) {
+        let filteredOrders = props.orders.filter((order) => order.status === status);
+        setOrders(filteredOrders);
     }
+  };
 
-    function handlePageChange(pageNumber) {
-        setActivePage(pageNumber);
+  
+  const [searchOrder, setSearchOrder] = useState("");
+
+  const searchOrderHandler = () => {
+    if (searchOrder.length > 0) {
+      setOrders(
+        props.orders.filter(
+          (order) => order._id.substring(0, 6) === searchOrder
+        )
+      );
+    } else {
+      setOrders(props.orders);
     }
+  };
 
-    return (
-        <Container>
-            <Row className={styles.orderpagehead}>
-                <Col xs className={styles.col}><Link href="/" className={styles.link}>Виконані</Link></Col>
-                <Col xs={2} sm={4} md={2} className={styles.col}><Link href="/" className={styles.link}>Очікувані</Link></Col>
-                <Col xs={2} sm={4} md={2} className={styles.col}><Link href="/" className={styles.link}>Скасовані</Link></Col>
-            </Row>
-            <Row className={styles.searchrow}>
-                <div className={styles.search}>
-                    <div className={styles.search_field}>
-                        <input type="text" placeholder="Пошук замовлення" />
-                        <button>
-                            <LoopIcon fillColor="#FAF8FF" />
-                        </button>
-                    </div>
-                </div>
-                <button className={styles.cardextrabtn} onClick={() => setSortDirection()}>Сортування за суммою {showDirection === "desc" ? <img width="30px" height="30px" src="../../../icons/down-btn.png"></img> :
-                    <img width="30px" height="30px" src="../../../icons/up-btn.png"></img>}
-                </button>
-            </Row>
-            <Row className={styles.orders}>
-                {displayComponentsForActivePage().map((order) => (
-                    <OrderItem order={order} key={order._id} />
-                ))}
-                <div>
-                    <Pagination className={styles.fixed_bottom}>
-                        <Pagination.Prev className={styles.pagin_item} />       {/*   //TODO  onClick Implement*/}
-                        {Array.from({
-                            length: Math.ceil(props.orders.length / itemsPerPage),
-                        }).map((_, index) => (
-                            <Pagination.Item
-                                key={index}
-                                active={index + 1 === activePage}
-                                onClick={() => handlePageChange(index + 1)}
-                                className={styles.pagin_item}
-                            >
-                                <span>{index + 1}</span>
-                            </Pagination.Item>
-                        ))}
-                        <Pagination.Next className={styles.pagin_item} />  {/*   //TODO  onClick Implement*/}
-                    </Pagination>
-                </div>
-            </Row>
-        </Container >
-    )
+  const [activePage, setActivePage] = useState(1);
+  const itemsPerPage = 4;
+
+  function displayComponentsForActivePage() {
+    const startIndex = (activePage - 1) * itemsPerPage;
+    const endIndex = startIndex + itemsPerPage;
+    return orders.slice(startIndex, endIndex);
+  }
+
+  function handlePageChange(pageNumber) {
+    setActivePage(pageNumber);
+  }
+
+  return (
+    <Container>
+      <Row className={styles.orderpagehead}>
+        <Col xs className={styles.col}>
+          <Form.Group className={styles.status}>
+            <Form.Check
+              className={styles.status__radiobtn}
+              type="radio"
+              aria-label="radio 1"
+              label="Bсі замовлення"
+              name="status"
+              id="formHorizontalRadios1"
+              value="all"
+              onChange={(e) => sortByStatus(e.target.value)}
+            />
+            <Form.Check
+              className={styles.status__radiobtn}
+              type="radio"
+              aria-label="radio 2"
+              label="Виконані"
+              name="status"
+              id="formHorizontalRadios2"
+              value="Завершено"
+              onChange={(e) => sortByStatus(e.target.value)}
+            />
+            <Form.Check
+              className={styles.status__radiobtn}
+              type="radio"
+              aria-label="radio 3"
+              label="Очікувані"
+              name="status"
+              id="formHorizontalRadios3"
+              value="Нове замовлення"
+              onChange={(e) => sortByStatus(e.target.value)}
+            />
+            <Form.Check
+              className={styles.status__radiobtn}
+              type="radio"
+              aria-label="radio 4"
+              label="Скасовані"
+              name="status"
+              id="formHorizontalRadios4"
+              value="Скасовано"
+              onChange={(e) => sortByStatus(e.target.value)}
+            />
+          </Form.Group>
+        </Col>
+      </Row>
+      <Row className={styles.searchrow}>
+        <div className={styles.search}>
+          <div className={styles.search_field}>
+            <input
+              type="text"
+              value={searchOrder}
+              onChange={(e) => setSearchOrder(e.target.value)}
+              placeholder="Пошук замовлення"
+            />
+            <button onClick={searchOrderHandler}>
+              <LoopIcon fillColor="#FAF8FF" />
+            </button>
+          </div>
+        </div>
+        <button
+          className={styles.cardextrabtn}
+          onClick={() => setSortDirection()}
+        >
+          Сортування за суммою{" "}
+          {showDirection === "desc" ? (
+            <img
+              width="30px"
+              height="30px"
+              src="../../../icons/down-btn.png"
+            ></img>
+          ) : (
+            <img
+              width="30px"
+              height="30px"
+              src="../../../icons/up-btn.png"
+            ></img>
+          )}
+        </button>
+      </Row>
+      <Row className={styles.orders}>
+        {displayComponentsForActivePage().map((order) => (
+          <OrderItem order={order} key={order._id} />
+        ))}
+        <div>
+          <Pagination 
+          className={styles.pagination}
+          //className={styles.fixed_bottom}
+          >
+            <Pagination.Prev
+              //className={styles.pagin_item}
+              onClick={() => setActivePage(activePage - 1)}
+              disabled={activePage === 1}
+              style={{backgroundColor: "transparent !important"}}
+            />
+            {Array.from({
+              length: Math.ceil(orders.length / itemsPerPage),
+            }).map((_, index) => (
+              <Pagination.Item
+                key={index}
+                active={index + 1 === activePage}
+                onClick={() => handlePageChange(index + 1)}
+                //className={styles.pagin_item}
+              >
+                {index + 1}
+                {/* <span>{index + 1}</span> */}
+              </Pagination.Item>
+            ))}
+            <Pagination.Next
+              onClick={() => setActivePage(activePage + 1)}
+              disabled={activePage === Math.ceil(orders.length / itemsPerPage)}
+              //className={styles.pagin_item}
+            />
+          </Pagination>
+        </div>
+      </Row>
+    </Container>
+  );
 }
