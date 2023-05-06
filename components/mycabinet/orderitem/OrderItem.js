@@ -1,6 +1,6 @@
 import styles from "./styles.module.scss"
 import { Container, Row, Col, Table, Form, Modal } from 'react-bootstrap'
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import LeaveFeedback from "../../productPage/leaveFeedback"
 import axios from "axios";
 
@@ -8,6 +8,13 @@ import axios from "axios";
 export default function OrderItem(props) {
     const [showFulllOrder, setShowFulllOrder] = useState("none")
     const [feedback, setFeedback] = useState(false);
+
+    useEffect(() => {
+        if (props.adminActive) {
+            setShowFulllOrder("block")
+        }
+    })
+
     const handleFeedBack = () => {
         setFeedback(true);
         //  setLoginModalShow(true);
@@ -26,23 +33,25 @@ export default function OrderItem(props) {
     };
 
     return (
-      <Container className={styles.container}>
-        <Row className={styles.orderitem}>
-          {showFulllOrder === "none" ? (
-            <Col xs={4} className={styles.col}>
+        <Container className={styles.container}>
+            <Row className={styles.orderitem}>
+                {showFulllOrder === "none" && !props.adminActive ? (
+                    <Col xs={4} className={styles.col}>
+
                         <p>№{props.order._id.substring(0, 6)} від {props.order.createdAt.substring(0, 10)}<br /><span>{props.order?.status}</span></p>
                     </Col>) : (
             <Col xs={11} className={styles.col_opendiv}>
                         <p>№{props.order._id.substring(0, 6)} від {props.order.createdAt.substring(0, 10)}<br /><span>{props.order?.status}</span></p>
-            </Col>
-          )}
-          {showFulllOrder === "none" ? (
-            <Col xs={3} className={styles.col}>
+                    </Col>
+                )}
+                {showFulllOrder === "none" && !props.adminActive ? (
+                    <Col xs={3} className={styles.col}>
                         <p>Сума замовлення<br /><span>{props.order.costAfterDiscount.toLocaleString('uk-UA')} ₴</span></p>
                     </Col>) : <></>}
-                {showFulllOrder === "none" ? props.order.products.slice(0, 2).map(product => (
-              <Col className={styles.col_pic} key={product._id}>
-                <div className={styles.picture}>
+                {showFulllOrder === "none" && !props.adminActive ? props.order.products.slice(0, 2).map(product => (
+                    <Col className={styles.col_pic} key={product._id}>
+                        <div className={styles.picture}>
+
                             <img src={product.image} width='74px' height='45px' style={{ objectFit: "contain" }} />
                 </div>
               </Col>
@@ -99,10 +108,11 @@ export default function OrderItem(props) {
                   </div>
                             ) : <></>}
                             <span>{props.order.paymentMethod} : <b>{props.order.totalPrice.toLocaleString('uk-UA')}  ₴</b></span>
-              </div>
-              <div className={styles.delivery_item}>
-                <p>Доставка</p>
-                <span> {props.order.deliveryMethod.deliveryType}</span>
+                            <span>Статус: {props.order.isPaid ? "Оплачено" : "Очікується оплата"}</span>
+                        </div>
+                        <div className={styles.delivery_item}>
+                            <p>Доставка</p>
+                            <span> {props.order.deliveryMethod.deliveryType}</span>
                             <span> Вартість доставки: {props.order.deliveryMethod.deliveryId !== "postmanDelivery" ?
                                 (<span><small>{props.order.deliveryMethod.deliveryCost}</small></span>
                                 ) : <span><b>{props.order.deliveryMethod.deliveryCost} ₴</b></span>}</span>
@@ -113,20 +123,21 @@ export default function OrderItem(props) {
                 ) : props.order.deliveryMethod.deliveryId === "novaPoshta" ? (
                                 <span>Відділення:<small>{props.order.deliveryMethod.deliveryAddress}</small></span>
                             ) : <></>}
-
               </div>
             </Row>
+             {!props.adminActive ? (
             <div className={styles.repete}>
                         <button className={styles.light_button} onClick={handleFeedBack}>Залишити відгук</button>
                         <button className={styles.dark_button} onClick={()=>setOrderConfirm(true)}>Повторити замовлення</button>
             </div>
+             ) : null}
           </Col>
 
           <LeaveFeedback
             show={feedback}
             onHide={() => setFeedback(false)}
-                    product={null}   //TODO Как передать сюда продукт ???
-                    setProductReview={null}  //TODO Как передать сюда setProductReview ???
+                    product={null}
+                    setProductReview={null}
           />
 
           <Modal

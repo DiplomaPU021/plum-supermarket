@@ -1,6 +1,7 @@
 @import "../../base";
 
 .images {
+    color: $plum-dark-color;
     &_main {
         &_grid {
             max-width: 500px;
@@ -22,14 +23,11 @@
                 &:hover {
                     .images_main_grid_actions {
                         display: flex;
-
                     }
 
                     .blur {
                         display: block;
                     }
-
-
                 }
 
                 .blur {
@@ -68,7 +66,7 @@
 
                         svg {
                             transform: scale(1.3);
-                            fill: $blue-color;
+                            fill: $light-wheet-color;
                         }
                     }
 
@@ -84,9 +82,13 @@
     button {
         margin-top: 1rem;
         margin-bottom: 1rem;
-        background: $blue-color;
-        color: #fff;
+        background: $plum-dark-color;
+        color: $light-wheet-color;
         border: none;
+
+        &:hover {
+            box-shadow: 0px 0px 5px 0px $plum-dark-color;
+        }
     }
 }
 
@@ -96,12 +98,12 @@
 //TODO картинки не деляться как надо(((
 //---------------------------------------------------
 .grid_two {
-    grid-template-columns: repeat(2, 1fr);
+    grid-template-columns: repeat(2,1fr);
 }
 
 .grid_three {
-    grid-template-columns: repeat(2, 1fr);
-    grid-template-rows: repeat(2, 1fr);
+    grid-template-columns: repeat(2,1fr);
+    grid-template-rows: repeat(2,1fr);
 
     &_images_main_grid_wrap {
         img {
@@ -128,7 +130,7 @@
 }
 
 .grid_four {
-    grid-template-columns: repeat(2, 1fr);
+    grid-template-columns: repeat(2,1fr);
 
     img {
         height: 300px;
@@ -152,12 +154,12 @@
     }
 
     &:nth-of-type(1) {
-        grid-area: img1;
+        grid-area: "img1";
         height: 300px;
     }
 
     &:nth-of-type(2) {
-        grid-area: img2;
+        grid-area: "img2";
         height: 300px;
     }
 

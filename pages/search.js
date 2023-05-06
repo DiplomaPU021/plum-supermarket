@@ -60,8 +60,10 @@ export default function Search({
   const [priceChacked, setPriceChecked] = useState(false);
 
   const priceHandler = (e) => {
+    e.preventDefault();
+    e.stopPropagation();
     let newPrice = "";
-    if (e) {
+    if (e.target.checked) {
       let min = valuePrice.min;
       let max = valuePrice.max;
       newPrice = `${min}_${max}`;
@@ -430,8 +432,10 @@ export default function Search({
                         type="checkbox"
                         checked={priceChacked}
                         onChange={(e) => {
+                          e.preventDefault();
                           setPriceChecked(e.target.checked ? true : false),
-                            priceHandler(e.target.checked);
+                          // priceHandler(e.target.checked);
+                          priceHandler(e);
                         }}
                       />
                     </div>

@@ -1,8 +1,9 @@
 @import "../../base";
 
 .colors {
-    padding-top: 1rem;
-    border-top: 1px solid #ccc;
+   // padding-top: 1rem;
+   // border-top: 1px solid #ccc;
+    color: $plum-dark-color;
 
     button {
         background: $blue-color;
@@ -19,10 +20,17 @@
 }
 
 .picker {
-    margin-top: 1rem;
+    margin-top: 1rem; 
     margin-bottom: 1rem;
 }
 
 .label_title {
     padding-right: 1rem;
+}
+.error_msg {
+    color: red;
+    font-size: 13px;
+}
+.header__error {
+    color: red;
 }

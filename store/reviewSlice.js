@@ -30,4 +30,3 @@ export const reviewSlice = createSlice({
 
 export const { addToReviewRating, updateNumberReviews, updateReviewRating, emptyReviewRating } = reviewSlice.actions;
 export default reviewSlice.reducer;
-//export const cartReducer = cartSlice.reducer;

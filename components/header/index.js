@@ -148,8 +148,23 @@ export default function Header({ country }) {
     }
   };
 
-  const handlerOnSearch = () =>{
+  const handlerOnSearch = (e) =>{
     handleCreate(str)
+     e.preventDefault();
+     e.stopPropagation();
+     //console.log("iv---", e);
+
+    const newOption = {
+      label: str,
+      value: str.toLowerCase().trim(),
+    };
+    setOptions((prev) => [...prev, newOption]);
+    setValue(newOption);
+    
+    // router.push(`/search?text=${str}`);
+    const event = new KeyboardEvent('keypress', { key: 'Enter' })
+    e.target.dispatchEvent(event)
+    // handlerSubmit(newOption.value);
   }
 
   // const handleInputChange = (e) => {
@@ -298,7 +313,7 @@ export default function Header({ country }) {
               value={searchValue}
             />
             <button
-              onClick={handlerOnSearch}
+              onClick={(e)=>handlerOnSearch(e)}
             >
               <LoopIcon fillColor="#FAF8FF" />
             </button>

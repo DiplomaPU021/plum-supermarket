@@ -40,6 +40,12 @@ const orderSchema = new mongoose.Schema(
                         type: String,
                     },
                 },
+                style:{
+                    type: String,
+                },
+                mode:{
+                    type: String,
+                }
                 // totalSum: {
                 //     type: Number,
                 // },

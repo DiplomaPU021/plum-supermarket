@@ -13,6 +13,7 @@ import { FaThList } from 'react-icons/fa';
 import { BsPatchPlus } from 'react-icons/bs';
 import { MdOutlineCategory } from 'react-icons/md';
 import { RiCoupon3Fill, RiLogoutCircleFill, RiSettingsLine } from 'react-icons/ri';
+import { useState } from 'react';
 
 export default function Sidebar() {
     const router = useRouter();
@@ -20,6 +21,7 @@ export default function Sidebar() {
     const { data: session } = useSession();
     const dispatch = useDispatch();
     const { expandSidebar } = useSelector((state) => ({ ...state }));
+    const [logoW, setLogoW] = useState("150px")
     const expand = expandSidebar.expandSidebar;
     const handleExpand = () => {
         dispatch(toggleSidebar());
@@ -37,11 +39,11 @@ export default function Sidebar() {
                 </div>
             </div>
             <div className={styles.sidebar__container}>
-                <div className={styles.sidebar__header}>
-                    <span></span>
-                    <span></span>
-                    <span></span>
-                </div>
+                <Link href="/">
+                    <div className={styles.sidebar__header}>
+                        <img src="../../../../logo/logo_light.png" alt="" height="50px" />
+                    </div>
+                </Link>
                 <div className={styles.sidebar__user}>
                     <img src="../../../profile/account2.png" alt="" />
                     {/* <img src={session?.user?.image} alt="" /> */}
@@ -73,12 +75,6 @@ export default function Sidebar() {
                         <Link href="/admin/dashboard/users">
                             <ImUsers />
                             <span className={styles.show}>Users</span>
-                        </Link>
-                    </li>
-                    <li className={route == "messages" ? styles.active : ""}>
-                        <Link href="/admin/dashboard/messages">
-                            <AiFillMessage />
-                            <span className={styles.show}>Messages</span>
                         </Link>
                     </li>
                 </ul>

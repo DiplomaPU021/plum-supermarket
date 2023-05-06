@@ -2,7 +2,7 @@ import ChevronRight from "@/components/icons/ChevronRight";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { Col, Container, Row } from "react-bootstrap";
 import styles from "./styles.module.scss";
-import { useState } from "react";
+import React, { useState } from "react";
 import AllDescription from "../allDescription";
 import parse from 'html-react-parser';
 
@@ -55,9 +55,10 @@ export default function ProductDescription({ product }) {
             />
         </Col>
       </Row> */}
+      {/* <div id="anchor_feedback"></div> */}
       {additionalDescription.length > 1 ? (
         <Row>
-          <Col className={styles.description__more} id="anchor_one">
+          <Col className={styles.description__more} >
             <button onClick={() => setShowDescription(true)}>
               Дивитися всі характеристики{" "}
               <ChevronRight fillColor="#70BF63" w="30px" h="30px" />
@@ -70,8 +71,9 @@ export default function ProductDescription({ product }) {
           </Col>
         </Row>
       ) : (
-        <></>
+        <React.Fragment/>
       )}
+     
     </Container>
   );
 }

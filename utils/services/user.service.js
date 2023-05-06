@@ -128,7 +128,6 @@ const addToWishList = async (
         // Якщо  ще не існує, додаємо новий
         user.wishlist.push(wishItem);
         const result = await user.save({ validateBeforeSave: false });
-
         return result;
     } else {
         // const updateResult = user.updateOne(
@@ -141,6 +140,8 @@ const addToWishList = async (
         //             "wishlist.$.color": color,
         //             "wishlist.$.size": size,
         //             "wishlist.$.image": image,
+        //             "wishlist.$.image": style,
+        //             "wishlist.$.image": mode,
         //         },
         //     },
         //     {

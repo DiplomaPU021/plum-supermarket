@@ -34,7 +34,7 @@ export default function ProdcutCard({ product }) {
             > */}
             <div className={styles.subproducts_list}>
                 {product.subProducts.map((p, i) => (
-                    <div className={styles.subproducts_list__item} key={p._id}>
+                    <div className={styles.subproducts_list__item} key={i}>
                         <div className={styles.subproducts_list__item_img}>
                             <ProductSwiper images={p.images} />
                         </div>
@@ -42,11 +42,12 @@ export default function ProdcutCard({ product }) {
                             <Link href={`/admin/dashboard/product/${product._id}`}>
                                 <TbEdit />
                             </Link>
-                            <Link href={`/product/${product.slug}?style=${i}`}>
+                            <Link href={`/product/${product.slug}?style=${i}&code=0`}>
                                 <AiOutlineEye />
                             </Link>
-                            <Link href="">
+                            <Link href="#">
                                 <RiDeleteBin2Line />
+
                             </Link>
                         </div>
                     </div>

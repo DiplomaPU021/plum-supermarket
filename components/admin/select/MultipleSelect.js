@@ -1,63 +1,109 @@
 import { ErrorMessage } from "formik";
 import styles from "./styles.module.scss";
-import { Form } from "react-bootstrap";
 import { useField } from "formik";
 import Select from "react-select";
 import { useEffect, useState } from "react";
+import makeAnimated from 'react-select/animated';
+
+const animatedComponents = makeAnimated();
 
 export default function MultipleSelect({
-  data,
-  handleChange,
-  placeholder,
-  header,
-  ...rest
+    data,
+    onChange,
+    placeholder,
+    header,
+    value,
+    ...rest
 }) {
-  const [field, meta] = useField(rest);
-  console.log("dataOnMulty//////////////", data)
-  const[dataOptions, setDataOptions]=useState(
-    data.map((item) => {
-        let label= `${item.name}`;
-        let value =`${item._id}`;
-        return {
-            ...item,
-            label,
-            value,
-        };
-    })
-  );
-  useEffect(()=>{
-   console.log("dataOptions//////////////", dataOptions); 
-  },[data])
+    const [field, meta] = useField(rest);
+    const [dataOptions, setDataOptions] = useState(
+        data.map((item) => {
+            let label = `${item.name}`;
+            let value = `${item._id}`;
+            return {
+                ...item,
+                label,
+                value,
+                isSelected :true,
+                isFixed : true
+            };
+        })
+    );
+    const [clearValue, setClearValue]=useState(false);
+    useEffect(() => {
+        // console.log("field, ", field);
+        // console.log(", meta", meta);
+setClearValue(true);
+         console.log(", data", data);
+         console.log(", value", value);
 
-  return (
-    <div style={{ marginBottom: "1rem" }}>
-      <Select
-      isMulti
-        aria-label="Cat-select"
-        name={field.name}
-        placeholder={header}
-        value={field.value}
-        onChange={handleChange}
-        className={`${styles.select} ${
-          meta.touched && meta.error && styles.error_select
-        }`}
-        classNamePrefix={header}
-        options={dataOptions}
-      >
-        {/* <option key={""} value={""}>
-          {header}
-        </option>
-        {data?.map((item, i) => (
-          <option key={item._id} value={item._id || item.name || item.slug}>
-            {item.name || item.slug}
-          </option> 
-       ))} */}
-      </Select>
-      {meta.touched && meta.error && (
-        <p className={styles.error_msg}>
-          <ErrorMessage name={field.name} />
-        </p>
-      )}
-    </div>
-  );
+       
+        if (rest.disabled == true) {
+
+            console.log("hello", rest);
+            // const newOptions = data.map(option => {
+            //     if (data.includes(option.value)) {
+            //       return { ...option, isFixed: true };
+            //     }
+            //     return option;
+            //   });
+              setDataOptions(data.map((item) => {
+                let label = `${item.name}`;
+                let value = `${item._id}`;
+                //       if (data.includes(rest.value)) {
+                //   return { ...item, 
+                //     label,
+                //     value,
+                //     isFixed: true };
+                // }
+                return {
+                    ...item,
+                    label,
+                    value,
+                    isSelected :true,
+                    isFixed : true
+                };
+            }));
+
+        } else {
+            setDataOptions(data.map((item) => {
+                let label = `${item.name}`;
+                let value = `${item._id}`;
+                return {
+                    ...item,
+                    label,
+                    value,
+                    isSelected :true,
+                    isFixed : true
+                };
+            }));
+        }
+        console.log(", options", dataOptions);
+    }, [data])
+
+    return (
+        <div style={{ marginBottom: "1rem" }}>
+            <Select
+                isMulti
+                disabled={rest.disabled}
+                name={field.name}
+                handleChange={handleChange}
+                defaultValue={value[0]}
+                selectOption={value[0]}
+                placeholder={header}
+                components={animatedComponents}
+                className={`${styles.select} ${meta.touched && meta.error && styles.error_select
+                    }`}
+                classNamePrefix={header}
+                options={dataOptions}
+                clearValue={clearValue}
+            >
+            </Select>
+            {meta.touched && meta.error && (
+                <p className={styles.error_msg}>
+                    <ErrorMessage name={field.name} />
+                </p>
+            )}
+        </div>
+    );
 }
