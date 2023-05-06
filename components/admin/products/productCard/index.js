@@ -43,10 +43,10 @@ export default function ProdcutCard({ product }) {
                                 <TbEdit />
                             </Link>
                             <Link href={`/product/${product.slug}?style=${i}`}>
-                                <AiOutlineEye />
+                                <AiOutlineEye fill="#220F4B" />
                             </Link>
                             <Link href="">
-                                <RiDeleteBin2Line />
+                                <RiDeleteBin2Line fill="#ed4337" />
                             </Link>
                         </div>
                     </div>

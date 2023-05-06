@@ -7,7 +7,6 @@ import Category from "../../../../models/Category"
 import axios from "axios";
 import { Form, Formik } from "formik"
 import * as Yup from "yup"
-import { toast } from "react-toastify";
 import SingularSelect from "../../../../components/admin/select/SingularSelect"
 import AdminInput from "@/components/inputs/adminInput"
 import Images from "@/components/admin/createProduct/images"

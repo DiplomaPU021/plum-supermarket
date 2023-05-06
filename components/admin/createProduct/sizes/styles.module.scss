@@ -9,37 +9,38 @@
 
     select,
     input {
-        //border: none;
         outline: none;
-        border: 1px solid #ccc;
-        //padding-left: 1rem;
+        border: 1px solid $plum-violet-color;
         width: 150px;
         height: 40px;
         border-radius: 5px;
-
-
+        padding: 8px;
     }
 
     svg {
         width: 30px;
         height: 30px;
-        fill: $blue-color;
+        fill: $plum-dark-color;
         cursor: pointer;
         margin-top: 5px;
 
         &:hover {
-            fill: #4732c0
+            fill: $plum-violet-color;
         }
     }
 }
 
 .click_btn {
-    background: $blue-color;
+    background: $plum-violet-color;
     width: 250px;
     font-weight: 600;
-    color: #fff;
+    color: $light-wheet-color;
     height: 50px;
     cursor: pointer;
     margin: 5px 0;
+
+    &:hover {
+        box-shadow: 0px 0px 5px 0px $plum-violet-color;
+    }
 
 }

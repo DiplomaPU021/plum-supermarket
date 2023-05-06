@@ -1,3 +1,8 @@
+$plum-violet-color: #81528C;
+$plum-dark-color: #220F4B;
+$light-wheet-color: #FAF8FF;
+$green-color: #70BF63;
+
 .btnWrap {
     width: 100%;
     display: flex;
@@ -9,24 +14,23 @@
     padding: 10px 15px;
     font-weight: 600;
     cursor: pointer;
-    //border-radius: 5px;
-    border: 1px solid #222;
-    color: #222;
+    background: $plum-dark-color;
+    color: $light-wheet-color;
 
-    &__primary {
-        background: $blue-color;
-        color: #fff;
+    &:hover {
+        box-shadow: 0px 0px 5px 0px #220F4B;
     }
 }
 
 .header {
     font-weight: 700;
     font-size: 20px;
-    border-bottom: 1px solid #ccc;
+    border-bottom: 1px solid $green-color;
     padding-bottom: 5px;
     margin-top: 1rem;
     display: flex;
     flex-direction: column;
+    color: $plum-dark-color;
 
     .flex {
         display: flex;
@@ -52,7 +56,6 @@
 .header_error {
     color: $error-color;
     border-color: $error-color;
-
 }
 
 .error_bg {

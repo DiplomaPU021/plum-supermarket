@@ -5,9 +5,10 @@
 
     &__item {
         padding: 10px;
-        background: $blue-color;
+        background: $light-wheet-color;
+        border: 3px solid $plum-violet-color;
         margin-top: 10px;
-        color: #fff;
+        color: $plum-violet-color;
         font-weight: 600;
         display: flex;
         align-items: center;
@@ -27,11 +28,11 @@
 
         input {
             padding: 1rem;
-            border: none;
+            border: 1px solid $plum-violet-color;
             outline: none;
-            color: #fff;
+            color: $plum-violet-color;
             background: transparent;
-
+            width: 260px;
         }
 
         &_expand {
@@ -40,17 +41,16 @@
             gap: 10px;
 
             button:hover {
-                background-color: #362490;
-                color: #fff;
-                border-color: #fff;
+                color: $light-wheet-color;
+                border-color: $light-wheet-color;
             }
         }
-
     }
 }
 
 .open {
     background: #fff !important;
-    color: #111 !important;
+    border: 1px solid $plum-violet-color;
+    color: $plum-dark-color !important;
 
 }

@@ -8,7 +8,7 @@ import slugify from "slugify";
 const handler = nc();//.use(auth);
 
 handler.post(async (req, res) => {
-   
+
     try {
         const { name, parent, topParent } = req.body;
         db.connectDb();
@@ -50,7 +50,7 @@ handler.put(async (req, res) => {
     try {
         const { id, name, parent, topParent } = req.body;
         db.connectDb();
-        await SubCategory.findByIdAndUpdate(id, {name, parent, topParent, slug: slugify(name)});
+        await SubCategory.findByIdAndUpdate(id, { name, parent, topParent, slug: slugify(name) });
         db.disconnectDb;
         return res.json({
             message: "SubCategory has been updated succesfuly",
@@ -64,11 +64,11 @@ handler.put(async (req, res) => {
 handler.get(async (req, res) => {
     try {
         const { category } = req.query;
-        if(!category){
+        if (!category) {
             return res.json([])
         }
         db.connectDb();
-        const result = await SubCategory.find({parent: category}).select("name")
+        const result = await SubCategory.find({ parent: category }).select("name")
         db.disconnectDb;
         return res.json(result)
     } catch (error) {

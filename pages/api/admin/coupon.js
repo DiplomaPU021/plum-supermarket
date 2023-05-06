@@ -48,7 +48,7 @@ handler.put(async (req, res) => {
     try {
         const { id, promocode, discount, startDate, endDate } = req.body;
         db.connectDb();
-        await Coupon.findByIdAndUpdate(id, {promocode, discount, startDate, endDate});
+        await Coupon.findByIdAndUpdate(id, { promocode, discount, startDate, endDate });
         db.disconnectDb;
         return res.json({
             message: "Coupon has been updated succesfuly",

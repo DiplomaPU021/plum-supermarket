@@ -1,25 +1,25 @@
-$blue-color: #2f82ff;
-$error-color: #ed4337;
-$success-color: #6cc070;
+$plum-violet-color: #81528C;
+$plum-dark-color: #220F4B;
+$light-wheet-color: #FAF8FF;
+$green-color: #70BF63;
 
 .product {
     margin-bottom: 1rem;
     padding-bottom: 1rem;
-    border-bottom: 1px solid #eee;
+    border-bottom: 1px solid $green-color;
 
     &__name {
         font-size: 16px;
         padding: 5px 5px 0 5px;
+        color: $plum-dark-color;
     }
 
     &__category {
         font-size: 13px;
         font-weight: normal;
-        color: #2f82ff;
+        color: $plum-violet-color;
         padding-left: 5px;
     }
-
-
 }
 
 .subproducts_list {
@@ -27,7 +27,6 @@ $success-color: #6cc070;
     flex-direction: row;
     gap: 24px;
     padding-top: 14px;
-
 
     &__item {
         display: flex;
@@ -58,7 +57,7 @@ $success-color: #6cc070;
             height: 30px;
 
             &:nth-last-of-type(1) {
-                stroke: $blue-color
+                stroke: $plum-violet-color
             }
 
             &:nth-last-of-type(2) {
@@ -66,10 +65,8 @@ $success-color: #6cc070;
             }
 
             &:nth-last-of-type(3) {
-                fill: #ed4337
+                stroke: #ed4337
             }
         }
     }
-
-
 }
