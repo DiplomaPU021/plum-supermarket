@@ -74,7 +74,7 @@ export default function ListItem({ categories, groupSubCategories, groupSubCateg
                     />
                     )}
                 <AiFillDelete
-                    onClick={() => handleRemove(subCategory._id)}
+                    onClick={() => handleRemove(groupSubCategory._id)}
                 />
             </div>
         </li>

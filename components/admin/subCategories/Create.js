@@ -1,5 +1,5 @@
 import styles from './styles.module.scss';
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import { Form, Formik } from "formik"
 import * as Yup from "yup"
 import AdminInput from '../../inputs/adminInput';
@@ -18,18 +18,23 @@ export default function Create({ categories, setSubCategories, groupSubCategorie
             .required('SubCategory name is required.')
             .min(2, "SubCategory name must be between 2 and 30 characters.")
             .max(30, "SubCategory name must be between 2 and 30 characters.")
-            .matches(/^[абвгдеєжзиіїйклмнопрстуфхцчшщьюяАБВГДЕЄЖЗИЇІКЛМНОПРСТУФХЦЧШЩЬЮЯa-zA-Z\s]*$/, "Numbers and special characters are not allowed.")
+            .matches(/^[абвгдеєжзиіїйклмнопрстуфхцчшщьюяАБВГДЕЄЖЗИЇІКЛМНОПРСТУФХЦЧШЩЬЮЯa-zA-Z'-\s]*$/, "Numbers and special characters are not allowed.")
         ,
         parent: Yup.string().required("Please choose a parent category"),
         topParent: Yup.string().required("Please choose a top parent category")
     });
     const handleChangeTopParent = (e) => {
         setTopParent(e.target.value);
-        setFilteredGroupSubCategories(groupSubCategories?.filter(item => e.target.value === item.parent._id));
     }
+    useEffect(() => {
+        if (topParent) {
+            // console.log(groupSubCategories)
+            setFilteredGroupSubCategories(groupSubCategories?.filter(item => topParent === item.parent._id));
+        }
+    }, [topParent])
     const submitHandler = async () => {
         try {
-            console.log(name, parent, topParent);
+            // console.log(name, parent, topParent);
             const { data } = await axios.post('/api/admin/subCategory', { name, parent, topParent });
             setSubCategories(data.subCategories);
             setName("");

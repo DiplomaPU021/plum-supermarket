@@ -140,7 +140,6 @@ const productSchema = new mongoose.Schema(
         subProducts: [
             {
                 images: [],
-                description_images: [],
                 color: {
                     color: {
                         type: String,
@@ -177,7 +176,7 @@ const productSchema = new mongoose.Schema(
         ],
     },
     {
-        timestamps: false,
+        timestamps: true,
     }
 );
 

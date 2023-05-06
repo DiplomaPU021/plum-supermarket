@@ -24,7 +24,6 @@ export default function Create({ categories, setGroupSubCategories }) {
     }
     const submitHandler = async () => {
         try {
-            console.log("27", name, parent);
             const { data } = await axios.post('/api/admin/groupSubCategory', { name, parent });
             setGroupSubCategories(data.groupSubCategories);
             setName("");

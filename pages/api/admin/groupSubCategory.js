@@ -1,80 +1,110 @@
 import Category from "../../../models/Category";
 import nc from "next-connect";
-import auth from '../../../middleware/auth'
-import db from "../../../utils/db"
+import auth from "../../../middleware/auth";
+import admin from "../../../middleware/admin";
+import db from "../../../utils/db";
 import slugify from "slugify";
 import GroupSubCategory from "@/models/GroupSubCategory";
+import SubCategory from "@/models/SubCategory";
+import Product from "@/models/Product";
 
-const handler = nc();//.use(auth);
+const handler = nc().use(auth).use(admin);
 
 handler.post(async (req, res) => {
-
-    try {
-        const { name, parent } = req.body;
-        console.log("14", name, parent);
-        await db.connectDb();
-        const test = await GroupSubCategory.findOne({ name });
-        console.log("test", test);
-        if (test) {
-            return res
-                .status(400)
-                .json({ message: "GroupSubCategory already exist, try a different name" });
-        }
-        await new GroupSubCategory({ name, parent, slug: slugify(name) }).save();
-        await db.disconnectDb();
-        res.json({
-            message: `GroupSubCategory ${name} has been created successfully`,
-            groupSubCategories: await GroupSubCategory.find({}).sort({ updatedAt: -1 }),
-        })
-    } catch (error) {
-        await db.disconnectDb();
-        res.status(500).json({ message: error.message });
+  try {
+    const { name, parent } = req.body;
+    await db.connectDb();
+    const test = await GroupSubCategory.findOne({ name });
+    if (test) {
+      return res
+        .status(400)
+        .json({
+          message: "GroupSubCategory already exist, try a different name",
+        });
     }
+    await new GroupSubCategory({ name, parent, slug: slugify(name, "_") }).save();
+    await db.disconnectDb();
+    res.json({
+      message: `GroupSubCategory ${name} has been created successfully`,
+      groupSubCategories: await GroupSubCategory.find({}).sort({
+        updatedAt: -1,
+      }),
+    });
+  } catch (error) {
+    await db.disconnectDb();
+    res.status(500).json({ message: error.message });
+  }
 });
 
 handler.delete(async (req, res) => {
-    try {
-        const { id } = req.body;
-        await db.connectDb();
-        await GroupSubCategory.findByIdAndRemove(id);
-        await db.disconnectDb();
-        return res.json({
-            message: "GroupSubCategory has been deleted succesfuly",
-            groupSubCategories: await GroupSubCategory.find({}).sort({ updatedAt: -1 })
-        })
-    } catch (error) {
-        res.status(500).json({ message: error.message });
+  try {
+    const { id } = req.body;
+    await db.connectDb();
+    const subCategoriesToDelete = await SubCategory.find({ parent: id });
+    let productsToDeleteGroup = [];
+    for (const element of subCategoriesToDelete) {
+      let productsToDelete = await Product.find({ subCategories: { $in: [element._id.toString()] } });
+      productsToDeleteGroup = productsToDeleteGroup.concat(productsToDelete);
     }
-})
+    let countDeletedProduct = 0;
+    for (const element of productsToDeleteGroup) {
+      await Product.findByIdAndDelete(element._id);
+      countDeletedProduct++;
+    }
+    let countDeletedSubCategories = 0;
+    for (const element of subCategoriesToDelete) {
+      await SubCategory.findByIdAndDelete(element._id);
+      countDeletedSubCategories++;
+    }
+    await GroupSubCategory.findByIdAndRemove(id);
+    await db.disconnectDb();
+    return res.json({
+      message: `GroupSubCategory has been deleted succesfuly and ${countDeletedSubCategories} subcategories and ${countDeletedProduct} products has been deleted silmuteniously`,
+      groupSubCategories: await GroupSubCategory.find({}).sort({
+        updatedAt: -1,
+      }),
+    });
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+});
 
 handler.put(async (req, res) => {
-    try {
-        const { id, name, parent } = req.body;
-        await db.connectDb();
-        await GroupSubCategory.findByIdAndUpdate(id, { name, parent, slug: slugify(name) });
-        await db.disconnectDb();
-        return res.json({
-            message: "GroupSubCategory has been updated succesfuly",
-            groupSubCategories: await GroupSubCategory.find({}).sort({ updatedAt: -1 })
-        })
-    } catch (error) {
-        res.status(500).json({ message: error.message });
-    }
-})
+  try {
+    const { id, name, parent } = req.body;
+    await db.connectDb();
+    await GroupSubCategory.findByIdAndUpdate(id, {
+      name,
+      parent,
+      slug: slugify(name, "_"),
+    });
+    await db.disconnectDb();
+    return res.json({
+      message: "GroupSubCategory has been updated succesfuly",
+      groupSubCategories: await GroupSubCategory.find({}).sort({
+        updatedAt: -1,
+      }),
+    });
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+});
 
 handler.get(async (req, res) => {
-    try {
-        const { category } = req.query;
-        if (!category) {
-            return res.json([])
-        }
-        await db.connectDb();
-        const result = await GroupSubCategory.find({ parent: category }).select("name")
-        db.disconnectDb();
-        return res.json(result)
-    } catch (error) {
-        res.status(500).json({ message: error.message });
+  try {
+    const { category } = req.query;
+    if (!category) {
+      return res.json([]);
     }
-})
+    await db.connectDb();
+    const result = await GroupSubCategory.find({ parent: category }).select(
+      "name"
+    );
+    db.disconnectDb();
+    return res.json(result);
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+});
 
 export default handler;

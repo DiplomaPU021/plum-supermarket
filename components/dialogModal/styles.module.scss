@@ -17,4 +17,34 @@
             height: 20px;
         }
     }
+    z-index: 99999999;
+}
+.modal {
+    background: rgba(87, 60, 145, 0.5);
+    backdrop-filter: blur(2.5px);
+
+    &_main {
+        background: $light-wheet-color;
+        border-radius: 10px;
+    }
+}
+
+.modaldiv {
+    margin: 20px;
+    border: 2px solid $plum-dark-color;
+    border-radius: 10px;
+    color: $plum-dark-color;
+    background: $light-wheet-color;
+
+    span {
+        margin-left: 20px;
+    }
+}
+
+.modalbodyempty {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    gap: 20px;
 }

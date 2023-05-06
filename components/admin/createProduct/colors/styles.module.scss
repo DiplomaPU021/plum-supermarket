@@ -19,10 +19,17 @@
 }
 
 .picker {
-    margin-top: 1rem;
+    margin-top: 1rem; 
     margin-bottom: 1rem;
 }
 
 .label_title {
     padding-right: 1rem;
+}
+.error_msg {
+    color: red;
+    font-size: 13px;
+}
+.header__error {
+    color: red;
 }
