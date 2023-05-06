@@ -137,9 +137,10 @@
     flex-direction: column;
     align-items: flex-start;
     padding: 14px 0px 0px 14px;
-    max-width: 366px;
+    width: 366px;
 
     p {
+       
         font-weight: 500;
         font-size: 16px;
         color: #70BF63;
@@ -148,6 +149,7 @@
     }
 
     span {
+       
         font-weight: 400;
         font-size: 16px;
         color: #220F4B;

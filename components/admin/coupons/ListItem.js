@@ -14,7 +14,7 @@ export default function ListItem({ coupon, setCoupons }) {
     const [endDate, setEndDate] = useState(coupon.endDate);
 
 
-    const handleStartDate = (newValue) => { 
+    const handleStartDate = (newValue) => {
         setStartDate(newValue.target.value);
     }
 

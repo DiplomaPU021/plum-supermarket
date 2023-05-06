@@ -4,10 +4,11 @@
     margin-top: 1rem;
 
     &__item {
-        padding: 10px;
-        background: $blue-color;
+        padding: 12px;
+        background: $light-wheet-color;
+        border: 3px solid $plum-violet-color;
         margin-top: 10px;
-        color: #fff;
+        color: $plum-violet-color;
         font-weight: 600;
         display: flex;
         align-items: center;
@@ -26,13 +27,12 @@
         }
 
         input {
-            padding: 1rem;
-            border: 1px solid rgb(41, 41, 42);
+            padding: 12px;
+            border: 1px solid $plum-violet-color;
             outline: none;
-            color: #fff;
+            color: $plum-violet-color;
             background: transparent;
-            margin-left: 10px;
-
+            width: 200px;
         }
 
         &_expand {
@@ -41,9 +41,8 @@
             gap: 10px;
 
             button:hover {
-                background-color: #362490;
-                color: #fff;
-                border-color: #fff;
+                color: $light-wheet-color;
+                border-color: $light-wheet-color;
             }
 
             .input_discount {
@@ -51,21 +50,19 @@
                 height: 46px;
                 padding: 4px;
                 text-align: center;
-                border: 1px solid rgb(41, 41, 42);
+                border: 1px solid $plum-violet-color;
                 outline: none;
-                color: #fff;
-                background: transparent;
+                color: $plum-violet-color;
+                background: #fff;
                 margin-right: 20px;
-
             }
         }
-
     }
 }
 
 .open {
     background: #fff !important;
-    color: #111 !important;
+    color: $plum-dark-color !important;
 }
 
 .date_picker {
@@ -78,18 +75,19 @@
 }
 
 .form_control {
+    border: 2px solid $plum-violet-color;
     padding: 5px;
     height: 46px;
 }
 
 .form_label {
-    color: gray;
+    color: $plum-dark-color;
     padding-left: 10px;
     padding-right: 10px;
 }
 
-.form_label {
-    color: rgb(41, 41, 42);
+.form_label2 {
+    color: $plum-violet-color;
     padding-left: 10px;
     padding-right: 10px;
 }

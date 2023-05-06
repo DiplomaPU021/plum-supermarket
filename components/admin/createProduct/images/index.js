@@ -80,7 +80,7 @@ export default function Images({
 
     return (
         <div className={styles.images}>
-            <div className={`${styles.header} ${meta.error ? styles.header_error : ""}`}>
+            <div className={`${styles.header} ${meta.error ? styles.header_error : ""}`} style={{border: "none"}}>
                 <div className={styles.flex}>
                     {
                         meta.error && <img src="../../../images/warning.png" alt="" />
