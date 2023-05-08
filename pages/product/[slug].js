@@ -20,10 +20,12 @@ import Popular from "@/components/popular";
 import Reviews from "@/components/productPage/reviews";
 import { getCountryData } from "@/utils/country";
 import User from "@/models/User";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import axios from "axios";
 import { updateNumberReviews, updateReviewRating } from "@/store/reviewSlice";
 import GroupSubCategory from "@/models/GroupSubCategory";
 import FloatingButton from '@/components/FloatingButton';
+import { addToViewedList } from "@/store/viewedListSlice";
 
 export default function product({ product, popular, country, style, mode }) {
   const [active, setActive] = useState({ style: style, mode: mode });
@@ -35,6 +37,32 @@ export default function product({ product, popular, country, style, mode }) {
     dispatch(updateReviewRating(product.rating))
     dispatch(updateNumberReviews(product.numReviews))
   }, [product]);
+
+  
+  // const viewedList = useSelector((state) => state.viewedList);
+  
+  // useEffect(() => {
+  //   const addToViewedHandler = async () => {
+  //     const { data } = await axios.get(
+  //       `/api/product/${product._id}?style=${active.style}&code=${active.mode}`
+  //     );
+
+  //     if (viewedList.viewedListItems) {
+  //       const existItem = viewedList.viewedListItems.find(
+  //         (item) =>
+  //           item._id == data._id &&
+  //           item.style == data.style &&
+  //           item.mode == data.mode
+  //       );
+
+  //       if (!existItem) {
+  //         dispatch(addToViewedList({ ...data }));
+  //       }
+  //     }
+  //   };
+
+  //   addToViewedHandler();
+  // }, []);
 
   return (
     <Container fluid style={{ padding: "0" }}>

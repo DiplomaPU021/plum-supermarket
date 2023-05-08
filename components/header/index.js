@@ -149,29 +149,12 @@ export default function Header({ country }) {
   };
 
   const handlerOnSearch = (e) =>{
-    handleCreate(str)
-     e.preventDefault();
-     e.stopPropagation();
-     //console.log("iv---", e);
+    e.preventDefault();
 
-    const newOption = {
-      label: str,
-      value: str.toLowerCase().trim(),
-    };
-    setOptions((prev) => [...prev, newOption]);
-    setValue(newOption);
-    
-    // router.push(`/search?text=${str}`);
-    const event = new KeyboardEvent('keypress', { key: 'Enter' })
-    e.target.dispatchEvent(event)
-    // handlerSubmit(newOption.value);
+    if(str.length > 1)
+      handleCreate(str)
   }
 
-  // const handleInputChange = (e) => {
-  //   console.log("iv---", e);
-  //   setStr(e);
-  //   console.log("q---",  str);
-  // }
 
   const handleCreate = ( inputValue) => {
     setIsLoading(true);
@@ -184,16 +167,13 @@ export default function Header({ country }) {
       dispatch(addToSearchedList(newOption));
       setOptions((prev) => [...prev, newOption]);
       setSearchValue(newOption);
-      //setStr(newOption.value);
-      //handlerSubmit(newOption.value);
+      setStr(newOption.value);
       router.push(`/search?text=${newOption.value}`);
     }, 700);
   };
 
   return (
     <div className={styles.main}>
-      {/* {JSON.stringify(searchValue)}
-      {JSON.stringify(str)} */}
       <Tooltip
         id="header-login-tooltip"
         content="Будь ласка зареєструйтесь!"
@@ -240,7 +220,6 @@ export default function Header({ country }) {
                   paddingLeft: "20px",
                   borderRadius: "25px",
                   background: "#FAF8FF",
-                  //border: "2px solid #220F4B",
                   border: "none",
                   boxShadow: "none",
                   "&:hover": {
@@ -279,9 +258,9 @@ export default function Header({ country }) {
                     cursor: "pointer",
                   },
                 }),
-                clearIndicator: () => ({
-                  display: "none",
-                }),
+                // clearIndicator: () => ({
+                //   display: "none",
+                // }),
                 dropdownIndicator: () => ({
                   display: "none",
                 }),
@@ -296,13 +275,9 @@ export default function Header({ country }) {
               isSearchable={true}
               isDisabled={isLoading}
               isLoading={isLoading}
-              //onInputChange={handleInputChange}
               onInputChange={(e) => { setStr(e);}}
-              //onInputChange={(e)=>handleInputChange(e)}
-              inputValue={str}
-
               onChange={(newValue) => {
-                //setStr(newValue),
+                setStr(newValue),
                 setSearchValue(newValue);
                 if (newValue) {
                   handlerSubmit(newValue.value);
