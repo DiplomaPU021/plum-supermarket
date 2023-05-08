@@ -181,7 +181,7 @@ export default function Summary({
                                     hidden
                                     isInvalid={orderError.userError != "" || orderError.shippingError != "" || orderError.paymentError != ""}
                                 />
-                                <Form.Control.Feedback type="invalid">{formik.errors.orderError.userError || formik.errors.orderError.shippingError || formik.errors.orderError.paymentError}
+                                <Form.Control.Feedback type="invalid">{formik.errors.orderError?.userError || formik.errors.orderError?.shippingError || formik.errors.orderError?.paymentError}
                                 </Form.Control.Feedback>
                             </div>
                             <div>

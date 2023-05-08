@@ -1,8 +1,8 @@
 @import "../../base";
 
 .colors {
-   // padding-top: 1rem;
-   // border-top: 1px solid #ccc;
+    // padding-top: 1rem;
+    // border-top: 1px solid #ccc;
     color: $plum-dark-color;
 
     button {
@@ -20,7 +20,7 @@
 }
 
 .picker {
-    margin-top: 1rem; 
+    margin-top: 1rem;
     margin-bottom: 1rem;
 
     .label_title {
@@ -31,10 +31,25 @@
         padding-right: 1rem;
         margin-left: 1rem;
     }
-    
-    .control_inp2{
+
+    .control_inp2 {
         height: 40px;
         border: 1px solid $plum-violet-color;
+    }
+
+    .click_btn {
+        background: $plum-violet-color;
+        width: 250px;
+        font-weight: 600;
+        color: $light-wheet-color;
+        height: 50px;
+        cursor: pointer;
+        margin: 5px 0;
+
+        &:hover {
+            box-shadow: 0px 0px 5px 0px $plum-violet-color;
+        }
+
     }
 }
 
@@ -43,20 +58,7 @@
     color: red;
     font-size: 13px;
 }
+
 .header__error {
     color: red;
-}
-.click_btn {
-    background: $plum-violet-color;
-    width: 250px;
-    font-weight: 600;
-    color: $light-wheet-color;
-    height: 50px;
-    cursor: pointer;
-    margin: 5px 0;
-
-    &:hover {
-        box-shadow: 0px 0px 5px 0px $plum-violet-color;
-    }
-
 }

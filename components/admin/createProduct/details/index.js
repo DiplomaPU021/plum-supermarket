@@ -99,9 +99,8 @@ export default function Details({
                 </span>
             </div>
             {
-
                 details.length > 0 ? details.map((detail, i) => (
-                    <div className={styles.container_size} key={i}>
+                    <div className={styles.container_details} key={i}>
                         <input key={"inputd" + i}
                             id={"inputd" + i}
                             type="text"
@@ -110,6 +109,7 @@ export default function Details({
                             value={detail.group}
                             onChange={(e) => handleDetails(i, e)}
                             disabled={disabled}
+                            className={styles.input}
                         />
                         {/* {details.length == 0 && ( */}
                         <>
@@ -117,10 +117,10 @@ export default function Details({
                             <AiFillPlusCircle onClick={() => handleAdd()} />
                         </>
                         {/* )} */}
-                        <div>
+                        <div className={styles.details}>
                             {detail.fields && detail.fields.length > 0 ? detail.fields.map((f, j) => (
-                                <div key={"field" + j}>
-                                    <input key={"input" + j} id={"input" + j}
+                                <div key={"field" + j} className={styles.field}>
+                                    <input key={"input" + j} id={"input" + j} className={styles.input2}
                                         type="text"
                                         name="name"
                                         placeholder={"Назва характеристики"}
@@ -129,7 +129,7 @@ export default function Details({
                                         disabled={disabled}
                                         required
                                     />
-                                    <input key={"input2" + j}  className={styles.input2} id={"input2" + j}
+                                    <input key={"input2" + j} className={styles.input2} id={"input2" + j}
                                         type="text"
                                         name="value"
                                         placeholder={"Значення характеристики"}
@@ -138,7 +138,7 @@ export default function Details({
                                         disabled={disabled}
                                         required
                                     />
-                                    <input key={"input3" + j} id={"input3" + j}  className={styles.ch_box}
+                                    <input key={"input3" + j} id={"input3" + j} className={styles.ch_box}
                                         type="checkbox"
                                         name="isMain"
                                         placeholder={"Основна?"}
@@ -146,7 +146,7 @@ export default function Details({
                                         onChange={(e) => handleFieldsMain(i, j, e)}
                                         disabled={disabled}
                                     />
-   <label for={"input3" + j}>Основна?</label>
+                                    <label for={"input3" + j}>Основна?</label>
                                     <AiFillMinusCircle onClick={() => handleRemoveField(i, j)} />
                                     <AiFillPlusCircle onClick={() => handleAddField(i)} />
                                 </div>
