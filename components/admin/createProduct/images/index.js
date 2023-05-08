@@ -24,10 +24,10 @@ export default function Images({
             if (images.length >= 6) {
                 console.log("ERROR")
                 dispatch(showDialog({
-                    header: 'Maximum 6 images are allowed',
+                    header: 'Дозволено максимум 6 зображень',
                     msgs: [
                         {
-                            msg: `Maximum 6 images are allowed`,
+                            msg: `Дозволено максимум 6 зображень`,
                             type: "error"
                         }
 
@@ -40,7 +40,7 @@ export default function Images({
                     header: 'Unsupported Format.',
                     msgs: [
                         {
-                            msg: `${img.name} format is unsupported! Only JPEG, PNG, WEBP are allowed`,
+                            msg: `${img.name} format не підтримується! Лише JPEG, PNG, WEBP дозволено`,
                             type: "error"
                         }
 
@@ -54,7 +54,7 @@ export default function Images({
                     header: 'Unsupported Size.',
                     msgs: [
                         {
-                            msg: `${img.name} size is too large, maximum of 10MB allowed`,
+                            msg: `${img.name} розмір занадто великий, максимум  10MB дозволено`,
                             type: "error"
                         }
 
@@ -121,8 +121,8 @@ export default function Images({
                                         <img src={img} alt="" />                            
                                         <div className={styles.images_main_grid_actions}>
                                             <button onClick={() => handleRemove(img)}><RiDeleteBin7Fill /></button>
-                                            <button><GiExtractionOrb /></button>
-                                            <button><RiShape2Line /></button>
+                                            {/* <button><GiExtractionOrb /></button> */}
+                                            {/* <button><RiShape2Line /></button> */}
                                         </div>
                                         
                                     </div>

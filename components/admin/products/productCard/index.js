@@ -13,9 +13,11 @@ import { RiDeleteBin2Line } from "react-icons/ri"
 
 
 
-export default function ProdcutCard({ product }) {
+export default function ProdcutCard({ product}) {
     return (
         <div className={styles.product}>
+            {/* <div>style{style}</div>
+            <div>mode{JSON.stringify(product,null,4)}</div> */}
             <h1 className={styles.product__name}>
                 {product.name}
             </h1>
@@ -39,13 +41,13 @@ export default function ProdcutCard({ product }) {
                             <ProductSwiper images={p.images} />
                         </div>
                         <div className={styles.subproducts_list__actions}>
-                            <Link href={`/admin/dashboard/product/${product._id}`}>
+                            <Link href={`/admin/dashboard/product/${product._id}?style=${i}&code=${0}`}>
                                 <TbEdit />
                             </Link>
-                            <Link href={`/product/${product.slug}?style=${i}&code=0`}>
+                            <Link href={`/product/${product.slug}?style=${i}&code=${0}`}>
                                 <AiOutlineEye />
                             </Link>
-                            <Link href="#">
+                            <Link href={`/admin/dashboard/product/delete/${product._id}?style=${i}&code=${0}`}>
                                 <RiDeleteBin2Line />
 
                             </Link>

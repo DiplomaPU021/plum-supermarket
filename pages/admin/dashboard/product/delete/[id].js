@@ -40,8 +40,8 @@ export default function EditProduct({
   groupSubCategoryProduct,
   categoryProduct,
 }) {
+    const router = useRouter();
   const dispatch = useDispatch();
-  const router = useRouter();
   const [productToEdit, setProduct] = useState({
     name: product.name,
     description: product.description,
@@ -130,139 +130,33 @@ export default function EditProduct({
     setLoading(false);
   }, [subs]);
 
-  const handleChange = (e) => {
-    if (typeof e !== "undefined") {
-      const { value, name } = e.target;
-      setProduct({ ...productToEdit, [name]: value });
-    }
-  };
-  const handleChangeSubCategory = (value) => {
-    setDataSelectedOptions(value);
-    setProduct({ ...productToEdit, subCategories: value });
-  };
-
-  const validate = Yup.object({
-    name: Yup.string()
-      .required("Please add a name")
-      .min(10, "Product name must be between 10 and 300 characters")
-      .max(300, "Product name must be between 10 and 300 characters"),
-    brand: Yup.string().required("Please add a brand"),
-    category: Yup.string().required("Please select a category"),
-    description: Yup.string().required("Please write the description"),
-    dataSelectedOptions: Yup.array().min(
-      1,
-      "Please select at least 1 subCategory"
-    ),
-    groupSubCategory: Yup.string()
-      .transform((value) => {
-        if (typeof value !== "string") {
-          return "";
-        }
-        return value;
-      })
-      .required("Please select a group of subCategories"),
-    color: Yup.object()
-      .nullable()
-      .transform((value) => {
-        if (typeof value !== "object") {
-          return null;
-        }
-        return value;
-      })
-      .required("Please add a color"),
-    // details: Yup.object().nullable()
-    // .transform((value) => {
-    //   if (typeof value !== 'object') {
-    //     console.log("ewrwerwerwerwerwerwerwerwerwerwer", value);
-    //     return null;
-    //   }
-    //   return value;
-    // }).required("Please add details"),
-    details: Yup.array()
-      .of(
-        Yup.object().shape({
-          group: Yup.string(),
-          fields: Yup.array()
-            .min(1, "please add at least one field")
-            .of(
-              Yup.object()
-                .shape({
-                  name: Yup.string().required(),
-                  value: Yup.string().required(),
-                  isMain: Yup.boolean(),
-                })
-                .nullable()
-            )
-            .min(1, "Please add at least one field"),
-        })
-      )
-      .min(1, "Please add at least one detail")
-      .required("Please add details"),
-  });
-
-  const createProduct = async () => {
-    let test = validateCreateProduct(productToEdit, images);
-    console.log("test", test);
-    if (test == "valid") {
-      createProductHandler();
-    } else {
-      dispatch(
-        showDialog({
-          header: "Будь ласка дотримуйтесь інструкцій",
-        })
-      );
-    }
-  };
-
-  let uploaded_images = [];
-  const createProductHandler = async () => {
+  const deleteProductHandler = async () => {
     setLoading(true);
-    if (images.length > 0) {
-      let temp = images.map((img) => {
-        return dataURItoBlob(img);
-      });
-      const path = "product images";
-      let formData = new FormData();
-      formData.append("path", path);
-      temp.forEach((img) => {
-        formData.append("file", img);
-      });
-      uploaded_images = await uploadImages(formData);
-      console.log("uploaded images: ", uploaded_images);
-    }
-
     try {
-      const { data } = await axios.put("/api/admin/product", {
-        id: product._id,
-        name: productToEdit.name,
-        brand: productToEdit.brand,
-        description: productToEdit.description,
-        category: productToEdit.category,
-        subCategories: productToEdit.subCategories.map((sb) => sb._id),
-        details: productToEdit.details,
-        refundPolicy: productToEdit.refundPolicy,
-        images: uploaded_images,
-        color: productToEdit.color,
-        sizes: productToEdit.sizes,
-        discount: productToEdit.discount,
-        style,
+      const { data } = await axios.delete("/api/admin/product", {
+        data: {
+          id: product._id,
+          style,
+        },
       });
+
       setLoading(false);
       setTimeout(() => {
         toast.success(data.message);
       }, 1000);
+
       router.push("/admin/dashboard/product/all");
+
     } catch (error) {
       setLoading(false);
       toast.error(error.response.data.message);
-      router.push("/admin/dashboard/product/all");
     }
   };
 
   return (
     <Layout>
       {loading && <DotLoaderSpinner loading={loading} />}
-      <div className={styles.header}>Редагувати продукт</div>
+      <div className={styles.header}>Видалити продукт</div>
       {/* <DialogModal show={dialog.show} onHide={()=>hideDialog()} msgs={dialog.msgs} header={dialog.header}/> */}
       <DialogModal />
       <Formik
@@ -281,42 +175,40 @@ export default function EditProduct({
           dataSelectedOptions,
           refundPolicy: productToEdit.refundPolicy,
         }}
-        validationSchema={validate}
-        onSubmit={() => {
-          createProduct();
-        }}
+        onSubmit={() => deleteProductHandler()}
       >
         {(formik) => (
           <Form>
-            <Images
-              name="imagesInputFile"
-              header="Зображення каруселі товарів"
-              text="Додати зображення"
-              images={images}
-              setImages={setImages}
-            />
+            {/* <Images
+                            name="imagesInputFile"
+                            header="Product Carousel Images"
+                            text="Додати зображення"
+                            images={images}
+                            setImages={setImages}
+                        /> */}
             <SingularSelect
               name="category"
               value={productToEdit.category}
               label="Category"
               data={categories}
               header="Виберіть категорію"
-              handleChange={handleChange}
+              disabled={true}
             />
+
             <SingularSelect
               name="groupSubCategory"
               value={productToEdit.groupSubCategory}
               label="GroupSubCategory"
               data={groupSub}
               header="Виберіть групу субкатегорій"
-              handleChange={handleChange}
+              disabled={true}
             />
             <div style={{ marginBottom: "1rem" }}>
               <Select
                 isMulti
                 name="dataSelectedOptions"
                 value={dataSelectedOptions}
-                onChange={handleChangeSubCategory}
+                disabled={true}
                 placeholder="Виберіть субкатегорії"
                 components={animatedComponents}
                 className={`${styles.select} ${
@@ -337,8 +229,8 @@ export default function EditProduct({
               type="text"
               label="Назва"
               name="name"
-              placeholder="Введіть назву товару..."
-              onChange={(e) => handleChange(e)}
+              placeholder="Назва"
+              disabled
             />
             <AdminInput
               type="textarea"
@@ -346,24 +238,30 @@ export default function EditProduct({
               cols="50"
               label="Опис"
               name="description"
-              placeholder="Напишіть опис товару, бажано в html"
-              onChange={(e) => handleChange(e)}
+              placeholder="Опис"
+              disabled
             />
             <AdminInput
               type="text"
               label="Бренд"
               name="brand"
-              placeholder="Введіть бренд..."
-              onChange={(e) => handleChange(e)}
+              placeholder="Бренд"
+              disabled
             />
             <AdminInput
               type="text"
               label="Знижка"
               name="discount"
-              placeholder="Введіть розмір знижки..."
-              onChange={(e) => handleChange(e)}
+              placeholder="Знижка"
+              disabled
             />
-
+            <AdminInput
+              type="text"
+              label="Політика повернення"
+              name="refundPolicy"
+              placeholder="Політика повернення"
+              disabled
+            />
             {/* <div className={styles.flex}>
               {product.color?.image && (
                 <>
@@ -383,21 +281,24 @@ export default function EditProduct({
               product={productToEdit}
               setProduct={setProduct}
               color={productToEdit.color}
+              disabled
             />
             <Sizes
               name="sizes"
               sizes={productToEdit.sizes}
               product={productToEdit}
               setProduct={setProduct}
+              disabled={true}
             />
             <Details
               name="details"
               details={productToEdit.details}
               product={productToEdit}
               setProduct={setProduct}
+              disabled
             />
             <button className={styles.btn} type="submit">
-              Edit Product
+              Видалити субпродукт
             </button>
           </Form>
         )}

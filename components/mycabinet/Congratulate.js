@@ -26,6 +26,5 @@ export default function Congrats({ setRegShow, setLogShow, setCongratsShow }) {
                             {/* <button className={styles.regbtn} onClick={registerFormShow}>Зареєструватися</button> */}
                         </div>
                     </Modal.Body>
-  
     )
 }

@@ -100,7 +100,7 @@ export default function product({ product, popular, country, style, mode }) {
       </Row>
       <Container fluid className={styles.productpage}>
         <Container fluid className={styles.productpage__main}>
-          <Row style={{margin: "0"}}>
+          <Row style={{ margin: "0" }}>
             <Col style={{ padding: "0", width: "50%" }}>
               <MainSwiperCard
                 product={product}
@@ -139,14 +139,20 @@ export async function getServerSideProps(context) {
   //from db
   let product = await Product.findOne({ slug })
     .populate({ path: "category", model: Category })
-    .populate({ path: "subCategories", model: SubCategory, populate: { path: "parent", model: GroupSubCategory }})
+    .populate({ path: "subCategories", model: SubCategory, populate: { path: "parent", model: GroupSubCategory } })
     .populate({ path: "reviews.reviewBy", model: User })
     .populate({ path: "reviews.replies.replyBy", model: User })
     .lean();
   // console.log("PagesProductSlugProps", product);
+  if (!product) {
+    await db.disconnectDb();
+    return {
+      redirect: {
+        destination: "/",
+      }
+    }
+  }
   let subProduct = product.subProducts[style];
-
-
   let price = subProduct.sizes[mode].price.toFixed();
 
   //products that go together cheaper
@@ -219,8 +225,8 @@ export async function getServerSideProps(context) {
     reviews: product.reviews.reverse(),
     rating: product.rating
   };
-
   await db.disconnectDb();
+
   return {
     props: {
       product: JSON.parse(JSON.stringify(newProduct)),

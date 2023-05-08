@@ -13,12 +13,10 @@ import MultipleSelect from "@/components/admin/select/MultipleSelect";
 import AdminInput from "@/components/inputs/adminInput";
 import Images from "@/components/admin/createProduct/images";
 import Colors from "@/components/admin/createProduct/colors";
-import Style from "@/components/admin/createProduct/style";
 import Sizes from "@/components/admin/createProduct/sizes";
 import makeAnimated from "react-select/animated";
 import Select from "react-select";
 import DotLoaderSpinner from "@/components/loaders/dotLoader";
-import slugify from "slugify";
 import DialogModal from "@/components/dialogModal";
 import { useDispatch, useSelector } from "react-redux";
 import { showDialog, hideDialog } from "@/store/DialogSlice";
@@ -42,7 +40,6 @@ const initialState = {
   name: "",
   description: "",
   brand: "",
-  // slug: "", 
   category: "",
   groupSubCategory: {
     name: "",
@@ -51,28 +48,14 @@ const initialState = {
     slug: "",
   },
   subCategories: [],
-  details: [
-    {
-      group: "",
-      fields: [
-        {
-          name: "",
-          value: "",
-          isMain: false,
-        },
-      ],
-    },
-  ],
+  details: [],
   reviews: [],
   refundPolicy: "30 днів",
   rating: 0,
   numReviews: 0,
   parent: "",
   images: [],
-  color: {
-    color: "",
-    image: "",
-  },
+  color: null,
   sizes: [
     {
       size: "",
@@ -95,18 +78,7 @@ export default function create({ parents, categories }) {
   const [loading, setLoading] = useState(false);
   const [dataOptions, setDataOptions] = useState([]);
   const [dataSelectedOptions, setDataSelectedOptions] = useState([]);
-  // const [slug, setSlug] = useState("");
 
-  //     useEffect(()=>{
-  // dispatch(showDialog({
-  //     header: "Перевірка продукту",
-  //     msgs: [{
-  //         msg: "Виберіть принаймі 2 зображення",
-  //         type: "error",
-  //     },
-  // ],
-  // }))
-  //     },[])
   const getParentData = async () => {
     setDataOptions([]);
     setDataSelectedOptions([]);
@@ -119,15 +91,14 @@ export default function create({ parents, categories }) {
           name: data.name,
           description: data.description,
           brand: data.brand,
-          // slug: data.slug,
           category: data.category_id,
           subCategories: data.subCategories,
           details: data.details,
           groupSubCategory: data.groupSubCategory._id,
-          color: data.color,
+          color: null,
           sizes: data.sizes,
           discount: data.discount,
-          images: data.images
+          images: data.images,
         });
       }
       getSubs();
@@ -212,11 +183,10 @@ export default function create({ parents, categories }) {
   }, [subCategories]);
 
   const handleChange = (e) => {
-    if (e !== undefined) {
+    if (typeof e !== "undefined") {
       const { value, name } = e.target;
       setProduct({ ...product, [name]: value });
     }
-
   };
   const handleChangeSubCategory = (value) => {
     setDataSelectedOptions(value);
@@ -234,12 +204,52 @@ export default function create({ parents, categories }) {
       1,
       "Будь-ласка виберіть хоча б одну підкатегорію"
     ),
-    groupSubCategory: Yup.string().required(
-      "Будь-ласка виберіть групу підкатегорій"
-    ),
-    // slug: Yup.string().required("Please add a slug"),
-    // color: Yup.object().required("Please add a color"),
-    description: Yup.string().required("Будь-ласка додайте опис"),
+    groupSubCategory: Yup.string()
+      .transform((value) => {
+        if (typeof value !== "string") {
+          return "";
+        }
+        return value;
+      })
+      .required("Будь-ласка виберіть групу підкатегорій"),
+    color: Yup.object()
+      .nullable()
+      .transform((value) => {
+        if (typeof value !== "object") {
+          return null;
+        }
+        return value;
+      })
+      .required("Please add a color"),
+    // details: Yup.object().nullable()
+    // .transform((value) => {
+    //   if (typeof value !== 'object') {
+    //     console.log("ewrwerwerwerwerwerwerwerwerwerwer", value);
+    //     return null;
+    //   }
+    //   return value;
+    // }).required("Please add details"),
+    details: Yup.array()
+      .of(
+        Yup.object().shape({
+          group: Yup.string(),
+          fields: Yup.array()
+            .min(1, "please add at least one field")
+            .of(
+              Yup.object()
+                .shape({
+                  name: Yup.string().required(),
+                  value: Yup.string().required(),
+                  isMain: Yup.boolean(),
+                })
+                .nullable()
+            )
+            .min(1, "Please add at least one field"),
+        })
+      )
+      .min(1, "Please add at least one detail")
+      .required("Please add details"),
+      description: Yup.string().required("Будь-ласка додайте опис"),
   });
 
   const createProduct = async () => {
@@ -292,8 +302,6 @@ export default function create({ parents, categories }) {
     <Layout>
       {loading && <DotLoaderSpinner loading={loading} />}
       <div className={styles.header}>Створити продукт</div>
-      <div>product</div>
-      {JSON.stringify(product)}
        <DialogModal show={()=>showDialog()} onHide={()=>hideDialog()}/>
        {/* <DialogModal /> */}
       <Formik
@@ -306,11 +314,12 @@ export default function create({ parents, categories }) {
           subCategories: product.subCategories,
           groupSubCategory: product.groupSubCategory,
           parent: product.parent,
-          // slug: product.slug,
           discount: product.discount,
           color: product.color,
           images: product.images,
+          details: product.details,
           imageInputFile: "",
+          dataSelectedOptions,
         }}
         validationSchema={validate}
         onSubmit={() => {
@@ -326,33 +335,6 @@ export default function create({ parents, categories }) {
               images={images}
               setImages={setImages}
             />
-            <div className={styles.flex}>
-              {product.color?.image && (
-                <>
-                  <h3 className={styles.color_set}>
-                    {" "}
-                    Колір продукту: <span className={styles.color_set2}>{product.color?.color}</span>
-                  </h3>
-                  <span
-                    className={styles.color_span}
-                    style={{ background: `${product.color?.image}` }}
-                  ></span>
-                </>
-              )}
-            </div>
-            <Colors
-              name="color"
-              product={product}
-              setProduct={setProduct}
-              color={product.color}
-            />
-            {/* <Style
-              name="styleInput"
-              product={product}
-              setProduct={setProduct}
-              colorImage={colorImage}
-            /> */}
-            {/* TODO product to which one we want to add subProduct */}
             <SingularSelect
               name="parent"
               value={product.parent}
@@ -361,7 +343,6 @@ export default function create({ parents, categories }) {
               header="Додати до існуючого продукту"
               handleChange={handleChange}
             />
-            {/* TODO selector for Category */}
             <SingularSelect
               name="category"
               value={product.category}
@@ -382,13 +363,17 @@ export default function create({ parents, categories }) {
               disabled={product.parent != ""}
             />
             {/* <MultipleSelect
-                                    name="subCategories"
-                                    value={dataOptions}                                   
-                                    data={subs}
-                                    header="Виберіть субкатегорії"
-                                    onChange={handleChange}
-                                    disabled={product.parent!=""}
-                                /> */}
+              isMulti
+              name="dataSelectedOptions"
+              value={dataSelectedOptions}
+              disabled={product.parent != ""}
+              handleChange={handleChangeSubCategory}
+              placeholder="Виберіть субкатегорії"
+              components={animatedComponents}
+              header="Виберіть субкатегорії"
+              data={dataOptions}
+              isClearable={true}
+            /> */}
             <div style={{ marginBottom: "1rem" }}>
               <Select
                 isMulti
@@ -398,8 +383,9 @@ export default function create({ parents, categories }) {
                 onChange={handleChangeSubCategory}
                 placeholder="Виберіть субкатегорії"
                 components={animatedComponents}
-                className={`${styles.select} ${formik.touched && formik.errors && styles.error_select
-                  }`}
+                className={`${styles.select} ${
+                  formik.touched && formik.errors && styles.error_select
+                }`}
                 classNamePrefix="Виберіть субкатегорії"
                 options={dataOptions}
                 isClearable={true}
@@ -410,13 +396,14 @@ export default function create({ parents, categories }) {
                 </p>
               )}
             </div>
-            <div className={styles.header}>Основна інформація</div>
+            <div className={styles.header}>Базова інформація по товару</div>
             <AdminInput
               type="text"
               label="Назва"
               name="name"
-              placeholder="Назва"
+              placeholder="Введіть назву товару..."
               onChange={(e) => handleChange(e)}
+              disabled={product.parent != ""}
             />
             <AdminInput
               type="textarea"
@@ -424,47 +411,43 @@ export default function create({ parents, categories }) {
               cols="50"
               label="Опис"
               name="description"
-              placeholder="Опис"
+              placeholder="Напишіть опис товару, бажано в html"
               onChange={(e) => handleChange(e)}
+              disabled={product.parent != ""}
             />
             <AdminInput
               type="text"
               label="Бренд"
               name="brand"
-              placeholder="Бренд"
+              placeholder="Введіть бренд..."
               onChange={(e) => handleChange(e)}
+              disabled={product.parent != ""}
             />
-            {/* <AdminInput
-              type="text"
-              label="Slug"
-              name="slug"
-              placeholder="Slug"
-              value={slug}
-              onChange={handleChange}
-            /> */}
             <AdminInput
               type="text"
               label="Знижка"
               name="discount"
-              placeholder="Знижка"
+              placeholder="Введіть розмір знижки..."
               onChange={(e) => handleChange(e)}
             />
-            {/* <Images
-                            name="imageDescInputFile"
-                            header="Product Description Images"
-                            text="Add images"
-                            images={description_images}
-                            setImages={setDescriptionImages}
-                            setColorImage={setColorImage} /> */}
+            <Colors
+              name="color"
+              product={product}
+              setProduct={setProduct}
+              color={product.color}
+            />
             <Sizes
+              name="sizes"
               sizes={product.sizes}
               product={product}
               setProduct={setProduct}
             />
             <Details
+              name="details"
               details={product.details}
               product={product}
               setProduct={setProduct}
+              disabled={product.parent != ""}
             />
             <button className={styles.btn} type="submit">
               Створити продукт

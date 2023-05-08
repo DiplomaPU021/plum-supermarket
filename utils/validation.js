@@ -7,6 +7,7 @@ export const validateEmail = (email) => {
 export const validateCreateProduct = (product, images) => {
   let sizes = product.sizes;
   let details = product.details;
+  let subCategories = product.subCategories;
   const checks = [
     {
       msg: "Name, description, Brand added successfully",
@@ -27,28 +28,29 @@ export const validateCreateProduct = (product, images) => {
 
   // -------- Розкоментувати якщо потрібно заборонити створення продукту без кольору!
 
-  // if (!product.color.color) {
-  //   checks.push({
-  //     msg: "Type a main product color name",
-  //     type: "error",
-  //   });
-  // } else {
-  //   checks.push({
-  //     msg: "Product name has been written successfully",
-  //     type: "success",
-  //   });
-  // }
-  // if (!product.color.image) {
-  //   checks.push({
-  //     msg: "Choose a main product color",
-  //     type: "error",
-  //   });
-  // } else {
-  //   checks.push({
-  //     msg: "Product color has been chosen successfully",
-  //     type: "success",
-  //   });
-  // }
+  if (!product.color.color && product.color.image!=="#ffffff00") {
+    checks.push({
+      msg: "Type a main product color name",
+      type: "error",
+    });
+  } else {
+    checks.push({
+      msg: "Product color name has been written successfully",
+      type: "success",
+    });
+  }
+  if (!product.color.image) {
+    checks.push({
+      msg: "Choose a main product color",
+      type: "error",
+    });
+  } else {
+    checks.push({
+      msg: "Product color has been chosen successfully",
+      type: "success",
+    });
+  }
+
   for (var i = 0; i < sizes.length; i++) {
     if (sizes[i].qty == "" || sizes[i].price == "") {
       checks.push({
@@ -64,7 +66,7 @@ export const validateCreateProduct = (product, images) => {
     }
   }
   for (var i = 0; i < details.length; i++) {
-    if (details[i].fields.length == 0) {
+    if (details[i].fields.length>0 && details[i].fields[0].name=="" && details[i].fields[0].value=="") {
       checks.push({
         msg: "Please fill all information on details",
         type: "error",

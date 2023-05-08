@@ -24,8 +24,8 @@ export default function groupSubCategories({ categories, groupSubCategories }) {
 
 export async function getServerSideProps(context) {
    await db.connectDb();
-    const categories = await Category.find({}).sort({ updatedAt: -1 }).lean();
-    const groupSubCategories = await GroupSubCategory.find({}).populate({ path: "parent", model: Category }).sort({ updatedAt: -1 }).lean();
+    const categories = await Category.find({}).sort({ name: 1 }).lean();
+    const groupSubCategories = await GroupSubCategory.find({}).populate({ path: "parent", model: Category }).sort({ name: 1 }).lean();
     await db.disconnectDb();
     return {
         props: {

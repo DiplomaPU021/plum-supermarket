@@ -37,7 +37,8 @@ export default function WishItem({ product, error, setError }) {
     }, [error]);
 
     useEffect(() => {
-        let _uid = `${product._id}_${product.style}_${product.mode}`;
+        if(product){
+         let _uid = `${product._id}_${product.style}_${product.mode}`;
         let exist = null;
         if (cart.cartItems) {
             exist = cart.cartItems.find((item) => item._uid == _uid);
@@ -48,7 +49,9 @@ export default function WishItem({ product, error, setError }) {
         } else {
             setCartChosen(false);
             // setIsOpenInCart(false);
+        }    
         }
+       
     }, [cart.cartTotal, product.style, product.mode]);
 
     const removeProduct = (_uid, id, code) => {

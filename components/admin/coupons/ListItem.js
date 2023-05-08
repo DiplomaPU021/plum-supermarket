@@ -24,7 +24,7 @@ export default function ListItem({ coupon, setCoupons }) {
 
     const handleRemove = async (id) => {
         try {
-            const { data } = await axios.delete('/api/admin/coupon', { data: { id }, })
+            const { data } = await axios.delete('/api/coupon', { data: { id }, })
             toast.success(data.message);
             setCoupons(data.coupons)
         } catch (error) {
@@ -33,7 +33,7 @@ export default function ListItem({ coupon, setCoupons }) {
     };
     const handleUpdate = async (id) => {
         try {
-            const { data } = await axios.put('/api/admin/coupon', {
+            const { data } = await axios.put('/api/coupon', {
                 id,
                 promocode: promocode || coupon.promocode,
                 discount: discount || coupon.discount,

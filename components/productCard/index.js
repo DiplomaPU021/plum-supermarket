@@ -73,7 +73,7 @@ export default function ProductCard({ product, style, mode }) {
     let _uid = `${product._id}_${product.style}_${product.mode}`;
     let exist = null;
     if (wishList.wishListItems) {
-      exist = wishList.wishListItems.find((item) => item._uid == _uid);
+      exist = wishList.wishListItems.find((item) => item?._uid == _uid);
     }
     if (exist) {
       setWishChosen(true);
