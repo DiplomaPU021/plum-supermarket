@@ -77,7 +77,6 @@ export default function MainSwiper({
               disabledClass: "swiper-button-disabled",
             }}
             modules={[Navigation]}
-            loop={true}
           >
             {product.images.map((img, i) => (
               <SwiperSlide key={i}>
@@ -144,7 +143,7 @@ export default function MainSwiper({
             >
               <span
                 className={i == router.query.style ? styles.active : ""}
-                onMouseOver={() => setActiveImg(el.images[i].url)}
+                onMouseOver={() => setActiveImg(el.images[0].url)}
                 onMouseLeave={() => setActiveImg("")}
                 onClick={() =>
                   setActive((prevState) => ({

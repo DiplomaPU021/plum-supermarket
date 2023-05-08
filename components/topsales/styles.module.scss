@@ -11,7 +11,7 @@
     align-items: center;
     justify-content: space-between;
     height: 54px;
-    padding-right: 50px;
+    padding-right: 60px;
 }
 
 .leftsale {
@@ -36,10 +36,15 @@
 }
 
 .coltext {
-    color: #573C90;
-    font-weight: 500;
-    font-size: 25px;
+    padding: 0;
     width: fit-content;
+    
+    button{
+        background-color: transparent;
+        color: #573C90;
+        font-weight: 500;
+        font-size: 25px;
+    }
 }
 
 .products_row {
@@ -125,14 +130,4 @@
     color: #FAF8FF;
     background-color: #220F4B;
     border: none;
-}
-
-.link {
-    text-decoration: none;
-    color: #573C90;
-
-    &:hover {
-        font-weight: 600;
-        color: #573C90;
-    }
 }

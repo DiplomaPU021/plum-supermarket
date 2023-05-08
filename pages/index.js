@@ -26,6 +26,7 @@ export default function Home({ country, products, categories, searchHandler }) {
 
   const { data: session, status } = useSession();
   // console.log("session",session, status);
+
   return (
     <div className={styles.container}>
       <Header country={country} searchHandler={searchHandler}/>
@@ -41,7 +42,11 @@ export default function Home({ country, products, categories, searchHandler }) {
     </div>
   );
 }
-export async function getServerSideProps() {
+export async function getServerSideProps(context) {
+  const { query } = context;
+  const topsales = query.topsales || "";
+  const pageSize =  query.pageSize || 8;
+
   const countryData = await getCountryData();
 
   await db.connectDb();
@@ -52,10 +57,13 @@ export async function getServerSideProps() {
   .populate({ path: "subCategories", model: SubCategory })
   .populate({ path: "reviews.reviewBy", model: User })
   .populate({ path: "reviews.replies.replyBy", model: User })
+  .limit(pageSize)
   .lean();
   let newProducts = products.map((product) => {
     let style = -1;
     let mode = -1;
+    let sold = 0;
+    let discount = 0;
   
     product.subProducts.forEach((subProduct, subIndex) => {
       subProduct.sizes.forEach((size, sizeIndex) => {
@@ -64,6 +72,11 @@ export async function getServerSideProps() {
           mode = sizeIndex;
         }
       });
+      sold += subProduct.sold;
+
+      if(subProduct.discount > discount){
+        discount = subProduct.discount;
+      }
     });
   
     let color = product.subProducts[style] ? product.subProducts[style].color?.color : '';
@@ -75,10 +88,32 @@ export async function getServerSideProps() {
       mode,
       color,
       size,
+      sold,
+      discount,
     };
   });
 
-  //code below is for component Categories
+  switch (topsales) {
+    case "discounts":
+      newProducts = newProducts.sort((a, b) => b.discount - a.discount);
+      break;
+    case "newest":
+      newProducts = newProducts.sort((a, b) => {
+        const dateA = new Date(a.createdAt);
+        const dateB = new Date(b.createdAt);
+        return dateB - dateA;
+      });
+      break;
+    case "popular":
+      newProducts = newProducts.sort((a, b) => b.sold - a.sold);
+      break;
+
+    default:
+      break;
+  }
+  
+
+  //line code below is for component Categories
   let categories = await Category.find().lean();
 
   return {

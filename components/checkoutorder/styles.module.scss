@@ -308,6 +308,11 @@
   height: 60px;
   border: 2px solid #220F4B;
   border-radius: 35px;
+
+  &:focus {
+    border: 2px solid #220F4B;
+    box-shadow: 0px 0px 5px 0px #220F4B;
+  }
 }
 
 .form_input2 {
@@ -317,6 +322,11 @@
   border: 2px solid #220F4B;
   border-radius: 35px;
   margin-left: 12px;
+
+  &:focus {
+    border: 2px solid #220F4B;
+    box-shadow: 0px 0px 5px 0px #220F4B;
+  }
 }
 
 // shipping----------------------------------------------------
@@ -343,6 +353,51 @@
     background-color: #220F4B;
   }
 }
+.status {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px 12px 0px 12px;
+  
+  &__radiobtn {
+    width: 22%;
+    padding: 0;
+    margin: 0;
+
+    label {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      border: 2px solid $plum-dark-color;
+      background-color: $light-wheet-color;
+      border-radius: 30px;
+      height: 46px;
+      color: $plum-dark-color;
+      text-align: center;
+      font-weight: 400;
+      font-size: 16px;
+      line-height: 22px;
+     
+      &:hover {
+        cursor: pointer;
+      }
+    }
+
+    input[type="radio"]:checked + label {
+      border: 2px solid #70BF63;
+      background-color: #70BF63 !important;
+      color: #FAF8FF !important;
+    }
+
+    input {
+      opacity: 0;
+      width: 0;
+      height: 0;
+    }
+  }
+}
+
 
 .bottom {
   margin-bottom: 0px;
@@ -421,6 +476,11 @@
   height: 60px;
   border: 2px solid #220F4B;
   border-radius: 35px;
+  
+  &:focus {
+    border: 2px solid #220F4B;
+    box-shadow: 0px 0px 5px 0px #220F4B;
+  }
 }
 
 .form_address {
@@ -429,6 +489,11 @@
   height: 60px;
   border: 2px solid #220F4B;
   border-radius: 35px;
+    
+  &:focus {
+    border: 2px solid #220F4B;
+    box-shadow: 0px 0px 5px 0px #220F4B;
+  }
 }
 
 .form_elevator {
@@ -437,7 +502,15 @@
   height: 60px;
   border: 2px solid #220F4B;
   border-radius: 35px;
+  
+  &:focus {
+    border: 2px solid #220F4B;
+    box-shadow: 0px 0px 5px 0px #220F4B;
+  }
+
+  
 }
+
 
 .group_floor {
   align-items: center;
@@ -653,6 +726,12 @@
   border: 2px solid #220F4B;
   border-radius: 35px;
   margin-bottom: 1rem;
+
+    
+  &:focus {
+    border: 2px solid #220F4B;
+    box-shadow: 0px 0px 5px 0px #220F4B;
+  }
 }
 
 .promo {
@@ -665,6 +744,12 @@
   padding: 0;
   text-align: start;
   border: none;
+
+  &:active{
+    
+  color: #220F4B !important;
+  background-color: $light-wheet-color !important;
+  }
 
   img {
     float: right;
@@ -769,9 +854,10 @@
   background-color: #220F4B;
   border: none;
 
+  &:active,
   &:hover {
     box-shadow: 0px 0px 5px 0px #220F4B;
-    background-color: #220F4B;
+    background-color: #220F4B !important;
   }
 
 

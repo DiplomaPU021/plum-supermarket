@@ -207,8 +207,9 @@
     font-weight: 500;
     font-size: 18px;
     line-height: 25px;
-
+    
     &:focus {
+        border: 2px solid #220F4B;
         box-shadow: 0px 0px 5px 0px #220F4B;
     }
 }
@@ -228,8 +229,14 @@
     height: 60px;
     border: 2px solid #220F4B;
     border-radius: 35px;
+
+    option{
+        border-radius: 23px !important;
+    }
+
     &:focus {
         box-shadow: 0px 0px 5px 0px #220F4B;
+        border: 2px solid #220F4B;
     }
 }
 
@@ -245,6 +252,8 @@
 
     &:hover {
         box-shadow: 0px 0px 5px 0px #220F4B;
+        background-color:  $plum-dark-color;
+        color: $light-wheet-color;
     }
 }
 
@@ -481,14 +490,17 @@
     background-color: #220F4B;
     border: none;
 
+    &:active,
+    &:focus,
     &:hover {
         box-shadow: 0px 0px 5px 0px #220F4B;
-        background-color: #220F4B;
+        background-color: #220F4B !important;
     }
 
     img {
         margin-left: 10px;
     }
+
 }
 
 .form_input {
@@ -511,16 +523,17 @@
 }
 
 .flex_row {
-    align-items: flex-end;
+    align-items: center;
     justify-content: center;
     display: flex;
     flex-direction: row;
     column-gap: 12px;
     margin-top: 10px;
+    padding: 0;
 
     button {
         width: 160px;
-        height: 49px;
+        height: 60px;
         font-family: 'Noto Sans';
         font-weight: 320;
         font-size: 20px;
@@ -653,13 +666,22 @@
 
 //-----------------------------------
 
-.form_input_card {
+.form_input_card{
     padding: 15px 24px;
     margin: 0;
-    max-width: 860px;
+    max-width: 860px !important;
     height: 52px;
     border: 2px solid #220F4B;
     border-radius: 35px;
+
+    &:focus {
+        border: 2px solid #220F4B;
+        box-shadow: 0px 0px 5px 0px #220F4B;
+    }
+
+    option{
+        width: inherit !important;
+    };
 }
 
 .flex_row_card {
@@ -706,5 +728,7 @@
 
     &:hover {
         box-shadow: 0px 0px 5px 0px #220F4B;
+        background-color: #220F4B;
+        color: #FAF8FF;
     }
 }

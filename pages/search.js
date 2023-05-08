@@ -208,8 +208,8 @@ export default function Search({
         break;
       case "byNewest":
         sortedProducts = products.sort((a, b) => {
-          const dateA = new Date(a.created_at);
-          const dateB = new Date(b.created_at);
+          const dateA = new Date(a.createdAt);
+          const dateB = new Date(b.createdAt);
           return dateB - dateA;
         });
         break;

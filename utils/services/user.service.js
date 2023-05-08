@@ -343,72 +343,54 @@ const removeFromCreditCards = async (userId, creditCardId) => {
 
 };
 
-const addAdditionalInfo = async ( userId, additionalInfo ) => {
-  console.log("log->346");
-    const user = await User.findById(userId);
-    console.log("log->348");
-    try {
-
-        const user = await User.findOneAndUpdate(
-            { _id: userId },
-            { additionalInfo },
-            { new: true }
-        );
-        return user;
-
-        // const updateResult = user.updateOne(
-        //     {
-        //         additionalInfo.vehicle: vehicle,
-        //         $set: {
-        //             additionalInfo.vehicle: vehicle,
-        //             "additionalInfo.$.vehicle": vehicle,
-        //             "additionalInfo.$.motorcycle": motorcycle,
-        //             "additionalInfo.$.children": children,
-        //             "additionalInfo.$.business": business,
-        //         },
-        //     },
-        //     {
-        //         new: true,
-        //         upsert: true // додаємо опцію upsert
-        //     }
-        // );
-        // console.log("log->364");
-        // return updateResult;
-    } catch (err) {
-        console.error(err);
-    }
+const addAdditionalInfo = async (userId, additionalInfo) => {
+  try {
+    const user = await User.findOneAndUpdate(
+      { _id: userId },
+      { additionalInfo },
+      { new: true }
+    );
+    return user;
+  } catch (err) {
+    console.error(err);
+  }
 };
 
 const getAdditionalInfo = async (userId) => {
     const foundUser = await User.findById(userId);
     return foundUser.additionalInfo;
 }
-const addAdmirations = async (userId, fishing, hunting, gardening, fitness, yoga, running, bicycle, music, tourism, cybersport, handmade) => {
-    const foundUser = await User.findById(userId);
-    if (foundUser) {
-        foundUser.admiration = {
-            fishing,
-            hunting,
-            gardening,
-            fitness,
-            yoga,
-            running,
-            bicycle,
-            music,
-            tourism,
-            cybersport,
-            handmade
-        };
-        await foundUser.save({ validateBeforeSave: false });
-        return foundUser;
-    } else {
-        throw new Error("Користувача не знайдено");
-    }
-
+const addAdmirations = async (userId, admiration) => {
+    try {
+        const user = await User.findOneAndUpdate(
+          { _id: userId },
+          { admiration },
+          { new: true }
+        );
+        return user;
+      } catch (err) {
+        console.error(err);
+      }
 };
 const getAddmirations = async (userId) => {
     const foundUser = await User.findById(userId);
     return foundUser.admiration;
+}
+const addPets = async (userId, pets) => {
+    try {
+        const user = await User.findOneAndUpdate(
+          { _id: userId },
+          { pets },
+          { new: true }
+        );
+        return user;
+      } catch (err) {
+        console.error(err);
+      }
+};
+const getPets = async (userId) => {
+    const foundUser = await User.findById(userId);
+    return foundUser.pets;
 }
 const userService = {
     getOneById,
@@ -429,7 +411,9 @@ const userService = {
     addAdmirations,
     getAddmirations,
     getAdditionalInfo,
-    addAdditionalInfo
+    addAdditionalInfo,
+    addPets,
+    getPets,
 };
 
 export default userService;
