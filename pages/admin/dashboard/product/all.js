@@ -8,7 +8,7 @@ import ProductCard from "@/components/admin/products/productCard"
 export default function all({ products }) {
     return (
         <Layout>
-            <div className={styles.header}>All Products</div>
+            <div className={styles.header}>Всі продукти</div>
             {
                 products.map((product, i) => (
                     <ProductCard product={product} key={`${product._id}_${i}`} />

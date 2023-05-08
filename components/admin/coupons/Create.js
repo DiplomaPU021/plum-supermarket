@@ -27,13 +27,13 @@ export default function Create({ setCoupons }) {
 
     const validate = Yup.object({
         promocode: Yup.string()
-            .required('Coupon name is required.')
-            .min(2, "Coupon name must be between 2 and 30 characters.")
-            .max(30, "Coupon name must be between 2 and 30 characters."),
+            .required('Вкажіть назву купону.')
+            .min(2, "Назва купону має бути між 2 та 30 символами.")
+            .max(30, "Назва купону має бути між 2 та 30 символами."),
         discount: Yup.number()
-            .required('Discount name is required.')
-            .min(1, "Discount must be at list 1%")
-            .max(99, "Discount must be less than 99%")
+            .required('Вкажіть знижку')
+            .min(1, "Знижка має бути не менше 1%")
+            .max(99, "Знижка має бути не більше 99%")
     });
     const submitHandler = async () => {
         try {
@@ -68,25 +68,25 @@ export default function Create({ setCoupons }) {
             {
                 (formik) => (
                     <Form>
-                        <div className={styles.header}>Create a Coupon</div>
+                        <div className={styles.header}>Створити купон</div>
                         <AdminInput
                             type="text"
-                            label="Promocode"
+                            label="Промокод"
                             name="promocode"
-                            placeholder="Promocode"
+                            placeholder="Промокод"
                             onChange={(e) => setPromocode(e.target.value)}
                         />
                         <AdminInput
                             type="number"
-                            label="Discount"
+                            label="Знижка"
                             name="discount"
-                            placeholder="Coupon name"
+                            placeholder="Знижка"
                             onChange={(e) => setDiscount(e.target.value)}
                         />
                         <div className={styles.date_picker}>
                             <FormGroup controlId="groupStartDate">
                                 <FormLabel className={styles.form_label}>
-                                    Start Date
+                                    Початок дії
                                 </FormLabel>
                                 <FormControl
                                     type="date"
@@ -99,7 +99,7 @@ export default function Create({ setCoupons }) {
                             </FormGroup>
                             <FormGroup controlId="groupEndDate">
                                 <FormLabel className={styles.form_label}>
-                                    End Date
+                                    Кінець дії
                                 </FormLabel>
                                 <FormControl
                                     type="date"
@@ -113,7 +113,7 @@ export default function Create({ setCoupons }) {
                         </div>
                         <div className={styles.btnWrap}>
                             <button type="submit" className={`${styles.btn}`}>
-                                <span>Add Coupon</span>
+                                <span>Додати купон</span>
                             </button>
                         </div>
                     </Form>

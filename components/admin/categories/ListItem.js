@@ -40,8 +40,8 @@ export default function ListItem({ category, setCategories }) {
             />
             {
                 open && (<div className={styles.list__item_expand}>
-                    <button className={styles.btn} onClick={() => handleUpdate(category._id)}>Save</button>
-                    <button className={styles.btn} onClick={() => { setOpen(false); setName("") }}>Cancel</button>
+                    <button className={styles.btn} onClick={() => handleUpdate(category._id)}>Зберегти</button>
+                    <button className={styles.btn} onClick={() => { setOpen(false); setName("") }}>Скасувати</button>
                 </div>)
             }
             <div className={styles.list__item_actions}>

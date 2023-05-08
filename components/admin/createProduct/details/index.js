@@ -1,6 +1,7 @@
 import { useState } from "react"
 import styles from "./styles.module.scss"
-import { BsFillPatchMinusFill, BsFillPatchPlusFill } from "react-icons/bs";
+import { Form } from "react-bootstrap"
+import { AiFillMinusCircle, AiFillPlusCircle } from "react-icons/ai";
 export default function Details({
     details,
     product,
@@ -44,8 +45,9 @@ export default function Details({
             <div className={styles.header}>Деталі</div>
             {
                 details ? details.map((detail, i) => (
-                    <div className={styles.container_size} key={i}>
+                    <div className={styles.container_details} key={i}>
                         <input
+                            className={styles.input}
                             type="text"
                             name="group"
                             placeholder={"Назва групи х-ик"}
@@ -53,31 +55,32 @@ export default function Details({
                             onChange={(e) => handleDetails(i, e)}
                         />
                         {/* {details.length == 0 && ( */}
-                            <>
-                                <BsFillPatchMinusFill onClick={() => handleRemove(i)} />
-                                <BsFillPatchPlusFill onClick={() => {
-                                    setProduct({
-                                        ...product,
-                                        details: [
-                                            ...details, {
-                                                group: "",
-                                                fields: [
-                                                    {
-                                                        name: "",
-                                                        value: "",
-                                                        isMain: false
-                                                    }
-                                                ]
-                                            }
-                                        ]
-                                    })
-                                }} />
-                            </>
+                      
+                            <AiFillMinusCircle onClick={() => handleRemove(i)} />
+                            <AiFillPlusCircle onClick={() => {
+                                setProduct({
+                                    ...product,
+                                    details: [
+                                        ...details, {
+                                            group: "",
+                                            fields: [
+                                                {
+                                                    name: "",
+                                                    value: "",
+                                                    isMain: false
+                                                }
+                                            ]
+                                        }
+                                    ]
+                                })
+                            }} />
+                       
                         {/* )} */}
-                        <div>
+                        <div className={styles.details}>
                             {detail.fields.map((field, j) => (
-                                <div key={"field" + j}>
+                                <div key={"field" + j} className={styles.field}>
                                     <input
+                                        className={styles.input2}
                                         type="text"
                                         name="name"
                                         placeholder={"Назва характеристики"}
@@ -85,21 +88,27 @@ export default function Details({
                                         onChange={(e) => handleFields(i, j, e)}
                                     />
                                     <input
+                                        className={styles.input2}
                                         type="text"
                                         name="value"
                                         placeholder={"Значення характеристики"}
                                         value={field.value}
                                         onChange={(e) => handleFields(i, j, e)}
                                     />
+
                                     <input
+                                        id="ch_box"
+                                        className={styles.ch_box}
                                         type="checkbox"
                                         name="isMain"
                                         placeholder={"Основна?"}
                                         checked={field.isMain}
                                         onChange={(e) => handleFieldsMain(i, j, e)}
                                     />
-                                    <BsFillPatchMinusFill onClick={() => handleRemoveField(i,j)} />
-                                    <BsFillPatchPlusFill onClick={() => {
+                                    <label for="ch_box">Основна?</label>
+
+                                    <AiFillMinusCircle onClick={() => handleRemoveField(i, j)} />
+                                    <AiFillPlusCircle onClick={() => {
                                         const values = [...details];
                                         values[i].fields.push({
                                             name: "",
@@ -116,7 +125,7 @@ export default function Details({
                         </div>
                     </div>
                 )) : <></>
-                }
+            }
         </div>
     )
 }

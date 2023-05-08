@@ -15,13 +15,13 @@ export default function Create({ categories, setSubCategories, groupSubCategorie
     const [filteredGroupSubCategories, setFilteredGroupSubCategories] = useState(groupSubCategories);
     const validate = Yup.object({
         name: Yup.string()
-            .required('SubCategory name is required.')
-            .min(2, "SubCategory name must be between 2 and 30 characters.")
-            .max(30, "SubCategory name must be between 2 and 30 characters.")
-            .matches(/^[абвгдеєжзиіїйклмнопрстуфхцчшщьюяАБВГДЕЄЖЗИЇІКЛМНОПРСТУФХЦЧШЩЬЮЯa-zA-Z'-\s]*$/, "Numbers and special characters are not allowed.")
+        .required('Вкажіть назву підкатегорії.')
+        .min(2, "Назва підкатегорії має бути між 2 та 30 символами.")
+        .max(30, "Назва підкатегорії має бути між 2 та 30 символами.")
+        .matches(/^[абвгдеєжзиіїйклмнопрстуфхцчшщьюяАБВГДЕЄЖЗИЇІКЛМНОПРСТУФХЦЧШЩЬЮЯa-zA-Z\s]*$/, "Цифри та розділові знаки не допускаються.")
         ,
-        parent: Yup.string().required("Please choose a parent category"),
-        topParent: Yup.string().required("Please choose a top parent category")
+        parent: Yup.string().required("Будь-ласка виберіть группу"),
+        topParent: Yup.string().required("Будь-ласка виберіть категорію")
     });
     const handleChangeTopParent = (e) => {
         setTopParent(e.target.value);
@@ -54,31 +54,31 @@ export default function Create({ categories, setSubCategories, groupSubCategorie
             {
                 (formik) => (
                     <Form>
-                        <div className={styles.header}>Create a SubCategory</div>
+                        <div className={styles.header}>Створити підкатегорію</div>
                         <AdminInput
                             type="text"
-                            label="Name"
+                            label="Назва"
                             name="name"
-                            placeholder="Sub-Category name"
+                            placeholder="Підкатегорія"
                             onChange={(e) => setName(e.target.value)}
                         />
                         <SingularSelect
                             name="topParent"
                             value={topParent}
                             data={categories}
-                            placeholder="Select category"
+                            placeholder="Виберіть категорію"
                             header="Виберіть категорію"
                             handleChange={handleChangeTopParent} />
                         <SingularSelect
                             name="parent"
                             value={parent}
                             data={filteredGroupSubCategories}
-                            placeholder="Select group of category"
+                            placeholder="Виберіть групу підкатегорій"
                             header="Виберіть групу підкатегорій"
                             handleChange={(e) => setParent(e.target.value)} />
                         <div className={styles.btnWrap}>
                             <button type="submit" className={`${styles.btn}`}>
-                                <span>Add Sub Category</span>
+                                <span>Додати підкатегорію</span>
                             </button>
                         </div>
                     </Form>

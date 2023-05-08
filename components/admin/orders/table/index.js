@@ -16,19 +16,19 @@ export default function OrdersTable({ orders }) {
 
     return (
         <>
-            <div className={styles.header}>Orders Table</div>
+            <div className={styles.header}>Замовлення</div>
             {open ? (<OrderDetails order={activeOrder} orderId={activeOrder._id} open={open} setOpen={setOpen} />) : null}
             <Table className={styles.ordertable} striped>
                 <thead>
                     <tr>
-                        <th>Order Code & Details</th>
-                        <th>Payment method</th>
-                        <th>Is Paid</th>
-                        <th>Status</th>
-                        <th>Promocode</th>
-                        <th>Discount</th>
-                        <th>Total</th>
-                        <th>Details</th>
+                        <th>Номер замовлення</th>
+                        <th>Спосіб оплати</th>
+                        <th>Оплата</th>
+                        <th>Статус</th>
+                        <th>Промокод</th>
+                        <th>Знижка</th>
+                        <th>Сумма</th>
+                        <th>Деталі</th>
                     </tr>
                 </thead>
                 <tbody>

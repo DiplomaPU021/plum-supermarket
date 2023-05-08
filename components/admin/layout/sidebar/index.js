@@ -48,7 +48,7 @@ export default function Sidebar() {
                     <img src="../../../profile/account2.png" alt="" />
                     {/* <img src={session?.user?.image} alt="" /> */}
                     <div className={styles.show}>
-                        <span>Welcome back </span>
+                        <span>Вітаємо </span>
                         <span>{session?.user?.name}</span>
                     </div>
                 </div>
@@ -56,56 +56,56 @@ export default function Sidebar() {
                     <li className={route == undefined ? styles.active : ""}>
                         <Link href="/admin/dashboard">
                             <MdSpaceDashboard />
-                            <span className={styles.show}>Dashboard</span>
+                            <span className={styles.show}>Головна панель</span>
                         </Link>
                     </li>
                     <li className={route == "sales" ? styles.active : ""}>
                         <Link href="/admin/dashboard/sales">
                             <FcSalesPerformance />
-                            <span className={styles.show}>Sales</span>
+                            <span className={styles.show}>Продажі</span>
                         </Link>
                     </li>
                     <li className={route == "orders" ? styles.active : ""}>
                         <Link href="/admin/dashboard/orders">
                             <IoListCircleSharp />
-                            <span className={styles.show}>Orders</span>
+                            <span className={styles.show}>Замовлення</span>
                         </Link>
                     </li>
                     <li className={route == "users" ? styles.active : ""}>
                         <Link href="/admin/dashboard/users">
                             <ImUsers />
-                            <span className={styles.show}>Users</span>
+                            <span className={styles.show}>Клієнти</span>
                         </Link>
                     </li>
                 </ul>
                 <div className={styles.sidebar__dropdown}>
                     <div className={styles.sidebar__dropdown_header}>
-                        <div className={styles.show}>Product</div>
+                        <div className={styles.show}>Продукт</div>
                     </div>
                     <ul className={styles.sidebar__list}>
                         <li className={route == "product/all" ? styles.active : ""}>
                             <Link href="/admin/dashboard/product/all">
                                 <FaThList />
-                                <span className={styles.show}>All Products</span>
+                                <span className={styles.show}>Всі продукти</span>
                             </Link>
                         </li>
                         <li className={route == "product/create" ? styles.active : ""}>
                             <Link href="/admin/dashboard/product/create">
                                 <BsPatchPlus />
-                                <span className={styles.show}>Create Product</span>
+                                <span className={styles.show}>Створити продукт</span>
                             </Link>
                         </li>
                     </ul>
                 </div>
                 <div className={styles.sidebar__dropdown}>
                     <div className={styles.sidebar__dropdown_header}>
-                        <div className={styles.show}>Categories / Subs</div>
+                        <div className={styles.show}>Категорії / підкатегорії</div>
                     </div>
                     <ul className={styles.sidebar__list}>
                         <li className={route == "categories" ? styles.active : ""}>
                             <Link href="/admin/dashboard/categories">
                                 <MdOutlineCategory />
-                                <span className={styles.show}>Categories</span>
+                                <span className={styles.show}>Категорії</span>
                             </Link>
                         </li>
                         <li className={route == "groupSubCategories" ? styles.active : ""}>
@@ -113,7 +113,7 @@ export default function Sidebar() {
                             <div style={{ transform: "rotate(90deg)" }}>
                                 <MdOutlineCategory />
                                 </div>
-                                <span className={styles.show}>GroupSubCategories</span>
+                                <span className={styles.show}>Групи Підкатегорії</span>
                             </Link>
                         </li>
                         <li className={route == "subCategories" ? styles.active : ""}>
@@ -121,20 +121,20 @@ export default function Sidebar() {
                                 <div style={{ transform: "rotate(180deg)" }}>
                                     <MdOutlineCategory />
                                 </div>
-                                <span className={styles.show}>Sub-Categories</span>
+                                <span className={styles.show}>Підкатегорії</span>
                             </Link>
                         </li>
                     </ul>
                 </div>
                 <div className={styles.sidebar__dropdown}>
                     <div className={styles.sidebar__dropdown_header}>
-                        <div className={styles.show}>Coupons</div>
+                        <div className={styles.show}>Купони</div>
                     </div>
                     <ul className={styles.sidebar__list}>
                         <li className={route == "coupons" ? styles.active : ""}>
                             <Link href="/admin/dashboard/coupons">
                                 <RiCoupon3Fill />
-                                <span className={styles.show}>Coupons</span>
+                                <span className={styles.show}>Купони</span>
                             </Link>
                         </li>
                     </ul>

@@ -92,7 +92,7 @@ export default function Dropdown({ userImage }) {
                     </div>
                 </div>
                 <div className={styles.dropdown_logout}>
-                    <button onClick={() => signOut()}>Logout</button>
+                    <button onClick={() => signOut()}>Вийти</button>
                 </div>
             </div>
         </div>

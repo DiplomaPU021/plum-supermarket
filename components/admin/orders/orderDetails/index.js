@@ -17,7 +17,7 @@ export default function OrderDetails({ order, orderId, open, setOpen }) {
       centered>
       <div className={styles.modal_main}>
         <Modal.Header closeButton>
-          <Modal.Title>Order details</Modal.Title>
+          <Modal.Title>Деталі замовлення</Modal.Title>
         </Modal.Header>
         <Modal.Body className={styles.modalbody}> <OrderItem order={order} key={orderId} adminActive={open} /></Modal.Body>
       </div>

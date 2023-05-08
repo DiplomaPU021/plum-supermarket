@@ -20,7 +20,7 @@ export default function dashboard({ users, products, orders }) {
                 <div className={styles.header}>
                     <div className={styles.header_search}>
                         <label htmlFor="">
-                            <input type="text" placeholder="Search here..." />
+                            <input type="text" placeholder="Шукати тут..." />
                         </label>
                     </div>
                     <div className={styles.header_right}>
@@ -34,7 +34,7 @@ export default function dashboard({ users, products, orders }) {
                         </div>
                         <div className={styles.card_infos}>
                             <h4>+{users.length}</h4>
-                            <span>Users</span>
+                            <span>Клієнти</span>
                         </div>
                     </div>
                     <div className={styles.card}>
@@ -43,7 +43,7 @@ export default function dashboard({ users, products, orders }) {
                         </div>
                         <div className={styles.card_infos}>
                             <h4>+{orders.length}</h4>
-                            <span>Orders</span>
+                            <span>Замовлення</span>
                         </div>
                     </div>
                     <div className={styles.card}>
@@ -52,7 +52,7 @@ export default function dashboard({ users, products, orders }) {
                         </div>
                         <div className={styles.card_infos}>
                             <h4>+{products.length}</h4>
-                            <span>Products</span>
+                            <span>Продукти</span>
                         </div>
                     </div>
                     <div className={styles.card}>
@@ -63,25 +63,25 @@ export default function dashboard({ users, products, orders }) {
                             <h4>+{orders.reduce((a, val) => a + val.costAfterDiscount, 0).toLocaleString('uk-UA')} ₴</h4>
                             <h5>-{orders
                                 .filter((o) => !o.isPaid)
-                                .reduce((a, val) => a + val.costAfterDiscount, 0).toLocaleString('uk-UA')} ₴ Unpaid yet</h5>
-                            <span>Total Earnings</span>
+                                .reduce((a, val) => a + val.costAfterDiscount, 0).toLocaleString('uk-UA')} ₴ Не оплачено</h5>
+                            <span>Загальний дохід</span>
                         </div>
                     </div>
                 </div>
                 <div className={styles.data}>
                     <div className={styles.orders}>
                         <div className={styles.heading}>
-                            <h2>Recent orders</h2>
-                            <Link href="/admin/dashboard/orders">View all</Link>
+                            <h2>Останні замовлення</h2>
+                            <Link href="/admin/dashboard/orders">Всі замовлення</Link>
                         </div>
                         <table>
                             <thead>
                                 <tr>
-                                    <th>Number of Order</th>
-                                    <th>Payment method</th>
-                                    <th>Is Paid</th>
-                                    <th>Status</th>
-                                    <th>Total</th>
+                                    <th>Номер замовлення</th>
+                                    <th>Спосіб оплати</th>
+                                    <th>Оплата</th>
+                                    <th>Статус</th>
+                                    <th>Сумма</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -100,8 +100,8 @@ export default function dashboard({ users, products, orders }) {
                     </div>
                     <div className={styles.users}>
                         <div className={styles.heading}>
-                            <h2>Recent users</h2>
-                            <Link href="/admin/dashboard/users">View all</Link>
+                            <h2>Останні клієнти</h2>
+                            <Link href="/admin/dashboard/users">Всі клієнти</Link>
                         </div>
                         <table>
                             <tbody>
@@ -133,9 +133,9 @@ export default function dashboard({ users, products, orders }) {
 
 
 export async function getServerSideProps(context) {
-    // db.connectDb();
     const users = await User.find().lean();
     const orders = await Order.find().populate('user').lean();
+    orders.reverse();
     const products = await Product.find().lean();
     return {
         props: {
