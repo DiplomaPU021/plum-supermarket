@@ -228,7 +228,6 @@ export default function EditProduct({
         formData.append("file", img);
       });
       uploaded_images = await uploadImages(formData);
-      console.log("uploaded images: ", uploaded_images);
     }
 
     try {
@@ -290,8 +289,8 @@ export default function EditProduct({
           <Form>
             <Images
               name="imagesInputFile"
-              header="Зображення каруселі товарів"
-              text="Додати зображення"
+              header="Фото продукту"
+              text="Додати фото"
               images={images}
               setImages={setImages}
             />
@@ -319,9 +318,8 @@ export default function EditProduct({
                 onChange={handleChangeSubCategory}
                 placeholder="Виберіть субкатегорії"
                 components={animatedComponents}
-                className={`${styles.select} ${
-                  formik.touched && formik.errors && styles.error_select
-                }`}
+                className={`${styles.select} ${formik.touched && formik.errors && styles.error_select
+                  }`}
                 classNamePrefix="Виберіть субкатегорії"
                 options={dataOptions}
                 isClearable={true}
@@ -363,21 +361,6 @@ export default function EditProduct({
               placeholder="Введіть розмір знижки..."
               onChange={(e) => handleChange(e)}
             />
-
-            {/* <div className={styles.flex}>
-              {product.color?.image && (
-                <>
-                  <h3>
-                    {" "}
-                    Колір продукту: <span>{product.color?.color}</span>
-                  </h3>
-                  <span
-                    className={styles.color_span}
-                    style={{ background: `${product.color?.image}` }}
-                  ></span>
-                </>
-              )}
-            </div> */}
             <Colors
               name="color"
               product={productToEdit}
