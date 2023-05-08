@@ -26,12 +26,12 @@ export default function subCategories({ categories, subCategories, groupSubCateg
 
 export async function getServerSideProps(context) {
    await db.connectDb();
-    const categories = await Category.find({}).sort({ updatedAt: -1 }).lean();
+    const categories = await Category.find({}).sort({ name: 1 }).lean();
     const subCategories = await SubCategory.find({})
         .populate({ path: "parent", model: GroupSubCategory })
         .populate({ path: "top_parent", model: Category })
-        .sort({ updatedAt: -1 }).lean();
-    const groupSubCategories = await GroupSubCategory.find({}).populate({ path: "parent", model: Category }).sort({ updatedAt: -1 }).lean();
+        .sort({ name: 1 }).lean();
+    const groupSubCategories = await GroupSubCategory.find({}).populate({ path: "parent", model: Category }).sort({ name: 1 }).lean();
     await db.disconnectDb();
     return {
         props: {

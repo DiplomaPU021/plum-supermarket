@@ -11,7 +11,6 @@ export default function SingularSelect({
     ...rest
 }) {
     const [field, meta] = useField(rest);
-    // console.log("rest",rest);
     return (
         <div style={{ marginBottom: "1rem" }}>
             <select aria-label="Cat-select"
@@ -23,7 +22,7 @@ export default function SingularSelect({
                 className={`${styles.select} ${meta.touched && meta.error && styles.error_select}`}>
                 <option key={""} value={""}>{header}</option>
                 {data?.map((item, i) => (
-                    <option key={item._id} value={item._id || item.name || item.slug}>{item.name || item.slug}</option>
+                    <option key={item._id} value={item._id}>{item.name}</option>
                 ))}
             </select>
             {

@@ -5,7 +5,8 @@ import { sizesList } from "@/data/sizes";
 export default function Sizes({
     sizes,
     product,
-    setProduct
+    setProduct,
+    ...rest
 }) {
     const [noSize, setNoSize] = useState(false);
     const handleSize = (i, e) => {
@@ -32,14 +33,28 @@ export default function Sizes({
         }
         return randStr;
     };
+    const handleAddSizeField = () => {
+        setProduct({
+            ...product,
+            sizes: [
+                ...sizes, {
+                    size: "",
+                    qty: "",
+                    price: "",
+                    price_unit: "₴",
+                    code: createUniqueCode(),
+                }
+            ]
+        })
+    }
     return (
         <div>
-            <div className={styles.header}>Sizes / Quantity / Price</div>
-            <button type="reset" className={styles.click_btn} onClick={() => {
+            <div className={styles.header}>Розміри / Кількості / Ціни</div>
+            <button disabled={rest.disabled} type="reset" className={styles.click_btn} onClick={() => {
                 if (!noSize) {
                     let data = sizes.map((item) => {
                         return {
-                            size:"",
+                            size: "",
                             qty: item.qty,
                             price: item.price,
                             price_unit: "₴",
@@ -61,7 +76,7 @@ export default function Sizes({
                 }
                 setNoSize((prev) => !prev)
             }}>
-                {noSize ? "click if product has size" : "click if product has no size"}
+                {noSize ? "натисніть якщо продукт має розмір" : "натисніть якщо продукт не має розміру"}
             </button>
             {
                 sizes ? sizes.map((size, i) => (
@@ -87,6 +102,7 @@ export default function Sizes({
                             min={1}
                             value={size.qty}
                             onChange={(e) => handleSize(i, e)}
+                            disabled={rest.disabled}
                         />
                         <input
                             type="number"
@@ -95,29 +111,17 @@ export default function Sizes({
                             min={1}
                             value={size.price}
                             onChange={(e) => handleSize(i, e)}
+                            disabled={rest.disabled}
                         />
                         {
                             !noSize ? (<>
-                                <BsFillPatchMinusFill onClick={() => handleRemove(i)} />
-                                <BsFillPatchPlusFill onClick={() => {
-                                    setProduct({
-                                        ...product,
-                                        sizes: [
-                                            ...sizes, {
-                                                size: "",
-                                                qty: "",
-                                                price: "",
-                                                price_unit: "₴",
-                                                code: createUniqueCode(),
-                                            }
-                                        ]
-                                    })
-                                }} />
+                                <BsFillPatchMinusFill onClick={() => handleRemove(i)} disabled={rest.disabled} />
+                                <BsFillPatchPlusFill disabled={rest.disabled} onClick={() => handleAddSizeField()} />
                             </>
-                            ) : ("")
+                            ) : (<></>)
                         }
                     </div>
-                )) : ""}
+                )) : <></>}
         </div>
     )
 }

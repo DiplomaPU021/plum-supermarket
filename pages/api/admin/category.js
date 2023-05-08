@@ -1,11 +1,12 @@
-import Category from "../../../models/Category";
+import Category from "@/models/Category";
 import nc from "next-connect";
-import auth from "../../../middleware/auth";
-import admin from "../../../middleware/admin";
-import db from "../../../utils/db";
+import auth from "@/middleware/auth";
+import admin from "@/middleware/admin";
+import db from "@/utils/db";
 import slugify from "slugify";
 import SubCategory from "@/models/SubCategory";
 import GroupSubCategory from "@/models/GroupSubCategory";
+import Product from "@/models/Product";
 
 const handler = nc().use(auth).use(admin);
 
@@ -23,7 +24,7 @@ handler.post(async (req, res) => {
     await db.disconnectDb();
     res.json({
       message: `Category ${name} has been created successfully`,
-      categories: await Category.find({}).sort({ updatedAt: -1 }),
+      categories: await Category.find({}).sort({ name: 1 }),
     });
   } catch (error) {
     await db.disconnectDb();
@@ -35,53 +36,61 @@ handler.delete(async (req, res) => {
   try {
     const { id } = req.body;
     await db.connectDb();
-    await Category.findByIdAndRemove(id);
-    await db.disconnectDb();
-    return res.json({
-      message: "Category has been deleted succesfuly",
-      categories: await Category.find({}).sort({ updatedAt: -1 }),
-    });
+    const groupSubCategoriesToDelete = await GroupSubCategory.find({ parent: id });
+    const subCategoriesToDelete = await SubCategory.find({ top_parent: id });
+    let productsToDeleteGroup = [];
+    for (const element of subCategoriesToDelete) {
+      let productsToDelete = await Product.find({
+        subCategories: { $in: [element._id.toString()] },
+      });
+      productsToDeleteGroup = productsToDeleteGroup.concat(productsToDelete);
+    }
+    if (
+      groupSubCategoriesToDelete.length ==0 &&
+      subCategoriesToDelete.length == 0 &&
+      productsToDeleteGroup.length == 0
+    ) {
+      await Category.findByIdAndRemove(id);
+      await db.disconnectDb();
+      return res.json({
+        message: "Категорія видалена успішно!",
+        categories: await Category.find({}).sort({
+          name: 1,
+        }),
+      });
+    } else {
+      throw new Error(
+        `Категорія містить  ${groupSubCategoriesToDelete?.length} груп(-у) підкатегорій, ${subCategoriesToDelete?.length} підкатегорію(-ій) та ${productsToDeleteGroup?.length} продукт(-ів)`
+      );
+    }
   } catch (error) {
-    res.status(500).json({ message: error.message });
+    return res.status(500).json({ message: error.message });
   }
+  //   await Category.findByIdAndRemove(id);
+  //   await db.disconnectDb();
+  //   return res.json({
+  //     message: "Category has been deleted succesfuly",
+  //     categories: await Category.find({}).sort({ updatedAt: -1 }),
+  //   });
+  // } catch (error) {
+  //   return res.status(500).json({ message: error.message });
+  // }
 });
 
 handler.put(async (req, res) => {
   try {
     const { id, name } = req.body;
     await db.connectDb();
-
-    const subCategoriesToDelete = await SubCategory.find({ top_parent: id });
-    let productsToDeleteGroup = [];
-    for (const element of subCategoriesToDelete) {
-      let productsToDelete = await Product.find({ subCategories: { $in: [element._id.toString()] } });
-      productsToDeleteGroup = productsToDeleteGroup.concat(productsToDelete);
-    }
-    let countDeletedProduct = 0;
-    for (const element of productsToDeleteGroup) {
-      await Product.findByIdAndDelete(element._id);
-      countDeletedProduct++;
-    }
-    let countDeletedSubCategories = 0;
-    for (const element of subCategoriesToDelete) {
-      await SubCategory.findByIdAndDelete(element._id);
-      countDeletedSubCategories++;
-    }
-    let countDeletedGroupSubCategories=0;
-    const gropupSubCategoriesToDelete = await GroupSubCategory.find({ parent: id });
-    for (const element of gropupSubCategoriesToDelete) {
-      await GroupSubCategory.findByIdAndDelete(element._id);
-      countDeletedGroupSubCategories++;
-    }
-
-    await Category.findByIdAndUpdate(id, { name });
+    await Category.findByIdAndUpdate(id, { name,
+      slug: slugify(name, "_"),
+    });
     await db.disconnectDb();
     return res.json({
-      message: `Category has been deleted succesfuly  ${countDeletedGroupSubCategories} group of subcategories and ${countDeletedSubCategories} subcategories and ${countDeletedProduct} products has been deleted silmuteniously`,
-      categories: await Category.find({}).sort({ updatedAt: -1 }),
+      message: `Category has been updated succesfuly!`,
+      categories: await Category.find({}).sort({ name: 1 }),
     });
   } catch (error) {
-    res.status(500).json({ message: error.message });
+    return res.status(500).json({ message: error.message });
   }
 });
 

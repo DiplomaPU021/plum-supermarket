@@ -5,7 +5,7 @@ const createActivationToken = async (user) => {
     { userId: user.userId, email: user.email },
     process.env.ACTIVATION_TOKEN_SECRET,
     {
-      expiresIn: "2h",
+      expiresIn: "2d",
     }
   );
   return result;

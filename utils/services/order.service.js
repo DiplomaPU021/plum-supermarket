@@ -4,7 +4,7 @@ import User from "@/models/User";
 
 
 const getOneById = async (id) => {
-    const order = await Product.findById(id);
+    const order = await Order.findById(id);
     return order;
 };
 const getAll = async () => {

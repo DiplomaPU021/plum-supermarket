@@ -3,6 +3,7 @@ import { ErrorMessage, useField } from "formik";
 
 export default function AdminInput({ placeholder, label, ...props }) {
     const [field, meta] = useField(props);
+    // console.log("AdminInputF", field);
     return <div>
         <label className={`${styles.label} 
         ${meta.touched && meta.error ? styles.inputError : ""}`}>
