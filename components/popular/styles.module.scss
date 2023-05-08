@@ -119,8 +119,9 @@
     background-color: #220F4B;
     border: none;
 
+    &:focus,
     &:hover {
         box-shadow: 0px 0px 5px 0px #220F4B;
-        background-color: #220F4B;
+        background-color: #220F4B !important;
     }
 }

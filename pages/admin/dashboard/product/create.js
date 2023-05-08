@@ -25,6 +25,7 @@ import { validateCreateProduct } from "@/utils/validation";
 import { uploadImages } from "@/requests/upload";
 import dataURItoBlob from "@/utils/dataURItoBlob";
 
+
 const animatedComponents = makeAnimated();
 const createUniqueCode = () => {
   const len = 8;
@@ -194,15 +195,14 @@ export default function create({ parents, categories }) {
 
   const validate = Yup.object({
     name: Yup.string()
-      .required("Please add a name")
-      .min(10, "Product name must be between 10 and 300 characters")
-      .max(300, "Product name must be between 10 and 300 characters"),
-    brand: Yup.string().required("Please add a brand"),
-    category: Yup.string().required("Please select a category"),
-    description: Yup.string().required("Please write the description"),
+      .required("Будь-ласка додайте ім'я")
+      .min(10, "Назва продукта має бути між 10 та 300 символами")
+      .max(300, "Назва продукта має бути між 10 та 300 символами"),
+    brand: Yup.string().required("Будь-ласка додайте бренд"),
+    category: Yup.string().required("Будь-ласка виберіть категорію"),
     dataSelectedOptions: Yup.array().min(
       1,
-      "Please select at least 1 subCategory"
+      "Будь-ласка виберіть хоча б одну підкатегорію"
     ),
     groupSubCategory: Yup.string()
       .transform((value) => {
@@ -211,7 +211,7 @@ export default function create({ parents, categories }) {
         }
         return value;
       })
-      .required("Please select a group of subCategories"),
+      .required("Будь-ласка виберіть групу підкатегорій"),
     color: Yup.object()
       .nullable()
       .transform((value) => {
@@ -249,6 +249,7 @@ export default function create({ parents, categories }) {
       )
       .min(1, "Please add at least one detail")
       .required("Please add details"),
+      description: Yup.string().required("Будь-ласка додайте опис"),
   });
 
   const createProduct = async () => {
@@ -257,6 +258,7 @@ export default function create({ parents, categories }) {
     if (test == "valid") {
       createProductHandler();
     } else {
+      //toast.error("Будь ласка дотримуйтесь інструкцій");
       dispatch(
         showDialog({
           header: "Будь ласка дотримуйтесь інструкцій",
@@ -279,7 +281,7 @@ export default function create({ parents, categories }) {
         formData.append("file", img);
       });
       uploaded_images = await uploadImages(formData);
-      console.log("uploaded images: ", uploaded_images);
+      //console.log("uploaded images: ", uploaded_images);
     }
 
     try {
@@ -299,9 +301,9 @@ export default function create({ parents, categories }) {
   return (
     <Layout>
       {loading && <DotLoaderSpinner loading={loading} />}
-      <div className={styles.header}>Створення продукту</div>
-      {/* <DialogModal show={dialog.show} onHide={()=>hideDialog()} msgs={dialog.msgs} header={dialog.header}/> */}
-      <DialogModal />
+      <div className={styles.header}>Створити продукт</div>
+       <DialogModal show={()=>showDialog()} onHide={()=>hideDialog()}/>
+       {/* <DialogModal /> */}
       <Formik
         enableReinitialize
         initialValues={{
@@ -328,7 +330,7 @@ export default function create({ parents, categories }) {
           <Form>
             <Images
               name="imagesInputFile"
-              header="Зображення каруселі товарів"
+              header="Фото продукту"
               text="Додати зображення"
               images={images}
               setImages={setImages}
@@ -356,7 +358,7 @@ export default function create({ parents, categories }) {
               value={product.groupSubCategory}
               label="GroupSubCategory"
               data={groupSub}
-              header="Виберіть групу субкатегорій"
+              header="Виберіть групу підкатегорій"
               handleChange={handleChange}
               disabled={product.parent != ""}
             />
@@ -428,20 +430,6 @@ export default function create({ parents, categories }) {
               placeholder="Введіть розмір знижки..."
               onChange={(e) => handleChange(e)}
             />
-            {/* <div className={styles.flex}>
-              {product.color?.image && (
-                <>
-                  <h3>
-                    {" "}
-                    Колір продукту: <span>{product.color?.color}</span>
-                  </h3>
-                  <span
-                    className={styles.color_span}
-                    style={{ background: `${product.color?.image}` }}
-                  ></span>
-                </>
-              )}
-            </div> */}
             <Colors
               name="color"
               product={product}
@@ -462,7 +450,7 @@ export default function create({ parents, categories }) {
               disabled={product.parent != ""}
             />
             <button className={styles.btn} type="submit">
-             Створити продукт
+              Створити продукт
             </button>
           </Form>
         )}

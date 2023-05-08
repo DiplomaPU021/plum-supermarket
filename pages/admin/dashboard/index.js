@@ -24,20 +24,121 @@ export default function dashboard({ users, products, orders }) {
   //     setPageData(jsonData);
   //   }, []);
 
-  const { data: session } = useSession();
-  return (
-    <div>
-      <Layout>
+    const { data: session } = useSession();
+    return (
+        <div>
+            <Layout>
         {/* {pageData ? <div>Welcome {pageData}!</div> : <div>Loading...</div>} */}
-        <div className={styles.header}>
-          <div className={styles.header_search}>
-            <label htmlFor="">
-              <input type="text" placeholder="Search here..." />
-            </label>
-          </div>
-          <div className={styles.header_right}>
-            <Dropdown userImage={session?.user?.image} />
-          </div>
+                <div className={styles.header}>
+                    <div className={styles.header_search}>
+                        <label htmlFor="">
+                            <input type="text" placeholder="Шукати тут..." />
+                        </label>
+                    </div>
+                    <div className={styles.header_right}>
+                        <Dropdown userImage={session?.user?.image} />
+                    </div>
+                </div>
+                <div className={styles.cards}>
+                    <div className={styles.card}>
+                        <div className={styles.card_icon}>
+                            <TbUsers />
+                        </div>
+                        <div className={styles.card_infos}>
+                            <h4>+{users.length}</h4>
+                            <span>Клієнти</span>
+                        </div>
+                    </div>
+                    <div className={styles.card}>
+                        <div className={styles.card_icon}>
+                            <SlHandbag />
+                        </div>
+                        <div className={styles.card_infos}>
+                            <h4>+{orders.length}</h4>
+                            <span>Замовлення</span>
+                        </div>
+                    </div>
+                    <div className={styles.card}>
+                        <div className={styles.card_icon}>
+                            <SiProducthunt />
+                        </div>
+                        <div className={styles.card_infos}>
+                            <h4>+{products.length}</h4>
+                            <span>Продукти</span>
+                        </div>
+                    </div>
+                    <div className={styles.card}>
+                        <div className={styles.card_icon}>
+                            <GiTakeMyMoney />
+                        </div>
+                        <div className={styles.card_infos}>
+                            <h4>+{orders.reduce((a, val) => a + val.costAfterDiscount, 0).toLocaleString('uk-UA')} ₴</h4>
+                            <h5>-{orders
+                                .filter((o) => !o.isPaid)
+                                .reduce((a, val) => a + val.costAfterDiscount, 0).toLocaleString('uk-UA')} ₴ Не оплачено</h5>
+                            <span>Загальний дохід</span>
+                        </div>
+                    </div>
+                </div>
+                <div className={styles.data}>
+                    <div className={styles.orders}>
+                        <div className={styles.heading}>
+                            <h2>Останні замовлення</h2>
+                            <Link href="/admin/dashboard/orders">Всі замовлення</Link>
+                        </div>
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Номер замовлення</th>
+                                    <th>Спосіб оплати</th>
+                                    <th>Оплата</th>
+                                    <th>Статус</th>
+                                    <th>Сумма</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {orders?.slice(0, 10).map((order, i) => (
+                                    <tr key={i}>
+                                        <td>№{order._id.substring(0, 6)} від {order.createdAt.substring(0, 10)}</td>
+                                        <td>{order.paymentMethod}</td>
+                                        <td>{order.isPaid ? (<BsFillCheckCircleFill style={{ fill: "#6cc070" }} />) : (<BsFillCheckCircleFill style={{ fill: "#ed4337" }} />)}</td>
+                                        <td>{order.status}</td>
+                                        <td>{order.costAfterDiscount} ₴</td>
+                                    </tr>
+                                ))
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                    <div className={styles.users}>
+                        <div className={styles.heading}>
+                            <h2>Останні клієнти</h2>
+                            <Link href="/admin/dashboard/users">Всі клієнти</Link>
+                        </div>
+                        <table>
+                            <tbody>
+                                {users?.map((user, i) => (
+                                    <tr key={i}>
+                                        <td className={styles.user}>
+                                            <div className={styles.user_img}>
+                                                {user.image !== 'profile.gif' ?
+                                                    (<img width="40px" height="40px" src={user.image} alt="photo" />)
+                                                    :
+                                                    (<img width="40px" height="40px" src="../../../../../profile/account2.png" alt="pic" />)
+                                                }
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <h5>{user.firstName} {user.lastName}</h5>
+                                            <span>{user.email}</span>
+                                        </td>
+                                    </tr>
+                                ))}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </Layout>
         </div>
         <div className={styles.cards}>
           <div className={styles.card}>

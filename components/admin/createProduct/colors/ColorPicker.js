@@ -41,13 +41,14 @@ function ColorPicker({ product, setProduct, color, props }) {
                 onChange={(e) => handleChangeColor(e)}
                 disabled={props.disabled}
             />
-            <Form.Label htmlFor="colorName" className={styles.label_title}>Введіть назву кольору</Form.Label>
+            <Form.Label htmlFor="colorName" className={styles.label_title2}>Введіть назву кольору</Form.Label>
             <Form.Control
                 type="text"
                 id="exampleColorName"
                 name="color"
                 value={color?.color || ""}
                 title="Введіть назву кольору"
+                className={styles.control_inp2}
                 onChange={(e) => handleChangeColorName(e)}
                 disabled={props.disabled}
             />

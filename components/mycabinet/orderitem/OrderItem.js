@@ -1,6 +1,8 @@
 import styles from "./styles.module.scss"
 import { Container, Row, Col, Table, Form, Modal } from 'react-bootstrap'
 import { useEffect, useState } from "react";
+import { useSelector, useDispatch } from "react-redux";
+import { addToCart } from "@/store/cartSlice";
 import LeaveFeedback from "../../productPage/leaveFeedback"
 import axios from "axios";
 
@@ -8,6 +10,10 @@ import axios from "axios";
 export default function OrderItem(props) {
     const [showFulllOrder, setShowFulllOrder] = useState("none")
     const [feedback, setFeedback] = useState(false);
+    const cart = useSelector((state) => state.cart);
+    const [errorInProductCard, setErrorInProductCard] = useState("");
+
+    const dispatch = useDispatch();
 
     useEffect(() => {
         if (props.adminActive) {
@@ -22,15 +28,44 @@ export default function OrderItem(props) {
     const [orderConfirm, setOrderConfirm] = useState(false);
 
     const handlerRepeatOrder = async () => {
-      await props.order.products.map((p) => {
-        console.log(p);
-       
-      });
-
+      await Promise.all(props.order.products.map(async (p) => {
+        const { data } = await axios.get(
+          `/api/product/${p.product}?style=${p.style}&code=${p.mode}`
+        );
+        let qty = p.qty;
+        if (p.qty > data.quantity) {
+          setErrorInProductCard("The quantity is bigger than in stock.");
+          return;
+        } else if (data.quantity < 1) {
+          setErrorInProductCard("This product is out of stock.");
+          return;
+        } else {
+          let _uid = `${data._id}_${data.style}_${data.mode}`;
+          let exist = null;
+          if (cart.cartItems) {
+            exist = cart.cartItems.find((item) => item._uid === _uid);
+          }
+          if (exist) {
+            // setIsOpenInCart(true);
+            // let newCart = cart.cartItems.map((item) => {
+            //   if (item._uid === exist._uid) {
+            //     return { ...item, qty: item.qty + 1 };
+            //   }
+            //   return item;
+            // });
+            // dispatch(updateCart(newCart));
+            // setCartChosen(true);
+          } else {
+            dispatch(addToCart({ ...data, qty, size: data.size, _uid }));
+          }
+        }
+      }));
+    
       // const { data } = await axios.post("/api/order/create", props.order );
       setShowFulllOrder("none");
       setOrderConfirm(false);
     };
+    
 
     return (
         <Container className={styles.container}>
@@ -127,8 +162,9 @@ export default function OrderItem(props) {
             </Row>
              {!props.adminActive ? (
             <div className={styles.repete}>
-                        <button className={styles.light_button} onClick={handleFeedBack}>Залишити відгук</button>
-                        <button className={styles.dark_button} onClick={()=>setOrderConfirm(true)}>Повторити замовлення</button>
+              {errorInProductCard && <span>{errorInProductCard}</span>}
+              <button className={styles.light_button} onClick={handleFeedBack}>Залишити відгук</button>
+              <button className={styles.dark_button} onClick={()=>setOrderConfirm(true)}>Повторити замовлення</button>
             </div>
              ) : null}
           </Col>
@@ -136,8 +172,8 @@ export default function OrderItem(props) {
           <LeaveFeedback
             show={feedback}
             onHide={() => setFeedback(false)}
-                    product={null}
-                    setProductReview={null}
+            product={null}
+            setProductReview={null}
           />
 
           <Modal

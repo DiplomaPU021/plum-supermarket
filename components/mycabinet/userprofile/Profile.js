@@ -27,10 +27,9 @@ export default function Profile({ country, ...props }) {
   const [showAddAddressBlock, setShowAddAddressBlock] = useState("none");
   const [profileCityModalShow, setProfileCityModalShow] = useState(false);
 
-  const [admiration, setAdmiration] = useState(props.user?.admiration || []);
+  const [admiration, setAdmiration] = useState(props.user?.admiration || {});
   const [additionalInfo, setAdditionalInfo] = useState(props.user?.additionalInfo || {});
-  //console.log("addi----->", props.user.additionalInfo);
-  const [pets, setPets] = useState(props.user?.pets || []);
+  const [pets, setPets] = useState(props.user?.pets || {});
   const selectRef = useRef();
   const cityRef = useRef();
   const postmanRef = useRef();
@@ -377,50 +376,28 @@ export default function Profile({ country, ...props }) {
     setShowCard(false)
   }
 
-  function replaseSelectedInfo(selectedArr, setArr, value) {
-    if (selectedArr.length > 0) {
-      const valueCheck = selectedArr.findIndex((el) => el == value);
-      if (valueCheck !== -1) {
-        setArr((prev) => prev.filter((v) => v !== value));
-      } else {
-        setArr((prev) => [...prev, value]);
-      }
-    } else {
-      setArr((prev) => [...prev, value]);
-    }
-    console.log(selectedArr);
-  }
-
-const [vehicle, setVehicle] = useState({
-  vehicle: props.user.additionalInfo.vehicle.vehicle, 
-  field: props.user.additionalInfo.vehicle.field
-});
-const [motorcycle, setMotorcycle] = useState({
-  motorcycle: props.user.additionalInfo.motorcycle.motorcycle, 
-  field: props.user.additionalInfo.motorcycle.field
-});
-const [children, setChildren] = useState({
-  children: props.user.additionalInfo.children.children, 
-  field: props.user.additionalInfo.children.field
-});
-const [business, setBusiness] = useState({
-  business: props.user.additionalInfo.business.business, 
-  field: props.user.additionalInfo.business.field
-});
 
   const additionalInfoHandler = async () => {
-    const result = await axios.put('/api/user/additionalInfo', {
-     additionalInfo:{
-      vehicle,
-      motorcycle,
-      children,
-      business
-     }
+    const result = await axios.put("/api/user/additionalInfo", {
+      additionalInfo,
+    });
+    setIsInEdit(false);
+  };
+
+  const petsHandler = async () => {
+    const result = await axios.put("/api/user/pets", {
+      pets,
     });
     console.log("UserChanged", result);
     setIsInEdit(false);
+  };
 
-  }
+  const admirationHandler = async () => {
+    const result = await axios.put("/api/user/admiration", {
+      admiration,
+    });
+    setIsInEdit(false);
+  };
 
 
 
@@ -584,7 +561,7 @@ const [business, setBusiness] = useState({
           <span>Мої адреси</span>
         </Accordion.Header>
         <Accordion.Body className={styles.accordion__item_body}>
-          <Row >
+          <Row style={{padding: "0"}} >
             <div className={styles.flex_row}>
               <Form.Select
                 className={styles.form_address}
@@ -765,6 +742,16 @@ const [business, setBusiness] = useState({
             <Form.Check.Input
               className={styles.checkbox_box}
               type="checkbox"
+              checked={additionalInfo.children.children}
+              onChange={(e) => {
+                setAdditionalInfo({
+                  ...additionalInfo,
+                  children: {
+                    ...additionalInfo.children,
+                    children: e.target.checked,
+                  },
+                });
+              }}
             />
             <Form.Check.Label className={styles.checkbox_label}>
               У мене є дитина
@@ -775,6 +762,16 @@ const [business, setBusiness] = useState({
             <Form.Check.Input
               className={styles.checkbox_box}
               type="checkbox"
+              checked={additionalInfo.vehicle.vehicle}
+              onChange={(e) => {
+                setAdditionalInfo({
+                  ...additionalInfo,
+                  vehicle: {
+                    ...additionalInfo.vehicle,
+                    vehicle: e.target.checked,
+                  },
+                });
+              }}
             />
             <Form.Check.Label className={styles.checkbox_label}>
               Я є власником автомобіля
@@ -785,6 +782,16 @@ const [business, setBusiness] = useState({
             <Form.Check.Input
               className={styles.checkbox_box}
               type="checkbox"
+              checked={additionalInfo.motorcycle.motorcycle}
+              onChange={(e) => {
+                setAdditionalInfo({
+                  ...additionalInfo,
+                  motorcycle: {
+                    ...additionalInfo.motorcycle,
+                    motorcycle: e.target.checked,
+                  },
+                }), console.log(e.target.checked,)
+              }}
             />
             <Form.Check.Label className={styles.checkbox_label}>
               Я є власником іншого виду транспорту
@@ -794,6 +801,16 @@ const [business, setBusiness] = useState({
             <Form.Check.Input
               className={styles.checkbox_box}
               type="checkbox"
+              checked={additionalInfo.business.business}
+              onChange={(e) => {
+                setAdditionalInfo({
+                  ...additionalInfo,
+                  business: {
+                    ...additionalInfo.business,
+                    business: e.target.checked,
+                  },
+                });
+              }}
             />
             <Form.Check.Label className={styles.checkbox_label}>
               Цей аккаунт використовується юридичною особою, представником
@@ -802,7 +819,7 @@ const [business, setBusiness] = useState({
           </Form.Check>
           <button
             className={styles.profilebtn}
-           // onClick={() =>{ setIsInEdit(true), additionalInfoHandler()}}
+            onClick={() =>{ setIsInEdit(true), additionalInfoHandler()}}
           >
             Підтвердити
           </button>
@@ -814,22 +831,32 @@ const [business, setBusiness] = useState({
         </Accordion.Header>
         <Accordion.Body className={styles.accordion__item_hobby}>
           <Row>
-            {hobbies.map((hobby, index) => (
+            {Object.keys(admiration).map((hobby, index) => (
               <Col lg={4} key={index}>
                 <Form.Check type="checkbox" className={styles.checkbox}>
                   <Form.Check.Input
                     className={styles.checkbox_box}
                     type="checkbox"
+                    checked={admiration[hobby][hobby]}
+                    onChange={(e) => {
+                      setAdmiration({
+                        ...admiration,
+                        [hobby]: {
+                          ...admiration[hobby],
+                          [hobby]: e.target.checked,
+                        },
+                      });
+                    }}
                   />
                   <Form.Check.Label className={styles.checkbox_label}>
-                    {hobby}
+                    {admiration[hobby].field}
                   </Form.Check.Label>
                 </Form.Check>
               </Col>
             ))}
             <button
               className={styles.edit_btn2}
-              onClick={() => setIsInEdit(true)}
+              onClick={() =>{ setIsInEdit(true), admirationHandler()}}
             >
               Підтвердити
             </button>
@@ -842,22 +869,32 @@ const [business, setBusiness] = useState({
         </Accordion.Header>
         <Accordion.Body className={styles.accordion__item_hobby}>
           <Row>
-            {animals.map((hobby, index) => (
+            {Object.keys(pets).map((pet, index) => (
               <Col lg={4} key={index}>
                 <Form.Check type="checkbox" className={styles.checkbox}>
                   <Form.Check.Input
                     className={styles.checkbox_box}
                     type="checkbox"
+                    checked={pets[pet][pet]}
+                    onChange={(e) => {
+                      setPets({
+                        ...pets,
+                        [pet]: {
+                          ...pets[pet],
+                          [pet]: e.target.checked,
+                        },
+                      });
+                    }}
                   />
                   <Form.Check.Label className={styles.checkbox_label}>
-                    {hobby}
+                    {pets[pet].field}
                   </Form.Check.Label>
                 </Form.Check>
               </Col>
             ))}
             <button
               className={styles.edit_btn2}
-              onClick={() => setIsInEdit(true)}
+              onClick={() =>{ setIsInEdit(true), petsHandler()}}
             >
               Підтвердити
             </button>
@@ -867,18 +904,3 @@ const [business, setBusiness] = useState({
     </Accordion>
   );
 }
-
-const hobbies = [
-  "Рибальство",
-  "Полювання",
-  "Садівництво",
-  "Фітнес",
-  "Йога",
-  "Біг",
-  "Велосипед",
-  "Музика",
-  "Туризм",
-  "Кіберстпорт",
-  "Рукоділля",
-];
-const animals = ["Собачка", "Пташка", "Котик", "Плазун", "Рибки", "Гризун"];

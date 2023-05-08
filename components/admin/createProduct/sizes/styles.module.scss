@@ -11,10 +11,11 @@
     input {
         outline: none;
         border: 1px solid $plum-violet-color;
-        width: 150px;
+        width: 200px;
         height: 40px;
         border-radius: 5px;
         padding: 8px;
+        color: $plum-dark-color;
     }
 
     svg {
@@ -32,12 +33,14 @@
 
 .click_btn {
     background: $plum-violet-color;
-    width: 250px;
+    width: fit-content;
     font-weight: 600;
     color: $light-wheet-color;
     height: 50px;
     cursor: pointer;
-    margin: 5px 0;
+    margin: 10px 0;
+    padding-left: 15px;
+    padding-right: 15px;
 
     &:hover {
         box-shadow: 0px 0px 5px 0px $plum-violet-color;

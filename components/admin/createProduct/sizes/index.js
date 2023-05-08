@@ -1,6 +1,6 @@
 import { useState } from "react"
 import styles from "./styles.module.scss"
-import { BsFillPatchMinusFill, BsFillPatchPlusFill } from "react-icons/bs";
+import { AiFillMinusCircle, AiFillPlusCircle } from "react-icons/ai";
 import { sizesList } from "@/data/sizes";
 export default function Sizes({
     sizes,
@@ -76,7 +76,7 @@ export default function Sizes({
                 }
                 setNoSize((prev) => !prev)
             }}>
-                {noSize ? "натисніть якщо продукт має розмір" : "натисніть якщо продукт не має розміру"}
+                {noSize ? "Натисніть якщо продукт має розмір" : "Натисніть якщо продукт не має розміру"}
             </button>
             {
                 sizes ? sizes.map((size, i) => (
@@ -115,8 +115,8 @@ export default function Sizes({
                         />
                         {
                             !noSize ? (<>
-                                <BsFillPatchMinusFill onClick={() => handleRemove(i)} disabled={rest.disabled} />
-                                <BsFillPatchPlusFill disabled={rest.disabled} onClick={() => handleAddSizeField()} />
+                                <AiFillMinusCircle onClick={() => handleRemove(i)} disabled={rest.disabled} />
+                                <AiFillPlusCircle disabled={rest.disabled} onClick={() => handleAddSizeField()} />
                             </>
                             ) : (<></>)
                         }

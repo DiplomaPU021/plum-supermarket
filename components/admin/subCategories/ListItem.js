@@ -71,7 +71,7 @@ export default function ListItem({ categories, groupSubCategories, subCategory, 
                         onChange={(e) => setParent(e.target.value)}
                         disabled={!open}
                         className={styles.select}>
-                        <option value={""} key={""}>Вибрати групу субкатегорій</option>
+                        <option value={""} key={""}>Вибрати групу підкатегорій</option>
                         {filteredGroupSubCategories.map((c, i) => (
                             <option value={c._id} key={c._id}>{c.name}</option>
                         ))

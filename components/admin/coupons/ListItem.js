@@ -73,7 +73,7 @@ export default function ListItem({ coupon, setCoupons }) {
                     <div className={styles.date_picker}>
                         <FormGroup controlId="groupStartDate">
                             <FormLabel className={styles.form_label2}>
-                                Start Date
+                            Початок дії
                             </FormLabel>
                             <FormControl
                                 type="date"
@@ -86,7 +86,7 @@ export default function ListItem({ coupon, setCoupons }) {
                         </FormGroup>
                         <FormGroup controlId="groupEndDate">
                             <FormLabel className={styles.form_label2}>
-                                End Date
+                            Кінець дії
                             </FormLabel>
                             <FormControl
                                 type="date"
@@ -98,14 +98,14 @@ export default function ListItem({ coupon, setCoupons }) {
                             />
                         </FormGroup>
                     </div>
-                    <button className={styles.btn} onClick={() => handleUpdate(coupon._id)}>Save</button>
+                    <button className={styles.btn} onClick={() => handleUpdate(coupon._id)}>Зберегти</button>
                     <button className={styles.btn} onClick={() => {
                         setOpen(false);
                         // setPromocode("");
                         // setDiscount(0);
                         // setStartDate(coupon.startDate);
                         // setEndDate(coupon.endDate);
-                    }}>Cancel</button>
+                    }}>Скасувати</button>
                 </div>)
             }
             <div className={styles.list__item_actions}>

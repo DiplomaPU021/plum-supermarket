@@ -53,15 +53,15 @@ export default function ListItem({ categories, groupSubCategories, groupSubCateg
                         onChange={(e) => setParent(e.target.value)}
                         disabled={!open}
                         className={styles.select}>
-                        <option value={""} key={""}>Select Category</option>
+                        <option value={""} key={""}>Виберіть категорію</option>
                         {categories.map((c, i) => (
                             <option value={c._id} key={c._id}>{c.name}</option>
                         ))
                         }
 
                     </select>
-                    <button className={styles.btn} onClick={() => handleUpdate(groupSubCategory._id)}>Save</button>
-                    <button className={styles.btn} onClick={() => { setOpen(false); setName(""); setParent("");  }}>Cancel</button>
+                    <button className={styles.btn} onClick={() => handleUpdate(groupSubCategory._id)}>Зберегти</button>
+                    <button className={styles.btn} onClick={() => { setOpen(false); setName(""); setParent("");  }}>Скасувати</button>
                 </div>)
             }
             <div className={styles.list__item_actions}>

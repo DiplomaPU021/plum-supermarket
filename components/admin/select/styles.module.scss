@@ -1,11 +1,15 @@
+
 .select {
     width: 100%;
-    margin-bottom: 1rem !important;
-    border: 1px solid gray !important;
     height: 50px;
+    padding: 5px;
+    outline: none;
+    margin-bottom: 1rem !important;
+    border: 1px solid $plum-violet-color !important;
+    color: $plum-dark-color;
 
     input {
-        border: 1px solid gray !important;
+        border: 1px solid $plum-violet-color !important;
     }
 }
 

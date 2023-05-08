@@ -804,18 +804,82 @@ export default function Shipping({
                 <Row className={styles.deltime_text}>
                   Вкажіть зручний день та час для доставки
                 </Row>
-                <Row className={styles.shipping_time}>
-                  <button id="kiev">14 травня</button>
-                  <button id="kharkiv">15 травня</button>
-                  <button id="kharkiv">16 травня</button>
-                  <button id="lviv">17 травня</button>
-                </Row>
-                <Row className={styles.shipping_time}>
-                  <button id="frankivsk">10:00-12:00</button>
-                  <button id="odesa">12:00-14:00</button>
-                  <button id="kharkiv">14:00-16:00</button>
-                  <button id="dnipro">16:00-18:00</button>
-                </Row>
+                <Form.Group className={styles.status}>
+                 <Form.Check
+                    className={styles.status__radiobtn}
+                    type="radio"
+                    aria-label="radio 1"
+                    label="14 травня"
+                    name="day"
+                    id="formHorizontalRadios1"
+                    value="14 травня"
+                  />
+                  <Form.Check
+                    className={styles.status__radiobtn}
+                    type="radio"
+                    aria-label="radio 2"
+                    label="15 травня"
+                    name="day"
+                    id="formHorizontalRadios2"
+                    value="15 травня"
+                  />
+                  <Form.Check
+                    className={styles.status__radiobtn}
+                    type="radio"
+                    aria-label="radio 3"
+                    label="16 травня"
+                    name="day"
+                    id="formHorizontalRadios3"
+                    value="16 травня"
+                  />
+                  <Form.Check
+                    className={styles.status__radiobtn}
+                    type="radio"
+                    aria-label="radio 4"
+                    label="17 травня"
+                    name="day"
+                    id="formHorizontalRadios4"
+                    value="17 травня"
+                  />
+                </Form.Group>
+                <Form.Group className={styles.status}>
+                 <Form.Check
+                    className={styles.status__radiobtn}
+                    type="radio"
+                    aria-label="radio 5"
+                    label="10:00-12:00"
+                    name="time"
+                    id="formHorizontalRadios5"
+                    value="10:00-12:00"
+                  />
+                  <Form.Check
+                    className={styles.status__radiobtn}
+                    type="radio"
+                    aria-label="radio 6"
+                    label="12:00-14:00"
+                    name="time"
+                    id="formHorizontalRadios6"
+                    value="12:00-14:00"
+                  />
+                  <Form.Check
+                    className={styles.status__radiobtn}
+                    type="radio"
+                    aria-label="radio 7"
+                    label="14:00-16:00"
+                    name="time"
+                    id="formHorizontalRadios7"
+                    value="14:00-16:00"
+                  />
+                  <Form.Check
+                    className={styles.status__radiobtn}
+                    type="radio"
+                    aria-label="radio 8"
+                    label="16:00-18:00"
+                    name="time"
+                    id="formHorizontalRadios8"
+                    value="16:00-18:00"
+                  />
+                </Form.Group>
               </Container>
             </Row>
             <Row>

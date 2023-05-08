@@ -6,4 +6,86 @@
 .error_msg {
     color: red;
     font-size: 13px;
+
+.details {
+    margin-top: 10px !important;
+    margin-bottom: 10px;
+}
+
+.field {
+
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+
+    .input2 {
+        outline: none;
+        border: 1px solid $plum-violet-color;
+        width: 250px;
+        height: 40px;
+        border-radius: 5px;
+        padding: 8px;
+        margin-right: 7px;
+        color: $plum-dark-color;
+    }
+
+    svg {
+        width: 30px;
+        height: 30px;
+        fill: $plum-dark-color;
+        cursor: pointer;
+        margin-top: 5px;
+        margin-left: 7px;
+
+        &:hover {
+            fill: $plum-violet-color;
+        }
+    }
+}
+
+.container_details {
+
+    .input {
+        outline: none;
+        border: 1px solid $plum-violet-color;
+        width: 250px;
+        height: 40px;
+        border-radius: 5px;
+        padding: 8px;
+        margin-right: 7px;
+    }
+
+    svg {
+
+        width: 30px;
+        height: 30px;
+        fill: $plum-dark-color;
+        cursor: pointer;
+        margin-top: 5px;
+        margin-left: 7px;
+
+        &:hover {
+            fill: $plum-violet-color;
+        }
+    }
+
+    .ch_box {
+        min-width: 28px;
+        height: 28px;
+        border: 2px solid $green-color;
+        box-shadow: none;
+        margin-top: 5px;
+        margin-left: 20px;
+
+        &:checked {
+            border-color: $green-color;
+            background-color: transparent;
+            box-shadow: none;
+            background-image: url("../../../../public/icons/check.png");
+        }
+    }
+
+    label {
+        margin: 8px;
+    }
 }

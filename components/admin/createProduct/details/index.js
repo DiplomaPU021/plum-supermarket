@@ -1,7 +1,9 @@
 import { useEffect, useState } from "react"
 import styles from "./styles.module.scss"
-import { BsFillPatchMinusFill, BsFillPatchPlusFill } from "react-icons/bs";
 import { ErrorMessage, useField } from "formik"
+import { Form } from "react-bootstrap"
+import { AiFillMinusCircle, AiFillPlusCircle } from "react-icons/ai";
+
 export default function Details({
     name,
     disabled,
@@ -97,6 +99,7 @@ export default function Details({
                 </span>
             </div>
             {
+
                 details.length > 0 ? details.map((detail, i) => (
                     <div className={styles.container_size} key={i}>
                         <input key={"inputd" + i}
@@ -110,8 +113,8 @@ export default function Details({
                         />
                         {/* {details.length == 0 && ( */}
                         <>
-                            <BsFillPatchMinusFill onClick={() => handleRemove(i)} />
-                            <BsFillPatchPlusFill onClick={() => handleAdd()} />
+                            <AiFillMinusCircle onClick={() => handleRemove(i)} />
+                            <AiFillPlusCircle onClick={() => handleAdd()} />
                         </>
                         {/* )} */}
                         <div>
@@ -126,7 +129,7 @@ export default function Details({
                                         disabled={disabled}
                                         required
                                     />
-                                    <input key={"input2" + j} id={"input2" + j}
+                                    <input key={"input2" + j}  className={styles.input2} id={"input2" + j}
                                         type="text"
                                         name="value"
                                         placeholder={"Значення характеристики"}
@@ -135,7 +138,7 @@ export default function Details({
                                         disabled={disabled}
                                         required
                                     />
-                                    <input key={"input3" + j} id={"input3" + j}
+                                    <input key={"input3" + j} id={"input3" + j}  className={styles.ch_box}
                                         type="checkbox"
                                         name="isMain"
                                         placeholder={"Основна?"}
@@ -143,13 +146,15 @@ export default function Details({
                                         onChange={(e) => handleFieldsMain(i, j, e)}
                                         disabled={disabled}
                                     />
-                                    <BsFillPatchMinusFill onClick={() => handleRemoveField(i, j)} />
-                                    <BsFillPatchPlusFill onClick={() => handleAddField(i)} />
+   <label for={"input3" + j}>Основна?</label>
+                                    <AiFillMinusCircle onClick={() => handleRemoveField(i, j)} />
+                                    <AiFillPlusCircle onClick={() => handleAddField(i)} />
                                 </div>
-                            )) : <BsFillPatchPlusFill onClick={() => handleAddField(i)} />}
+                            )) : <AiFillPlusCircle onClick={() => handleAddField(i)} />}
                         </div>
                     </div>
-                )) : <BsFillPatchPlusFill onClick={() => handleAdd()} />
+                )) : <AiFillPlusCircle onClick={() => handleAdd()} />
+
             }
         </div>
     )

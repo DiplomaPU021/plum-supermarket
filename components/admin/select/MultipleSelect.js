@@ -16,8 +16,6 @@ export default function MultipleSelect({
 }) {
     const [field, meta] = useField(rest);
 
-
-
     return (
         <div style={{ marginBottom: "1rem" }}>
 

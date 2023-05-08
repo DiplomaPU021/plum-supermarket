@@ -10,7 +10,7 @@ import GroupSubCategory from "@/models/GroupSubCategory"
 export default function all({ products }) {
     return (
         <Layout>
-            <div className={styles.header}>All Products</div>
+            <div className={styles.header}>Всі продукти</div>
             {
                 products.map((p, i) => (
                     <ProductCard product={p} key={`${p._id}_${i}`} />
