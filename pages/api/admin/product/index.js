@@ -105,7 +105,7 @@ handler.put(async (req, res) => {
       for (let i = 0; i < product.subProducts.length; i++) {
         if (i == style) {
           newSubProducts[i] = product.subProducts[i];
-          newSubProducts[i].images = images;
+          newSubProducts[i].images= newSubProducts[i].images.concat(images);
           newSubProducts[i].sizes = sizes;
           newSubProducts[i].color = color;
           newSubProducts[i].discount = discount;

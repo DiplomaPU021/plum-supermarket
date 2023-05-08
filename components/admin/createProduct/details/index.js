@@ -101,6 +101,7 @@ export default function Details({
             {
                 details.length > 0 ? details.map((detail, i) => (
                     <div className={styles.container_details} key={i}>
+                         <span className={styles.top_space}>
                         <input key={"inputd" + i}
                             id={"inputd" + i}
                             type="text"
@@ -112,10 +113,10 @@ export default function Details({
                             className={styles.input}
                         />
                         {/* {details.length == 0 && ( */}
-                        <>
+                       
                             <AiFillMinusCircle onClick={() => handleRemove(i)} />
                             <AiFillPlusCircle onClick={() => handleAdd()} />
-                        </>
+                        </span>
                         {/* )} */}
                         <div className={styles.details}>
                             {detail.fields && detail.fields.length > 0 ? detail.fields.map((f, j) => (
@@ -153,7 +154,7 @@ export default function Details({
                             )) : <AiFillPlusCircle onClick={() => handleAddField(i)} />}
                         </div>
                     </div>
-                )) : <AiFillPlusCircle onClick={() => handleAdd()} />
+                )) : <span className={styles.add}><AiFillPlusCircle  onClick={() => handleAdd()} /></span>
 
             }
         </div>

@@ -5,7 +5,7 @@
 
     &_main {
         &_grid {
-            max-width: 500px;
+            max-width: 700px;
             height: 600px;
             display: grid;
             margin-top: 1rem;
@@ -89,6 +89,7 @@
         background: $plum-dark-color;
         color: $light-wheet-color;
         border: none;
+        opacity: 0.7;
 
         &:hover {
             box-shadow: 0px 0px 5px 0px $plum-dark-color;
