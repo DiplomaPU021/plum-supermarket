@@ -27,6 +27,7 @@ import { validateCreateProduct } from "@/utils/validation";
 import { uploadImages } from "@/requests/upload";
 import dataURItoBlob from "@/utils/dataURItoBlob";
 
+
 const animatedComponents = makeAnimated();
 const createUniqueCode = () => {
   const len = 8;
@@ -224,21 +225,21 @@ export default function create({ parents, categories }) {
 
   const validate = Yup.object({
     name: Yup.string()
-      .required("Please add a name")
-      .min(10, "Product name must be between 10 and 300 characters")
-      .max(300, "Product name must be between 10 and 300 characters"),
-    brand: Yup.string().required("Please add a brand"),
-    category: Yup.string().required("Please select a category"),
+      .required("Будь-ласка додайте ім'я")
+      .min(10, "Назва продукта має бути між 10 та 300 символами")
+      .max(300, "Назва продукта має бути між 10 та 300 символами"),
+    brand: Yup.string().required("Будь-ласка додайте бренд"),
+    category: Yup.string().required("Будь-ласка виберіть категорію"),
     dataSelectedOptions: Yup.array().min(
       1,
-      "Please select at least 1 subCategory"
+      "Будь-ласка виберіть хоча б одну підкатегорію"
     ),
     groupSubCategory: Yup.string().required(
-      "Please select a group of subCategories"
+      "Будь-ласка виберіть групу підкатегорій"
     ),
     // slug: Yup.string().required("Please add a slug"),
     // color: Yup.object().required("Please add a color"),
-    description: Yup.string().required("Please add a description"),
+    description: Yup.string().required("Будь-ласка додайте опис"),
   });
 
   const createProduct = async () => {
@@ -247,6 +248,7 @@ export default function create({ parents, categories }) {
     if (test == "valid") {
       createProductHandler();
     } else {
+      //toast.error("Будь ласка дотримуйтесь інструкцій");
       dispatch(
         showDialog({
           header: "Будь ласка дотримуйтесь інструкцій",
@@ -269,7 +271,7 @@ export default function create({ parents, categories }) {
         formData.append("file", img);
       });
       uploaded_images = await uploadImages(formData);
-      console.log("uploaded images: ", uploaded_images);
+      //console.log("uploaded images: ", uploaded_images);
     }
 
     try {
@@ -289,11 +291,11 @@ export default function create({ parents, categories }) {
   return (
     <Layout>
       {loading && <DotLoaderSpinner loading={loading} />}
-      <div className={styles.header}>Create Product</div>
+      <div className={styles.header}>Створити продукт</div>
       <div>product</div>
       {JSON.stringify(product)}
-      {/* <DialogModal show={dialog.show} onHide={()=>hideDialog()} msgs={dialog.msgs} header={dialog.header}/> */}
-      <DialogModal />
+       <DialogModal show={()=>showDialog()} onHide={()=>hideDialog()}/>
+       {/* <DialogModal /> */}
       <Formik
         enableReinitialize
         initialValues={{
@@ -319,7 +321,7 @@ export default function create({ parents, categories }) {
           <Form>
             <Images
               name="imagesInputFile"
-              header="Product Carousel Images"
+              header="Фото продукту"
               text="Додати зображення"
               images={images}
               setImages={setImages}
@@ -327,9 +329,9 @@ export default function create({ parents, categories }) {
             <div className={styles.flex}>
               {product.color?.image && (
                 <>
-                  <h3>
+                  <h3 className={styles.color_set}>
                     {" "}
-                    Колір продукту: <span>{product.color?.color}</span>
+                    Колір продукту: <span className={styles.color_set2}>{product.color?.color}</span>
                   </h3>
                   <span
                     className={styles.color_span}
@@ -375,7 +377,7 @@ export default function create({ parents, categories }) {
               value={product.groupSubCategory}
               label="GroupSubCategory"
               data={groupSub}
-              header="Виберіть групу субкатегорій"
+              header="Виберіть групу підкатегорій"
               handleChange={handleChange}
               disabled={product.parent != ""}
             />
@@ -408,28 +410,28 @@ export default function create({ parents, categories }) {
                 </p>
               )}
             </div>
-            <div className={styles.header}>Basic Infos</div>
+            <div className={styles.header}>Основна інформація</div>
             <AdminInput
               type="text"
-              label="Name"
+              label="Назва"
               name="name"
-              placeholder="Name"
+              placeholder="Назва"
               onChange={(e) => handleChange(e)}
             />
             <AdminInput
               type="textarea"
               rows="4"
               cols="50"
-              label="Description"
+              label="Опис"
               name="description"
-              placeholder="Description"
+              placeholder="Опис"
               onChange={(e) => handleChange(e)}
             />
             <AdminInput
               type="text"
-              label="Brand"
+              label="Бренд"
               name="brand"
-              placeholder="Brand"
+              placeholder="Бренд"
               onChange={(e) => handleChange(e)}
             />
             {/* <AdminInput
@@ -442,9 +444,9 @@ export default function create({ parents, categories }) {
             /> */}
             <AdminInput
               type="text"
-              label="Discount"
+              label="Знижка"
               name="discount"
-              placeholder="Discount"
+              placeholder="Знижка"
               onChange={(e) => handleChange(e)}
             />
             {/* <Images
@@ -465,7 +467,7 @@ export default function create({ parents, categories }) {
               setProduct={setProduct}
             />
             <button className={styles.btn} type="submit">
-              Create Product
+              Створити продукт
             </button>
           </Form>
         )}

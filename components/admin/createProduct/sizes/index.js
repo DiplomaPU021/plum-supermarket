@@ -1,6 +1,6 @@
 import { useState } from "react"
 import styles from "./styles.module.scss"
-import { BsFillPatchMinusFill, BsFillPatchPlusFill } from "react-icons/bs";
+import { AiFillMinusCircle, AiFillPlusCircle } from "react-icons/ai";
 import { sizesList } from "@/data/sizes";
 export default function Sizes({
     sizes,
@@ -34,7 +34,7 @@ export default function Sizes({
     };
     return (
         <div>
-            <div className={styles.header}>Sizes / Quantity / Price</div>
+            <div className={styles.header}>Розміри / Кількість / Ціна</div>
             <button type="reset" className={styles.click_btn} onClick={() => {
                 if (!noSize) {
                     let data = sizes.map((item) => {
@@ -61,7 +61,7 @@ export default function Sizes({
                 }
                 setNoSize((prev) => !prev)
             }}>
-                {noSize ? "click if product has size" : "click if product has no size"}
+                {noSize ? "Натисніть якщо продукт має розмір" : "Натисніть якщо продукт не має розміру"}
             </button>
             {
                 sizes ? sizes.map((size, i) => (
@@ -98,8 +98,8 @@ export default function Sizes({
                         />
                         {
                             !noSize ? (<>
-                                <BsFillPatchMinusFill onClick={() => handleRemove(i)} />
-                                <BsFillPatchPlusFill onClick={() => {
+                                <AiFillMinusCircle onClick={() => handleRemove(i)} />
+                                <AiFillPlusCircle onClick={() => {
                                     setProduct({
                                         ...product,
                                         sizes: [

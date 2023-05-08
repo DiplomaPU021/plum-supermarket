@@ -18,21 +18,21 @@ export default function UsersTable({ users, setUsers }) {
 
     return (
         <div className={styles.users_table}>
-            <div className={styles.header}>Users Table</div>
+            <div className={styles.header}>Клієнти</div>
             <table>
                 <thead>
                     <tr>
-                        <th >#</th>
-                        <th>Image</th>
-                        <th>First Name</th>
-                        <th>Last Name</th>
-                        <th>Phone Number</th>
+                        <th>#</th>
+                        <th>Фото</th>
+                        <th>Ім'я</th>
+                        <th>Прізвище</th>
+                        <th>Телефон</th>
                         <th>Email</th>
-                        <th>Date of Birth</th>
-                        <th>Gender</th>
-                        <th>Role</th>
-                        <th>Address</th>
-                        <th>Delete</th>
+                        <th>Дата народження</th>
+                        <th>Стать</th>
+                        <th>Роль</th>
+                        <th>Адреса</th>
+                        <th>Видалити</th>
                     </tr>
                 </thead>
                 <tbody>

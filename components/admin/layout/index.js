@@ -3,6 +3,7 @@ import Sidebar from './sidebar';
 import styles from './styles.module.scss';
 import { showDialog, hideDialog } from '@/store/DialogSlice';
 import { useEffect, useState } from "react";
+// import DialogModal from '@/components/dialogModal';
 
 export default function Layout({ children }) {
     const { expandSidebar } = useSelector((state) => ({ ...state }));
@@ -15,6 +16,7 @@ export default function Layout({ children }) {
 
     return (
         <div className={styles.layout}>
+            {/* <DialogModal show={showDialog} onHide={()=>hideDialog()} msgs={showDialog.msgs} header={showDialog.header}/> */}
             <Sidebar />
             <div
                 style={{ marginLeft: `${showSidebar ? '150px' : '310px'}` }}

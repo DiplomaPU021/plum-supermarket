@@ -10,10 +10,10 @@ export default function Create({ setCategories }) {
     const [name, setName] = useState("");
     const validate = Yup.object({
         name: Yup.string()
-            .required('Category name is required.')
-            .min(2, "Category name must be between 2 and 30 characters.")
-            .max(30, "Category name must be between 2 and 30 characters.")
-            .matches(/^[абвгдеєжзиіїйклмнопрстуфхцчшщьюяАБВГДЕЄЖЗИЇІКЛМНОПРСТУФХЦЧШЩЬЮЯa-zA-Z\s]*$/, "Numbers and special characters are not allowed.")
+            .required('Вкажіть назву категорії.')
+            .min(2, "Назва категорії має бути між 2 та 30 символами.")
+            .max(30, "Назва категорії має бути між 2 та 30 символами.")
+            .matches(/^[абвгдеєжзиіїйклмнопрстуфхцчшщьюяАБВГДЕЄЖЗИЇІКЛМНОПРСТУФХЦЧШЩЬЮЯa-zA-Z\s]*$/, "Цифри та розділові знаки не допускаються.")
         ,
     });
     const submitHandler = async () => {
@@ -38,17 +38,17 @@ export default function Create({ setCategories }) {
             {
                 (formik) => (
                     <Form>
-                        <div className={styles.header}>Create a Category</div>
+                        <div className={styles.header}>Створити категорію</div>
                         <AdminInput
                             type="text"
-                            label="Name"
+                            label="Назва"
                             name="name"
-                            placeholder="Category name"
+                            placeholder="Категорія"
                             onChange={(e) => setName(e.target.value)}
                         />
                         <div className={styles.btnWrap}>
                             <button type="submit" className={`${styles.btn}`}>
-                                <span>Add Category</span>
+                                <span>Додати категорію</span>
                             </button>
                         </div>
                     </Form>

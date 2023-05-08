@@ -22,6 +22,7 @@ export default function Images({
         let files = Array.from(e.target.files);
         files.forEach((img, i) => {
             if (images.length >= 6) {
+                console.log("ERROR")
                 dispatch(showDialog({
                     header: 'Maximum 6 images are allowed',
                     msgs: [
@@ -105,29 +106,25 @@ export default function Images({
                 onChange={handleImages}
             />
             <div className={styles.images_main}>
-                <div className={`${styles.images_main_grid} ${images.legth == 2
-                    ? styles.grid_two
-                    : images.legth == 3
-                        ? styles.grid_three
-                        : images.legth == 4
-                            ? styles.grid_four
-                            : images.legth == 5
-                                ? styles.grid_five
-                                : images.legth == 6
-                                    ? styles.grid_six
-                                    : ""}`}>
+                <div className={`${styles.images_main_grid} ${
+                    images.length == 2 ? styles.grid_two
+                    : images.length == 3 ? styles.grid_three
+                        : images.length == 4 ? styles.grid_four
+                            : images.length == 5 ? styles.grid_five
+                                : images.length == 6 ? styles.grid_six : ""}`}>
                     {
                         !images.length ? <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/6/65/No-Image-Placeholder.svg/1200px-No-Image-Placeholder.svg.png" alt="" />
                             : (
                                 images.map((img, i) => (
                                     <div className={styles.images_main_grid_wrap} key={i}>
-                                        <div className={styles.blur}></div>
-                                        <img src={img} alt="" />
+                                        <div className={styles.blur}> </div>
+                                        <img src={img} alt="" />                            
                                         <div className={styles.images_main_grid_actions}>
                                             <button onClick={() => handleRemove(img)}><RiDeleteBin7Fill /></button>
                                             <button><GiExtractionOrb /></button>
                                             <button><RiShape2Line /></button>
                                         </div>
+                                        
                                     </div>
                                 ))
                             )
@@ -137,7 +134,7 @@ export default function Images({
             <button type="reset" disabled={images.length == 6}
                 style={{ opacity: `${images.length == 6 && "0.5"}` }}
                 onClick={() => fileInput.current.click()}
-                className={`${styles.btn} ${styles.btn_primary}`}>Add Images</button>
+                className={`${styles.btn} ${styles.btn_primary}`}>Додати фото</button>
         </div>
     )
 }

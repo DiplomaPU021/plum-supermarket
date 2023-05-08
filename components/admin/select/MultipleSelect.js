@@ -24,30 +24,30 @@ export default function MultipleSelect({
                 ...item,
                 label,
                 value,
-                isSelected :true,
-                isFixed : true
+                isSelected: true,
+                isFixed: true
             };
         })
     );
-    const [clearValue, setClearValue]=useState(false);
+    const [clearValue, setClearValue] = useState(false);
     useEffect(() => {
         // console.log("field, ", field);
         // console.log(", meta", meta);
-setClearValue(true);
-         console.log(", data", data);
-         console.log(", value", value);
+        setClearValue(true);
+        console.log(", data", data);
+        console.log(", value", value);
 
-       
+
         if (rest.disabled == true) {
 
-            console.log("hello", rest);
+           // console.log("hello", rest);
             // const newOptions = data.map(option => {
             //     if (data.includes(option.value)) {
             //       return { ...option, isFixed: true };
             //     }
             //     return option;
             //   });
-              setDataOptions(data.map((item) => {
+            setDataOptions(data.map((item) => {
                 let label = `${item.name}`;
                 let value = `${item._id}`;
                 //       if (data.includes(rest.value)) {
@@ -60,8 +60,8 @@ setClearValue(true);
                     ...item,
                     label,
                     value,
-                    isSelected :true,
-                    isFixed : true
+                    isSelected: true,
+                    isFixed: true
                 };
             }));
 
@@ -73,8 +73,8 @@ setClearValue(true);
                     ...item,
                     label,
                     value,
-                    isSelected :true,
-                    isFixed : true
+                    isSelected: true,
+                    isFixed: true
                 };
             }));
         }
