@@ -1,5 +1,4 @@
 import styles from "./styles.module.scss"
-import Link from "next/link"
 import { BiUser } from "react-icons/bi"
 import { IoKeyOutline } from "react-icons/io5"
 import { SiMinutemailer } from "react-icons/si"
@@ -8,7 +7,6 @@ import { ErrorMessage, useField } from "formik"
 export default function LoginInput({ icon, placeholder, ...props }) {
     const [field, meta] = useField(props)
     return (
-
         <div className={`${styles.input} ${meta.touched && meta.error ? styles.error : ""}`}>
             {icon == "user" ? (<BiUser />)
                 : icon == "email" ? (<SiMinutemailer />)
@@ -25,7 +23,5 @@ export default function LoginInput({ icon, placeholder, ...props }) {
             </div>
             )}
         </div>
-
-
     )
 }

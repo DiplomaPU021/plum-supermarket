@@ -20,8 +20,6 @@ handler.post(async (req, res) => {
         });
         const url = `${process.env.BASE_URL}/auth/reset/${user_id}`;
         sendEmail(email, url, "", "Поновіть свій пароль", resetEmailTemplate);
-        // res.send(url);
-       // console.log(addedUser);
          await db.disconnectDb();
          res.json({
             message: "На вашу поштову скриньку надіслано листа",

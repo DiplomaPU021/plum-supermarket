@@ -353,13 +353,14 @@
     background-color: #220F4B;
   }
 }
+
 .status {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
   padding: 20px 12px 0px 12px;
-  
+
   &__radiobtn {
     width: 22%;
     padding: 0;
@@ -378,13 +379,13 @@
       font-weight: 400;
       font-size: 16px;
       line-height: 22px;
-     
+
       &:hover {
         cursor: pointer;
       }
     }
 
-    input[type="radio"]:checked + label {
+    input[type="radio"]:checked+label {
       border: 2px solid #70BF63;
       background-color: #70BF63 !important;
       color: #FAF8FF !important;
@@ -476,7 +477,7 @@
   height: 60px;
   border: 2px solid #220F4B;
   border-radius: 35px;
-  
+
   &:focus {
     border: 2px solid #220F4B;
     box-shadow: 0px 0px 5px 0px #220F4B;
@@ -489,7 +490,7 @@
   height: 60px;
   border: 2px solid #220F4B;
   border-radius: 35px;
-    
+
   &:focus {
     border: 2px solid #220F4B;
     box-shadow: 0px 0px 5px 0px #220F4B;
@@ -502,13 +503,13 @@
   height: 60px;
   border: 2px solid #220F4B;
   border-radius: 35px;
-  
+
   &:focus {
     border: 2px solid #220F4B;
     box-shadow: 0px 0px 5px 0px #220F4B;
   }
 
-  
+
 }
 
 
@@ -727,7 +728,7 @@
   border-radius: 35px;
   margin-bottom: 1rem;
 
-    
+
   &:focus {
     border: 2px solid #220F4B;
     box-shadow: 0px 0px 5px 0px #220F4B;
@@ -745,10 +746,10 @@
   text-align: start;
   border: none;
 
-  &:active{
-    
-  color: #220F4B !important;
-  background-color: $light-wheet-color !important;
+  &:active {
+
+    color: #220F4B !important;
+    background-color: $light-wheet-color !important;
   }
 
   img {
@@ -942,8 +943,6 @@
   width: 650px !important;
   height: 302px;
   border-radius: 10px;
-  // background: rgba(87, 60, 145, 0.5);
-  // backdrop-filter: blur(2.5px);
 }
 
 .rrr {
@@ -984,12 +983,12 @@
     border: none;
 
     &:hover {
-        box-shadow: 0px 0px 5px 0px #220F4B;
-        background-color: #220F4B;
+      box-shadow: 0px 0px 5px 0px #220F4B;
+      background-color: #220F4B;
     }
-}
+  }
 
-.light_button {
+  .light_button {
     width: 230px;
     height: 46px;
     font-weight: 500;
@@ -1002,8 +1001,8 @@
     border-radius: 23px;
 
     &:hover {
-        box-shadow: 0px 0px 5px 0px #220F4B;
-        background-color: #FAF8FF;
+      box-shadow: 0px 0px 5px 0px #220F4B;
+      background-color: #FAF8FF;
     }
-}
+  }
 }

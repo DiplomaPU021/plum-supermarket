@@ -64,6 +64,7 @@ export default function EditProduct({
   const [subs, setSubs] = useState(subCategoriesProduct);
   const [groupSub, setGroupSub] = useState(groupSubCategories);
   const [images, setImages] = useState([]);
+  const [viewImages, setViewImages] = useState(product.subProducts[style].images.map(img=>img.url));
   const [loading, setLoading] = useState(false);
   const [dataOptions, setDataOptions] = useState([]);
   const [dataSelectedOptions, setDataSelectedOptions] = useState([]);
@@ -170,14 +171,6 @@ export default function EditProduct({
         return value;
       })
       .required("Please add a color"),
-    // details: Yup.object().nullable()
-    // .transform((value) => {
-    //   if (typeof value !== 'object') {
-    //     console.log("ewrwerwerwerwerwerwerwerwerwerwer", value);
-    //     return null;
-    //   }
-    //   return value;
-    // }).required("Please add details"),
     details: Yup.array()
       .of(
         Yup.object().shape({
@@ -263,7 +256,6 @@ export default function EditProduct({
     <Layout>
       {loading && <DotLoaderSpinner loading={loading} />}
       <div className={styles.header}>Редагувати продукт</div>
-      {/* <DialogModal show={dialog.show} onHide={()=>hideDialog()} msgs={dialog.msgs} header={dialog.header}/> */}
       <DialogModal />
       <Formik
         enableReinitialize
@@ -294,6 +286,7 @@ export default function EditProduct({
               text="Додати фото"
               images={images}
               setImages={setImages}
+              viewImages={viewImages}
             />
             <SingularSelect
               name="category"

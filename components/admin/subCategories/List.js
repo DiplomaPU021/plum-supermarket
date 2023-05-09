@@ -3,7 +3,7 @@ import ListItem from "./ListItem";
 
 export default function List({ subCategories, setSubCategories, categories, groupSubCategories }) {
     return (
-        <ul className={styles.list}> 
+        <ul className={styles.list}>
             {
                 subCategories.map((subCategory) => (
                     <ListItem

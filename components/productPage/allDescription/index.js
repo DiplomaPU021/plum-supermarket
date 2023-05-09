@@ -1,5 +1,5 @@
 import "bootstrap/dist/css/bootstrap.min.css";
-import { Container, Row, Col, Modal} from "react-bootstrap";
+import { Container, Row, Col, Modal } from "react-bootstrap";
 import { boolean } from "yup";
 import styles from "./styles.module.scss";
 

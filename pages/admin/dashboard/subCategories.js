@@ -9,7 +9,6 @@ import List from "../../../components/admin/subCategories/List";
 
 export default function subCategories({ categories, subCategories, groupSubCategories }) {
     const [data, setData] = useState(subCategories);
-    //TODO установить для селекторов валью и айдишки подгруп и категорий для добавления новой субкатегории
     return (
         <Layout>
             <div>
@@ -25,7 +24,7 @@ export default function subCategories({ categories, subCategories, groupSubCateg
 }
 
 export async function getServerSideProps(context) {
-   await db.connectDb();
+    await db.connectDb();
     const categories = await Category.find({}).sort({ name: 1 }).lean();
     const subCategories = await SubCategory.find({})
         .populate({ path: "parent", model: GroupSubCategory })

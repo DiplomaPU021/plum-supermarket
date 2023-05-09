@@ -13,14 +13,6 @@ const couponSchema = new mongoose.Schema(
             minLength:4,
             maxLength:10,            
         },
-        // productsToDiscount: [
-        //     {
-        //         product: {
-        //             type: ObjectId,
-        //             ref: "Product",
-        //         },
-        //     }
-        // ],
         discount: {
             type: Number,
             required:true,  

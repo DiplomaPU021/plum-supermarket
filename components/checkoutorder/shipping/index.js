@@ -32,7 +32,6 @@ export default function Shipping({
     )
   );
 
-  //вулиці в випадаючому списку (з бази)
   const [filteredStreets, setFilteredStreets] = useState([]);
   const [searchStreet, setSearchStreet] = useState("");
   const [selectedStreet, setSelectedStreet] = useState({});
@@ -216,14 +215,13 @@ export default function Shipping({
       setFilteredUserAdresses(
         userAddresses?.filter((address) =>
           address.zipCode
-            ? address.zipCode === selectedCity?.object_code  && address.address != ""
+            ? address.zipCode === selectedCity?.object_code && address.address != ""
             : address.city === selectedCity.object_name &&
-            address.region === selectedCity.region  && address.address != ""
+            address.region === selectedCity.region && address.address != ""
         )
       );
       setDeliveryAddressSelected("відділення №1");
       if (filteredUserAdresses && filteredUserAdresses.length > 0) {
-        // setVisibleAddressField(true);
         setActiveAddress((prevState) => ({
           ...prevState,
           address: filteredUserAdresses[0].address,
@@ -261,14 +259,11 @@ export default function Shipping({
         zipCode: selectedCity.object_code,
         active: true,
       }));
-      // setActiveAddress(null);
       setShowPostmanDeliveryAll("none");
       setVisibleAddressField(false);
       setSelfPickup("none");
       setShowNovaPoshtaDelivery("block");
     }
-    // setVisibleAddressField(false);
-    // setShowPostmanDeliveryAll("none")
   }, [selectedCity]);
 
   useDeepCompareEffect(() => {
@@ -276,7 +271,7 @@ export default function Shipping({
       setFilteredUserAdresses(
         userAddresses?.filter((address) =>
           address.zipCode
-            ? address.zipCode === selectedCity?.object_code  && address.address != ""
+            ? address.zipCode === selectedCity?.object_code && address.address != ""
             : address.city === selectedCity.object_name &&
             address.region === selectedCity.region && address.address != ""
         )
@@ -301,7 +296,6 @@ export default function Shipping({
   const handleSelectPostman = (e) => {
     postmanRef.current.focus();
     if (selectedAddress) {
-      // змінюємо властивість active для вибраного елемента
       const updatedAddresses = filteredUserAdresses.map((item) =>
         item.address == e.target.value
           ? { ...item, active: true }
@@ -337,7 +331,6 @@ export default function Shipping({
         zipCode: selectedCity.object_code,
         active: true,
       }));
-      // setActiveAddress(null);
       setSelfPickup("block");
       setShowPostmanDeliveryAll("none");
       setShowNovaPoshtaDelivery("none");
@@ -380,7 +373,6 @@ export default function Shipping({
         ...prevState,
         deliveryAddress: `${selectedCity?.value}, ${deliveryAddressSelected}`,
       }));
-      // setActiveAddress(null);
       setActiveAddress((prevState) => ({
         ...prevState,
         address: "",
@@ -402,7 +394,6 @@ export default function Shipping({
       setShowPostmanDeliveryAll("none");
       setSelfPickup("none");
     } else {
-      //   setShowNovaPoshtaDelivery("none");
     }
     const deliveryPrice = deliveryTypes
       .filter((d) => d.name === e.target.value)
@@ -416,10 +407,6 @@ export default function Shipping({
   };
 
   const handleSelectPickup = (e) => {
-    // const options = e.target.options;
-    // if (options[0].selected) {
-    //     options[0].disabled = true;
-    // }
     selfRef.current.focus();
     setDelivery({
       ...delivery,
@@ -550,8 +537,6 @@ export default function Shipping({
               id="city-name"
               ref={cityRef}
             />
-            {/* <Form.Control.Feedback type="invalid">{orderError.shippingError}
-                            </Form.Control.Feedback> */}
             <CityModal show={cityModalShow} onClose={handleCityModalClose} />
             {deliveryTypes[0].adresses.some(
               (item) => item.city === selectedCity?.object_name
@@ -642,7 +627,6 @@ export default function Shipping({
             </Row>
             <Row style={{ display: showPostmanDeliveryAll }}>
               {" "}
-              {/* //TODO padding controll */}
               {visibleAddressField ? (
                 <div className={styles.group_floor}>
                   <Form.Select
@@ -653,7 +637,6 @@ export default function Shipping({
                     ref={postmanRef}
                     defaultValue={selectedAddress}
                   >
-                    {/* <option key ="addressOPt0" value="Вибрати адресу доставки..." disabled={true}>Вибрати адресу доставки...</option>  */}
                     {filteredUserAdresses != null &&
                       filteredUserAdresses.filter(
                         (c) => c.city == selectedCity?.object_name
@@ -805,7 +788,7 @@ export default function Shipping({
                   Вкажіть зручний день та час для доставки
                 </Row>
                 <Form.Group className={styles.status}>
-                 <Form.Check
+                  <Form.Check
                     className={styles.status__radiobtn}
                     type="radio"
                     aria-label="radio 1"
@@ -843,7 +826,7 @@ export default function Shipping({
                   />
                 </Form.Group>
                 <Form.Group className={styles.status}>
-                 <Form.Check
+                  <Form.Check
                     className={styles.status__radiobtn}
                     type="radio"
                     aria-label="radio 5"

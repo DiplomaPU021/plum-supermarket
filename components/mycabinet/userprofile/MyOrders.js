@@ -1,6 +1,5 @@
 import styles from "./styles.module.scss";
 import { Container, Row, Col, Pagination, Form } from "react-bootstrap";
-import { useRouter } from "next/router";
 import LoopIcon from "@/components/icons/LoopIcon";
 import { useEffect, useState } from "react";
 import OrderItem from "../orderitem/OrderItem";
@@ -149,11 +148,9 @@ export default function MyOrders(props) {
           ))}
           <div>
             <Pagination
-              className={styles.pagination}
-              //className={styles.fixed_bottom}
+              className={styles.pagination}       
             >
               <Pagination.Prev
-                //className={styles.pagin_item}
                 onClick={() => setActivePage(activePage - 1)}
                 disabled={activePage === 1}
                 style={{ backgroundColor: "transparent !important" }}
@@ -165,10 +162,8 @@ export default function MyOrders(props) {
                   key={index}
                   active={index + 1 === activePage}
                   onClick={() => handlePageChange(index + 1)}
-                  //className={styles.pagin_item}
                 >
                   {index + 1}
-                  {/* <span>{index + 1}</span> */}
                 </Pagination.Item>
               ))}
               <Pagination.Next
@@ -176,7 +171,6 @@ export default function MyOrders(props) {
                 disabled={
                   activePage === Math.ceil(orders.length / itemsPerPage)
                 }
-                //className={styles.pagin_item}
               />
             </Pagination>
           </div>

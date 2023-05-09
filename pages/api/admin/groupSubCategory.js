@@ -40,32 +40,6 @@ handler.post(async (req, res) => {
 
 handler.delete(async (req, res) => {
   try {
-    // const { id } = req.body;
-    // await db.connectDb();
-    // const subCategoriesToDelete = await SubCategory.find({ parent: id });
-    // let productsToDeleteGroup = [];
-    // for (const element of subCategoriesToDelete) {
-    //   let productsToDelete = await Product.find({ subCategories: { $in: [element._id.toString()] } });
-    //   productsToDeleteGroup = productsToDeleteGroup.concat(productsToDelete);
-    // }
-    // let countDeletedProduct = 0;
-    // for (const element of productsToDeleteGroup) {
-    //   await Product.findByIdAndDelete(element._id);
-    //   countDeletedProduct++;
-    // }
-    // let countDeletedSubCategories = 0;
-    // for (const element of subCategoriesToDelete) {
-    //   await SubCategory.findByIdAndDelete(element._id);
-    //   countDeletedSubCategories++;
-    // }
-    // await GroupSubCategory.findByIdAndRemove(id);
-    // await db.disconnectDb();
-    // return res.json({
-    //   message: `GroupSubCategory has been deleted succesfuly and ${countDeletedSubCategories} subcategories and ${countDeletedProduct} products has been deleted silmuteniously`,
-    //   groupSubCategories: await GroupSubCategory.find({}).sort({
-    //     updatedAt: -1,
-    //   }),
-    // });
     const { id } = req.body;
     await db.connectDb();
     const subCategoriesToDelete = await SubCategory.find({ parent: id });

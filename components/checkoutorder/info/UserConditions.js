@@ -1,11 +1,7 @@
 import styles from "./styles.module.scss"
 import Modal from 'react-bootstrap/Modal'
-
 import * as React from "react"
-
 import { useRouter } from "next/router"
-
-
 
 
 export default function UserConditions(props) {

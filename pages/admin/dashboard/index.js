@@ -11,24 +11,14 @@ import { SlHandbag } from "react-icons/sl";
 import { SiProducthunt } from "react-icons/si";
 import { BsFillCheckCircleFill } from "react-icons/bs";
 import Link from "next/link";
-import { useState, useEffect } from "react";
 import db from "@/utils/db";
 
 export default function dashboard({ users, products, orders }) {
-  ///код на пошук помилки  Warning: data for page "/admin/dashboard" is 257 kB which exceeds the threshold of 128 kB, this amount of data can reduce performance.
-  // See more info here: https://nextjs.org/docs/messages/large-page-data
-
-  //   const [pageData, setPageData] = useState(null);
-  //   useEffect(() => {
-  //     const jsonData = document.getElementById("__NEXT_DATA__").text;
-  //     setPageData(jsonData);
-  //   }, []);
 
   const { data: session } = useSession();
   return (
     <div>
       <Layout>
-        {/* {pageData ? <div>Welcome {pageData}!</div> : <div>Loading...</div>} */}
         <div className={styles.header}>
           <div className={styles.header_search}>
             <label htmlFor="">

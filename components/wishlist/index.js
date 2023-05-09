@@ -8,10 +8,9 @@ import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 
 
-export default function WishList({ error, setError, ...props}) {
+export default function WishList({ error, setError, ...props }) {
     const wishList = useSelector((state) => state.wishList);
     const [footerVisible, setFooterVis] = useState("none");
-    
     useEffect(() => {
         if (wishList?.wishListItems?.length !== 0) {
             setFooterVis("block")

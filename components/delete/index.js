@@ -12,7 +12,6 @@ export default function DelNotification({ setDeleteConfirm, productId, setError,
     const { askType } = dontAsk;
 
     const handleDontAskAgain = (e) => {
-        // e.persist();
         setDontAsk(prevState => ({
             ...prevState,
             askType: e.target.value
@@ -22,7 +21,6 @@ export default function DelNotification({ setDeleteConfirm, productId, setError,
         let newCart = cart.cartItems.filter((item) => {
             return item._uid != productId;
         });
-        // setError((prevState) => ({ ...prevState, inCartError: false, uidProduct: "" }));
         dispatch(updateCart(newCart));
         if (dontAsk.askType != "") {
             setDeleteConfirm(true);

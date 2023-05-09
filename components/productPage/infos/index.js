@@ -141,7 +141,6 @@ export default function Infos({
         const { data } = await axios.get(
           `/api/product/${product._id}?style=${product.style}&code=${product.mode}`
         );
-
         dispatch(
           addToWishList({
             ...data,
@@ -168,37 +167,36 @@ export default function Infos({
   };
 
   const addToScaleHandler = async () => {
-    //need to connect to data base
     const { data } = await axios.get(
       `/api/product/${product._id}?style=${product.style}&code=${product.mode}`
     );
-      let existSub = null;
-      let existItem = null;
-      if (scaleList.scaleListItems) {
-        existSub = scaleList.scaleListItems.find(
-          (item) => item.subCategory_id === data.subCategory_id
-        );
-        if (existSub) {
-          existItem = existSub.items.some((p) =>{ return p._id == data._id && p.style == data.style && p.mode == data.mode});
-          if (existItem) {
-            if (existSub.items.length === 1) {
-              dispatch(removeFromScaleList({ ...existSub }));
-              setScaleChosen(false);
-            } else {
-              dispatch(updateScaleList({ ...data }));
-              setScaleChosen(true);
-            }
+    let existSub = null;
+    let existItem = null;
+    if (scaleList.scaleListItems) {
+      existSub = scaleList.scaleListItems.find(
+        (item) => item.subCategory_id === data.subCategory_id
+      );
+      if (existSub) {
+        existItem = existSub.items.some((p) => { return p._id == data._id && p.style == data.style && p.mode == data.mode });
+        if (existItem) {
+          if (existSub.items.length === 1) {
+            dispatch(removeFromScaleList({ ...existSub }));
+            setScaleChosen(false);
           } else {
-            dispatch(addToScaleList({ ...data }));
+            dispatch(updateScaleList({ ...data }));
             setScaleChosen(true);
           }
         } else {
           dispatch(addToScaleList({ ...data }));
           setScaleChosen(true);
         }
+      } else {
+        dispatch(addToScaleList({ ...data }));
+        setScaleChosen(true);
       }
+    }
   };
-  
+
   const addToViewedHandler = async () => {
     const { data } = await axios.get(
       `/api/product/${product._id}?style=${product.style}&code=${product.mode}`
@@ -211,7 +209,7 @@ export default function Infos({
           item.style == data.style &&
           item.mode == data.mode
       );
-      
+
       if (!existItem) {
         dispatch(addToViewedList({ ...data }));
       }
@@ -251,9 +249,8 @@ export default function Infos({
                 style={{ opacity: opacity }}
                 className={styles.priceregular}
               >
-                {`${Number(product.priceAfter).toLocaleString("uk-UA")} ${
-                  product.price_unit
-                }`}
+                {`${Number(product.priceAfter).toLocaleString("uk-UA")} ${product.price_unit
+                  }`}
               </span>
             </div>
           ) : (
@@ -351,7 +348,6 @@ export default function Infos({
           <span
             className={`${styles.input} ${productError ? styles.error : ""}`}
           >
-            {/* {productError} */}
           </span>
           <Col className={styles.infos__sizesInfo_sizes}>
             {product.sizes.map((el, i) => (

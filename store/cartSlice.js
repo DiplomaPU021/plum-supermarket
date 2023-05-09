@@ -30,8 +30,6 @@ export const cartSlice = createSlice({
             state.cartTotal = state.cartItems.reduce((acc, item) => acc + item.price * item.qty, 0).toLocaleString();
         },
         incrementQuantity: (state, action) => {
-            // console.log("state", state);
-            // console.log("action", action);
             const item = state.find((item) => item._id === action.payload);
             item.qty++;
         },

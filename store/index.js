@@ -36,10 +36,6 @@ const config = {
 };
 
 const reducer = persistReducer(config, reducers);
-// const reducer = {
-//     cart: cartReducer,
-
-//   };
 const store = configureStore({
     reducer,
     devTools: process.env.NODE_ENV !== "production",

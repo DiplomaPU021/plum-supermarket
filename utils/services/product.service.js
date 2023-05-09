@@ -113,22 +113,6 @@ const findByIdAndUpdateQuantity = async (products) => {
     }
 };
 const findByIdAndUpdateReviews = async (userId, productId, review) => {
-    // const updatedProduct = await Product.findByIdAndUpdate(
-    //     productId,
-    //     { $push: { reviews: review } },
-    //     { new: true }
-    //   );
-    // return updatedProduct;
-    // const product = await Product.findById(productId);
-
-    // const hasReviewByUser = product.reviews.some((r) => r.reviewBy==userId);
-
-    // if (!hasReviewByUser) {
-    //   product.reviews.push(review);
-    //   await product.save();
-    //   return true;
-    // }
-    // return false;
     const product = await Product.findById(productId);
 
     // Перевіряємо, чи є вже review з вказаним userId

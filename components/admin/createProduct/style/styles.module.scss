@@ -22,14 +22,11 @@
                 &:hover {
                     .images_main_grid_actions {
                         display: flex;
-
                     }
 
                     .blur {
                         display: block;
                     }
-
-
                 }
 
                 .blur {
@@ -90,10 +87,6 @@
     }
 }
 
-
-
-
-//TODO картинки не деляться как надо(((
 //---------------------------------------------------
 .grid_two {
     grid-template-columns: repeat(2,1fr);

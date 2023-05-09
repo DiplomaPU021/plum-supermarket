@@ -10,9 +10,9 @@ import styles from "./styles.module.scss";
 import "swiper/css";
 import "swiper/css/pagination";
 
-export default function CheaperTogether({ product, productsPlus, active, setActive}) {
-  const handleSumCheaperTogether=(product1, product2)=>{
-    const result=Math.round((Number(product1.priceAfter)+Number(product2.priceAfter))*0.95).toLocaleString("uk-UA");
+export default function CheaperTogether({ product, productsPlus, active, setActive }) {
+  const handleSumCheaperTogether = (product1, product2) => {
+    const result = Math.round((Number(product1.priceAfter) + Number(product2.priceAfter)) * 0.95).toLocaleString("uk-UA");
     return result;
   }
   return (
@@ -45,7 +45,7 @@ export default function CheaperTogether({ product, productsPlus, active, setActi
               className={styles.cheapTwo__simillarswiper_slide}
               key={i}
             >
-              <div  style={{maxWidth: "335px"}}>
+              <div style={{ maxWidth: "335px" }}>
                 <ProductCard product={product} style={product.style} mode={product.mode} />
               </div>
               <Image
@@ -53,8 +53,8 @@ export default function CheaperTogether({ product, productsPlus, active, setActi
                 src="../../../icons/plusDark.png"
                 alt="dark plus"
               />
-              <div  style={{maxWidth: "335px"}}>
-                <ProductCard product={prod} style={prod.style} mode={prod.mode}/>
+              <div style={{ maxWidth: "335px" }}>
+                <ProductCard product={prod} style={prod.style} mode={prod.mode} />
               </div>
               <Image
                 className={styles.cheapTwo__signEqual}

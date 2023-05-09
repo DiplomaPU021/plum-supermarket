@@ -129,7 +129,6 @@ export default function LeaveFeedback({ show, onHide, product, setProductReview 
               />
               <Form.Control.Feedback type="invalid">{errors.reviewerName}</Form.Control.Feedback>
             </Form.Group>
-
             <Form.Group className={styles.form__stars}>
               <Rating
                 SVGstyle={{ margin: "0 10px" }}
@@ -228,7 +227,6 @@ export default function LeaveFeedback({ show, onHide, product, setProductReview 
                 <span>Скасувати</span>
               </button>
             </div>
-
             <Form.Group controlId="formBasicCheckbox">
               <Form.Check type="checkbox" className={styles.form_checkbox}>
                 <Form.Check.Input

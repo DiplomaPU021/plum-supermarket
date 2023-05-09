@@ -24,11 +24,11 @@ export default function CheckoutCart({ cart }) {
                 onHide={() => setCartShow(false)}
             />
             <div className={styles.scroll_div} scrolable="true">
-            {cart?.products.map((p, i) => (
-                <Col key={p._id} >
-                    <CartItem product={p} />
-                </Col>
-            ))}
+                {cart?.products.map((p, i) => (
+                    <Col key={p._id} >
+                        <CartItem product={p} />
+                    </Col>
+                ))}
             </div>
             <div className={styles.form_line}></div>
         </Row>

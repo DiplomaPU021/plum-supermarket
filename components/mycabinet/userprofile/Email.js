@@ -1,7 +1,6 @@
 import styles from "./styles.module.scss"
 import { Container, Row, Col, Image } from 'react-bootstrap'
 import { useRouter } from "next/router"
-import { useEffect, useState } from "react";
 
 export default function Email(props) {
     const router = useRouter();

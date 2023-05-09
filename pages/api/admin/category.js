@@ -46,7 +46,7 @@ handler.delete(async (req, res) => {
       productsToDeleteGroup = productsToDeleteGroup.concat(productsToDelete);
     }
     if (
-      groupSubCategoriesToDelete.length ==0 &&
+      groupSubCategoriesToDelete.length == 0 &&
       subCategoriesToDelete.length == 0 &&
       productsToDeleteGroup.length == 0
     ) {
@@ -66,22 +66,14 @@ handler.delete(async (req, res) => {
   } catch (error) {
     return res.status(500).json({ message: error.message });
   }
-  //   await Category.findByIdAndRemove(id);
-  //   await db.disconnectDb();
-  //   return res.json({
-  //     message: "Category has been deleted succesfuly",
-  //     categories: await Category.find({}).sort({ updatedAt: -1 }),
-  //   });
-  // } catch (error) {
-  //   return res.status(500).json({ message: error.message });
-  // }
 });
 
 handler.put(async (req, res) => {
   try {
     const { id, name } = req.body;
     await db.connectDb();
-    await Category.findByIdAndUpdate(id, { name,
+    await Category.findByIdAndUpdate(id, {
+      name,
       slug: slugify(name, "_"),
     });
     await db.disconnectDb();

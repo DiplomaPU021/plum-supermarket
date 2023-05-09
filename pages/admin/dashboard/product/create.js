@@ -222,14 +222,6 @@ export default function create({ parents, categories }) {
         return value;
       })
       .required("Please add a color"),
-    // details: Yup.object().nullable()
-    // .transform((value) => {
-    //   if (typeof value !== 'object') {
-    //     console.log("ewrwerwerwerwerwerwerwerwerwerwer", value);
-    //     return null;
-    //   }
-    //   return value;
-    // }).required("Please add details"),
     details: Yup.array()
       .of(
         Yup.object().shape({
@@ -250,7 +242,7 @@ export default function create({ parents, categories }) {
       )
       .min(1, "Please add at least one detail")
       .required("Please add details"),
-      description: Yup.string().required("Будь-ласка додайте опис"),
+    description: Yup.string().required("Будь-ласка додайте опис"),
   });
 
   const createProduct = async () => {
@@ -258,7 +250,6 @@ export default function create({ parents, categories }) {
     if (test == "valid") {
       createProductHandler();
     } else {
-      // toast.error(JSON.stringify());
       dispatch(
         showDialog({
           header: "Будь ласка дотримуйтесь інструкцій",
@@ -283,7 +274,6 @@ export default function create({ parents, categories }) {
         formData.append("file", img);
       });
       uploaded_images = await uploadImages(formData);
-      //console.log("uploaded images: ", uploaded_images);
     }
 
     try {
@@ -305,8 +295,7 @@ export default function create({ parents, categories }) {
     <Layout>
       {loading && <DotLoaderSpinner loading={loading} />}
       <div className={styles.header}>Створити продукт</div>
-       {/* <DialogModal show={()=>showDialog()} onHide={()=>hideDialog()}/> */}
-       <DialogModal />
+      <DialogModal />
       <Formik
         enableReinitialize
         initialValues={{
@@ -337,6 +326,7 @@ export default function create({ parents, categories }) {
               text="Додати зображення"
               images={images}
               setImages={setImages}
+              viewImages={null}
             />
             <SingularSelect
               name="parent"
@@ -365,18 +355,6 @@ export default function create({ parents, categories }) {
               handleChange={handleChange}
               disabled={product.parent != ""}
             />
-            {/* <MultipleSelect
-              isMulti
-              name="dataSelectedOptions"
-              value={dataSelectedOptions}
-              disabled={product.parent != ""}
-              handleChange={handleChangeSubCategory}
-              placeholder="Виберіть субкатегорії"
-              components={animatedComponents}
-              header="Виберіть субкатегорії"
-              data={dataOptions}
-              isClearable={true}
-            /> */}
             <div style={{ marginBottom: "1rem" }}>
               <Select
                 isMulti
@@ -386,9 +364,8 @@ export default function create({ parents, categories }) {
                 onChange={handleChangeSubCategory}
                 placeholder="Виберіть субкатегорії"
                 components={animatedComponents}
-                className={`${styles.select} ${
-                  formik.touched && formik.errors && styles.error_select
-                }`}
+                className={`${styles.select} ${formik.touched && formik.errors && styles.error_select
+                  }`}
                 classNamePrefix="Виберіть субкатегорії"
                 options={dataOptions}
                 isClearable={true}

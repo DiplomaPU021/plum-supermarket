@@ -1,10 +1,4 @@
 export const paymentMethods = [
-    // {
-    //     name: "LiqPay",
-    //     id: "liqpay",
-    //     description: "Оплатити через сервіси ApplePay чи GooglePay",
-    //     images: [],
-    // },
     {
         name: "Оплата онлайн",
         id: "paymentOnline",

@@ -111,11 +111,8 @@ export default function Summary({
             }
 
         } else {
-            // e.preventDefault();
             setUserSigninShow(true);
             router.push(`/`);
-            //TODO: open Modal MyCabinet            
-            // signIn();
         }
     }
     return (
@@ -126,7 +123,6 @@ export default function Summary({
                     promocode,
                 }}
                 initialErrors={{ couponError, orderError }}
-                //   error={{}}
                 initialTouched={{ promocode: false }}
                 validationSchema={validatePromoCode}
                 onSubmit={(values) => console.log(values)}
@@ -201,7 +197,6 @@ export default function Summary({
                 onHide={() => setInfoShow(false)} />
             <UserConditions show={info2Show}
                 onHide={() => setInfo2Show(false)} />
-            {/* <MyCabinet show={userSinginShow} onHide={()=>setUserSigninShow(false)}/> */}
         </>
     )
 }

@@ -15,15 +15,6 @@ export default function CityModal(props) {
     const [isClearable, setIsClearable] = useState(true);
     const [isSearchable, setIsSearchable] = useState(true);
 
-
-    // useEffect(() => {
-    //     console.log("searchCityChange", searchCity);
-    // }, [setSearchCity])
-    // const handleInputCityChange = (newValue) => {
-    //     setSearchCity(newValue);
-    //     console.log("newValue onCityModal", newValue);
-    //     console.log("searchCityInput onCityModal", searchCity);
-    // };
     const handleCityChange = (selectedOption) => {
         setSearchCity(selectedOption);
         if (selectedOption != null) {
@@ -32,10 +23,8 @@ export default function CityModal(props) {
     };
     const filterCities = async (inputValue) => {
         if (inputValue.length > 0) {
-            //regex на введення лише кирилиці
             if (/^[А-Яа-яЇїІі'-]+$/.test(inputValue)) {
                 const cities = await getCity(inputValue);
-                // console.log("data", cities);
                 const newCities = cities.map((item) => {
                     let label;
                     let value;;
@@ -54,11 +43,9 @@ export default function CityModal(props) {
                 });
                 return newCities;
             }
-
         }
         return [];
     };
-
 
     const loadOptions = (inputValue, callback) => {
         if (inputValue.length > 3) {
@@ -72,17 +59,10 @@ export default function CityModal(props) {
         }
     };
     const handleClose = () => {
-        //  props.onClose(selectedCity ? selectedCity.label : '');
+       
         props.onClose(searchCity);
-    };
-    //       useEffect(() => {
-    // setSearchCity(searchCity);
-
-    //       }, [props.search_сity]);     
+    };   
     const handleCityClick = async (e) => {
-        // clickRef.current.focus();
-        // console.log(e.target.textContent);
-
         let selectedCity = "";
         if (e.target.id == "zhytomyr") {
             selectedCity = {
@@ -221,12 +201,10 @@ export default function CityModal(props) {
                         defaultOptions
                         loadOptions={loadOptions}
                         onChange={handleCityChange}
-                        // onInputChange={handleInputCityChange}
                         value={searchCity}
                         isClearable={isClearable}
                         isSearchable={isSearchable}
                         styles={customStyles}
-                    // ref={clickRef}
                     />
                 </Container>
 

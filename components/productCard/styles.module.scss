@@ -1,8 +1,6 @@
 .product {
     position: relative;
     height: 400px;
-    //min-width: 310px;
-    //max-width: 360px;
     width: 100%;
     padding: 24px !important;
     margin: 10px;
@@ -85,8 +83,8 @@
                 margin: 0;
                 padding: 0;
                 height: 50px;
-                
-                .link{
+
+                .link {
                     text-decoration: none;
                     font-family: 'Noto Sans';
                     font-style: normal;
@@ -207,7 +205,7 @@
         box-shadow: 0px 0px 5px 0px #220F4B;
     }
 
-    &:disabled{
+    &:disabled {
         border: 2px solid $plum-dark-color;
     }
 }

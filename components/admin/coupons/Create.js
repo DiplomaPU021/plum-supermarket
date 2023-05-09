@@ -5,7 +5,7 @@ import * as Yup from "yup";
 import AdminInput from "../../inputs/adminInput";
 import { toast } from "react-toastify";
 import axios from "axios";
-import { FormGroup, FormLabel, FormControl, Col } from "react-bootstrap";
+import { FormGroup, FormLabel, FormControl } from "react-bootstrap";
 
 export default function Create({ setCoupons }) {
   const [discount, setDiscount] = useState(0);
@@ -23,20 +23,13 @@ export default function Create({ setCoupons }) {
   };
 
   const validate = Yup.object({
-     discount: Yup.number()
-            .required('Вкажіть знижку')
-            .min(1, "Знижка має бути не менше 1%")
-            .max(99, "Знижка має бути не більше 99%")
-    });
+    discount: Yup.number()
+      .required('Вкажіть знижку')
+      .min(1, "Знижка має бути не менше 1%")
+      .max(99, "Знижка має бути не більше 99%")
+  });
   const submitHandler = async () => {
     try {
-      //TODO check errors its not showing
-      // if(startDate.toString() == endDate.toString()){
-      //    return toast.error("You can't pick the same dates")
-      // }
-      // else if((endDate.getTime() - startDate.getTime()) < 0){
-      //     return toast.error("Start date can't be more than the end date")
-      // }
       const { data } = await axios.post("/api/coupon", {
         discount,
         startDate,
@@ -89,7 +82,7 @@ export default function Create({ setCoupons }) {
               </FormGroup>
               <FormGroup controlId="groupEndDate">
                 <FormLabel className={styles.form_label}>
-                   Кінець дії
+                  Кінець дії
                 </FormLabel>
                 <FormControl
                   type="date"

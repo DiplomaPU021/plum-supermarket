@@ -22,7 +22,7 @@ export default function CustomerInteraction() {
               <span className={styles.title}>В кредит</span>
               <button>Оформити</button>
             </Col>
-            <Row style={{margin: "0"}}>
+            <Row style={{ margin: "0" }}>
               <Col className={styles.creditvariant__banks}>
                 <Image
                   className={styles.img}
@@ -68,8 +68,8 @@ export default function CustomerInteraction() {
               <li>
                 Оплата. Оплата під час отримання товару, Google Pay, Картою
                 онлайн, Безготівковими для юридичних осіб, Оплатити онлайн
-                соціальною картою <q>Пакунок малюка</q>, 
-                Безготівковий для фізичних осіб, Apple Pay, 
+                соціальною картою <q>Пакунок малюка</q>,
+                Безготівковий для фізичних осіб, Apple Pay,
                 Оплатити онлайн картою <q>єПідтримка</q>, Visa, Mastercard
               </li>
             </ul>

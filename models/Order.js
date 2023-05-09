@@ -46,9 +46,6 @@ const orderSchema = new mongoose.Schema(
                 mode:{
                     type: String,
                 }
-                // totalSum: {
-                //     type: Number,
-                // },
             },
 
         ],
@@ -136,12 +133,7 @@ const orderSchema = new mongoose.Schema(
         },
         totalQty:{
             type: Number,
-            // required: true,
         },
-        // promocode: {
-        //     type: ObjectId,
-        //     ref: "Coupon",
-        // },
         promocode: {
             type: String,          
         },
@@ -152,15 +144,6 @@ const orderSchema = new mongoose.Schema(
         costAfterDiscount: {
             type:Number,
         },
-        // shippingPrice: {
-        //     type: Number,
-        //     // required: true,
-        //     default: 0,
-        // },
-        // taxPrice: {
-        //     type: Number,
-        //     default: 0,
-        // },
         isPaid: {
             type: Boolean,
             required: true,

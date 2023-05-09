@@ -1,7 +1,5 @@
 import Form from 'react-bootstrap/Form';
 import styles from "./styles.module.scss"
-import { useState } from 'react';
-import { Button } from 'react-bootstrap';
 
 function ColorPicker({ product, setProduct, color, props }) {
 

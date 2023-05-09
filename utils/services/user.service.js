@@ -5,7 +5,6 @@ import Cart from "@/models/Cart";
 
 const getOneById = async (id) => {
     const user = await User.findById(id);
-    // console.log("userServise", user);
     return user;
 };
 const getAll = async () => {
@@ -75,10 +74,6 @@ const createUser = async (
 
     return user;
 };
-// const getAllEmails = async () => {
-//     const result = await userRepo.getAllEmails();
-//     return result;
-// };
 const findEmail = async (email) => {
     const user = await User.findOne({ email });
     return user;
@@ -123,32 +118,13 @@ const addToWishList = async (
     };
     if (existWishItem === -1) {
         if (!user.wishlist) {
-            user.wishlist = []; // створюємо поле, якщо його немає
+            user.wishlist = [];
         }
         // Якщо  ще не існує, додаємо новий
         user.wishlist.push(wishItem);
         const result = await user.save({ validateBeforeSave: false });
         return result;
     } else {
-        // const updateResult = user.updateOne(
-        //     {
-        //         "wishlist.product": productId,
-        //         "wishlist.code": code,
-        //     },
-        //     {
-        //         $set: {
-        //             "wishlist.$.color": color,
-        //             "wishlist.$.size": size,
-        //             "wishlist.$.image": image,
-        //             "wishlist.$.image": style,
-        //             "wishlist.$.image": mode,
-        //         },
-        //     },
-        //     {
-        //         new: true,
-        //         // upsert: true // додаємо опцію upsert
-        //     });
-        // return updateResult;
     }
 };
 const findByWishlistAndUpdate = async (
@@ -159,14 +135,7 @@ const findByWishlistAndUpdate = async (
     color,
     code
 ) => {
-    // console.log("findByWishlistAndUpdate", userId, productId);
     const user = await User.findById(userId);
-    // if (user) {
-    //   user.wishlist = user.wishlist.filter((item) => item.product.toString() !== productId);
-    //   await user.save({ validateBeforeSave: false });
-    //   return true;
-    // }
-    // return false;
     try {
         const updateResult = user.updateOne(
             {
@@ -187,20 +156,11 @@ const findByWishlistAndUpdate = async (
         );
         return updateResult;
     } catch (error) {
-        // console.log(error);
         throw new Error("Error removing wishlist item");
     }
 };
 
 const removeFromWishlist = async (userId, productId, code) => {
-    // console.log("removeFromDb", userId, productId, code);
-    // const user = await User.findById(userId);
-    // if (user) {
-    //   user.wishlist = user.wishlist.filter((item) => item.product.toString() !== productId);
-    //   await user.save({ validateBeforeSave: false });
-    //   return true;
-    // }
-    // return false;
     try {
         const result = await User.updateOne(
             { _id: userId },
@@ -208,7 +168,6 @@ const removeFromWishlist = async (userId, productId, code) => {
         );
         return result;
     } catch (error) {
-        // console.log(error);
         throw new Error("Error removing wishlist item");
     }
 };
@@ -226,7 +185,6 @@ const getWishlist = async (userId) => {
                 const subProduct = product.subProducts[style];
                 if (subProduct) {
                     const price = subProduct.sizes[mode].price;
-                    // const newFromCategory = await getProductsFromCategory(product.category);
                     const newProduct = {
                         ...product.toObject(),
                         style,
@@ -264,7 +222,6 @@ const getCartlist = async (userId) => {
                 const subProduct = product.subProducts[style];
                 if (subProduct) {
                     const price = subProduct.sizes[mode].price;
-                    // const newFromCategory = await getProductsFromCategory(product.category);
                     const newProduct = {
                         ...product.toObject(),
                         style,
@@ -319,14 +276,6 @@ const addCreditCard = async (userId, name, number, expiry, cvc) => {
         }, { new: true });
         const result = await User.findById(userId);
         return result;
-        // if (existCreditCardItem === -1) {
-        //     if (!user.creditCards) {
-        //         user.creditCards = []; // створюємо поле, якщо його немає
-        //     }
-        //     // Якщо  ще не існує, додаємо новий
-        //     user.creditCards.push(creditCardItem);
-        //     const result = await user.save({ validateBeforeSave: false });
-        //     return result;
 
     } catch (error) {
         throw new Error(error.message);

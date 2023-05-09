@@ -1,8 +1,9 @@
-.layout{
-    position: relative; 
-    &__main{
+.layout {
+    position: relative;
+
+    &__main {
         padding-top: 1rem;
-        min-height: 100vh;    
+        min-height: 100vh;
         padding-bottom: 5rem;
-    }   
+    }
 }

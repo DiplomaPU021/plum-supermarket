@@ -60,17 +60,6 @@ handler.delete(async (req, res) => {
       await db.disconnectDb();
       throw new Error(`У підкатегорії є ${existProducts.length} продукт(-ів), спершу видаліть їх!`)
     }
-    // let countDeletedProduct = 0;
-    // for (const element of productsToDelete) {
-    //   await Product.findByIdAndDelete(element._id);
-    //   countDeletedProduct++;
-    // }
-    // await SubCategory.findByIdAndRemove(id);
-    // await db.disconnectDb();
-    // return res.json({
-    //   message: `SubCategory has been deleted succesfuly and ${countDeletedProduct} products has been deleted too`,
-    //   subCategories: await SubCategory.find({}).sort({ updatedAt: -1 }),
-    // });
   } catch (error) {
    return res.status(500).json({ message: error.message });
   }

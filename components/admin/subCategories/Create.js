@@ -6,7 +6,6 @@ import AdminInput from '../../inputs/adminInput';
 import { toast } from "react-toastify";
 import axios from "axios";
 import SingularSelect from "../select/SingularSelect"
-import Categories from '@/components/categories';
 
 export default function Create({ categories, setSubCategories, groupSubCategories }) {
     const [name, setName] = useState("");
@@ -15,10 +14,10 @@ export default function Create({ categories, setSubCategories, groupSubCategorie
     const [filteredGroupSubCategories, setFilteredGroupSubCategories] = useState(groupSubCategories);
     const validate = Yup.object({
         name: Yup.string()
-        .required('Вкажіть назву підкатегорії.')
-        .min(2, "Назва підкатегорії має бути між 2 та 30 символами.")
-        .max(30, "Назва підкатегорії має бути між 2 та 30 символами.")
-        .matches(/^[абвгдеєжзиіїйклмнопрстуфхцчшщьюяАБВГДЕЄЖЗИЇІКЛМНОПРСТУФХЦЧШЩЬЮЯa-zA-Z\s]*$/, "Цифри та розділові знаки не допускаються.")
+            .required('Вкажіть назву підкатегорії.')
+            .min(2, "Назва підкатегорії має бути між 2 та 30 символами.")
+            .max(30, "Назва підкатегорії має бути між 2 та 30 символами.")
+            .matches(/^[абвгдеєжзиіїйклмнопрстуфхцчшщьюяАБВГДЕЄЖЗИЇІКЛМНОПРСТУФХЦЧШЩЬЮЯa-zA-Z\s]*$/, "Цифри та розділові знаки не допускаються.")
         ,
         parent: Yup.string().required("Будь-ласка виберіть группу"),
         topParent: Yup.string().required("Будь-ласка виберіть категорію")
@@ -28,13 +27,11 @@ export default function Create({ categories, setSubCategories, groupSubCategorie
     }
     useEffect(() => {
         if (topParent) {
-            // console.log(groupSubCategories)
             setFilteredGroupSubCategories(groupSubCategories?.filter(item => topParent === item.parent._id));
         }
     }, [topParent])
     const submitHandler = async () => {
         try {
-            // console.log(name, parent, topParent);
             const { data } = await axios.post('/api/admin/subCategory', { name, parent, topParent });
             setSubCategories(data.subCategories);
             setName("");

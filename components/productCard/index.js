@@ -89,7 +89,7 @@ export default function ProductCard({ product, style, mode }) {
     if (scaleList.scaleListItems) {
       exist = scaleList.scaleListItems.some((item) => {
         return item.items.some((p) =>
-        p._id == product._id && p.style == product.style && p.mode == product.mode
+          p._id == product._id && p.style == product.style && p.mode == product.mode
         )
       });
     }
@@ -119,15 +119,6 @@ export default function ProductCard({ product, style, mode }) {
         exist = cart.cartItems.find((item) => item._uid === _uid);
       }
       if (exist) {
-        // setIsOpenInCart(true);
-        // let newCart = cart.cartItems.map((item) => {
-        //   if (item._uid === exist._uid) {
-        //     return { ...item, qty: item.qty + 1 };
-        //   }
-        //   return item;
-        // });
-        // dispatch(updateCart(newCart));
-        // setCartChosen(true);
       } else {
         dispatch(addToCart({ ...data, qty, size: data.size, _uid }));
         setCartChosen(true);
@@ -146,12 +137,6 @@ export default function ProductCard({ product, style, mode }) {
       if (exist) {
         setWishError("Товар уже в списку улюблених");
         setIsOpenInWish(true);
-        // let newWishList = wishList.wishListItems.filter((item) => {
-        //   return item._uid != _uid;
-        // });
-        // dispatch(updateWishList(newWishList));
-        // updateOneInWishList({ productId: product._id });
-        // setWishChosen(false);
       } else {
         const { data } = await axios.get(
           `/api/product/${product._id}?style=${style}&code=${mode}`
@@ -186,17 +171,13 @@ export default function ProductCard({ product, style, mode }) {
         (item) => item.subCategory_id === data.subCategory_id
       );
       if (existSub) {
-        // console.log("existSub",existSub);
-        // console.log("data",data);
         existItem = existSub.items.find((p) => p._id == data._id && p.style == data.style && p.mode == data.mode);
-        // console.log("existItem", existItem);
         if (existItem) {
-           if (existSub.items.length === 1) {
+          if (existSub.items.length === 1) {
             dispatch(removeFromScaleList({ ...existSub }));
             setScaleChosen(false);
           } else {
             dispatch(updateScaleList({ ...data }));
-            //setScaleChosen(false);
             setScaleChosen(true);
           }
         } else {
@@ -214,7 +195,7 @@ export default function ProductCard({ product, style, mode }) {
     const { data } = await axios.get(
       `/api/product/${product._id}?style=${style}&code=${mode}`
     );
-    
+
     if (viewedList.viewedListItems) {
       const existItem = viewedList.viewedListItems.find(
         (item) =>
@@ -222,7 +203,7 @@ export default function ProductCard({ product, style, mode }) {
           item.style == data.style &&
           item.mode == data.mode
       );
-      
+
       if (!existItem) {
         dispatch(addToViewedList({ ...data }));
       }
@@ -235,21 +216,9 @@ export default function ProductCard({ product, style, mode }) {
         id="wish-tooltip"
         content={wishError}
         isOpen={isOpenInWish}
-        style={{ backgroundColor: "#70BF63", color: "#fff", borderRadius: "30px", zIndex:"999" }}
-       
+        style={{ backgroundColor: "#70BF63", color: "#fff", borderRadius: "30px", zIndex: "999" }}
+
       />
-      {/* <Tooltip
-        id="incart-tooltip"
-        content="Товар в корзині"
-        isOpenInCart={isOpenInCart}
-        offset={30}
-        style={{
-          backgroundColor: "#70BF63",
-          color: "#fff",
-          borderRadius: "30px",
-          zIndex: "2",
-        }}
-      />*/}
       <div className={styles.product__container}>
         <div className={styles.product__container_photobox}>
           <Link
@@ -302,12 +271,12 @@ export default function ProductCard({ product, style, mode }) {
                   ).length > 55
                     ? `${product.name.substring(0, 55)}...`
                     : product.name +
-                      " " +
-                      (product.subProducts[style]?.color
-                        ? product.subProducts[style]?.color.color
-                        : "") +
-                      " " +
-                      product.subProducts[style]?.sizes[mode].size}
+                    " " +
+                    (product.subProducts[style]?.color
+                      ? product.subProducts[style]?.color.color
+                      : "") +
+                    " " +
+                    product.subProducts[style]?.sizes[mode].size}
                 </Link>
               </Card.Title>
             </Col>
@@ -328,14 +297,13 @@ export default function ProductCard({ product, style, mode }) {
               >
                 <span className={styles.pricediscount}>{`${product.subProducts[
                   style
-                ]?.sizes[mode].price.toLocaleString("uk-UA")} ${
-                  product.subProducts[style]?.sizes[mode].price_unit
-                }`}</span>
+                ]?.sizes[mode].price.toLocaleString("uk-UA")} ${product.subProducts[style]?.sizes[mode].price_unit
+                  }`}</span>
                 <span className={styles.priceregular}>
                   {`${Math.round(
                     (product.subProducts[style]?.sizes[mode].price *
                       (100 - product.subProducts[style]?.discount)) /
-                      100
+                    100
                   ).toLocaleString("uk-UA")}`}{" "}
                   {product.subProducts[style].sizes[mode].price_unit}
                 </span>
@@ -347,9 +315,8 @@ export default function ProductCard({ product, style, mode }) {
               >
                 <span className={styles.priceregular}>{`${product.subProducts[
                   style
-                ]?.sizes[mode].price.toLocaleString("uk-UA")} ${
-                  product.subProducts[style]?.sizes[mode].price_unit
-                }`}</span>
+                ]?.sizes[mode].price.toLocaleString("uk-UA")} ${product.subProducts[style]?.sizes[mode].price_unit
+                  }`}</span>
               </Col>
             )}
             <button
@@ -368,9 +335,6 @@ export default function ProductCard({ product, style, mode }) {
                 backgroundColor: cartChosen ? "#220F4B" : "#FAF8FF",
               }}
               onClick={() => addToCartHandler()}
-
-            // data-tooltip-id={cartChosen?"incart-tooltip":"not-incart"}
-            // onMouseLeave={() => setIsOpenInCart(false)}
             >
               <CartIcon fillColor={cartChosen ? "#FAF8FF" : "#220F4B"} />
             </button>

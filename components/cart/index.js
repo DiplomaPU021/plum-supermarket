@@ -62,40 +62,40 @@ export default function Cart({ error, setError, ...props }) {
             className={styles.modal}
             centered
         >
-             <div className={styles.modal_main}>
-            {loginModalShow ? (
-                <MyCabinet show={loginModalShow} onHide={() => setLoginModalShow(false)} />
-            ) : (
-                <div className={styles.modaldiv}>
-                    <Modal.Header className="modal-header" closeButton>Корзина</Modal.Header>
-                    {cart == null || cart?.cartItems?.length == 0 || cart.cartItems == null ? (
-                        <EmptyCart  {...props} />
-                    ) : (
-                        <Modal.Body className={styles.modalbody} scrollable="true">
-                            {
-                                cart.cartItems?.map((product, i) => (
-                                    <CartItem
-                                        key={i}
-                                        product={product}
-                                        error={error}
-                                        setError={setError}
-                                        deleteConfirm={deleteConfirm}
-                                        setDeleteConfirm={setDeleteConfirm} />
-                                ))
-                            }
-                        </Modal.Body>
-                    )}
-                    <Modal.Footer style={{ display: footerVisible }} as={'div'}>
-                        <div className={styles.modalfoot}>
-                            <h3>Всього до оплати:<span>{Math.round(getTotalPrice()).toLocaleString("uk-UA")} ₴</span></h3>
-                            <button className={styles.addbtn}
-                                onClick={() => saveCartToDbHandler()}
-                            >Оформити замовлення</button>
-                            <Link href="/" className={styles.link} onClick={() => props.onHide()}>Повернутись до покупок</Link>
-                        </div>
-                    </Modal.Footer>
-                </div>
-            )}
+            <div className={styles.modal_main}>
+                {loginModalShow ? (
+                    <MyCabinet show={loginModalShow} onHide={() => setLoginModalShow(false)} />
+                ) : (
+                    <div className={styles.modaldiv}>
+                        <Modal.Header className="modal-header" closeButton>Корзина</Modal.Header>
+                        {cart == null || cart?.cartItems?.length == 0 || cart.cartItems == null ? (
+                            <EmptyCart  {...props} />
+                        ) : (
+                            <Modal.Body className={styles.modalbody} scrollable="true">
+                                {
+                                    cart.cartItems?.map((product, i) => (
+                                        <CartItem
+                                            key={i}
+                                            product={product}
+                                            error={error}
+                                            setError={setError}
+                                            deleteConfirm={deleteConfirm}
+                                            setDeleteConfirm={setDeleteConfirm} />
+                                    ))
+                                }
+                            </Modal.Body>
+                        )}
+                        <Modal.Footer style={{ display: footerVisible }} as={'div'}>
+                            <div className={styles.modalfoot}>
+                                <h3>Всього до оплати:<span>{Math.round(getTotalPrice()).toLocaleString("uk-UA")} ₴</span></h3>
+                                <button className={styles.addbtn}
+                                    onClick={() => saveCartToDbHandler()}
+                                >Оформити замовлення</button>
+                                <Link href="/" className={styles.link} onClick={() => props.onHide()}>Повернутись до покупок</Link>
+                            </div>
+                        </Modal.Footer>
+                    </div>
+                )}
             </div>
         </Modal>
     )

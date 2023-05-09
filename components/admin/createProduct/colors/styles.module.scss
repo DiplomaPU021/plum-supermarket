@@ -1,8 +1,6 @@
 @import "../../base";
 
 .colors {
-    // padding-top: 1rem;
-    // border-top: 1px solid #ccc;
     color: $plum-dark-color;
 
     button {
@@ -49,7 +47,6 @@
         &:hover {
             box-shadow: 0px 0px 5px 0px $plum-violet-color;
         }
-
     }
 }
 

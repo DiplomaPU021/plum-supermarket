@@ -8,7 +8,6 @@ import List from "../../../components/admin/groupSubCategories/List";
 
 export default function groupSubCategories({ categories, groupSubCategories }) {
     const [data, setData] = useState(groupSubCategories);
-    //TODO установить для селекторов валью и айдишки подгруп и категорий для добавления новой субкатегории
     return (
         <Layout>
             <div>
@@ -23,7 +22,7 @@ export default function groupSubCategories({ categories, groupSubCategories }) {
 }
 
 export async function getServerSideProps(context) {
-   await db.connectDb();
+    await db.connectDb();
     const categories = await Category.find({}).sort({ name: 1 }).lean();
     const groupSubCategories = await GroupSubCategory.find({}).populate({ path: "parent", model: Category }).sort({ name: 1 }).lean();
     await db.disconnectDb();

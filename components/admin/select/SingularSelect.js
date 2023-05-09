@@ -14,11 +14,11 @@ export default function SingularSelect({
     return (
         <div style={{ marginBottom: "1rem" }}>
             <select aria-label="Cat-select"
-            disabled={rest.disabled}
+                disabled={rest.disabled}
                 name={field.name}
                 placeholder={header}
                 value={field.value}
-                onChange={(e)=>handleChange(e)}
+                onChange={(e) => handleChange(e)}
                 className={`${styles.select} ${meta.touched && meta.error && styles.error_select}`}>
                 <option key={""} value={""}>{header}</option>
                 {data?.map((item, i) => (
