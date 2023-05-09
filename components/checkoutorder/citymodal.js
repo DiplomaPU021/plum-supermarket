@@ -84,18 +84,18 @@ export default function CityModal(props) {
         // console.log(e.target.textContent);
 
         let selectedCity = "";
-        if (e.target.id == "zaporizhzhya") {
+        if (e.target.id == "zhytomyr") {
             selectedCity = {
-                community: "Запоріжжя",
-                level_1: "2300000000",
-                level_2: "2310100000",
+                community: "Житомир",
+                level_1: "1800000000",
+                level_2: "1810100000",
                 object_category: "м.",
-                object_code: "2310100000",
-                object_name: "Запоріжжя",
-                region: "Запорізька Область",
+                object_code: "1810100000",
+                object_name: "Житомир",
+                region: "Житомирська Область",
                 _id: "63fd04b68cbfb5572cac4436",
-                value: "м. Запоріжжя, Запорізька Область",
-                label: "м. Запоріжжя, Запорізька Область"
+                value: "м. Житомир, Житомирська Область",
+                label: "м. Житомир, Житомирська Область"
             };
             setSearchCity(selectedCity);
         } else if (e.target.id == "kiev") {
@@ -137,18 +137,18 @@ export default function CityModal(props) {
                 value: "м. Одеса, Одеська Область",
                 label: "м. Одеса, Одеська Область"
             };
-        } else if (e.target.id == "dnipro") {
+        } else if (e.target.id == "ternopil") {
             selectedCity = {
-                community: "Дніпро",
-                level_1: "1200000000",
-                level_2: "1210100000",
+                community: "Тернопіль",
+                level_1: "6100000000",
+                level_2: "6110100000",
                 object_category: "м.",
-                object_code: "1210100000",
-                object_name: "Дніпро",
-                region: "Дніпропетровська Область",
+                object_code: "6110100000",
+                object_name: "Тернопіль",
+                region: "Тернопільська Область",
                 _id: "63fd04b68cbfb5572cac4428",
-                value: "м. Дніпро, Дніпропетровська Область",
-                label: "м. Дніпро, Дніпропетровська Область"
+                value: "м. Тернопіль, Тернопільська Область",
+                label: "м. Тернопіль, Тернопільська Область"
             };
         } else if (e.target.id == "kharkiv") {
             selectedCity = {
@@ -212,9 +212,9 @@ export default function CityModal(props) {
                         <button onClick={handleCityClick} id="lviv">Львів</button>
                     </Row>
                     <Row className={styles.product_row}>
-                        <button onClick={handleCityClick} id="zaporizhzhya">Запоріжжя</button>
+                        <button onClick={handleCityClick} id="zhytomyr">Житомир</button>
                         <button onClick={handleCityClick} id="odesa">Одеса</button>
-                        <button onClick={handleCityClick} id="dnipro">Дніпро</button>
+                        <button onClick={handleCityClick} id="ternopil">Тернопіль</button>
                     </Row>
                     <AsyncSelect
                         cacheOptions

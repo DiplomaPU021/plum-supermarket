@@ -17,7 +17,7 @@ handler.post(async (req, res) => {
     const test = await GroupSubCategory.findOne({ name });
     if (test) {
       return res.status(400).json({
-        message: "GroupSubCategory already exist, try a different name",
+        message: "Така група підкатегорій вже існує, спробуйте інше ім'я",
       });
     }
     await new GroupSubCategory({
@@ -27,7 +27,7 @@ handler.post(async (req, res) => {
     }).save();
     await db.disconnectDb();
     return res.json({
-      message: `GroupSubCategory ${name} has been created successfully`,
+      message: `Група підкатегорій ${name} створена успішно`,
       groupSubCategories: await GroupSubCategory.find({}).populate({ path: "parent", model: Category }).sort({
         name: 1,
       }),
@@ -111,7 +111,7 @@ handler.put(async (req, res) => {
     });
     await db.disconnectDb();
     return res.json({
-      message: "GroupSubCategory has been updated succesfuly",
+      message: "Група підкатегорій оновлена успішно",
       groupSubCategories: await GroupSubCategory.find({}).populate({ path: "parent", model: Category }).sort({
         name: 1,
       }),

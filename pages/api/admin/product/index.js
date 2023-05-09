@@ -54,9 +54,10 @@ handler.post(async (req, res) => {
         ],
       });
       await newProduct.save();
+      await db.disconnectDb();
     return  res.status(200).json({ message: "Продукт створено успішно!" });
     }
-    await db.disconnectDb();
+ 
   } catch (error) {
    return res.status(500).json({ message: error.message });
   }

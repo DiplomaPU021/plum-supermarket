@@ -19,12 +19,12 @@ handler.post(async (req, res) => {
             id: user._id.toString(),
         });
         const url = `${process.env.BASE_URL}/auth/reset/${user_id}`;
-        sendEmail(email, url, "", "Reset your password", resetEmailTemplate);
+        sendEmail(email, url, "", "Поновіть свій пароль", resetEmailTemplate);
         // res.send(url);
        // console.log(addedUser);
          await db.disconnectDb();
          res.json({
-            message: "An email has been sent to your email address",
+            message: "На вашу поштову скриньку надіслано листа",
 
         });
     } catch (error) {
