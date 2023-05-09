@@ -28,8 +28,8 @@ function ColorPicker({ product, setProduct, color, props }) {
     }
 
     return (
-        <div className={styles.picker}>
-            <Form.Label htmlFor="colorInput" className={styles.label_title}>Виберіть колір</Form.Label>
+        <div className={styles.picker_color}>
+            <Form.Label htmlFor="colorInput" className={styles.label_t}>Виберіть колір</Form.Label>
             <Form.Control
                 type="color"
                 id="exampleColorInput"
@@ -39,7 +39,7 @@ function ColorPicker({ product, setProduct, color, props }) {
                 onChange={(e) => handleChangeColor(e)}
                 disabled={props.disabled}
             />
-            <Form.Label htmlFor="colorName" className={styles.label_title2}>Введіть назву кольору</Form.Label>
+            <Form.Label htmlFor="colorName" className={styles.label_t2}>Введіть назву кольору</Form.Label>
             <Form.Control
                 type="text"
                 id="exampleColorName"
