@@ -9,7 +9,7 @@ import { ErrorMessage, Form, Formik } from "formik";
 import * as Yup from "yup";
 import { toast } from "react-toastify";
 import SingularSelect from "@/components/admin/select/SingularSelect";
-import MultipleSelect from "@/components/admin/select/MultipleSelect";
+import SizesTable from "@/components/productPage/sizesTable";
 import AdminInput from "@/components/inputs/adminInput";
 import Images from "@/components/admin/createProduct/images";
 import Colors from "@/components/admin/createProduct/colors";
@@ -284,7 +284,7 @@ export default function EditProduct({
               name="imagesInputFile"
               header="Фото продукту"
               text="Додати фото"
-              images={images}
+              photos={images}
               setImages={setImages}
               viewImages={viewImages}
             />

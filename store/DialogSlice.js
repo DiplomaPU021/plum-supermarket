@@ -32,5 +32,5 @@ export const DialogSlice = createSlice({
         }
     }
 })
-export const {showDialog, hideDialog} =DialogSlice.actions;
+export const {showDialog, hideDialog} = DialogSlice.actions;
 export default DialogSlice.reducer;

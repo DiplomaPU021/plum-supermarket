@@ -9,6 +9,7 @@ import { ErrorMessage, Form, Formik } from "formik";
 import * as Yup from "yup";
 import { toast } from "react-toastify";
 import SingularSelect from "@/components/admin/select/SingularSelect";
+import SizesTable from "@/components/productPage/sizesTable";
 import AdminInput from "@/components/inputs/adminInput";
 import Images from "@/components/admin/createProduct/images";
 import Colors from "@/components/admin/createProduct/colors";
@@ -79,6 +80,7 @@ export default function create({ parents, categories }) {
   const [loading, setLoading] = useState(false);
   const [dataOptions, setDataOptions] = useState([]);
   const [dataSelectedOptions, setDataSelectedOptions] = useState([]);
+
 
   const getParentData = async () => {
     setDataOptions([]);
@@ -324,7 +326,7 @@ export default function create({ parents, categories }) {
               name="imagesInputFile"
               header="Фото продукту"
               text="Додати зображення"
-              images={images}
+              photos={images}
               setImages={setImages}
               viewImages={null}
             />

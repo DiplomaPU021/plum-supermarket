@@ -6,7 +6,7 @@ import { RiDeleteBin7Fill } from "react-icons/ri";
 import { showDialog, hideDialog } from "@/store/DialogSlice";
 
 export default function Images({
-    images,
+    photos,
     setImages,
     header,
     text,
@@ -22,8 +22,8 @@ export default function Images({
     const [divVisible, setDivVisible] = useState(false);
 
     useEffect(() => {
-        images.length >= 6 ? setDisabledButton(true) : setDisabledButton(false);
-    }, [images]);
+        photos.length >= 6 ? setDisabledButton(true) : setDisabledButton(false);
+    }, [photos]);
 
     useEffect(() => {
         console.log(viewImages)
@@ -38,7 +38,7 @@ export default function Images({
     const handleImages = (e) => {
         let files = Array.from(e.target.files);
         files.forEach((img, i) => {
-            if (images.length >= 6) {
+            if (photos.length >= 6) {
                 console.log("ERROR");
                 dispatch(
                     showDialog({
@@ -101,6 +101,7 @@ export default function Images({
 
     return (
         <div className={styles.images}>
+            
             <div
                 className={`${styles.header} ${meta.error ? styles.header_error : ""}`}
                 style={{ border: "none" }}
@@ -131,26 +132,26 @@ export default function Images({
                 <div className={styles.images_main}>
                
                     <div
-                        className={`${styles.images_main_grid} ${images.length == 2
+                        className={`${styles.images_main_grid} ${photos.length == 2
                             ? styles.grid_two
-                            : images.length == 3
+                            : photos.length == 3
                                 ? styles.grid_three
-                                : images.length == 4
+                                : photos.length == 4
                                     ? styles.grid_four
-                                    : images.length == 5
+                                    : photos.length == 5
                                         ? styles.grid_five
-                                        : images.length == 6
+                                        : photos.length == 6
                                             ? styles.grid_six
                                             : ""
                             }`}
                     >
-                        {!images.length ? (
+                        {!photos.length ? (
                             <img
                                 src="https://upload.wikimedia.org/wikipedia/commons/thumb/6/65/No-Image-Placeholder.svg/1200px-No-Image-Placeholder.svg.png"
                                 alt=""
                             />
                         ) : (
-                            images.map((img, i) => (
+                            photos.map((img, i) => (
                                 <div className={styles.images_main_grid_wrap} key={i}>
                                     <div className={styles.blur}> </div>
                                     <img src={img} alt="" />
