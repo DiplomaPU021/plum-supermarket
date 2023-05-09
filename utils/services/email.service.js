@@ -52,7 +52,6 @@ export const sendEmail = (email, uniqueString, subject, template) => {
     };
     smtpTransport.sendMail(mailOptions, (error, info) => {
         if (error) {
-            console.log("errorOnSendEmail",error);
             return error;
         } else {
             return info;

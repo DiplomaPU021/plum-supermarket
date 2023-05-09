@@ -27,7 +27,6 @@ import { addToViewedList } from "@/store/viewedListSlice";
 
 export default function Infos({
   product,
-  active,
   setActive,
   productError,
   setProductError,
@@ -42,7 +41,6 @@ export default function Infos({
   const viewedList = useSelector((state) => state.viewedList);
   const [showDetails, setShowDetails] = useState(false);
   const [showSizes, setShowSizes] = useState(false);
-  const [isOpen, setIsOpen] = useState(false);
   const [isOpenQ, setIsOpenQ] = useState(false);
   const [isOpenInWish, setIsOpenInWish] = useState(false);
   const [wishError, setWishError] = useState(false);

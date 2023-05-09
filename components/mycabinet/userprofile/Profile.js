@@ -1,8 +1,6 @@
 import styles from "./styles.module.scss";
 import {
   Accordion,
-  Nav,
-  Container,
   Row,
   Col,
   Form,
@@ -120,7 +118,6 @@ export default function Profile({ country, ...props }) {
       gender: data.gender,
       birthday: data.birthday,
     });
-    console.log("UserChanged", result);
     setIsInEdit(false);
   }
   const handleCancelCredencialsEdit = () => {
@@ -287,6 +284,8 @@ export default function Profile({ country, ...props }) {
         ground: "",
         elevator: "Відсутній",
       });
+      setShowAddAddressBlock("none");
+      setShowAddress("none");
     }
   };
   const handleSelectPostman = (e) => {
@@ -301,13 +300,12 @@ export default function Profile({ country, ...props }) {
     }
     setSelectedAddress(e.target.value);
   };
-  const handleSaveAdress = async () => {
-    if (activeAddress != null) {
-      await saveAddress(activeAddress);
-      setIsSavedAddress(true);
-    }
-  }
-
+ const handleSaveAdress =async ()=>{
+  if (activeAddress != null) {
+    await saveAddress(activeAddress);
+    setIsSavedAddress(true);
+}
+ }
   const handleAddCard = () => {
     setShowAddCard(true);
     setShowCard(false)
@@ -324,7 +322,6 @@ export default function Profile({ country, ...props }) {
     const result = await axios.put("/api/user/pets", {
       pets,
     });
-    console.log("UserChanged", result);
     setIsInEdit(false);
   };
 
@@ -532,7 +529,7 @@ export default function Profile({ country, ...props }) {
             </button>
           </Row>
           <Row style={{ display: showAddress }}>
-            <Col className={styles.ordertable}>
+            <Col style={{padding: "0"}} className={styles.ordertable}>
               <Form.Label className={styles.form_label} htmlFor="city-name">
                 Ваше місто
               </Form.Label>

@@ -195,13 +195,14 @@ export default function EditProduct({
 
   const createProduct = async () => {
     let test = validateCreateProduct(productToEdit, images);
-    console.log("test", test);
     if (test == "valid") {
       createProductHandler();
     } else {
       dispatch(
         showDialog({
           header: "Будь ласка дотримуйтесь інструкцій",
+          show:true,
+          msgs:test
         })
       );
     }

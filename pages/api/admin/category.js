@@ -18,17 +18,17 @@ handler.post(async (req, res) => {
     if (test) {
       return res
         .status(400)
-        .json({ message: "Category already exist, try a different name" });
+        .json({ message: "Така категорія вже існує, спробуйте інше ім'я" });
     }
     await new Category({ name, slug: slugify(name, "_") }).save();
     await db.disconnectDb();
     res.json({
-      message: `Category ${name} has been created successfully`,
+      message: `Категорія ${name} створена успішно`,
       categories: await Category.find({}).sort({ name: 1 }),
     });
   } catch (error) {
     await db.disconnectDb();
-    res.status(500).json({ message: error.message });
+   return res.status(500).json({ message: error.message });
   }
 });
 
@@ -78,7 +78,7 @@ handler.put(async (req, res) => {
     });
     await db.disconnectDb();
     return res.json({
-      message: `Category has been updated succesfuly!`,
+      message: `Категорія оновлена успішно!`,
       categories: await Category.find({}).sort({ name: 1 }),
     });
   } catch (error) {

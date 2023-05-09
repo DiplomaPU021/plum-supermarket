@@ -17,7 +17,7 @@ handler.post(async (req, res) => {
     const test = await GroupSubCategory.findOne({ name });
     if (test) {
       return res.status(400).json({
-        message: "GroupSubCategory already exist, try a different name",
+        message: "Така група підкатегорій вже існує, спробуйте інше ім'я",
       });
     }
     await new GroupSubCategory({
@@ -27,7 +27,7 @@ handler.post(async (req, res) => {
     }).save();
     await db.disconnectDb();
     return res.json({
-      message: `GroupSubCategory ${name} has been created successfully`,
+      message: `Група підкатегорій ${name} створена успішно`,
       groupSubCategories: await GroupSubCategory.find({}).populate({ path: "parent", model: Category }).sort({
         name: 1,
       }),
@@ -43,14 +43,13 @@ handler.delete(async (req, res) => {
     const { id } = req.body;
     await db.connectDb();
     const subCategoriesToDelete = await SubCategory.find({ parent: id });
-    console.log("subCategoriesToDelete", subCategoriesToDelete);
+  
     let productsToDeleteGroup = [];
     for (const element of subCategoriesToDelete) {
       let productsToDelete = await Product.find({
         subCategories: { $in: [element._id.toString()] },
       });
       productsToDeleteGroup = productsToDeleteGroup.concat(productsToDelete);
-      console.log("productsToDeleteGroup", productsToDeleteGroup);
     }
     if (
       subCategoriesToDelete.length == 0 &&
@@ -85,7 +84,7 @@ handler.put(async (req, res) => {
     });
     await db.disconnectDb();
     return res.json({
-      message: "GroupSubCategory has been updated succesfuly",
+      message: "Група підкатегорій оновлена успішно",
       groupSubCategories: await GroupSubCategory.find({}).populate({ path: "parent", model: Category }).sort({
         name: 1,
       }),

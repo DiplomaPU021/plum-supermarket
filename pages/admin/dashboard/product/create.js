@@ -9,7 +9,6 @@ import { ErrorMessage, Form, Formik } from "formik";
 import * as Yup from "yup";
 import { toast } from "react-toastify";
 import SingularSelect from "@/components/admin/select/SingularSelect";
-import MultipleSelect from "@/components/admin/select/MultipleSelect";
 import AdminInput from "@/components/inputs/adminInput";
 import Images from "@/components/admin/createProduct/images";
 import Colors from "@/components/admin/createProduct/colors";
@@ -24,6 +23,7 @@ import Details from "@/components/admin/createProduct/details";
 import { validateCreateProduct } from "@/utils/validation";
 import { uploadImages } from "@/requests/upload";
 import dataURItoBlob from "@/utils/dataURItoBlob";
+import { useRouter } from "next/router";
 
 
 const animatedComponents = makeAnimated();
@@ -71,6 +71,7 @@ const initialState = {
 
 export default function create({ parents, categories }) {
   const dispatch = useDispatch();
+  const router = useRouter();
   const [product, setProduct] = useState(initialState);
   const [subCategories, setSubs] = useState([]);
   const [groupSub, setGroupSub] = useState([]);
@@ -246,13 +247,14 @@ export default function create({ parents, categories }) {
 
   const createProduct = async () => {
     let test = validateCreateProduct(product, images);
-    console.log("test", test);
     if (test == "valid") {
       createProductHandler();
     } else {
       dispatch(
         showDialog({
           header: "Будь ласка дотримуйтесь інструкцій",
+          show:true,
+          msgs:test
         })
       );
     }
@@ -282,6 +284,7 @@ export default function create({ parents, categories }) {
       });
       setLoading(false);
       toast.success(data.message);
+      router.push("/admin/dashboard/product/create");
     } catch (error) {
       setLoading(false);
       toast.error(error.response.data.message);

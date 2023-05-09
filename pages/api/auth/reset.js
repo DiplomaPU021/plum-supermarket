@@ -10,7 +10,7 @@ handler.put(async (req, res) => {
     const { user_id, password } = req.body;
     const user = await User.findById(user_id);
     if (!user) {
-      return res.status(404).json({ message: "User not found" });
+      return res.status(404).json({ message: "Користувача не знайдено!" });
     }
     const cryptedPassword = await bcrypt.hash(password, 12);
     await user.updateOne({ password: cryptedPassword });

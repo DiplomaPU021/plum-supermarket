@@ -135,7 +135,7 @@ export default function Details({
                                         onChange={(e) => handleFieldsMain(i, j, e)}
                                         disabled={disabled}
                                     />
-                                    <label for={"input3" + j}>Основна?</label>
+                                    <label htmlFor={"input3" + j}>Основна?</label>
                                     <AiFillMinusCircle onClick={() => handleRemoveField(i, j)} />
                                     <AiFillPlusCircle onClick={() => handleAddField(i)} />
                                 </div>

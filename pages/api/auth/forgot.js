@@ -13,16 +13,16 @@ handler.post(async (req, res) => {
         const { email } = req.body;
         const user = await User.findOne({ email });
         if (!user) {
-            return res.status(404).json({ message: "User not found" });
+            return res.status(404).json({ message: "Користувача не знайдено" });
         }
         const user_id = createResetToken({
             id: user._id.toString(),
         });
         const url = `${process.env.BASE_URL}/auth/reset/${user_id}`;
-        sendEmail(email, url, "", "Reset your password", resetEmailTemplate);
+        sendEmail(email, url, "", "Поновіть свій пароль", resetEmailTemplate);
          await db.disconnectDb();
          res.json({
-            message: "An email has been sent to your email address",
+            message: "На вашу поштову скриньку надіслано листа",
 
         });
     } catch (error) {

@@ -33,11 +33,15 @@ export default function subCategory({
 }) {
   const router = useRouter();
   const [localProducts, setLocalProducts] = useState(products);
+  useEffect(() => {
+    setLocalProducts(products);
+  }, [products]);
 
   const [radioValue, setRadioValue] = useState(router.query.sub); // || category.subcategories[0].slug);
   const [valueSort, setValueSort] = useState("byRating");
   const [subCategoryName, setSubCategoryName] = useState(
-    category.subcategories[0].name
+    category.subcategories.find((sub) => sub.slug === router.query.sub)
+      .name || category.subcategories[0].name
   );
   const [showSideBlock, setShowSideBlock] = useState(true);
   const [numCards, setNumCards] = useState(3);
@@ -87,24 +91,24 @@ export default function subCategory({
     let sortedProducts = [];
     switch (data) {
       case "byRating":
-        sortedProducts = products.sort((a, b) => b.rating - a.rating);
+        sortedProducts = localProducts.sort((a, b) => b.rating - a.rating);
         break;
       case "byNewest":
-        sortedProducts = products.sort((a, b) => {
+        sortedProducts = localProducts.sort((a, b) => {
           const dateA = new Date(a.createdAt);
           const dateB = new Date(b.createdAt);
           return dateB - dateA;
         });
         break;
       case "byPriceLowest":
-        sortedProducts = products.sort((a, b) => {
+        sortedProducts = localProducts.sort((a, b) => {
           const aPrice = getLowestPrice(a);
           const bPrice = getLowestPrice(b);
           return aPrice - bPrice;
         });
         break;
       case "byPriceBiggest":
-        sortedProducts = products.sort((a, b) => {
+        sortedProducts = localProducts.sort((a, b) => {
           const aPrice = getBigestPrice(a);
           const bPrice = getBigestPrice(b);
           return bPrice - aPrice;
@@ -113,7 +117,7 @@ export default function subCategory({
       default:
         break;
     }
-    products = sortedProducts;
+    setLocalProducts(sortedProducts);
   };
 
   //--------------------------------------------------------->>
@@ -774,6 +778,7 @@ export async function getServerSideProps(context) {
     subCategories: {
       $in: subcategoryIds,
     },
+    "subProducts.color.color": { $ne: "" },
   });
 
   let sizes = await Product.distinct("subProducts.sizes.size", {
@@ -891,9 +896,9 @@ export async function getServerSideProps(context) {
   };
 }
 
-[
-  { name: "Acer", isChecked: false },
-  { name: "Samsung", isChecked: false },
-  { name: "HP", isChecked: false },
-  { name: "Apple", isChecked: false },
-];
+// [
+//   { name: "Acer", isChecked: false },
+//   { name: "Samsung", isChecked: false },
+//   { name: "HP", isChecked: false },
+//   { name: "Apple", isChecked: false },
+// ];

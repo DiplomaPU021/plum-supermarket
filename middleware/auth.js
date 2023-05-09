@@ -10,6 +10,6 @@ export default async (req, res, next) => {
         req.user = token.sub;
         next();
     } else {
-        res.status(401).json({ message: "Будь ласка авторизуйтесь!" });
+       return res.status(401).json({ message: "Будь ласка авторизуйтесь!" });
     }
 };

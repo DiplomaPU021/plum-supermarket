@@ -5,7 +5,7 @@ const { ObjectId } = mongoose.Schema;
 const streetSchema = new mongoose.Schema(
     {
         city_name: String,        
-        district: String,
+        city_code: String,
         street_type: String,
         name: String,
     }

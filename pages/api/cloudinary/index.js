@@ -38,7 +38,6 @@ handler.post(async (req, res) => {
         }
         res.json(images);
     } catch (error) {
-        console.log("errorOnCloudinaryIndex", error);
         return res.status(500).json({ message: error.message });
     }
 });

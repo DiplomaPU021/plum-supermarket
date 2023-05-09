@@ -2,8 +2,7 @@ import styles from "./styles.module.scss"
 import Card from 'react-bootstrap/Card'
 import DeleteIcon from "../icons/DeleteIcon"
 import { useEffect, useState } from "react";
-import DelNotification from "../delete"
-import { Container, Row, Col, Form } from "react-bootstrap"
+import { Container, Row, Col } from "react-bootstrap"
 import { updateWishList } from "@/store/wishListSlice";
 import { useDispatch, useSelector } from "react-redux";
 import CartIcon from "../icons/CartIcon";

@@ -44,7 +44,6 @@ export default function Home({ country, products, categories, searchHandler }) {
 }
 export async function getServerSideProps(context) {
   const { query } = context;
-  const topsales = query.topsales || "";
   const pageSize =  query.pageSize || 8;
 
   const countryData = await getCountryData();
@@ -92,27 +91,7 @@ export async function getServerSideProps(context) {
       discount,
     };
   });
-
-  switch (topsales) {
-    case "discounts":
-      newProducts = newProducts.sort((a, b) => b.discount - a.discount);
-      break;
-    case "newest":
-      newProducts = newProducts.sort((a, b) => {
-        const dateA = new Date(a.createdAt);
-        const dateB = new Date(b.createdAt);
-        return dateB - dateA;
-      });
-      break;
-    case "popular":
-      newProducts = newProducts.sort((a, b) => b.sold - a.sold);
-      break;
-
-    default:
-      break;
-  }
   
-
   //line code below is for component Categories
   let categories = await Category.find().lean();
 

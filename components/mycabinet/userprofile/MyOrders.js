@@ -2,7 +2,7 @@ import styles from "./styles.module.scss";
 import { Container, Row, Col, Pagination, Form } from "react-bootstrap";
 import LoopIcon from "@/components/icons/LoopIcon";
 import { useEffect, useState } from "react";
-import OrderItem from "../orderitem/OrderItem"
+import OrderItem from "../orderitem/OrderItem";
 
 export default function MyOrders(props) {
   const [orders, setOrders] = useState(props.orders);
@@ -23,14 +23,14 @@ export default function MyOrders(props) {
 
   const sortByStatus = (status) => {
     if (status === "all") {
-      setOrders(props.orders)
-    }
-    else if (status.length > 1) {
-      let filteredOrders = props.orders.filter((order) => order.status === status);
+      setOrders(props.orders);
+    } else if (status.length > 1) {
+      let filteredOrders = props.orders.filter(
+        (order) => order.status === status
+      );
       setOrders(filteredOrders);
     }
   };
-
 
   const [searchOrder, setSearchOrder] = useState("");
 
@@ -141,37 +141,43 @@ export default function MyOrders(props) {
           )}
         </button>
       </Row>
-      <Row className={styles.orders}>
-        {displayComponentsForActivePage().map((order) => (
-          <OrderItem order={order} key={order._id} />
-        ))}
-        <div>
-          <Pagination
-            className={styles.pagination}
-          >
-            <Pagination.Prev
-              onClick={() => setActivePage(activePage - 1)}
-              disabled={activePage === 1}
-              style={{ backgroundColor: "transparent !important" }}
-            />
-            {Array.from({
-              length: Math.ceil(orders.length / itemsPerPage),
-            }).map((_, index) => (
-              <Pagination.Item
-                key={index}
-                active={index + 1 === activePage}
-                onClick={() => handlePageChange(index + 1)}
-              >
-                {index + 1}
-              </Pagination.Item>
-            ))}
-            <Pagination.Next
-              onClick={() => setActivePage(activePage + 1)}
-              disabled={activePage === Math.ceil(orders.length / itemsPerPage)}
-            />
-          </Pagination>
-        </div>
-      </Row>
+      {orders.length > 0 ? (
+        <Row className={styles.orders}>
+          {displayComponentsForActivePage().map((order) => (
+            <OrderItem order={order} key={order._id} />
+          ))}
+          <div>
+            <Pagination
+              className={styles.pagination}       
+            >
+              <Pagination.Prev
+                onClick={() => setActivePage(activePage - 1)}
+                disabled={activePage === 1}
+                style={{ backgroundColor: "transparent !important" }}
+              />
+              {Array.from({
+                length: Math.ceil(orders.length / itemsPerPage),
+              }).map((_, index) => (
+                <Pagination.Item
+                  key={index}
+                  active={index + 1 === activePage}
+                  onClick={() => handlePageChange(index + 1)}
+                >
+                  {index + 1}
+                </Pagination.Item>
+              ))}
+              <Pagination.Next
+                onClick={() => setActivePage(activePage + 1)}
+                disabled={
+                  activePage === Math.ceil(orders.length / itemsPerPage)
+                }
+              />
+            </Pagination>
+          </div>
+        </Row>
+      ) : (
+        <></>
+      )}
     </Container>
   );
 }

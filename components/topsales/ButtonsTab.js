@@ -1,28 +1,8 @@
 import styles from "./styles.module.scss";
 import Col from "react-bootstrap/Col";
 import Row from "react-bootstrap/Row";
-import { useState, useEffect } from "react";
-import { useRouter } from "next/router";
 
-export default function ButtonsTab() {
-  const [activeLink, setActiveLink] = useState("");
-  const router = useRouter();
-  useEffect(() => {
-    const sortProductsHandler = () => {
-      const path = router.pathname;
-      const { query } = router;
-      query.topsales = activeLink;
-      router.push({
-        pathname: path,
-        query: query,
-      });
-    };
-
-    if (activeLink !== "") {
-      sortProductsHandler();
-    }
-  }, [activeLink]);
-
+export default function ButtonsTab({ activeLink, setActiveLink }) {
   return (
     <Row className={styles.row}>
       <Col xs={8} md={8} sm={8} className={styles.col}>
