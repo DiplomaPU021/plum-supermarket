@@ -43,20 +43,7 @@ export default function Header({ country }) {
   const [isOpen, setIsOpen] = useState(false);
   const [user, setUser] = useState();
   const [orders, setOrders] = useState([]);
-  // useEffect(() => {
-  //   // console.log('App comp value:', JSON.stringify(error));
-  // }, [wishShow]);
 
-  // useEffect(() => {
-  //   console.log("35");
-  //   if (session) {
-  //     setTimeout(async () => {
-  //       for (let i = 0; i < wishList.wishListItems.length; i++) {
-  //         saveWishList({productId:wishList.wishListItems[i]._id, size:wishList.wishListItems[i].size, image:wishList.wishListItems[i].images[0], color:wishList.wishListItems[i].color?.color, code:wishList.wishListItems[i].code});
-  //       }
-  //     }, 5000)
-  //   }
-  // }, [wishList, session])
   const getScaleItemsCount = () => {
     return scaleList.scaleListItems.reduce(
       (acc, cur) => acc + cur.items.length,
@@ -65,10 +52,6 @@ export default function Header({ country }) {
   };
 
   const getWishItemsCount = () => {
-    // return wishList.wishListItems.reduce(
-    //   (accumulator, item) => accumulator + item.qty,
-    //   0
-    // );
     return wishList.wishListTotal;
   };
 
@@ -83,7 +66,6 @@ export default function Header({ country }) {
       try {
         const res = await axios.get('/api/user/wishlist');
         const data = res.data;
-        // console.log("handleWishShow", data.wishList);
         dispatch(updateWishList(data.wishList));
         setIsOpen(false);
         setWishShow(true);
@@ -136,27 +118,27 @@ export default function Header({ country }) {
     }
   }
 
-  const [str, setStr] = useState( router.query.text || "");
+  const [str, setStr] = useState(router.query.text || "");
   const [isLoading, setIsLoading] = useState(false);
   const [options, setOptions] = useState(searchedList.searchedListItems);
   const [searchValue, setSearchValue] = useState(null);
 
 
   const handlerSubmit = (searchQuery) => {
-    if(searchQuery && searchQuery.length > 1) {
+    if (searchQuery && searchQuery.length > 1) {
       router.push(`/search?text=${searchQuery}`);
     }
   };
 
-  const handlerOnSearch = (e) =>{
+  const handlerOnSearch = (e) => {
     e.preventDefault();
 
-    if(str.length > 1)
+    if (str.length > 1)
       handleCreate(str)
   }
 
 
-  const handleCreate = ( inputValue) => {
+  const handleCreate = (inputValue) => {
     setIsLoading(true);
     setTimeout(() => {
       const newOption = {
@@ -258,9 +240,6 @@ export default function Header({ country }) {
                     cursor: "pointer",
                   },
                 }),
-                // clearIndicator: () => ({
-                //   display: "none",
-                // }),
                 dropdownIndicator: () => ({
                   display: "none",
                 }),
@@ -275,10 +254,10 @@ export default function Header({ country }) {
               isSearchable={true}
               isDisabled={isLoading}
               isLoading={isLoading}
-              onInputChange={(e) => { setStr(e);}}
+              onInputChange={(e) => { setStr(e); }}
               onChange={(newValue) => {
                 setStr(newValue),
-                setSearchValue(newValue);
+                  setSearchValue(newValue);
                 if (newValue) {
                   handlerSubmit(newValue.value);
                 }
@@ -288,7 +267,7 @@ export default function Header({ country }) {
               value={searchValue}
             />
             <button
-              onClick={(e)=>handlerOnSearch(e)}
+              onClick={(e) => handlerOnSearch(e)}
             >
               <LoopIcon fillColor="#FAF8FF" />
             </button>
@@ -312,7 +291,7 @@ export default function Header({ country }) {
               onMouseLeave={() => setIsOpen(false)}>
               <HeartIcon fillColor={wishShow ? "#FAF8FF" : "#220F4B"} />
             </button>
-            {getWishItemsCount() !== 0 && getWishItemsCount()>0 ? <span> {getWishItemsCount()}</span> : null}
+            {getWishItemsCount() !== 0 && getWishItemsCount() > 0 ? <span> {getWishItemsCount()}</span> : null}
           </div>
           <div className={styles.cart}>
             <button onClick={() => setCartShow(true)} style={{ backgroundColor: cartShow ? "#220F4B" : "#FAF8FF" }}>
@@ -337,15 +316,12 @@ export default function Header({ country }) {
             onHide={() => setScaleShow(false)}
           />
           {session && status == "authenticated" ? (
-            //TODO change
             <div className={styles.cart}>
               <button
                 style={{ backgroundColor: "#220F4B" }}
                 onClick={handlerUserProfile}
               >
                 <AccountIcon fillColor={"#FAF8FF"} />
-                {/* <img src={"/"+session.user.image} alt="profile"/> */}
-                {/* {session.user.name} */}
               </button>
             </div>
           ) : (

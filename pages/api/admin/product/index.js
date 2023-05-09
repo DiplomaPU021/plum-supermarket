@@ -54,11 +54,11 @@ handler.post(async (req, res) => {
         ],
       });
       await newProduct.save();
-    return  res.status(200).json({ message: "Продукт створено успішно!" });
+      return res.status(200).json({ message: "Продукт створено успішно!" });
     }
     await db.disconnectDb();
   } catch (error) {
-   return res.status(500).json({ message: error.message });
+    return res.status(500).json({ message: error.message });
   }
 });
 handler.put(async (req, res) => {
@@ -105,7 +105,7 @@ handler.put(async (req, res) => {
       for (let i = 0; i < product.subProducts.length; i++) {
         if (i == style) {
           newSubProducts[i] = product.subProducts[i];
-          newSubProducts[i].images= newSubProducts[i].images.concat(images);
+          newSubProducts[i].images = newSubProducts[i].images.concat(images);
           newSubProducts[i].sizes = sizes;
           newSubProducts[i].color = color;
           newSubProducts[i].discount = discount;
@@ -130,10 +130,10 @@ handler.put(async (req, res) => {
         }
       );
       await db.disconnectDb();
-     return res.status(200).json({ message: "Продукт відредаговано успішно!" });
+      return res.status(200).json({ message: "Продукт відредаговано успішно!" });
     }
   } catch (error) {
-   return res.status(500).json({ message: error.message });
+    return res.status(500).json({ message: error.message });
   }
 });
 

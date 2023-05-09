@@ -3,7 +3,7 @@ import styles from './styles.module.scss';
 import { AiTwotoneEdit, AiFillDelete } from "react-icons/ai";
 import { toast } from "react-toastify";
 import axios from "axios";
-import { FormGroup, FormLabel, FormControl, Col } from "react-bootstrap"
+import { FormGroup, FormLabel, FormControl } from "react-bootstrap"
 
 export default function ListItem({ coupon, setCoupons }) {
     const [open, setOpen] = useState(false);
@@ -43,10 +43,6 @@ export default function ListItem({ coupon, setCoupons }) {
             toast.success(data.message);
             setCoupons(data.coupons)
             setOpen(false)
-            // setPromocode("");
-            // setDiscount(0);
-            // setStartDate(new Date());
-            // setEndDate(tommorow);
         } catch (error) {
             toast.error(error.response.data.message);
         }
@@ -73,7 +69,7 @@ export default function ListItem({ coupon, setCoupons }) {
                     <div className={styles.date_picker}>
                         <FormGroup controlId="groupStartDate">
                             <FormLabel className={styles.form_label2}>
-                            Початок дії
+                                Початок дії
                             </FormLabel>
                             <FormControl
                                 type="date"
@@ -86,7 +82,7 @@ export default function ListItem({ coupon, setCoupons }) {
                         </FormGroup>
                         <FormGroup controlId="groupEndDate">
                             <FormLabel className={styles.form_label2}>
-                            Кінець дії
+                                Кінець дії
                             </FormLabel>
                             <FormControl
                                 type="date"
@@ -101,10 +97,6 @@ export default function ListItem({ coupon, setCoupons }) {
                     <button className={styles.btn} onClick={() => handleUpdate(coupon._id)}>Зберегти</button>
                     <button className={styles.btn} onClick={() => {
                         setOpen(false);
-                        // setPromocode("");
-                        // setDiscount(0);
-                        // setStartDate(coupon.startDate);
-                        // setEndDate(coupon.endDate);
                     }}>Скасувати</button>
                 </div>)
             }

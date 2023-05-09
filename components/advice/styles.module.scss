@@ -1,13 +1,13 @@
-.advice{
+.advice {
     background: #F0EBFB;
-    
+
     &__title {
         display: flex;
         flex-direction: row;
         align-items: center;
         padding-top: 74px;
         padding-bottom: 40px;
-        
+
         span {
             padding: 13px 60px;
             gap: 10px;
@@ -23,15 +23,17 @@
             color: #FFFFFF;
         }
     }
-    &__row{
+
+    &__row {
         padding: 0 60px 40px 60px;
-        p{
+
+        p {
             font-family: 'Noto Sans';
             font-style: normal;
             font-weight: 400;
             font-size: 18px;
             line-height: 25px;
-            
+
             color: $plum-dark-color;
         }
     }

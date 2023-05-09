@@ -5,7 +5,7 @@
     align-items: flex-start;
     max-height: 420px;
     overflow: auto;
-    padding-left:30px;
+    padding-left: 30px;
     margin: 10px 6px 0px;
 
     &::-webkit-scrollbar {
@@ -31,7 +31,7 @@
         color: #70BF63;
     }
 
-    p{
+    p {
         font-weight: 300;
         font-size: 14px;
     }
@@ -47,8 +47,6 @@
     span {
         margin-left: 20px;
     }
-
-    
 }
 
 .modalheader {
@@ -57,6 +55,4 @@
     font-weight: 500;
     font-size: 23px;
     line-height: 31px;
-
 }
-

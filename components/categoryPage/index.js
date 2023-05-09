@@ -14,17 +14,17 @@ export default function CategoryPage({ category }) {
       <Row lg={4} md={3} className={styles.categorypage__row}>
         {category.groups
           ? category.groups.map((group, i) =>
-              group.group_subcategory.length ? (
-                <Col className={styles.col} key={i}>
-                  <Link
-                    style={{ textDecoration: "none" }}
-                    href={`/subCategory/${group.slug}?sub=${group.group_subcategory[0].slug}`}
-                  >
-                    <CategoryCard group={group} />
-                  </Link>
-                </Col>
-              ) : null
-            )
+            group.group_subcategory.length ? (
+              <Col className={styles.col} key={i}>
+                <Link
+                  style={{ textDecoration: "none" }}
+                  href={`/subCategory/${group.slug}?sub=${group.group_subcategory[0].slug}`}
+                >
+                  <CategoryCard group={group} />
+                </Link>
+              </Col>
+            ) : null
+          )
           : null}
       </Row>
     </Container>

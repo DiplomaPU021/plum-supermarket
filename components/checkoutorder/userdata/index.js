@@ -6,8 +6,8 @@ import "yup-phone";
 import { useEffect, useState } from "react";
 
 export default function UserData({
- userData,
- setUserData,
+    userData,
+    setUserData,
     setOrderError,
 }) {
 
@@ -45,7 +45,6 @@ export default function UserData({
     });
     const handleGetCredencials = (e) => {
         const { name, value } = e.target;
-        // setActiveAddress({ ...activeAddress, [name]: value });
         setUserData({ ...userData, [name]: value });
     };
     useEffect(() => {
@@ -61,19 +60,6 @@ export default function UserData({
         }
     }, [userData]);
 
-    // useEffect(() => {
-    //     if (!activeAddress && userData.errorFirstName == "" && userData.errorLastName == "" && userData.errorPhoneNumber == "") {
-    //         if (user.firstName || user.lastName || user.phoneNumber) {
-    //             setActiveAddress({
-    //                 ...activeAddress,
-    //                 firstName: user.firstName,
-    //                 lastName: user.lastName,
-    //                 phoneNumber: user.phoneNumber,
-    //             });
-    //             console.log("81");
-    //         }
-    //     }
-    // }, []);
     useEffect(() => {
         if (firstName == "" || firstName == null) {
             setUserData((prevState) => ({

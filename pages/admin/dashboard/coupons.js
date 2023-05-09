@@ -19,7 +19,7 @@ export default function coupons({ coupons }) {
 }
 
 export async function getServerSideProps(context) {
-   await db.connectDb();
+    await db.connectDb();
     const coupons = await Coupon.find({}).sort({ updatedAt: -1 }).lean();
     await db.disconnectDb();
     return {

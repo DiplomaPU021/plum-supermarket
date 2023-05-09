@@ -26,29 +26,28 @@ export default function ContinueWith(
     useDeepCompareEffect(() => {
         async function fetchData() {
             const response = await getProviders();
-            // console.log(Object.values(response).map(p => p.id));
             if (response) {
                 setProviders(response);
             }
         }
         fetchData();
-    }, [providers]); // Or [] if effect doesn't need props or state
+    }, [providers]);
 
-    const signInHandler =async (id) => {
+    const signInHandler = async (id) => {
         try {
-        setLoading(true);
-        const res = signIn(id);
-        setUserProfileShow(true);
-       
-        setLoading(false);
-        } catch(error) {
+            setLoading(true);
+            const res = signIn(id);
+            setUserProfileShow(true);
+
+            setLoading(false);
+        } catch (error) {
             console.error(error);
             setLoading(false);
         }
     }
     return (
         <div className={styles.container_frame}>
-             {
+            {
                 loading && <DotLoaderSpinner loading={loading} />
             }
             <div className={styles.devider}>
@@ -58,26 +57,14 @@ export default function ContinueWith(
             </div>
             <div className={styles.linkicons}>
                 <button className={styles.social_btn}
-                    onClick={()=>signInHandler(providers.google.id)} >
+                    onClick={() => signInHandler(providers.google.id)} >
                     <Image height="24px" width="24px" src={`../../icons/logos_google-icon.png`} alt="provider" />
                 </button>
                 <button className={styles.social_btn}
-                    onClick={()=>signInHandler(providers.facebook.id)} >
+                    onClick={() => signInHandler(providers.facebook.id)} >
                     <Image height="24px" width="24px" src={`../../icons/logos_facebook.png`} alt="provider" />
                 </button>
             </div>
-
-            {/* <div className={styles.linkicons}>
-                <button className={styles.social_btn}
-                    onClick={() => signIn(providers.apple.id)} >
-                    <Image height="46px" width="46px" src={`../../icons/apple.png`} alt="provider" />
-                    Увійти з допомогою Apple
-                </button>
-            </div> */}
-            {/* <Image src='../../../authIcons/auth_google.png' width="46px" height="46px" onClick={() => signIn(providers.google.id)} /> */}
-            {/* <Image src='../../../authIcons/auth_github.png' width="46px" height="46px" />
-                <Image src='../../../authIcons/auth_auth.png' width="46px" height="46px" onClick={() => signIn(providers.auth0.id)} />
-                <Image src='../../../authIcons/auth_fb.png' width="46px" height="46px" /> */}
         </div>
     )
 }

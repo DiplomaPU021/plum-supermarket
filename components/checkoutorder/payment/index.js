@@ -4,7 +4,7 @@ import { paymentMethods } from "@/data/paymentMethods";
 import PaymentForm from "@/components/paymentForm";
 import React, { useEffect, useState } from "react";
 import { toast } from "react-toastify";
-import 'react-toastify/dist/ReactToastify.css'; // імпортуємо стилі
+import 'react-toastify/dist/ReactToastify.css';
 
 export default function PaymentMethod({
     paymentMethod,
@@ -20,7 +20,6 @@ export default function PaymentMethod({
     const [selectedCard, setSelectedCard] = useState(userCreditCards?.find(creditCard => creditCard.isDefault === true || null));
 
     useEffect(() => {
-        // console.log("userCreditCards", userCreditCards);
     }, [userCreditCards])
     const handleChangePayment = (e) => {
         e.target.id === "paymentOnline" ? setShowCard(true) : setShowCard(false);
@@ -152,7 +151,6 @@ export default function PaymentMethod({
                         )
                     )}
                 </Form.Group>
-
             </Row>
         </>
     );

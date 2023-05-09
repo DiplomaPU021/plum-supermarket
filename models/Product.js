@@ -46,16 +46,6 @@ const reviewSchema = new mongoose.Schema({
     disadvantages: {
         type: String,
     },
-    // size: {
-    //     type: String,
-    // },
-    // style: {
-    //     color: String,
-    //     image: String,
-    // },
-    // fit: {
-    //     type: String,
-    // },
     images: [],
     likes: [],
     dislikes: [],
@@ -92,12 +82,6 @@ const productSchema = new mongoose.Schema(
                 ref: "SubCategory",
             },
         ],
-        // details: [
-        //     {
-        //         name: String,
-        //         value: String,
-        //     }
-        // ],
         details: [
             {
                 group: String,
@@ -110,12 +94,6 @@ const productSchema = new mongoose.Schema(
                 ]
             }
         ],
-        // questions: [
-        //     {
-        //         question: String,
-        //         answer: String,
-        //     }
-        // ],
         reviews: [reviewSchema],
         refundPolicy: {
             type: String,
@@ -131,12 +109,6 @@ const productSchema = new mongoose.Schema(
             required: true,
             default: 0,
         },
-        // shipping: {
-        //     type: Number,
-        //     required: true,
-        //     default: 0,
-        // },
-
         subProducts: [
             {
                 images: [],

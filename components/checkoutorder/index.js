@@ -28,9 +28,9 @@ export default function CheckoutOrder({
         userAdresses?.find((address) => address.active === true) || null
     );
     const [userData, setUserData] = useState({
-        firstName: activeAddress ? activeAddress.firstName? activeAddress.firstName: user.firstName ? user.firstName : "":"",
-        lastName: activeAddress ? activeAddress.lastName?  activeAddress.lastName:user.lastName ? user.lastName : "":"",
-        phoneNumber: activeAddress ? activeAddress.phoneNumber ? activeAddress.phoneNumber: user.phoneNumber ? user.phoneNumber : "":"",
+        firstName: activeAddress ? activeAddress.firstName ? activeAddress.firstName : user.firstName ? user.firstName : "" : "",
+        lastName: activeAddress ? activeAddress.lastName ? activeAddress.lastName : user.lastName ? user.lastName : "" : "",
+        phoneNumber: activeAddress ? activeAddress.phoneNumber ? activeAddress.phoneNumber : user.phoneNumber ? user.phoneNumber : "" : "",
         email: user ? user.email : "",
         errorLastName: "",
         errorFirstName: "",
@@ -68,7 +68,6 @@ export default function CheckoutOrder({
                 active: true,
             });
         } else {
-            //  console.log("useeffectCheckout", JSON.stringify(activeAddress,null,4));
         }
 
     }, []);
@@ -110,7 +109,6 @@ export default function CheckoutOrder({
                                 paymentMethod={paymentMethod}
                                 setPayment={setPayment}
                                 totalAfterDiscount={totalAfterDiscount}
-                                // stripe_public_key={stripe_public_key}
                                 setIsPaid={setIsPaid}
                                 user={user}
                                 setOrderError={setOrderError}

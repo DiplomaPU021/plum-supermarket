@@ -11,7 +11,7 @@ export default function EmptyCart(props) {
             <div className={styles.line}></div>
             <p>Але це ніколи не пізно виправити!</p>
             <button className={styles.addbtn}
-               onClick={() => props.onHide()}
+                onClick={() => props.onHide()}
             >Додати товари</button>
         </Modal.Body>
     )

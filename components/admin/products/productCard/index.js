@@ -16,8 +16,6 @@ import { RiDeleteBin2Line } from "react-icons/ri"
 export default function ProdcutCard({ product}) {
     return (
         <div className={styles.product}>
-            {/* <div>style{style}</div>
-            <div>mode{JSON.stringify(product,null,4)}</div> */}
             <h1 className={styles.product__name}>
                 {product.name}
             </h1>

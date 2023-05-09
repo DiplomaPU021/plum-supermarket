@@ -2,8 +2,7 @@ import styles from "./styles.module.scss";
 import { useEffect, useRef, useState } from "react";
 import { useDispatch } from "react-redux";
 import { ErrorMessage, useField } from "formik";
-import { RiShape2Line, RiDeleteBin7Fill } from "react-icons/ri";
-import { GiExtractionOrb } from "react-icons/gi";
+import { RiDeleteBin7Fill } from "react-icons/ri";
 import { showDialog, hideDialog } from "@/store/DialogSlice";
 
 export default function Images({
@@ -13,16 +12,27 @@ export default function Images({
     text,
     name,
     setColorImage,
+    viewImages,
     ...props
 }) {
     const dispatch = useDispatch();
     const fileInput = useRef(null);
     const [meta, field] = useField(props);
     const [disableButton, setDisabledButton] = useState(false);
+    const [divVisible, setDivVisible] = useState(false);
 
     useEffect(() => {
         images.length >= 6 ? setDisabledButton(true) : setDisabledButton(false);
     }, [images]);
+
+    useEffect(() => {
+        console.log(viewImages)
+        if (window.location.pathname.startsWith('/admin/dashboard/product/') && window.location.pathname !== "/admin/dashboard/product/create") {
+            setDivVisible(true)
+        } else {
+            setDivVisible(false)
+        }
+    })
 
     const handleImages = (e) => {
         let files = Array.from(e.target.files);
@@ -83,7 +93,8 @@ export default function Images({
         });
     };
 
-    const handleRemove = (image) => {
+    const handleRemove = (image, e) => {
+        e.preventDefault();
         setImages((images) => images.filter((item) => item !== image));
     };
 
@@ -115,9 +126,11 @@ export default function Images({
                 accept="image/jpeg,image/png,image/webp,image/gif"
                 onChange={handleImages}
             />
-            <div className={styles.images_main}>
-                <div
-                    className={`${styles.images_main_grid} ${images.length == 2
+            <div className={styles.flex_image} >
+                <div className={styles.images_main}>
+               
+                    <div
+                        className={`${styles.images_main_grid} ${images.length == 2
                             ? styles.grid_two
                             : images.length == 3
                                 ? styles.grid_three
@@ -128,28 +141,58 @@ export default function Images({
                                         : images.length == 6
                                             ? styles.grid_six
                                             : ""
-                        }`}
-                >
-                    {!images.length ? (
-                        <img
-                            src="https://upload.wikimedia.org/wikipedia/commons/thumb/6/65/No-Image-Placeholder.svg/1200px-No-Image-Placeholder.svg.png"
-                            alt=""
-                        />
-                    ) : (
-                        images.map((img, i) => (
-                            <div className={styles.images_main_grid_wrap} key={i}>
-                                <div className={styles.blur}> </div>
-                                <img src={img} alt="" />
-                                <div className={styles.images_main_grid_actions}>
-                                    <button onClick={() => handleRemove(img)}>
-                                        <RiDeleteBin7Fill />
-                                    </button>
-                                    {/* <button><GiExtractionOrb /></button> */}
-                                    {/* <button><RiShape2Line /></button> */}
+                            }`}
+                    >
+                        {!images.length ? (
+                            <img
+                                src="https://upload.wikimedia.org/wikipedia/commons/thumb/6/65/No-Image-Placeholder.svg/1200px-No-Image-Placeholder.svg.png"
+                                alt=""
+                            />
+                        ) : (
+                            images.map((img, i) => (
+                                <div className={styles.images_main_grid_wrap} key={i}>
+                                    <div className={styles.blur}> </div>
+                                    <img src={img} alt="" />
+                                    <div className={styles.images_main_grid_actions}>
+                                        <button onClick={(e) => handleRemove(img, e)}>
+                                            <RiDeleteBin7Fill />
+                                        </button>
+                                    </div>
                                 </div>
-                            </div>
-                        ))
-                    )}
+                            ))
+                        )}
+                    </div>
+                </div>
+
+                <div className={styles.images_main} style={{ display: divVisible ? "block" : "none" }}>
+                    <div
+                        className={`${styles.images_main_grid} ${viewImages.length == 2
+                            ? styles.grid_two
+                            : viewImages.length == 3
+                                ? styles.grid_three
+                                : viewImages.length == 4
+                                    ? styles.grid_four
+                                    : viewImages.length == 5
+                                        ? styles.grid_five
+                                        : viewImages.length == 6
+                                            ? styles.grid_six
+                                            : ""
+                            }`}
+                    >
+                        {!viewImages.length ? (
+                            <img
+                                src="https://upload.wikimedia.org/wikipedia/commons/thumb/6/65/No-Image-Placeholder.svg/1200px-No-Image-Placeholder.svg.png"
+                                alt=""
+                            />
+                        ) : (
+                            viewImages.map((img1, i) => (
+                                <div className={styles.images_main_grid_wrap} key={i}>
+                                     <div className={styles.blur}> </div>
+                                    <img src={img1} alt="" />
+                                </div>
+                            ))
+                        )}
+                    </div>
                 </div>
             </div>
             <button

@@ -19,10 +19,7 @@ const findByIdAndDelete = async (id) => {
 const findByUserId = async (userId) => {
     try {
         const orders = await Order.find({ user: userId })
-            // .populate({ path: "products.product", model: Product })
-            // .populate({ path: "user", model: User })
             .sort({ updatedAt: -1 })
-            // .lean();
         return orders;
     } catch (error) {
         console.error(error);
@@ -60,7 +57,6 @@ const createOrder = async (
     ).save();
     return order;
 };
-
 
 const orderService = {
     getOneById,

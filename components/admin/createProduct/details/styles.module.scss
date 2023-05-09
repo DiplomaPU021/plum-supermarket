@@ -3,18 +3,18 @@
 .header__error {
     color: red;
 }
+
 .error_msg {
     color: red;
     font-size: 13px;
 }
+
 .details {
     margin-top: 10px !important;
     margin-bottom: 10px;
-
-   
 }
 
-.add{
+.add {
     svg {
         width: 30px;
         height: 30px;
@@ -29,7 +29,7 @@
     }
 }
 
-.top_space{
+.top_space {
     display: flex;
     align-items: center;
 }
@@ -67,6 +67,7 @@
 
 .container_details {
     margin-top: 15px;
+
     .input {
         outline: none;
         border: 1px solid $plum-violet-color;

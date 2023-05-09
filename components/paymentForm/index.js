@@ -3,7 +3,7 @@ import { Button, Col, Form, Modal, Row } from "react-bootstrap";
 import React, { useEffect, useRef, useState } from 'react';
 import Cards from 'react-credit-cards-2';
 import { toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css'; // імпортуємо стилі
+import 'react-toastify/dist/ReactToastify.css';
 import axios from 'axios';
 import {
     formatCreditCardNumber,
@@ -39,8 +39,6 @@ const PaymentForm = ({ total, setIsPaid, userCreditCards, setUserCreditCards, se
     };
 
     const handleUpload = async () => {
-        // console.log("formData", state.formData);
-        // console.log("state", state);
         let toastId = null;
 
         try {
@@ -70,33 +68,15 @@ const PaymentForm = ({ total, setIsPaid, userCreditCards, setUserCreditCards, se
                     render: data?.message,
                     type: toast.TYPE.SUCCESS,
                 });
-                if(setIsPaid!=null){
-                     setIsPaid(true);      //TODO в профілі викидає помилку поки таймаут 
+                if (setIsPaid != null) {
+                    setIsPaid(true);
                 }
-              
+
                 handleReset();
 
             }, 3000);
-            // let newCreditCard = {
-            //     name: state.name,
-            //     number: state.number,
-            //     expiry: state.expiry,
-            //     cvc: state.cvc,
-            //     isDefault: true
-            // };
-            // // setActiveUserCard(newCreditCard);
-            // let creditCards = [];
-            // for (let i = 0; i < userCreditCards.length; i++) {
-            //     let temp_creditCards = {};
-            //     temp_creditCards = { ...userCreditCards[i], isDefault: false };
-            //     creditCards.push(temp_creditCards);
-            // }
-            // creditCards.push(newCreditCard);
             setUserCreditCards(data.creditCards);
-            // console.log("90", userCreditCards);
-
         } catch (error) {
-            // console.log("error", error);
             if (error.response?.data?.error) {
                 toast.update(toastId, {
                     render: error.response.data.error,
@@ -135,8 +115,6 @@ const PaymentForm = ({ total, setIsPaid, userCreditCards, setUserCreditCards, se
         handleUpload();
         setShowAddCard(false);
         setShowCard(true);
-        // console.log();
-        // setIsPaid(true);
     }
     const handleReset = () => {
         setState((prev) => ({

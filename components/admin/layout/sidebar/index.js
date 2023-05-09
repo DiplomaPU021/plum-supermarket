@@ -6,7 +6,7 @@ import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { MdArrowForwardIos, MdSpaceDashboard } from 'react-icons/md'
 import { FcSalesPerformance } from 'react-icons/fc'
-import { IoListCircleSharp, IoNotifications, IoNotificationsSharp } from 'react-icons/io5';
+import { IoListCircleSharp, IoNotificationsSharp } from 'react-icons/io5';
 import { ImUsers } from 'react-icons/im';
 import { AiFillMessage } from 'react-icons/ai';
 import { FaThList } from 'react-icons/fa';
@@ -46,7 +46,6 @@ export default function Sidebar() {
                 </Link>
                 <div className={styles.sidebar__user}>
                     <img src="../../../profile/account2.png" alt="" />
-                    {/* <img src={session?.user?.image} alt="" /> */}
                     <div className={styles.show}>
                         <span>Вітаємо </span>
                         <span>{session?.user?.name}</span>
@@ -110,8 +109,8 @@ export default function Sidebar() {
                         </li>
                         <li className={route == "groupSubCategories" ? styles.active : ""}>
                             <Link href="/admin/dashboard/groupSubCategories">
-                            <div style={{ transform: "rotate(90deg)" }}>
-                                <MdOutlineCategory />
+                                <div style={{ transform: "rotate(90deg)" }}>
+                                    <MdOutlineCategory />
                                 </div>
                                 <span className={styles.show}>Групи Підкатегорії</span>
                             </Link>

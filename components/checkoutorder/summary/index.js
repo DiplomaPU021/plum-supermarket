@@ -111,11 +111,8 @@ export default function Summary({
             }
 
         } else {
-            // e.preventDefault();
             setUserSigninShow(true);
             router.push(`/`);
-            //TODO: open Modal MyCabinet            
-            // signIn();
         }
     }
     return (
@@ -126,7 +123,6 @@ export default function Summary({
                     promocode,
                 }}
                 initialErrors={{ couponError, orderError }}
-                //   error={{}}
                 initialTouched={{ promocode: false }}
                 validationSchema={validatePromoCode}
                 onSubmit={(values) => console.log(values)}
@@ -168,7 +164,6 @@ export default function Summary({
                                     <li><div className={styles.litext_btn}><p>Адреса доставки</p><h6>{delivery.deliveryAddress}</h6></div></li>
                                     <li><div className={styles.litext_btn}><p>Вартість доставки</p><h6>{delivery.deliveryType == "Кур'єр на вашу адресу" ? `${Number(delivery.deliveryCost)} ₴` : delivery.deliveryCost}</h6></div></li>
                                     <li><div className={styles.litext_btn}><p>Оплата</p><h6>{paymentMethod}</h6></div></li>
-                                    {/* TODO вытянуть isPaid из базы */}
                                     <li><div className={styles.litext_btn}><p>Статус оплати</p><h6>{isPaid ? "Оплачено" : "Очікується оплата"}</h6></div></li>
                                     {discount > 0 && (
                                         <li><div className={styles.litext_btn}><p>Купон застосовано:</p><h6><b>-{discount}%</b></h6></div></li>
@@ -202,7 +197,6 @@ export default function Summary({
                 onHide={() => setInfoShow(false)} />
             <UserConditions show={info2Show}
                 onHide={() => setInfo2Show(false)} />
-            {/* <MyCabinet show={userSinginShow} onHide={()=>setUserSigninShow(false)}/> */}
         </>
     )
 }

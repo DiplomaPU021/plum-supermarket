@@ -13,7 +13,6 @@ export default function users({ users }) {
     )
 }
 
-
 export async function getServerSideProps(context) {
     db.connectDb();
     const users = await User.find({}).sort({ updateAt: -1 }).lean();

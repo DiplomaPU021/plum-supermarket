@@ -14,10 +14,8 @@ export default function Sizes({
         values[i][e.target.name] = e.target.value;
         values[i].code = createUniqueCode();
         setProduct({ ...product, sizes: values });
-        //TODO implement
     }
     const handleRemove = (i) => {
-        //TODO implement
         if (sizes.length > 1) {
             const values = [...sizes];
             values.splice(i, 1);

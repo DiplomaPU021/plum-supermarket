@@ -179,7 +179,6 @@
     flex-direction: row;
     align-items: flex-start;
     padding: 24px 12px 24px 12px;
-    // max-width: 1008px;
     background: linear-gradient(180deg, #FAF8FF 0%, #F2EDFF 100%);
     box-shadow: 0px 0px 15px rgba(34, 15, 75, 0.5), inset 7px 7px 20px #FAF5FF, inset -7px -7px 20px #F7EEFF;
     border-radius: 21px !important;
@@ -204,7 +203,6 @@
     @media(max-width: 1200px) {
         max-width: 670px;
         margin-left: 24px;
-
     }
 
     @media(max-width: 1000px) {
@@ -238,7 +236,6 @@
         max-width: 460px;
 
     }
-
 }
 
 .bord {

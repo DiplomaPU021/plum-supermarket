@@ -1,6 +1,7 @@
 .modal {
     background: rgba(87, 60, 145, 0.5);
     backdrop-filter: blur(2.5px);
+
     &__main {
         padding: 24px;
         background: linear-gradient(180deg, #FAF8FF 0%, #F2EDFF 100%);
@@ -109,6 +110,7 @@
                         &:first-of-type {
                             background: $plum-dark-color;
                             color: #E7DBEA;
+
                             &:hover {
                                 box-shadow: 0px 0px 5px 0px #220F4B;
                             }
@@ -139,13 +141,13 @@
                     &_box {
                         width: 24px;
                         height: 24px;
-                        //background: transparent;
+
                         border: 2px solid $green-color;
                         box-shadow: none;
 
                         &:checked {
-                            border-color: $green-color; // Change the border color when checked
-                            background-color: transparent; // Change the background color when checked
+                            border-color: $green-color;
+                            background-color: transparent;
                             box-shadow: none;
                             background-image: url("../../../public/icons/check.png");
                         }
@@ -167,7 +169,7 @@
                     }
                 }
 
-                &__photos{
+                &__photos {
                     display: grid;
                     align-items: center;
                     justify-content: center;
@@ -176,18 +178,19 @@
                     padding: 12px 20px;
                     min-height: 200px;
 
-                    .col{
-                    display: flex;
-                    align-items: center;
-                    justify-content: space-between;
-                    color: #220F4B;
-                    font-family: 'Noto Sans';
-                    font-weight: 400;
-                    font-size: 16px;
-                    line-height: 22px;
+                    .col {
+                        display: flex;
+                        align-items: center;
+                        justify-content: space-between;
+                        color: #220F4B;
+                        font-family: 'Noto Sans';
+                        font-weight: 400;
+                        font-size: 16px;
+                        line-height: 22px;
                     }
                 }
             }
+
             .info {
                 padding: 0 60px;
                 padding-bottom: 10px;

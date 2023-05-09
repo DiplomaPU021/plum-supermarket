@@ -14,7 +14,7 @@ import { saveWishList } from "@/requests/user"
 import MyCabinet from "@/components/mycabinet"
 
 
-export default function WishList({ error, setError, ...props}) {
+export default function WishList({ error, setError, ...props }) {
     const wishList = useSelector((state) => state.wishList);
     const [footerVisible, setFooterVis] = useState("none");
     const getTotalQty = () => {
@@ -23,7 +23,7 @@ export default function WishList({ error, setError, ...props}) {
             0
         );
     };
-    
+
     useEffect(() => {
         if (wishList?.wishListItems?.length !== 0) {
             setFooterVis("block")

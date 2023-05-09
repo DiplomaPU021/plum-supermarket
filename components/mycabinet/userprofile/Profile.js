@@ -51,29 +51,9 @@ export default function Profile({ country, ...props }) {
     `${activeAddress?.cityType} ${activeAddress?.city}, ${activeAddress?.address}`
   );
   const [isSavedAddress, setIsSavedAddress] = useState(false);
-  //   useEffect(async()=>{
-  //     const result = await axios.get('/api/user/admiration');
-  //     console.log("data",result);
-  // // setAdmiration((prev)=>{...prev,
-  //   // fishing,
-  //   // hunting,
-  //   // gardening,
-  //   // fitness,
-  //   // yoga,
-  //   // running,
-  //   // bicycle,
-  //   // music,
-  //   // tourism,
-  //   // cybersport,
-  //   // handmade})
-  //   },[])
-
   const [userCreditCards, setUserCreditCards] = useState(props.user?.creditCards || []);
   const [selectedCard, setSelectedCard] = useState(userCreditCards?.find(creditCard => creditCard.isDefault === true || null));
-// const [isPaid, setIsPaid] = useState(false);
-
   const today = new Date();
-  // const minDate = new Date(today.getFullYear() - 12, today.getMonth(), today.getDate());
   const cutoffYear = today.getFullYear() - 12;
 
   const validationSchema = yup.object({
@@ -106,9 +86,6 @@ export default function Profile({ country, ...props }) {
           value[0] === "0"
         );
       }),
-    //       birthday: yup.date().max(new Date(), 'Дата народження не може бути у майбутньому')
-    //     .min(minDate, 'Дата народження має бути не менше, ніж 12 років тому від поточної дати').required(),
-    // });
     birthday: yup
       .string()
       .matches(
@@ -175,7 +152,6 @@ export default function Profile({ country, ...props }) {
 
   const handleSearchCity = (e) => {
     e.preventDefault();
-    // cityRef.current.focus();
     setProfileCityModalShow(true);
 
   };
@@ -220,7 +196,7 @@ export default function Profile({ country, ...props }) {
       }, 1000);
     }
   }, [searchStreet])
- 
+
   const handleSelectStreet = (street) => {
     selectRef.current.focus();
     setSelectedStreet(street);
@@ -275,7 +251,7 @@ export default function Profile({ country, ...props }) {
         }
         addresses.push(newAddress);
         setUserAddresses(addresses);
-        setSelectedAddress( `${newAddress.cityType} ${newAddress.city}, ${newAddress.address}`);
+        setSelectedAddress(`${newAddress.cityType} ${newAddress.city}, ${newAddress.address}`);
       }
       setShowAddress("none");
       setShowAddAddressBlock("none");
@@ -290,23 +266,6 @@ export default function Profile({ country, ...props }) {
     }
   };
 
-
-  // const handleChangeGround = (e) => {
-  //   setAddressValues({
-  //     ...addressValues,
-  //     ground: e.target.value,
-  //   });
-  // };
-  // const handleSelectElevator = (e) => {
-  //   const options = e.target.options;
-  //   if (options[0].selected) {
-  //     options[0].disabled = true;
-  //   }
-  //   setAddressValues({
-  //     ...addressValues,
-  //     elevator: e.target.value,
-  //   });
-  // };
   const handleCancelAddAdress = () => {
     if (userAddresses.length > 0) {
       setShowAddAddressBlock("none");
@@ -333,9 +292,8 @@ export default function Profile({ country, ...props }) {
   const handleSelectPostman = (e) => {
     postmanRef.current.focus();
     if (selectedAddress) {
-      // змінюємо властивість active для вибраного елемента
       const updatedAddresses = userAddresses.map((item) =>
-      `${item.cityType} ${item.city}, ${item.address}` == e.target.value
+        `${item.cityType} ${item.city}, ${item.address}` == e.target.value
           ? { ...item, active: true }
           : { ...item, active: false }
       );
@@ -343,39 +301,17 @@ export default function Profile({ country, ...props }) {
     }
     setSelectedAddress(e.target.value);
   };
- const handleSaveAdress =async ()=>{
-  if (activeAddress != null) {
-    await saveAddress(activeAddress);
-    setIsSavedAddress(true);
-}
- }
-
-  const handleChangeCardNumber = (e) => {
-    //implement handler
-
-  };
-  const handleChangeTerm = (e) => {
-    //implement handler
-
-  };
-  const handleChangeCVV = (e) => {
-    //implement handler
-
-  };
-  // const handleAddCard = (e) => {
-  //   //implement handler
-
-  // };
-  const handleCancelAddCard = (e) => {
-    //implement handler
-
-  };
+  const handleSaveAdress = async () => {
+    if (activeAddress != null) {
+      await saveAddress(activeAddress);
+      setIsSavedAddress(true);
+    }
+  }
 
   const handleAddCard = () => {
     setShowAddCard(true);
     setShowCard(false)
   }
-
 
   const additionalInfoHandler = async () => {
     const result = await axios.put("/api/user/additionalInfo", {
@@ -399,9 +335,6 @@ export default function Profile({ country, ...props }) {
     setIsInEdit(false);
   };
 
-
-
-
   return (
     <Accordion
       flush
@@ -423,12 +356,11 @@ export default function Profile({ country, ...props }) {
                   </Form.Label>
                   <Form.Control
                     className={`${styles.form_input} ${errors.lastName ? "is-invalid" : ""
-                    }`}
+                      }`}
                     type="text"
                     name="lastName"
                     {...register("lastName")}
                     readOnly={!isInEdit}
-                    // aria-invalid={errors.lastName ? "true" : "false"}
                   />
                   <Form.Control.Feedback type="invalid">
                     {errors.lastName?.message}
@@ -440,7 +372,7 @@ export default function Profile({ country, ...props }) {
                   </Form.Label>
                   <Form.Control
                     className={`${styles.form_input} ${errors.phoneNumber ? "is-invalid" : ""
-                    }`}
+                      }`}
                     name="phoneNumber"
                     {...register("phoneNumber")}
                     readOnly={!isInEdit}
@@ -455,7 +387,7 @@ export default function Profile({ country, ...props }) {
                   <Form.Label className={styles.form_label}>Ім'я</Form.Label>
                   <Form.Control
                     className={`${styles.form_input} ${errors.firstName ? "is-invalid" : ""
-                    }`}
+                      }`}
                     type="text"
                     name="firstName"
                     {...register("firstName")}
@@ -485,7 +417,7 @@ export default function Profile({ country, ...props }) {
                   </Form.Label>
                   <Form.Control
                     className={`${styles.form_input} ${errors.birthday ? "is-invalid" : ""
-                    }`}
+                      }`}
                     type="date"
                     name="birthday"
                     {...register("birthday")}
@@ -506,7 +438,7 @@ export default function Profile({ country, ...props }) {
                     disabled={!isInEdit}
                     name="gender"
                     className={`${styles.form_input} ${errors.gender ? "is-invalid" : ""
-                    }`}
+                      }`}
                   >
                     <option value="Стать" disabled={true}>
                       Стать
@@ -561,7 +493,7 @@ export default function Profile({ country, ...props }) {
           <span>Мої адреси</span>
         </Accordion.Header>
         <Accordion.Body className={styles.accordion__item_body}>
-          <Row style={{padding: "0"}} >
+          <Row style={{ padding: "0" }} >
             <div className={styles.flex_row}>
               <Form.Select
                 className={styles.form_address}
@@ -571,22 +503,21 @@ export default function Profile({ country, ...props }) {
                 ref={postmanRef}
                 defaultValue={selectedAddress}
               >
-                {/* <option key ="addressOPt0" value="Вибрати адресу доставки..." disabled={true}>Вибрати адресу доставки...</option>  */}
                 {userAddresses != null &&
-                userAddresses.filter(
-                  (c) => c.address !=""
-                )
+                  userAddresses.filter(
+                    (c) => c.address != ""
+                  )
                   ? userAddresses.map((item, index) => (
-                      <option
-                        key={`${item.address}-${index}`}
-                        value={`${item.cityType} ${item.city}, ${item.address}`}
-                      >
-                        {item.cityType} {item.city}, {item.address}
-                      </option>
-                    ))
+                    <option
+                      key={`${item.address}-${index}`}
+                      value={`${item.cityType} ${item.city}, ${item.address}`}
+                    >
+                      {item.cityType} {item.city}, {item.address}
+                    </option>
+                  ))
                   : null}
               </Form.Select>
-            <button onClick={handleSaveAdress} id="btnSaveAddress" disabled={isSavedAddress}>
+              <button onClick={handleSaveAdress} id="btnSaveAddress" disabled={isSavedAddress}>
                 Зберегти
               </button>
             </div>
@@ -819,7 +750,7 @@ export default function Profile({ country, ...props }) {
           </Form.Check>
           <button
             className={styles.profilebtn}
-            onClick={() =>{ setIsInEdit(true), additionalInfoHandler()}}
+            onClick={() => { setIsInEdit(true), additionalInfoHandler() }}
           >
             Підтвердити
           </button>
@@ -856,7 +787,7 @@ export default function Profile({ country, ...props }) {
             ))}
             <button
               className={styles.edit_btn2}
-              onClick={() =>{ setIsInEdit(true), admirationHandler()}}
+              onClick={() => { setIsInEdit(true), admirationHandler() }}
             >
               Підтвердити
             </button>
@@ -894,7 +825,7 @@ export default function Profile({ country, ...props }) {
             ))}
             <button
               className={styles.edit_btn2}
-              onClick={() =>{ setIsInEdit(true), petsHandler()}}
+              onClick={() => { setIsInEdit(true), petsHandler() }}
             >
               Підтвердити
             </button>

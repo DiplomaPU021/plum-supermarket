@@ -40,7 +40,7 @@ export default function EditProduct({
   groupSubCategoryProduct,
   categoryProduct,
 }) {
-    const router = useRouter();
+  const router = useRouter();
   const dispatch = useDispatch();
   const [productToEdit, setProduct] = useState({
     name: product.name,
@@ -157,8 +157,6 @@ export default function EditProduct({
     <Layout>
       {loading && <DotLoaderSpinner loading={loading} />}
       <div className={styles.header}>Видалити продукт</div>
-      {/* <DialogModal show={dialog.show} onHide={()=>hideDialog()} msgs={dialog.msgs} header={dialog.header}/> */}
-      <DialogModal />
       <Formik
         enableReinitialize
         initialValues={{
@@ -179,13 +177,6 @@ export default function EditProduct({
       >
         {(formik) => (
           <Form>
-            {/* <Images
-                            name="imagesInputFile"
-                            header="Product Carousel Images"
-                            text="Додати зображення"
-                            images={images}
-                            setImages={setImages}
-                        /> */}
             <SingularSelect
               name="category"
               value={productToEdit.category}
@@ -211,9 +202,8 @@ export default function EditProduct({
                 disabled={true}
                 placeholder="Виберіть субкатегорії"
                 components={animatedComponents}
-                className={`${styles.select} ${
-                  formik.touched && formik.errors && styles.error_select
-                }`}
+                className={`${styles.select} ${formik.touched && formik.errors && styles.error_select
+                  }`}
                 classNamePrefix="Виберіть субкатегорії"
                 options={dataOptions}
                 isClearable={true}
@@ -262,20 +252,6 @@ export default function EditProduct({
               placeholder="Політика повернення"
               disabled
             />
-            {/* <div className={styles.flex}>
-              {product.color?.image && (
-                <>
-                  <h3>
-                    {" "}
-                    Колір продукту: <span>{product.color?.color}</span>
-                  </h3>
-                  <span
-                    className={styles.color_span}
-                    style={{ background: `${product.color?.image}` }}
-                  ></span>
-                </>
-              )}
-            </div> */}
             <Colors
               name="color"
               product={productToEdit}

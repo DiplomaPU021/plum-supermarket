@@ -8,7 +8,7 @@ import { useState } from "react";
 import { useRouter } from "next/router";
 
 export default function Products({ products }) {
-  
+
   const router = useRouter();
   const [pageSize, setPageSize] = useState(16);
   const showMoreProductsHandler = () => {

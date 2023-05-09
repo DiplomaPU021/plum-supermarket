@@ -73,14 +73,14 @@ export default function RecomendedVideo({ title, link }) {
                         </div>
                     </Card>
                 </Col>
-                <Col className={styles.col}>               
+                <Col className={styles.col}>
                     <Card className={styles.morevideo}>
                         <Card.Body className={styles.lastcardbody}>
                             <h6 className={styles.textcard}>Нові відео на каналі PLUM</h6>
                             <Button className={styles.ytbtn}>YouTube PLUM</Button>
                         </Card.Body>
                     </Card>
-                   
+
                 </Col>
             </Row>
         </Container>

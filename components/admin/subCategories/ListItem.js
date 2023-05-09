@@ -5,17 +5,17 @@ import { toast } from "react-toastify";
 import axios from "axios";
 
 export default function ListItem({ categories, groupSubCategories, subCategory, setSubCategories }) {
-    
+
     const [open, setOpen] = useState(false);
     const [name, setName] = useState('');
     const [parent, setParent] = useState("");
     const [topParent, setTopParent] = useState("");
-    const [filteredGroupSubCategories, setFilteredGroupSubCategories]=useState(groupSubCategories);
+    const [filteredGroupSubCategories, setFilteredGroupSubCategories] = useState(groupSubCategories);
     const input = useRef(null);
 
-    const handleChangeTopParent=(e)=>{
+    const handleChangeTopParent = (e) => {
         setTopParent(e.target.value);
-        setFilteredGroupSubCategories(groupSubCategories?.filter(item=>e.target.value===item.parent._id));
+        setFilteredGroupSubCategories(groupSubCategories?.filter(item => e.target.value === item.parent._id));
     }
     const handleRemove = async (id) => {
         try {
@@ -53,9 +53,9 @@ export default function ListItem({ categories, groupSubCategories, subCategory, 
             />
             {
                 open && (<div className={styles.list__item_expand}>
-                                        <select
-                    name="topParent" 
-                    value={topParent || subCategory.top_parent._id}
+                    <select
+                        name="topParent"
+                        value={topParent || subCategory.top_parent._id}
                         onChange={handleChangeTopParent}
                         disabled={!open}
                         className={styles.select}>

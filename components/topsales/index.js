@@ -7,7 +7,7 @@ export default function TopSales({ products, pageSize, setPageSize }) {
     return (
         <Container fluid className={styles.cont}>
             <ButtonsTab />
-            <Products products={products} pageSize={pageSize} setPageSize={setPageSize}/>
+            <Products products={products} pageSize={pageSize} setPageSize={setPageSize} />
         </Container>
     )
 }

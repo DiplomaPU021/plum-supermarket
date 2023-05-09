@@ -67,7 +67,7 @@ export default function Style({
       >
         <div className={styles.flex}>
           {meta.error && <img src="../../../images/warning.png" alt="" />}
-Pick a Product Style Image
+          Pick a Product Style Image
         </div>
         <span>
           {meta.touched && meta.error && (
@@ -87,13 +87,13 @@ Pick a Product Style Image
         accept="image/jpeg,image/png,image/webp,image/gif"
         onChange={handleImage}
       />
-   
+
       <button
         type="reset"
         onClick={() => fileInput.current.click()}
         className={`${styles.btn} ${styles.btn_primary}`}
       >
-       Pick a style
+        Pick a style
       </button>
     </div>
   );

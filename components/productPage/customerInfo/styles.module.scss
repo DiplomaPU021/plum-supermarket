@@ -3,8 +3,9 @@
     align-items: center;
     gap: 20px;
     background: $light-wheet-color;
-    padding:  50px 60px 0 60px;
+    padding: 50px 60px 0 60px;
     background-color: $light-wheet-color;
+
     &__row {
         margin: 0;
         display: flex;
@@ -39,7 +40,7 @@
                 flex-direction: column;
                 gap: 20px;
                 align-items: start;
-                padding-right:  25px;
+                padding-right: 25px;
 
 
                 ul {
@@ -83,7 +84,8 @@
                     color: #E7DBEA;
 
                 }
-                &__credit{
+
+                &__credit {
                     margin: 0;
                     padding: 0;
                     display: flex;
@@ -97,7 +99,7 @@
                     justify-content: center;
                     align-items: center;
                     padding-bottom: 23px;
-                    
+
                     span {
                         font-family: 'Noto Sans';
                         font-style: normal;

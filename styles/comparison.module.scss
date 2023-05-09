@@ -163,9 +163,6 @@
                 }
             }
         }
-
-
-
         .row {
             position: relative;
             padding: 0;
@@ -229,8 +226,6 @@
                 }
             }
         }
-
-
     }
 
     .accordion {
@@ -239,11 +234,9 @@
 
         &__item {
             background: transparent;
-            //border-bottom: 0;
             border-bottom: 1px solid #E6E1F1;
 
             &_header {
-
 
                 button {
                     padding-left: 0;
@@ -296,7 +289,6 @@
                             border: 1px solid $light-wheet-color;
 
                             td {
-                                //width: 25%;
                                 padding: 10px;
                                 font-weight: 400;
                                 font-size: 16px;
@@ -321,12 +313,7 @@
                             }
                         }
                     }
-
-
-
-
                 }
-
             }
         }
     }
@@ -372,7 +359,6 @@
                     padding: 0;
                     background-color: transparent;
                 }
-
             }
 
             .text {
@@ -397,7 +383,6 @@
                     background: #70BF6380;
                     border-left: 1.5px solid $light-wheet-color;
                     border-right: 1.5px solid $light-wheet-color;
-
                 }
 
                 &::-webkit-scrollbar-thumb {
@@ -405,7 +390,6 @@
                     border-radius: 3px;
                 }
             }
-
         }
     }
 }

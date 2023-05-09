@@ -1,14 +1,12 @@
 import styles from "./styles.module.scss"
 import Link from "next/link"
-import { MdArrowForwardIos, MdSpaceDashboard } from 'react-icons/md'
-import { FcSalesPerformance } from 'react-icons/fc'
-import { IoListCircleSharp, IoNotifications, IoNotificationsSharp } from 'react-icons/io5';
+import { MdSpaceDashboard } from 'react-icons/md'
+import { IoListCircleSharp, IoNotificationsSharp } from 'react-icons/io5';
 import { ImUsers } from 'react-icons/im';
-import { AiFillMessage } from 'react-icons/ai';
 import { FaRegUserCircle, FaThList } from 'react-icons/fa';
 import { BsPatchPlus } from 'react-icons/bs';
 import { MdOutlineCategory } from 'react-icons/md';
-import { RiCoupon3Fill, RiLogoutCircleFill, RiSettingsLine } from 'react-icons/ri';
+import { RiCoupon3Fill, RiSettingsLine } from 'react-icons/ri';
 import { VscHome } from "react-icons/vsc"
 import { useState } from 'react';
 import { signOut } from "next-auth/react"

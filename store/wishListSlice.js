@@ -20,25 +20,6 @@ export const wishListSlice = createSlice({
       state.wishListItems = [];
       state.wishListTotal = 0;
     },
-    // incrementQuantity: (state, action) => {
-    //   // console.log("state", state);
-    //   // console.log("action", action);
-    //   const item = state.find((item) => item._id === action.payload);
-    //   item.qty++;
-    // },
-    // decrementQuantity: (state, action) => {
-    //   const item = state.find((item) => item._id === action.payload);
-    //   if (item.qty === 1) {
-    //     const index = state.findIndex((item) => item._id === action.payload);
-    //     state.splice(index, 1);
-    //   } else {
-    //     item.qty--;
-    //   }
-    // },
-    // removeFromWishList: (state, action) => {
-    //   const index = state.findIndex((item) => item._id === action.payload);
-    //   state.splice(index, 1);
-    // },
   },
 });
 
@@ -52,4 +33,3 @@ export const {
   removeFromWishList,
 } = wishListSlice.actions;
 export default wishListSlice.reducer;
-//export const wishListReducer = wishListSlice.reducer;

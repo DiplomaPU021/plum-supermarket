@@ -1,7 +1,7 @@
 import styles from "./styles.module.scss"
 import Modal from 'react-bootstrap/Modal'
 import { useState } from "react"
-import { Form, Button } from "react-bootstrap"
+import { Form } from "react-bootstrap"
 import { useDispatch, useSelector } from "react-redux"
 import { deleteApproval, updateCart } from "@/store/cartSlice"
 
@@ -12,8 +12,6 @@ export default function DelNotification({ setDeleteConfirm, productId, setError,
     const { askType } = dontAsk;
 
     const handleDontAskAgain = (e) => {
-        // e.persist();
-        // console.log(e.target.value);
         setDontAsk(prevState => ({
             ...prevState,
             askType: e.target.value
@@ -23,7 +21,6 @@ export default function DelNotification({ setDeleteConfirm, productId, setError,
         let newCart = cart.cartItems.filter((item) => {
             return item._uid != productId;
         });
-        // setError((prevState) => ({ ...prevState, inCartError: false, uidProduct: "" }));
         dispatch(updateCart(newCart));
         if (dontAsk.askType != "") {
             setDeleteConfirm(true);

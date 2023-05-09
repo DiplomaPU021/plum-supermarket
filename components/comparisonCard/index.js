@@ -20,7 +20,7 @@ import { useSession } from "next-auth/react";
 import { Tooltip } from "react-tooltip";
 import "react-tooltip/dist/react-tooltip.css";
 
-// сюди приходить продукт з бази даних напряму
+
 export default function ComparisonCard({ product, style, mode }) {
   const { data: session, status } = useSession();
   const router = useRouter();
@@ -34,7 +34,6 @@ export default function ComparisonCard({ product, style, mode }) {
   const [isOpenInWish, setIsOpenInWish] = useState(false);
   const [wishChosen, setWishChosen] = useState(false);
   const [cartChosen, setCartChosen] = useState(false);
-  //const { cart } = useSelector((state) => ({ ...state }));
   useEffect(() => {
     let _uid = `${product._id}_${product.style}_${product.mode}`;
     let exist = null;
@@ -165,10 +164,10 @@ export default function ComparisonCard({ product, style, mode }) {
                   ).length > 55
                     ? `${product.name.substring(0, 55)}...`
                     : product.name +
-                      " " +
-                      (product.color ? product.color.color : "") +
-                      " " +
-                      product.size}
+                    " " +
+                    (product.color ? product.color.color : "") +
+                    " " +
+                    product.size}
                 </Link>
               </Card.Title>
             </Col>
@@ -183,9 +182,8 @@ export default function ComparisonCard({ product, style, mode }) {
               <Col className={styles.product__container_infos_pricebtn_price}>
                 <span
                   className={styles.pricediscount}
-                >{`${product.price.toLocaleString("uk-UA")} ${
-                  product.price_unit
-                }`}</span>
+                >{`${product.price.toLocaleString("uk-UA")} ${product.price_unit
+                  }`}</span>
                 <span className={styles.priceregular}>
                   {`${Math.round(
                     (product.price * (100 - product.discount)) / 100

@@ -19,7 +19,7 @@ export default function Create({ categories, setGroupSubCategories }) {
         ,
         parent: Yup.string().required("Будь-ласка виберіть категорію"),
     });
-    const handleChangeTopParent=(e)=>{
+    const handleChangeTopParent = (e) => {
         setParent(e.target.value);
     }
     const submitHandler = async () => {
@@ -45,11 +45,6 @@ export default function Create({ categories, setGroupSubCategories }) {
             {
                 (formik) => (
                     <Form>
-                        {/* {JSON.stringify(groupSubCategories)}
-                        <div>top_parent</div>
-                        {topParent}
-                        <div>parent</div>
-                        {parent} */}
                         <div className={styles.header}>Створити группу підкатегорій</div>
                         <AdminInput
                             type="text"

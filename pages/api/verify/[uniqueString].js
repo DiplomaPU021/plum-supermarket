@@ -15,13 +15,8 @@ const handler = nc().get(async (req, res) => {
         { new: true }
       );
       await db.disconnectDb();
-      //   return res
-      //     .status(200)
-      //     .json({ message: "email confirmed. Please login <a href='http://localhost:3000'>http://localhost:3000</a>" });
-      // }
       res.status(200).setHeader("Content-Type", "text/html; charset=utf-8");
 
-      // повертаємо сторінку з повідомленням
       return res.status(200).send(`
         <html>
           <head>

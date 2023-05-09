@@ -23,7 +23,7 @@ export default function CartItem({ product, error, setError, deleteConfirm, setD
   const wishList = useSelector((state) => state.wishList);
   const dispatch = useDispatch();
   const [isOpenInWish, setIsOpenInWish] = useState(false);
-  const [errorWish, setErrorWish]=useState("");
+  const [errorWish, setErrorWish] = useState("");
   const [wishError, setWishError] = useState(false);
   const [wishChosen, setWishChosen] = useState(false);
 
@@ -60,23 +60,10 @@ export default function CartItem({ product, error, setError, deleteConfirm, setD
       let newCart = cart.cartItems.filter((item) => {
         return item._uid != id;
       });
-      // setError((prevState) => ({
-      //   ...prevState,
-      //   inCartError: false,
-      //   uidPrInCart: "",
-      // }));
       dispatch(updateCart(newCart));
     } else {
       setNotificationShow(true);
     }
-
-    // const removeProduct = async (id) => {
-
-    //TODO треба перенести  в компонент модальне видалення DelNotification і в разі вибору не показувати знову використовувати пряме видалення тут
-    // let newCart = cart.cartItems.filter((item) => {
-    //     return item._uid != id;
-    // });
-    // dispatch(updateCart(newCart));
   };
   const addToWishHandler = async (product) => {
     if (session) {
@@ -92,11 +79,6 @@ export default function CartItem({ product, error, setError, deleteConfirm, setD
         );
       }
       if (exist) {
-        // setError((prevState) => ({
-        //   ...prevState,
-        //   inWishListError: true,
-        //   uidPrInWish: product._uid,
-        // }));
         setWishError("Товар уже в улюблених");
         setIsOpenInWish(true);
         return;
@@ -128,13 +110,11 @@ export default function CartItem({ product, error, setError, deleteConfirm, setD
   return (
     <Card className={styles.card}>
       <Tooltip
-         id="wish-tooltip"
+        id="wish-tooltip"
         content={wishError}
         isOpen={isOpenInWish}
         place="top"
-        style={{ backgroundColor: "#70BF63", color: "#fff", borderRadius: "30px", zIndex:"999" }}
-        // className={styles.tooltip_rounded}
-        // classNameArrow={styles.tooltip_arrow}
+        style={{ backgroundColor: "#70BF63", color: "#fff", borderRadius: "30px", zIndex: "999" }}
       />
       <Card.Body className={styles.cardbody}>
         {product.discount > 0 ? (

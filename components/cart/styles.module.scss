@@ -3,9 +3,6 @@
     border: 2px solid $plum-dark-color;
     border-radius: 10px;
     color: $plum-dark-color;
-    //background: linear-gradient(180deg, #FAF8FF 0%, #F2EDFF 100%);
-    //box-shadow: 0px 0px 15px rgba(34, 15, 75, 0.5), inset 7px 7px 20px #FAF5FF, inset -7px -7px 20px #F7EEFF;
-    // padding-top: 12px;
 
     span {
         margin-left: 20px;
@@ -142,7 +139,6 @@
     flex-direction: row;
     align-items: flex-start;
     padding: 24px 12px 24px 12px;
-    // max-width: 1008px;
     background: linear-gradient(180deg, #FAF8FF 0%, #F2EDFF 100%);
     box-shadow: 0px 0px 15px rgba(34, 15, 75, 0.5), inset 7px 7px 20px #FAF5FF, inset -7px -7px 20px #F7EEFF;
     border-radius: 21px !important;
@@ -166,8 +162,6 @@
 
     @media(max-width: 1200px) {
         max-width: 700px;
-
-
     }
 
     @media(max-width: 1000px) {
@@ -184,7 +178,6 @@
     flex-direction: column;
     justify-content: center;
     align-items: flex-start;
-    // width: 435px;
     padding-top: 10px;
 
     .h5text {
@@ -193,18 +186,13 @@
         line-height: 27px;
         color: #220F4B;
         padding-bottom: 20px;
-        // border-bottom: 3px solid #70BF63;
         max-width: 435px;
-
         text-decoration: none;
     }
 
     &_extraservice {
         max-width: 435px;
     }
-
-
-
 }
 
 .bord {
@@ -215,7 +203,6 @@
     display: flex;
     align-items: center;
 
-
     @media(min-width: 900px) {
         justify-content: center;
         align-items: flex-start;
@@ -225,7 +212,6 @@
         justify-content: center;
         align-items: flex-start;
     }
-
 }
 
 .cardextrabtn {
@@ -254,7 +240,6 @@
     justify-content: center;
     align-items: center;
     padding: 0px;
-    // width: 220px;
     height: 143px;
 
     &_itemcount {
@@ -299,7 +284,6 @@
         font-size: 30px;
         font-weight: 600;
 
-
         .count {
             width: 51px;
             height: 51px;
@@ -314,39 +298,20 @@
         span {
             padding: 0px;
             margin: 0px;
-
         }
 
         button {
             background: transparent;
-            // background: linear-gradient(180deg, #FAF8FF 0%, #F2EDFF 100%);
         }
     }
-
-    // @media(max-width: 600px) {
-    //    width: 430px;
-    // }
-
-
 }
 
 .cardbtns {
-
     display: flex;
     flex-direction: column;
     align-items: center;
     gap: 20px;
     padding: 10px;
-    //max-width: 50px;
-
-
-    // @media(max-width: 900px) {
-    //     flex-direction: row;
-    //     align-items: center;
-    //     padding: 0px !important;
-    //     margin: 0px !important;
-    //     justify-content: center;
-    // }
 
     @media(max-width: 700px) {
         flex-direction: row;
@@ -355,8 +320,6 @@
         margin: 0px !important;
         justify-content: center;
     }
-
-
 }
 
 .itembtn {

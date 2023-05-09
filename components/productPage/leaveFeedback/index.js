@@ -129,23 +129,6 @@ export default function LeaveFeedback({ show, onHide, product, setProductReview 
               />
               <Form.Control.Feedback type="invalid">{errors.reviewerName}</Form.Control.Feedback>
             </Form.Group>
-            {/* <Form.Group className="mb-3" controlId="formBasicEmail">
-              <Form.Label style={{ paddingLeft: "23px" }}>
-                Електронна пошта
-              </Form.Label>
-              <Form.Control
-                className={styles.form_input}
-                type="email"
-                placeholder="your@email.com"
-                name="email"
-                value={form.email}
-                 onChange={(e) => setField(e.target.name, e.target.value)}
-              />
-              <Form.Text style={{ paddingLeft: "23px" }} className="text-muted">
-                Ми ніколи нікому не передамо вашу електронну адресу.
-              </Form.Text>
-            </Form.Group> */}
-
             <Form.Group className={styles.form__stars}>
               <Rating
                 SVGstyle={{ margin: "0 10px" }}
@@ -236,18 +219,14 @@ export default function LeaveFeedback({ show, onHide, product, setProductReview 
               </Form.Label>
               <Images images={images} setImages={setImages} />
             </Form.Group>
-            {/* TODO bottons */}
             <div className={styles.form__btns}>
-              {/* {form.review != "" && form.review != null ? ( */}
               <button onClick={handleSubmitReview}>
                 <span>Залишити відгук</span>
               </button>
-              {/* ) : <button disabled> <span>Залишити відгук</span></button>} */}
               <button>
                 <span>Скасувати</span>
               </button>
             </div>
-
             <Form.Group controlId="formBasicCheckbox">
               <Form.Check type="checkbox" className={styles.form_checkbox}>
                 <Form.Check.Input

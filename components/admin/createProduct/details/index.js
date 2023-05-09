@@ -1,7 +1,5 @@
-import { useEffect, useState } from "react"
 import styles from "./styles.module.scss"
 import { ErrorMessage, useField } from "formik"
-import { Form } from "react-bootstrap"
 import { AiFillMinusCircle, AiFillPlusCircle } from "react-icons/ai";
 
 export default function Details({
@@ -10,18 +8,13 @@ export default function Details({
     details,
     product,
     setProduct,
-    // errors,
     ...props
 }) {
     const [field, meta] = useField(props);
-    //     useEffect(()=>{
-    // console.log("errors", errors);
-    //     },[details])
     const handleDetails = (i, e) => {
         const newDetails = [...product.details];
         newDetails[i][e.target.name] = e.target.value;
         setProduct({ ...product, details: newDetails });
-        //TODO implement
     }
     const handleFields = (i, j, e) => {
         const newDetails = [...product.details];
@@ -64,7 +57,6 @@ export default function Details({
 
     }
     const handleRemove = (i) => {
-        //TODO implement
         if (details.length > 0) {
             const newDetails = [...product.details];
             newDetails.splice(i, 1);
@@ -72,7 +64,6 @@ export default function Details({
         }
     }
     const handleRemoveField = (i, j) => {
-        //TODO implement
         if (details.length > 0 && details[i].fields.length > 1) {
             const newDetails = [...product.details];
             newDetails[i].fields.splice(j, 1);
@@ -101,23 +92,20 @@ export default function Details({
             {
                 details.length > 0 ? details.map((detail, i) => (
                     <div className={styles.container_details} key={i}>
-                         <span className={styles.top_space}>
-                        <input key={"inputd" + i}
-                            id={"inputd" + i}
-                            type="text"
-                            name="group"
-                            placeholder={"Назва групи х-ик"}
-                            value={detail.group}
-                            onChange={(e) => handleDetails(i, e)}
-                            disabled={disabled}
-                            className={styles.input}
-                        />
-                        {/* {details.length == 0 && ( */}
-                       
+                        <span className={styles.top_space}>
+                            <input key={"inputd" + i}
+                                id={"inputd" + i}
+                                type="text"
+                                name="group"
+                                placeholder={"Назва групи х-ик"}
+                                value={detail.group}
+                                onChange={(e) => handleDetails(i, e)}
+                                disabled={disabled}
+                                className={styles.input}
+                            />
                             <AiFillMinusCircle onClick={() => handleRemove(i)} />
                             <AiFillPlusCircle onClick={() => handleAdd()} />
                         </span>
-                        {/* )} */}
                         <div className={styles.details}>
                             {detail.fields && detail.fields.length > 0 ? detail.fields.map((f, j) => (
                                 <div key={"field" + j} className={styles.field}>
@@ -154,8 +142,7 @@ export default function Details({
                             )) : <AiFillPlusCircle onClick={() => handleAddField(i)} />}
                         </div>
                     </div>
-                )) : <span className={styles.add}><AiFillPlusCircle  onClick={() => handleAdd()} /></span>
-
+                )) : <span className={styles.add}><AiFillPlusCircle onClick={() => handleAdd()} /></span>
             }
         </div>
     )

@@ -1,9 +1,8 @@
-
 .cont {
-   background-color: $light-wheet-color;
-   padding: 0px 50px 50px 50px;
+    background-color: $light-wheet-color;
+    padding: 0px 50px 50px 50px;
 
-    .product{
+    .product {
         width: 100%;
         padding: 24px !important;
         margin: 10px;
@@ -60,7 +59,7 @@
     justify-content: center;
     align-items: center;
     flex-direction: column;
-   
+
     button {
         min-width: 46px;
         height: 46px;

@@ -48,8 +48,8 @@ export default function ListItem({ categories, groupSubCategories, groupSubCateg
             {
                 open && (<div className={styles.list__item_expand}>
                     <select
-                    name="parent" 
-                    value={parent || groupSubCategory.parent._id}
+                        name="parent"
+                        value={parent || groupSubCategory.parent._id}
                         onChange={(e) => setParent(e.target.value)}
                         disabled={!open}
                         className={styles.select}>
@@ -61,7 +61,7 @@ export default function ListItem({ categories, groupSubCategories, groupSubCateg
 
                     </select>
                     <button className={styles.btn} onClick={() => handleUpdate(groupSubCategory._id)}>Зберегти</button>
-                    <button className={styles.btn} onClick={() => { setOpen(false); setName(""); setParent("");  }}>Скасувати</button>
+                    <button className={styles.btn} onClick={() => { setOpen(false); setName(""); setParent(""); }}>Скасувати</button>
                 </div>)
             }
             <div className={styles.list__item_actions}>

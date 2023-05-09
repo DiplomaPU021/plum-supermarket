@@ -6,7 +6,7 @@ import { Container, Row, Image } from "react-bootstrap";
 
 export default function Images({ images, setImages }) {
   const [error, setError] = useState("");
-  const inputRef= useRef(null);
+  const inputRef = useRef(null);
   const handleImages = (e) => {
     let files = Array.from(e.target.files);
     files.forEach((img, i) => {

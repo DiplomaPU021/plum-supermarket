@@ -7,7 +7,7 @@
         position: relative;
         display: flex;
         flex-direction: row;
-        align-items:center;
+        align-items: center;
         justify-content: space-between;
         padding: 15px;
 
@@ -15,7 +15,7 @@
             display: flex;
             align-items: center;
             height: 100px;
-            
+
             span {
                 display: flex;
                 flex-direction: column;
@@ -33,9 +33,9 @@
             padding: 0;
 
             @media (max-width: 1300px) {
-               gap: 1rem;
+                gap: 1rem;
             }
-            
+
             .liked {
                 position: relative;
 
@@ -76,6 +76,7 @@
                 background: #F0EBFB;
                 border: 2px solid $plum-dark-color;
                 border-radius: 23px;
+
                 &:hover {
                     box-shadow: 0px 0px 5px 0px #220F4B;
                 }
@@ -84,7 +85,7 @@
 
         &_buy {
             position: relative;
-            display:flex;
+            display: flex;
             flex-direction: column;
             justify-content: center;
             align-items: center;
@@ -112,6 +113,7 @@
                 @media (max-width: 1300px) {
                     padding: 10px 15px;
                 }
+
                 &:hover {
                     box-shadow: 0px 0px 5px 0px #220F4B;
                 }
@@ -154,8 +156,9 @@
             div {
                 width: 50%;
                 padding-left: 20px;
+
                 span {
-                    
+
                     font-family: 'Noto Sans';
                     font-style: normal;
                     font-weight: 500;
@@ -229,7 +232,7 @@
                 }
             }
 
-            &_crossline{
+            &_crossline {
                 position: absolute;
                 width: 50px;
                 border: 2px solid #70BF63;
@@ -264,6 +267,7 @@
     font-weight: 500;
     font-size: 34px;
     color: $green-color;
+
     @media (max-width: 1300px) {
         font-size: 28px;
     }
@@ -272,9 +276,8 @@
 .active_size {
     outline: 2px solid $green-color;
 }
+
 .error {
-    // background: $light-error-color;
-    // margin-top: 5rem;
     padding-bottom: 0rem;
 
     input {

@@ -63,12 +63,6 @@ const userSchema = new mongoose.Schema(
       type: String,
       unique: true,
     },
-    // likedProducts: [
-    //     {
-    //         type: ObjectId,
-    //         ref: "Product",
-    //     },
-    // ],
     address: [
       {
         firstName: {
