@@ -27,7 +27,6 @@ import { addToViewedList } from "@/store/viewedListSlice";
 
 export default function Infos({
   product,
-  active,
   setActive,
   productError,
   setProductError,
@@ -42,7 +41,6 @@ export default function Infos({
   const viewedList = useSelector((state) => state.viewedList);
   const [showDetails, setShowDetails] = useState(false);
   const [showSizes, setShowSizes] = useState(false);
-  const [isOpen, setIsOpen] = useState(false);
   const [isOpenQ, setIsOpenQ] = useState(false);
   const [isOpenInWish, setIsOpenInWish] = useState(false);
   const [wishError, setWishError] = useState(false);
@@ -63,10 +61,8 @@ export default function Infos({
     }
     if (exist) {
       setCartChosen(true);
-      // setIsOpenInCart(true);
     } else {
       setCartChosen(false);
-      // setIsOpenInCart(false);
     }
   }, [cart.cartTotal, product.style, product.mode]);
 
@@ -96,10 +92,8 @@ export default function Infos({
     }
     if (exist) {
       setScaleChosen(true);
-      // setIsOpenInScale(true);
     } else {
       setScaleChosen(false);
-      // setIsOpenInScale(false);
     }
   }, [scaleList.scaleListTotal, product.style, product.mode]);
 
@@ -125,13 +119,6 @@ export default function Infos({
       if (exist) {
         setProductError("Товар в корзині");
         setIsOpenQ(true);
-        // let newCart = cart.cartItems.map((item) => {
-        //   if (item._uid === exist._uid) {
-        //     return { ...item, qty: item.qty + 1 };
-        //   }
-        //   return item;
-        // });
-        // dispatch(updateCart(newCart));
       } else {
         dispatch(addToCart({ ...data, qty, size: data.size, _uid }));
         setCartChosen(true);
@@ -142,7 +129,6 @@ export default function Infos({
     if (session) {
       setWishError("");
       setIsOpenInWish(false);
-      // setIsOpen(false);
       let _uid = `${product._id}_${product.style}_${product.mode}`;
       let exist = null;
       if (wishList.wishListItems) {
@@ -151,18 +137,11 @@ export default function Infos({
       if (exist) {
         setWishError("Товар уже в списку улюблених");
         setIsOpenInWish(true);
-        // let newWishList = wishList.wishListItems.filter((item) => {
-        //   return item._uid != _uid;
-        // });
-        // dispatch(updateWishList(newWishList));
-        // updateOneInWishList({ productId: product._id });
       } else {
         const { data } = await axios.get(
           `/api/product/${product._id}?style=${product.style}&code=${product.mode}`
         );
-        // setWishChosen(true);
-        // setIsOpenInWish(true);
-        // console.log("chosen");
+
         dispatch(
           addToWishList({
             ...data,
@@ -183,7 +162,6 @@ export default function Infos({
         });
       }
     } else {
-      // setIsOpen(true);
       setWishError("Будь ласка зареєструйтесь!");
       setIsOpenInWish(true);
     }
@@ -318,7 +296,6 @@ export default function Infos({
             onMouseLeave={() => setIsOpenQ(false)}
             style={{
               cursor: `${product.quantity < 1 ? "not-allowed" : ""}`,
-              // backgroundColor: cartChosen ? "#220F4B" : "#FAF8FF"
             }}
           >
             {product.quantity < 1 ? (

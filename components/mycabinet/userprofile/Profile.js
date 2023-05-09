@@ -1,8 +1,6 @@
 import styles from "./styles.module.scss";
 import {
   Accordion,
-  Nav,
-  Container,
   Row,
   Col,
   Form,
@@ -328,6 +326,8 @@ export default function Profile({ country, ...props }) {
         ground: "",
         elevator: "Відсутній",
       });
+      setShowAddAddressBlock("none");
+      setShowAddress("none");
     }
   };
   const handleSelectPostman = (e) => {
@@ -349,27 +349,6 @@ export default function Profile({ country, ...props }) {
     setIsSavedAddress(true);
 }
  }
-
-  const handleChangeCardNumber = (e) => {
-    //implement handler
-
-  };
-  const handleChangeTerm = (e) => {
-    //implement handler
-
-  };
-  const handleChangeCVV = (e) => {
-    //implement handler
-
-  };
-  // const handleAddCard = (e) => {
-  //   //implement handler
-
-  // };
-  const handleCancelAddCard = (e) => {
-    //implement handler
-
-  };
 
   const handleAddCard = () => {
     setShowAddCard(true);
@@ -601,7 +580,7 @@ export default function Profile({ country, ...props }) {
             </button>
           </Row>
           <Row style={{ display: showAddress }}>
-            <Col className={styles.ordertable}>
+            <Col style={{padding: "0"}} className={styles.ordertable}>
               <Form.Label className={styles.form_label} htmlFor="city-name">
                 Ваше місто
               </Form.Label>

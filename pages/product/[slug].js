@@ -20,12 +20,10 @@ import Popular from "@/components/popular";
 import Reviews from "@/components/productPage/reviews";
 import { getCountryData } from "@/utils/country";
 import User from "@/models/User";
-import { useDispatch, useSelector } from "react-redux";
-import axios from "axios";
+import { useDispatch } from "react-redux";
 import { updateNumberReviews, updateReviewRating } from "@/store/reviewSlice";
 import GroupSubCategory from "@/models/GroupSubCategory";
 import FloatingButton from '@/components/FloatingButton';
-import { addToViewedList } from "@/store/viewedListSlice";
 
 export default function product({ product, popular, country, style, mode }) {
   const [active, setActive] = useState({ style: style, mode: mode });
@@ -38,31 +36,6 @@ export default function product({ product, popular, country, style, mode }) {
     dispatch(updateNumberReviews(product.numReviews))
   }, [product]);
 
-  
-  // const viewedList = useSelector((state) => state.viewedList);
-  
-  // useEffect(() => {
-  //   const addToViewedHandler = async () => {
-  //     const { data } = await axios.get(
-  //       `/api/product/${product._id}?style=${active.style}&code=${active.mode}`
-  //     );
-
-  //     if (viewedList.viewedListItems) {
-  //       const existItem = viewedList.viewedListItems.find(
-  //         (item) =>
-  //           item._id == data._id &&
-  //           item.style == data.style &&
-  //           item.mode == data.mode
-  //       );
-
-  //       if (!existItem) {
-  //         dispatch(addToViewedList({ ...data }));
-  //       }
-  //     }
-  //   };
-
-  //   addToViewedHandler();
-  // }, []);
 
   return (
     <Container fluid style={{ padding: "0" }}>
@@ -111,7 +84,7 @@ export default function product({ product, popular, country, style, mode }) {
               />
             </Col>
             <Col style={{ padding: "0", width: "50%" }}>
-              <Infos product={product} active={active} setActive={setActive} productError={productError} setProductError={setProductError} />
+              <Infos product={product} setActive={setActive} productError={productError} setProductError={setProductError} />
             </Col>
           </Row>
         </Container>
@@ -131,6 +104,8 @@ export async function getServerSideProps(context) {
   const slug = query.slug;
   const style = query.style == null || query.style == "undefined" ? 0 : query.style;
   const mode = query.code || 0;
+
+  const pageSize =  query.pageSize || 8;
 
   const countryData = await getCountryData();
 
@@ -163,9 +138,11 @@ export async function getServerSideProps(context) {
     .populate({ path: "reviews.replies.replyBy", model: User })
     .sort({ createdAt: -1 }).lean();
 
-  //Should be with mark "popular"
+
   let onlyFromCategory = await Product.find({ category: product.category._id })
-    .lean();
+  .limit(pageSize)
+  .lean();
+
   let newFromCategory = onlyFromCategory.map((product) => {
     let style = -1;
     let mode = -1;
@@ -199,13 +176,7 @@ export async function getServerSideProps(context) {
     };
   });
   let popularFromCategory = [...newFromCategory].sort((a, b) => b.sold - a.sold);
-  // let popularFromCategory = await Product.aggregate([
-  //   { $match: { category: product.category._id } },
-  //   { $unwind: "$subProducts" },
-  //   { $sort: { "subProducts.sold": -1 } }, 
-  //   { $group: { _id: "$_id", subProducts: { $push: "$subProducts" } } },
-  //   { $project: { _id: 0, subProducts: 1 } },
-  // ]).exec();
+
   let newProduct = {
     ...product,
     style,

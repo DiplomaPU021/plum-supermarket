@@ -3,7 +3,7 @@ import ChevronRight from "@/components/icons/ChevronRight";
 import CartIcon from "@/components/icons/CartIcon";
 import ProductCard from "@/components/productCard";
 import "bootstrap/dist/css/bootstrap.min.css";
-import { Container, Col, Image, Row } from "react-bootstrap";
+import { Container, Col, Image } from "react-bootstrap";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Navigation } from "swiper";
 import styles from "./styles.module.scss";
@@ -66,22 +66,15 @@ export default function CheaperTogether({ product, productsPlus, active, setActi
               </div>
               <Col className={styles.cheapTwo__simillarswiper_summary}>
                 <div className={styles.cheapTwo__simillarswiper_summary_price}>
-                  {/* TODO calculate price below */}
                   <span>{handleSumCheaperTogether(product,prod)} {product.price_unit}</span>
                 </div>
                 <div className={styles.cheapTwo__simillarswiper_summary_buy}>
-                  {/* TODO add to cart*/}
-                  <button
-                  // onClick={() => {
-                  //   addToCartHandler();
-                  // }}
-                  >
+                 <button>
                     <CartIcon fillColor="#FAF8FF" />
                     <span>Купити комплект</span>
                   </button>
                 </div>
                 <div className={styles.cheapTwo__simillarswiper_summary_code}>
-                  {/* TODO code*/}
                   <span>Код комплекту: 423424204802842-322</span>
                 </div>
               </Col>

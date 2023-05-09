@@ -57,6 +57,10 @@
         height: 54px;
         border: 2px solid #220F4B;
         border-radius: 35px;
+        &:focus {
+            box-shadow: 0px 0px 5px $plum-dark-color;
+            border: 2px solid $plum-dark-color;
+        }
     }
 
     .formlabel {
