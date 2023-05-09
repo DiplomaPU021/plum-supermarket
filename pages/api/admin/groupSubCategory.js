@@ -69,14 +69,13 @@ handler.delete(async (req, res) => {
     const { id } = req.body;
     await db.connectDb();
     const subCategoriesToDelete = await SubCategory.find({ parent: id });
-    console.log("subCategoriesToDelete", subCategoriesToDelete);
+  
     let productsToDeleteGroup = [];
     for (const element of subCategoriesToDelete) {
       let productsToDelete = await Product.find({
         subCategories: { $in: [element._id.toString()] },
       });
       productsToDeleteGroup = productsToDeleteGroup.concat(productsToDelete);
-      console.log("productsToDeleteGroup", productsToDeleteGroup);
     }
     if (
       subCategoriesToDelete.length == 0 &&

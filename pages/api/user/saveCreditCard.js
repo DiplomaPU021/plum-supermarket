@@ -9,7 +9,6 @@ handler.post(async (req, res) => {
   try {
     await db.connectDb();
     const { name, number, expiry, cvc } = req.body;
-    console.log(name, number, expiry, cvc);
     let result = await userService.addCreditCard(
       req.user,
       name,
@@ -30,7 +29,6 @@ handler.post(async (req, res) => {
       return res.status(400).json({ error: "Помилка додавання картки!" });
     }
   } catch (error) {
-    console.log("error", error.message);
     if (error.message === "Карта вже існує!") {
       return res.status(400).json({ error: error.message });
     } else {

@@ -143,7 +143,6 @@ export default function Profile({ country, ...props }) {
       gender: data.gender,
       birthday: data.birthday,
     });
-    console.log("UserChanged", result);
     setIsInEdit(false);
   }
   const handleCancelCredencialsEdit = () => {
@@ -388,7 +387,6 @@ export default function Profile({ country, ...props }) {
     const result = await axios.put("/api/user/pets", {
       pets,
     });
-    console.log("UserChanged", result);
     setIsInEdit(false);
   };
 

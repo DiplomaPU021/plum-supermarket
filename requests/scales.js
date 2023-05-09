@@ -8,7 +8,6 @@ export const getScales = async () => {
             return [];
         }
     } catch (error) {
-        console.log("subCategoryDB error", error);
         return error;
 
     }

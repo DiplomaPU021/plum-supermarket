@@ -14,7 +14,7 @@ handler.post(async (req, res) => {
       const parent = await Product.findById(req.body.parent);
       if (!parent) {
         return res.status(400).json({
-          message: "Parent product not found!",
+          message: "Батьківський продукт не знайдено!",
         });
       } else {
         const newParent = await parent.updateOne(
@@ -82,21 +82,7 @@ handler.put(async (req, res) => {
       style,
     } = req.body;
     const product = await Product.findById(id);
-    console.log(
-      id,
-      name,
-      brand,
-      description,
-      category,
-      subCategories,
-      details,
-      refundPolicy,
-      images,
-      color,
-      sizes,
-      discount,
-      style
-    );
+
     if (!product) {
       return res.status(400).json({
         message: "Product not found!",
@@ -144,7 +130,6 @@ handler.delete(async (req, res) => {
 
     const { id, style } = req.body;
     const product = await Product.findById(id);
-    console.log(id, style);
     if (!product) {
       return res.status(400).json({
         message: "Product not found!",

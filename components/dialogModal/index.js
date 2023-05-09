@@ -10,7 +10,7 @@ export default function DialogModal() {
   const dispatch = useDispatch();
   const { dialog } = useSelector((state) => ({ ...state }));
   // const dialog = useSelector((state) => state.dialog);
-  console.log("dialog", dialog);
+  // console.log("dialog", dialog);
   // console.log("showdialog", showDialog);
   //   const dialog  =useSelector((state) => state.dialog);
 
@@ -24,7 +24,6 @@ export default function DialogModal() {
         show={dialog.show}
         onHide={handleClose}
         aria-labelledby="contained-modal-title-vcenter"
-        
         className={styles.modal}
       >
         <Modal.Header closeButton>

@@ -22,7 +22,6 @@ import orderService from '@/utils/services/order.service';
 export default function order({ country, orderData, user }) {
     const [showMyCabinet, setShowMyCabinet] = useState(false);
     const handlerMyOrders = () => {
-        console.log("loggg", orderData);
         setShowMyCabinet(true);
     }
     return (

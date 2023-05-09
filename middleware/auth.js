@@ -8,7 +8,6 @@ export default async (req, res, next) => {
         secret: process.env.JWT_SECRET,
         secureCookie: process.env.NODE_ENV === 'production',
     });
-    // console.log(("TokenInMiddlevaerAuth", token));
     if (token) {
         //signed in
         req.user = token.sub; // sub has userID

@@ -36,7 +36,6 @@ handler.post(async (req, res) => {
     });
   } catch (error) {
     await db.disconnectDb();
-    console.log("31", error.message);
    return res.status(500).json({ message: error.message });
   }
 });
