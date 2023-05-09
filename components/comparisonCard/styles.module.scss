@@ -173,6 +173,10 @@
         border: 2px solid $plum-dark-color;
         box-shadow: 0px 0px 5px 0px #220F4B;
     }
+    
+    &:disabled{
+        border: 2px solid $plum-dark-color;
+    }
 }
 
 

@@ -2,8 +2,7 @@ import styles from "./styles.module.scss"
 import Card from 'react-bootstrap/Card'
 import DeleteIcon from "../icons/DeleteIcon"
 import { useEffect, useState } from "react";
-import DelNotification from "../delete"
-import { Container, Row, Col, Form } from "react-bootstrap"
+import { Container, Row, Col } from "react-bootstrap"
 import { updateWishList } from "@/store/wishListSlice";
 import { useDispatch, useSelector } from "react-redux";
 import CartIcon from "../icons/CartIcon";
@@ -45,10 +44,8 @@ export default function WishItem({ product, error, setError }) {
         }
         if (exist) {
             setCartChosen(true);
-            // setIsOpenInCart(true);
         } else {
             setCartChosen(false);
-            // setIsOpenInCart(false);
         }    
         }
        
@@ -79,9 +76,7 @@ export default function WishItem({ product, error, setError }) {
             `/api/product/${product._id}?style=${product.style}&code=${product.mode}`
         );
         if (data.quantity < 1) {
-            // setProductError("Цей товар закінчився");
             setCartError("Цей товар закінчився");
-            // setIsOpenQ(true);
             setIsOpenCart(true);
             return;
         } else {
@@ -112,7 +107,6 @@ export default function WishItem({ product, error, setError }) {
                 content="Будь ласка зареєструйтесь!"
                 isOpen={isOpenDel}
                 offset={30}
-                // style={{ backgroundColor: "#70BF63", color: "#fff", borderRadius: "30px" }}
                 className={styles.tooltip_rounded}
             />
             <Tooltip
@@ -149,7 +143,6 @@ export default function WishItem({ product, error, setError }) {
                             <button
                                 className={styles.itembtn}
                                 onClick={() => addToCartHandler(product)}
-                                // disabled={product.quantity <1 ? true : false}
                                 data-tooltip-id="add-to-cart-tooltip"
                                 style={{
                                     backgroundColor: cartChosen ? "#220F4B" : "#FAF8FF",
@@ -166,12 +159,6 @@ export default function WishItem({ product, error, setError }) {
                                 onMouseLeave={() => setIsOpenDel(false)}>
                                 <DeleteIcon fillColor={notificationShow ? "#FAF8FF" : "#220F4B"} />
                             </button>
-                            {/* <DelNotification
-                                productId={product._uid}
-                                setDeleteConfirm={setDeleteConfirm}
-                                show={notificationShow}
-                                onHide={() => setNotificationShow(false)}
-                            /> */}
                         </Col>
                     </Row>
                 </Container>

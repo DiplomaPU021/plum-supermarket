@@ -352,14 +352,14 @@ export default function ProductCard({ product, style, mode }) {
                 }`}</span>
               </Col>
             )}
-            <Button
+            <button
               className={styles.btnscales}
               style={{ backgroundColor: scaleChosen ? "#220F4B" : "#FAF8FF" }}
               onClick={() => addToScaleHandler()}
             >
               <ScalesIcon fillColor={scaleChosen ? "#FAF8FF" : "#220F4B"} />
-            </Button>
-            <Button
+            </button>
+            <button
               className={styles.btncart}
               disabled={product.quantity < 1}
               style={{
@@ -373,7 +373,7 @@ export default function ProductCard({ product, style, mode }) {
             // onMouseLeave={() => setIsOpenInCart(false)}
             >
               <CartIcon fillColor={cartChosen ? "#FAF8FF" : "#220F4B"} />
-            </Button>
+            </button>
           </Row>
           {errorInProductCard && <span>{errorInProductCard}</span>}
         </Container>

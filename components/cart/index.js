@@ -13,7 +13,6 @@ import { saveCart } from "@/requests/user"
 import MyCabinet from "@/components/mycabinet"
 
 export default function Cart({ error, setError, ...props }) {
-    // console.log("cartIndex");
     const router = useRouter();
     const { data: session } = useSession();
     const cart = useSelector((state) => state.cart);

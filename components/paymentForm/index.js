@@ -153,7 +153,7 @@ const PaymentForm = ({ total, setIsPaid, userCreditCards, setUserCreditCards, se
     }
 
     return (
-        <div>
+        <div  style={{padding: "0"}}>
             <Row className={styles.card_image}>
                 <Col>
                     <Cards

@@ -93,7 +93,6 @@ export default function ComparisonPage({
 
           detail.fields.forEach((field) => {
             fields[field.name] = fields[field.name] || [];
-            //fields[field.name].push(field.value || "-");
           });
           acc[groupName] = { group: groupName, fields };
         });
@@ -387,6 +386,9 @@ export async function getServerSideProps(context) {
   const countryData = await getCountryData();
   const { query } = context;
   const slug = query.slug;
+  
+  const pageSize =  query.pageSize || 8;
+
   await db.connectDb();
 
   let subCategory = await SubCategory.findOne({ slug }).lean();
@@ -396,16 +398,18 @@ export async function getServerSideProps(context) {
   }).lean();
   let group_slug = group_subcategory.slug;
 
-  //Should be products for component "View more"
+  //products for component "View more"
   let category = await SubCategory.findById(id)
     .populate({ path: "top_parent", model: Category })
     .populate({ path: "parent", model: GroupSubCategory })
     .lean();
-  //console.log("categoryCamprison", category);
+    
   //Should be with mark "popular"
   let onlyFromCategory = await Product.find({
     category: category.top_parent._id,
-  }).lean();
+  })
+  .limit(pageSize)
+  .lean();
   let newFromCategory = onlyFromCategory.map((product) => {
     let style = -1;
     let mode = -1;

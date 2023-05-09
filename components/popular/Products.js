@@ -20,6 +20,7 @@ export default function Products({ products }) {
       query: query,
     });
   };
+ 
 
   return (
     <Row lg={4} md={3} className={styles.products_row}>
