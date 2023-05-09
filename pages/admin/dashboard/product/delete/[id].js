@@ -6,24 +6,17 @@ import Product from "@/models/Product";
 import Category from "@/models/Category";
 import axios from "axios";
 import { ErrorMessage, Form, Formik } from "formik";
-import * as Yup from "yup";
 import { toast } from "react-toastify";
 import SingularSelect from "@/components/admin/select/SingularSelect";
-import MultipleSelect from "@/components/admin/select/MultipleSelect";
 import AdminInput from "@/components/inputs/adminInput";
-import Images from "@/components/admin/createProduct/images";
 import Colors from "@/components/admin/createProduct/colors";
 import Sizes from "@/components/admin/createProduct/sizes";
 import makeAnimated from "react-select/animated";
 import Select from "react-select";
 import DotLoaderSpinner from "@/components/loaders/dotLoader";
 import DialogModal from "@/components/dialogModal";
-import { useDispatch, useSelector } from "react-redux";
-import { showDialog, hideDialog } from "@/store/DialogSlice";
+import { useDispatch } from "react-redux";
 import Details from "@/components/admin/createProduct/details";
-import { validateCreateProduct } from "@/utils/validation";
-import { uploadImages } from "@/requests/upload";
-import dataURItoBlob from "@/utils/dataURItoBlob";
 import GroupSubCategory from "@/models/GroupSubCategory";
 import SubCategory from "@/models/SubCategory";
 import { useRouter } from "next/router";
@@ -40,7 +33,7 @@ export default function EditProduct({
   groupSubCategoryProduct,
   categoryProduct,
 }) {
-    const router = useRouter();
+  const router = useRouter();
   const dispatch = useDispatch();
   const [productToEdit, setProduct] = useState({
     name: product.name,
@@ -146,7 +139,6 @@ export default function EditProduct({
       }, 1000);
 
       router.push("/admin/dashboard/product/all");
-
     } catch (error) {
       setLoading(false);
       toast.error(error.response.data.message);

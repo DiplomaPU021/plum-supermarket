@@ -4,7 +4,6 @@ import Order from "@/models/Order";
 import OrdersTable from "@/components/admin/orders/table";
 
 export default function users({ orders }) {
-  console.log(orders);
   return (
     <Layout>
       <OrdersTable orders={orders} />

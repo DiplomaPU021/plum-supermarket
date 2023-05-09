@@ -27,7 +27,6 @@ export const validateCreateProduct = (product, images) => {
   }
 
   // -------- Розкоментувати якщо потрібно заборонити створення продукту без кольору!
-
   if (!product.color.color && product.color.image!=="#ffffff00") {
     checks.push({
       msg: "Type a main product color name",

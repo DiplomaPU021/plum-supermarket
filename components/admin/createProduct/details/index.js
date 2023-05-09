@@ -1,4 +1,3 @@
-import { useEffect, useState } from "react"
 import styles from "./styles.module.scss"
 import { ErrorMessage, useField } from "formik"
 import { Form } from "react-bootstrap"
@@ -10,18 +9,13 @@ export default function Details({
     details,
     product,
     setProduct,
-    // errors,
     ...props
 }) {
     const [field, meta] = useField(props);
-    //     useEffect(()=>{
-    // console.log("errors", errors);
-    //     },[details])
     const handleDetails = (i, e) => {
         const newDetails = [...product.details];
         newDetails[i][e.target.name] = e.target.value;
         setProduct({ ...product, details: newDetails });
-        //TODO implement
     }
     const handleFields = (i, j, e) => {
         const newDetails = [...product.details];
@@ -64,7 +58,6 @@ export default function Details({
 
     }
     const handleRemove = (i) => {
-        //TODO implement
         if (details.length > 0) {
             const newDetails = [...product.details];
             newDetails.splice(i, 1);
@@ -72,7 +65,6 @@ export default function Details({
         }
     }
     const handleRemoveField = (i, j) => {
-        //TODO implement
         if (details.length > 0 && details[i].fields.length > 1) {
             const newDetails = [...product.details];
             newDetails[i].fields.splice(j, 1);
@@ -112,8 +104,6 @@ export default function Details({
                             disabled={disabled}
                             className={styles.input}
                         />
-                        {/* {details.length == 0 && ( */}
-                       
                             <AiFillMinusCircle onClick={() => handleRemove(i)} />
                             <AiFillPlusCircle onClick={() => handleAdd()} />
                         </span>
@@ -147,7 +137,7 @@ export default function Details({
                                         onChange={(e) => handleFieldsMain(i, j, e)}
                                         disabled={disabled}
                                     />
-                                    <label for={"input3" + j}>Основна?</label>
+                                    <label htmlFor={"input3" + j}>Основна?</label>
                                     <AiFillMinusCircle onClick={() => handleRemoveField(i, j)} />
                                     <AiFillPlusCircle onClick={() => handleAddField(i)} />
                                 </div>

@@ -10,7 +10,6 @@ export const getStreets = async (city, street) => {
             }
         }
     } catch (error) {
-        console.log("streetDB error", error);
         return error.message;
 
     }

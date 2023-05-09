@@ -20,7 +20,6 @@ export default function Authorization({
   country
 }) {
   if (logShow) {
-    console.log("LOG IN");
     return (
       <LogIn
         setRegShow={setRegShow}
@@ -33,7 +32,6 @@ export default function Authorization({
     );
   }
   if (regShow) {
-    console.log("REG");
     return (
       <Register
         setRegShow={setRegShow}
@@ -45,7 +43,6 @@ export default function Authorization({
     );
   }
   if (congratsShow) {
-    console.log("Congrats");
     return (
       <Congrats
         setRegShow={setRegShow}
@@ -57,7 +54,6 @@ export default function Authorization({
     );
   }
   if (userProfileShow) {
-    console.log("UserProfile");
     return (
       <ProfilePage
         setRegShow={setRegShow}

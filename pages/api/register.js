@@ -15,7 +15,6 @@ const handler = nc().post(async (req, res) => {
     const activation_token = createActivationToken({
       id: user._id.toString(),
   });
-  // console.log("activation_token////////////////",activation_token);
     await db.disconnectDb();
     return res.status(201).json({
       message: `user ${user._id} registered! Please confirm your email to login`,

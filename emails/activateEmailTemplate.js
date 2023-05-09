@@ -472,7 +472,7 @@ export const activateEmailTemplate = (email, url) => {
     <table style="mso-table-lspace: 0pt; mso-table-rspace: 0pt; border-collapse: collapse; border-spacing: 0px;" role="presentation" width="100%" cellspacing="0" cellpadding="0">
     <tbody>
     <tr>
-    <td style="padding: 0; margin: 0; font-size: 0px;" align="center"><a style="-webkit-text-size-adjust: none; -ms-text-size-adjust: none; mso-line-height-rule: exactly; text-decoration: underline; color: #134f5c; font-size: 14px;" href="http://plum.org.ua" target="_blank"><img style="float: left;" src="https://res.cloudinary.com/dzctqbi3o/image/upload/v1683558653/Diploma/email/vgmesq6pqjpeevid2xyr.png" alt="" width="272" height="46" /></a></td>
+    <td style="padding: 0; margin: 0; font-size: 0px;" align="center"><a style="-webkit-text-size-adjust: none; -ms-text-size-adjust: none; mso-line-height-rule: exactly; text-decoration: underline; color: #134f5c; font-size: 14px;" href="http://plum.org.ua" target="_blank"><img style="float: left;" src="https://res.cloudinary.com/dzctqbi3o/image/upload/v1683580951/Diploma/email/khcwbpydvwswypjcubfd.png" alt="" width="272" height="46" /></a></td>
     </tr>
     <tr>
     <td style="padding: 0; margin: 0; padding-top: 10px; padding-bottom: 10px; font-size: 0;" align="center">&nbsp;</td>
@@ -483,8 +483,8 @@ export const activateEmailTemplate = (email, url) => {
     <tbody>
     <tr class="links" style="height: 36px;">
     <td id="esd-menu-id-0" style="margin: 0px; border: 0px none; padding: 10px 5px; width: 25%; height: 36px;" align="center" valign="top" width="25%"><a style="-webkit-text-size-adjust: none; -ms-text-size-adjust: none; mso-line-height-rule: exactly; text-decoration: none; display: block; font-family: arial, 'helvetica neue', helvetica, sans-serif; color: #333333; font-size: 14px;" href="https://plum.org.ua" target="_blank">Магазин</a></td>
-    <td id="esd-menu-id-1" style="margin: 0px; border: 0px none; padding: 10px 5px; width: 25%; height: 36px;" align="center" valign="top" width="25%"><a style="-webkit-text-size-adjust: none; -ms-text-size-adjust: none; mso-line-height-rule: exactly; text-decoration: none; display: block; font-family: arial, 'helvetica neue', helvetica, sans-serif; color: #333333; font-size: 14px;" href="https://viewstripo.email" target="_blank">Ноутбуки</a></td>
-    <td id="esd-menu-id-2" style="margin: 0px; border: 0px none; padding: 10px 5px; width: 25%; height: 36px;" align="center" valign="top" width="25%"><a style="-webkit-text-size-adjust: none; -ms-text-size-adjust: none; mso-line-height-rule: exactly; text-decoration: none; display: block; font-family: arial, 'helvetica neue', helvetica, sans-serif; color: #333333; font-size: 14px;" href="https://viewstripo.email" target="_blank">Новинки</a></td>
+    <td id="esd-menu-id-1" style="margin: 0px; border: 0px none; padding: 10px 5px; width: 25%; height: 36px;" align="center" valign="top" width="25%"><a style="-webkit-text-size-adjust: none; -ms-text-size-adjust: none; mso-line-height-rule: exactly; text-decoration: none; display: block; font-family: arial, 'helvetica neue', helvetica, sans-serif; color: #333333; font-size: 14px;" href="https://plum.org.ua/notebooks" target="_blank">Ноутбуки</a></td>
+    <td id="esd-menu-id-2" style="margin: 0px; border: 0px none; padding: 10px 5px; width: 25%; height: 36px;" align="center" valign="top" width="25%"><a style="-webkit-text-size-adjust: none; -ms-text-size-adjust: none; mso-line-height-rule: exactly; text-decoration: none; display: block; font-family: arial, 'helvetica neue', helvetica, sans-serif; color: #333333; font-size: 14px;" href="https://plum.org.ua/" target="_blank">Новинки</a></td>
     <td id="esd-menu-id-2" style="margin: 0px; border: 0px none; padding: 10px 5px; width: 25%; height: 36px;" align="center" valign="top" width="25%"><a style="-webkit-text-size-adjust: none; -ms-text-size-adjust: none; mso-line-height-rule: exactly; text-decoration: none; display: block; font-family: arial, 'helvetica neue', helvetica, sans-serif; color: #333333; font-size: 14px;" href="https://viewstripo.email" target="_blank">Розпродаж</a></td>
     </tr>
     </tbody>
@@ -537,11 +537,15 @@ export const activateEmailTemplate = (email, url) => {
     <td class="es-m-p0r" style="padding: 5px 40px 5px 0px; margin: 0px; height: 96px;" align="center">
     <p style="margin: 0; -webkit-text-size-adjust: none; -ms-text-size-adjust: none; mso-line-height-rule: exactly; font-family: Montserrat, sans-serif; line-height: 24px; color: #333333; font-size: 16px;">Дякуємо що обрали PLUM.</p>
     <p style="margin: 0; -webkit-text-size-adjust: none; -ms-text-size-adjust: none; mso-line-height-rule: exactly; font-family: Montserrat, sans-serif; line-height: 24px; color: #333333; font-size: 16px;">&nbsp;</p>
-    <p style="margin: 0; -webkit-text-size-adjust: none; -ms-text-size-adjust: none; mso-line-height-rule: exactly; font-family: Montserrat, sans-serif; line-height: 24px; color: #333333; font-size: 16px;">Підтвердіть що ця електронна адреса&nbsp;<strong> <a style="-webkit-text-size-adjust: none; -ms-text-size-adjust: none; mso-line-height-rule: exactly; text-decoration: none; color: #134f5c; font-size: 16px;" href="mailto:colin_washington@email.com" target="_blank"> ${email}</a> </strong>ваша перейшовши за посиланням ${url} протягом 48 годин.</p>
+    <p style="margin: 0; -webkit-text-size-adjust: none; -ms-text-size-adjust: none; mso-line-height-rule: exactly; font-family: Montserrat, sans-serif; line-height: 24px; color: #333333; font-size: 16px;">Підтвердіть що ця електронна адреса&nbsp;<strong> <a style="-webkit-text-size-adjust: none; -ms-text-size-adjust: none; mso-line-height-rule: exactly; text-decoration: none; color: #134f5c; font-size: 16px;" href="mailto:oksanatestit@gmail.com" target="_blank"> ${email}</a> </strong>ваша перейшовши за посиланням ${url} протягом 48 годин.</p>
     </td>
     </tr>
     <tr>
-    <td style="padding: 5px 40px 5px 0px; margin: 0px;"><img style="display: block; margin-left: auto; margin-right: auto;" src="https://res.cloudinary.com/dzctqbi3o/image/upload/v1683559630/Diploma/email/ownq4jztdnbrw3idpxek.png" alt="" width="398" height="33" /></td>
+    <td style="padding: 5px 40px 5px 0px; margin: 0px;">
+      <a  href=${url} target="_blank">
+      <img style="display: block; margin-left: auto; margin-right: auto;" src="https://res.cloudinary.com/dzctqbi3o/image/upload/v1683559630/Diploma/email/ownq4jztdnbrw3idpxek.png" alt="" width="398" height="33" />
+        </a>
+        </td>
     </tr>
     </tbody>
     </table>
@@ -609,6 +613,18 @@ export const activateEmailTemplate = (email, url) => {
     <td style="padding: 0; margin: 0; padding-right: 30px;" align="center" valign="top"><a style="-webkit-text-size-adjust: none; -ms-text-size-adjust: none; mso-line-height-rule: exactly; text-decoration: underline; color: #134f5c; font-size: 12px;" href="https://viewstripo.email" target="_blank"><img style="display: block; border: 0; outline: none; text-decoration: none; -ms-interpolation-mode: bicubic;" title="Twitter" src="https://zmjfeo.stripocdn.email/content/assets/img/social-icons/square-black-bordered/twitter-square-black-bordered.png" alt="Tw" width="32" /></a></td>
     <td style="padding: 0; margin: 0; padding-right: 30px;" align="center" valign="top"><a style="-webkit-text-size-adjust: none; -ms-text-size-adjust: none; mso-line-height-rule: exactly; text-decoration: underline; color: #134f5c; font-size: 12px;" href="https://viewstripo.email" target="_blank"><img style="display: block; border: 0; outline: none; text-decoration: none; -ms-interpolation-mode: bicubic;" title="Instagram" src="https://zmjfeo.stripocdn.email/content/assets/img/social-icons/square-black-bordered/instagram-square-black-bordered.png" alt="Inst" width="32" /></a></td>
     <td style="padding: 0; margin: 0;" align="center" valign="top"><a style="-webkit-text-size-adjust: none; -ms-text-size-adjust: none; mso-line-height-rule: exactly; text-decoration: underline; color: #134f5c; font-size: 12px;" href="https://viewstripo.email" target="_blank"><img style="display: block; border: 0; outline: none; text-decoration: none; -ms-interpolation-mode: bicubic;" title="Youtube" src="https://zmjfeo.stripocdn.email/content/assets/img/social-icons/square-black-bordered/youtube-square-black-bordered.png" alt="Yt" width="32" /></a></td>
+    </tr>
+    </tbody>
+    </table>
+    </td>
+    </tr>
+    </tbody>
+    </table>
+    </td>
+    </tr>
+    </tbody>
+    </table>
+    </td>
     </tr>
     </tbody>
     </table>

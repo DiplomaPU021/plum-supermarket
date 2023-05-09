@@ -121,8 +121,8 @@ export default function CartItem({ product, error, setError, deleteConfirm, setD
         });
       }
     } else {
-      setIsOpenInWish("Будь ласка зареєструйтесь!");
-      isOpenInWish(true);
+      setWishError("Будь ласка зареєструйтесь!");
+      setIsOpenInWish(true);
     }
   };
   return (
