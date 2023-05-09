@@ -27,7 +27,8 @@ export default function Images({
 
     useEffect(() => {
         console.log(viewImages)
-        if (window.location.pathname.startsWith('/admin/dashboard/product/') && window.location.pathname !== "/admin/dashboard/product/create") {
+        if (window.location.pathname.startsWith('/admin/dashboard/product/') && window.location.pathname !== "/admin/dashboard/product/create" 
+        && viewImages.length !== null) {
             setDivVisible(true)
         } else {
             setDivVisible(false)
@@ -166,20 +167,20 @@ export default function Images({
 
                 <div className={styles.images_main} style={{ display: divVisible ? "block" : "none" }}>
                     <div
-                        className={`${styles.images_main_grid} ${viewImages.length == 2
+                        className={`${styles.images_main_grid} ${viewImages?.length == 2
                             ? styles.grid_two
-                            : viewImages.length == 3
+                            : viewImages?.length == 3
                                 ? styles.grid_three
-                                : viewImages.length == 4
+                                : viewImages?.length == 4
                                     ? styles.grid_four
-                                    : viewImages.length == 5
+                                    : viewImages?.length == 5
                                         ? styles.grid_five
-                                        : viewImages.length == 6
+                                        : viewImages?.length == 6
                                             ? styles.grid_six
                                             : ""
                             }`}
                     >
-                        {!viewImages.length ? (
+                        {!viewImages?.length ? (
                             <img
                                 src="https://upload.wikimedia.org/wikipedia/commons/thumb/6/65/No-Image-Placeholder.svg/1200px-No-Image-Placeholder.svg.png"
                                 alt=""

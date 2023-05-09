@@ -76,6 +76,11 @@ export default function Sizes({
             }}>
                 {noSize ? "Натисніть якщо продукт має розмір" : "Натисніть якщо продукт не має розміру"}
             </button>
+            <div className={styles.size_headers}>
+                <label style={{display: !noSize ? "block" : "none"}}>Розмір</label>
+                <label>Кількість</label>
+                <label>Ціна</label>
+            </div>
             {
                 sizes ? sizes.map((size, i) => (
                     <div className={styles.container_size} key={i}>

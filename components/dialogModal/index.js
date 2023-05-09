@@ -9,11 +9,6 @@ import { showDialog, hideDialog } from "@/store/DialogSlice";
 export default function DialogModal() {
   const dispatch = useDispatch();
   const { dialog } = useSelector((state) => ({ ...state }));
-  // const dialog = useSelector((state) => state.dialog);
-  // console.log("dialog", dialog);
-  // console.log("showdialog", showDialog);
-  //   const dialog  =useSelector((state) => state.dialog);
-
   const handleClose = () => {
     dispatch(hideDialog());
   };
