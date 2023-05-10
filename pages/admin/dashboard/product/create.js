@@ -287,6 +287,7 @@ export default function create({ parents, categories }) {
       setLoading(false);
       toast.success(data.message);
       router.push("/admin/dashboard/product/create");
+      location.reload();
     } catch (error) {
       setLoading(false);
       toast.error(error.response.data.message);
