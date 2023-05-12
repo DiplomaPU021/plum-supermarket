@@ -20,7 +20,9 @@ export default function PaymentMethod({
     const [selectedCard, setSelectedCard] = useState(userCreditCards?.find(creditCard => creditCard.isDefault === true || null));
 
     useEffect(() => {
-    }, [userCreditCards])
+        setSelectedCard(userCreditCards?.find(creditCard => creditCard.isDefault === true || null));
+    }, [userCreditCards]);
+    
     const handleChangePayment = (e) => {
         e.target.id === "paymentOnline" ? setShowCard(true) : setShowCard(false);
         setPayment((prevState) => ({
@@ -93,10 +95,13 @@ export default function PaymentMethod({
                                 {showCard ? (
                                     userCreditCards.length > 0 ? (
                                         <div key={`${pm.id}-select-${index}`}>
-                                            <Form.Select name="creditselect" className={styles.form_input_card}>
+                                            <Form.Select
+                                             name="creditselect"
+                                              className={styles.form_input_card}
+                                              value={selectedCard?._id}>
                                                 <option value="Вибрати карту" disabled={true} id="optcred1" key="optcred1">Вибрати карту...</option>
                                                 {userCreditCards.map((cc) => (
-                                                    <option key={`${cc._id}-${index}`} value={cc.id}>{`**** **** **** ${cc.number.slice(-4)}`}</option>
+                                                    <option key={`${cc._id}-${index}`} value={cc._id}>{`**** **** **** ${cc.number.slice(-4)}`}</option>
                                                 ))}
                                             </Form.Select>
                                             <Row className={styles.flex_row_card}>

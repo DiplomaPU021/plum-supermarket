@@ -14,7 +14,7 @@ import {
 import "bootstrap/dist/css/bootstrap.min.css";
 import 'react-credit-cards-2/dist/es/styles-compiled.css';
 
-const PaymentForm = ({ total, setIsPaid, userCreditCards, setUserCreditCards, setShowAddCard, setShowCard }) => {
+const PaymentForm = ({ total, setIsPaid, userCreditCards, setUserCreditCards, setShowAddCard, setShowCard, setSelectedCard }) => {
     const [state, setState] = useState({
         number: '',
         expiry: '',
@@ -31,7 +31,12 @@ const PaymentForm = ({ total, setIsPaid, userCreditCards, setUserCreditCards, se
         } else {
             setIsButtonDisabled(true);
         }
-    }, [state])
+    }, [state]);
+
+    useEffect(() => {
+        setSelectedCard(userCreditCards?.find(creditCard => creditCard.isDefault === true || null));
+    }, [userCreditCards]);
+
     const handleCallback = ({ issuer }, isValid) => {
         if (isValid) {
             setState((prev) => ({ ...prev, issuer }));
@@ -68,9 +73,9 @@ const PaymentForm = ({ total, setIsPaid, userCreditCards, setUserCreditCards, se
                     render: data?.message,
                     type: toast.TYPE.SUCCESS,
                 });
-                if (setIsPaid != null) {
-                    setIsPaid(true);
-                }
+                // if (setIsPaid != null) {
+                //     setIsPaid(true);
+                // }
 
                 handleReset();
 
@@ -131,7 +136,7 @@ const PaymentForm = ({ total, setIsPaid, userCreditCards, setUserCreditCards, se
     }
 
     return (
-        <div  style={{padding: "0"}}>
+        <div style={{ padding: "0" }}>
             <Row className={styles.card_image}>
                 <Col>
                     <Cards

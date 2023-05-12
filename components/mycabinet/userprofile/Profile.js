@@ -109,6 +109,11 @@ export default function Profile({ country, ...props }) {
     },
     resolver: yupResolver(validationSchema),
   });
+  
+  useEffect(() => {
+    setSelectedCard(userCreditCards?.find(creditCard => creditCard.isDefault === true || null));
+}, [userCreditCards]);
+
   const handleRegistration = async (data) => {
     const result = await axios.put('/api/user/manageProfile', {
       firstName: data.firstName,
@@ -621,6 +626,7 @@ export default function Profile({ country, ...props }) {
                 <Form.Select
                   name="creditselect"
                   className={styles.form_input_card}
+                  value={selectedCard?._id}
                 >
                   <option
                     value="Вибрати карту"
@@ -633,7 +639,7 @@ export default function Profile({ country, ...props }) {
                   {userCreditCards.map((cc) => (
                     <option
                       key={`${cc._id}`}
-                      value={cc.id}
+                      value={cc._id}
                     >{`**** **** **** ${cc.number.slice(-4)}`}</option>
                   ))}
                 </Form.Select>
@@ -648,7 +654,7 @@ export default function Profile({ country, ...props }) {
               </Col>
             ) : (
               <PaymentForm
-                key={`${props.user.id}-form`}
+                key={`${props.user._id}-form`}
                 total={null}
                 setIsPaid={null}
                 userCreditCards={userCreditCards}
@@ -670,7 +676,7 @@ export default function Profile({ country, ...props }) {
             <Form.Check.Input
               className={styles.checkbox_box}
               type="checkbox"
-              checked={additionalInfo.children.children}
+              checked={additionalInfo.children?.children}
               onChange={(e) => {
                 setAdditionalInfo({
                   ...additionalInfo,
@@ -690,7 +696,7 @@ export default function Profile({ country, ...props }) {
             <Form.Check.Input
               className={styles.checkbox_box}
               type="checkbox"
-              checked={additionalInfo.vehicle.vehicle}
+              checked={additionalInfo.vehicle?.vehicle}
               onChange={(e) => {
                 setAdditionalInfo({
                   ...additionalInfo,
@@ -710,7 +716,7 @@ export default function Profile({ country, ...props }) {
             <Form.Check.Input
               className={styles.checkbox_box}
               type="checkbox"
-              checked={additionalInfo.motorcycle.motorcycle}
+              checked={additionalInfo.motorcycle?.motorcycle}
               onChange={(e) => {
                 setAdditionalInfo({
                   ...additionalInfo,
@@ -729,7 +735,7 @@ export default function Profile({ country, ...props }) {
             <Form.Check.Input
               className={styles.checkbox_box}
               type="checkbox"
-              checked={additionalInfo.business.business}
+              checked={additionalInfo.business?.business}
               onChange={(e) => {
                 setAdditionalInfo({
                   ...additionalInfo,

@@ -1,8 +1,9 @@
-.header {
+.header_dialog {
     border-bottom: 1px solid #ccc;
     padding: 10px 2rem !important;
     background-color: #f02f2fd8;
     color: #fff;
+    font-size: 22px;
 }
 
 .body {
@@ -10,11 +11,11 @@
 
     .msg {
         display: flex;
+        margin-left: 15px;
         gap: 5px;
 
         img {
-            width: 20px;
-            height: 20px;
+            width: 25px;
         }
     }
     z-index: 99999999;

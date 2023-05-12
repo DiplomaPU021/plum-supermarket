@@ -13,23 +13,23 @@ import AppDownload from "@/components/appdownload";
 import FAQ from "@/components/faq";
 import db from "@/utils/db";
 import Product from "@/models/Product";
-import axios from "axios";
+// import axios from "axios";
 import Category from "@/models/Category";
 import { getCountryData } from "@/utils/country";
 import SubCategory from "@/models/SubCategory";
-import User from "@/models/User";
+// import User from "@/models/User";
 import FloatingButton from "@/components/FloatingButton";
 
 const inter = Inter({ subsets: ["latin"] });
 
-export default function Home({ country, products, categories, searchHandler }) {
+export default function Home({ country, products, categories }) {
 
-  const { data: session, status } = useSession();
+  // const { data: session, status } = useSession();
   // console.log("session",session, status);
 
   return (
     <div className={styles.container}>
-      <Header country={country} searchHandler={searchHandler}/>
+      <Header country={country} />
       <HomeCarousel />
       <FloatingButton />
       <Categories categories={categories} />
@@ -45,17 +45,14 @@ export default function Home({ country, products, categories, searchHandler }) {
 export async function getServerSideProps(context) {
   const { query } = context;
   const pageSize =  query.pageSize || 8;
-
   const countryData = await getCountryData();
-
   await db.connectDb();
-
   //code below is for component TopSales
   let products = await Product.find()
   .populate({ path: "category", model: Category })
   .populate({ path: "subCategories", model: SubCategory })
-  .populate({ path: "reviews.reviewBy", model: User })
-  .populate({ path: "reviews.replies.replyBy", model: User })
+  // .populate({ path: "reviews.reviewBy", model: User })
+  // .populate({ path: "reviews.replies.replyBy", model: User })
   .limit(pageSize)
   .lean();
   let newProducts = products.map((product) => {
@@ -63,7 +60,7 @@ export async function getServerSideProps(context) {
     let mode = -1;
     let sold = 0;
     let discount = 0;
-  
+
     product.subProducts.forEach((subProduct, subIndex) => {
       subProduct.sizes.forEach((size, sizeIndex) => {
         if (size.qty > 0 && style === -1) {
@@ -91,10 +88,8 @@ export async function getServerSideProps(context) {
       discount,
     };
   });
-  
   //line code below is for component Categories
   let categories = await Category.find().lean();
-
   return {
     props: {
       country: countryData,

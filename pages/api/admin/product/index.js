@@ -55,9 +55,9 @@ handler.post(async (req, res) => {
       });
       await newProduct.save();
       await db.disconnectDb();
-    return  res.status(200).json({ message: "Продукт створено успішно!" });
+      return res.status(200).json({ message: "Продукт створено успішно!" });
     }
- 
+
   } catch (error) {
     return res.status(500).json({ message: error.message });
   }
@@ -92,7 +92,9 @@ handler.put(async (req, res) => {
       for (let i = 0; i < product.subProducts.length; i++) {
         if (i == style) {
           newSubProducts[i] = product.subProducts[i];
-          newSubProducts[i].images = newSubProducts[i].images.concat(images);
+          if (images.length > 0) {
+            newSubProducts[i].images = newSubProducts[i].images.concat(images);
+          }
           newSubProducts[i].sizes = sizes;
           newSubProducts[i].color = color;
           newSubProducts[i].discount = discount;

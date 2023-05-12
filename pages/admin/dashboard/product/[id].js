@@ -21,7 +21,7 @@ import DialogModal from "@/components/dialogModal";
 import { useDispatch, useSelector } from "react-redux";
 import { showDialog, hideDialog } from "@/store/DialogSlice";
 import Details from "@/components/admin/createProduct/details";
-import { validateCreateProduct } from "@/utils/validation";
+import { validateEditProduct } from "@/utils/validation";
 import { uploadImages } from "@/requests/upload";
 import dataURItoBlob from "@/utils/dataURItoBlob";
 import GroupSubCategory from "@/models/GroupSubCategory";
@@ -193,10 +193,10 @@ export default function EditProduct({
       .required("Please add details"),
   });
 
-  const createProduct = async () => {
-    let test = validateCreateProduct(productToEdit, images);
+  const editProduct = async () => {
+    let test = validateEditProduct(productToEdit, images);
     if (test == "valid") {
-      createProductHandler();
+      editProductHandler();
     } else {
       dispatch(
         showDialog({
@@ -209,7 +209,7 @@ export default function EditProduct({
   };
 
   let uploaded_images = [];
-  const createProductHandler = async () => {
+  const editProductHandler = async () => {
     setLoading(true);
     if (images.length > 0) {
       let temp = images.map((img) => {
@@ -275,7 +275,7 @@ export default function EditProduct({
         }}
         validationSchema={validate}
         onSubmit={() => {
-          createProduct();
+          editProduct();
         }}
       >
         {(formik) => (

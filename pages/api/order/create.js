@@ -64,7 +64,7 @@ handler.post(async (req, res) => {
       );
     }
     await Cart.deleteOne({ user: req.user });
-    await productService.findByIdAndUpdateQuantity(products);
+    await productService.findByIdAndUpdateQuantity(products,isPaid);
     await db.disconnectDb();
     return res.status(200).json({
       order_id: result._id,
