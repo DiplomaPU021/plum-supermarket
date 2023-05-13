@@ -33,9 +33,9 @@ const PaymentForm = ({ total, setIsPaid, userCreditCards, setUserCreditCards, se
         }
     }, [state]);
 
-    useEffect(() => {
-        setSelectedCard(userCreditCards?.find(creditCard => creditCard.isDefault === true || null));
-    }, [userCreditCards]);
+    // useEffect(() => {
+    //     setSelectedCard(userCreditCards?.find(creditCard => creditCard.isDefault === true)._id || "");
+    // }, [userCreditCards]);
 
     const handleCallback = ({ issuer }, isValid) => {
         if (isValid) {

@@ -285,13 +285,27 @@ const addCreditCard = async (userId, name, number, expiry, cvc) => {
 const removeFromCreditCards = async (userId, creditCardId) => {
   const user = await User.findById(userId);
   if (user) {
-    user.wishlist = user.creditCards.filter(
+    user.creditCards = user.creditCards.filter(
       (item) => item._id.toString() !== creditCardId
     );
-    await user.save({ validateBeforeSave: false });
-    return true;
+    if (user.creditCards.length > 0) {
+      let creditCardDefaultExist = user.creditCards.find(
+        (item) => item.isDefault == true
+      );
+      if (creditCardDefaultExist) {
+        const result = await user.save({ validateBeforeSave: false });
+        return result.creditCards;
+      } else if (user.creditCards.length > 0) {
+        user.creditCards[user.creditCards.length - 1].isDefault = true;
+        const result = await user.save({ validateBeforeSave: false });
+        return result.creditCards;
+      }
+    } else {
+      const result = await user.save({ validateBeforeSave: false });
+      return result.creditCards;
+    }
   }
-  return false;
+  throw new Error("Error deleting credit card");
 };
 
 const addAdditionalInfo = async (userId, additionalInfo) => {

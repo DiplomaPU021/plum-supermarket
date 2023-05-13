@@ -119,7 +119,6 @@ export default function LogIn({
               validationSchema={loginValidation}
               onSubmit={(e) => {
                 e.preventDefault(e);
-              
               }}
             >
               {(formik) => (
@@ -143,7 +142,8 @@ export default function LogIn({
                         handleChangeCredencials(e);
                       }}
                       isInvalid={
-                        !!formik.errors.login_email ||
+                        !!formik.errors.login_email && formik.touched
+                        &&
                         formik.initialErrors.login_error
                       }
                     />
@@ -166,7 +166,7 @@ export default function LogIn({
                         formik.handleChange(e);
                         handleChangeCredencials(e);
                       }}
-                      isInvalid={!!formik.errors.login_password}
+                      isInvalid={formik.touched && !!formik.errors.login_password}
                     />
                     <Form.Control.Feedback
                       type="invalid"
