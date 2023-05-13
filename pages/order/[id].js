@@ -2,7 +2,7 @@
 //import styles from "../../styles/category.module.scss";
 import styles from '../../styles/order.module.scss'
 import Header from '@/components/header'
-import Order from '@/models/Order';
+// import Order from '@/models/Order';
 import "bootstrap/dist/css/bootstrap.min.css";
 import LightPlumIcon from "@/components/icons/LightPlumIcon";
 import GreenChevronRight from "@/components/icons/ChevronRight";
@@ -59,6 +59,7 @@ export async function getServerSideProps(context) {
     // console.log("token" , token);
     // let orderData = {};
     let orders = [];
+    let user={};
      if (session) {
          await db.connectDb();
         orders = await orderService.findByUserId(session.user.id);
@@ -74,7 +75,7 @@ export async function getServerSideProps(context) {
     return {
         props: {
             country: countryData,
-            user: JSON.parse(JSON.stringify(orderData.user)),
+            user: JSON.parse(JSON.stringify(user)),
             orderData: JSON.parse(JSON.stringify(orders)),
         },
     };

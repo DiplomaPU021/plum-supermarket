@@ -17,10 +17,14 @@ export default function PaymentMethod({
     const [showCard, setShowCard] = useState(false);
     const [showAddCard, setShowAddCard] = useState(false);
     const [userCreditCards, setUserCreditCards] = useState(user?.creditCards || []);
-    const [selectedCard, setSelectedCard] = useState(userCreditCards?.find(creditCard => creditCard.isDefault === true || null));
+    const [selectedCard, setSelectedCard] = useState(userCreditCards && userCreditCards.length > 0 ? userCreditCards.find((creditCard) => creditCard.isDefault === true)._id :
+    "");
 
     useEffect(() => {
-        setSelectedCard(userCreditCards?.find(creditCard => creditCard.isDefault === true || null));
+        setSelectedCard(
+            userCreditCards && userCreditCards.length > 0 ? userCreditCards.find((creditCard) => creditCard.isDefault === true)._id :
+              ""
+          );
     }, [userCreditCards]);
     
     const handleChangePayment = (e) => {
@@ -98,7 +102,8 @@ export default function PaymentMethod({
                                             <Form.Select
                                              name="creditselect"
                                               className={styles.form_input_card}
-                                              value={selectedCard?._id}>
+                                              value={selectedCard}
+                                              onChange={(e) => setSelectedCard(e.target.value)}>
                                                 <option value="Вибрати карту" disabled={true} id="optcred1" key="optcred1">Вибрати карту...</option>
                                                 {userCreditCards.map((cc) => (
                                                     <option key={`${cc._id}-${index}`} value={cc._id}>{`**** **** **** ${cc.number.slice(-4)}`}</option>
@@ -118,7 +123,7 @@ export default function PaymentMethod({
                                             setUserCreditCards={setUserCreditCards}
                                             setShowAddCard={setShowAddCard}
                                             setShowCard={setShowCard}
-                                            setSelectedCard={setSelectedCard}
+                                            // setSelectedCard={setSelectedCard}
                                         />
                                     )
                                 ) :
@@ -130,7 +135,7 @@ export default function PaymentMethod({
                                                 setUserCreditCards={setUserCreditCards}
                                                 setShowAddCard={setShowAddCard}
                                                 setShowCard={setShowCard}
-                                                setSelectedCard={setSelectedCard}
+                                                // setSelectedCard={setSelectedCard}
                                             />
                                         ) : null
                                     )}
