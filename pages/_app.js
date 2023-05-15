@@ -1,11 +1,11 @@
-import '../styles/globals.scss'
-import { Provider } from 'react-redux';
-import store from '../store';
-import { PersistGate } from 'redux-persist/integration/react';
-import { persistStore } from 'redux-persist';
-import { SessionProvider } from "next-auth/react"
-import Head from 'next/head';
-import { ToastContainer } from 'react-toastify';
+import "../styles/globals.scss";
+import { Provider } from "react-redux";
+import store from "../store";
+import { PersistGate } from "redux-persist/integration/react";
+import { persistStore } from "redux-persist";
+import { SessionProvider } from "next-auth/react";
+import Head from "next/head";
+import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
 let persistor = persistStore(store);
@@ -53,7 +53,6 @@ function MyApp({ Component, pageProps: { session, ...pageProps } }) {
       </SessionProvider>
     </>
   );
-
 }
 // MyApp.propTypes = {
 //   Component: PropTypes.elementType.isRequired,
@@ -75,9 +74,9 @@ export default MyApp;
 //   };
 //   const csrfToken = await getCsrfToken(context);
 //   const providers = Object.values(await getProviders());
- 
+
 //   return {
 //     pageProps: { providers, csrfToken, callbackUrl, country:countryData },
-     
+
 //   };
 // }
