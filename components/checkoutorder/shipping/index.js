@@ -1,5 +1,5 @@
 import styles from "../styles.module.scss";
-import { Form, Row, Col, Button, Container } from "react-bootstrap";
+import { Form, Row, Col, Container } from "react-bootstrap";
 import React, { useEffect, useRef, useState } from "react";
 import CityModal from "../citymodal";
 import { getStreets } from "@/requests/street";
@@ -694,6 +694,7 @@ export default function Shipping({
                   )}
                 </Form.Group>
                 <div className={styles.flex_row}>
+                  <Col>
                   <Form.Group controlId="buildingGroup">
                     <Form.Label className={styles.form_label}>
                       Будинок
@@ -705,6 +706,8 @@ export default function Shipping({
                       onChange={(e) => handleChangeAdress(e)}
                     />
                   </Form.Group>
+                  </Col>
+                  <Col>
                   <Form.Group controlId="flatGroup">
                     <Form.Label className={styles.form_label}>
                       Квартира
@@ -716,6 +719,8 @@ export default function Shipping({
                       onChange={(e) => handleChangeAdress(e)}
                     />
                   </Form.Group>
+                  </Col>
+                  <Col>
                   <button
                     onClick={handleAddAdress}
                     id="btnAddAddress"
@@ -723,12 +728,14 @@ export default function Shipping({
                   >
                     Додати
                   </button>
+                  </Col>
+                  <Col>
                   <button
                     onClick={handleCancelAddAdress}
                     id="btnCancelAddAddress"
                   >
                     Скасувати
-                  </button>
+                  </button></Col>
                 </div>
               </div>
               <div className={styles.group_floor}>

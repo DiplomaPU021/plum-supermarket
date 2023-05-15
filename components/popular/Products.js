@@ -5,30 +5,19 @@ import Card from "react-bootstrap/Card";
 import Button from "react-bootstrap/Button";
 import ProductCard from "../productCard";
 import { useState } from "react";
-import { useRouter } from "next/router";
 
 export default function Products({ products }) {
 
-  const router = useRouter();
-  const [pageSize, setPageSize] = useState(16);
-  const showMoreProductsHandler = () => {
-    const path = router.pathname;
-    const { query } = router;
-    query.pageSize = pageSize;
-    router.push({
-      pathname: path,
-      query: query,
-    });
-  };
- 
+  const [pageSize, setPageSize] = useState(8);
 
   return (
     <Row lg={4} md={3} className={styles.products_row}>
-      {products.map((p, i) => (
+      {products.slice(0, pageSize).map((p, i) => (
         <Col key={i} className={styles.col}>
           <ProductCard product={p} style={p.style} mode={p.mode} />
         </Col>
       ))}
+      {pageSize < products.length ? 
       <Col className={styles.col}>
         <Card className={styles.morevideo}>
           <Card.Body className={styles.lastcardbody}>
@@ -36,7 +25,7 @@ export default function Products({ products }) {
             <Button
               className={styles.ytbtn}
               onClick={() => {
-                setPageSize(pageSize + 8), showMoreProductsHandler();
+                setPageSize(pageSize + 8)
               }}
             >
               Показати ще
@@ -44,6 +33,7 @@ export default function Products({ products }) {
           </Card.Body>
         </Card>
       </Col>
+      : <></>}
     </Row>
   );
 }

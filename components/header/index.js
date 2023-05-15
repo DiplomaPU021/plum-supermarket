@@ -1,7 +1,7 @@
 import styles from "./styles.module.scss";
 import { useDispatch, useSelector } from "react-redux";
-import { Image, InputGroup } from "react-bootstrap";
-import { useState, useEffect } from "react";
+import { Form, Image, InputGroup } from "react-bootstrap";
+import { useState, useEffect, useRef } from "react";
 import ComparisonListModal from "./ComparisonListModal";
 import Link from "next/link";
 import LoopIcon from "../icons/LoopIcon";
@@ -16,12 +16,11 @@ import ScalesIcon from "../icons/ScalesIcon";
 import ThemeSwitcher from "./ThemeSwitcher";
 import { Tooltip } from "react-tooltip";
 import "react-tooltip/dist/react-tooltip.css";
-import axios from 'axios';
+import axios from "axios";
 import { updateWishList } from "@/store/wishListSlice";
 import { addToSearchedList } from "@/store/searchedListSlice";
 import { useRouter } from "next/router";
-import CreatableSelect from 'react-select/creatable';
-
+import CreatableSelect from "react-select/creatable";
 
 export default function Header({ country }) {
   const { data: session, status } = useSession();
@@ -38,7 +37,12 @@ export default function Header({ country }) {
   const [language2, setLanguage2] = useState(false);
   const [themeChange, setThemeChange] = useState(false);
   const [myCabinetOpen, setMyCabinetOpen] = useState(false);
-  const [error, setError] = useState({ inCartError: false, uidPrInCart: "", inWishListError: false, uidPrInWish: "" });
+  const [error, setError] = useState({
+    inCartError: false,
+    uidPrInCart: "",
+    inWishListError: false,
+    uidPrInWish: "",
+  });
   const [divVisible, setDivVisible] = useState(true);
   const [isOpen, setIsOpen] = useState(false);
   const [user, setUser] = useState();
@@ -64,7 +68,7 @@ export default function Header({ country }) {
   const handleWishShow = async () => {
     if (session) {
       try {
-        const res = await axios.get('/api/user/wishlist');
+        const res = await axios.get("/api/user/wishlist");
         const data = res.data;
         dispatch(updateWishList(data.wishList));
         setIsOpen(false);
@@ -72,87 +76,109 @@ export default function Header({ country }) {
       } catch (error) {
         console.log(error);
       }
-
     } else {
       setWishShow(false);
       setIsOpen(true);
     }
-
   };
   const handlerUserProfile = async () => {
     try {
-      const res1 = await axios.get('/api/user/manageProfile');
+      const res1 = await axios.get("/api/user/manageProfile");
       const data1 = res1.data;
       setUser(data1.user);
-      const res2 = await axios.get('/api/user/manageOrders');
+      const res2 = await axios.get("/api/user/manageOrders");
       const data2 = res2.data;
       setOrders(data2.orders);
       setMyCabinetOpen(true);
     } catch (error) {
       console.log(error);
     }
-
-
-  }
+  };
   const handleBtn1Click = () => {
-    setLanguage1(true)
-    setLanguage2(false)
-  }
+    setLanguage1(true);
+    setLanguage2(false);
+  };
   const handleBtn2Click = () => {
-    setLanguage2(true)
-    setLanguage1(false)
-  }
+    setLanguage2(true);
+    setLanguage1(false);
+  };
 
   useEffect(() => {
-    if (window.location.pathname === "/checkout" || window.location.pathname.startsWith('/order/')) {
-      setDivVisible(false)
+    if (
+      window.location.pathname === "/checkout" ||
+      window.location.pathname.startsWith("/order/")
+    ) {
+      setDivVisible(false);
     } else {
-      setDivVisible(true)
+      setDivVisible(true);
     }
-  })
+  });
   const setShowWishListHandler = () => {
     if (session) {
-      setWishShow(true)
+      setWishShow(true);
     } else {
       alert("Залогінтесь");
     }
-  }
+  };
 
-  const [str, setStr] = useState(router.query.text || "");
-  const [isLoading, setIsLoading] = useState(false);
+ // const [str, setStr] = useState(router.query.text || "");
+ //const [isLoading, setIsLoading] = useState(false);
   const [options, setOptions] = useState(searchedList.searchedListItems);
-  const [searchValue, setSearchValue] = useState(null);
+ // const [searchValue, setSearchValue] = useState(null);
+  const [searchV, setSearchV] = useState("");
+  const [selected, setSelected] = useState("");
+  const [ulVisible, setUlVisible] = useState(true);
+  const selectRef = useRef();
 
+  const handleSearchChange = (e) => {
+    setSearchV(e.target.value);
+    const filteredOptions = searchedList.searchedListItems.filter(
+      (option) => option.value.includes(e.target.value.toLowerCase().trim())
+    );
+    setOptions(filteredOptions);
+    setUlVisible(true);
+  };
+ 
+  const handleSelectSearch = (search) => {
+    selectRef.current.focus();
+    setTimeout(() => {
+      const selectedOption = searchedList.searchedListItems.find(
+        (option) => option.value === search.toLowerCase().trim()
+      );
+      if (!selectedOption) {
+        const newOption = {
+          label: search,
+          value: search.toLowerCase().trim(),
+        };
+        dispatch(addToSearchedList(newOption));
+        setOptions((prev) => [...prev, newOption]);
+      }
+      setSearchV(search.toLowerCase().trim());
+      setSelected(search);
+      router.push(`/search?text=${search.toLowerCase().trim()}`);
+      setUlVisible(false);
+    }, 700);
+  };
 
-  const handlerSubmit = (searchQuery) => {
-    if (searchQuery && searchQuery.length > 1) {
-      router.push(`/search?text=${searchQuery}`);
+  const handlerOnSearch = () => {
+    handleSelectSearch(searchV);
+  };
+
+  const handleKeyDown = (event) => {
+    if (event.key === "Enter") {
+      event.preventDefault();
+      handlerOnSearch();
     }
   };
 
-  const handlerOnSearch = (e) => {
-    e.preventDefault();
+  useEffect(() => {
+    setOptions(searchedList.searchedListItems);
+  }, [searchedList.searchedListItems]);
 
-    if (str.length > 1)
-      handleCreate(str)
-  }
-
-
-  const handleCreate = (inputValue) => {
-    setIsLoading(true);
-    setTimeout(() => {
-      const newOption = {
-        label: inputValue,
-        value: inputValue.toLowerCase().trim(),
-      };
-      setIsLoading(false);
-      dispatch(addToSearchedList(newOption));
-      setOptions((prev) => [...prev, newOption]);
-      setSearchValue(newOption);
-      setStr(newOption.value);
-      router.push(`/search?text=${newOption.value}`);
-    }, 700);
-  };
+  useEffect(() => {
+   if(searchV.length == 0)
+   setUlVisible(false);
+  }, [searchV]);
 
   return (
     <div className={styles.main}>
@@ -161,30 +187,52 @@ export default function Header({ country }) {
         content="Будь ласка зареєструйтесь!"
         isOpen={isOpen}
         place="bottom"
-        style={{ backgroundColor: "#70BF63", color: "#fff", borderRadius: "30px" }}
+        style={{
+          backgroundColor: "#70BF63",
+          color: "#fff",
+          borderRadius: "30px",
+        }}
       />
-      <div className={styles.headertop} style={{ display: divVisible ? 'flex' : 'none' }}>
+      <div
+        className={styles.headertop}
+        style={{ display: divVisible ? "flex" : "none" }}
+      >
         <section>
           <ul>
             <li>
-              <button style={{ fontWeight: language1 ? "700" : "300" }} onClick={handleBtn1Click} >
+              <button
+                style={{ fontWeight: language1 ? "700" : "300" }}
+                onClick={handleBtn1Click}
+              >
                 UA
               </button>
             </li>
             <li>
-              <button style={{ fontWeight: language2 ? "700" : "300" }} onClick={handleBtn2Click}>
+              <button
+                style={{ fontWeight: language2 ? "700" : "300" }}
+                onClick={handleBtn2Click}
+              >
                 ENG
               </button>
             </li>
           </ul>
         </section>
 
-        <ThemeSwitcher onColor={"#FAF8FF"} offColor={"#585068"} isChecked={themeChange} handleSwitch={() => setThemeChange(!themeChange)} />
+        <ThemeSwitcher
+          onColor={"#FAF8FF"}
+          offColor={"#585068"}
+          isChecked={themeChange}
+          handleSwitch={() => setThemeChange(!themeChange)}
+        />
       </div>
       <div className={styles.main_container}>
         <Link href="/">
           <div className={styles.logo}>
-            <Image src="../../../logo/logo_light.png" alt="logo" height="60px" />
+            <Image
+              src="../../../logo/logo_light.png"
+              alt="logo"
+              height="60px"
+            />
           </div>
         </Link>
         <div
@@ -195,106 +243,82 @@ export default function Header({ country }) {
             className={styles.search_flex}
             style={{ display: divVisible ? "flex" : "none" }}
           >
-            <CreatableSelect
-              styles={{
-                control: (base) => ({
-                  ...base,
-                  paddingLeft: "20px",
-                  borderRadius: "25px",
-                  background: "#FAF8FF",
-                  border: "none",
-                  boxShadow: "none",
-                  "&:hover": {
-                    outline: "none",
-                    boxShadow: "none",
-                  },
-                }),
-                menu: (base) => ({
-                  ...base,
-                  padding: "12px",
-                  border: "0",
-                  borderRadius: "23px",
-                  background: "#FAF8FF",
-                }),
-                singleValue: (base) => ({
-                  ...base,
-                  fontSize: "16px",
-                  color: "#220F4B",
-                  fontFamily: "Noto Sans",
-                }),
-                option: (base, state) => ({
-                  ...base,
-                  paddingLeft: "20px",
-                  marginTop: "2px",
-                  borderRadius: "23px",
-                  background: state.isSelected
-                    ? "rgba(138, 227, 124, 0.4)"
-                    : "#FAF8FF",
-                  color: "#220F4B",
-                  height: "100%",
-                  "&:hover": {
-                    outline: "none",
-                    boxShadow: "none",
-                    background: "#FAF8FF",
-                    background: "rgba(138, 227, 124, 0.2)",
-                    cursor: "pointer",
-                  },
-                }),
-                dropdownIndicator: () => ({
-                  display: "none",
-                }),
-                indicatorSeparator: () => ({
-                  display: "none",
-                }),
-              }}
-              className={styles.container}
-              placeholder="Я шукаю..."
-              isClearable
-              search={true}
-              isSearchable={true}
-              isDisabled={isLoading}
-              isLoading={isLoading}
-              onInputChange={(e) => { setStr(e); }}
-              onChange={(newValue) => {
-                setStr(newValue),
-                  setSearchValue(newValue);
-                if (newValue) {
-                  handlerSubmit(newValue.value);
-                }
-              }}
-              onCreateOption={handleCreate}
-              options={options}
-              value={searchValue}
-            />
-            <button
-              onClick={(e) => handlerOnSearch(e)}
-            >
+            <Form.Group>
+              <Form.Control
+                type="text"
+                value={searchV}
+                name="option"
+                id="option"
+                onChange={(e) => handleSearchChange(e)}
+                onKeyDown={(e) => handleKeyDown(e)}
+                ref={selectRef}
+                placeholder="Я шукаю..."
+              />
+            </Form.Group>
+            <button onClick={() => handlerOnSearch()}>
               <LoopIcon fillColor="#FAF8FF" />
             </button>
           </div>
+          <div
+            className={styles.search_content}
+            style={{ display: ulVisible ? "flex" : "none" }}
+          >
+            <ul id="ulStreetSelect">
+              {options.map((option, i) => (
+                <li
+                  key={`${option.key}-${i}`}
+                  id={option.key}
+                  onClick={() => handleSelectSearch(option.value)}
+                  className={option.value === selected ? styles.selected : ""}
+                >
+                  {option.value}
+                </li>
+              ))}
+            </ul>
+          </div>
         </div>
-        <div className={styles.checkout_header} style={{ display: divVisible ? 'none' : 'flex' }}>
-          <p>Консультації по телефону <span>+38 023 652 12 56</span> Графік роботи Call-центру</p>
+        <div
+          className={styles.checkout_header}
+          style={{ display: divVisible ? "none" : "flex" }}
+        >
+          <p>
+            Консультації по телефону <span>+38 023 652 12 56</span> Графік
+            роботи Call-центру
+          </p>
         </div>
-        <div className={styles.btnpannel} style={{ display: divVisible ? 'flex' : 'none' }}>
+        <div
+          className={styles.btnpannel}
+          style={{ display: divVisible ? "flex" : "none" }}
+        >
           <div className={styles.cart}>
-            <button onClick={() => setScaleShow(true)} style={{ backgroundColor: scaleShow ? "#220F4B" : "#FAF8FF" }}>
+            <button
+              onClick={() => setScaleShow(true)}
+              style={{ backgroundColor: scaleShow ? "#220F4B" : "#FAF8FF" }}
+            >
               <ScalesIcon fillColor={scaleShow ? "#FAF8FF" : "#220F4B"} />
             </button>
-            {getScaleItemsCount() !== 0 ? <span> {getScaleItemsCount()}</span> : null}
+            {getScaleItemsCount() !== 0 ? (
+              <span> {getScaleItemsCount()}</span>
+            ) : null}
           </div>
           <div className={styles.cart}>
             <button
               onClick={handleWishShow}
               style={{ backgroundColor: wishShow ? "#220F4B" : "#FAF8FF" }}
               data-tooltip-id="header-login-tooltip"
-              onMouseLeave={() => setIsOpen(false)}>
+              onMouseLeave={() => setIsOpen(false)}
+            >
               <HeartIcon fillColor={wishShow ? "#FAF8FF" : "#220F4B"} />
             </button>
-            {getWishItemsCount() !== 0 && getWishItemsCount() > 0 ? <span> {getWishItemsCount()}</span> : null}
+            {getWishItemsCount() !== 0 && getWishItemsCount() > 0 ? (
+              <span> {getWishItemsCount()}</span>
+            ) : null}
           </div>
           <div className={styles.cart}>
-            <button onClick={() => setCartShow(true)} style={{ backgroundColor: cartShow ? "#220F4B" : "#FAF8FF" }}>
+            <button
+              onClick={() => setCartShow(true)}
+              style={{ backgroundColor: cartShow ? "#220F4B" : "#FAF8FF" }}
+            >
               <CartIcon fillColor={cartShow ? "#FAF8FF" : "#220F4B"} />
             </button>
             {getItemsCount() !== 0 ? <span> {getItemsCount()}</span> : null}
@@ -346,9 +370,10 @@ export default function Header({ country }) {
 const languages = [
   {
     name: "UA",
-    link: ""
-  }, {
+    link: "",
+  },
+  {
     name: "ENG",
-    link: ""
-  }
-]
+    link: "",
+  },
+];

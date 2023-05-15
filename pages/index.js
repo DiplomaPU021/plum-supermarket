@@ -17,7 +17,7 @@ import axios from "axios";
 import Category from "@/models/Category";
 import { getCountryData } from "@/utils/country";
 import SubCategory from "@/models/SubCategory";
-import User from "@/models/User";
+//import User from "@/models/User";
 import FloatingButton from "@/components/FloatingButton";
 
 const inter = Inter({ subsets: ["latin"] });
@@ -25,7 +25,6 @@ const inter = Inter({ subsets: ["latin"] });
 export default function Home({ country, products, categories, searchHandler }) {
 
   const { data: session, status } = useSession();
-  // console.log("session",session, status);
 
   return (
     <div className={styles.container}>
@@ -44,7 +43,7 @@ export default function Home({ country, products, categories, searchHandler }) {
 }
 export async function getServerSideProps(context) {
   const { query } = context;
-  const pageSize =  query.pageSize || 8;
+  const pageSize =  50;
 
   const countryData = await getCountryData();
 
@@ -54,8 +53,9 @@ export async function getServerSideProps(context) {
   let products = await Product.find()
   .populate({ path: "category", model: Category })
   .populate({ path: "subCategories", model: SubCategory })
-  .populate({ path: "reviews.reviewBy", model: User })
-  .populate({ path: "reviews.replies.replyBy", model: User })
+  //.populate({ path: "reviews.reviewBy", model: User })
+  //.populate({ path: "reviews.replies.replyBy", model: User })
+  .sort({ createdAt: -1 })
   .limit(pageSize)
   .lean();
   let newProducts = products.map((product) => {
