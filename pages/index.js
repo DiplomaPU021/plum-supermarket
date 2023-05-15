@@ -24,9 +24,6 @@ const inter = Inter({ subsets: ["latin"] });
 
 export default function Home({ country, products, categories }) {
 
-  // const { data: session, status } = useSession();
-  // console.log("session",session, status);
-
   return (
     <div className={styles.container}>
       <Header country={country} />
@@ -44,15 +41,17 @@ export default function Home({ country, products, categories }) {
 }
 export async function getServerSideProps(context) {
   const { query } = context;
-  const pageSize =  query.pageSize || 8;
+  const pageSize =  50;
+  
   const countryData = await getCountryData();
   await db.connectDb();
   //code below is for component TopSales
   let products = await Product.find()
   .populate({ path: "category", model: Category })
   .populate({ path: "subCategories", model: SubCategory })
-  // .populate({ path: "reviews.reviewBy", model: User })
-  // .populate({ path: "reviews.replies.replyBy", model: User })
+  //.populate({ path: "reviews.reviewBy", model: User })
+  //.populate({ path: "reviews.replies.replyBy", model: User })
+  .sort({ createdAt: -1 })
   .limit(pageSize)
   .lean();
   let newProducts = products.map((product) => {

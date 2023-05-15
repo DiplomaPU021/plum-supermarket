@@ -207,37 +207,7 @@ export default function subCategory({
 
   const handlerFilter = () => {
     let filteredProducts = products;
-
-    if (brandsChecked.length > 0) {
-      filteredProducts = filteredProducts.filter((p) =>
-        brandsChecked.includes(p.brand)
-      );
-    }
-
-    if (colorsChecked.length > 0) {
-      filteredProducts = filteredProducts.filter((product) =>
-        product.subProducts.some((p) => colorsChecked.includes(p.color.color))
-      );
-    }
-
-    if (sizesChecked.length > 0) {
-      filteredProducts = filteredProducts.filter((product) =>
-        product.subProducts.some((p) =>
-          p.sizes.some((s) => sizesChecked.includes(s.size))
-        )
-      );
-    }
-
-    if (priceChecked) {
-      filteredProducts = filteredProducts.filter((product) =>
-        product.subProducts.some((p) =>
-          p.sizes.some(
-            (s) => s.price > valuePrice.min && s.price < valuePrice.max
-          )
-        )
-      );
-    }
-
+  
     if (sideBarChecked.length > 0) {
       filteredProducts = filteredProducts.filter((product) =>
         product.details.some((detail) =>
@@ -250,9 +220,87 @@ export default function subCategory({
         )
       );
     }
-
+  
+    if (brandsChecked.length > 0) {
+      filteredProducts = filteredProducts.filter((p) =>
+        brandsChecked.includes(p.brand)
+      );
+    }
+  
+    if (colorsChecked.length > 0) {
+      let newProducts = [];
+  
+      filteredProducts.forEach((product) => {
+        let matchingSubProducts = product.subProducts.filter((subProduct) => {
+          return colorsChecked.includes(subProduct.color?.color);
+        });
+  
+        if (matchingSubProducts.length > 0) {
+          matchingSubProducts.forEach((subProduct) => {
+            let newProduct = { ...product };
+            let style = product.subProducts.indexOf(subProduct);
+            let sizeIndex = subProduct.sizes.findIndex(s => sizesChecked.includes(s.size));
+            let mode = sizeIndex !== -1 ? sizeIndex : 0;
+  
+            newProduct.quantity = subProduct.sizes[mode].qty;
+            newProduct.style = style;
+            newProduct.mode = mode;
+            newProduct.color = subProduct.color?.color ?? "";
+            newProduct.size = subProduct.sizes[mode]?.size ?? "";
+  
+            newProducts.push(newProduct);
+          });
+        }
+      });
+  
+      filteredProducts = newProducts;
+    }
+  
+    if (sizesChecked.length > 0) {
+      let newProducts = [];
+  
+      filteredProducts.forEach((product) => {
+        let matchingSubProducts = product.subProducts.filter((subProduct) =>
+          subProduct.sizes.some(
+            (s) => sizesChecked.includes(s.size) && (colorsChecked.length === 0 || colorsChecked.includes(subProduct.color.color))
+          )
+        );
+  
+        if (matchingSubProducts.length > 0) {
+          matchingSubProducts.forEach((subProduct) => {
+            let newProduct = { ...product };
+            let style = product.subProducts.indexOf(subProduct);
+            let sizeIndex = subProduct.sizes.findIndex(s => sizesChecked.includes(s.size));
+            let mode = sizeIndex !== -1 ? sizeIndex : 0;
+  
+            newProduct.quantity = subProduct.sizes[mode].qty;
+            newProduct.style = style;
+            newProduct.mode = mode;
+            newProduct.color = subProduct.color?.color ?? "";
+            newProduct.size = subProduct.sizes[mode]?.size ?? "";
+  
+            newProducts.push(newProduct);
+          });
+        }
+      });
+  
+      filteredProducts = newProducts;
+    }
+  
+    if (priceChecked) {
+      filteredProducts = filteredProducts.filter((product) =>
+        product.subProducts.some((p) =>
+          p.sizes.some(
+            (s) => s.price > valuePrice.min && s.price < valuePrice.max
+          )
+        )
+      );
+    }
+  
     setLocalProducts(filteredProducts);
-  };
+  };  
+  
+  
 
   return (
     <Container fluid className={styles.subcategorypage}>
@@ -333,7 +381,6 @@ export default function subCategory({
               <select
                 style={{
                   fontWeight:
-                    valueSort === `${"all"}` ||
                     valueSort === `${"byPriceLowest"}` ||
                     valueSort === `${"byPriceBiggest"}`
                       ? "800"
@@ -344,11 +391,13 @@ export default function subCategory({
                     setValueSort(e.target.value);
                 }}
               >
-                <option value="all">Сортування за ціною</option>
                 <option value="byPriceLowest">Від дешевих до дорогих</option>
                 <option value="byPriceBiggest">Від дорогих до дешевих</option>
               </select>
               <button
+               style={{
+                fontWeight: showSideBlock ? "500" : "800",
+              }}
                 onClick={() => {
                   handlerFilter(),
                     setShowSideBlock(showSideBlock ? false : true);

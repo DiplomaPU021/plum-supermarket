@@ -5,7 +5,7 @@ import Products from "../../components/popular/Products"
 import ButtonsTab from "../../components/topsales/ButtonsTab"
 
 export default function TopSales({ products }) {
-  const [activeLink, setActiveLink] = useState("");
+  const [activeLink, setActiveLink] = useState("popular");
 
   const sortProducts = (link) => {
     switch (link) {
