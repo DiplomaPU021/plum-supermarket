@@ -1,4 +1,4 @@
-// import "bootstrap/dist/css/bootstrap.min.css";
+import "bootstrap/dist/css/bootstrap.min.css";
 import styles from "../../styles/product.module.scss";
 import db from "../../utils/db";
 import Product from "../../models/Product";
