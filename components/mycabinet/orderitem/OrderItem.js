@@ -99,14 +99,14 @@ export default function OrderItem(props) {
                   <th className={styles.tr}>Ціна</th>
                 </tr>
               </thead>
-              <tbody>
+              <tbody>       
                 {props.order.products.map((product, i) => (
                   <tr key={i}>
                     <td> <div className={styles.picture}>
                       <img src={product.image} width='74px' height='45px' style={{ objectFit: "contain" }} />
                     </div>
                     </td>
-                    <td className={styles.td}>{product.name}</td>
+                    <td className={styles.td}>{product.name.substring(0,40)}... {product.color?.color} {product.size}</td>
                     <td className={styles.centered}>{product.qty}</td>
                     <td className={styles.centered}>{(product.priceAfter * product.qty).toLocaleString('uk-UA')} ₴</td>
                   </tr>
@@ -131,7 +131,7 @@ export default function OrderItem(props) {
                   <span>Знижка {props.order.discount}%</span><br />
                 </div>
               ) : <></>}
-              <span>{props.order.paymentMethod} : <b>{props.order.totalPrice.toLocaleString('uk-UA')}  ₴</b></span>
+              <span>{props.order.paymentMethod} : <b>{props.order.costAfterDiscount.toLocaleString('uk-UA')}  ₴</b></span>
               <span>Статус: {props.order.isPaid ? "Оплачено" : "Очікується оплата"}</span>
             </div>
             <div className={styles.delivery_item}>

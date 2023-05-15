@@ -2,7 +2,7 @@
 //import styles from "../../styles/category.module.scss";
 import styles from '../../styles/order.module.scss'
 import Header from '@/components/header'
-import Order from '@/models/Order';
+// import Order from '@/models/Order';
 import "bootstrap/dist/css/bootstrap.min.css";
 import LightPlumIcon from "@/components/icons/LightPlumIcon";
 import GreenChevronRight from "@/components/icons/ChevronRight";
@@ -15,6 +15,7 @@ import { useState } from 'react';
 import MyCabinet from '@/components/mycabinet';
 import db from '@/utils/db';
 import orderService from '@/utils/services/order.service';
+import userService from '@/utils/services/user.service';
 // import User from '@/models/User';
 
 
@@ -46,122 +47,7 @@ export default function order({ country, orderData, user }) {
                 </div>
             </Row>
         </Container>
-
-        // <>
-        //     <Container fluid className={styles.categorypage}>
-        //         <Header />
-        //         <Row style={{ paddingLeft: "60px", margin: "0" }}>
-        //             <Col>
-        //                 <Link href="/">
-        //                     <LightPlumIcon />
-        //                     <GreenChevronRight fillColor="#70BF63" w="30px" h="30px" />
-        //                 </Link>
-        //                 <Link href="/orders" className={styles.categorypage__link}>
-        //                     <span>Замовлення</span>
-        //                 </Link>
-        //                 <Link href="/">
-        //                     <GreenChevronRight fillColor="#70BF63" w="30px" h="30px" />
-        //                 </Link>
-        //                 <Link href="/" className={styles.categorypage__link}>
-        //                     <span>ID={orderData._id}</span>
-        //                 </Link>
-        //             </Col>
-        //         </Row>
-        //         <Row>
-
-        //         </Row>
-
-        //         <Row >
-        //             <Col className={styles.categorypage__banner_col1}>
-        //                 <h1>Замовлення успішне!</h1>
-        //                 <Table striped bordered hover>
-        //                     <thead>
-        //                         <tr>
-        //                             <th>#</th>
-        //                             <th></th>
-        //                             <th>Товар</th>
-        //                             <th>Ціна</th>
-        //                             <th>Кількість</th>
-        //                             <th>Сума</th>
-        //                         </tr>
-        //                     </thead>
-        //                     <tbody>
-        //                         {orderData.products.map((p, i) => (
-        //                             <tr key={i}>
-        //                                 <td>{i + 1}</td>
-        //                                 <td> <img src={p.image} width='110px' alt="picture" /></td>
-        //                                 <td>{p.name}</td>
-        //                                 {
-        //                                     p.discount > 0 ? (
-        //                                         <td>
-        //                                             <span>{p.price.toLocaleString('uk-UA')} </span>
-        //                                             <span>{p.priceAfter.toLocaleString('uk-UA')}</span>
-        //                                         </td>
-        //                                     ) : (<td>{p.priceAfter.toLocaleString('uk-UA')}</td>)
-        //                                 }
-        //                                 <td>{p.qty}</td>
-        //                                 <td>{(p.priceAfter * p.qty).toLocaleString('uk-UA')}</td>
-        //                             </tr>
-        //                         ))}
-        //                     </tbody>
-        //                 </Table>
-        //             </Col>
-        //             <Col style={{paddingLeft:"200px", paddingTop:"100px"}}>
-        //                 <Row>Доставка в {orderData.shippingAddress.cityType} {orderData.shippingAddress.city}
-        //                 </Row>
-        //                 <Row>
-        //                     {orderData.deliveryMethod.deliveryType}
-        //                 </Row>
-        //                 <Row>
-        //                     {orderData.deliveryMethod.deliveryId === "postmanDelivery" ? (
-        //                         <Col>{orderData.shippingAddress.address}</Col>
-        //                     ) : orderData.deliveryMethod.deliveryId === "selfPickup" ? (
-        //                         <Col>Адреса магазину: {orderData.deliveryMethod.deliveryAddress}</Col>
-        //                     ) : orderData.deliveryMethod.deliveryId === "novaPoshta" ? (
-        //                         <Col>Відділення:{orderData.deliveryMethod.deliveryAddress}</Col>
-        //                     ) : <></>}
-        //                 </Row>
-        //                 <Row>
-        //                     Отримувач: {orderData.shippingAddress.firstName} {orderData.shippingAddress.lastName}
-        //                 </Row>
-        //                 <Row>
-        //                     Оплата: {orderData.paymentMethod}
-        //                 </Row>
-        //                 <Row>
-        //                     {orderData.totalQty} товари на суму {orderData.totalPrice.toLocaleString('uk-UA')}  ₴
-        //                 </Row>
-        //                 <Row>
-        //                     Вартість доставки{orderData.deliveryMethod.deliveryId !== "postmanDelivery"?
-        //                     (<span>{orderData.deliveryMethod.deliveryCost}</span>
-        //                     ) : <span>{orderData.deliveryMethod.deliveryCost} ₴</span>}
-        //                 </Row>
-        //                 {orderData.discount > 0 ? (
-        //                     <Row>
-        //                         <Row>Застосовано промокод {orderData.promocode}</Row>
-        //                         <Row>Знижка {orderData.discount}%</Row>
-        //                     </Row>
-        //                 ) : <></>}
-        //                 <Row>
-        //                     До сплати {orderData.costAfterDiscount.toLocaleString('uk-UA')} ₴
-        //                 </Row>
-        //             </Col>
-        //         </Row>
-        //         <Row>
-        //             <Col>
-        //                 <Button>Мої замовлення</Button>
-        //             </Col>
-        //             <Col>
-        //                 <Link href="/">Продовжити покупки</Link>
-        //             </Col>
-        //         </Row>
-
-        //         {/* <Footer country={country} /> */}
-        //     </Container>
-
-        // </>
-
     )
-
 }
 
 export async function getServerSideProps(context) {
@@ -169,12 +55,15 @@ export async function getServerSideProps(context) {
     const { query, req } = context;
     const id = query.id;
     const session = await getSession({ req });
-    let orderData = {};
+    // // const token = await getToken({req});
+    // console.log("token" , token);
+    // let orderData = {};
     let orders = [];
+    let user={};
      if (session) {
+         await db.connectDb();
         orders = await orderService.findByUserId(session.user.id);
-        await db.connectDb();
-        orderData = await Order.findById(id).populate('user').lean();
+        user = await userService.getOneById(session.user.id);
         await db.disconnectDb();
     } else {
         return {
@@ -186,7 +75,7 @@ export async function getServerSideProps(context) {
     return {
         props: {
             country: countryData,
-            user: JSON.parse(JSON.stringify(orderData.user)),
+            user: JSON.parse(JSON.stringify(user)),
             orderData: JSON.parse(JSON.stringify(orders)),
         },
     };

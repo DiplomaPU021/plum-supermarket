@@ -239,6 +239,7 @@
     }
 }
 
+
 .profilebtn {
     border: 2px solid #220F4B;
     background-color: $light-wheet-color;
@@ -256,6 +257,14 @@
     }
 }
 
+.creditCardsBtn {
+    flex-direction: column;
+    gap: 15px;
+    justify-content: center;
+    align-items: center;
+
+
+}
 .cardsbtns {
     flex-direction: row;
     justify-content: space-between;
@@ -524,15 +533,33 @@
 .flex_row {
     display: flex;
     flex-direction: row;
-    align-items: center;
+    align-items:flex-end;
     justify-content: center;
-    column-gap: 12px;
+    column-gap: 15px;
     margin-top: 10px;
     padding: 0;
 
-    button {
-        align-self: flex-end;
-        width: 160px;
+    .flex_selector {
+        padding: 15px 24px;
+        width: 70%;
+        max-width: 850px;
+        height: 60px;
+        border: 2px solid #220F4B;
+        border-radius: 35px;
+        font-family: 'Noto Sans';
+    
+        option{
+            border-radius: 23px !important;
+        }
+    
+        &:focus {
+            box-shadow: 0px 0px 5px 0px #220F4B;
+            border: 2px solid #220F4B;
+        }
+    }
+
+    button {     
+        width:25%;
         height: 60px;
         font-family: 'Noto Sans';
         font-weight: 320;
@@ -540,8 +567,31 @@
         border-radius: 30px;
         color: #FAF8FF;
         background-color: #220F4B;
+        flex-direction: row-reverse;
+        margin-left: 15px;
+    }
+    
+    .light_button {
+        width: stretch;
+        align-self: flex-start;
+        height: 46px;
+        font-weight: 600;
+        font-size: 18px;
+        line-height: 25px;
+        border-radius: 30px;
+        color: #220F4B;
+        background-color: #FAF8FF;
+        border: 2px solid #220F4B;
+        border-radius: 23px;
+
+        &:hover {
+            box-shadow: 0px 0px 5px 0px #220F4B;
+            background-color: #FAF8FF;
+        }
     }
 }
+
+
 
 .form_floor {
     padding: 15px 24px;

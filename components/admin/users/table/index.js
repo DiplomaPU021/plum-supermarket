@@ -47,7 +47,7 @@ export default function UsersTable({ users, setUsers }) {
                             <td>{user.birthday}</td>
                             <td>{user.gender}</td>
                             <td>{user.role}</td>
-                            <td>{user.address.address}</td>
+                            <td>{user.address?.address}</td>
                             <td><button onClick={() => { deleteHandler(user._id) }}><RiDeleteBin7Fill /></button></td>
                         </tr>
                     ))

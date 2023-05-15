@@ -8,7 +8,13 @@ import "yup-phone";
 import { Formik } from "formik";
 import axios from "axios";
 import DotLoaderSpinner from "@/components/loaders/dotLoader";
-import { useSession } from "next-auth/react";
+import {
+  getProviders,
+  getSession,
+  signIn,
+  getCsrfToken,
+  useSession,
+} from "next-auth/react";
 import { Container, Row, Col, Image } from "react-bootstrap";
 
 const initialvalues = {

@@ -1,11 +1,5 @@
 import styles from "./styles.module.scss";
-import {
-  Accordion,
-  Row,
-  Col,
-  Form,
-  Button,
-} from "react-bootstrap";
+import { Accordion, Row, Col, Form, Button } from "react-bootstrap";
 import * as yup from "yup";
 import "yup-phone";
 import { useForm } from "react-hook-form";
@@ -16,9 +10,14 @@ import CityModal from "@/components/checkoutorder/citymodal";
 import PaymentForm from "@/components/paymentForm";
 import { getStreets } from "@/requests/street";
 import { saveAddress } from "@/requests/user";
+import { toast } from "react-toastify";
+import DotLoaderSpinner from "@/components/loaders/dotLoader";
 
 export default function Profile({ country, ...props }) {
   const [isInEdit, setIsInEdit] = useState(false);
+  const [showAddressSelector, setShowAddressSelector] = useState(
+    props.user?.address?.length > 0 ? "block" : "none"
+  );
   const [showAddress, setShowAddress] = useState("none");
   const [showCard, setShowCard] = useState("none");
   const [showAddCard, setShowAddCard] = useState(false);
@@ -26,7 +25,9 @@ export default function Profile({ country, ...props }) {
   const [profileCityModalShow, setProfileCityModalShow] = useState(false);
 
   const [admiration, setAdmiration] = useState(props.user?.admiration || {});
-  const [additionalInfo, setAdditionalInfo] = useState(props.user?.additionalInfo || {});
+  const [additionalInfo, setAdditionalInfo] = useState(
+    props.user?.additionalInfo || {}
+  );
   const [pets, setPets] = useState(props.user?.pets || {});
   const selectRef = useRef();
   const cityRef = useRef();
@@ -34,7 +35,8 @@ export default function Profile({ country, ...props }) {
   const [selectedCity, setSelectedCity] = useState();
   const [userAddresses, setUserAddresses] = useState(props.user?.address || []);
   const [activeAddress, setActiveAddress] = useState(
-    userAddresses?.find((address) => address.active === true) || null);
+    userAddresses?.find((address) => address.active === true) || null
+  );
   const [filteredStreets, setFilteredStreets] = useState([]);
   const [searchStreet, setSearchStreet] = useState("");
   const [selectedStreet, setSelectedStreet] = useState({});
@@ -49,10 +51,16 @@ export default function Profile({ country, ...props }) {
     `${activeAddress?.cityType} ${activeAddress?.city}, ${activeAddress?.address}`
   );
   const [isSavedAddress, setIsSavedAddress] = useState(false);
-  const [userCreditCards, setUserCreditCards] = useState(props.user?.creditCards || []);
-  const [selectedCard, setSelectedCard] = useState(userCreditCards?.find(creditCard => creditCard.isDefault === true || null));
+  const [userCreditCards, setUserCreditCards] = useState(
+    props.user?.creditCards || []
+  );
+  const [selectedCard, setSelectedCard] = useState(
+    userCreditCards && userCreditCards.length > 0 ? userCreditCards.find((creditCard) => creditCard.isDefault === true)._id :
+      ""
+  );
   const today = new Date();
   const cutoffYear = today.getFullYear() - 12;
+  const [loading, setLoading] = useState(false);
 
   const validationSchema = yup.object({
     firstName: yup
@@ -87,7 +95,10 @@ export default function Profile({ country, ...props }) {
     birthday: yup
       .string()
       .matches(
-        new RegExp(`^(19[89][0-9]|20[01][0-${cutoffYear % 100}]|${cutoffYear + 1})-(0[1-9]|1[012])-(0[1-9]|[12][0-9]|3[01])$`),
+        new RegExp(
+          `^(19[89][0-9]|20[01][0-${cutoffYear % 100}]|${cutoffYear + 1
+          })-(0[1-9]|1[012])-(0[1-9]|[12][0-9]|3[01])$`
+        ),
         "Користувач має бути старшим 12 років"
       ),
   });
@@ -97,7 +108,7 @@ export default function Profile({ country, ...props }) {
     handleSubmit,
     watch,
     formState: { errors },
-    reset
+    reset,
   } = useForm({
     defaultValues: {
       firstName: props.user?.firstName || "",
@@ -109,8 +120,16 @@ export default function Profile({ country, ...props }) {
     },
     resolver: yupResolver(validationSchema),
   });
+
+  useEffect(() => {
+    setSelectedCard(
+      userCreditCards && userCreditCards.length > 0 ? userCreditCards.find((creditCard) => creditCard.isDefault === true)._id :
+        ""
+    );
+  }, [userCreditCards]);
+
   const handleRegistration = async (data) => {
-    const result = await axios.put('/api/user/manageProfile', {
+    const result = await axios.put("/api/user/manageProfile", {
       firstName: data.firstName,
       lastName: data.lastName,
       phoneNumber: data.phoneNumber,
@@ -119,21 +138,24 @@ export default function Profile({ country, ...props }) {
       birthday: data.birthday,
     });
     setIsInEdit(false);
-  }
+  };
   const handleCancelCredencialsEdit = () => {
     setIsInEdit(false);
-    reset({
-      firstName: props.user?.firstName || "",
-      lastName: props.user?.lastName || "",
-      phoneNumber: props.user?.phoneNumber || "",
-      email: props.user?.email || "",
-      gender: props.user?.gender || "Стать",
-      birthday: props.user?.birthday || "1990-01-01",
-    }, {
-      keepErrors: false,
-      keepDirty: true,
-    });
-  }
+    reset(
+      {
+        firstName: props.user?.firstName || "",
+        lastName: props.user?.lastName || "",
+        phoneNumber: props.user?.phoneNumber || "",
+        email: props.user?.email || "",
+        gender: props.user?.gender || "Стать",
+        birthday: props.user?.birthday || "1990-01-01",
+      },
+      {
+        keepErrors: false,
+        keepDirty: true,
+      }
+    );
+  };
 
   useEffect(() => {
     if (selectedAddress && selectedAddress != "") {
@@ -150,7 +172,6 @@ export default function Profile({ country, ...props }) {
   const handleSearchCity = (e) => {
     e.preventDefault();
     setProfileCityModalShow(true);
-
   };
 
   const handleCityModalClose = (selectedCity) => {
@@ -175,7 +196,7 @@ export default function Profile({ country, ...props }) {
       }));
     }
     setProfileCityModalShow(false);
-  }
+  };
   useEffect(() => {
     if (selectedCity && searchStreet) {
       setAddressValues({
@@ -192,7 +213,7 @@ export default function Profile({ country, ...props }) {
         }
       }, 1000);
     }
-  }, [searchStreet])
+  }, [searchStreet]);
 
   const handleSelectStreet = (street) => {
     selectRef.current.focus();
@@ -208,7 +229,6 @@ export default function Profile({ country, ...props }) {
       [e.target.name]: e.target.value,
     });
   };
-
 
   const handleAddAdress = () => {
     if (selectedCity) {
@@ -248,7 +268,9 @@ export default function Profile({ country, ...props }) {
         }
         addresses.push(newAddress);
         setUserAddresses(addresses);
-        setSelectedAddress(`${newAddress.cityType} ${newAddress.city}, ${newAddress.address}`);
+        setSelectedAddress(
+          `${newAddress.cityType} ${newAddress.city}, ${newAddress.address}`
+        );
       }
       setShowAddress("none");
       setShowAddAddressBlock("none");
@@ -300,16 +322,54 @@ export default function Profile({ country, ...props }) {
     }
     setSelectedAddress(e.target.value);
   };
- const handleSaveAdress =async ()=>{
-  if (activeAddress != null) {
-    await saveAddress(activeAddress);
-    setIsSavedAddress(true);
-}
- }
+  const handleSaveAdress = async () => {
+    if (activeAddress != null) {
+      await saveAddress(activeAddress);
+      setIsSavedAddress(true);
+    }
+  };
   const handleAddCard = () => {
     setShowAddCard(true);
-    setShowCard(false)
-  }
+    setShowCard(false);
+  };
+  const handleDeleteCard = async () => {
+    let toastId = null;
+    try {
+      const { data } = await axios.put(
+        "/api/user/saveCreditCard",
+        {
+          cardId: selectedCard,
+        },
+        {
+          onUploadProgress: (p) => {
+            const progress = p.loaded / p.total;
+            setTimeout(() => {
+              if (toastId === null) {
+                toastId = toast("Видаляємо карту...", { progress });
+              } else {
+                toast.update(toastId, { progress });
+              }
+            }, 500);
+          },
+        }
+      );
+      setTimeout(() => {
+        toast.update(toastId, {
+          render: data?.message,
+          type: toast.TYPE.SUCCESS,
+        });
+      }, 3000);
+      setUserCreditCards(data.creditCards);
+    } catch (error) {
+      if (error.response?.data?.error) {
+        console.log("368", error);
+        toast.update(toastId, {
+          render: error.response.data.error,
+          type: toast.TYPE.ERROR,
+        });
+      }
+    }
+  };
 
   const additionalInfoHandler = async () => {
     const result = await axios.put("/api/user/additionalInfo", {
@@ -339,6 +399,7 @@ export default function Profile({ country, ...props }) {
       defaultActiveKey={["0"]}
       className={styles.accordion}
     >
+      {loading && <DotLoaderSpinner loading={loading} />}
       <Accordion.Item eventKey="0" className={styles.accordion__item}>
         <Accordion.Header className={styles.accordion__item_header}>
           <span>Особисті данні</span>
@@ -490,20 +551,21 @@ export default function Profile({ country, ...props }) {
           <span>Мої адреси</span>
         </Accordion.Header>
         <Accordion.Body className={styles.accordion__item_body}>
-          <Row style={{ padding: "0" }} >
-            <div className={styles.flex_row}>
-              <Form.Select
-                className={styles.form_address}
+        
+            <div
+              className={styles.flex_row}
+              style={{ display: showAddressSelector }}
+            >
+              <select
+                className={styles.flex_selector}
                 name="selectPostmanDelivery"
                 id="selectPostmanDelivery"
                 onChange={(e) => handleSelectPostman(e)}
                 ref={postmanRef}
-                defaultValue={selectedAddress}
+                value={selectedAddress}
               >
                 {userAddresses != null &&
-                  userAddresses.filter(
-                    (c) => c.address != ""
-                  )
+                  userAddresses.filter((c) => c.address != "")
                   ? userAddresses.map((item, index) => (
                     <option
                       key={`${item.address}-${index}`}
@@ -513,23 +575,27 @@ export default function Profile({ country, ...props }) {
                     </option>
                   ))
                   : null}
-              </Form.Select>
-              <button onClick={handleSaveAdress} id="btnSaveAddress" disabled={isSavedAddress}>
+              </select>
+              <button
+                onClick={handleSaveAdress}
+                id="btnSaveAddress"
+                disabled={isSavedAddress}
+              >
                 Зберегти
               </button>
             </div>
-          </Row>
-          <Row className={styles.contacts}>
+         
+          <Row  className={styles.flex_row}>
             <button
+            className={styles.light_button}
               style={{ display: showAddress !== "block" ? "block" : "none" }}
-              className={styles.profilebtn}
               onClick={() => setShowAddress("block")}
             >
               + Додати адресу
             </button>
           </Row>
           <Row style={{ display: showAddress }}>
-            <Col style={{padding: "0"}} className={styles.ordertable}>
+            <Col style={{ padding: "0" }} className={styles.ordertable}>
               <Form.Label className={styles.form_label} htmlFor="city-name">
                 Ваше місто
               </Form.Label>
@@ -539,6 +605,7 @@ export default function Profile({ country, ...props }) {
                 value={selectedCity ? selectedCity.value : ""}
                 name="city"
                 onClick={handleSearchCity}
+                // onChange={()=>setSelectedCity(e.target.value)}
                 readOnly={true}
                 id="city-name"
                 ref={cityRef}
@@ -617,45 +684,57 @@ export default function Profile({ country, ...props }) {
         <Accordion.Body className={styles.accordion__item_body}>
           <Row className={styles.mark_border}>
             {showCard ? (
-              <Col className={styles.mark_border}>
-                <Form.Select
-                  name="creditselect"
-                  className={styles.form_input_card}
-                >
-                  <option
-                    value="Вибрати карту"
-                    disabled={true}
-                    id="optcred1"
-                    key="optcred1"
-                  >
-                    Вибрати карту...
-                  </option>
-                  {userCreditCards.map((cc) => (
-                    <option
-                      key={`${cc._id}`}
-                      value={cc.id}
-                    >{`**** **** **** ${cc.number.slice(-4)}`}</option>
-                  ))}
-                </Form.Select>
-                <Row className={styles.flex_row_card}>
+              <div>
+                <div 
+                 style={{ display: userCreditCards && userCreditCards.length>0?"block":"none" }}
+                 className={styles.flex_row}
+                 >
+                    <select
+                      name="creditselect"
+                      className={styles.flex_selector}
+                      value={selectedCard}
+                      onChange={(e) => setSelectedCard(e.target.value)}
+                    >
+                      <option
+                        value="Вибрати карту"
+                        disabled={true}
+                        id="optcred1"
+                        key="optcred1"
+                      >
+                        Вибрати карту...
+                      </option>
+                      {userCreditCards && userCreditCards.length>0? userCreditCards.map((cc) => (
+                        <option
+                          key={`${cc._id}`}
+                          value={cc._id}
+                        >{`**** **** **** ${cc.number.slice(-4)}`}</option>
+                      )):null}
+                    </select>
+                    <button
+                      onClick={handleDeleteCard}
+                    >
+                      - Видалити карту
+                    </button> 
+                </div>
+                <Row className={styles.flex_row}>
                   <button
-                    className={styles.dark_button}
+                    className={styles.light_button}
                     onClick={handleAddCard}
                   >
                     + Додати карту
                   </button>
                 </Row>
-              </Col>
+              </div>
             ) : (
               <PaymentForm
-                key={`${props.user.id}-form`}
+                key={`${props.user._id}-form`}
                 total={null}
                 setIsPaid={null}
                 userCreditCards={userCreditCards}
                 setUserCreditCards={setUserCreditCards}
                 setShowAddCard={setShowAddCard}
                 setShowCard={setShowCard}
-                setSelectedCard={setSelectedCard}
+              // setSelectedCard={setSelectedCard}
               />
             )}
           </Row>
@@ -670,7 +749,7 @@ export default function Profile({ country, ...props }) {
             <Form.Check.Input
               className={styles.checkbox_box}
               type="checkbox"
-              checked={additionalInfo.children.children}
+              checked={additionalInfo.children?.children}
               onChange={(e) => {
                 setAdditionalInfo({
                   ...additionalInfo,
@@ -690,7 +769,7 @@ export default function Profile({ country, ...props }) {
             <Form.Check.Input
               className={styles.checkbox_box}
               type="checkbox"
-              checked={additionalInfo.vehicle.vehicle}
+              checked={additionalInfo.vehicle?.vehicle}
               onChange={(e) => {
                 setAdditionalInfo({
                   ...additionalInfo,
@@ -710,7 +789,7 @@ export default function Profile({ country, ...props }) {
             <Form.Check.Input
               className={styles.checkbox_box}
               type="checkbox"
-              checked={additionalInfo.motorcycle.motorcycle}
+              checked={additionalInfo.motorcycle?.motorcycle}
               onChange={(e) => {
                 setAdditionalInfo({
                   ...additionalInfo,
@@ -718,7 +797,8 @@ export default function Profile({ country, ...props }) {
                     ...additionalInfo.motorcycle,
                     motorcycle: e.target.checked,
                   },
-                }), console.log(e.target.checked,)
+                }),
+                  console.log(e.target.checked);
               }}
             />
             <Form.Check.Label className={styles.checkbox_label}>
@@ -729,7 +809,7 @@ export default function Profile({ country, ...props }) {
             <Form.Check.Input
               className={styles.checkbox_box}
               type="checkbox"
-              checked={additionalInfo.business.business}
+              checked={additionalInfo.business?.business}
               onChange={(e) => {
                 setAdditionalInfo({
                   ...additionalInfo,
@@ -747,7 +827,9 @@ export default function Profile({ country, ...props }) {
           </Form.Check>
           <button
             className={styles.profilebtn}
-            onClick={() => { setIsInEdit(true), additionalInfoHandler() }}
+            onClick={() => {
+              setIsInEdit(true), additionalInfoHandler();
+            }}
           >
             Підтвердити
           </button>
@@ -784,7 +866,9 @@ export default function Profile({ country, ...props }) {
             ))}
             <button
               className={styles.edit_btn2}
-              onClick={() => { setIsInEdit(true), admirationHandler() }}
+              onClick={() => {
+                setIsInEdit(true), admirationHandler();
+              }}
             >
               Підтвердити
             </button>
@@ -822,7 +906,9 @@ export default function Profile({ country, ...props }) {
             ))}
             <button
               className={styles.edit_btn2}
-              onClick={() => { setIsInEdit(true), petsHandler() }}
+              onClick={() => {
+                setIsInEdit(true), petsHandler();
+              }}
             >
               Підтвердити
             </button>
