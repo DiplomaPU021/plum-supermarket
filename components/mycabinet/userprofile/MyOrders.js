@@ -22,15 +22,25 @@ export default function MyOrders(props) {
   };
 
   const sortByStatus = (status) => {
+    let filteredOrders = [];
     if (status === "all") {
       setOrders(props.orders);
     } else if (status.length > 1) {
-      let filteredOrders = props.orders.filter(
-        (order) => order.status === status
-      );
+      if (status === "Нове замовлення") {
+        filteredOrders = props.orders.filter(
+          (order) =>
+            order.status === "Нове замовлення" ||
+            order.status === "В обробці" ||
+            order.status === "Надіслано"
+        );
+      } else {
+        filteredOrders = props.orders.filter(
+          (order) => order.status === status
+        );
+      }
       setOrders(filteredOrders);
     }
-  };
+  }
 
   const [searchOrder, setSearchOrder] = useState("");
 
@@ -148,7 +158,7 @@ export default function MyOrders(props) {
           ))}
           <div>
             <Pagination
-              className={styles.pagination}       
+              className={styles.pagination}
             >
               <Pagination.Prev
                 onClick={() => setActivePage(activePage - 1)}
