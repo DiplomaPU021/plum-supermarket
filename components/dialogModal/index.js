@@ -1,6 +1,7 @@
 import styles from "./styles.module.scss";
-import Modal from 'react-bootstrap/Modal'
-import Button from 'react-bootstrap/Button'
+import "bootstrap/dist/css/bootstrap.min.css";
+import Modal from "react-bootstrap/Modal";
+import Button from "react-bootstrap/Button";
 import * as React from "react";
 import Link from "next/link";
 import { useSelector, useDispatch } from "react-redux";
@@ -14,31 +15,31 @@ export default function DialogModal() {
   };
 
   return (
-    <div style={{ position: "fixed", zIndex: "9999999999999", }}>
+    <div style={{ position: "fixed", zIndex: "9999999999999" }}>
       <Modal
         show={dialog.show}
         onHide={handleClose}
         aria-labelledby="contained-modal-title-vcenter"
         className={styles.modal}
       >
-        <Modal.Header closeButton>
-          <Modal.Title className={styles.header}>
+        <Modal.Header>
+          <Modal.Title className={styles.header_dialog}>
             {dialog.header}
           </Modal.Title>
         </Modal.Header>
         <Modal.Body className={styles.body}>
           {dialog.msgs &&
             dialog.msgs.map((msg, i) => (
-              <div key={i}>
-                <img width="60px"
+              <div key={i} className={styles.msg}>
+                <img className={styles.msg}
                   src={
                     msg.type == "error"
                       ? "https://www.freeiconspng.com/uploads/orange-error-icon-0.png"
-                      : "https://www.pngmart.com/files/20/Success-Transparent-Background.png"
+                      : "https://www.freeiconspng.com/uploads/success-icon-1.png"
                   }
                   alt=""
                 />
-                <span>{msg.msg}</span>
+                <span className={styles.msg}>{msg.msg}</span>
               </div>
             ))}
         </Modal.Body>
@@ -56,7 +57,5 @@ export default function DialogModal() {
         </Modal.Footer>
       </Modal>
     </div>
-
-
   );
 }

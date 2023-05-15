@@ -9,7 +9,6 @@ import { ErrorMessage, Form, Formik } from "formik";
 import * as Yup from "yup";
 import { toast } from "react-toastify";
 import SingularSelect from "@/components/admin/select/SingularSelect";
-import SizesTable from "@/components/productPage/sizesTable";
 import AdminInput from "@/components/inputs/adminInput";
 import Images from "@/components/admin/createProduct/images";
 import Colors from "@/components/admin/createProduct/colors";
@@ -286,7 +285,7 @@ export default function create({ parents, categories }) {
       });
       setLoading(false);
       toast.success(data.message);
-      router.push("/admin/dashboard/product/create");
+      // router.push("/admin/dashboard/product/create");
       location.reload();
     } catch (error) {
       setLoading(false);

@@ -1,4 +1,4 @@
-import "bootstrap/dist/css/bootstrap.min.css";
+// import "bootstrap/dist/css/bootstrap.min.css";
 import styles from "../../styles/product.module.scss";
 import db from "../../utils/db";
 import Product from "../../models/Product";
@@ -131,12 +131,12 @@ export async function getServerSideProps(context) {
   let price = subProduct.sizes[mode].price.toFixed();
 
   //products that go together cheaper
-  let productsPlus = await Product.find()
-    .populate({ path: "category", model: Category })
-    .populate({ path: "subCategories", model: SubCategory })
-    .populate({ path: "reviews.reviewBy", model: User })
-    .populate({ path: "reviews.replies.replyBy", model: User })
-    .sort({ createdAt: -1 }).lean();
+  // let productsPlus = await Product.find()
+  //   .populate({ path: "category", model: Category })
+  //   .populate({ path: "subCategories", model: SubCategory })
+  //   .populate({ path: "reviews.reviewBy", model: User })
+  //   .populate({ path: "reviews.replies.replyBy", model: User })
+  //   .sort({ createdAt: -1 }).lean();
 
 
   let onlyFromCategory = await Product.find({ category: product.category._id })

@@ -47,7 +47,7 @@ export default function MyOrders(props) {
   };
 
   const [activePage, setActivePage] = useState(1);
-  const itemsPerPage = 4;
+  const itemsPerPage = 3;
 
   function displayComponentsForActivePage() {
     const startIndex = (activePage - 1) * itemsPerPage;

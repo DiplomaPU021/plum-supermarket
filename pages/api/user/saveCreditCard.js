@@ -36,25 +36,25 @@ handler.post(async (req, res) => {
     }
   }
 });
-handler.put(async (req, res) => {
-  try {
-    await db.connectDb();
-    const { name, number, expiry, cvc, issuer } = req.body;
-    await userService.removeFromWishlist(
-      req.user,
-      name,
-      number,
-      expiry,
-      cvc,
-      issuer
-    );
-    // let user = userService.findByWishlistAndUpdate(req.user, productId);
-    await db.disconnectDb();
-    return res.status(200).json({ message: "Карту відредаговано" });
-  } catch (error) {
-    return res.status(500).json({ error: error.message });
-  }
-});
+// handler.put(async (req, res) => {
+//   try {
+//     await db.connectDb();
+//     const { name, number, expiry, cvc, issuer } = req.body;
+//     await userService.updateCreditCardlist(
+//       req.user,
+//       name,
+//       number,
+//       expiry,
+//       cvc,
+//       issuer
+//     );
+//     // let user = userService.findByWishlistAndUpdate(req.user, productId);
+//     await db.disconnectDb();
+//     return res.status(200).json({ message: "Карту відредаговано" });
+//   } catch (error) {
+//     return res.status(500).json({ error: error.message });
+//   }
+// });
 handler.get(async (req, res) => {
   try {
     await db.connectDb();
@@ -67,9 +67,26 @@ handler.get(async (req, res) => {
     return res.status(500).json({ error: error.message });
   }
 });
-handler.delete(async (req, res) => {
+handler.put(async (req, res) => {
   const { cardId } = req.body;
   await db.connectDb();
-  await userService.removeFromCardlist(req.user, cardId);
+  try {
+    const result = await userService.removeFromCreditCards(req.user, cardId);
+    if (result) {
+      await db.disconnectDb();
+      return res.json({
+        message: `Картка видалена успішно!`,
+        creditCards: result,
+      });
+    } else {
+      await db.disconnectDb();
+      return res.status(400).json({ error: "Помилка видалення картки!" });
+    }
+  } catch (error) {
+    await db.disconnectDb();
+    return res.status(500).json({ error: error.message });
+  }
+
+
 });
 export default handler;

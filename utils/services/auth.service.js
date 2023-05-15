@@ -26,6 +26,7 @@ const registerUser = async ( email, password) => {
 
 const login = async (email, password) => {
   const user = await userService.findEmail(email);
+  console.log("login");
   if (user && (await bcrypt.compare(password, user.password))) {
     const token = await tokenService.createToken({
       userId: user._id,

@@ -56,6 +56,30 @@ const createOrder = async (
         }
     ).save();
     return order;
+
+
+};
+
+const findByIdAndUpdateStatus = async (id, status) => {
+    try {
+        if (status == "Завершено") {
+            const order = await Order.findOneAndUpdate(
+                { _id: id },
+                { status, isPaid: true },
+                { new: true }
+            );
+            return order;
+        } else {
+            const order = await Order.findOneAndUpdate(
+                { _id: id },
+                { status },
+                { new: true }
+            );
+            return order;
+        }
+    } catch (err) {
+        console.error(err);
+    }
 };
 
 const orderService = {
@@ -63,7 +87,8 @@ const orderService = {
     getAll,
     findByIdAndDelete,
     createOrder,
-    findByUserId
+    findByUserId,
+    findByIdAndUpdateStatus
 };
 
 export default orderService;

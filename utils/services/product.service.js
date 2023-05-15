@@ -72,7 +72,7 @@ const findByReviewByAndUpdate = async (
     }
     return product;
 };
-const findByIdAndUpdateQuantity = async (products) => {
+const findByIdAndUpdateQuantity = async (products, isPaid) => {
     try {
         let newProducts=[];
         for (let j = 0;  j < products.length; j++) {
@@ -99,7 +99,10 @@ const findByIdAndUpdateQuantity = async (products) => {
     
             // Зменшуємо кількість товару на величину quantity
             product.subProducts[subProductIndex].sizes[sizeIndex].qty -= products[j].qty;
-    
+            if(isPaid){
+               product.subProducts[subProductIndex].sold+=products[j].qty; 
+            }
+            
             // Зберігаємо зміни у базі даних
             await product.save();
             newProducts.push(product);
