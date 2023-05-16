@@ -16,7 +16,7 @@ const handler = nc().get(async (req, res) => {
       );
       await db.disconnectDb();
       res.status(200).setHeader("Content-Type", "text/html; charset=utf-8");
-
+      const url = `${process.env.BASE_URL}`;
       return res.status(200).send(`
         <html>
           <head>
@@ -51,7 +51,7 @@ const handler = nc().get(async (req, res) => {
           <body>
           <div class="add">
           <div class="logo"> 
-            <a href='http://localhost:3000'>
+            <a href=${url}>
             <img width="750px" height="150px" alt="" src="https://res.cloudinary.com/dzctqbi3o/image/upload/v1683558653/Diploma/email/vgmesq6pqjpeevid2xyr.png"/>
             </a>
             <h1>Email підтверджено</h1>
