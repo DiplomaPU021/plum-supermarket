@@ -1,12 +1,12 @@
 .cheapTwo {
     background-color: $light-wheet-color;
-    padding: 0 0 60px 0;
+     padding: 0 0 60px 0;
 
     &__title {
         display: flex;
         flex-direction: row;
         align-items: center;
-        padding-top: 60px;
+        // padding-top: 60px;
         padding-bottom: 40px;
 
         span {
@@ -17,7 +17,6 @@
             gap: 10px;
             width: 489px;
             height: 64px;
-            gap: 10px;
             background: linear-gradient(90deg, #71C064 0%, #8AE37C 100%);
             border-radius: 0px 23px 23px 0px;
             font-family: 'Noto Sans';
@@ -41,7 +40,9 @@
             gap: 44px;
             border-radius: 23px 0 0 23px;
             background: linear-gradient(90deg, $light-wheet-color 0%, #F0EBFB 30%);
-            height: 400px;
+            height: 405px;
+            padding-top: 2.5px;
+            padding-bottom: 2.5px;
 
             @media (max-width: 1300px) {
                 gap: 10px;
@@ -115,7 +116,6 @@
     }
 
     .shipping {
-
         position: absolute;
         display: flex;
         flex-direction: row;
@@ -159,11 +159,13 @@
         padding: 0;
         width: 44px;
         height: 44px;
+        margin-left: 15px;
     }
 
     &__signEqual {
         padding: 0;
         width: 44px;
         height: 25px;
+        margin-left: 15px;
     }
 }

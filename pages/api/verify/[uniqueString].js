@@ -51,7 +51,7 @@ const handler = nc().get(async (req, res) => {
           <body>
           <div class="add">
           <div class="logo"> 
-             <a href=${url}>
+            <a href=${url}>
             <img width="750px" height="150px" alt="" src="https://res.cloudinary.com/dzctqbi3o/image/upload/v1683558653/Diploma/email/vgmesq6pqjpeevid2xyr.png"/>
             </a>
             <h1>Email підтверджено</h1>

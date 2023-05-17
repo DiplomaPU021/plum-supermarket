@@ -116,7 +116,7 @@ export default function Summary({
         }
     }
     return (
-        <>
+        <div className={styles.confirm}>
             <Formik
                 enableReinitialize
                 initialValues={{
@@ -128,8 +128,8 @@ export default function Summary({
                 onSubmit={(values) => console.log(values)}
             >
                 {(formik) => (
-                    <Form>
-                        <div className={styles.confirm}>
+                    <Form >
+                        <div>
                             <CheckoutCart cart={cart} />
                             <Button className={styles.promo} onClick={() => setShowPromo(showPromo === "none" ? "block" : "none")}>
                                 Промокод
@@ -197,6 +197,6 @@ export default function Summary({
                 onHide={() => setInfoShow(false)} />
             <UserConditions show={info2Show}
                 onHide={() => setInfo2Show(false)} />
-        </>
+        </div>
     )
 }

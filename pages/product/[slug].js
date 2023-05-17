@@ -90,7 +90,9 @@ export default function product({ product, popular, country, style, mode }) {
         </Container>
       </Container>
       <CustomerInfo />
-      <CheaperTogether product={product} productsPlus={product.productsPlus} active={active} setActive={setActive} />
+      {product.productsPlus.length>0 ? (
+        <CheaperTogether product={product} productsPlus={product.productsPlus} active={active} setActive={setActive} />
+      ) : null}
       <ProductDescription product={product} />
       <FloatingButton />
       <Reviews product={product} productReview={productReview} setProductReview={setProductReview} active={active} setActive={setActive} />
@@ -105,7 +107,7 @@ export async function getServerSideProps(context) {
   const style = query.style == null || query.style == "undefined" ? 0 : query.style;
   const mode = query.code || 0;
 
-  const pageSize =  query.pageSize || 8;
+  const pageSize = query.pageSize || 8;
 
   const countryData = await getCountryData();
 
@@ -140,8 +142,48 @@ export async function getServerSideProps(context) {
 
 
   let onlyFromCategory = await Product.find({ category: product.category._id })
-  .limit(pageSize)
-  .lean();
+    .limit(pageSize)
+    .lean();
+
+  let newProductPlus = [];
+  let accesoriesCategory = await Category.findOne({ slug: "smartphones_tv_and_electronics" });
+  if (accesoriesCategory) {
+    let productPlusCategory = await Product.find({ category: accesoriesCategory._id }).limit(5).lean();
+    newProductPlus = productPlusCategory.map((product) => {
+      let style = -1;
+      let mode = -1;
+      // знайдемо індекс першого підпродукту з ненульовим залишком
+      for (let i = 0; i < product.subProducts.length; i++) {
+        let subProduct = product.subProducts[i];
+        for (let j = 0; j < subProduct.sizes.length; j++) {
+          if (subProduct.sizes[j].qty > 0) {
+            style = i;
+            mode = j;
+            break;
+          }
+        }
+        if (style !== -1) {
+          break;
+        }
+      }
+      let color = product.subProducts[style] ? product.subProducts[style].color?.color : '';
+      let size = product.subProducts[style].sizes[mode].size;
+      let sold = product.subProducts[style].sold;
+      let priceAfter = ((100 - product.subProducts[style].discount) * product.subProducts[style].sizes[mode].price / 100).toFixed();
+      return {
+        ...product,
+        style,
+        mode,
+        color,
+        size,
+        sold,
+        priceAfter
+      };
+    });
+  } else {
+    console.log("Категорія не знайдена.");
+  }
+
 
   let newFromCategory = onlyFromCategory.map((product) => {
     let style = -1;
@@ -192,7 +234,7 @@ export async function getServerSideProps(context) {
     code: subProduct.sizes[mode].code,
     sold: subProduct.sold,
     quantity: subProduct.sizes[mode].qty,
-    productsPlus: newFromCategory,
+    productsPlus: newProductPlus,
     reviews: product.reviews.reverse(),
     rating: product.rating
   };

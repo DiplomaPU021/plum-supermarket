@@ -64,7 +64,7 @@ export default function EditProduct({
   const [subs, setSubs] = useState(subCategoriesProduct);
   const [groupSub, setGroupSub] = useState(groupSubCategories);
   const [images, setImages] = useState([]);
-  const [viewImages, setViewImages] = useState(product.subProducts[style].images.map(img=>img.url));
+  const [viewImages, setViewImages] = useState(product.subProducts[style].images.map(img=>img.url).slice(0, 5));
   const [loading, setLoading] = useState(false);
   const [dataOptions, setDataOptions] = useState([]);
   const [dataSelectedOptions, setDataSelectedOptions] = useState([]);

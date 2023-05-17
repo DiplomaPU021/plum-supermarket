@@ -23,6 +23,7 @@
   display: flex;
   flex-direction: row;
   align-items: flex-start;
+  justify-items: flex-start;
   padding: 50px 0px 0px 0px;
   margin: 0;
   column-gap: 20px;
@@ -39,11 +40,13 @@
 
 .checkout_form {
   max-width: 982px;
+  min-width: 480px;
 }
 
 .summary_form {
-  width: 540px;
-  margin-left: 15px;
+  min-width: 500px;
+  margin-top: 15px;
+  margin-left: 50px;
   padding: 0;
   position: sticky;
   top: 30px;
@@ -963,6 +966,50 @@
   border: 2px solid #220F4B;
   border-radius: 35px;
 }
+
+.liqpayBtn {
+  padding: 10px 24px;
+  max-width: 860px;
+  height: 46px;
+  border: 2px solid #220F4B;
+  border-radius: 35px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  font-family: 'Noto Sans';
+  font-weight: 320;
+  font-size: 23px;
+  border-radius: 30px;
+  color: #220F4B;
+  // background-color: #FAF8FF;
+  // border: 2px solid #220F4B;
+  background-color: #220F4B;
+  border: none;
+  &:hover {  
+     cursor: pointer;
+    box-shadow: 0px 0px 5px 0px #220F4B;
+    background-color: #220F4B;
+    // box-shadow: 0px 0px 5px 0px #220F4B;
+    // background-color: #FAF8FF;
+  }
+
+  button {
+    display: inline-block;
+      color: #FAF8FF;
+      background-color: transparent;
+      align-self: "center";
+   
+  }
+  img{
+    width: auto;
+    height: 25px;
+    gap: 10px;
+    padding-left: 10px;
+  }
+
+}
+
 
 .flex_row_card {
   align-items: flex-end;

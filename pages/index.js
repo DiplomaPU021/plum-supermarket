@@ -41,19 +41,19 @@ export default function Home({ country, products, categories }) {
 }
 export async function getServerSideProps(context) {
   const { query } = context;
-  const pageSize =  50;
-  
-  const countryData = await getCountryData();
+  const pageSize = 50;
   await db.connectDb();
+  const countryData = await getCountryData();
+
   //code below is for component TopSales
   let products = await Product.find()
-  .populate({ path: "category", model: Category })
-  .populate({ path: "subCategories", model: SubCategory })
-  //.populate({ path: "reviews.reviewBy", model: User })
-  //.populate({ path: "reviews.replies.replyBy", model: User })
-  .sort({ createdAt: -1 })
-  .limit(pageSize)
-  .lean();
+    .populate({ path: "category", model: Category })
+    .populate({ path: "subCategories", model: SubCategory })
+    //.populate({ path: "reviews.reviewBy", model: User })
+    //.populate({ path: "reviews.replies.replyBy", model: User })
+    .sort({ createdAt: -1 })
+    .limit(pageSize)
+    .lean();
   let newProducts = products.map((product) => {
     let style = -1;
     let mode = -1;
@@ -69,14 +69,14 @@ export async function getServerSideProps(context) {
       });
       sold += subProduct.sold;
 
-      if(subProduct.discount > discount){
+      if (subProduct.discount > discount) {
         discount = subProduct.discount;
       }
     });
-  
+
     let color = product.subProducts[style] ? product.subProducts[style].color?.color : '';
     let size = mode !== -1 ? product.subProducts[style].sizes[mode].size : "";
-  
+
     return {
       ...product,
       style,
@@ -89,6 +89,7 @@ export async function getServerSideProps(context) {
   });
   //line code below is for component Categories
   let categories = await Category.find().lean();
+  await db.disconnectDb();
   return {
     props: {
       country: countryData,

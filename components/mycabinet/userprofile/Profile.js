@@ -713,7 +713,7 @@ export default function Profile({ country, ...props }) {
                     <button
                       onClick={handleDeleteCard}
                     >
-                      - Видалити карту
+                      Видалити карту
                     </button> 
                 </div>
                 <Row className={styles.flex_row}>

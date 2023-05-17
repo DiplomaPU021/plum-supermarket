@@ -47,7 +47,7 @@ $green-color: #70BF63;
                 height: 35px;
                 border-radius: 50%;
                 display: grid;
-                align-items: flex-end;
+                align-items: center;
                 justify-content: center;
                 cursor: pointer;
                 background: $plum-violet-color;
@@ -81,7 +81,7 @@ $green-color: #70BF63;
                 display: grid;
                 cursor: pointer;
                 background: $plum-dark-color;
-                align-items: flex-end;
+                align-items: center;
                 justify-content: center;
 
                 svg {

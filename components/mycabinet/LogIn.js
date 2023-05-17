@@ -143,8 +143,8 @@ export default function LogIn({
                       }}
                       isInvalid={
                         !!formik.errors.login_email && formik.touched
-                        &&
-                        formik.initialErrors.login_error
+                       ||
+                       formik.touched&& formik.initialErrors.login_error
                       }
                     />
                     <Form.Control.Feedback
