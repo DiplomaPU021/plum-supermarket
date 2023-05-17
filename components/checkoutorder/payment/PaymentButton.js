@@ -78,7 +78,7 @@ const PaymentButton = ({ setIsPaid, totalAfterDiscount }) => {
         signature: signature,
       });
       setHtml(response.data.data);
-      console.log(response.data);
+      // console.log(response.data);
       setIsOpen(true);
       // return response.data;
     } catch (error) {
@@ -89,12 +89,14 @@ const PaymentButton = ({ setIsPaid, totalAfterDiscount }) => {
   return (
     <div>
       <button onClick={handlePayment}>
+        <span>Оплатити через</span>
         <img
           alt="Pay button"
           name="btn_text"
-          src="https://static.liqpay.ua/buttons/logo-small.png"
+          // src="https://res.cloudinary.com/dzctqbi3o/image/upload/v1684344202/product%20images/pmuawzivq3xzqzgp8s8a.png"
+          src="https://res.cloudinary.com/dzctqbi3o/image/upload/v1684344203/product%20images/tzwuwactikeyarmubdxg.png"
         />
-        <span>Оплатити через LiqPay</span>
+        
       </button>
       <LiqPayResponse html={html} show={isOpen} onHide={setIsOpen} />
     </div>

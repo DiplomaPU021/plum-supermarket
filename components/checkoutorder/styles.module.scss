@@ -970,7 +970,7 @@
 .liqpayBtn {
   padding: 10px 24px;
   max-width: 860px;
-  height: 52px;
+  height: 46px;
   border: 2px solid #220F4B;
   border-radius: 35px;
   display: flex;
@@ -981,12 +981,17 @@
   font-weight: 320;
   font-size: 23px;
   border-radius: 30px;
+  color: #220F4B;
+  // background-color: #FAF8FF;
+  // border: 2px solid #220F4B;
   background-color: #220F4B;
   border: none;
   &:hover {  
      cursor: pointer;
     box-shadow: 0px 0px 5px 0px #220F4B;
     background-color: #220F4B;
+    // box-shadow: 0px 0px 5px 0px #220F4B;
+    // background-color: #FAF8FF;
   }
 
   button {
@@ -997,9 +1002,10 @@
    
   }
   img{
-    color: greenyellow;
+    width: auto;
+    height: 25px;
     gap: 10px;
-    padding-right: 10px;
+    padding-left: 10px;
   }
 
 }
