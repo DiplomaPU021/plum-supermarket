@@ -82,6 +82,7 @@ export default function Header({ country }) {
     }
   };
   const handlerUserProfile = async () => {
+    if (session) {
     try {
       const res1 = await axios.get("/api/user/manageProfile");
       const data1 = res1.data;
@@ -93,6 +94,7 @@ export default function Header({ country }) {
     } catch (error) {
       console.log(error);
     }
+  }
   };
   const handleBtn1Click = () => {
     setLanguage1(true);

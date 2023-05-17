@@ -5,6 +5,7 @@ import PaymentForm from "@/components/paymentForm";
 import React, { useEffect, useState } from "react";
 import { toast } from "react-toastify";
 import 'react-toastify/dist/ReactToastify.css';
+import PaymentButton from "./PaymentButton";
 
 export default function PaymentMethod({
     paymentMethod,
@@ -15,6 +16,7 @@ export default function PaymentMethod({
     user
 }) {
     const [showCard, setShowCard] = useState(false);
+    const [showLiqPay, setShowLiqPay] = useState(false);
     const [showAddCard, setShowAddCard] = useState(false);
     const [userCreditCards, setUserCreditCards] = useState(user?.creditCards || []);
     const [selectedCard, setSelectedCard] = useState(userCreditCards && userCreditCards.length > 0 ? userCreditCards.find((creditCard) => creditCard.isDefault === true)._id :
@@ -29,6 +31,7 @@ export default function PaymentMethod({
     
     const handleChangePayment = (e) => {
         e.target.id === "paymentOnline" ? setShowCard(true) : setShowCard(false);
+        e.target.id === "liqpay" ? setShowLiqPay(true) : setShowLiqPay(false);
         setPayment((prevState) => ({
             ...prevState,
             paymentMethod: e.target.value,
@@ -140,7 +143,35 @@ export default function PaymentMethod({
                                         ) : null
                                     )}
                             </React.Fragment>
-                        ) : (
+                        ) : 
+                        pm.id === "liqpay" ? (
+                            <React.Fragment key={pm.id}>
+                                <Form.Check
+                                    type="radio"
+                                    className={styles.radio}
+                                    aria-label="radio 1"
+                                >
+                                    <Form.Check.Input
+                                        type="radio"
+                                        name="payment"
+                                        value={pm.name}
+                                        id={pm.id}
+                                        className={styles.rrr}
+                                        onChange={handleChangePayment}
+                                        checked={paymentMethod === `${pm.name}`}
+                                    />
+                                    <Form.Check.Label htmlFor={pm.id}>{pm.name}</Form.Check.Label>
+                                </Form.Check>
+                                {showLiqPay ? (
+                                    <div  className={styles.liqpayBtn}>
+                                         <PaymentButton totalAfterDiscount={totalAfterDiscount} setIsPaid={setIsPaid}/>
+                                    </div>
+                                   
+                                ) :
+                                    null}
+                            </React.Fragment>
+                        ) : 
+                        (
                             <Form.Check
                                 key={pm.id}
                                 type="radio"
@@ -160,6 +191,7 @@ export default function PaymentMethod({
                             </Form.Check>
                         )
                     )}
+                    
                 </Form.Group>
             </Row>
         </>

@@ -18,5 +18,11 @@ export const paymentMethods = [
         name:"Кредит та оплата частинами",
         id: "bankloan",
         description: "",
+    },
+    ,
+    {
+        name:"LiqPay",
+        id: "liqpay",
+        description: "",
     }
 ]
