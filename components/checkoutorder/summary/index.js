@@ -13,6 +13,7 @@ import CheckoutCart from "../cartitems";
 import PersonalDataPolicy from '../../checkoutorder/info/PersonalDataPolicy'
 import UserConditions from "../../checkoutorder/info/PersonalDataPolicy"
 import MyCabinet from "@/components/mycabinet";
+import DotLoaderSpinner from "@/components/loaders/dotLoader";
 
 
 
@@ -32,6 +33,7 @@ export default function Summary({
 
 }) {
     const { data: session } = useSession();
+    const [loading, setLoading] = useState(false);
     const dispatch = useDispatch();
     const router = useRouter();
     const [userSinginShow, setUserSigninShow] = useState(false);
@@ -83,9 +85,11 @@ export default function Summary({
         if (session) {
             if (orderError.userError === "" && orderError.shippingError === "" && orderError.paymentError === "") {
                 try {
+                    setLoading(true);
                     if (activeAddress != null) {
                         await saveAddress(activeAddress);
                     }
+
                     const { data } = await axios.post("/api/order/create", {
                         firstName: userData.firstName,
                         lastName: userData.lastName,
@@ -102,6 +106,7 @@ export default function Summary({
                         discount,
                         isPaid
                     });
+                    setLoading(false);
                     router.push(`/order/${data.order_id}`);
                     var empty = dispatch(emptyCart());
                 } catch (error) { console.error("summary129", error) }
@@ -117,6 +122,9 @@ export default function Summary({
     }
     return (
         <div className={styles.confirm}>
+             {
+                loading && <DotLoaderSpinner loading={loading} />
+            }
             <Formik
                 enableReinitialize
                 initialValues={{

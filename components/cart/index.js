@@ -11,9 +11,11 @@ import { signIn, useSession } from 'next-auth/react';
 import { useRouter } from "next/router"
 import { saveCart } from "@/requests/user"
 import MyCabinet from "@/components/mycabinet"
+import DotLoaderSpinner from "../loaders/dotLoader"
 
 export default function Cart({ error, setError, ...props }) {
     const router = useRouter();
+    const [loading, setLoading] = useState(false);
     const { data: session } = useSession();
     const cart = useSelector((state) => state.cart);
     const [footerVisible, setFooterVis] = useState("none");
@@ -32,6 +34,7 @@ export default function Cart({ error, setError, ...props }) {
     };
     const saveCartToDbHandler = () => {
         if (session) {
+            setLoading(true);
             if (window.location.pathname === "/checkout") {
                 saveCart(cart);
                 props.onHide();
@@ -40,6 +43,7 @@ export default function Cart({ error, setError, ...props }) {
                 saveCart(cart);
                 router.push("/checkout");
             }
+            setLoading(false);
         } else {
             openLoginModal();
         }
@@ -63,6 +67,9 @@ export default function Cart({ error, setError, ...props }) {
             centered
         >
             <div className={styles.modal_main}>
+            {
+                loading && <DotLoaderSpinner loading={loading} />
+            }
                 {loginModalShow ? (
                     <MyCabinet show={loginModalShow} onHide={() => setLoginModalShow(false)} />
                 ) : (
