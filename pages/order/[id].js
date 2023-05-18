@@ -1,14 +1,9 @@
 
-//import styles from "../../styles/category.module.scss";
 import styles from '../../styles/order.module.scss'
 import Header from '@/components/header'
-// import Order from '@/models/Order';
-import "bootstrap/dist/css/bootstrap.min.css";
-import LightPlumIcon from "@/components/icons/LightPlumIcon";
-import GreenChevronRight from "@/components/icons/ChevronRight";
+//import "bootstrap/dist/css/bootstrap.min.css";
 import Link from "next/link";
-import { Container, Row, Col, Button, Image } from "react-bootstrap";
-import Table from 'react-bootstrap/Table';
+import { Container, Row, Col, Image } from "react-bootstrap";
 import { getSession } from 'next-auth/react';
 import { getCountryData } from '@/utils/country';
 import { useState } from 'react';
@@ -16,7 +11,6 @@ import MyCabinet from '@/components/mycabinet';
 import db from '@/utils/db';
 import orderService from '@/utils/services/order.service';
 import userService from '@/utils/services/user.service';
-// import User from '@/models/User';
 
 
 

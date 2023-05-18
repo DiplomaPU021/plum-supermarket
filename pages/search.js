@@ -1,6 +1,4 @@
-import { Inter } from "next/font/google";
 import styles from "../styles/subCategory.module.scss";
-import { getSession } from "next-auth/react";
 import Header from "@/components/header";
 import ViewedProducts from "@/components/viewedProducts";
 import "bootstrap/dist/css/bootstrap.min.css";
@@ -19,8 +17,6 @@ import ProductCard from "@/components/productCard";
 import LoopIcon from "@/components/icons/LoopIcon";
 import RangeSlider from "@/components/range";
 import { useRouter } from "next/router";
-
-const inter = Inter({ subsets: ["latin"] });
 
 export default function Search({
   country,
@@ -284,7 +280,6 @@ export default function Search({
           <select
             style={{
               fontWeight:
-                valueSort === `${"all"}` ||
                 valueSort === `${"byPriceLowest"}` ||
                 valueSort === `${"byPriceBiggest"}`
                   ? "800"
@@ -294,7 +289,7 @@ export default function Search({
               handlerSortChanged(e.target.value), setValueSort(e.target.value);
             }}
           >
-            <option value="all">Сортування за ціною</option>
+            <option>Сортування за ціною</option>
             <option value="byPriceLowest">Від дешевих до дорогих</option>
             <option value="byPriceBiggest">Від дорогих до дешевих</option>
           </select>

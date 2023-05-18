@@ -12,7 +12,7 @@ import Category from "../../models/Category";
 import SubCategory from "@/models/SubCategory";
 import GroupSubCategory from "@/models/GroupSubCategory";
 import Product from "@/models/Product";
-import { useEffect, useState, use } from "react";
+import { useEffect, useState } from "react";
 import { useRouter } from "next/router";
 import ProductCard from "@/components/productCard";
 import LoopIcon from "@/components/icons/LoopIcon";
@@ -113,6 +113,9 @@ export default function subCategory({
           const bPrice = getBigestPrice(b);
           return bPrice - aPrice;
         });
+        break;
+      case "all":
+        sortedProducts = localProducts;
         break;
       default:
         break;
@@ -381,6 +384,7 @@ export default function subCategory({
               <select
                 style={{
                   fontWeight:
+                    valueSort === `${"all"}` ||
                     valueSort === `${"byPriceLowest"}` ||
                     valueSort === `${"byPriceBiggest"}`
                       ? "800"
@@ -391,6 +395,7 @@ export default function subCategory({
                     setValueSort(e.target.value);
                 }}
               >
+                <option value="all">Сортування за ціною</option>
                 <option value="byPriceLowest">Від дешевих до дорогих</option>
                 <option value="byPriceBiggest">Від дорогих до дешевих</option>
               </select>
@@ -944,10 +949,3 @@ export async function getServerSideProps(context) {
     },
   };
 }
-
-// [
-//   { name: "Acer", isChecked: false },
-//   { name: "Samsung", isChecked: false },
-//   { name: "HP", isChecked: false },
-//   { name: "Apple", isChecked: false },
-// ];
