@@ -726,7 +726,8 @@
 
 .form_input3 {
   padding: 15px 24px;
-  width: 490px;
+  width: 100%;
+  //width: 490px;
   height: 60px;
   border: 2px solid #220F4B;
   border-radius: 35px;
@@ -740,7 +741,8 @@
 }
 
 .promo {
-  width: 380px;
+  width: 100%;
+  //width: 380px;
   height: 30px;
   color: #220F4B;
   background: none;
@@ -767,7 +769,8 @@
 }
 
 .form_line {
-  width: 490px;
+  //width: 490px;
+  width: 100%;
   height: 0px;
   border: 2px solid #70BF63;
   margin-top: 10px;
@@ -776,6 +779,7 @@
 .promo_div {
   padding: 0px;
   margin: 0px;
+  width: 100%;
 }
 
 .info {
@@ -784,7 +788,8 @@
   align-items: flex-start;
   padding: 0px;
   color: $plum-dark-color;
-  width: 490px;
+  //width: 490px;
+  width: 100%;
   height: 160px;
   margin: 20px 0px 20px 0px;
 
@@ -815,29 +820,63 @@
 }
 
 .total {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  gap: 5px;
+ // display: flex;
+  //flex-direction: column;
+  //align-items: flex-start;
+  //gap: 5px;
   color: #220F4B;
-  width: 490px;
+  width: 100%;
+  //width: 490px;
 
-  ul {
-    padding: 0px;
+  .details {
+    
+    &_name {
+      margin-top: 15px;
+      padding: 0;
+      padding-right: 15px;
+      display: flex;
+      justify-items: flex-start;
+    }
 
-    li {
-      padding: 5px 5px 0px 5px;
+    &_data {
+      margin-top: 15px;
+      padding: 0;
+      display: flex;
+      justify-content: flex-end;
+    }
 
-      p {
-        margin: 0px;
-      }
+    span {
+      font-family: 'Noto Sans';
+      font-style: normal;
+      font-weight: 500;
+      font-size: 16px;
+      line-height: 22px;
+      color: #220F4B;
     }
   }
+
+  // ul {
+  //   padding: 0px;
+  //   justify-content: space-between;
+
+  //   li {
+  //     padding: 5px 5px 0px 5px;
+
+  //     p {
+  //       margin: 0px;
+  //       margin-right: 35px;
+  //     }
+  //     h6{
+  //       margin: 0px;
+  //     }
+  //   }
+  // }
 }
 
 //buttons
 
 .big_confirm {
+  margin-top: 15px;
   width: 730px;
   height: 48px;
   font-family: 'Noto Sans';
@@ -849,7 +888,8 @@
 }
 
 .small_sbm {
-  width: 490px;
+  //width: 490px;
+  width: 100%;
   height: 54px;
   font-family: 'Noto Sans';
   font-weight: 320;

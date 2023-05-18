@@ -1,5 +1,5 @@
 import styles from "../styles.module.scss"
-import { Form, Button } from "react-bootstrap"
+import { Form, Button, Row, Col } from "react-bootstrap"
 import { useEffect, useState } from 'react'
 import { applyPromocode, saveAddress } from "@/requests/user";
 import { Formik } from 'formik';
@@ -121,7 +121,7 @@ export default function Summary({
         }
     }
     return (
-        <div className={styles.confirm}>
+        <div>
              {
                 loading && <DotLoaderSpinner loading={loading} />
             }
@@ -137,7 +137,7 @@ export default function Summary({
             >
                 {(formik) => (
                     <Form >
-                        <div>
+                        <div  className={styles.confirm}>
                             <CheckoutCart cart={cart} />
                             <Button className={styles.promo} onClick={() => setShowPromo(showPromo === "none" ? "block" : "none")}>
                                 Промокод
@@ -165,8 +165,68 @@ export default function Summary({
                                     <Button className={styles.small_sbm} onClick={(e) => applyCouponHandler(e)}>Застосувати</Button>
                                 ) : <></>}
                             </div>
-                            <div className={styles.total}>
-                                <ul>
+                            <Row className={styles.total}>
+                                <Col lg={5} className={styles.details_name}>
+                                    <span>{totalQty} товарів на сумму</span>
+                                </Col>
+                                <Col lg={7}  className={styles.details_data}>
+                                    <span>{totalPrice.toLocaleString("uk-UA")} ₴</span>
+                                </Col>
+                                <Col lg={5} className={styles.details_name}>
+                                    <span>Доставка</span>
+                                </Col>
+                                <Col lg={7}  className={styles.details_data}>
+                                    <span>{delivery.deliveryType}</span>
+                                </Col>
+                                <Col lg={5} className={styles.details_name}>
+                                    <span>Адреса доставки</span>
+                                </Col>
+                                <Col lg={7}  className={styles.details_data}>
+                                    <span>{delivery.deliveryAddress}</span>
+                                </Col>
+                                <Col lg={5} className={styles.details_name}>
+                                    <span>Вартість доставки</span>
+                                </Col>
+                                <Col lg={7}  className={styles.details_data}>
+                                    <span>
+                                        {delivery.deliveryType == "Кур'єр на вашу адресу" 
+                                        ? `${Number(delivery.deliveryCost)} ₴` 
+                                        : delivery.deliveryCost}
+                                        </span>
+                                </Col>
+                                <Col lg={5} className={styles.details_name}>
+                                    <span>Оплата</span>
+                                </Col>
+                                <Col lg={7}  className={styles.details_data}>
+                                    <span>{paymentMethod}</span>
+                                </Col>
+                                <Col lg={5} className={styles.details_name}>
+                                    <span>Статус оплати</span>
+                                </Col>
+                                <Col lg={7}  className={styles.details_data}>
+                                    <span>{isPaid ? "Оплачено" : "Очікується оплата"}</span>
+                                </Col>
+                                {discount > 0 && (
+                                <>
+                                    <Col lg={5} className={styles.details_name}>
+                                        <span>Купон застосовано:</span>
+                                    </Col>
+                                    <Col lg={7}  className={styles.details_data}>
+                                        <span>
+                                            <b>-{discount}%</b>
+                                        </span>
+                                    </Col>
+                                </>
+                                 )}
+                                <Col lg={5} className={styles.details_name}>
+                                    <span>До сплати:</span>
+                                </Col>
+                                <Col lg={7}  className={styles.details_data}>
+                                    <span>
+                                    <h3>{Math.round(totalAfterDiscount).toLocaleString("uk-UA")} ₴</h3>
+                                    </span>
+                                </Col>
+                                 {/* <ul>
                                     <li><div className={styles.litext_btn}><p>{totalQty} товарів на сумму</p><h6>{totalPrice.toLocaleString("uk-UA")} ₴</h6></div></li>
                                     <li><div className={styles.litext_btn}><p>Доставка</p><h6>{delivery.deliveryType}</h6></div></li>
                                     <li><div className={styles.litext_btn}><p>Адреса доставки</p><h6>{delivery.deliveryAddress}</h6></div></li>
@@ -177,7 +237,7 @@ export default function Summary({
                                         <li><div className={styles.litext_btn}><p>Купон застосовано:</p><h6><b>-{discount}%</b></h6></div></li>
                                     )}
                                     <li><div className={styles.litext_btn}><p>До сплати:</p><h3>{Math.round(totalAfterDiscount).toLocaleString("uk-UA")} ₴</h3></div></li>
-                                </ul>
+                                </ul>  */}
                                 <Button className={styles.small_sbm} onClick={() => sendOrder()}>Підтвердити</Button>
                                 <Form.Control className={styles.form_input3}
                                     name="errorHidden"
@@ -186,8 +246,7 @@ export default function Summary({
                                 />
                                 <Form.Control.Feedback type="invalid">{formik.errors.orderError?.userError || formik.errors.orderError?.shippingError || formik.errors.orderError?.paymentError}
                                 </Form.Control.Feedback>
-                            </div>
-                            <div>
+                            </Row>
                                 <div className={styles.form_line}></div>
                                 <div className={styles.info}>
                                     <p>Отримання замовлення від 5 000 ₴ тільки за паспортом (Закон від 06.12.2019 № 361-IX)</p>
@@ -196,7 +255,6 @@ export default function Summary({
                                         <li><div className={styles.litext_btn}><p>угоди користувача</p><img width="115px" height="25px" src="../../../icons/info.png" onClick={() => setInfo2Show(true)}></img></div></li>
                                     </ul>
                                 </div>
-                            </div>
                         </div>
                     </Form>
                 )}
