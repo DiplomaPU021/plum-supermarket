@@ -13,8 +13,7 @@ import { BsFillCheckCircleFill } from "react-icons/bs";
 import Link from "next/link";
 import db from "@/utils/db";
 
-export default function dashboard({ users, products, orders }) {
-
+export default function Dashboard({ users, products, orders }) {
   const { data: session } = useSession();
   return (
     <div>
@@ -62,10 +61,21 @@ export default function dashboard({ users, products, orders }) {
               <GiTakeMyMoney />
             </div>
             <div className={styles.card_infos}>
-              <h4>+{orders.reduce((a, val) => a + val.costAfterDiscount, 0).toLocaleString('uk-UA')} ₴</h4>
-              <h5>-{orders
-                .filter((o) => !o.isPaid)
-                .reduce((a, val) => a + val.costAfterDiscount, 0).toLocaleString('uk-UA')} ₴ Не оплачено</h5>
+              <h4>
+                +
+                {orders
+                  .reduce((a, val) => a + val.costAfterDiscount, 0)
+                  .toLocaleString("uk-UA")}{" "}
+                ₴
+              </h4>
+              <h5>
+                -
+                {orders
+                  .filter((o) => !o.isPaid)
+                  .reduce((a, val) => a + val.costAfterDiscount, 0)
+                  .toLocaleString("uk-UA")}{" "}
+                ₴ Не оплачено
+              </h5>
               <span>Загальний дохід</span>
             </div>
           </div>
@@ -89,14 +99,22 @@ export default function dashboard({ users, products, orders }) {
               <tbody>
                 {orders?.slice(0, 10).map((order, i) => (
                   <tr key={i}>
-                    <td>№{order._id.substring(0, 6)} від {order.createdAt.substring(0, 10)}</td>
+                    <td>
+                      №{order._id.substring(0, 6)} від{" "}
+                      {order.createdAt.substring(0, 10)}
+                    </td>
                     <td>{order.paymentMethod}</td>
-                    <td>{order.isPaid ? (<BsFillCheckCircleFill style={{ fill: "#6cc070" }} />) : (<BsFillCheckCircleFill style={{ fill: "#ed4337" }} />)}</td>
+                    <td>
+                      {order.isPaid ? (
+                        <BsFillCheckCircleFill style={{ fill: "#6cc070" }} />
+                      ) : (
+                        <BsFillCheckCircleFill style={{ fill: "#ed4337" }} />
+                      )}
+                    </td>
                     <td>{order.status}</td>
                     <td>{order.costAfterDiscount} ₴</td>
                   </tr>
-                ))
-                }
+                ))}
               </tbody>
             </table>
           </div>
@@ -111,15 +129,27 @@ export default function dashboard({ users, products, orders }) {
                   <tr key={i}>
                     <td className={styles.user}>
                       <div className={styles.user_img}>
-                        {user.image !== 'profile.gif' ?
-                          (<img width="40px" height="40px" src={user.image} alt="photo" />)
-                          :
-                          (<img width="40px" height="40px" src="../../../../../profile/account2.png" alt="pic" />)
-                        }
+                        {user.image !== "profile.gif" ? (
+                          <img
+                            width="40px"
+                            height="40px"
+                            src={user.image}
+                            alt="photo"
+                          />
+                        ) : (
+                          <img
+                            width="40px"
+                            height="40px"
+                            src="../../../../../profile/account2.png"
+                            alt="pic"
+                          />
+                        )}
                       </div>
                     </td>
                     <td>
-                      <h5>{user.firstName} {user.lastName}</h5>
+                      <h5>
+                        {user.firstName} {user.lastName}
+                      </h5>
                       <span>{user.email}</span>
                     </td>
                   </tr>

@@ -15,7 +15,7 @@ import GroupSubCategory from "@/models/GroupSubCategory";
 import Product from "@/models/Product";
 import { getCountryData } from "@/utils/country";
 
-export default function category({ country, category, advice, brands }) {
+export default function Category({ country, category, advice, brands }) {
   return (
     <Container fluid className={styles.categorypage}>
       <Header country={country} />

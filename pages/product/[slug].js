@@ -25,7 +25,7 @@ import { updateNumberReviews, updateReviewRating } from "@/store/reviewSlice";
 import GroupSubCategory from "@/models/GroupSubCategory";
 import FloatingButton from '@/components/FloatingButton';
 
-export default function product({ product, popular, country, style, mode }) {
+export default function ProductSlug({ product, popular, country, style, mode }) {
   const [active, setActive] = useState({ style: style, mode: mode });
   const [productReview, setProductReview] = useState(product?.reviews?.reverse());
   const [productError, setProductError] = useState("");

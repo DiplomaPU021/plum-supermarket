@@ -12,7 +12,7 @@ import axios from "axios";
 import DotLoaderSpinner from "@/components/loaders/dotLoader"
 
 
-export default function forgot() {
+export default function Forgot() {
     const [email, setEmail] = useState("")
     const [loading, setLoading] = useState("")
     const [error, setError] = useState("")

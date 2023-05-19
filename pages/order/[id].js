@@ -14,7 +14,7 @@ import userService from '@/utils/services/user.service';
 
 
 
-export default function order({ country, orderData, user }) {
+export default function Order({ country, orderData, user }) {
     const [showMyCabinet, setShowMyCabinet] = useState(false);
     const handlerMyOrders = () => {
         setShowMyCabinet(true);

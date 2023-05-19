@@ -69,7 +69,7 @@ const initialState = {
   sold: 0,
 };
 
-export default function create({ parents, categories }) {
+export default function Create({ parents, categories }) {
   const dispatch = useDispatch();
   const router = useRouter();
   const [product, setProduct] = useState(initialState);

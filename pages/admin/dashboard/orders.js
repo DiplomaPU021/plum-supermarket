@@ -4,7 +4,7 @@ import Order from "@/models/Order";
 import OrdersTable from "@/components/admin/orders/table";
 import { useState } from "react";
 
-export default function users({ orders }) {
+export default function Orders({ orders }) {
   const [ordersForTable, setOrdersForTable] = useState(orders);
   return (
     <Layout>

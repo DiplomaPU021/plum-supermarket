@@ -4,7 +4,7 @@ import User from "../../../models/User";
 import UsersTable from "@/components/admin/users/table";
 import { useState } from 'react'
 
-export default function users({ users }) {
+export default function Users({ users }) {
     const [data, setData] = useState(users);
     return (
         <Layout>

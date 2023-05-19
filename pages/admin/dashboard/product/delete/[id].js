@@ -23,7 +23,7 @@ import { useRouter } from "next/router";
 
 const animatedComponents = makeAnimated();
 
-export default function EditProduct({
+export default function DeleteProduct({
   product,
   style,
   categories,

@@ -100,7 +100,7 @@ export default function Summary({
                         deliveryMethod: delivery,
                         totalPrice,
                         totalQty: cart.cartTotalQty,
-                        costAfterDiscount: totalAfterDiscount,
+                        costAfterDiscount: Number(totalAfterDiscount).toFixed(),
                         promocode,
                         discount,
                         isPaid

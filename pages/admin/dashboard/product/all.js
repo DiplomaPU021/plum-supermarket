@@ -8,7 +8,7 @@ import SubCategory from "@/models/SubCategory";
 import GroupSubCategory from "@/models/GroupSubCategory";
 import FloatingButton from "@/components/FloatingButton";
 
-export default function all({ products }) {
+export default function All({ products }) {
   return (
     <Layout>
        <FloatingButton />

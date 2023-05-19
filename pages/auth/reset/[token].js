@@ -15,7 +15,7 @@ import { Router } from "next/router"
 import { getSession, signIn } from "next-auth/react"
 
 
-export default function reset({ user_id }) {
+export default function Reset({ user_id }) {
     const [password, setPassword] = useState("")
     const [conf_password, setConf_password] = useState("")
     const [loading, setLoading] = useState("")

@@ -64,36 +64,12 @@ export default function EditProduct({
   const [subs, setSubs] = useState(subCategoriesProduct);
   const [groupSub, setGroupSub] = useState(groupSubCategories);
   const [images, setImages] = useState([]);
-  const [viewImages, setViewImages] = useState(product.subProducts[style].images.map(img=>img.url).slice(0, 5));
+  const [viewImages, setViewImages] = useState(
+    product.subProducts[style].images.map((img) => img.url).slice(0, 5)
+  );
   const [loading, setLoading] = useState(false);
   const [dataOptions, setDataOptions] = useState([]);
   const [dataSelectedOptions, setDataSelectedOptions] = useState([]);
-
-  const getGroupSub = async () => {
-    setLoading(true);
-    setGroupSub(
-      groupSubCategories.filter((c) => c.parent == productToEdit.category)
-    );
-    setLoading(false);
-  };
-  const getSubs = async () => {
-    setLoading(true);
-    setSubs(
-      subCategories.filter((c) => c.parent == productToEdit.groupSubCategory)
-    );
-    changeSelectedOptions();
-    setLoading(false);
-  };
-  useEffect(() => {
-    getGroupSub();
-    changeSelectedOptions();
-  }, [productToEdit.category]);
-
-  useEffect(() => {
-    setLoading(true);
-    getSubs();
-    setLoading(false);
-  }, [productToEdit.groupSubCategory]);
 
   const changeSelectedOptions = () => {
     if (product.category._id == productToEdit.category) {
@@ -125,6 +101,32 @@ export default function EditProduct({
       })
     );
   };
+  const getSubs = async () => {
+    setLoading(true);
+    setSubs(
+      subCategories.filter((c) => c.parent == productToEdit.groupSubCategory)
+    );
+    changeSelectedOptions();
+    setLoading(false);
+  };
+  useEffect(() => {
+    const getGroupSub = async () => {
+      setLoading(true);
+      setGroupSub(
+        groupSubCategories.filter((c) => c.parent == productToEdit.category)
+      );
+      setLoading(false);
+    };
+    getGroupSub();
+    changeSelectedOptions();
+  }, [productToEdit.category]);
+
+  useEffect(() => {
+    setLoading(true);
+    getSubs();
+    setLoading(false);
+  }, [productToEdit.groupSubCategory]);
+
   useEffect(() => {
     setLoading(true);
     changeSelectedOptions();
@@ -201,8 +203,8 @@ export default function EditProduct({
       dispatch(
         showDialog({
           header: "Будь ласка дотримуйтесь інструкцій",
-          show:true,
-          msgs:test
+          show: true,
+          msgs: test,
         })
       );
     }
@@ -312,8 +314,9 @@ export default function EditProduct({
                 onChange={handleChangeSubCategory}
                 placeholder="Виберіть субкатегорії"
                 components={animatedComponents}
-                className={`${styles.select} ${formik.touched && formik.errors && styles.error_select
-                  }`}
+                className={`${styles.select} ${
+                  formik.touched && formik.errors && styles.error_select
+                }`}
                 classNamePrefix="Виберіть субкатегорії"
                 options={dataOptions}
                 isClearable={true}

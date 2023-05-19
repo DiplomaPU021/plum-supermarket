@@ -17,28 +17,6 @@ export default function OrdersTable({ orders, setOrdersForTable }) {
     "Завершено",
     "Скасовано",
   ];
-
-  const detailsHandler = (order) => {
-    setActiveOrder(order);
-    setOpen(true);
-  };
-  const handleOrderStatus=async (order, e)=>{
-    setActiveOrder(order);
-    setUpdatedStatus({id:order._id, orderStatus: e.target.value});
-  }
-  const handleOrderStatusSave = async (order) => {
-    setActiveOrder(order);
-    if (updatedStatus.id===activeOrder._id) {
-        const result = await axios.put("/api/admin/order", {
-            id: activeOrder._id,
-            status: updatedStatus.orderStatus,
-        });
-        const newOrders = await axios.get("/api/admin/order");
-        setOrdersForTable(newOrders);
-    } else {
-        console.log("36 Nok");
-    }
-  };
   return (
     <>
       <div className={styles.header}>Замовлення</div>
