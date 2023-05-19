@@ -9,11 +9,13 @@ export default function Images({ images, setImages }) {
   const inputRef = useRef(null);
   const handleImages = (e) => {
     let files = Array.from(e.target.files);
+  
+    if (images.length + files.length > 10) {
+      setError("Дозволено максимум 10 фото.");
+      return;
+    }
+  
     files.forEach((img, i) => {
-      if (images.length == 10 || i == 2) {
-        setError("Дзволено максимум 10 фото.");
-        return;
-      }
       if (
         img.type !== "image/jpeg" &&
         img.type !== "image/png" &&
@@ -25,7 +27,7 @@ export default function Images({ images, setImages }) {
         files = files.filter((item) => item.name !== img.name);
         return;
       } else if (img.size > 1024 * 1024 * 5) {
-        setError(`${img.name} розмір завеликий, дозволено максимум 5 Мб..`);
+        setError(`${img.name} розмір завеликий, дозволено максимум 5 Мб.`);
         files = files.filter((item) => item.name !== img.name);
         return;
       } else {

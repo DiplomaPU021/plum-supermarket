@@ -727,7 +727,6 @@
 .form_input3 {
   padding: 15px 24px;
   width: 100%;
-  //width: 490px;
   height: 60px;
   border: 2px solid #220F4B;
   border-radius: 35px;
@@ -742,7 +741,6 @@
 
 .promo {
   width: 100%;
-  //width: 380px;
   height: 30px;
   color: #220F4B;
   background: none;
@@ -769,7 +767,6 @@
 }
 
 .form_line {
-  //width: 490px;
   width: 100%;
   height: 0px;
   border: 2px solid #70BF63;
@@ -788,7 +785,6 @@
   align-items: flex-start;
   padding: 0px;
   color: $plum-dark-color;
-  //width: 490px;
   width: 100%;
   height: 160px;
   margin: 20px 0px 20px 0px;
@@ -820,13 +816,8 @@
 }
 
 .total {
- // display: flex;
-  //flex-direction: column;
-  //align-items: flex-start;
-  //gap: 5px;
   color: #220F4B;
   width: 100%;
-  //width: 490px;
 
   .details {
     
@@ -854,23 +845,6 @@
       color: #220F4B;
     }
   }
-
-  // ul {
-  //   padding: 0px;
-  //   justify-content: space-between;
-
-  //   li {
-  //     padding: 5px 5px 0px 5px;
-
-  //     p {
-  //       margin: 0px;
-  //       margin-right: 35px;
-  //     }
-  //     h6{
-  //       margin: 0px;
-  //     }
-  //   }
-  // }
 }
 
 //buttons
@@ -888,7 +862,6 @@
 }
 
 .small_sbm {
-  //width: 490px;
   width: 100%;
   height: 54px;
   font-family: 'Noto Sans';

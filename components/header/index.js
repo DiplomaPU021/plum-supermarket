@@ -20,7 +20,6 @@ import axios from "axios";
 import { updateWishList } from "@/store/wishListSlice";
 import { addToSearchedList } from "@/store/searchedListSlice";
 import { useRouter } from "next/router";
-import CreatableSelect from "react-select/creatable";
 
 export default function Header({ country }) {
   const { data: session, status } = useSession();
@@ -123,10 +122,8 @@ export default function Header({ country }) {
     }
   };
 
- // const [str, setStr] = useState(router.query.text || "");
- //const [isLoading, setIsLoading] = useState(false);
+
   const [options, setOptions] = useState(searchedList.searchedListItems);
- // const [searchValue, setSearchValue] = useState(null);
   const [searchV, setSearchV] = useState("");
   const [selected, setSelected] = useState("");
   const [ulVisible, setUlVisible] = useState(true);
