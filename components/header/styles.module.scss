@@ -50,8 +50,25 @@
             ul{
                 padding: 0px;
                 gap: 15px;
-
+                max-height: 300px;
                 width: 100% !important;
+                overflow-y: auto;
+
+                &::-webkit-scrollbar {
+                    width: 3px;
+                }
+                
+                &::-webkit-scrollbar-track {
+                    background:#70BF6380;
+                    border-left: 1px solid  $light-wheet-color;
+                    border-right: 1px solid  $light-wheet-color;
+                    
+                }
+                
+                &::-webkit-scrollbar-thumb {
+                    background: $green-color;
+                    border-radius: 3px;
+                }
 
                 li{
                     background:  $light-wheet-color;

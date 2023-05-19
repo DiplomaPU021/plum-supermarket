@@ -38,7 +38,7 @@ export default function Images({
     const handleImages = (e) => {
         let files = Array.from(e.target.files);
         files.forEach((img, i) => {
-            if (photos.length >= 6) {
+            if (photos.length + files.length > 6) {
                 console.log("ERROR");
                 dispatch(
                     showDialog({
@@ -147,6 +147,7 @@ export default function Images({
                     >
                         {!photos.length ? (
                             <img
+                            style={{height: "600px"}}
                                 src="https://upload.wikimedia.org/wikipedia/commons/thumb/6/65/No-Image-Placeholder.svg/1200px-No-Image-Placeholder.svg.png"
                                 alt=""
                             />
