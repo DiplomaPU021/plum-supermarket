@@ -663,7 +663,6 @@ export default function Shipping({
               ) : null}
               <div
                 style={{ display: showAddAddressBlock }}
-                className={styles.street_div}
               >
                 <Form.Group>
                   <Form.Label className={styles.form_label} htmlFor="street">
