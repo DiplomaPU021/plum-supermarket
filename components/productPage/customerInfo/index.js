@@ -12,7 +12,7 @@ export default function CustomerInteraction() {
             <span className={styles.title}>Доставка</span>
             <ul>
               <li>Самовивіз з відділення пошти</li>
-              <li>Доставка кур'єром</li>
+              <li>Доставка кур&apos;єром</li>
             </ul>
           </Col>
         </Col>
@@ -70,7 +70,7 @@ export default function CustomerInteraction() {
                 онлайн
               </li>
               <li>
-               Безготівковим платежем для фізичних та юридичних осіб
+               Безготівковими для фізичних та юридичних осіб
               </li>
             </ul>
           </Col>

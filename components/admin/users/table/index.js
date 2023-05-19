@@ -24,7 +24,7 @@ export default function UsersTable({ users, setUsers }) {
                     <tr>
                         <th>#</th>
                         <th>Фото</th>
-                        <th>Ім'я</th>
+                        <th>Ім&apos;я</th>
                         <th>Прізвище</th>
                         <th>Телефон</th>
                         <th>Email</th>

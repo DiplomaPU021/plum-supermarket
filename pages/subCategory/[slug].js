@@ -20,7 +20,7 @@ import { getCountryData } from "@/utils/country";
 import RangeSlider from "@/components/range";
 import ViewedProducts from "@/components/viewedProducts";
 
-export default function SubCategory({
+export default function SubCategorySlug({
   country,
   category,
   brands,
