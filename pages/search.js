@@ -729,37 +729,106 @@ export async function getServerSideProps({ query }) {
     });
   });
 
-  let newProducts = products.map((product) => {
-    let style = -1;
-    let mode = -1;
-    // знайдемо індекс першого підпродукту з ненульовим залишком
-    for (let i = 0; i < product.subProducts.length; i++) {
-      let subProduct = product.subProducts[i];
-      for (let j = 0; j < subProduct.sizes.length; j++) {
-        if (subProduct.sizes[j].qty > 0) {
-          style = i;
-          mode = j;
+  let newProducts = []
+  if(colorQuery.length  > 0 || sizeQuery.length > 0){
+    if (colorQuery.length > 0) {
+      let filteredProducts = [];
+  
+      products.forEach((product) => {
+        let matchingSubProducts = product.subProducts.filter((subProduct) => {
+          return colorQuery.includes(subProduct.color?.color);
+        });
+  
+        if (matchingSubProducts.length > 0) {
+          matchingSubProducts.forEach((subProduct) => {
+            let newProduct = { ...product };
+            let style = product.subProducts.indexOf(subProduct);
+            let sizeIndex = subProduct.sizes.findIndex(s => sizeQuery.includes(s.size));
+            let mode = sizeIndex !== -1 ? sizeIndex : 0;
+  
+            newProduct.quantity = subProduct.sizes[mode].qty;
+            newProduct.style = style;
+            newProduct.mode = mode;
+            newProduct.color = subProduct.color?.color ?? "";
+            newProduct.size = subProduct.sizes[mode]?.size ?? "";
+  
+            filteredProducts.push(newProduct);
+          });
+        }
+      });
+  
+      newProducts = filteredProducts;
+    }
+  
+    if (sizeQuery.length > 0) {
+      let filteredProducts = [];
+  
+      products.forEach((product) => {
+        let matchingSubProducts = product.subProducts.filter((subProduct) =>
+          subProduct.sizes.some(
+            (s) => sizeQuery.includes(s.size) && (colorQuery.length === 0 
+              || colorQuery.includes(subProduct.color.color))
+          )
+        );
+  
+        if (matchingSubProducts.length > 0) {
+          matchingSubProducts.forEach((subProduct) => {
+            sizeQuery.forEach((size) =>{
+              let sizeIndex = subProduct.sizes.findIndex(s => s.size === size);
+              if(sizeIndex >= 0){
+                let newProduct = { ...product };
+                let style = product.subProducts.indexOf(subProduct);
+                let mode = sizeIndex !== -1 ? sizeIndex : 0;
+      
+                newProduct.quantity = subProduct.sizes[mode].qty;
+                newProduct.style = style;
+                newProduct.mode = mode;
+                newProduct.color = subProduct.color?.color ?? "";
+                newProduct.size = subProduct.sizes[mode]?.size ?? "";
+      
+                filteredProducts.push(newProduct);
+              }
+            })
+          });
+        }
+      });
+  
+      newProducts = filteredProducts;
+    }
+  }else{
+    newProducts = products.map((product) => {
+      let style = -1;
+      let mode = -1;
+      // знайдемо індекс першого підпродукту з ненульовим залишком
+      for (let i = 0; i < product.subProducts.length; i++) {
+        let subProduct = product.subProducts[i];
+        for (let j = 0; j < subProduct.sizes.length; j++) {
+          if (subProduct.sizes[j].qty > 0) {
+            style = i;
+            mode = j;
+            break;
+          }
+        }
+        if (style !== -1) {
           break;
         }
       }
-      if (style !== -1) {
-        break;
-      }
-    }
+  
+      let color = product.subProducts[style]
+        ? product.subProducts[style].color?.color
+        : "";
+      let size = product.subProducts[style].sizes[mode].size;
+  
+      return {
+        ...product,
+        style,
+        mode,
+        color,
+        size,
+      };
+    });
+  }
 
-    let color = product.subProducts[style]
-      ? product.subProducts[style].color?.color
-      : "";
-    let size = product.subProducts[style].sizes[mode].size;
-
-    return {
-      ...product,
-      style,
-      mode,
-      color,
-      size,
-    };
-  });
 
   await db.disconnectDb();
   return {

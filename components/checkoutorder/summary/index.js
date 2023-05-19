@@ -5,14 +5,13 @@ import { applyPromocode, saveAddress } from "@/requests/user";
 import { Formik } from 'formik';
 import * as yup from 'yup';
 import axios from "axios";
-import { signIn, useSession } from "next-auth/react";
+import { useSession } from "next-auth/react";
 import { useDispatch } from "react-redux";
 import { emptyCart } from "@/store/cartSlice";
 import { useRouter } from "next/router";
 import CheckoutCart from "../cartitems";
 import PersonalDataPolicy from '../../checkoutorder/info/PersonalDataPolicy'
 import UserConditions from "../../checkoutorder/info/PersonalDataPolicy"
-import MyCabinet from "@/components/mycabinet";
 import DotLoaderSpinner from "@/components/loaders/dotLoader";
 
 
@@ -226,18 +225,6 @@ export default function Summary({
                                     <h3>{Math.round(totalAfterDiscount).toLocaleString("uk-UA")} ₴</h3>
                                     </span>
                                 </Col>
-                                 {/* <ul>
-                                    <li><div className={styles.litext_btn}><p>{totalQty} товарів на сумму</p><h6>{totalPrice.toLocaleString("uk-UA")} ₴</h6></div></li>
-                                    <li><div className={styles.litext_btn}><p>Доставка</p><h6>{delivery.deliveryType}</h6></div></li>
-                                    <li><div className={styles.litext_btn}><p>Адреса доставки</p><h6>{delivery.deliveryAddress}</h6></div></li>
-                                    <li><div className={styles.litext_btn}><p>Вартість доставки</p><h6>{delivery.deliveryType == "Кур'єр на вашу адресу" ? `${Number(delivery.deliveryCost)} ₴` : delivery.deliveryCost}</h6></div></li>
-                                    <li><div className={styles.litext_btn}><p>Оплата</p><h6>{paymentMethod}</h6></div></li>
-                                    <li><div className={styles.litext_btn}><p>Статус оплати</p><h6>{isPaid ? "Оплачено" : "Очікується оплата"}</h6></div></li>
-                                    {discount > 0 && (
-                                        <li><div className={styles.litext_btn}><p>Купон застосовано:</p><h6><b>-{discount}%</b></h6></div></li>
-                                    )}
-                                    <li><div className={styles.litext_btn}><p>До сплати:</p><h3>{Math.round(totalAfterDiscount).toLocaleString("uk-UA")} ₴</h3></div></li>
-                                </ul>  */}
                                 <Button className={styles.small_sbm} onClick={() => sendOrder()}>Підтвердити</Button>
                                 <Form.Control className={styles.form_input3}
                                     name="errorHidden"

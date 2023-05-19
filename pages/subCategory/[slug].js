@@ -271,18 +271,22 @@ export default function subCategory({
   
         if (matchingSubProducts.length > 0) {
           matchingSubProducts.forEach((subProduct) => {
-            let newProduct = { ...product };
-            let style = product.subProducts.indexOf(subProduct);
-            let sizeIndex = subProduct.sizes.findIndex(s => sizesChecked.includes(s.size));
-            let mode = sizeIndex !== -1 ? sizeIndex : 0;
-  
-            newProduct.quantity = subProduct.sizes[mode].qty;
-            newProduct.style = style;
-            newProduct.mode = mode;
-            newProduct.color = subProduct.color?.color ?? "";
-            newProduct.size = subProduct.sizes[mode]?.size ?? "";
-  
-            newProducts.push(newProduct);
+            sizesChecked.forEach((size) => {
+              let sizeIndex = subProduct.sizes.findIndex(s => s.size === size);
+              if(sizeIndex >= 0){
+                let newProduct = { ...product };
+                let style = product.subProducts.indexOf(subProduct);
+                let mode = sizeIndex !== -1 ? sizeIndex : 0;
+      
+                newProduct.quantity = subProduct.sizes[mode].qty;
+                newProduct.style = style;
+                newProduct.mode = mode;
+                newProduct.color = subProduct.color?.color ?? "";
+                newProduct.size = subProduct.sizes[mode]?.size ?? "";
+      
+                newProducts.push(newProduct);
+              }
+            })
           });
         }
       });

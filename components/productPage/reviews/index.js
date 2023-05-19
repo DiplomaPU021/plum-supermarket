@@ -135,7 +135,7 @@ export default function Reviews({ product, productReview, setProductReview }) {
                       </div>
                       <div className={styles.starsLikes_likes_like}>
                         {/* TODO */}
-                        <span>12</span>
+                        <span>0</span>
                         <button>
                           <LikeIcon fillColor="#220F4B" />
                         </button>
