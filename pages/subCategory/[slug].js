@@ -146,8 +146,14 @@ export default function subCategory({
     min: minPrice,
     max: maxPrice,
   });
-  const [priceChecked, setPriceChecked] = useState(false);
+  useEffect(() => {
+    setValuePrice({
+      min: minPrice,
+      max: maxPrice,
+    });
+  }, [minPrice, maxPrice]);
 
+  const [priceChecked, setPriceChecked] = useState(false);
   const [brandsChecked, setBrandsChecked] = useState([]);
   const [colorsChecked, setColorsChecked] = useState([]);
   const [sizesChecked, setSizesChecked] = useState([]);
@@ -874,6 +880,8 @@ export async function getServerSideProps(context) {
       }
     }
   }
+  if (cheapestPrice === null) cheapestPrice = 0;
+  if (mostExpensivePrice === null) mostExpensivePrice = 0;
 
   const categories = products.reduce((acc, product) => {
     product.details.forEach((detail) => {

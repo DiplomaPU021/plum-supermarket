@@ -10,7 +10,7 @@ export default function Brands({ brands }) {
           <Image
             key={i}
             className={styles.img}
-            src={`../../images/brands/${img}.png`}
+            src={`../../images/brands/${img.toLowerCase()}.png`}
             alt=""
           />
         ))}

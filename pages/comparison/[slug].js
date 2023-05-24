@@ -296,7 +296,7 @@ export default function ComparisonPage({
                     style={{ position: "absolute !important" }}
                   >
                     <Col className={styles.col}>
-                      <ComparisonCard product={p} />
+                      <ComparisonCard product={p} style={p.style} mode={p.mode} />
                     </Col>
                   </SwiperSlide>
                 ))
