@@ -1,6 +1,6 @@
 import styles from "../../styles/comparison.module.scss";
 import "bootstrap/dist/css/bootstrap.min.css";
-import { Card } from "react-bootstrap";
+import { Card, Image } from "react-bootstrap";
 import { Tooltip } from "react-tooltip";
 import "react-tooltip/dist/react-tooltip.css";
 
@@ -24,7 +24,7 @@ export default function Info({showTooltip, setShowTooltip, tooltipData}) {
               setShowTooltip(false);
             }}
           >
-            <img src="../../icons/close_btn.png" alt="" />
+            <Image src="../../icons/close_btn.png" alt="" />
           </button>
         </Card.Title>
         <Card.Text className={styles.text} scrollable="true">
