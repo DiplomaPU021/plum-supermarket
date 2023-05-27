@@ -11,7 +11,7 @@ import db from "../../../utils/db";
 import emailService from "@/utils/services/email.service";
 
 
-db.connectDb();
+// db.connectDb();
 export default NextAuth({
   adapter: MongoDBAdapter(clientPromise),
   providers: [
@@ -24,6 +24,7 @@ export default NextAuth({
       async authorize(credentials, req) {
         const email = credentials.email;
         const password = credentials.password;
+        await db.connectDb();
         const user = await User.findOne({ email: email });
         if (user) {
           if (user.email_verified == true) {
@@ -43,6 +44,7 @@ export default NextAuth({
       clientId: process.env.GOOGLE_ID,
       clientSecret: process.env.GOOGLE_SECRET,
       async profile(profile) {
+        await db.connectDb();
         return {
           id: profile.sub,
           email: profile.email,
@@ -57,9 +59,11 @@ export default NextAuth({
       },
     }),
     FacebookProvider({
+      
       clientId: process.env.FACEBOOK_CLIENT_ID,
       clientSecret: process.env.FACEBOOK_CLIENT_SECRET,
       async profile(profile, options) {
+        await db.connectDb();
         const userProfile = {
           id: profile.id,
           email: profile.email,
@@ -87,6 +91,7 @@ export default NextAuth({
   ],
   callbacks: {
     async session({ session, token, account }) {
+      await db.connectDb();
       let user = await User.findById(token.sub);
       if (token) {
       }
@@ -108,6 +113,7 @@ const SingnInUser = async ({ password, user }) => {
   if (!user.password) {
     throw new Error("Будь ласка введіть пароль");
   }
+  await db.connectDb();
   const testPassword = await bcrypt.compare(password, user.password);
   if (!testPassword) {
     throw new Error("Пароль введено не вірно");
