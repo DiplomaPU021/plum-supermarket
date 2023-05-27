@@ -296,10 +296,10 @@ export default function ProductCard({ product, style, mode }) {
                 className={styles.product__container_infos_pricebtn_price}
               >
                 <span className={styles.pricediscount}>
-                  {new Intl.NumberFormat("uk-UA").format(product.subProducts[style]?.sizes[mode].price)} {product.subProducts[style]?.sizes[mode].price_unit}
+                  {new Intl.NumberFormat("uk-UA").format(product.subProducts[style].sizes[mode].price)} {product.subProducts[style]?.sizes[mode].price_unit}
                 </span>
                 <span className={styles.priceregular}>
-                  {new Intl.NumberFormat("uk-UA").format(Math.round((product.subProducts[style]?.sizes[mode].price * (100 - product.subProducts[style]?.discount)) / 100))} {product.subProducts[style]?.sizes[mode].price_unit}
+                  {new Intl.NumberFormat("uk-UA").format(Math.round((product.subProducts[style].sizes[mode].price * (100 - product.subProducts[style]?.discount)) / 100))} {product.subProducts[style]?.sizes[mode].price_unit}
                 </span>
               </Col>
             ) : (
