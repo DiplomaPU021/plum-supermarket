@@ -18,7 +18,7 @@ export default function WishList({ error, setError, ...props }) {
         else {
             setFooterVis("none")
         }
-    })
+    },[wishList.wishListItems.length])
 
     return (
         <Modal

@@ -138,7 +138,7 @@ export default function SubCategorySlug({
       b.fields.map((f) => keys.push(f.name));
     });
     setAccordionKeys(keys);
-  }, [sideBlockData]);
+  }, [sideBlockData, accordionKeys]);
 
   //--------------------------------------------------------->>
 
@@ -304,7 +304,7 @@ export default function SubCategorySlug({
       filteredProducts = filteredProducts.filter((product) =>
         product.subProducts.some((p) =>
           p.sizes.some(
-            (s) => s.price > valuePrice.min && s.price < valuePrice.max
+            (s) => s.price >= valuePrice.min && s.price <= valuePrice.max
           )
         )
       );

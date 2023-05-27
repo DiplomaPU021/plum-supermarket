@@ -3,7 +3,8 @@ import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import Link from "next/link";
-import Image from "react-bootstrap/Image";
+import Image from "next/image";
+
 
 export default function Categories({ categories }) {
   return (
@@ -14,9 +15,10 @@ export default function Categories({ categories }) {
             <Col lg={3} key={i} className={styles.col}>
               <Link href={`/category/${ca.slug}`} className={styles.link}>
                 <Image
-                  width="34px"
-                  height="34px"
-                  src={`../../../images/categories/${ca.slug}.png`}
+                  width={34}
+                  height={34}
+                  src={`/images/categories/${ca.slug}.png`}
+                  alt="category icon"
                 />
                 {ca.name}
               </Link>

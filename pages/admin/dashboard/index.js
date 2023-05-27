@@ -12,6 +12,7 @@ import { SiProducthunt } from "react-icons/si";
 import { BsFillCheckCircleFill } from "react-icons/bs";
 import Link from "next/link";
 import db from "@/utils/db";
+import Image from "next/image";
 
 export default function Dashboard({ users, products, orders }) {
   const { data: session } = useSession();
@@ -130,17 +131,17 @@ export default function Dashboard({ users, products, orders }) {
                     <td className={styles.user}>
                       <div className={styles.user_img}>
                         {user.image !== "profile.gif" ? (
-                          <img
-                            width="40px"
-                            height="40px"
+                          <Image
+                            width={40}
+                            height={40}
                             src={user.image}
                             alt="photo"
                           />
                         ) : (
-                          <img
-                            width="40px"
-                            height="40px"
-                            src="../../../../../profile/account2.png"
+                          <Image
+                            width={40}
+                            height={40}
+                            src="/profile/account2.png"
                             alt="pic"
                           />
                         )}

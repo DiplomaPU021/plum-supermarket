@@ -21,7 +21,8 @@ export default function Reviews({ product, productReview, setProductReview }) {
 
   useEffect(() => {
     setProductReview(product?.reviews?.reverse());
-  }, [product.slug]);
+  }, [product.slug, product?.reviews, setProductReview]);
+
   const handleFeedBack = () => {
     if (session) {
       setFeedback(true);

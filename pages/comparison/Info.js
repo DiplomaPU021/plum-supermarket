@@ -24,7 +24,7 @@ export default function Info({showTooltip, setShowTooltip, tooltipData}) {
               setShowTooltip(false);
             }}
           >
-            <Image src="../../icons/close_btn.png" alt="" />
+            <Image src="../../icons/close_btn.png" alt="close button"/>
           </button>
         </Card.Title>
         <Card.Text className={styles.text} scrollable="true">

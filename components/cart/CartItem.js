@@ -233,10 +233,7 @@ export default function CartItem({ product, error, setError, deleteConfirm, setD
                 <div className={styles.bord}>
                   {product.discount > 0 ? (
                     <h5>
-                      {Math.round(product.price * product.qty).toLocaleString(
-                        "uk-UA"
-                      )}{" "}
-                      {product.price_unit}
+                      {new Intl.NumberFormat("uk-UA").format(Math.round(product.price * product.qty))} {product.price_unit}
                     </h5>
                   ) : (
                     <></>

@@ -22,10 +22,6 @@ const PaymentButton = ({ setIsPaid, totalAfterDiscount }) => {
   const [html, setHtml] = useState("");
   const [isOpen, setIsOpen] = useState(false);
 
-  useEffect(() => {
-    setSignature(cnb_signature(paymentParams));
-    setData(Buffer.from(JSON.stringify(paymentParams)).toString("base64"));
-  }, []);
   const cnb_signature = (params) => {
     params = cnb_params(params);
     // setData(Buffer.from(JSON.stringify(params)).toString('base64'));
@@ -33,6 +29,11 @@ const PaymentButton = ({ setIsPaid, totalAfterDiscount }) => {
       params.private_key + data + process.env.LIQPAY_SECRET_KEY
     );
   };
+  useEffect(() => {
+    setSignature(cnb_signature(paymentParams));
+    setData(Buffer.from(JSON.stringify(paymentParams)).toString("base64"));
+  }, [cnb_signature, paymentParams]);
+
 
   const cnb_params = (params) => {
     if (!params.version) {
@@ -96,7 +97,7 @@ const PaymentButton = ({ setIsPaid, totalAfterDiscount }) => {
           // src="https://res.cloudinary.com/dzctqbi3o/image/upload/v1684344202/product%20images/pmuawzivq3xzqzgp8s8a.png"
           src="https://res.cloudinary.com/dzctqbi3o/image/upload/v1684344203/product%20images/tzwuwactikeyarmubdxg.png"
         />
-        
+
       </button>
       <LiqPayResponse html={html} show={isOpen} onHide={setIsOpen} />
     </div>

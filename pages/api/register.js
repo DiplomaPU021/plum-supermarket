@@ -4,7 +4,8 @@ import authService from "@/utils/services/auth.service";
 import db from "@/utils/db";
 import { createActivationToken } from "@/utils/tokens";
 
-const handler = nc().post(async (req, res) => {
+const handler = nc();
+handler.post(async (req, res) => {
   try {
     await db.connectDb();
     const { email, password, conf_password} = req.body;

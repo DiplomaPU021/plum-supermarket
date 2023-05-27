@@ -56,7 +56,7 @@ export default function Cart({ error, setError, ...props }) {
         else {
             setFooterVis("none")
         }
-    })
+    }, [cart.cartItems.length])
 
     return (
         <Modal

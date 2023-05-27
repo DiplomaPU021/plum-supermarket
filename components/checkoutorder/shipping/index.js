@@ -5,6 +5,7 @@ import CityModal from "../citymodal";
 import { getStreets } from "@/requests/street";
 import useDeepCompareEffect from "use-deep-compare-effect";
 import { deliveryTypes } from "@/data/deliveryTypes";
+import CustomForm from "./CustomForm";
 
 export default function Shipping({
   user,
@@ -307,6 +308,11 @@ export default function Shipping({
   };
 
   const handleChangeDelivery = (e) => {
+    setAddressValues({
+      ...addressValues,
+      ground:"",
+      elevator: "Відсутній",
+    });
     if (e.target.name === "selfPickup") {
       const addressDefault = deliveryTypes[0].adresses.find(
         (item) => item.city === selectedCity?.object_name
@@ -479,6 +485,12 @@ export default function Shipping({
       ...addressValues,
       ground: e.target.value,
     });
+        setDelivery({
+          ...delivery,
+          deliveryAddress: `${selectedCity?.value}, ${activeAddress.address}, ${e.target.value} поверх, ліфт ${addressValues.elevator}`,
+        });
+      
+    
   };
   const handleSelectElevator = (e) => {
     const options = e.target.options;
@@ -489,6 +501,12 @@ export default function Shipping({
       ...addressValues,
       elevator: e.target.value,
     });
+    if (selectedAddress && selectedAddress != "") {
+        setDelivery({
+          ...delivery,
+          deliveryAddress: `${selectedCity?.value}, ${activeAddress.address}, ${addressValues.ground} поверх, ліфт ${e.target.value}`,
+      })
+    }
   };
   const handleCancelAddAdress = () => {
     if (filteredUserAdresses.length > 0) {
@@ -793,7 +811,8 @@ export default function Shipping({
                 <Row className={styles.deltime_text}>
                   Вкажіть зручний день та час для доставки
                 </Row>
-                <Form.Group className={styles.status}>
+                <CustomForm/>
+                {/* <Form.Group className={styles.status}>
                   <Form.Check
                     className={styles.status__radiobtn}
                     type="radio"
@@ -868,7 +887,7 @@ export default function Shipping({
                     id="formHorizontalRadios8"
                     value="16:00-18:00"
                   />
-                </Form.Group>
+                </Form.Group> */}
               </Container>
             </Row>
             <Row>

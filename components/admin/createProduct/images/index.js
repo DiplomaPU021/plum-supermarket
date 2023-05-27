@@ -26,14 +26,14 @@ export default function Images({
     }, [photos]);
 
     useEffect(() => {
-        console.log(viewImages)
+        // console.log(viewImages)
         if (window.location.pathname.startsWith('/admin/dashboard/product/') && window.location.pathname !== "/admin/dashboard/product/create" 
         && viewImages.length !== null) {
             setDivVisible(true)
         } else {
             setDivVisible(false)
         }
-    })
+    },[viewImages])
 
     const handleImages = (e) => {
         let files = Array.from(e.target.files);

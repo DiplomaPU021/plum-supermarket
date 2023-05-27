@@ -12,7 +12,7 @@ export default function Congrats({ setRegShow, setLogShow, setCongratsShow }) {
     return (
 
         <Modal.Body className={styles.modalbodyreg}>
-            <Image src='../../../images/usercongrats.png' />
+            <Image src='../../../images/usercongrats.png'  alt=""/>
             <div className={styles.line}></div>
             <h5>На ваш email відправлено лінк для валідації</h5>
             <div className={styles.logbtns}>

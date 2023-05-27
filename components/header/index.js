@@ -113,7 +113,7 @@ export default function Header({ country }) {
     } else {
       setDivVisible(true);
     }
-  });
+  },[]);
   const setShowWishListHandler = () => {
     if (session) {
       setWishShow(true);
