@@ -156,14 +156,14 @@ export default function ComparisonCard({ product, style, mode }) {
                   href={`/product/${product.slug}?style=${product.style}&code=${product.mode}`}
                 >
                   {(
-                    product.name +
+                    product.name.substring(0, 45) +
                     " " +
                     (product.color ? product.color.color : "") +
                     " " +
                     product.size
                   ).length > 55
                     ? `${product.name.substring(0, 55)}...`
-                    : product.name +
+                    : product.name.substring(0, 45) +
                     " " +
                     (product.color ? product.color.color : "") +
                     " " +

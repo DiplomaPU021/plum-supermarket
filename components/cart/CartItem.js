@@ -144,13 +144,13 @@ export default function CartItem({ product, error, setError, deleteConfirm, setD
                   product.size
                 ).length > 55
                   ? `${(
-                    product.name +
+                    product.name.substring(0, 45) +
                     " " +
                     (product.color ? product.color.color : "") +
                     " " +
                     product.size
                   ).substring(0, 55)}...`
-                  : product.name +
+                  : product.name.substring(0, 45) +
                   " " +
                   (product.color ? product.color.color : "") +
                   " " +

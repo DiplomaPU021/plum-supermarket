@@ -131,9 +131,9 @@ export default function WishItem({ product, error, setError }) {
                         </Col>
                         <Col md={8} xs={12} sm={8} className={styles.cardtext}>
                             <Link href={`/product/${product.slug}?style=${product.style}&code=${product.mode}`} className={styles.h5text}>
-                                {(product.name + " " + (product.color ? product.color.color : ""
+                                {(product.name.substring(0, 45) + " " + (product.color ? product.color.color : ""
                                 ) + " " + product.size).length > 55
-                                    ? `${(product.name + " " + (product.color ? product.color.color : ""
+                                    ? `${(product.name.substring(0, 45) + " " + (product.color ? product.color.color : ""
                                     ) + " " + product.size).substring(0, 55)}...`
                                     : product.name + " " + (product.color ? product.color.color : "") + " " + product.size}
                             </Link>
