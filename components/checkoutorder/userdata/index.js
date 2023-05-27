@@ -187,7 +187,7 @@ export default function UserData({
                             </Col>
                             <Col className={styles.col_contacts}>
                                 <Form.Group as={Col} controlId="groupName">
-                                    <Form.Label className={styles.form_label}>Ім'я</Form.Label>
+                                    <Form.Label className={styles.form_label}>Ім&apos;я</Form.Label>
                                     <Form.Control
                                         className={styles.form_input}
                                         type="text"
