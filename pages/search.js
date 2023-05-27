@@ -719,10 +719,10 @@ export async function getServerSideProps({ query }) {
   prodsForPrices.forEach((product) => {
     product.subProducts.forEach((subProduct) => {
       subProduct.sizes.forEach((size) => {
-        if (size.price < minPrice) {
+        if (size.price <= minPrice) {
           minPrice = size.price;
         }
-        if (size.price > maxPrice) {
+        if (size.price >= maxPrice) {
           maxPrice = size.price;
         }
       });

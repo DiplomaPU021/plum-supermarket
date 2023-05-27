@@ -64,7 +64,7 @@ export default function Infos({
     } else {
       setCartChosen(false);
     }
-  }, [cart.cartTotal, product.style, product.mode]);
+  }, [cart.cartTotal, product.style, product.mode, cart.cartItems, product._id]);
 
   useEffect(() => {
     let _uid = `${product._id}_${product.style}_${product.mode}`;
@@ -79,7 +79,7 @@ export default function Infos({
       setWishChosen(false);
       setIsOpenInWish(false);
     }
-  }, [wishList.wishListTotal, product.style, product.mode]);
+  }, [wishList.wishListTotal, product.style, product.mode, product._id, wishList.wishListItems]);
 
   useEffect(() => {
     let exist = null;
@@ -95,7 +95,7 @@ export default function Infos({
     } else {
       setScaleChosen(false);
     }
-  }, [scaleList.scaleListTotal, product.style, product.mode]);
+  }, [scaleList.scaleListTotal, product.style, product.mode, product._id, scaleList.scaleListItems]);
 
   const addToCartHandler = async () => {
     const { data } = await axios.get(
@@ -147,7 +147,7 @@ export default function Infos({
             qty,
             size: data.size,
             _uid,
-            mode: product.mode,
+            mode: Number(product.mode),
           })
         );
         saveWishList({
@@ -242,22 +242,24 @@ export default function Infos({
         <div className={styles.infos__priceandaction_price}>
           {product.subProducts[product.style].discount > 0 ? (
             <div>
-              <span className={styles.pricediscount}>{`${Number(
-                product.price
-              ).toLocaleString("uk-UA")} ${product.price_unit}`}</span>
+              <span className={styles.pricediscount}>
+                {new Intl.NumberFormat("uk-UA").format(Number(product.priceAfter))} {product.price_unit}
+              </span>
               <span
                 style={{ opacity: opacity }}
                 className={styles.priceregular}
               >
-                {`${Number(product.priceAfter).toLocaleString("uk-UA")} ${product.price_unit
-                  }`}
+                {/* {`${Number(product.priceAfter).toLocaleString("uk-UA")} ${product.price_unit
+                  }`} */}
+                {new Intl.NumberFormat("uk-UA").format(Number(product.priceAfter))} {product.price_unit}
+
               </span>
             </div>
           ) : (
             <div>
-              <span className={styles.priceregular}>{`${Number(
-                product.price
-              ).toLocaleString("uk-UA")} ${product.price_unit}`}</span>
+              <span className={styles.priceregular}>
+                {new Intl.NumberFormat("uk-UA").format(Number(product.priceAfter))} {product.price_unit}
+              </span>
             </div>
           )}
         </div>

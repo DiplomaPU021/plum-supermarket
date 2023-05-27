@@ -272,6 +272,7 @@ export default function Profile({ country, ...props }) {
           `${newAddress.cityType} ${newAddress.city}, ${newAddress.address}`
         );
       }
+      setShowAddressSelector("block")
       setShowAddress("none");
       setShowAddAddressBlock("none");
       setAddressValues({

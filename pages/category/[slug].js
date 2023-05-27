@@ -15,7 +15,7 @@ import GroupSubCategory from "@/models/GroupSubCategory";
 import Product from "@/models/Product";
 import { getCountryData } from "@/utils/country";
 
-export default function CategorySlug({ country, category, advice, brands }) {
+export default function category({ country, category, advice, brands }) {
   return (
     <Container fluid className={styles.categorypage}>
       <Header country={country} />
@@ -35,7 +35,7 @@ export default function CategorySlug({ country, category, advice, brands }) {
       <Row className={styles.categorypage__banner}>
         <Col className={styles.categorypage__banner_col1}>
           <div>
-            <img src="../../logo/logo_light.png" alt="" />
+            <img src="../../logo/logo_light.png" alt="logo plum light" />
             <span>Допоможе з вибором</span>
           </div>
         </Col>

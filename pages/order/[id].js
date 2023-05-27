@@ -24,7 +24,7 @@ export default function Order({ country, orderData, user }) {
             <Header country={country} />
             <Row className={styles.row}>
                 <Col className={styles.group}>
-                    <Image src='../../../images/order_done.png' width="339px" height="310px" />
+                    <Image src='../../../images/order_done.png' width="339px" height="310px" alt="order done" />
                     <h5>Замовлення успішно оформлене!</h5>
                 </Col>
             </Row>

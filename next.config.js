@@ -7,5 +7,8 @@ module.exports = {
   sassOptions: {
     includePaths: [path.join(__dirname, "styles")],
     prependData: '@import "./base.scss";',
-  }
+  },
+  images: {
+    domains: ['lh3.googleusercontent.com', 'platform-lookaside.fbsbx.com'],
+  },
 };

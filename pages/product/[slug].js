@@ -34,7 +34,7 @@ export default function ProductSlug({ product, popular, country, style, mode }) 
   useEffect(() => {
     dispatch(updateReviewRating(product.rating))
     dispatch(updateNumberReviews(product.numReviews))
-  }, [product]);
+  }, [product, dispatch]);
 
 
   return (

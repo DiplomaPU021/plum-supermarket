@@ -11,7 +11,7 @@ export default function Layout({ children }) {
 
     useEffect(() => {
         dispatch(hideDialog());
-    }, [])
+    }, [dispatch])
 
     return (
         <div className={styles.layout}>

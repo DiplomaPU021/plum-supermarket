@@ -68,25 +68,6 @@ export default function DeleteProduct({
     );
     setLoading(false);
   };
-  const getSubs = async () => {
-    setLoading(true);
-    setSubs(
-      subCategories.filter((c) => c.parent == productToEdit.groupSubCategory)
-    );
-    changeSelectedOptions();
-    setLoading(false);
-  };
-  useEffect(() => {
-    getGroupSub();
-    changeSelectedOptions();
-  }, [productToEdit.category]);
-
-  useEffect(() => {
-    setLoading(true);
-    getSubs();
-    setLoading(false);
-  }, [productToEdit.groupSubCategory]);
-
   const changeSelectedOptions = () => {
     if (product.category._id == productToEdit.category) {
       setDataSelectedOptions(
@@ -117,11 +98,31 @@ export default function DeleteProduct({
       })
     );
   };
+  const getSubs = async () => {
+    setLoading(true);
+    setSubs(
+      subCategories.filter((c) => c.parent == productToEdit.groupSubCategory)
+    );
+    changeSelectedOptions();
+    setLoading(false);
+  };
+  useEffect(() => {
+    getGroupSub();
+    changeSelectedOptions();
+  }, [productToEdit.category, changeSelectedOptions, getGroupSub]);
+
+  useEffect(() => {
+    setLoading(true);
+    getSubs();
+    setLoading(false);
+  }, [productToEdit.groupSubCategory, getSubs]);
+
+ 
   useEffect(() => {
     setLoading(true);
     changeSelectedOptions();
     setLoading(false);
-  }, [subs]);
+  }, [subs, changeSelectedOptions]);
 
   const deleteProductHandler = async () => {
     setLoading(true);

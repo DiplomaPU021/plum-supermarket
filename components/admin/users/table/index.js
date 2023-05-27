@@ -2,6 +2,7 @@ import { RiDeleteBin7Fill } from 'react-icons/ri';
 import styles from './styles.module.scss';
 import { toast } from "react-toastify";
 import axios from "axios";
+import Image from 'next/image';
 
 
 export default function UsersTable({ users, setUsers }) {
@@ -39,7 +40,7 @@ export default function UsersTable({ users, setUsers }) {
                     {users?.map((user, i) => (
                         <tr key={i}>
                             <td>{i}</td>
-                            <td>{user.image !== 'profile.gif' ? (<img width="40px" height="40px" src={user.image} alt="photo" />) : (<img width="40px" height="40px" src="../../../../../profile/account2.png" alt="pic" />)}</td>
+                            <td>{user.image !== 'profile.gif' ? (<Image width={40} height={40} src={user.image} alt="photo" />) : (<Image width={40} height={40} src="/profile/account2.png" alt="pic" />)}</td>
                             <td>{user.firstName}</td>
                             <td>{user.lastName}</td>
                             <td>{user.phoneNumber}</td>

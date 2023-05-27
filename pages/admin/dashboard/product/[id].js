@@ -119,19 +119,19 @@ export default function EditProduct({
     };
     getGroupSub();
     changeSelectedOptions();
-  }, [productToEdit.category]);
+  }, [productToEdit.category, changeSelectedOptions, groupSubCategories]);
 
   useEffect(() => {
     setLoading(true);
     getSubs();
     setLoading(false);
-  }, [productToEdit.groupSubCategory]);
+  }, [productToEdit.groupSubCategory, getSubs]);
 
   useEffect(() => {
     setLoading(true);
     changeSelectedOptions();
     setLoading(false);
-  }, [subs]);
+  }, [subs, changeSelectedOptions]);
 
   const handleChange = (e) => {
     if (typeof e !== "undefined") {

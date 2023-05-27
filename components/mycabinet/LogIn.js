@@ -31,13 +31,26 @@ export default function LogIn({
   setCongratsShow,
   setAuthShow,
   setUserProfileShow,
-  setUser
+  setUser,
 }) {
   const { data: session, status } = useSession();
   const dispatch = useDispatch();
   const [loading, setLoading] = useState(false);
   const [userLogin, setUserLogin] = useState(initialvalues);
   const { login_email, login_password, login_error } = userLogin;
+  const [csrfToken, setCsrfToken] = useState("");
+
+  useEffect(() => {
+    async function fetchData() {
+      const response = await getCsrfToken();
+      // console.log("token2", Object.values(response));
+      // console.log("sessionOnLogin///////////", session, status);
+      if (response) {
+        setCsrfToken(response);
+      }
+    }
+    fetchData();
+  }, []); // Or [] if effect doesn't need props or state
   const loginValidation = yup.object({
     login_email: yup
       .string()
@@ -48,12 +61,11 @@ export default function LogIn({
   });
   const handleChangeCredencials = (e) => {
     const { name, value } = e.target;
-    setUserLogin({ ...userLogin, [name]: value, login_error: ""});
-
+    setUserLogin({ ...userLogin, [name]: value, login_error: "" });
   };
   const switchToMyCabinet = async () => {
     try {
-      const res = await axios.get('/api/user/manageProfile');
+      const res = await axios.get("/api/user/manageProfile");
       const data = res.data;
 
       setUser(data.user);
@@ -65,7 +77,6 @@ export default function LogIn({
     } catch (error) {
       console.log(error);
     }
-
   };
   const signInHandler = async () => {
     try {
@@ -77,10 +88,10 @@ export default function LogIn({
       };
       const res = await signIn("credentials", options);
       setUserLogin({ ...userLogin, login_error: res.error, success: "" });
-      if(userLogin.login_error===""){
-        const res2 = await axios.get('/api/user/wishlist');
-      const data = res2.data;
-      dispatch(updateWishList(data.wishList));
+      if (userLogin.login_error === "") {
+        const res2 = await axios.get("/api/user/wishlist");
+        const data = res2.data;
+        dispatch(updateWishList(data.wishList));
       } else {
         console.log("nok");
       }
@@ -92,7 +103,11 @@ export default function LogIn({
       }
     } catch (error) {
       setLoading(false);
-      setUserLogin({ ...userLogin, success: "", login_error: error.response.data.message });
+      setUserLogin({
+        ...userLogin,
+        success: "",
+        login_error: error.response.data.message,
+      });
     }
   };
   const switchToRegister = () => {
@@ -128,6 +143,12 @@ export default function LogIn({
                   }}
                   className={styles.login_forms}
                 >
+                  <input
+                    type="hidden"
+                    readOnly
+                    name="csrfToken"
+                    value={csrfToken}
+                  />
                   <Form.Group className="mb-3" controlId="groupLoginEmail">
                     <Form.Label className={styles.formlabel}>
                       Електронна пошта
@@ -142,9 +163,8 @@ export default function LogIn({
                         handleChangeCredencials(e);
                       }}
                       isInvalid={
-                        !!formik.errors.login_email && formik.touched
-                       ||
-                       formik.touched&& formik.initialErrors.login_error
+                        (!!formik.errors.login_email && formik.touched) ||
+                        (formik.touched && formik.initialErrors.login_error)
                       }
                     />
                     <Form.Control.Feedback
@@ -166,7 +186,9 @@ export default function LogIn({
                         formik.handleChange(e);
                         handleChangeCredencials(e);
                       }}
-                      isInvalid={formik.touched && !!formik.errors.login_password}
+                      isInvalid={
+                        formik.touched && !!formik.errors.login_password
+                      }
                     />
                     <Form.Control.Feedback
                       type="invalid"
@@ -211,7 +233,12 @@ export default function LogIn({
             </div>
           </Col>
           <Col className={styles.login_col2}>
-            <Image src='../../../images/login.png' width="463px" height="528px" />
+            <Image
+              src="../../../images/login.png"
+              width="463px"
+              height="528px"
+              alt="login image"
+            />
           </Col>
         </Row>
       </Container>

@@ -48,29 +48,28 @@ export default function CheckoutOrder({
     const [isPaid, setIsPaid] = useState(false);
     useEffect(() => {
         if (activeAddress) {
-            setActiveAddress({
-                ...activeAddress,
-                firstName: activeAddress?.firstName || "",
-                lastName: activeAddress?.lastName || "",
-                phoneNumber: activeAddress?.phoneNumber || "",
-                address: activeAddress?.address || "",
-                streetType: activeAddress?.streetType || "",
-                street: activeAddress?.street || "",
-                building: activeAddress?.building || "",
-                flat: activeAddress?.flat || "",
-                ground: activeAddress?.ground || "",
-                elevator: activeAddress?.elevator || "",
-                region: activeAddress?.region || "",
-                city: activeAddress?.city || "",
-                cityType: activeAddress?.cityType || "",
-                zipCode: activeAddress?.zipCode || "",
-                country: activeAddress?.country || "",
-                active: true,
-            });
-        } else {
+          setActiveAddress((prevAddress) => ({
+            ...prevAddress,
+            firstName: activeAddress?.firstName || "",
+            lastName: activeAddress?.lastName || "",
+            phoneNumber: activeAddress?.phoneNumber || "",
+            address: activeAddress?.address || "",
+            streetType: activeAddress?.streetType || "",
+            street: activeAddress?.street || "",
+            building: activeAddress?.building || "",
+            flat: activeAddress?.flat || "",
+            ground: activeAddress?.ground || "",
+            elevator: activeAddress?.elevator || "",
+            region: activeAddress?.region || "",
+            city: activeAddress?.city || "",
+            cityType: activeAddress?.cityType || "",
+            zipCode: activeAddress?.zipCode || "",
+            country: activeAddress?.country || "",
+            active: true,
+          }));
         }
+      }, []);
 
-    }, []);
     useEffect(() => {
         setActiveAddress((prevState) => ({
             ...prevState,

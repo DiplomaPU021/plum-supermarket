@@ -30,7 +30,7 @@ export default function MainSwiper({
   const dispatch = useDispatch();
   useEffect(() => {
     setActiveImg(product.images[0].url);
-  }, [product.slug]);
+  }, [product.slug, product.images]);
 
   const addToViewedHandler = async () => {
     const { data } = await axios.get(

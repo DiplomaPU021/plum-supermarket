@@ -102,6 +102,7 @@ const addToWishList = async (
   const existWishItem = user.wishlist.findIndex(
     (x) => x.product?.toString() == productId && x.code?.toString() == code
   );
+
   let wishItem = {
     product: product._id,
     name: product.name,
@@ -121,6 +122,7 @@ const addToWishList = async (
     const result = await user.save({ validateBeforeSave: false });
     return result;
   } else {
+    console.log("Already present in wishList");
   }
 };
 const findByWishlistAndUpdate = async (

@@ -35,11 +35,20 @@ export default function Register({
   const [user, setUser] = useState(initialvalues);
   const { data: session, status } = useSession();
   const { email, password, conf_password, success, error } = user;
+  const [csrfToken, setCsrfToken] = useState("");
+
   useEffect(() => {
-    if (session) {
-      switchToMyCabinet();
+    async function fetchData() {
+      const response = await getCsrfToken();
+      // console.log("token2", Object.values(response));
+      // console.log("sessionOnLogin///////////", session, status);
+      if (response) {
+        setCsrfToken(response);
+      }
     }
-  }, []);
+    fetchData();
+  }, []); // Or [] if effect doesn't need props or state
+
   const switchToMyCabinet = () => {
     setCongratsShow(false);
     setRegShow(false);
@@ -47,6 +56,13 @@ export default function Register({
     setAuthShow(false);
     setUserProfileShow(true);
   };
+
+  useEffect(() => {
+    if (session) {
+      switchToMyCabinet();
+    }
+  }, [session, switchToMyCabinet]);
+
   const switchToLogin = () => {
     setLogShow(true);
     setRegShow(false);
@@ -112,6 +128,7 @@ export default function Register({
               src="../../../images/register.png"
               width="416px"
               height="556px"
+              alt=""
             />
           </Col>
           <Col>
@@ -129,7 +146,19 @@ export default function Register({
               }}
             >
               {(formik) => (
-                <Form method="post" className={styles.reg_forms}>
+                <Form
+                  method="post"
+                  onSubmit={(e) => {
+                    e.preventDefault(e);
+                  }}
+                  className={styles.reg_forms}
+                >
+                  <input
+                    type="hidden"
+                    readOnly
+                    name="csrfToken"
+                    value={csrfToken}
+                  />
                   <Form.Group className="mb-3" controlId="groupEmail">
                     <Form.Label className={styles.formlabel}>
                       Електронна пошта
