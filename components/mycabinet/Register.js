@@ -35,19 +35,6 @@ export default function Register({
   const [user, setUser] = useState(initialvalues);
   const { data: session, status } = useSession();
   const { email, password, conf_password, success, error } = user;
-  const [csrfToken, setCsrfToken] = useState("");
-
-  useEffect(() => {
-    async function fetchData() {
-      const response = await getCsrfToken();
-      // console.log("token2", Object.values(response));
-      // console.log("sessionOnLogin///////////", session, status);
-      if (response) {
-        setCsrfToken(response);
-      }
-    }
-    fetchData();
-  }, []); // Or [] if effect doesn't need props or state
 
   const switchToMyCabinet = () => {
     setCongratsShow(false);
@@ -153,12 +140,6 @@ export default function Register({
                   }}
                   className={styles.reg_forms}
                 >
-                  <input
-                    type="hidden"
-                    readOnly
-                    name="csrfToken"
-                    value={csrfToken}
-                  />
                   <Form.Group className="mb-3" controlId="groupEmail">
                     <Form.Label className={styles.formlabel}>
                       Електронна пошта

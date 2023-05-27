@@ -13,7 +13,7 @@ export default function AppDownload() {
             </div>
             <div className="d-grid gap-3">
 
-                <Link className={styles.appbtn} href="https://play.google.com/store/games?hl=ru&gl=US&pli=1">
+                <Link className={styles.appbtn} href="/" >
                     <div className={styles.circle}>
                         <GooglePlayIcon fillColor={color} />
                     </div>
@@ -25,7 +25,7 @@ export default function AppDownload() {
                     </div>
                 </Link>
 
-                <Link className={styles.appbtn} href="https://www.apple.com/app-store/">
+                <Link className={styles.appbtn} href="/">
                     <div className={styles.circle}>
                         <AppleIcon fillColor={color} />
                     </div>
