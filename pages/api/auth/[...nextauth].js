@@ -11,7 +11,7 @@ import db from "../../../utils/db";
 import emailService from "@/utils/services/email.service";
 
 
-// db.connectDb();
+db.connectDb();
 export default NextAuth({
   adapter: MongoDBAdapter(clientPromise),
   providers: [

@@ -13,7 +13,7 @@ import { RiDeleteBin2Line } from "react-icons/ri"
 
 
 
-export default function ProdcutCard({ product}) {
+export default function ProductCard({ product}) {
     return (
         <div className={styles.product}>
             <h1 className={styles.product__name}>
