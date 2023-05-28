@@ -173,7 +173,7 @@ export default function ProfilePage(props) {
               </Nav.Item>
             </Nav>
             <Row className={styles.logout}>
-              <a>
+              <a href="/admin/dashboard">
                 <img
                   width="30px"
                   height="30px"
