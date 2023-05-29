@@ -1,22 +1,12 @@
-import { Container, Row, Col, Table } from "react-bootstrap";
+import { Table } from "react-bootstrap";
 import styles from "./styles.module.scss";
-import { useState } from "react";
-import { BsFillCheckCircleFill, BsEyeFill } from "react-icons/bs";
-import OrderDetails from "../orderDetails";
-import axios from "axios";
+import "bootstrap/dist/css/bootstrap.min.css";
+
+
 import TableItem from "./TableItem";
 
-export default function OrdersTable({ orders, setOrdersForTable }) {
-  const [activeOrder, setActiveOrder] = useState();
-//   const [open, setOpen] = useState(false);
-  const [updatedStatus, setUpdatedStatus] = useState({id:"", orderStatus:""});
-  const statusOptions = [
-    "Нове замовлення",
-    "В обробці",
-    "Надіслано",
-    "Завершено",
-    "Скасовано",
-  ];
+export default function OrdersTable({ orders }) {
+
   return (
     <>
       <div className={styles.header}>Замовлення</div>

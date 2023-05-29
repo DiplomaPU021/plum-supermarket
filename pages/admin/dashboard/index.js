@@ -64,16 +64,16 @@ export default function Dashboard({ users, products, orders }) {
             <div className={styles.card_infos}>
               <h4>
                 +
-                {orders
-                  .reduce((a, val) => a + val.costAfterDiscount, 0)
+                {Math.round(orders
+                  .reduce((a, val) => a + val.costAfterDiscount, 0))
                   .toLocaleString("uk-UA")}{" "}
                 ₴
               </h4>
               <h5>
                 -
-                {orders
+                {Math.round(orders
                   .filter((o) => !o.isPaid)
-                  .reduce((a, val) => a + val.costAfterDiscount, 0)
+                  .reduce((a, val) => a + val.costAfterDiscount, 0))
                   .toLocaleString("uk-UA")}{" "}
                 ₴ Не оплачено
               </h5>
@@ -113,7 +113,7 @@ export default function Dashboard({ users, products, orders }) {
                       )}
                     </td>
                     <td>{order.status}</td>
-                    <td>{order.costAfterDiscount} ₴</td>
+                    <td>{Math.round(order.costAfterDiscount).toLocaleString("uk-UA")} ₴</td>
                   </tr>
                 ))}
               </tbody>

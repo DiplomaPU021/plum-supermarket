@@ -62,7 +62,7 @@ export default function TableItem({ order, activeOrder, setActiveOrder }) {
             </td>
             <td>{order.promocode}</td>
             <td>{order.discount} %</td>
-            <td>{order.costAfterDiscount} ₴</td>
+            <td>{Math.round(order.costAfterDiscount).toLocaleString("uk-UA")} ₴</td>
             <td>
 
                 <OrderDetails

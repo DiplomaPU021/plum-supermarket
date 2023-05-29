@@ -243,7 +243,7 @@ export default function Infos({
           {product.subProducts[product.style].discount > 0 ? (
             <div>
               <span className={styles.pricediscount}>
-                {new Intl.NumberFormat("uk-UA").format(Number(product.priceAfter))} {product.price_unit}
+                {new Intl.NumberFormat("uk-UA").format(Number(product.price))} {product.price_unit}
               </span>
               <span
                 style={{ opacity: opacity }}
@@ -252,13 +252,12 @@ export default function Infos({
                 {/* {`${Number(product.priceAfter).toLocaleString("uk-UA")} ${product.price_unit
                   }`} */}
                 {new Intl.NumberFormat("uk-UA").format(Number(product.priceAfter))} {product.price_unit}
-
               </span>
             </div>
           ) : (
             <div>
               <span className={styles.priceregular}>
-                {new Intl.NumberFormat("uk-UA").format(Number(product.priceAfter))} {product.price_unit}
+                {new Intl.NumberFormat("uk-UA").format(Number(product.price))} {product.price_unit}
               </span>
             </div>
           )}
