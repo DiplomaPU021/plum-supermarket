@@ -50,12 +50,16 @@ export default function Create({ setCoupons }) {
         enableReinitialize
         initialValues={{ discount, startDate, endDate }}
         validationSchema={validate}
-        onSubmit={() => {
-          submitHandler();
+        onSubmit={(e) => {
+          e.preventDefault();
         }}
       >
         {(formik) => (
-          <Form>
+          <Form 
+            onSubmit={(e) => {
+              e.preventDefault();
+            }}
+          >
             <div className={styles.header}>Створити купон</div>
             <AdminInput
               type="number"
@@ -97,7 +101,7 @@ export default function Create({ setCoupons }) {
               </FormGroup>
             </div>
             <div className={styles.btnWrap}>
-              <button type="submit" className={`${styles.btn}`}>
+              <button onClick={() => submitHandler()} className={`${styles.btn}`}>
                 <span>Додати купон</span>
               </button>
             </div>

@@ -509,6 +509,8 @@ export default function SubCategorySlug({
                         </Form.Group>
                       </Accordion.Body>
                     </Accordion.Item>
+                    {
+                    products.length ? 
                     <Accordion.Item
                       eventKey={"prices"}
                       className={styles.accordion__item}
@@ -550,6 +552,8 @@ export default function SubCategorySlug({
                         </div>
                       </Accordion.Body>
                     </Accordion.Item>
+                      : <></>
+                    }
                     {colors.length > 0 ? (
                       <Accordion.Item
                         eventKey={"colors"}

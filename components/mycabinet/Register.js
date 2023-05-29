@@ -129,14 +129,14 @@ export default function Register({
               initialErrors={{ error }}
               validationSchema={registerValidation}
               onSubmit={(e) => {
-                e.preventDefault(e);
+                e.preventDefault();
               }}
             >
               {(formik) => (
                 <Form
                   method="post"
                   onSubmit={(e) => {
-                    e.preventDefault(e);
+                    e.preventDefault();
                   }}
                   className={styles.reg_forms}
                 >
