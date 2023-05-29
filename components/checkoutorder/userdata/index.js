@@ -128,7 +128,7 @@ export default function UserData({
                 }}
                 validationSchema={validate}
                 onSubmit={(e) => {
-                    e.preventDefault(e);
+                    e.preventDefault();
                 }}
                 onBlur={() => checkCredencials}
             >

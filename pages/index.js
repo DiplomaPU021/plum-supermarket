@@ -13,7 +13,6 @@ import AppDownload from "@/components/appdownload";
 import FAQ from "@/components/faq";
 import db from "@/utils/db";
 import Product from "@/models/Product";
-// import axios from "axios";
 import Category from "@/models/Category";
 import { getCountryData } from "@/utils/country";
 import SubCategory from "@/models/SubCategory";

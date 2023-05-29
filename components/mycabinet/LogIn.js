@@ -121,13 +121,13 @@ export default function LogIn({
               initialErrors={{ login_error }}
               validationSchema={loginValidation}
               onSubmit={(e) => {
-                e.preventDefault(e);
+                e.preventDefault();
               }}
             >
               {(formik) => (
                 <Form
                   onSubmit={(e) => {
-                    e.preventDefault(e);
+                    e.preventDefault();
                   }}
                   className={styles.login_forms}
                 >
