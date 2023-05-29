@@ -703,6 +703,7 @@ export async function getServerSideProps({ query }) {
       $regex: searchQuery,
       $options: "i",
     },
+    "subProducts.color.color": { $ne: "" },
   });
 
   let sizes = await Product.distinct("subProducts.sizes.size", {
