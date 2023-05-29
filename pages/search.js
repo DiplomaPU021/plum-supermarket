@@ -388,6 +388,8 @@ export default function Search({
                 ) : (
                   <></>
                 )}
+                {
+                  products.length ? 
                 <Accordion.Item
                   eventKey={"prices"}
                   className={styles.accordion__item}
@@ -436,6 +438,8 @@ export default function Search({
                     </div>
                   </Accordion.Body>
                 </Accordion.Item>
+                : <></>
+                }
                 {colors.length ? (
                   <Accordion.Item
                     eventKey={"colors"}
