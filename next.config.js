@@ -11,4 +11,9 @@ module.exports = {
   images: {
     domains: ['lh3.googleusercontent.com', 'platform-lookaside.fbsbx.com'],
   },
+  webpack(config) {
+    config.resolve.alias['@'] = path.resolve(__dirname);
+    return config;
+  },
 };
+

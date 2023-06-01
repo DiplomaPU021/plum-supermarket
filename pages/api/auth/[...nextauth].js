@@ -12,6 +12,17 @@ import emailService from "@/utils/services/email.service";
 
 
 db.connectDb();
+const SingnInUser = async ({ password, user }) => {
+  if (!user.password) {
+    throw new Error("Будь ласка введіть пароль");
+  }
+  await db.connectDb();
+  const testPassword = await bcrypt.compare(password, user.password);
+  if (!testPassword) {
+    throw new Error("Пароль введено не вірно");
+  }
+  return user;
+};
 export default NextAuth({
   adapter: MongoDBAdapter(clientPromise),
   providers: [
@@ -108,19 +119,3 @@ export default NextAuth({
   },
   secret: process.env.JWT_SECRET,
 });
-
-const SingnInUser = async ({ password, user }) => {
-  if (!user.password) {
-    throw new Error("Будь ласка введіть пароль");
-  }
-  await db.connectDb();
-  const testPassword = await bcrypt.compare(password, user.password);
-  if (!testPassword) {
-    throw new Error("Пароль введено не вірно");
-  }
-  return user;
-};
-const createUniqueString = async () => {
-  const uniqueString = emailService.createUniqueString();
-  return uniqueString;
-}
