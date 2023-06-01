@@ -31,7 +31,6 @@ export async function getServerSideProps(context) {
         .populate({ path: "top_parent", model: Category })
         .sort({ name: 1 }).lean();
     const groupSubCategories = await GroupSubCategory.find({}).populate({ path: "parent", model: Category }).sort({ name: 1 }).lean();
-    await db.disconnectDb();
     return {
         props: {
             categories: JSON.parse(JSON.stringify(categories)),
