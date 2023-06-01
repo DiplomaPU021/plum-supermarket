@@ -1,7 +1,7 @@
 import mongoose from "mongoose";
 const connection = {};
 mongoose.set('strictQuery', true);
-export async function connectDb() {
+ async function connectDb() {
      if (connection.isConnected) {
          return;
     }
@@ -12,17 +12,17 @@ export async function connectDb() {
         }
         await mongoose.disconnect();
     }
-    const db = mongoose.connect(process.env.MONGODB_URL, {
+    const db = await mongoose.connect(process.env.MONGODB_URL, {
         useNewUrlParser: true,
         useUnifiedTopology: true,
     }
     );
-    // connection.isConnected = db.connections[0].readyState;
+    connection.isConnected = db.connections[0].readyState;
     connection.isConnected = db && db.connections && db.connections[0] && db.connections[0].readyState;
 
     return db;
 }
-export async function disconnectDb() {
+ async function disconnectDb() {
     if (connection.isConnected) {
         if (process.env.NODE_ENV === "production") {
 
