@@ -1,5 +1,5 @@
-import db from "@/utils/db";
-import User from "@/models/User";
+import db from "../utils/db";
+import User from "../models/User";
 import { getSession } from "next-auth/react";
 import { MongoDBAdapter } from "@next-auth/mongodb-adapter";
 import clientPromise from "./lib/mongodb";

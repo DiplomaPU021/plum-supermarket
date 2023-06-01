@@ -1,6 +1,6 @@
 import styles from "./styles.module.scss";
 import { Container, Row, Col, Pagination, Form } from "react-bootstrap";
-import LoopIcon from "@/components/icons/LoopIcon";
+import LoopIcon from "../../../components/icons/LoopIcon";
 import { useEffect, useState } from "react";
 import OrderItem from "../orderitem/OrderItem";
 

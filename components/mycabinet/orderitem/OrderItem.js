@@ -2,7 +2,7 @@ import styles from "./styles.module.scss"
 import { Container, Row, Col, Table, Form, Modal } from 'react-bootstrap'
 import { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { addToCart } from "@/store/cartSlice";
+import { addToCart } from "../../../store/cartSlice";
 import LeaveFeedback from "../../productPage/leaveFeedback"
 import axios from "axios";
 

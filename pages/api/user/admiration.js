@@ -1,7 +1,7 @@
 import nc from "next-connect";
-import db from "@/utils/db";
-import auth from "@/middleware/auth";
-import userService from "@/utils/services/user.service";
+import db from "../../../utils/db";
+import auth from "../../../middleware/auth";
+import userService from "../../../utils/services/user.service";
 
 const handler = nc().use(auth);
 handler.get(async (req, res) => {

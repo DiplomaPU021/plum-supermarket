@@ -3,7 +3,7 @@ import fs from "fs";
 import cloudinary from "cloudinary";
 import bodyParser from "body-parser";
 import fileUpload from "express-fileupload";
-import { imgMiddleware } from "@/middleware/imgMiddleware.js";
+import { imgMiddleware } from "../../../middleware/imgMiddleware.js";
 
 cloudinary.config({
     cloud_name: process.env.CLOUDINARY_NAME,

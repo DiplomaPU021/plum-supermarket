@@ -3,7 +3,7 @@ import { useEffect, useRef, useState } from "react";
 import { useDispatch } from "react-redux";
 import { ErrorMessage, useField } from "formik";
 import { RiDeleteBin7Fill } from "react-icons/ri";
-import { showDialog, hideDialog } from "@/store/DialogSlice";
+import { showDialog, hideDialog } from "../../../../store/DialogSlice";
 
 export default function Images({
     photos,

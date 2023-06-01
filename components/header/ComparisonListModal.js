@@ -4,7 +4,7 @@ import { Modal } from "react-bootstrap";
 import DeleteIcon from "../icons/DeleteIcon";
 import Link from "next/link";
 import { useSelector, useDispatch } from "react-redux";
-import { removeFromScaleList } from "@/store/scaleListSlice";
+import { removeFromScaleList } from "../../store/scaleListSlice";
 
 export default function ComparisonListModal({ show, onHide }) {
   const scaleList = useSelector((state) => state.scaleList);

@@ -1,15 +1,15 @@
 import styles from "./styles.module.scss";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { Container, Row, Col, Image } from "react-bootstrap";
-import ChevronRight from "@/components/icons/ChevronRight";
-import DisLikeIcon from "@/components/icons/DisLikeIcon";
-import LikeIcon from "@/components/icons/LikeIkon";
+import ChevronRight from "../../../components/icons/ChevronRight";
+import DisLikeIcon from "../../../components/icons/DisLikeIcon";
+import LikeIcon from "../../../components/icons/LikeIkon";
 import ReplyToFeedback from "../replyToFeedback";
 import React, { useEffect, useState } from "react";
 import LeaveFeedback from "../leaveFeedback";
 import { useSession } from "next-auth/react";
-import MyCabinet from "@/components/mycabinet";
-import Star from "@/components/icons/Star";
+import MyCabinet from "../../../components/mycabinet";
+import Star from "../../../components/icons/Star";
 import { useSelector } from "react-redux";
 
 export default function Reviews({ product, productReview, setProductReview }) {

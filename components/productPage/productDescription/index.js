@@ -1,4 +1,4 @@
-import ChevronRight from "@/components/icons/ChevronRight";
+import ChevronRight from "../../../components/icons/ChevronRight";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { Col, Container, Row } from "react-bootstrap";
 import styles from "./styles.module.scss";

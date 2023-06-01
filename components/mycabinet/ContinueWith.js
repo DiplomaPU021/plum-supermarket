@@ -4,7 +4,7 @@ import styles from "./styles.module.scss"
 import { getProviders, signIn } from "next-auth/react"
 import { useState } from "react";
 import useDeepCompareEffect from "use-deep-compare-effect";
-import { updateWishList } from "@/store/wishListSlice";
+import { updateWishList } from "../../store/wishListSlice";
 import { useDispatch } from "react-redux";
 import axios from "axios";
 import DotLoaderSpinner from "../loaders/dotLoader";

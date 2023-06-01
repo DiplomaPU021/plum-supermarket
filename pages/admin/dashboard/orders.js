@@ -1,7 +1,7 @@
-import Layout from "@/components/admin/layout";
-import db from "@/utils/db";
-import Order from "@/models/Order";
-import OrdersTable from "@/components/admin/orders/table";
+import Layout from "../../../components/admin/layout";
+import db from "../../../utils/db";
+import Order from "../../../models/Order";
+import OrdersTable from "../../../components/admin/orders/table";
 import { useState } from "react";
 
 export default function Orders({ orders }) {

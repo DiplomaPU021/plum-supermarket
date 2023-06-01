@@ -13,18 +13,18 @@ import ScalesIcon from "../icons/ScalesIcon";
 import axios from "axios";
 import { useRouter } from "next/router";
 import { useSelector, useDispatch } from "react-redux";
-import { addToCart } from "@/store/cartSlice";
-import { addToWishList } from "@/store/wishListSlice";
-import { saveWishList } from "@/requests/user";
+import { addToCart } from "../../store/cartSlice";
+import { addToWishList } from "../../store/wishListSlice";
+import { saveWishList } from "../../requests/user";
 import { useSession } from "next-auth/react";
 import {
   addToScaleList,
   updateScaleList,
   removeFromScaleList,
-} from "@/store/scaleListSlice";
+} from "../../store/scaleListSlice";
 import { Tooltip } from "react-tooltip";
 import "react-tooltip/dist/react-tooltip.css";
-import { addToViewedList } from "@/store/viewedListSlice";
+import { addToViewedList } from "../../store/viewedListSlice";
 
 export default function ProductCard({ product, style, mode }) {
   const { data: session, status } = useSession();

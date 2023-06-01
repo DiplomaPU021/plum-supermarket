@@ -6,10 +6,10 @@ import { useRouter } from "next/router"
 import Authorization from "./Authorization";
 import Image from 'react-bootstrap/Image'
 import { useDispatch, useSelector } from "react-redux";
-import { emptyCart } from "@/store/cartSlice";
-import { emptyWishList, updateWishList } from "@/store/wishListSlice";
-import { emptyScaleList } from "@/store/scaleListSlice";
-import { emptyReviewRating } from "@/store/reviewSlice";
+import { emptyCart } from "../../store/cartSlice";
+import { emptyWishList, updateWishList } from "../../store/wishListSlice";
+import { emptyScaleList } from "../../store/scaleListSlice";
+import { emptyReviewRating } from "../../store/reviewSlice";
 
 export default function MyCabinet({ user, setUser, orders, country, ...props }) {
     const { data: session, status } = useSession();

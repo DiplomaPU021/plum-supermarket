@@ -1,23 +1,22 @@
 import { Inter } from "next/font/google";
 import styles from "../styles/Home.module.scss";
 import { useSession, signIn, signOut } from "next-auth/react";
-import Header from "@/components/header";
-import Footer from "@/components/footer";
-import HomeCarousel from "@/components/carousel";
+import Header from "../components/header";
+import Footer from "../components/footer";
+import HomeCarousel from "../components/carousel";
 import "bootstrap/dist/css/bootstrap.min.css";
-import YoutubeVideo from "@/components/youtube";
-import RecomendedVideo from "@/components/recomendedVideo";
-import Categories from "@/components/categories";
-import TopSales from "@/components/topsales";
-import AppDownload from "@/components/appdownload";
-import FAQ from "@/components/faq";
-import db from "@/utils/db";
-import Product from "@/models/Product";
-import Category from "@/models/Category";
-import { getCountryData } from "@/utils/country";
-import SubCategory from "@/models/SubCategory";
-// import User from "@/models/User";
-import FloatingButton from "@/components/FloatingButton";
+import YoutubeVideo from "../components/youtube";
+import RecomendedVideo from "../components/recomendedVideo";
+import Categories from "../components/categories";
+import TopSales from "../components/topsales";
+import AppDownload from "../components/appdownload";
+import FAQ from "../components/faq";
+import db from "../utils/db";
+import Product from "../models/Product";
+import Category from "../models/Category";
+import { getCountryData } from "../utils/country";
+import SubCategory from "../models/SubCategory";
+import FloatingButton from "../components/FloatingButton";
 
 const inter = Inter({ subsets: ["latin"] });
 

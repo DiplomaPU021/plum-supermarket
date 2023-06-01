@@ -17,7 +17,7 @@ import { useEffect, useState } from "react";
 import { Formik } from "formik";
 import DotLoaderSpinner from "../loaders/dotLoader";
 import axios from "axios";
-import { updateWishList } from "@/store/wishListSlice";
+import { updateWishList } from "../../store/wishListSlice";
 import { useDispatch } from "react-redux";
 
 const initialvalues = {

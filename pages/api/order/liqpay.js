@@ -1,14 +1,5 @@
 import nc from "next-connect";
-import User from "@/models/User";
-import Order from "@/models/Order";
-import db from "@/utils/db";
-import auth from "@/middleware/auth";
-import Coupon from "@/models/Coupon";
-import Cart from "@/models/Cart";
-import productService from "@/utils/services/product.service";
-import orderService from "@/utils/services/order.service";
-import userService from "@/utils/services/user.service";
-import UserData from "@/components/checkoutorder/userdata";
+import auth from "../../../middleware/auth";
 import axios from "axios";
 
 const handler = nc().use(auth);

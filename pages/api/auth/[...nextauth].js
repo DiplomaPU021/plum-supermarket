@@ -8,7 +8,7 @@ import bcrypt from "bcryptjs";
 import { MongoDBAdapter } from "@next-auth/mongodb-adapter";
 import clientPromise from "./lib/mongodb";
 import db from "../../../utils/db";
-import emailService from "@/utils/services/email.service";
+import emailService from "../../../utils/services/email.service";
 
 
 db.connectDb();

@@ -1,5 +1,6 @@
 import Layout from "../../../components/admin/layout";
 import styles from "../../../styles/dashboard.module.scss";
+import db from "../../../utils/db";
 import User from "../../../models/User";
 import Order from "../../../models/Order";
 import Product from "../../../models/Product";
@@ -11,7 +12,6 @@ import { SlHandbag } from "react-icons/sl";
 import { SiProducthunt } from "react-icons/si";
 import { BsFillCheckCircleFill } from "react-icons/bs";
 import Link from "next/link";
-import db from "@/utils/db";
 import Image from "next/image";
 
 export default function Dashboard({ users, products, orders }) {

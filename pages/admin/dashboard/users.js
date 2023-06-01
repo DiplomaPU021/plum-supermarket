@@ -1,7 +1,7 @@
 import Layout from "../../../components/admin/layout"
 import db from '../../../utils/db';
 import User from "../../../models/User";
-import UsersTable from "@/components/admin/users/table";
+import UsersTable from "../../../components/admin/users/table";
 import { useState } from 'react'
 
 export default function Users({ users }) {

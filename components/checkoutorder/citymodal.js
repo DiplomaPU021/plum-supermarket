@@ -2,7 +2,7 @@ import styles from "./styles.module.scss"
 import Modal from 'react-bootstrap/Modal'
 import { useState, useEffect, useRef } from 'react'
 import AsyncSelect from 'react-select/async';
-import { getCity } from "@/requests/city"
+import { getCity } from "../../requests/city"
 import { Button } from 'react-bootstrap';
 import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';

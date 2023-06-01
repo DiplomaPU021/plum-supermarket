@@ -1,8 +1,7 @@
 import nc from "next-connect";
-import authService from "@/utils/services/auth.service";
-// import yupValidation from "@/utils/validations/users.validation";
-import db from "@/utils/db";
-import { createActivationToken } from "@/utils/tokens";
+import authService from "../../utils/services/auth.service";
+import db from "../../utils/db";
+import { createActivationToken } from "../../utils/tokens";
 
 const handler = nc();
 handler.post(async (req, res) => {

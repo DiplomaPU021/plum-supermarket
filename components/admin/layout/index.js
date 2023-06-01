@@ -1,7 +1,7 @@
 import { useDispatch, useSelector } from 'react-redux';
 import Sidebar from './sidebar';
 import styles from './styles.module.scss';
-import { showDialog, hideDialog } from '@/store/DialogSlice';
+import { showDialog, hideDialog } from '../../../store/DialogSlice';
 import { useEffect } from "react";
 
 export default function Layout({ children }) {

@@ -1,4 +1,4 @@
-import { activateEmailTemplate } from "@/emails/activateEmailTemplate";
+import { activateEmailTemplate } from "../../emails/activateEmailTemplate";
 import bcrypt from "bcryptjs";
 
 import emailService from "./email.service";

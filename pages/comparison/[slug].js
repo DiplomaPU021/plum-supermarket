@@ -1,28 +1,28 @@
 import styles from "../../styles/comparison.module.scss";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { Container, Row, Col, Accordion } from "react-bootstrap";
-import Header from "@/components/header";
-import Footer from "@/components/footer";
-import { getCountryData } from "@/utils/country";
-import db from "@/utils/db";
-import Product from "@/models/Product";
+import Header from "../../components/header";
+import Footer from "../../components/footer";
+import { getCountryData } from "../../utils/country";
+import db from "../../utils/db";
+import Product from "../../models/Product";
 import { useEffect, useRef, useState } from "react";
-import Popular from "@/components/popular";
-import ComparisonCard from "@/components/comparisonCard";
-import DeleteIcon from "@/components/icons/DeleteIcon";
+import Popular from "../../components/popular";
+import ComparisonCard from "../../components/comparisonCard";
+import DeleteIcon from "../../components/icons/DeleteIcon";
 import Info from "./Info";
 import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
 import "swiper/css/pagination";
 import { Navigation } from "swiper";
-import ChevronLeft from "@/components/icons/ChevronLeft";
-import ChevronRight from "@/components/icons/ChevronRight";
+import ChevronLeft from "../../components/icons/ChevronLeft";
+import ChevronRight from "../../components/icons/ChevronRight";
 import { useSelector, useDispatch } from "react-redux";
 import Link from "next/link";
-import { removeFromScaleList } from "@/store/scaleListSlice";
-import SubCategory from "@/models/SubCategory";
-import GroupSubCategory from "@/models/GroupSubCategory";
-import Category from "@/models/Category";
+import { removeFromScaleList } from "../../store/scaleListSlice";
+import SubCategory from "../../models/SubCategory";
+import GroupSubCategory from "../../models/GroupSubCategory";
+import Category from "../../models/Category";
 
 export default function ComparisonPage({
   products,

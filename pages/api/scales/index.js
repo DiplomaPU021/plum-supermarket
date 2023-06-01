@@ -1,6 +1,6 @@
 import nc from "next-connect";
-import SubCategory from "@/models/SubCategory";
-import db from "@/utils/db";
+import SubCategory from "../../../models/SubCategory";
+import db from "../../../utils/db";
 
 const handler = nc();
 

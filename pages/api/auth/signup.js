@@ -5,7 +5,7 @@ import db from "../../../utils/db";
 import User from "../../../models/User";
 import { createActivationToken } from "../../../utils/tokens";
 import { sendEmail } from "../../../utils/sendEmails";
-import { activateEmailTemplate } from "@/emails/activateEmailTemplate";
+import { activateEmailTemplate } from "../../../emails/activateEmailTemplate";
 
 const handler = nc();
 handler.post(async (req, res) => {

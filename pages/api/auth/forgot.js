@@ -3,7 +3,7 @@ import db from "../../../utils/db";
 import User from "../../../models/User";
 import { createResetToken } from '../../../utils/tokens';
 import { sendEmail } from '../../../utils/sendEmails';
-import { resetEmailTemplate } from '@/emails/resetEmailTemplate';
+import { resetEmailTemplate } from '../../../emails/resetEmailTemplate';
 
 
 const handler = nc();

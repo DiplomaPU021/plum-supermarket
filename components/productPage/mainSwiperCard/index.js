@@ -9,13 +9,13 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
 import "swiper/css/pagination";
 import { Navigation } from "swiper";
-import ChevronRight from "@/components/icons/ChevronRight";
-import ChevronLeft from "@/components/icons/ChevronLeft";
+import ChevronRight from "../../../components/icons/ChevronRight";
+import ChevronLeft from "../../../components/icons/ChevronLeft";
 import { Container, Row, Col } from "react-bootstrap";
 import { Rating } from "react-simple-star-rating";
-import Star from "@/components/icons/Star";
+import Star from "../../../components/icons/Star";
 import { useSelector, useDispatch } from "react-redux";
-import { addToViewedList } from "@/store/viewedListSlice";
+import { addToViewedList } from "../../../store/viewedListSlice";
 
 export default function MainSwiper({
   product,

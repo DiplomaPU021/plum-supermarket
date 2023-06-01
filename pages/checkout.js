@@ -2,13 +2,13 @@ import * as React from "react"
 import { Inter } from "next/font/google"
 import styles from '../styles/Home.module.scss'
 import { getSession } from "next-auth/react"
-import User from "@/models/User";
-import Cart from "@/models/Cart";
-import Header from '@/components/header'
+import User from "../models/User";
+import Cart from "../models/Cart";
+import Header from '../components/header'
 import "bootstrap/dist/css/bootstrap.min.css";
-import db from "@/utils/db";
-import CheckoutOrder from '@/components/checkoutorder'
-import { getCountryData } from "@/utils/country";
+import db from "../utils/db";
+import CheckoutOrder from '../components/checkoutorder'
+import { getCountryData } from "../utils/country";
 
 const inter = Inter({ subsets: ["latin"] });
 

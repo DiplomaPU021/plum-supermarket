@@ -1,16 +1,16 @@
-import {createSlice} from "@reduxjs/toolkit";
+import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
-    expandSidebar: true,      
+    expandSidebar: true,
 }
 
 export const ExpandSlice = createSlice({
-    name: "expandSidebar", 
-    initialState, 
+    name: "expandSidebar",
+    initialState,
     reducers: {
         toggleSidebar(state, action) {
             state.expandSidebar = !state.expandSidebar;
-        },    
+        },
     },
 });
 

@@ -1,12 +1,12 @@
 import nc from "next-connect";
-import db from "@/utils/db";
-import auth from "@/middleware/auth";
-import admin from "@/middleware/admin";
+import db from "../../../utils/db";
+import auth from "../../../middleware/auth";
+import admin from "../../../middleware/admin";
 import slugify from "slugify";
-import Category from "@/models/Category";
-import GroupSubCategory from "@/models/GroupSubCategory";
-import SubCategory from "@/models/SubCategory";
-import Product from "@/models/Product";
+import Category from "../../../models/Category";
+import GroupSubCategory from "../../../models/GroupSubCategory";
+import SubCategory from "../../../models/SubCategory";
+import Product from "../../../models/Product";
 
 const handler = nc().use(auth).use(admin);
 
@@ -26,7 +26,7 @@ handler.post(async (req, res) => {
       top_parent: topParent,
       slug: slugify(name, "_"),
     }).save();
-    await db.disconnectDb();
+    // await db.disconnectDb();
    return res.json({
       message: `Підкатегорія ${name} створена успішно`,
       subCategories: await SubCategory.find({})
@@ -35,7 +35,6 @@ handler.post(async (req, res) => {
       .sort({ name: 1 }),
     });
   } catch (error) {
-    await db.disconnectDb();
    return res.status(500).json({ message: error.message });
   }
 });
@@ -47,7 +46,7 @@ handler.delete(async (req, res) => {
     const existProducts = await Product.find({ subCategories: { $in: [id] } });;
     if(existProducts.length == 0) {
       await SubCategory.findByIdAndRemove(id);
-      await db.disconnectDb();
+      // await db.disconnectDb();
       return res.json({
         message: "Підкатегорія успішно видалена!",
         subCategories: await SubCategory
@@ -57,7 +56,6 @@ handler.delete(async (req, res) => {
         .sort({ name: 1 }),
       });
     } else {
-      await db.disconnectDb();
       throw new Error(`У підкатегорії є ${existProducts.length} продукт(-ів), спершу видаліть їх!`)
     }
   } catch (error) {
@@ -75,7 +73,6 @@ handler.put(async (req, res) => {
       top_parent: topParent,
       slug: slugify(name, "_"),
     });
-    await db.disconnectDb();
     return res.json({
       message: "Підкатегорія успішно змінена",
       subCategories: await SubCategory.find({})

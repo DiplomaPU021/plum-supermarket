@@ -1,8 +1,8 @@
 import nc from "next-connect";
-import Product from "@/models/Product";
-import db from "@/utils/db";
-import SubCategory from "@/models/SubCategory";
-import GroupSubCategory from "@/models/GroupSubCategory";
+import Product from "../../../../models/Product";
+import db from "../../../../utils/db";
+import SubCategory from "../../../../models/SubCategory";
+import GroupSubCategory from "../../../../models/GroupSubCategory";
 
 const handler = nc();
 

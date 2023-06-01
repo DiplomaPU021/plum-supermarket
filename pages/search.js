@@ -1,21 +1,20 @@
 import styles from "../styles/subCategory.module.scss";
-import Header from "@/components/header";
-import ViewedProducts from "@/components/viewedProducts";
+import Header from "../components/header";
+import ViewedProducts from "../components/viewedProducts";
 import "bootstrap/dist/css/bootstrap.min.css";
-import { getCountryData } from "@/utils/country";
+import { getCountryData } from "../utils/country";
 import { useEffect, useState } from "react";
-import Footer from "@/components/footer";
-import LightPlumIcon from "@/components/icons/LightPlumIcon";
-import GreenChevronRight from "@/components/icons/ChevronRight";
-import "bootstrap/dist/css/bootstrap.min.css";
+import Footer from "../components/footer";
+import LightPlumIcon from "../components/icons/LightPlumIcon";
+import GreenChevronRight from "../components/icons/ChevronRight";
 import Link from "next/link";
 import { Container, Row, Col, Accordion, Form } from "react-bootstrap";
 import db from "../utils/db";
-import Brands from "@/components/brands/indes";
-import Product from "@/models/Product";
-import ProductCard from "@/components/productCard";
-import LoopIcon from "@/components/icons/LoopIcon";
-import RangeSlider from "@/components/range";
+import Brands from "../components/brands";
+import Product from "../models/Product";
+import ProductCard from "../components/productCard";
+import LoopIcon from "../components/icons/LoopIcon";
+import RangeSlider from "../components/range";
 import { useRouter } from "next/router";
 
 export default function Search({

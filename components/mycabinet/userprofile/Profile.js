@@ -6,12 +6,12 @@ import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import axios from "axios";
 import { useEffect, useRef, useState } from "react";
-import CityModal from "@/components/checkoutorder/citymodal";
-import PaymentForm from "@/components/paymentForm";
-import { getStreets } from "@/requests/street";
-import { saveAddress } from "@/requests/user";
+import CityModal from "../../../components/checkoutorder/citymodal";
+import PaymentForm from "../../../components/paymentForm";
+import { getStreets } from "../../../requests/street";
+import { saveAddress } from "../../../requests/user";
 import { toast } from "react-toastify";
-import DotLoaderSpinner from "@/components/loaders/dotLoader";
+import DotLoaderSpinner from "../../../components/loaders/dotLoader";
 
 export default function Profile({ country, ...props }) {
   const [isInEdit, setIsInEdit] = useState(false);

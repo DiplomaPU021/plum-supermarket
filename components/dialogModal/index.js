@@ -5,7 +5,7 @@ import Button from "react-bootstrap/Button";
 import * as React from "react";
 import Link from "next/link";
 import { useSelector, useDispatch } from "react-redux";
-import { showDialog, hideDialog } from "@/store/DialogSlice";
+import { showDialog, hideDialog } from "../../store/DialogSlice";
 
 export default function DialogModal() {
   const dispatch = useDispatch();

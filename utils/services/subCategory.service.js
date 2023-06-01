@@ -1,4 +1,4 @@
-import SubCategory from "@/models/SubCategory";
+import SubCategory from "../../models/SubCategory";
 
 const getOneById = async (id) => {
     const subCategory = await SubCategory.findById(id);

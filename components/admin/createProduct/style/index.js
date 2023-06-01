@@ -4,7 +4,7 @@ import { useDispatch } from "react-redux";
 import { ErrorMessage, useField } from "formik";
 import { RiShape2Line, RiDeleteBin7Fill } from "react-icons/ri";
 import { GiExtractionOrb } from "react-icons/gi";
-import { showDialog, hideDialog } from "@/store/DialogSlice";
+import { showDialog, hideDialog } from "../../../../store/DialogSlice";
 
 export default function Style({
   product,

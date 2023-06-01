@@ -1,8 +1,8 @@
 import { getSession } from "next-auth/client";
 import { MongoDBAdapter } from "@next-auth/mongodb-adapter";
 import clientPromise from "./lib/mongodb";
-import db from "@/utils/db";
-import User from "@/models/User";
+import db from "../utils/db";
+import User from "../models/User";
 
 export default async (req, res) => {
   const session = await getSession({ req });
