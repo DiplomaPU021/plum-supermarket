@@ -1,9 +1,9 @@
-import Category from "@/models/Category";
 import nc from "next-connect";
+import db from "@/utils/db";
 import auth from "@/middleware/auth";
 import admin from "@/middleware/admin";
-import db from "@/utils/db";
 import slugify from "slugify";
+import Category from "@/models/Category";
 import GroupSubCategory from "@/models/GroupSubCategory";
 import SubCategory from "@/models/SubCategory";
 import Product from "@/models/Product";
@@ -33,7 +33,6 @@ handler.post(async (req, res) => {
       }),
     });
   } catch (error) {
-    await db.disconnectDb();
     return res.status(500).json({ message: error.message });
   }
 });
@@ -97,16 +96,15 @@ handler.put(async (req, res) => {
 handler.get(async (req, res) => {
   try {
     const { category } = req.query;
+    await db.connectDb();
     if (!category) {
       return res.json([]);
     }
-    await db.connectDb();
     const result = await GroupSubCategory.find({ parent: category })
       .select("name")
       .sort({
         name: 1,
       });
-    db.disconnectDb();
     return res.json(result);
   } catch (error) {
     return res.status(500).json({ message: error.message });
