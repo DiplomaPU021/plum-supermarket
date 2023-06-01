@@ -176,7 +176,6 @@ export async function getServerSideProps(context) {
     .lean();
   orders.reverse();
   const products = await Product.find().select("name").lean();
-  await db.disconnectDb();
   return {
     props: {
       users: JSON.parse(JSON.stringify(users)),
