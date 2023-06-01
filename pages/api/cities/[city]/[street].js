@@ -1,6 +1,6 @@
 import nc from "next-connect";
-import Street from "@/models/Street";
-import db from "@/utils/db";
+import Street from "../../../../models/Street";
+import db from "../../../../utils/db";
 
 const handler = nc();
 

@@ -2,18 +2,18 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import styles from "../../styles/category.module.scss";
 import db from "../../utils/db";
 import Category from "../../models/Category";
-import Header from "@/components/header";
-import Footer from "@/components/footer";
-import LightPlumIcon from "@/components/icons/LightPlumIcon";
-import GreenChevronRight from "@/components/icons/ChevronRight";
+import Header from "../../components/header";
+import Footer from "../../components/footer";
+import LightPlumIcon from "../../components/icons/LightPlumIcon";
+import GreenChevronRight from "../../components/icons/ChevronRight";
 import Link from "next/link";
 import { Container, Row, Col } from "react-bootstrap";
-import CategoryPage from "@/components/categoryPage";
-import Brands from "@/components/brands/indes";
-import Advice from "@/components/advice";
-import GroupSubCategory from "@/models/GroupSubCategory";
-import Product from "@/models/Product";
-import { getCountryData } from "@/utils/country";
+import CategoryPage from "../../components/categoryPage";
+import Brands from "../../components/brands";
+import Advice from "../../components/advice";
+import GroupSubCategory from "../../models/GroupSubCategory";
+import Product from "../../models/Product";
+import { getCountryData } from "../../utils/country";
 
 export default function CategorySlug({ country, category, advice, brands }) {
   return (

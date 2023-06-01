@@ -3,12 +3,12 @@ import Card from 'react-bootstrap/Card'
 import DeleteIcon from "../icons/DeleteIcon"
 import { useEffect, useState } from "react";
 import { Container, Row, Col } from "react-bootstrap"
-import { updateWishList } from "@/store/wishListSlice";
+import { updateWishList } from "../../store/wishListSlice";
 import { useDispatch, useSelector } from "react-redux";
 import CartIcon from "../icons/CartIcon";
-import { addToCart } from "@/store/cartSlice";
+import { addToCart } from "../../store/cartSlice";
 import axios from "axios";
-import { deleteOneFromWishList } from "@/requests/user";
+import { deleteOneFromWishList } from "../../requests/user";
 import { useSession } from "next-auth/react";
 import { Tooltip } from "react-tooltip";
 import "react-tooltip/dist/react-tooltip.css";

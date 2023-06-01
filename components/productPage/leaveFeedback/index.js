@@ -6,12 +6,12 @@ import { useState } from "react";
 import Link from "next/link";
 import Images from "./Images";
 import { Rating } from "react-simple-star-rating";
-import dataURItoBlob from "@/utils/dataURItoBlob";
-import { uploadImages } from "@/requests/upload";
+import dataURItoBlob from "../../../utils/dataURItoBlob";
+import { uploadImages } from "../../../requests/upload";
 import axios from "axios";
 import { useSession } from "next-auth/react";
 import { useDispatch } from "react-redux";
-import { addToReviewRating, updateNumberReviews, updateReviewRating } from "@/store/reviewSlice";
+import { addToReviewRating, updateNumberReviews, updateReviewRating } from "../../../store/reviewSlice";
 
 export default function LeaveFeedback({ show, onHide, product, setProductReview }) {
   const { data: session } = useSession();

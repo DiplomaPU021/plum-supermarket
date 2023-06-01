@@ -7,7 +7,7 @@ import * as yup from "yup";
 import "yup-phone";
 import { Formik } from "formik";
 import axios from "axios";
-import DotLoaderSpinner from "@/components/loaders/dotLoader";
+import DotLoaderSpinner from "../../components/loaders/dotLoader";
 import {
   getProviders,
   getSession,

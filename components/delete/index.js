@@ -3,7 +3,7 @@ import Modal from 'react-bootstrap/Modal'
 import { useState } from "react"
 import { Form } from "react-bootstrap"
 import { useDispatch, useSelector } from "react-redux"
-import { deleteApproval, updateCart } from "@/store/cartSlice"
+import { deleteApproval, updateCart } from "../../store/cartSlice"
 
 export default function DelNotification({ setDeleteConfirm, productId, setError, ...props }) {
     const cart = useSelector((state) => state.cart);

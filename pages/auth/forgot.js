@@ -9,7 +9,7 @@ import LoginInput from "../../components/inputs/loginInput"
 import { Formik, Form } from "formik"
 import * as Yup from "yup"
 import axios from "axios";
-import DotLoaderSpinner from "@/components/loaders/dotLoader"
+import DotLoaderSpinner from "../../components/loaders/dotLoader"
 
 
 export default function Forgot() {

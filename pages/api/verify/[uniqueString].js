@@ -1,5 +1,5 @@
-import User from "@/models/User";
-import db from "@/utils/db";
+import User from "../../../models/User";
+import db from "../../../utils/db";
 import nc from "next-connect";
 
 const handler = nc().get(async (req, res) => {

@@ -2,9 +2,9 @@ import styles from "../styles.module.scss";
 import { Form, Row, Col, Container } from "react-bootstrap";
 import React, { useEffect, useRef, useState } from "react";
 import CityModal from "../citymodal";
-import { getStreets } from "@/requests/street";
+import { getStreets } from "../../../requests/street";
 import useDeepCompareEffect from "use-deep-compare-effect";
-import { deliveryTypes } from "@/data/deliveryTypes";
+import { deliveryTypes } from "../../../data/deliveryTypes";
 import CustomForm from "./CustomForm";
 
 export default function Shipping({

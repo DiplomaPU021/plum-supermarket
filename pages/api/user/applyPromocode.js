@@ -1,9 +1,9 @@
 import nc from "next-connect";
-import User from "@/models/User";
-import Coupon from "@/models/Coupon";
-import db from "@/utils/db";
-import auth from "@/middleware/auth";
-import Cart from "@/models/Cart";
+import User from "../../../models/User";
+import Coupon from "../../../models/Coupon";
+import db from "../../../utils/db";
+import auth from "../../../middleware/auth";
+import Cart from "../../../models/Cart";
 
 const handler = nc().use(auth);
 

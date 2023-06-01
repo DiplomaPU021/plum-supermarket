@@ -1,7 +1,7 @@
 import React from 'react';
 import styles from './styles.module.scss';
 import Modal from 'react-bootstrap/Modal';
-import OrderItem from '@/components/mycabinet/orderitem/OrderItem';
+import OrderItem from '../../../../components/mycabinet/orderitem/OrderItem';
 
 export default function OrderDetails({ order, orderId, open, setOpen }) {
 

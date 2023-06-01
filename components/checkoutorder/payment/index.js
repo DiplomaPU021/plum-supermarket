@@ -1,7 +1,7 @@
 import styles from "../styles.module.scss";
 import { Col, Form, Row } from "react-bootstrap";
-import { paymentMethods } from "@/data/paymentMethods";
-import PaymentForm from "@/components/paymentForm";
+import { paymentMethods } from "../../../data/paymentMethods";
+import PaymentForm from "../../../components/paymentForm";
 import React, { useEffect, useState } from "react";
 import { toast } from "react-toastify";
 import 'react-toastify/dist/ReactToastify.css';

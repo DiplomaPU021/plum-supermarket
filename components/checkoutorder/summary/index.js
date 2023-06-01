@@ -1,18 +1,18 @@
 import styles from "../styles.module.scss"
 import { Form, Button, Row, Col } from "react-bootstrap"
 import { useEffect, useState } from 'react'
-import { applyPromocode, saveAddress } from "@/requests/user";
+import { applyPromocode, saveAddress } from "../../../requests/user";
 import { Formik } from 'formik';
 import * as yup from 'yup';
 import axios from "axios";
 import { useSession } from "next-auth/react";
 import { useDispatch } from "react-redux";
-import { emptyCart } from "@/store/cartSlice";
+import { emptyCart } from "../../../store/cartSlice";
 import { useRouter } from "next/router";
 import CheckoutCart from "../cartitems";
 import PersonalDataPolicy from '../../checkoutorder/info/PersonalDataPolicy'
 import UserConditions from "../../checkoutorder/info/PersonalDataPolicy"
-import DotLoaderSpinner from "@/components/loaders/dotLoader";
+import DotLoaderSpinner from "../../../components/loaders/dotLoader";
 
 
 

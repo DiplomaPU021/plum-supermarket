@@ -1,7 +1,7 @@
-import ChevronLeft from "@/components/icons/ChevronLeft";
-import ChevronRight from "@/components/icons/ChevronRight";
-import CartIcon from "@/components/icons/CartIcon";
-import ProductCard from "@/components/productCard";
+import ChevronLeft from "../../../components/icons/ChevronLeft";
+import ChevronRight from "../../../components/icons/ChevronRight";
+import CartIcon from "../../../components/icons/CartIcon";
+import ProductCard from "../../../components/productCard";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { Container, Col, Image } from "react-bootstrap";
 import { Swiper, SwiperSlide } from "swiper/react";

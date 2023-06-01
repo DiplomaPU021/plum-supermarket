@@ -1,9 +1,9 @@
 import nc from "next-connect";
-import Coupon from "@/models/Coupon";
-import db from "@/utils/db";
-import auth from "@/middleware/auth";
-import { generatePromoCode } from "@/utils/promocodeGenerator";
-import admin from "@/middleware/admin";
+import Coupon from "../../../models/Coupon";
+import db from "../../../utils/db";
+import auth from "../../../middleware/auth";
+import { generatePromoCode } from "../../../utils/promocodeGenerator";
+import admin from "../../../middleware/admin";
 
 const handler = nc().use(auth).use(admin);
 
@@ -37,7 +37,7 @@ handler.delete(async (req, res) => {
     const { id } = req.body;
     await db.connectDb();
     await Coupon.findByIdAndRemove(id);
-    await db.disconnectDb();
+    // await db.disconnectDb();
     return res.json({
       message: "Купон успішно видалено!",
       coupons: await Coupon.find({}).sort({ updatedAt: -1 }),
@@ -57,7 +57,7 @@ handler.put(async (req, res) => {
       startDate,
       endDate,
     });
-    await db.disconnectDb();
+    // await db.disconnectDb();
     return res.json({
       message: "Купон змінено успішно!",
       coupons: await Coupon.find({}).sort({ updatedAt: -1 }),

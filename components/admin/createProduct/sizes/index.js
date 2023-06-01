@@ -1,7 +1,7 @@
 import { useState } from "react"
 import styles from "./styles.module.scss"
 import { AiFillMinusCircle, AiFillPlusCircle } from "react-icons/ai";
-import { sizesList } from "@/data/sizes";
+import { sizesList } from "../../../../data/sizes";
 export default function Sizes({
     sizes,
     product,

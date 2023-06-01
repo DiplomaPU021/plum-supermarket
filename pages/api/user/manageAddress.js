@@ -1,7 +1,7 @@
 import nc from "next-connect";
-import User from "@/models/User";
-import db from "@/utils/db";
-import auth from "@/middleware/auth";
+import User from "../../../models/User";
+import db from "../../../utils/db";
+import auth from "../../../middleware/auth";
 
 const handler = nc().use(auth);
 

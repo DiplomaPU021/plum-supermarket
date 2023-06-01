@@ -1,8 +1,8 @@
 import nc from "next-connect";
-import db from "@/utils/db";
-import Product from "@/models/Product";
-import auth from "@/middleware/auth";
-import admin from "@/middleware/admin";
+import db from "../../../../utils/db";
+import Product from "../../../../models/Product";
+import auth from "../../../../middleware/auth";
+import admin from "../../../../middleware/admin";
 import slugify from "slugify";
 
 const handler = nc().use(auth).use(admin);
@@ -139,7 +139,7 @@ handler.delete(async (req, res) => {
     } else {
       if (product.subProducts.length == 1) {
         await Product.findByIdAndDelete(id);
-        await db.disconnectDb();
+        // await db.disconnectDb();
         return res.status(200).json({ message: "Продукт видалено успішно!" });
       }
       let deletedSubProducts = product.subProducts.splice(style, 1)[0];

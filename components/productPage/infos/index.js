@@ -1,29 +1,29 @@
 import "bootstrap/dist/css/bootstrap.min.css";
-import CartIcon from "@/components/icons/CartIcon";
-import ChevronRight from "@/components/icons/ChevronRight";
-import HeartIcon from "@/components/icons/HeartIcon";
-import ScalesIcon from "@/components/icons/ScalesIcon";
+import CartIcon from "../../../components/icons/CartIcon";
+import ChevronRight from "../../../components/icons/ChevronRight";
+import HeartIcon from "../../../components/icons/HeartIcon";
+import ScalesIcon from "../../../components/icons/ScalesIcon";
 import axios from "axios";
 import { useEffect, useState } from "react";
 import styles from "./styles.module.scss";
 import { useRouter } from "next/router";
 import Link from "next/link";
 import { useSelector, useDispatch } from "react-redux";
-import { addToCart, updateCart } from "@/store/cartSlice";
+import { addToCart } from "../../../store/cartSlice";
 import { Col, Container, Row } from "react-bootstrap";
 import AllDetails from "../allDetails";
 import SizesTable from "../sizesTable";
-import { addToWishList, updateWishList } from "@/store/wishListSlice";
+import { addToWishList } from "../../../store/wishListSlice";
 import { useSession } from "next-auth/react";
-import { saveWishList, updateOneInWishList } from "@/requests/user";
+import { saveWishList } from "../../../requests/user";
 import { Tooltip } from "react-tooltip";
 import "react-tooltip/dist/react-tooltip.css";
 import {
   addToScaleList,
   removeFromScaleList,
   updateScaleList,
-} from "@/store/scaleListSlice";
-import { addToViewedList } from "@/store/viewedListSlice";
+} from "../../../store/scaleListSlice";
+import { addToViewedList } from "../../../store/viewedListSlice";
 
 export default function Infos({
   product,

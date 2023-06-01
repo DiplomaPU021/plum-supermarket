@@ -1,7 +1,7 @@
-import Product from "@/models/Product";
-import User from "@/models/User";
+import Product from "../../models/Product";
+import User from "../../models/User";
 import productService from "./product.service";
-import Cart from "@/models/Cart";
+import Cart from "../../models/Cart";
 
 const getOneById = async (id) => {
   const user = await User.findById(id);

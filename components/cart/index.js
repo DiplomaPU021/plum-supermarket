@@ -9,8 +9,8 @@ import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { signIn, useSession } from 'next-auth/react';
 import { useRouter } from "next/router"
-import { saveCart } from "@/requests/user"
-import MyCabinet from "@/components/mycabinet"
+import { saveCart } from "../../requests/user"
+import MyCabinet from "../../components/mycabinet"
 import DotLoaderSpinner from "../loaders/dotLoader"
 
 export default function Cart({ error, setError, ...props }) {

@@ -1,6 +1,6 @@
-import Order from "@/models/Order";
-import Product from "@/models/Product";
-import User from "@/models/User";
+import Order from "../../models/Order";
+import Product from "../../models/Product";
+import User from "../../models/User";
 
 
 const getOneById = async (id) => {

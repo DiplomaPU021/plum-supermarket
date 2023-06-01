@@ -1,24 +1,24 @@
-import Header from "@/components/header";
-import Footer from "@/components/footer";
-import LightPlumIcon from "@/components/icons/LightPlumIcon";
-import GreenChevronRight from "@/components/icons/ChevronRight";
+import Header from "../../components/header";
+import Footer from "../../components/footer";
+import LightPlumIcon from "../../components/icons/LightPlumIcon";
+import GreenChevronRight from "../../components/icons/ChevronRight";
 import "bootstrap/dist/css/bootstrap.min.css";
 import Link from "next/link";
 import { Container, Row, Col, Accordion, Form } from "react-bootstrap";
 import styles from "../../styles/subCategory.module.scss";
 import db from "../../utils/db";
-import Brands from "@/components/brands/indes";
+import Brands from "../../components/brands";
 import Category from "../../models/Category";
-import SubCategory from "@/models/SubCategory";
-import GroupSubCategory from "@/models/GroupSubCategory";
-import Product from "@/models/Product";
+import SubCategory from "../../models/SubCategory";
+import GroupSubCategory from "../../models/GroupSubCategory";
+import Product from "../../models/Product";
 import { useEffect, useState } from "react";
 import { useRouter } from "next/router";
-import ProductCard from "@/components/productCard";
-import LoopIcon from "@/components/icons/LoopIcon";
-import { getCountryData } from "@/utils/country";
-import RangeSlider from "@/components/range";
-import ViewedProducts from "@/components/viewedProducts";
+import ProductCard from "../../components/productCard";
+import LoopIcon from "../../components/icons/LoopIcon";
+import { getCountryData } from "../../utils/country";
+import RangeSlider from "../../components/range";
+import ViewedProducts from "../../components/viewedProducts";
 
 export default function SubCategorySlug({
   country,

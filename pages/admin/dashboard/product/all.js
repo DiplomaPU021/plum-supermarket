@@ -1,12 +1,12 @@
-import styles from "@/styles/products.module.scss";
-import Layout from "@/components/admin/layout";
-import db from "@/utils/db";
-import Product from "@/models/Product";
-import Category from "@/models/Category";
-import ProductCard from "@/components/admin/products/productCard";
-import SubCategory from "@/models/SubCategory";
-import GroupSubCategory from "@/models/GroupSubCategory";
-import FloatingButton from "@/components/FloatingButton";
+import styles from "../../../../styles/products.module.scss";
+import Layout from "../../../../components/admin/layout";
+import db from "../../../../utils/db";
+import Product from "../../../../models/Product";
+import Category from "../../../../models/Category";
+import ProductCard from "../../../../components/admin/products/productCard";
+import SubCategory from "../../../../models/SubCategory";
+import GroupSubCategory from "../../../../models/GroupSubCategory";
+import FloatingButton from "../../../../components/FloatingButton";
 
 export default function All({ products }) {
   return (

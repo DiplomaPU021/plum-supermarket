@@ -3,7 +3,7 @@ import styles from "../styles.module.scss";
 import "bootstrap/dist/css/bootstrap.min.css";
 import crypto from "crypto";
 import axios from "axios";
-import LiqPayResponse from "@/components/liqpay";
+import LiqPayResponse from "../../../components/liqpay";
 
 
 const PaymentButton = ({ setIsPaid, totalAfterDiscount }) => {

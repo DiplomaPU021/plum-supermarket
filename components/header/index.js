@@ -17,8 +17,8 @@ import ThemeSwitcher from "./ThemeSwitcher";
 import { Tooltip } from "react-tooltip";
 import "react-tooltip/dist/react-tooltip.css";
 import axios from "axios";
-import { updateWishList } from "@/store/wishListSlice";
-import { addToSearchedList } from "@/store/searchedListSlice";
+import { updateWishList } from "../../store/wishListSlice";
+import { addToSearchedList } from "../../store/searchedListSlice";
 import { useRouter } from "next/router";
 
 export default function Header({ country }) {

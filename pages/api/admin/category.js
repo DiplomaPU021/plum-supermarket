@@ -1,12 +1,12 @@
 import nc from "next-connect";
-import db from "@/utils/db";
-import auth from "@/middleware/auth";
-import admin from "@/middleware/admin";
+import db from "../../../utils/db";
+import auth from "../../../middleware/auth";
+import admin from "../../../middleware/admin";
 import slugify from "slugify";
-import Category from "@/models/Category";
-import SubCategory from "@/models/SubCategory";
-import GroupSubCategory from "@/models/GroupSubCategory";
-import Product from "@/models/Product";
+import Category from "../../../models/Category";
+import SubCategory from "../../../models/SubCategory";
+import GroupSubCategory from "../../../models/GroupSubCategory";
+import Product from "../../../models/Product";
 
 const handler = nc().use(auth).use(admin);
 
@@ -21,7 +21,7 @@ handler.post(async (req, res) => {
         .json({ message: "Така категорія вже існує, спробуйте інше ім'я" });
     }
     await new Category({ name, slug: slugify(name, "_") }).save();
-    await db.disconnectDb();
+    // await db.disconnectDb();
     return res.json({
       message: `Категорія ${name} створена успішно`,
       categories: await Category.find({}).sort({ name: 1 }),
@@ -50,7 +50,7 @@ handler.delete(async (req, res) => {
       productsToDeleteGroup.length == 0
     ) {
       await Category.findByIdAndRemove(id);
-      await db.disconnectDb();
+      // await db.disconnectDb();
       return res.json({
         message: "Категорія видалена успішно!",
         categories: await Category.find({}).sort({
@@ -75,7 +75,7 @@ handler.put(async (req, res) => {
       name,
       slug: slugify(name, "_"),
     });
-    await db.disconnectDb();
+    // await db.disconnectDb();
     return res.json({
       message: `Категорія оновлена успішно!`,
       categories: await Category.find({}).sort({ name: 1 }),

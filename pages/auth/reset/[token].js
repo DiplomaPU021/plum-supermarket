@@ -10,7 +10,7 @@ import LoginInput from "../../../components/inputs/loginInput"
 import { Formik, Form } from "formik"
 import * as Yup from "yup"
 import jwt from "jsonwebtoken";
-import DotLoaderSpinner from "@/components/loaders/dotLoader"
+import DotLoaderSpinner from "../../../components/loaders/dotLoader"
 import { Router } from "next/router"
 import { getSession, signIn } from "next-auth/react"
 
