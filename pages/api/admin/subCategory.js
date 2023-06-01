@@ -1,12 +1,12 @@
-import SubCategory from "@/models/SubCategory";
 import nc from "next-connect";
+import db from "@/utils/db";
 import auth from "@/middleware/auth";
 import admin from "@/middleware/admin";
-import db from "@/utils/db";
 import slugify from "slugify";
-import Product from "@/models/Product";
-import GroupSubCategory from "@/models/GroupSubCategory";
 import Category from "@/models/Category";
+import GroupSubCategory from "@/models/GroupSubCategory";
+import SubCategory from "@/models/SubCategory";
+import Product from "@/models/Product";
 
 const handler = nc().use(auth).use(admin);
 
@@ -91,16 +91,15 @@ handler.put(async (req, res) => {
 handler.get(async (req, res) => {
   try {
     const { groupSubCategory } = req.query;
+    await db.connectDb();
     if (!groupSubCategory) {
       return res.json([]);
     }
-    await db.connectDb();
     const result = await SubCategory.find({ parent: groupSubCategory }).select(
       "name"
     ).sort({
       name: 1,
     });
-    await db.disconnectDb();
     return res.json(result);
   } catch (error) {
    return res.status(500).json({ message: error.message });

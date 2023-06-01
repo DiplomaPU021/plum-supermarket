@@ -14,8 +14,9 @@ export default function Users({ users }) {
 }
 
 export async function getServerSideProps(context) {
-    db.connectDb();
+    await db.connectDb();
     const users = await User.find({}).sort({ updateAt: -1 }).lean();
+    await db.disconnectDb();
     return {
         props: {
             users: JSON.parse(JSON.stringify(users)),
