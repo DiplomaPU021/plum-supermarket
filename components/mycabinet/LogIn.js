@@ -38,6 +38,19 @@ export default function LogIn({
   const [loading, setLoading] = useState(false);
   const [userLogin, setUserLogin] = useState(initialvalues);
   const { login_email, login_password, login_error } = userLogin;
+  const [csrfToken, setCsrfToken] = useState("");
+
+  useEffect(() => {
+    async function fetchData() {
+      const response = await getCsrfToken();
+      // console.log("token2", Object.values(response));
+      // console.log("sessionOnLogin///////////", session, status);
+      if (response) {
+        setCsrfToken(response);
+      }
+    }
+    fetchData();
+  }, []); // Or [] if effect doesn't need props or state
 
   const loginValidation = yup.object({
     login_email: yup
@@ -131,6 +144,12 @@ export default function LogIn({
                   }}
                   className={styles.login_forms}
                 >
+                   <input
+                    type="hidden"
+                    readOnly
+                    name="csrfToken"
+                    value={csrfToken}
+                  />
                   <Form.Group className="mb-3" controlId="groupLoginEmail">
                     <Form.Label className={styles.formlabel}>
                       Електронна пошта
