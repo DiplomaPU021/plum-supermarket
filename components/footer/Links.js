@@ -45,14 +45,16 @@ const links = [
             },
             {
                 name: "Умови використання сайту",
-                link: ""
-            }, {
-                name: "Контакти",
-                link: ""
-            }, {
+                link: "/terms_of_service"
+            },
+            {
                 name: "Усі категорії",
                 link: ""
             },
+            {
+                name: "Сервісні центри",
+                link: ""
+            }
         ]
     },
     {
@@ -60,7 +62,7 @@ const links = [
         links: [
             {
                 name: "Доставка та оплата",
-                link: ""
+                link: "/terms_of_service"
             },
             {
                 name: "Кредит",
@@ -70,12 +72,13 @@ const links = [
                 link: ""
             }, {
                 name: "Повернення товару",
-                link: ""
+                link: "/terms_of_service"
             },
             {
-                name: "Сервісні центри",
-                link: ""
-            }
+                name: "Політика конфіденційності",
+                link: "/privacy_policy"
+            }, 
+        
         ]
     },
     {
