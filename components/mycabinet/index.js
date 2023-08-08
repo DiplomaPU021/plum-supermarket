@@ -23,6 +23,9 @@ export default function MyCabinet({ user, setUser, orders, country, ...props }) 
         if (session && (status == "authenticated" || status == "loading")) {
             setAuthShow(false);
             setUserProfileShow(true);
+        //   console.log("sessionOnMyCabinet////OK///////", session, status);
+        } else if (status == "unauthenticated"){
+            // console.log("sessionOnMyCabinet////NOK///////", session, status);
         }
     }, [session]);
     const logInFormShow = () => {

@@ -55,7 +55,11 @@ export default function Header({ country }) {
   };
 
   const getWishItemsCount = () => {
-    return wishList.wishListTotal;
+    if (session && (status == "authenticated" || status == "loading")) {
+      return wishList.wishListTotal;
+    } else if (status == "unauthenticated") {
+      return 0;
+    }
   };
 
   const getItemsCount = () => {
