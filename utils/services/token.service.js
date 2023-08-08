@@ -6,18 +6,14 @@ const createActivationToken = async (user) => {
     process.env.ACTIVATION_TOKEN_SECRET,
     {
       expiresIn: "2d",
-    }
+    },
   );
   return result;
 };
 const createResetToken = async (payload) => {
-  const result = await jwt.sign(
-    payload,
-    process.env.RESET_TOKEN_SECRET,
-    {
-      expiresIn: "6h",
-    }
-  );
+  const result = await jwt.sign(payload, process.env.RESET_TOKEN_SECRET, {
+    expiresIn: "6h",
+  });
   return result;
 };
 const createToken = async (user) => {
@@ -26,7 +22,7 @@ const createToken = async (user) => {
     process.env.JWT_SECRET,
     {
       expiresIn: "2h",
-    }
+    },
   );
   return result;
 };

@@ -17,7 +17,7 @@ export default function Authorization({
   user,
   setUser,
   orders,
-  country
+  country,
 }) {
   if (logShow) {
     return (

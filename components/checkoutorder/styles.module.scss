@@ -35,7 +35,6 @@
   flex-direction: row;
   align-items: center;
   height: 54px;
-
 }
 
 .checkout_form {
@@ -58,7 +57,6 @@
 
 .colcard {
   padding: 0;
-
 }
 
 .confirm {
@@ -68,8 +66,12 @@
   padding: 24px;
   gap: 20px;
   width: 536px;
-  background: linear-gradient(0deg, #FAF8FF, #FAF8FF), linear-gradient(180deg, #FAF8FF 0%, #F2EDFF 100%);
-  box-shadow: 0px 0px 15px rgba(34, 15, 75, 0.5), inset 7px 7px 20px #FAF5FF, inset -7px -7px 20px #F7EEFF;
+  background: linear-gradient(0deg, #faf8ff, #faf8ff),
+    linear-gradient(180deg, #faf8ff 0%, #f2edff 100%);
+  box-shadow:
+    0px 0px 15px rgba(34, 15, 75, 0.5),
+    inset 7px 7px 20px #faf5ff,
+    inset -7px -7px 20px #f7eeff;
   border-radius: 23px;
 
   @media (min-width: 1580px) {
@@ -80,14 +82,14 @@
 .leftsale {
   width: 100%;
   height: 54px;
-  background: linear-gradient(90deg, #220F4B 0%, #573C91 100%);
+  background: linear-gradient(90deg, #220f4b 0%, #573c91 100%);
   border-radius: 0px 23px 23px 0px;
-  font-family: 'Noto Sans';
+  font-family: "Noto Sans";
   font-style: normal;
   font-weight: 600;
   font-size: 25px;
   line-height: 34px;
-  color: #FAF8FF;
+  color: #faf8ff;
   align-items: center;
   justify-content: flex-start;
   display: flex;
@@ -97,14 +99,14 @@
 .panel {
   max-width: 710px;
   height: 54px;
-  background: linear-gradient(90deg, #70BF63 0%, #8AE37C 100%);
+  background: linear-gradient(90deg, #70bf63 0%, #8ae37c 100%);
   border-radius: 0px 23px 23px 0px;
-  font-family: 'Noto Sans';
+  font-family: "Noto Sans";
   font-style: normal;
   font-weight: 600;
   font-size: 25px;
   line-height: 34px;
-  color: #FAF8FF;
+  color: #faf8ff;
   align-items: center;
   justify-content: flex-start;
   display: flex;
@@ -129,8 +131,11 @@
   gap: 15px;
   margin: 40px 0px 30px 50px;
   padding: 24px;
-  background: linear-gradient(180deg, #FAF8FF 0%, #F2EDFF 100%);
-  box-shadow: 0px 0px 15px rgba(34, 15, 75, 0.5), inset 7px 7px 20px #FAF5FF, inset -7px -7px 20px #F7EEFF;
+  background: linear-gradient(180deg, #faf8ff 0%, #f2edff 100%);
+  box-shadow:
+    0px 0px 15px rgba(34, 15, 75, 0.5),
+    inset 7px 7px 20px #faf5ff,
+    inset -7px -7px 20px #f7eeff;
   border-radius: 23px;
   justify-content: center;
   align-items: center;
@@ -150,7 +155,6 @@
 
 .err {
   padding-left: 10px;
-
 }
 
 .col_contacts {
@@ -164,15 +168,15 @@
 .attention {
   max-width: 782px;
   height: 138px;
-  color: #FAF8FF;
-  background: #220F4B;
+  color: #faf8ff;
+  background: #220f4b;
   border-radius: 23px;
   padding: 24px;
   text-align: center;
   font-weight: 400;
   font-size: 22px;
   line-height: 30px;
-  font-family: 'Noto Sans';
+  font-family: "Noto Sans";
   font-style: normal;
   margin: 20px 0px 30px 0px;
 }
@@ -181,14 +185,14 @@
   max-width: 650px;
   height: 86px;
   color: $plum-dark-color;
-  background: #E4F4E5;
+  background: #e4f4e5;
   border-radius: 23px;
   padding: 24px;
   text-align: center;
   font-weight: 400;
   font-size: 22px;
   line-height: 30px;
-  font-family: 'Noto Sans';
+  font-family: "Noto Sans";
   font-style: normal;
   margin: 20px 0px 40px 50px;
   font-weight: 400;
@@ -211,11 +215,12 @@
   gap: 60px;
   margin: 40px 0px 40px 50px;
   max-width: 650px;
-  background: linear-gradient(180deg, #FAF8FF 0%, #F2EDFF 100%);
-  box-shadow: 0px 0px 15px rgba(34, 15, 75, 0.5), inset 7px 7px 20px #FAF5FF, inset -7px -7px 20px #F7EEFF;
+  background: linear-gradient(180deg, #faf8ff 0%, #f2edff 100%);
+  box-shadow:
+    0px 0px 15px rgba(34, 15, 75, 0.5),
+    inset 7px 7px 20px #faf5ff,
+    inset -7px -7px 20px #f7eeff;
   border-radius: 23px;
-
-
 
   @media (min-width: 1300px) {
     max-width: 710px;
@@ -231,8 +236,11 @@
   gap: 60px;
   margin: 40px 0px 0px 50px;
   max-width: 650px;
-  background: linear-gradient(180deg, #FAF8FF 0%, #F2EDFF 100%);
-  box-shadow: 0px 0px 15px rgba(34, 15, 75, 0.5), inset 7px 7px 20px #FAF5FF, inset -7px -7px 20px #F7EEFF;
+  background: linear-gradient(180deg, #faf8ff 0%, #f2edff 100%);
+  box-shadow:
+    0px 0px 15px rgba(34, 15, 75, 0.5),
+    inset 7px 7px 20px #faf5ff,
+    inset -7px -7px 20px #f7eeff;
   border-radius: 23px;
 
   @media (min-width: 1300px) {
@@ -248,7 +256,6 @@
   padding: 0 24px;
   gap: 20px;
   max-width: 538px;
-
 }
 
 .order_top {
@@ -267,13 +274,13 @@
     border-radius: 50%;
 
     &:hover {
-      box-shadow: 0px 0px 5px 0px #220F4B;
+      box-shadow: 0px 0px 5px 0px #220f4b;
     }
   }
 }
 
 .modalbody {
-  background: linear-gradient(180deg, #FAF8FF 0%, #F2EDFF 100%);
+  background: linear-gradient(180deg, #faf8ff 0%, #f2edff 100%);
   border-radius: 10px;
 }
 
@@ -300,7 +307,7 @@
   width: 46px;
   height: 46px;
   color: $green-color;
-  background: #FAF8FF;
+  background: #faf8ff;
   border-radius: 30px;
   margin-right: 20px;
 }
@@ -309,12 +316,12 @@
   padding: 15px 24px;
   max-width: 860px;
   height: 60px;
-  border: 2px solid #220F4B;
+  border: 2px solid #220f4b;
   border-radius: 35px;
 
   &:focus {
-    border: 2px solid #220F4B;
-    box-shadow: 0px 0px 5px 0px #220F4B;
+    border: 2px solid #220f4b;
+    box-shadow: 0px 0px 5px 0px #220f4b;
   }
 }
 
@@ -322,18 +329,17 @@
   padding: 15px 24px;
   max-width: 860px;
   height: 60px;
-  border: 2px solid #220F4B;
+  border: 2px solid #220f4b;
   border-radius: 35px;
   margin-left: 12px;
 
   &:focus {
-    border: 2px solid #220F4B;
-    box-shadow: 0px 0px 5px 0px #220F4B;
+    border: 2px solid #220f4b;
+    box-shadow: 0px 0px 5px 0px #220f4b;
   }
 }
 
 // shipping----------------------------------------------------
-
 
 .flex_row {
   align-items: flex-end;
@@ -346,12 +352,12 @@
   button {
     width: 100%;
     height: 56px;
-    font-family: 'Noto Sans';
+    font-family: "Noto Sans";
     font-weight: 320;
     font-size: 20px;
     border-radius: 30px;
-    color: #FAF8FF;
-    background-color: #220F4B;
+    color: #faf8ff;
+    background-color: #220f4b;
   }
 }
 
@@ -386,10 +392,10 @@
       }
     }
 
-    input[type="radio"]:checked+label {
-      border: 2px solid #70BF63;
-      background-color: #70BF63 !important;
-      color: #FAF8FF !important;
+    input[type="radio"]:checked + label {
+      border: 2px solid #70bf63;
+      background-color: #70bf63 !important;
+      color: #faf8ff !important;
     }
 
     input {
@@ -399,7 +405,6 @@
     }
   }
 }
-
 
 .bottom {
   margin: 15px 0px;
@@ -428,7 +433,7 @@
   font-weight: 400;
   font-size: 14px;
   line-height: 19px;
-  color: #220F4B;
+  color: #220f4b;
   padding-left: 24px;
 }
 
@@ -468,7 +473,7 @@
 .shiping_line {
   min-width: 200px;
   height: 0px;
-  border: 2px solid #70BF63;
+  border: 2px solid #70bf63;
   padding: 0px 20px 0px 20px;
 }
 
@@ -476,12 +481,12 @@
   padding: 15px 24px;
   max-width: 100%;
   height: 60px;
-  border: 2px solid #220F4B;
+  border: 2px solid #220f4b;
   border-radius: 35px;
 
   &:focus {
-    border: 2px solid #220F4B;
-    box-shadow: 0px 0px 5px 0px #220F4B;
+    border: 2px solid #220f4b;
+    box-shadow: 0px 0px 5px 0px #220f4b;
   }
 }
 
@@ -489,12 +494,12 @@
   padding: 15px 24px;
   width: 60%;
   height: 60px;
-  border: 2px solid #220F4B;
+  border: 2px solid #220f4b;
   border-radius: 35px;
 
   &:focus {
-    border: 2px solid #220F4B;
-    box-shadow: 0px 0px 5px 0px #220F4B;
+    border: 2px solid #220f4b;
+    box-shadow: 0px 0px 5px 0px #220f4b;
   }
 }
 
@@ -502,17 +507,14 @@
   padding: 15px 24px;
   //max-width: 98%;
   height: 60px;
-  border: 2px solid #220F4B;
+  border: 2px solid #220f4b;
   border-radius: 35px;
 
   &:focus {
-    border: 2px solid #220F4B;
-    box-shadow: 0px 0px 5px 0px #220F4B;
+    border: 2px solid #220f4b;
+    box-shadow: 0px 0px 5px 0px #220f4b;
   }
-
-
 }
-
 
 .group_floor {
   align-items: center;
@@ -526,12 +528,12 @@
   button {
     width: 96%;
     height: 56px;
-    font-family: 'Noto Sans';
+    font-family: "Noto Sans";
     font-weight: 320;
     font-size: 20px;
     border-radius: 30px;
-    color: #FAF8FF;
-    background-color: #220F4B;
+    color: #faf8ff;
+    background-color: #220f4b;
   }
 
   .floor {
@@ -540,29 +542,27 @@
   }
 }
 
-
 .form_label {
   margin-left: 18px;
-  font-family: 'Noto Sans';
+  font-family: "Noto Sans";
   font-style: normal;
   font-weight: 400;
   font-size: 16px;
   line-height: 25px;
-  color: #220F4B;
+  color: #220f4b;
 }
 
 .radio {
   padding: 20px 24px;
   gap: 15px;
-  color: #220F4B;
+  color: #220f4b;
   max-width: 480px;
-  font-family: 'Noto Sans';
+  font-family: "Noto Sans";
   font-style: normal;
   font-weight: 400;
   font-size: 18px;
   line-height: 24px;
   margin-left: 20px;
-
 }
 
 .text_span {
@@ -639,8 +639,10 @@
   padding: 24px;
   width: 125px;
   height: 93px;
-  background: linear-gradient(180deg, #e5e4e8 0%, #F2EDFF 100%);
-  box-shadow: inset 7px 7px 20px #FAF5FF, inset -7px -7px 20px #F7EEFF;
+  background: linear-gradient(180deg, #e5e4e8 0%, #f2edff 100%);
+  box-shadow:
+    inset 7px 7px 20px #faf5ff,
+    inset -7px -7px 20px #f7eeff;
   border-radius: 23px;
   border: 2px solid #c4c3c8;
   flex: none;
@@ -657,10 +659,10 @@
   gap: 20px;
   width: 226px;
   height: 38px;
-  color: #220F4B;
+  color: #220f4b;
 
   h5 {
-    font-family: 'Noto Sans';
+    font-family: "Noto Sans";
     font-style: normal;
     font-weight: 400;
     font-size: 14px;
@@ -683,10 +685,10 @@
   justify-content: center;
   align-items: center;
   width: 120px;
-  color: #220F4B;
+  color: #220f4b;
 
   p {
-    font-family: 'Noto Sans';
+    font-family: "Noto Sans";
     font-style: normal;
     font-weight: 500;
     font-size: 18px;
@@ -715,7 +717,7 @@
   .itembtn {
     border-radius: 50%;
     border: 2px solid $plum-dark-color;
-    background-color: #FAF8FF;
+    background-color: #faf8ff;
     width: 46px;
     height: 46px;
   }
@@ -725,21 +727,20 @@
   padding: 15px 24px;
   width: 100%;
   height: 60px;
-  border: 2px solid #220F4B;
+  border: 2px solid #220f4b;
   border-radius: 35px;
   margin-bottom: 1rem;
 
-
   &:focus {
-    border: 2px solid #220F4B;
-    box-shadow: 0px 0px 5px 0px #220F4B;
+    border: 2px solid #220f4b;
+    box-shadow: 0px 0px 5px 0px #220f4b;
   }
 }
 
 .promo {
   width: 100%;
   height: 30px;
-  color: #220F4B;
+  color: #220f4b;
   background: none;
   font-size: 22px;
   font-weight: 500;
@@ -748,8 +749,7 @@
   border: none;
 
   &:active {
-
-    color: #220F4B !important;
+    color: #220f4b !important;
     background-color: $light-wheet-color !important;
   }
 
@@ -759,14 +759,14 @@
 
   &:hover {
     background: none;
-    color: #220F4B;
+    color: #220f4b;
   }
 }
 
 .form_line {
   width: 100%;
   height: 0px;
-  border: 2px solid #70BF63;
+  border: 2px solid #70bf63;
   margin-top: 10px;
 }
 
@@ -813,11 +813,10 @@
 }
 
 .total {
-  color: #220F4B;
+  color: #220f4b;
   width: 100%;
 
   .details {
-    
     &_name {
       margin-top: 15px;
       padding: 0;
@@ -834,12 +833,12 @@
     }
 
     span {
-      font-family: 'Noto Sans';
+      font-family: "Noto Sans";
       font-style: normal;
       font-weight: 500;
       font-size: 16px;
       line-height: 22px;
-      color: #220F4B;
+      color: #220f4b;
     }
   }
 }
@@ -850,41 +849,39 @@
   margin-top: 15px;
   width: 730px;
   height: 48px;
-  font-family: 'Noto Sans';
+  font-family: "Noto Sans";
   font-weight: 320;
   font-size: 23px;
   border-radius: 30px;
-  color: #FAF8FF;
-  background-color: #220F4B;
+  color: #faf8ff;
+  background-color: #220f4b;
 }
 
 .small_sbm {
   width: 100%;
   height: 54px;
-  font-family: 'Noto Sans';
+  font-family: "Noto Sans";
   font-weight: 320;
   font-size: 23px;
   border-radius: 30px;
-  color: #FAF8FF;
-  background-color: #220F4B;
+  color: #faf8ff;
+  background-color: #220f4b;
   border: none;
 
   &:active,
   &:hover {
-    box-shadow: 0px 0px 5px 0px #220F4B;
-    background-color: #220F4B !important;
+    box-shadow: 0px 0px 5px 0px #220f4b;
+    background-color: #220f4b !important;
   }
-
-
 }
 
 .total_label {
-  font-family: 'Noto Sans';
+  font-family: "Noto Sans";
   font-style: normal;
   font-weight: 600;
   font-size: 22px;
   line-height: 20px;
-  color: #220F4B;
+  color: #220f4b;
 }
 
 // carts-------------------
@@ -900,13 +897,12 @@
   padding: 0px;
   gap: 20px;
 
-
   &::-webkit-scrollbar {
     width: 6px;
   }
 
   &::-webkit-scrollbar-track {
-    background: #70BF6380;
+    background: #70bf6380;
     border-left: 2px solid $light-wheet-color;
     border-right: 2px solid $light-wheet-color;
   }
@@ -925,7 +921,7 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  color: #220F4B;
+  color: #220f4b;
   margin-top: 50px;
   padding-bottom: 40px;
 
@@ -967,13 +963,12 @@
   }
 }
 
-
 //-------------------------------
 .form_input_card {
   padding: 15px 24px;
   max-width: 860px;
   height: 52px;
-  border: 2px solid #220F4B;
+  border: 2px solid #220f4b;
   border-radius: 35px;
 }
 
@@ -981,45 +976,42 @@
   padding: 10px 24px;
   max-width: 860px;
   height: 46px;
-  border: 2px solid #220F4B;
+  border: 2px solid #220f4b;
   border-radius: 35px;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  font-family: 'Noto Sans';
+  font-family: "Noto Sans";
   font-weight: 320;
   font-size: 23px;
   border-radius: 30px;
-  color: #220F4B;
+  color: #220f4b;
   // background-color: #FAF8FF;
   // border: 2px solid #220F4B;
-  background-color: #220F4B;
+  background-color: #220f4b;
   border: none;
-  &:hover {  
-     cursor: pointer;
-    box-shadow: 0px 0px 5px 0px #220F4B;
-    background-color: #220F4B;
+  &:hover {
+    cursor: pointer;
+    box-shadow: 0px 0px 5px 0px #220f4b;
+    background-color: #220f4b;
     // box-shadow: 0px 0px 5px 0px #220F4B;
     // background-color: #FAF8FF;
   }
 
   button {
     display: inline-block;
-      color: #FAF8FF;
-      background-color: transparent;
-      align-self: "center";
-   
+    color: #faf8ff;
+    background-color: transparent;
+    align-self: "center";
   }
-  img{
+  img {
     width: auto;
     height: 25px;
     gap: 10px;
     padding-left: 10px;
   }
-
 }
-
 
 .flex_row_card {
   align-items: flex-end;
@@ -1036,13 +1028,13 @@
     font-size: 18px;
     line-height: 25px;
     border-radius: 30px;
-    color: #FAF8FF;
-    background-color: #220F4B;
+    color: #faf8ff;
+    background-color: #220f4b;
     border: none;
 
     &:hover {
-      box-shadow: 0px 0px 5px 0px #220F4B;
-      background-color: #220F4B;
+      box-shadow: 0px 0px 5px 0px #220f4b;
+      background-color: #220f4b;
     }
   }
 
@@ -1053,14 +1045,14 @@
     font-size: 18px;
     line-height: 25px;
     border-radius: 30px;
-    color: #220F4B;
-    background-color: #FAF8FF;
-    border: 2px solid #220F4B;
+    color: #220f4b;
+    background-color: #faf8ff;
+    border: 2px solid #220f4b;
     border-radius: 23px;
 
     &:hover {
-      box-shadow: 0px 0px 5px 0px #220F4B;
-      background-color: #FAF8FF;
+      box-shadow: 0px 0px 5px 0px #220f4b;
+      background-color: #faf8ff;
     }
   }
 }

@@ -15,7 +15,13 @@ import { Tooltip } from "react-tooltip";
 import Link from "next/link";
 import "react-tooltip/dist/react-tooltip.css";
 
-export default function CartItem({ product, error, setError, deleteConfirm, setDeleteConfirm }) {
+export default function CartItem({
+  product,
+  error,
+  setError,
+  deleteConfirm,
+  setDeleteConfirm,
+}) {
   const { data: session } = useSession();
   const [showExtra, setShowExtra] = useState("none");
   const [notificationShow, setNotificationShow] = useState(false);
@@ -70,12 +76,12 @@ export default function CartItem({ product, error, setError, deleteConfirm, setD
       setWishError("");
       setIsOpenInWish(false);
       const { data } = await axios.get(
-        `/api/product/${product._id}?style=${product.style}&code=${product.mode}`
+        `/api/product/${product._id}?style=${product.style}&code=${product.mode}`,
       );
       let exist = null;
       if (wishList.wishListItems) {
         exist = wishList.wishListItems.find(
-          (item) => item._uid === product._uid
+          (item) => item._uid === product._uid,
         );
       }
       if (exist) {
@@ -90,7 +96,7 @@ export default function CartItem({ product, error, setError, deleteConfirm, setD
             size: data.size,
             _uid: product._uid,
             mode: product.mode,
-          })
+          }),
         );
         saveWishList({
           productId: product._id,
@@ -99,7 +105,7 @@ export default function CartItem({ product, error, setError, deleteConfirm, setD
           color: product.color?.color,
           code: product.code,
           mode: product.mode,
-          style: product.style
+          style: product.style,
         });
       }
     } else {
@@ -114,7 +120,12 @@ export default function CartItem({ product, error, setError, deleteConfirm, setD
         content={wishError}
         isOpen={isOpenInWish}
         place="top"
-        style={{ backgroundColor: "#70BF63", color: "#fff", borderRadius: "30px", zIndex: "999" }}
+        style={{
+          backgroundColor: "#70BF63",
+          color: "#fff",
+          borderRadius: "30px",
+          zIndex: "999",
+        }}
       />
       <Card.Body className={styles.cardbody}>
         {product.discount > 0 ? (
@@ -135,7 +146,10 @@ export default function CartItem({ product, error, setError, deleteConfirm, setD
               </Row>
             </Col>
             <Col md={5} xs={12} sm={5} className={styles.cardtext}>
-              <Link href={`/product/${product.slug}?style=${product.style}&code=${product.mode}`} className={styles.h5text}>
+              <Link
+                href={`/product/${product.slug}?style=${product.style}&code=${product.mode}`}
+                className={styles.h5text}
+              >
                 {(
                   product.name +
                   " " +
@@ -144,17 +158,17 @@ export default function CartItem({ product, error, setError, deleteConfirm, setD
                   product.size
                 ).length > 55
                   ? `${(
-                    product.name.substring(0, 45) +
+                      product.name.substring(0, 45) +
+                      " " +
+                      (product.color ? product.color.color : "") +
+                      " " +
+                      product.size
+                    ).substring(0, 55)}...`
+                  : product.name.substring(0, 45) +
                     " " +
                     (product.color ? product.color.color : "") +
                     " " +
-                    product.size
-                  ).substring(0, 55)}...`
-                  : product.name.substring(0, 45) +
-                  " " +
-                  (product.color ? product.color.color : "") +
-                  " " +
-                  product.size}
+                    product.size}
               </Link>
               <div className={styles.line}></div>
               <div className={styles.cardtext_extraservice}>
@@ -233,14 +247,17 @@ export default function CartItem({ product, error, setError, deleteConfirm, setD
                 <div className={styles.bord}>
                   {product.discount > 0 ? (
                     <h5>
-                      {new Intl.NumberFormat("uk-UA").format(Math.round(product.price * product.qty))} {product.price_unit}
+                      {new Intl.NumberFormat("uk-UA").format(
+                        Math.round(product.price * product.qty),
+                      )}{" "}
+                      {product.price_unit}
                     </h5>
                   ) : (
                     <></>
                   )}
                   <h3>
                     {Math.round(
-                      product.priceAfter * product.qty
+                      product.priceAfter * product.qty,
                     ).toLocaleString("uk-UA")}{" "}
                     {product.price_unit}
                   </h3>

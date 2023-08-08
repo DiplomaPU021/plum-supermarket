@@ -34,7 +34,7 @@ handler.post(async (req, res) => {
         firstName,
         lastName,
         phoneNumber,
-        email
+        email,
       );
     }
     let result = await orderService.createOrder(
@@ -48,7 +48,7 @@ handler.post(async (req, res) => {
       costAfterDiscount,
       promocode,
       discount,
-      isPaid
+      isPaid,
     );
     if (!shippingAddress) {
       let userUpdate = await userService.findByIdAndUpdateProfileFromCheckout(
@@ -56,11 +56,11 @@ handler.post(async (req, res) => {
         firstName,
         lastName,
         phoneNumber,
-        email
+        email,
       );
     }
     await Cart.deleteOne({ user: req.user });
-    await productService.findByIdAndUpdateQuantity(products,isPaid);
+    await productService.findByIdAndUpdateQuantity(products, isPaid);
     await db.disconnectDb();
     return res.status(200).json({
       order_id: result._id,

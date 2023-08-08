@@ -27,15 +27,15 @@ handler.post(async (req, res) => {
       slug: slugify(name, "_"),
     }).save();
     // await db.disconnectDb();
-   return res.json({
+    return res.json({
       message: `Підкатегорія ${name} створена успішно`,
       subCategories: await SubCategory.find({})
-      .populate({ path: "parent", model: GroupSubCategory })
-      .populate({ path: "top_parent", model: Category })
-      .sort({ name: 1 }),
+        .populate({ path: "parent", model: GroupSubCategory })
+        .populate({ path: "top_parent", model: Category })
+        .sort({ name: 1 }),
     });
   } catch (error) {
-   return res.status(500).json({ message: error.message });
+    return res.status(500).json({ message: error.message });
   }
 });
 
@@ -43,23 +43,24 @@ handler.delete(async (req, res) => {
   try {
     const { id } = req.body;
     await db.connectDb();
-    const existProducts = await Product.find({ subCategories: { $in: [id] } });;
-    if(existProducts.length == 0) {
+    const existProducts = await Product.find({ subCategories: { $in: [id] } });
+    if (existProducts.length == 0) {
       await SubCategory.findByIdAndRemove(id);
       // await db.disconnectDb();
       return res.json({
         message: "Підкатегорія успішно видалена!",
-        subCategories: await SubCategory
-        .find({})
-        .populate({ path: "parent", model: GroupSubCategory })
-        .populate({ path: "top_parent", model: Category })
-        .sort({ name: 1 }),
+        subCategories: await SubCategory.find({})
+          .populate({ path: "parent", model: GroupSubCategory })
+          .populate({ path: "top_parent", model: Category })
+          .sort({ name: 1 }),
       });
     } else {
-      throw new Error(`У підкатегорії є ${existProducts.length} продукт(-ів), спершу видаліть їх!`)
+      throw new Error(
+        `У підкатегорії є ${existProducts.length} продукт(-ів), спершу видаліть їх!`,
+      );
     }
   } catch (error) {
-   return res.status(500).json({ message: error.message });
+    return res.status(500).json({ message: error.message });
   }
 });
 
@@ -76,12 +77,12 @@ handler.put(async (req, res) => {
     return res.json({
       message: "Підкатегорія успішно змінена",
       subCategories: await SubCategory.find({})
-      .populate({ path: "parent", model: GroupSubCategory })
-      .populate({ path: "top_parent", model: Category })
-      .sort({ name: 1 }),
+        .populate({ path: "parent", model: GroupSubCategory })
+        .populate({ path: "top_parent", model: Category })
+        .sort({ name: 1 }),
     });
   } catch (error) {
-   return res.status(500).json({ message: error.message });
+    return res.status(500).json({ message: error.message });
   }
 });
 
@@ -92,14 +93,14 @@ handler.get(async (req, res) => {
     if (!groupSubCategory) {
       return res.json([]);
     }
-    const result = await SubCategory.find({ parent: groupSubCategory }).select(
-      "name"
-    ).sort({
-      name: 1,
-    });
+    const result = await SubCategory.find({ parent: groupSubCategory })
+      .select("name")
+      .sort({
+        name: 1,
+      });
     return res.json(result);
   } catch (error) {
-   return res.status(500).json({ message: error.message });
+    return res.status(500).json({ message: error.message });
   }
 });
 

@@ -64,7 +64,13 @@ export default function Infos({
     } else {
       setCartChosen(false);
     }
-  }, [cart.cartTotal, product.style, product.mode, cart.cartItems, product._id]);
+  }, [
+    cart.cartTotal,
+    product.style,
+    product.mode,
+    cart.cartItems,
+    product._id,
+  ]);
 
   useEffect(() => {
     let _uid = `${product._id}_${product.style}_${product.mode}`;
@@ -79,15 +85,24 @@ export default function Infos({
       setWishChosen(false);
       setIsOpenInWish(false);
     }
-  }, [wishList.wishListTotal, product.style, product.mode, product._id, wishList.wishListItems]);
+  }, [
+    wishList.wishListTotal,
+    product.style,
+    product.mode,
+    product._id,
+    wishList.wishListItems,
+  ]);
 
   useEffect(() => {
     let exist = null;
     if (scaleList.scaleListItems) {
       exist = scaleList.scaleListItems.some((item) => {
-        return item.items.some((p) =>
-          p._id == product._id && p.style == product.style && p.mode == product.mode
-        )
+        return item.items.some(
+          (p) =>
+            p._id == product._id &&
+            p.style == product.style &&
+            p.mode == product.mode,
+        );
       });
     }
     if (exist) {
@@ -95,11 +110,17 @@ export default function Infos({
     } else {
       setScaleChosen(false);
     }
-  }, [scaleList.scaleListTotal, product.style, product.mode, product._id, scaleList.scaleListItems]);
+  }, [
+    scaleList.scaleListTotal,
+    product.style,
+    product.mode,
+    product._id,
+    scaleList.scaleListItems,
+  ]);
 
   const addToCartHandler = async () => {
     const { data } = await axios.get(
-      `/api/product/${product._id}?style=${product.style}&code=${product.mode}`
+      `/api/product/${product._id}?style=${product.style}&code=${product.mode}`,
     );
     if (qty > data.quantity) {
       setProductError("На складі обмежена кількість товару");
@@ -139,7 +160,7 @@ export default function Infos({
         setIsOpenInWish(true);
       } else {
         const { data } = await axios.get(
-          `/api/product/${product._id}?style=${product.style}&code=${product.mode}`
+          `/api/product/${product._id}?style=${product.style}&code=${product.mode}`,
         );
         dispatch(
           addToWishList({
@@ -148,7 +169,7 @@ export default function Infos({
             size: data.size,
             _uid,
             mode: Number(product.mode),
-          })
+          }),
         );
         saveWishList({
           productId: product._id,
@@ -157,7 +178,7 @@ export default function Infos({
           color: product.color?.color,
           code: product.code,
           mode: product.mode,
-          style: product.style
+          style: product.style,
         });
       }
     } else {
@@ -168,16 +189,20 @@ export default function Infos({
 
   const addToScaleHandler = async () => {
     const { data } = await axios.get(
-      `/api/product/${product._id}?style=${product.style}&code=${product.mode}`
+      `/api/product/${product._id}?style=${product.style}&code=${product.mode}`,
     );
     let existSub = null;
     let existItem = null;
     if (scaleList.scaleListItems) {
       existSub = scaleList.scaleListItems.find(
-        (item) => item.subCategory_id === data.subCategory_id
+        (item) => item.subCategory_id === data.subCategory_id,
       );
       if (existSub) {
-        existItem = existSub.items.some((p) => { return p._id == data._id && p.style == data.style && p.mode == data.mode });
+        existItem = existSub.items.some((p) => {
+          return (
+            p._id == data._id && p.style == data.style && p.mode == data.mode
+          );
+        });
         if (existItem) {
           if (existSub.items.length === 1) {
             dispatch(removeFromScaleList({ ...existSub }));
@@ -199,7 +224,7 @@ export default function Infos({
 
   const addToViewedHandler = async () => {
     const { data } = await axios.get(
-      `/api/product/${product._id}?style=${product.style}&code=${product.mode}`
+      `/api/product/${product._id}?style=${product.style}&code=${product.mode}`,
     );
 
     if (viewedList.viewedListItems) {
@@ -207,7 +232,7 @@ export default function Infos({
         (item) =>
           item._id == data._id &&
           item.style == data.style &&
-          item.mode == data.mode
+          item.mode == data.mode,
       );
 
       if (!existItem) {
@@ -243,7 +268,8 @@ export default function Infos({
           {product.subProducts[product.style].discount > 0 ? (
             <div>
               <span className={styles.pricediscount}>
-                {new Intl.NumberFormat("uk-UA").format(Number(product.price))} {product.price_unit}
+                {new Intl.NumberFormat("uk-UA").format(Number(product.price))}{" "}
+                {product.price_unit}
               </span>
               <span
                 style={{ opacity: opacity }}
@@ -251,13 +277,17 @@ export default function Infos({
               >
                 {/* {`${Number(product.priceAfter).toLocaleString("uk-UA")} ${product.price_unit
                   }`} */}
-                {new Intl.NumberFormat("uk-UA").format(Number(product.priceAfter))} {product.price_unit}
+                {new Intl.NumberFormat("uk-UA").format(
+                  Number(product.priceAfter),
+                )}{" "}
+                {product.price_unit}
               </span>
             </div>
           ) : (
             <div>
               <span className={styles.priceregular}>
-                {new Intl.NumberFormat("uk-UA").format(Number(product.price))} {product.price_unit}
+                {new Intl.NumberFormat("uk-UA").format(Number(product.price))}{" "}
+                {product.price_unit}
               </span>
             </div>
           )}
@@ -329,8 +359,8 @@ export default function Infos({
                   <span>{field.value}</span>
                 </div>
               </div>
-            ) : null
-          )
+            ) : null,
+          ),
         )}
       </Col>
       <Col className={styles.infos__more}>
@@ -348,8 +378,7 @@ export default function Infos({
         <Row className={styles.infos__sizesInfo}>
           <span
             className={`${styles.input} ${productError ? styles.error : ""}`}
-          >
-          </span>
+          ></span>
           <Col className={styles.infos__sizesInfo_sizes}>
             {product.sizes.map((el, i) => (
               <Link

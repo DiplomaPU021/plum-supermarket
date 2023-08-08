@@ -1382,7 +1382,7 @@
     "reviews": [],
     "refundPolicy": "14 днів",
     "rating": 0,
-  
+
     "subProducts": [
       {
         "images": [
@@ -1412,7 +1412,7 @@
             "price_unit": "₴",
             "code": 723610747
           }
-        ],      
+        ],
         "discount": 0,
         "sold": 0
       }
@@ -1581,7 +1581,7 @@
     "reviews": [],
     "refundPolicy": "30 днів",
     "rating": 0,
-   
+
     "subProducts": [
       {
         "images": [
@@ -1597,7 +1597,7 @@
             "url": "https://res.cloudinary.com/dzctqbi3o/image/upload/v1675856381/Diploma/Notebooks/macbook_air_12_tekzbn.png",
             "public_url": "/Diploma/Notebooks/macbook_air_12_tekzbn.png"
           }
-        ], 
+        ],
         "description_images": [],
         "color": {
           "color": "Чорний",
@@ -1611,7 +1611,7 @@
             "price_unit": "₴",
             "code": 866985331
           }
-        ],      
+        ],
         "discount": 15,
         "sold": 16
       },
@@ -1642,7 +1642,7 @@
             "price_unit": "₴",
             "code": 581763623
           }
-        ],        
+        ],
         "discount": 0,
         "sold": 7
       }
@@ -1850,7 +1850,7 @@
     ],
     "reviews": [],
     "refundPolicy": "30 днів",
-    "rating": 0,   
+    "rating": 0,
     "subProducts": [
       {
         "images": [
@@ -1911,7 +1911,7 @@
             "price_unit": "₴",
             "code": 599875754
           }
-        ],  
+        ],
         "discount": 0,
         "sold": 2
       }

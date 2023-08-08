@@ -1,294 +1,291 @@
 .infos {
-    height: 700px;
-    background: #F0EBFB;
-    padding: 0;
+  height: 700px;
+  background: #f0ebfb;
+  padding: 0;
 
-    &__priceandaction {
+  &__priceandaction {
+    position: relative;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    padding: 15px;
+
+    &_price {
+      display: flex;
+      align-items: center;
+      height: 100px;
+
+      span {
+        display: flex;
+        flex-direction: column;
+        font-family: "Noto Sans";
+        font-style: normal;
+      }
+    }
+
+    &_react {
+      position: relative;
+      display: flex;
+      flex-direction: row;
+      justify-content: center;
+      gap: 2rem;
+      padding: 0;
+
+      @media (max-width: 1300px) {
+        gap: 1rem;
+      }
+
+      .liked {
+        position: relative;
+
+        div {
+          position: absolute;
+          display: flex;
+          flex-direction: column;
+          align-items: flex-start;
+          padding: 6px 11px;
+          gap: 10px;
+          height: 28px;
+          right: -30px;
+          top: -15px;
+          background: $green-color;
+          border-radius: 30px;
+
+          span {
+            font-family: "Noto Sans";
+            font-style: normal;
+            font-weight: 400;
+            font-size: 12px;
+            line-height: 16px;
+            text-align: center;
+            color: $light-wheet-color;
+          }
+        }
+      }
+
+      button {
+        position: relative;
+        box-sizing: border-box;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        width: 46px;
+        height: 46px;
+        background: #f0ebfb;
+        border: 2px solid $plum-dark-color;
+        border-radius: 23px;
+
+        &:hover {
+          box-shadow: 0px 0px 5px 0px #220f4b;
+        }
+      }
+    }
+
+    &_buy {
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      padding: 0;
+
+      button {
         position: relative;
         display: flex;
         flex-direction: row;
+        justify-content: center;
         align-items: center;
-        justify-content: space-between;
-        padding: 15px;
+        gap: 10px;
+        padding: 10px 20px;
+        min-width: 200px;
+        height: 53px;
+        background: $plum-dark-color;
+        border-radius: 30px;
+        font-family: "Noto Sans";
+        font-style: normal;
+        font-weight: 600;
+        font-size: 24px;
+        line-height: 33px;
+        color: $light-wheet-color;
 
-        &_price {
-            display: flex;
-            align-items: center;
-            height: 100px;
-
-            span {
-                display: flex;
-                flex-direction: column;
-                font-family: 'Noto Sans';
-                font-style: normal;
-            }
+        @media (max-width: 1300px) {
+          padding: 10px 15px;
         }
 
-        &_react {
-            position: relative;
-            display: flex;
-            flex-direction: row;
-            justify-content: center;
-            gap: 2rem;
-            padding: 0;
-
-            @media (max-width: 1300px) {
-                gap: 1rem;
-            }
-
-            .liked {
-                position: relative;
-
-                div {
-                    position: absolute;
-                    display: flex;
-                    flex-direction: column;
-                    align-items: flex-start;
-                    padding: 6px 11px;
-                    gap: 10px;
-                    height: 28px;
-                    right: -30px;
-                    top: -15px;
-                    background: $green-color;
-                    border-radius: 30px;
-
-                    span {
-                        font-family: 'Noto Sans';
-                        font-style: normal;
-                        font-weight: 400;
-                        font-size: 12px;
-                        line-height: 16px;
-                        text-align: center;
-                        color: $light-wheet-color;
-                    }
-                }
-            }
-
-            button {
-                position: relative;
-                box-sizing: border-box;
-                display: flex;
-                flex-direction: column;
-                justify-content: center;
-                align-items: center;
-                width: 46px;
-                height: 46px;
-                background: #F0EBFB;
-                border: 2px solid $plum-dark-color;
-                border-radius: 23px;
-
-                &:hover {
-                    box-shadow: 0px 0px 5px 0px #220F4B;
-                }
-            }
+        &:hover {
+          box-shadow: 0px 0px 5px 0px #220f4b;
         }
-
-        &_buy {
-            position: relative;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            padding: 0;
-
-            button {
-                position: relative;
-                display: flex;
-                flex-direction: row;
-                justify-content: center;
-                align-items: center;
-                gap: 10px;
-                padding: 10px 20px;
-                min-width: 200px;
-                height: 53px;
-                background: $plum-dark-color;
-                border-radius: 30px;
-                font-family: 'Noto Sans';
-                font-style: normal;
-                font-weight: 600;
-                font-size: 24px;
-                line-height: 33px;
-                color: $light-wheet-color;
-
-                @media (max-width: 1300px) {
-                    padding: 10px 15px;
-                }
-
-                &:hover {
-                    box-shadow: 0px 0px 5px 0px #220F4B;
-                }
-            }
-        }
+      }
     }
+  }
 
-    &__characteristics {
-        display: flex;
-        align-items: center;
-        height: 60px;
-        background: $light-wheet-color;
+  &__characteristics {
+    display: flex;
+    align-items: center;
+    height: 60px;
+    background: $light-wheet-color;
+
+    span {
+      position: relative;
+      left: 20px;
+      font-family: "Noto Sans";
+      font-style: normal;
+      font-weight: 500;
+      font-size: 32px;
+      line-height: 44px;
+      color: $plum-dark-color;
+    }
+  }
+
+  &__details {
+    max-height: 350px;
+    display: flex;
+    flex-direction: column;
+    gap: 1px;
+
+    &_row {
+      min-height: 36px;
+      height: fit-content;
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      background: #e6e1f1;
+
+      div {
+        width: 50%;
+        padding-left: 20px;
 
         span {
-            position: relative;
-            left: 20px;
-            font-family: 'Noto Sans';
-            font-style: normal;
-            font-weight: 500;
-            font-size: 32px;
-            line-height: 44px;
-            color: $plum-dark-color;
+          font-family: "Noto Sans";
+          font-style: normal;
+          font-weight: 500;
+          font-size: 16px;
+          line-height: 22px;
+          color: #220f4b;
         }
+      }
     }
+  }
 
-    &__details {
-        max-height: 350px;
+  &__more {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+    padding-top: 15px;
+
+    button {
+      font-family: "Noto Sans";
+      font-style: normal;
+      font-weight: 400;
+      font-size: 16px;
+      line-height: 22px;
+      color: $green-color;
+      background: transparent;
+    }
+  }
+
+  &__sizesInfo {
+    width: fit-content;
+    display: flex;
+    flex-direction: column;
+    padding-left: 32px;
+    gap: 14px;
+
+    &_sizes {
+      width: fit-content;
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      padding: 16px 20px;
+      gap: 20px;
+      height: 62px;
+      background: #e1dcec;
+      border-radius: 10px;
+      border: 2px solid $green-color;
+
+      &_size {
+        min-width: 35px;
+        height: 35px;
+        padding: 2px;
+        position: relative;
+        display: grid;
+        justify-content: center;
+        align-items: center;
         display: flex;
-        flex-direction: column;
-        gap: 1px;
+        background: #ffffff;
+        border-radius: 5px;
+        font-family: "Noto Sans";
+        font-style: normal;
+        font-weight: 600;
+        font-size: 20px;
+        line-height: 27px;
+        cursor: pointer;
+        color: $plum-dark-color;
 
-        &_row {
-            min-height: 36px;
-            height: fit-content;
-            display: flex;
-            flex-direction: row;
-            align-items: center;
-            background: #E6E1F1;
-
-            div {
-                width: 50%;
-                padding-left: 20px;
-
-                span {
-
-                    font-family: 'Noto Sans';
-                    font-style: normal;
-                    font-weight: 500;
-                    font-size: 16px;
-                    line-height: 22px;
-                    color: #220F4B;
-                }
-            }
+        &:hover {
+          outline: 1px solid $green-color;
+          outline-offset: 2px;
         }
+      }
+
+      &_crossline {
+        position: absolute;
+        width: 50px;
+        border: 2px solid #70bf63;
+        transform: rotate(45deg);
+      }
     }
 
-    &__more {
-        display: flex;
-        flex-direction: row;
-        justify-content: flex-end;
-        padding-top: 15px;
-
-        button {
-            font-family: 'Noto Sans';
-            font-style: normal;
-            font-weight: 400;
-            font-size: 16px;
-            line-height: 22px;
-            color: $green-color;
-            background: transparent;
-        }
+    button {
+      display: flex;
+      flex-direction: row;
+      padding: 0;
+      font-family: "Noto Sans";
+      font-style: normal;
+      font-weight: 400;
+      font-size: 16px;
+      line-height: 22px;
+      color: $green-color;
+      background: transparent;
     }
-
-
-    &__sizesInfo {
-        width: fit-content;
-        display: flex;
-        flex-direction: column;
-        padding-left: 32px;
-        gap: 14px;
-
-        &_sizes {
-            width: fit-content;
-            display: flex;
-            flex-direction: row;
-            align-items: center;
-            padding: 16px 20px;
-            gap: 20px;
-            height: 62px;
-            background: #E1DCEC;
-            border-radius: 10px;
-            border: 2px solid $green-color;
-
-            &_size {
-                min-width: 35px;
-                height: 35px;
-                padding: 2px;
-                position: relative;
-                display: grid;
-                justify-content: center;
-                align-items: center;
-                display: flex;
-                background: #FFFFFF;
-                border-radius: 5px;
-                font-family: 'Noto Sans';
-                font-style: normal;
-                font-weight: 600;
-                font-size: 20px;
-                line-height: 27px;
-                cursor: pointer;
-                color: $plum-dark-color;
-
-                &:hover {
-                    outline: 1px solid $green-color;
-                    outline-offset: 2px;
-                }
-            }
-
-            &_crossline {
-                position: absolute;
-                width: 50px;
-                border: 2px solid #70BF63;
-                transform: rotate(45deg);
-            }
-        }
-
-        button {
-            display: flex;
-            flex-direction: row;
-            padding: 0;
-            font-family: 'Noto Sans';
-            font-style: normal;
-            font-weight: 400;
-            font-size: 16px;
-            line-height: 22px;
-            color: $green-color;
-            background: transparent;
-        }
-
-    }
+  }
 }
 
 .pricediscount {
-    text-decoration: line-through;
-    font-weight: 300;
-    font-size: 24px;
-    color: $plum-dark-color;
+  text-decoration: line-through;
+  font-weight: 300;
+  font-size: 24px;
+  color: $plum-dark-color;
 }
 
 .priceregular {
-    font-weight: 500;
-    font-size: 34px;
-    color: $green-color;
+  font-weight: 500;
+  font-size: 34px;
+  color: $green-color;
 
-    @media (max-width: 1300px) {
-        font-size: 28px;
-    }
+  @media (max-width: 1300px) {
+    font-size: 28px;
+  }
 }
 
 .active_size {
-    outline: 2px solid $green-color;
+  outline: 2px solid $green-color;
 }
 
 .error {
-    padding-bottom: 0rem;
+  padding-bottom: 0rem;
 
-    input {
-        color: #fff !important;
+  input {
+    color: #fff !important;
 
-        &::placeholder {
-            color: #fff !important;
-        }
+    &::placeholder {
+      color: #fff !important;
     }
+  }
 
-    svg {
-        fill: #fff !important;
-    }
+  svg {
+    fill: #fff !important;
+  }
 }

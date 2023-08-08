@@ -1,43 +1,43 @@
 .button {
-    position: relative;
-    border: none;
-    outline: none;
-    width: 220px;
-    height: 55px;
-    border-radius: 55px;
-    font-weight: 600;
-    font-size: 18px;
-    color: $light-wheet-color;
-    background: $plum-dark-color;
-    display: block;
-    cursor: pointer;
+  position: relative;
+  border: none;
+  outline: none;
+  width: 220px;
+  height: 55px;
+  border-radius: 55px;
+  font-weight: 600;
+  font-size: 18px;
+  color: $light-wheet-color;
+  background: $plum-dark-color;
+  display: block;
+  cursor: pointer;
 
-    &:hover {
-        background: $light-wheet-color;
-        color: $plum-dark-color;
-        border: 2px solid $plum-dark-color;
-
-        .svg_wrap {
-            svg {
-                fill: $plum-dark-color;
-            }
-        }
-    }
+  &:hover {
+    background: $light-wheet-color;
+    color: $plum-dark-color;
+    border: 2px solid $plum-dark-color;
 
     .svg_wrap {
-        width: 40px;
-        height: 40px;
-        border-radius: 50%;
-        border: 2px solid $plum-dark-color;
-        display: grid;
-        place-items: center;
-        position: absolute;
-        background: $grey-color;
-        right: 5px;
-        top: 7.5px;
-
-        svg {
-            fill: $plum-dark-color;
-        }
+      svg {
+        fill: $plum-dark-color;
+      }
     }
+  }
+
+  .svg_wrap {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    border: 2px solid $plum-dark-color;
+    display: grid;
+    place-items: center;
+    position: absolute;
+    background: $grey-color;
+    right: 5px;
+    top: 7.5px;
+
+    svg {
+      fill: $plum-dark-color;
+    }
+  }
 }

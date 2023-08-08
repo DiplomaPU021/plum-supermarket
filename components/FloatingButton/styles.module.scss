@@ -1,21 +1,20 @@
 .floating_button {
-    position: fixed;
-    bottom: 3%;
-    right: 1%;
-    background: linear-gradient(135deg, #220F4B 0%, #362360 100%);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 70px;
-    height: 70px;
-    border-radius: 35px;
-    border: none;
-    z-index: 9999;
-    color:  #FAF8FF;
+  position: fixed;
+  bottom: 3%;
+  right: 1%;
+  background: linear-gradient(135deg, #220f4b 0%, #362360 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 70px;
+  height: 70px;
+  border-radius: 35px;
+  border: none;
+  z-index: 9999;
+  color: #faf8ff;
 
-    &:hover {
-        box-shadow: 0px 0px 5px 0px #220F4B;
-        cursor: pointer;
-    }
-
+  &:hover {
+    box-shadow: 0px 0px 5px 0px #220f4b;
+    cursor: pointer;
+  }
 }

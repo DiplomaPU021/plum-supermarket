@@ -40,8 +40,8 @@ export default function SubCategorySlug({
   const [radioValue, setRadioValue] = useState(router.query.sub); // || category.subcategories[0].slug);
   const [valueSort, setValueSort] = useState("byRating");
   const [subCategoryName, setSubCategoryName] = useState(
-    category.subcategories.find((sub) => sub.slug === router.query.sub)
-      .name || category.subcategories[0].name
+    category.subcategories.find((sub) => sub.slug === router.query.sub).name ||
+      category.subcategories[0].name,
   );
   const [showSideBlock, setShowSideBlock] = useState(true);
   const [numCards, setNumCards] = useState(3);
@@ -182,7 +182,7 @@ export default function SubCategorySlug({
 
       if (updatedValues.length === 0) {
         setSideBarChecked((prev) =>
-          prev.filter((obj) => obj.fieldName !== fName)
+          prev.filter((obj) => obj.fieldName !== fName),
         );
       } else {
         const updatedObj = Object.assign({}, existingObj, {
@@ -216,104 +216,109 @@ export default function SubCategorySlug({
 
   const handlerFilter = () => {
     let filteredProducts = products;
-  
+
     if (sideBarChecked.length > 0) {
       filteredProducts = filteredProducts.filter((product) =>
         product.details.some((detail) =>
           detail.fields.some((field) =>
             sideBarChecked.some(
               (el) =>
-                el.fieldName === field.name && el.values.includes(field.value)
-            )
-          )
-        )
+                el.fieldName === field.name && el.values.includes(field.value),
+            ),
+          ),
+        ),
       );
     }
-  
+
     if (brandsChecked.length > 0) {
       filteredProducts = filteredProducts.filter((p) =>
-        brandsChecked.includes(p.brand)
+        brandsChecked.includes(p.brand),
       );
     }
-  
+
     if (colorsChecked.length > 0) {
       let newProducts = [];
-  
+
       filteredProducts.forEach((product) => {
         let matchingSubProducts = product.subProducts.filter((subProduct) => {
           return colorsChecked.includes(subProduct.color?.color);
         });
-  
+
         if (matchingSubProducts.length > 0) {
           matchingSubProducts.forEach((subProduct) => {
             let newProduct = { ...product };
             let style = product.subProducts.indexOf(subProduct);
-            let sizeIndex = subProduct.sizes.findIndex(s => sizesChecked.includes(s.size));
+            let sizeIndex = subProduct.sizes.findIndex((s) =>
+              sizesChecked.includes(s.size),
+            );
             let mode = sizeIndex !== -1 ? sizeIndex : 0;
-  
+
             newProduct.quantity = subProduct.sizes[mode].qty;
             newProduct.style = style;
             newProduct.mode = mode;
             newProduct.color = subProduct.color?.color ?? "";
             newProduct.size = subProduct.sizes[mode]?.size ?? "";
-  
+
             newProducts.push(newProduct);
           });
         }
       });
-  
+
       filteredProducts = newProducts;
     }
-  
+
     if (sizesChecked.length > 0) {
       let newProducts = [];
-  
+
       filteredProducts.forEach((product) => {
         let matchingSubProducts = product.subProducts.filter((subProduct) =>
           subProduct.sizes.some(
-            (s) => sizesChecked.includes(s.size) && (colorsChecked.length === 0 || colorsChecked.includes(subProduct.color.color))
-          )
+            (s) =>
+              sizesChecked.includes(s.size) &&
+              (colorsChecked.length === 0 ||
+                colorsChecked.includes(subProduct.color.color)),
+          ),
         );
-  
+
         if (matchingSubProducts.length > 0) {
           matchingSubProducts.forEach((subProduct) => {
             sizesChecked.forEach((size) => {
-              let sizeIndex = subProduct.sizes.findIndex(s => s.size === size);
-              if(sizeIndex >= 0){
+              let sizeIndex = subProduct.sizes.findIndex(
+                (s) => s.size === size,
+              );
+              if (sizeIndex >= 0) {
                 let newProduct = { ...product };
                 let style = product.subProducts.indexOf(subProduct);
                 let mode = sizeIndex !== -1 ? sizeIndex : 0;
-      
+
                 newProduct.quantity = subProduct.sizes[mode].qty;
                 newProduct.style = style;
                 newProduct.mode = mode;
                 newProduct.color = subProduct.color?.color ?? "";
                 newProduct.size = subProduct.sizes[mode]?.size ?? "";
-      
+
                 newProducts.push(newProduct);
               }
-            })
+            });
           });
         }
       });
-  
+
       filteredProducts = newProducts;
     }
-  
+
     if (priceChecked) {
       filteredProducts = filteredProducts.filter((product) =>
         product.subProducts.some((p) =>
           p.sizes.some(
-            (s) => s.price >= valuePrice.min && s.price <= valuePrice.max
-          )
-        )
+            (s) => s.price >= valuePrice.min && s.price <= valuePrice.max,
+          ),
+        ),
       );
     }
-  
+
     setLocalProducts(filteredProducts);
-  };  
-  
-  
+  };
 
   return (
     <Container fluid className={styles.subcategorypage}>
@@ -410,9 +415,9 @@ export default function SubCategorySlug({
                 <option value="byPriceBiggest">Від дорогих до дешевих</option>
               </select>
               <button
-               style={{
-                fontWeight: showSideBlock ? "500" : "800",
-              }}
+                style={{
+                  fontWeight: showSideBlock ? "500" : "800",
+                }}
                 onClick={() => {
                   handlerFilter(),
                     setShowSideBlock(showSideBlock ? false : true);
@@ -488,12 +493,12 @@ export default function SubCategorySlug({
                                   replaseSearchParamsQuery(
                                     brandsChecked,
                                     setBrandsChecked,
-                                    brand
+                                    brand,
                                   )
                                 }
                                 checked={
                                   brandsChecked.findIndex(
-                                    (el) => el == brand
+                                    (el) => el == brand,
                                   ) !== -1
                                     ? true
                                     : false
@@ -509,51 +514,53 @@ export default function SubCategorySlug({
                         </Form.Group>
                       </Accordion.Body>
                     </Accordion.Item>
-                    {
-                    products.length ? 
-                    <Accordion.Item
-                      eventKey={"prices"}
-                      className={styles.accordion__item}
-                    >
-                      <Accordion.Header
-                        className={styles.accordion__item_header}
+                    {products.length ? (
+                      <Accordion.Item
+                        eventKey={"prices"}
+                        className={styles.accordion__item}
                       >
-                        <span>Ціна</span>
-                      </Accordion.Header>
-                      <Accordion.Body className={styles.accordion__item_body}>
-                        <RangeSlider
-                          min={minPrice}
-                          max={maxPrice}
-                          step={1}
-                          value={valuePrice}
-                          onChange={setValuePrice}
-                          setPriceChecked={setPriceChecked}
-                        />
-                        <div className={styles.prices}>
-                          <div>
-                            Від <span>{valuePrice.min}</span> &#8372;
-                          </div>
-                          <span
-                            style={{ color: "#220F4B", fontWeight: "bold" }}
-                          >
-                            &#8211;
-                          </span>
-                          <div>
-                            До <span>{valuePrice.max}</span> &#8372;
-                          </div>
-                          <Form.Check.Input
-                            className={styles.checkbox_box}
-                            type="checkbox"
-                            checked={priceChecked}
-                            onChange={(e) => {
-                              setPriceChecked(e.target.checked ? true : false);
-                            }}
+                        <Accordion.Header
+                          className={styles.accordion__item_header}
+                        >
+                          <span>Ціна</span>
+                        </Accordion.Header>
+                        <Accordion.Body className={styles.accordion__item_body}>
+                          <RangeSlider
+                            min={minPrice}
+                            max={maxPrice}
+                            step={1}
+                            value={valuePrice}
+                            onChange={setValuePrice}
+                            setPriceChecked={setPriceChecked}
                           />
-                        </div>
-                      </Accordion.Body>
-                    </Accordion.Item>
-                      : <></>
-                    }
+                          <div className={styles.prices}>
+                            <div>
+                              Від <span>{valuePrice.min}</span> &#8372;
+                            </div>
+                            <span
+                              style={{ color: "#220F4B", fontWeight: "bold" }}
+                            >
+                              &#8211;
+                            </span>
+                            <div>
+                              До <span>{valuePrice.max}</span> &#8372;
+                            </div>
+                            <Form.Check.Input
+                              className={styles.checkbox_box}
+                              type="checkbox"
+                              checked={priceChecked}
+                              onChange={(e) => {
+                                setPriceChecked(
+                                  e.target.checked ? true : false,
+                                );
+                              }}
+                            />
+                          </div>
+                        </Accordion.Body>
+                      </Accordion.Item>
+                    ) : (
+                      <></>
+                    )}
                     {colors.length > 0 ? (
                       <Accordion.Item
                         eventKey={"colors"}
@@ -603,12 +610,12 @@ export default function SubCategorySlug({
                                     replaseSearchParamsQuery(
                                       colorsChecked,
                                       setColorsChecked,
-                                      color
+                                      color,
                                     )
                                   }
                                   checked={
                                     colorsChecked.findIndex(
-                                      (el) => el == color
+                                      (el) => el == color,
                                     ) !== -1
                                       ? true
                                       : false
@@ -676,12 +683,12 @@ export default function SubCategorySlug({
                                     replaseSearchParamsQuery(
                                       sizesChecked,
                                       setSizesChecked,
-                                      size
+                                      size,
                                     )
                                   }
                                   checked={
                                     sizesChecked.findIndex(
-                                      (el) => el == size
+                                      (el) => el == size,
                                     ) !== -1
                                       ? true
                                       : false
@@ -754,13 +761,13 @@ export default function SubCategorySlug({
                                     onChange={() =>
                                       replaseSideBarSearchParamsQuery(
                                         field.name,
-                                        value
+                                        value,
                                       )
                                     }
                                     checked={
                                       sideBarChecked
                                         .find(
-                                          (el) => el.fieldName === field.name
+                                          (el) => el.fieldName === field.name,
                                         )
                                         ?.values.includes(value)
                                         ? true
@@ -777,7 +784,7 @@ export default function SubCategorySlug({
                             </Form.Group>
                           </Accordion.Body>
                         </Accordion.Item>
-                      ))
+                      )),
                     )}
                   </Accordion>
                 </Col>

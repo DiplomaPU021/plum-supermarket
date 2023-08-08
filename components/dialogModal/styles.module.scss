@@ -1,51 +1,51 @@
 .header_dialog {
-    border-bottom: 1px solid #ccc;
-    padding: 10px 2rem !important;
-    background-color: #f02f2fd8;
-    color: #fff;
-    font-size: 22px;
+  border-bottom: 1px solid #ccc;
+  padding: 10px 2rem !important;
+  background-color: #f02f2fd8;
+  color: #fff;
+  font-size: 22px;
 }
 
 .body {
-    margin-top: 1rem;
+  margin-top: 1rem;
 
-    .msg {
-        display: flex;
-        margin-left: 15px;
-        gap: 5px;
+  .msg {
+    display: flex;
+    margin-left: 15px;
+    gap: 5px;
 
-        img {
-            width: 25px;
-        }
+    img {
+      width: 25px;
     }
-    z-index: 99999999;
+  }
+  z-index: 99999999;
 }
 .modal {
-    background: rgba(87, 60, 145, 0.5);
-    backdrop-filter: blur(2.5px);
+  background: rgba(87, 60, 145, 0.5);
+  backdrop-filter: blur(2.5px);
 
-    &_main {
-        background: $light-wheet-color;
-        border-radius: 10px;
-    }
+  &_main {
+    background: $light-wheet-color;
+    border-radius: 10px;
+  }
 }
 
 .modaldiv {
-    margin: 20px;
-    border: 2px solid $plum-dark-color;
-    border-radius: 10px;
-    color: $plum-dark-color;
-    background: $light-wheet-color;
+  margin: 20px;
+  border: 2px solid $plum-dark-color;
+  border-radius: 10px;
+  color: $plum-dark-color;
+  background: $light-wheet-color;
 
-    span {
-        margin-left: 20px;
-    }
+  span {
+    margin-left: 20px;
+  }
 }
 
 .modalbodyempty {
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-start;
-    align-items: center;
-    gap: 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  gap: 20px;
 }

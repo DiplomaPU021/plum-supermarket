@@ -1,5 +1,5 @@
-import styles from "./styles.module.scss";
 import ListItem from "./ListItem";
+import styles from "./styles.module.scss";
 
 export default function List({
   groupSubCategories,

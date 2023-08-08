@@ -9,7 +9,6 @@ import Forum from "./Forum";
 import Email from "./Email";
 import Palette from "./Palette";
 
-
 export default function ProfilePage(props) {
   const [activeKey, setActiveKey] = useState("orders");
   const handleSelect = (selectedKey) => {

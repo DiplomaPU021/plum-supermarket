@@ -1,70 +1,70 @@
 .app {
-    display: flex;
-    height: 320px;
-    background-image: url("../../public/images/app-background.jpg");
-    align-items: center;
-    justify-content: space-between;
-    background-size: cover;
+  display: flex;
+  height: 320px;
+  background-image: url("../../public/images/app-background.jpg");
+  align-items: center;
+  justify-content: space-between;
+  background-size: cover;
 }
 
 .apptext {
-    width: 600px;
-    height: 200px;
-    color: #FAF8FF;
-    text-align: start;
-    margin-left: 60px;
+  width: 600px;
+  height: 200px;
+  color: #faf8ff;
+  text-align: start;
+  margin-left: 60px;
 
-    h1 {
-        font-size: 54px;
-    }
+  h1 {
+    font-size: 54px;
+  }
 }
 
 .appbtn {
-    width: 262px;
-    height: 68px;
-    font-family: 'Noto Sans';
-    font-weight: 320;
-    font-size: 23px;
-    border-radius: 32px;
-    color: #FAF8FF;
-    background-color: #220F4B;
-    display: flex;
-    align-items: center;
-    justify-content: flex-start;
-    gap: 1rem;
-    margin-right: 60px;
-    border: none;
-    text-decoration: none;
-    padding-left: 18px;
+  width: 262px;
+  height: 68px;
+  font-family: "Noto Sans";
+  font-weight: 320;
+  font-size: 23px;
+  border-radius: 32px;
+  color: #faf8ff;
+  background-color: #220f4b;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 1rem;
+  margin-right: 60px;
+  border: none;
+  text-decoration: none;
+  padding-left: 18px;
 
-    &:hover {
-        box-shadow: 0px 0px 5px 0px #220F4B;
-        background-color: #220F4B;
-    }
+  &:hover {
+    box-shadow: 0px 0px 5px 0px #220f4b;
+    background-color: #220f4b;
+  }
 }
 
 .circle {
-    width: 46px;
-    height: 46px;
-    background-color: #FAF8FF;
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+  width: 46px;
+  height: 46px;
+  background-color: #faf8ff;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .t {
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-start;
-    align-items: flex-start;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: flex-start;
 
-    &__t1 {
-        font-family: 'Noto Sans';
-        font-style: normal;
-        font-weight: 400;
-        font-size: 18px;
-        line-height: 25px;
-        color: #FAF8FF;
-    }
+  &__t1 {
+    font-family: "Noto Sans";
+    font-style: normal;
+    font-weight: 400;
+    font-size: 18px;
+    line-height: 25px;
+    color: #faf8ff;
+  }
 }

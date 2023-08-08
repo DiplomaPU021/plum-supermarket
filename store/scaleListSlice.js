@@ -2,7 +2,7 @@ import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
   scaleListItems: [],
-  scaleListTotal:0,
+  scaleListTotal: 0,
 };
 
 export const scaleListSlice = createSlice({
@@ -12,7 +12,7 @@ export const scaleListSlice = createSlice({
     addToScaleList: (state, action) => {
       const newItem = action.payload;
       const subCategoryItems = state.scaleListItems.find(
-        (item) => item.subCategory_id === newItem.subCategory_id
+        (item) => item.subCategory_id === newItem.subCategory_id,
       );
       if (subCategoryItems) {
         subCategoryItems.items.push(newItem);
@@ -23,46 +23,53 @@ export const scaleListSlice = createSlice({
           subCategoryName: newItem.subCategoryName,
           items: [newItem],
         });
-  
       }
-      state.scaleListTotal += 1.
+      state.scaleListTotal += 1;
     },
     updateScaleList: (state, action) => {
       const updatedItems = action.payload;
       const updatedsubCategoryItems = state.scaleListItems.find(
-        (item) => item.subCategory_id === updatedItems.subCategory_id
+        (item) => item.subCategory_id === updatedItems.subCategory_id,
       );
 
       if (updatedsubCategoryItems) {
         if (updatedsubCategoryItems.items.length === 1) {
           state.scaleListItems = state.scaleListItems.filter(
             (item) =>
-              item.subCategory_id !== updatedsubCategoryItems.subCategory_id
+              item.subCategory_id !== updatedsubCategoryItems.subCategory_id,
           );
         } else {
           const index = updatedsubCategoryItems.items.findIndex(
-            (item) => item._id === updatedItems._id && item.style == updatedItems.style && item.mode == updatedItems.mode
+            (item) =>
+              item._id === updatedItems._id &&
+              item.style == updatedItems.style &&
+              item.mode == updatedItems.mode,
           );
           if (index !== -1) {
             updatedsubCategoryItems.items.splice(index, 1);
           }
         }
-        state.scaleListTotal=state.scaleListItems.reduce((acc, item) => acc + item.items.length, 0);
+        state.scaleListTotal = state.scaleListItems.reduce(
+          (acc, item) => acc + item.items.length,
+          0,
+        );
       }
     },
     removeFromScaleList: (state, action) => {
       const removedItem = action.payload;
       const updatedsubCategoryItems = state.scaleListItems.find(
-        (item) => item.subCategory_id === removedItem.subCategory_id
+        (item) => item.subCategory_id === removedItem.subCategory_id,
       );
       if (updatedsubCategoryItems) {
         state.scaleListItems = state.scaleListItems.filter(
           (item) =>
-            item.subCategory_id !== updatedsubCategoryItems.subCategory_id
+            item.subCategory_id !== updatedsubCategoryItems.subCategory_id,
         );
       }
-      state.scaleListTotal=state.scaleListItems.reduce((acc, item) => acc + item.items.length, 0);
-     
+      state.scaleListTotal = state.scaleListItems.reduce(
+        (acc, item) => acc + item.items.length,
+        0,
+      );
     },
 
     emptyScaleList: (state) => {

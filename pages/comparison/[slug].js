@@ -78,7 +78,7 @@ export default function ComparisonPage({
 
   const [activeIndex, setActiveIdnex] = useState(0);
   const subCateg = scaleList.scaleListItems.find(
-    (item) => item.subCategory_id === subCategory._id
+    (item) => item.subCategory_id === subCategory._id,
   );
 
   const [groups, setGroups] = useState([]);
@@ -113,7 +113,7 @@ export default function ComparisonPage({
           const newFields = uniqueFields.map((name) => {
             const values = subCateg.items.map((item) => {
               const detail = item.details.find(
-                (detail) => detail.group === group
+                (detail) => detail.group === group,
               );
               if (!detail) {
                 return "-";
@@ -132,7 +132,7 @@ export default function ComparisonPage({
       subCateg.items.forEach((product) => {
         if (product.color) {
           const colorField = groupFields[0].fields.find(
-            (f) => f.name === "Колір"
+            (f) => f.name === "Колір",
           );
           if (!colorField) {
             groupFields[0].fields.push({
@@ -145,7 +145,7 @@ export default function ComparisonPage({
         }
         if (product.size) {
           const sizeField = groupFields[0].fields.find(
-            (f) => f.name === "Розмір"
+            (f) => f.name === "Розмір",
           );
           if (!sizeField) {
             groupFields[0].fields.push({
@@ -296,7 +296,11 @@ export default function ComparisonPage({
                     style={{ position: "absolute !important" }}
                   >
                     <Col className={styles.col}>
-                      <ComparisonCard product={p} style={p.style} mode={p.mode} />
+                      <ComparisonCard
+                        product={p}
+                        style={p.style}
+                        mode={p.mode}
+                      />
                     </Col>
                   </SwiperSlide>
                 ))
@@ -348,7 +352,7 @@ export default function ComparisonPage({
                       {f.values
                         .slice(
                           activeIndex,
-                          numCards + activeIndex || f.values.length
+                          numCards + activeIndex || f.values.length,
                         )
                         .map((v, k) => (
                           <td
@@ -386,8 +390,8 @@ export async function getServerSideProps(context) {
   const countryData = await getCountryData();
   const { query } = context;
   const slug = query.slug;
-  
-  const pageSize =  query.pageSize || 8;
+
+  const pageSize = query.pageSize || 8;
 
   await db.connectDb();
 
@@ -403,13 +407,13 @@ export async function getServerSideProps(context) {
     .populate({ path: "top_parent", model: Category })
     .populate({ path: "parent", model: GroupSubCategory })
     .lean();
-    
+
   //Should be with mark "popular"
   let onlyFromCategory = await Product.find({
     category: category.top_parent._id,
   })
-  .limit(pageSize)
-  .lean();
+    .limit(pageSize)
+    .lean();
   let newFromCategory = onlyFromCategory.map((product) => {
     let style = -1;
     let mode = -1;
@@ -449,7 +453,7 @@ export async function getServerSideProps(context) {
     };
   });
   let popularFromCategory = [...newFromCategory].sort(
-    (a, b) => b.sold - a.sold
+    (a, b) => b.sold - a.sold,
   );
 
   await db.disconnectDb();

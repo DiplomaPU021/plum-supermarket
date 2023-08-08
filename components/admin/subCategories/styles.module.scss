@@ -1,61 +1,61 @@
 @import "../base";
 
 .list {
-    margin-top: 1rem;
+  margin-top: 1rem;
 
-    &__item {
-        padding: 10px;
-        background: $light-wheet-color;
-        border: 3px solid $plum-violet-color;
-        margin-top: 10px;
-        color: $plum-violet-color;
-        font-weight: 600;
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
+  &__item {
+    padding: 10px;
+    background: $light-wheet-color;
+    border: 3px solid $plum-violet-color;
+    margin-top: 10px;
+    color: $plum-violet-color;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
 
-        @media(max-width:800px) {
-            flex-direction: column;
-            gap: 10px;
-        }
-
-        svg {
-            width: 22px;
-            height: 22px;
-            cursor: pointer;
-            margin-left: 1rem;
-        }
-
-        input {
-            padding: 1rem;
-            border: 1px solid $plum-violet-color;
-            outline: none;
-            color: $plum-violet-color;
-            background: transparent;
-            width: 260px;
-        }
-
-        &_expand {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-
-            button:hover {
-                color: $light-wheet-color;
-                border-color: $light-wheet-color;
-            }
-        }
+    @media (max-width: 800px) {
+      flex-direction: column;
+      gap: 10px;
     }
+
+    svg {
+      width: 22px;
+      height: 22px;
+      cursor: pointer;
+      margin-left: 1rem;
+    }
+
+    input {
+      padding: 1rem;
+      border: 1px solid $plum-violet-color;
+      outline: none;
+      color: $plum-violet-color;
+      background: transparent;
+      width: 260px;
+    }
+
+    &_expand {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+
+      button:hover {
+        color: $light-wheet-color;
+        border-color: $light-wheet-color;
+      }
+    }
+  }
 }
 
 .open {
-    background: #fff !important;
-    border: 1px solid $plum-violet-color;
-    color: $plum-dark-color !important;
+  background: #fff !important;
+  border: 1px solid $plum-violet-color;
+  color: $plum-dark-color !important;
 }
 
 .select {
-    height: 50px;
-    padding: 5px;
-    outline: none;
+  height: 50px;
+  padding: 5px;
+  outline: none;
 }

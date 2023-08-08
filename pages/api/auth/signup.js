@@ -48,7 +48,7 @@ handler.post(async (req, res) => {
       url,
       "",
       "Активуйте вашу електронну адресу",
-      activateEmailTemplate
+      activateEmailTemplate,
     );
     await db.disconnectDb();
     res.json({

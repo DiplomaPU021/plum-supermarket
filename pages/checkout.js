@@ -1,33 +1,31 @@
-import * as React from "react"
-import { Inter } from "next/font/google"
-import styles from '../styles/Home.module.scss'
-import { getSession } from "next-auth/react"
+import * as React from "react";
+import { Inter } from "next/font/google";
+import styles from "../styles/Home.module.scss";
+import { getSession } from "next-auth/react";
 import User from "../models/User";
 import Cart from "../models/Cart";
-import Header from '../components/header'
+import Header from "../components/header";
 import "bootstrap/dist/css/bootstrap.min.css";
 import db from "../utils/db";
-import CheckoutOrder from '../components/checkoutorder'
+import CheckoutOrder from "../components/checkoutorder";
 import { getCountryData } from "../utils/country";
 
 const inter = Inter({ subsets: ["latin"] });
-
 
 export default function Checkout({ cart, user, country }) {
   return (
     <div className={styles.container}>
       <Header />
-      <CheckoutOrder cart={cart} user={user} country={country}/>
+      <CheckoutOrder cart={cart} user={user} country={country} />
     </div>
-
   );
 }
 
 export async function getServerSideProps(context) {
-
   const countryData = await getCountryData();
   await db.connectDb();
-  var user = {}; var cart = {};
+  var user = {};
+  var cart = {};
   const { req } = context;
   const session = await getSession({ req });
   // let stripe_public_key = process.env.STRIPE_PUBLIC_KEY;
@@ -38,23 +36,20 @@ export async function getServerSideProps(context) {
       cart = await Cart.findOne({ user: user._id });
       if (cart) {
         cart = JSON.parse(JSON.stringify(cart));
-      }
-      else {
+      } else {
         return {
           redirect: {
             destination: "/checkout",
-          }
-        }
+          },
+        };
       }
     }
-   
-  }
-  else {
+  } else {
     return {
       redirect: {
         destination: "/",
-      }
-    }
+      },
+    };
   }
   await db.disconnectDb();
   return {
@@ -66,6 +61,3 @@ export async function getServerSideProps(context) {
     },
   };
 }
-
-
-

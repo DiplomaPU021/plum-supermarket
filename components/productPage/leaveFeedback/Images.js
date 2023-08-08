@@ -9,12 +9,12 @@ export default function Images({ images, setImages }) {
   const inputRef = useRef(null);
   const handleImages = (e) => {
     let files = Array.from(e.target.files);
-  
+
     if (images.length + files.length > 10) {
       setError("Дозволено максимум 10 фото.");
       return;
     }
-  
+
     files.forEach((img, i) => {
       if (
         img.type !== "image/jpeg" &&
@@ -22,7 +22,7 @@ export default function Images({ images, setImages }) {
         img.type !== "image/webp"
       ) {
         setError(
-          `${img.name} Неочікуваний формат! Дозволяється лише JPEG, PNG, WEBP.`
+          `${img.name} Неочікуваний формат! Дозволяється лише JPEG, PNG, WEBP.`,
         );
         files = files.filter((item) => item.name !== img.name);
         return;

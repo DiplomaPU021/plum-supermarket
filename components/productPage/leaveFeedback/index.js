@@ -11,37 +11,53 @@ import { uploadImages } from "../../../requests/upload";
 import axios from "axios";
 import { useSession } from "next-auth/react";
 import { useDispatch } from "react-redux";
-import { addToReviewRating, updateNumberReviews, updateReviewRating } from "../../../store/reviewSlice";
+import {
+  addToReviewRating,
+  updateNumberReviews,
+  updateReviewRating,
+} from "../../../store/reviewSlice";
 
-export default function LeaveFeedback({ show, onHide, product, setProductReview }) {
+export default function LeaveFeedback({
+  show,
+  onHide,
+  product,
+  setProductReview,
+}) {
   const { data: session } = useSession();
   const dispatch = useDispatch();
   const [form, setForm] = useState({
     reviewerName: session ? session.user.name : "",
-    review: '',
-    advantages: '',
-    disadvantages: '',
-    experience: '',
-    rating: 0
+    review: "",
+    advantages: "",
+    disadvantages: "",
+    experience: "",
+    rating: 0,
   });
   const [errors, setErrors] = useState({});
   const setField = (field, value) => {
     setForm({
       ...form,
-      [field]: value
-    })
+      [field]: value,
+    });
     if (!!errors[field]) {
       setErrors({
         ...errors,
-        [field]: null
-      })
+        [field]: null,
+      });
     }
-  }
+  };
   const [images, setImages] = useState([]);
   let uploaded_images = [];
 
   const validateForm = () => {
-    const { reviewerName, advantages, disadvantages, review, experience, rating } = form;
+    const {
+      reviewerName,
+      advantages,
+      disadvantages,
+      review,
+      experience,
+      rating,
+    } = form;
     const newErrors = {};
     if (!reviewerName || reviewerName === "") {
       newErrors.reviewerName = "Введіть ваше і'мя!";
@@ -56,7 +72,7 @@ export default function LeaveFeedback({ show, onHide, product, setProductReview 
       newErrors.disadvantages = "Будь ласка заповніть недоліки!";
     }
     return newErrors;
-  }
+  };
 
   const handleSubmitReview = async (e) => {
     e.preventDefault();
@@ -87,19 +103,19 @@ export default function LeaveFeedback({ show, onHide, product, setProductReview 
       });
       setProductReview(data.reviews);
       dispatch(updateNumberReviews(data.reviews.length));
-      dispatch(addToReviewRating(form.rating))
+      dispatch(addToReviewRating(form.rating));
       setForm({
-        reviewerName: '',
-        review: '',
-        advantages: '',
-        disadvantages: '',
-        experience: '',
-        rating: 0
+        reviewerName: "",
+        review: "",
+        advantages: "",
+        disadvantages: "",
+        experience: "",
+        rating: 0,
       });
       setImages([]);
       onHide();
     }
-  }
+  };
   return (
     <Modal
       className={styles.modal}
@@ -113,11 +129,9 @@ export default function LeaveFeedback({ show, onHide, product, setProductReview 
           <Modal.Header closeButton className={styles.header}>
             <Modal.Title>Написати відгук</Modal.Title>
           </Modal.Header>
-          <Form className={styles.form} >
+          <Form className={styles.form}>
             <Form.Group className="mb-3" controlId="formBasicName">
-              <Form.Label style={{ paddingLeft: "23px" }}>
-                Ім’я
-              </Form.Label>
+              <Form.Label style={{ paddingLeft: "23px" }}>Ім’я</Form.Label>
               <Form.Control
                 className={styles.form_input}
                 type="name"
@@ -127,7 +141,9 @@ export default function LeaveFeedback({ show, onHide, product, setProductReview 
                 onChange={(e) => setField(e.target.name, e.target.value)}
                 isInvalid={!!errors.reviewerName}
               />
-              <Form.Control.Feedback type="invalid">{errors.reviewerName}</Form.Control.Feedback>
+              <Form.Control.Feedback type="invalid">
+                {errors.reviewerName}
+              </Form.Control.Feedback>
             </Form.Group>
             <Form.Group className={styles.form__stars}>
               <Rating
@@ -178,28 +194,36 @@ export default function LeaveFeedback({ show, onHide, product, setProductReview 
 
             <Form.Group className="mb-3" controlId="formBasicAdvantages">
               <Form.Label style={{ paddingLeft: "23px" }}>Переваги</Form.Label>
-              <Form.Control className={styles.form_input}
+              <Form.Control
+                className={styles.form_input}
                 type="text"
                 name="advantages"
                 value={form.advantages}
                 onChange={(e) => setField(e.target.name, e.target.value)}
-                isInvalid={!!errors.advantages} />
-              <Form.Control.Feedback type="invalid">{errors.advantages}</Form.Control.Feedback>
+                isInvalid={!!errors.advantages}
+              />
+              <Form.Control.Feedback type="invalid">
+                {errors.advantages}
+              </Form.Control.Feedback>
             </Form.Group>
 
             <Form.Group className="mb-3" controlId="formBasicDisadvantage">
               <Form.Label style={{ paddingLeft: "23px" }}>Недоліки</Form.Label>
-              <Form.Control className={styles.form_input}
+              <Form.Control
+                className={styles.form_input}
                 type="text"
                 name="disadvantages"
                 value={form.disadvantages}
                 onChange={(e) => setField(e.target.name, e.target.value)}
-                isInvalid={!!errors.disadvantages} />
-              <Form.Control.Feedback type="invalid">{errors.disadvantages}</Form.Control.Feedback>
+                isInvalid={!!errors.disadvantages}
+              />
+              <Form.Control.Feedback type="invalid">
+                {errors.disadvantages}
+              </Form.Control.Feedback>
             </Form.Group>
 
             <Form.Group className="mb-3" controlId="formBasicTextarea">
-              <Form.Label style={{ paddingLeft: "23px" }} >Коментар</Form.Label>
+              <Form.Label style={{ paddingLeft: "23px" }}>Коментар</Form.Label>
               <Form.Control
                 className={styles.form_input}
                 as="textarea"
@@ -210,7 +234,9 @@ export default function LeaveFeedback({ show, onHide, product, setProductReview 
                 onChange={(e) => setField(e.target.name, e.target.value)}
                 isInvalid={!!errors.review}
               />
-              <Form.Control.Feedback type="invalid">{errors.review}</Form.Control.Feedback>
+              <Form.Control.Feedback type="invalid">
+                {errors.review}
+              </Form.Control.Feedback>
             </Form.Group>
 
             <Form.Group className="mb-3" controlId="formBasicPhoto">

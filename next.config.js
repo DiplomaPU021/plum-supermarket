@@ -1,5 +1,5 @@
 /** @type {import('next').NextConfig} */
-const path = require('path');
+const path = require("path");
 
 module.exports = {
   reactStrictMode: true,
@@ -9,11 +9,10 @@ module.exports = {
     prependData: '@import "./base.scss";',
   },
   images: {
-    domains: ['lh3.googleusercontent.com', 'platform-lookaside.fbsbx.com'],
+    domains: ["lh3.googleusercontent.com", "platform-lookaside.fbsbx.com"],
   },
   webpack(config) {
-    config.resolve.alias['@'] = path.resolve(__dirname);
+    config.resolve.alias["@"] = path.resolve(__dirname);
     return config;
   },
 };
-

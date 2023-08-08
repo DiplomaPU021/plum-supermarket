@@ -1,8 +1,8 @@
 import { useEffect, useState } from "react";
 import { Container } from "react-bootstrap";
+import Products from "../../components/popular/Products";
+import ButtonsTab from "../../components/topsales/ButtonsTab";
 import styles from "./styles.module.scss";
-import Products from "../../components/popular/Products"
-import ButtonsTab from "../../components/topsales/ButtonsTab"
 
 export default function TopSales({ products }) {
   const [activeLink, setActiveLink] = useState("popular");

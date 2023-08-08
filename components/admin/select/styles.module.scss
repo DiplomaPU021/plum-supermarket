@@ -1,23 +1,23 @@
 .select {
-    width: 100%;
-    height: 50px;
-    padding: 5px;
-    outline: none;
-    margin-bottom: 1rem !important;
-    border: 1px solid $plum-violet-color !important;
-    color: $plum-dark-color;
+  width: 100%;
+  height: 50px;
+  padding: 5px;
+  outline: none;
+  margin-bottom: 1rem !important;
+  border: 1px solid $plum-violet-color !important;
+  color: $plum-dark-color;
 
-    input {
-        border: 1px solid $plum-violet-color !important;
-    }
+  input {
+    border: 1px solid $plum-violet-color !important;
+  }
 }
 
 .error_select {
-    background: rgba(255, 0, 0, 0.031) !important;
-    border: 1px solid #cc674f;
+  background: rgba(255, 0, 0, 0.031) !important;
+  border: 1px solid #cc674f;
 }
 
 .error_msg {
-    color: red;
-    font-size: 13px;
+  color: red;
+  font-size: 13px;
 }

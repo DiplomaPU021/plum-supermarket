@@ -5,7 +5,6 @@ import crypto from "crypto";
 import axios from "axios";
 import LiqPayResponse from "../../../components/liqpay";
 
-
 const PaymentButton = ({ setIsPaid, totalAfterDiscount }) => {
   const [paymentParams, setPaymentParams] = useState({
     public_key: process.env.LIQPAY_PUBLIC_KEY,
@@ -16,7 +15,7 @@ const PaymentButton = ({ setIsPaid, totalAfterDiscount }) => {
     description: "Оплата за товари",
     language: "uk",
     order_id: "000002",
-  })
+  });
   const [data, setData] = useState("");
   const [signature, setSignature] = useState("");
   const [html, setHtml] = useState("");
@@ -26,14 +25,13 @@ const PaymentButton = ({ setIsPaid, totalAfterDiscount }) => {
     params = cnb_params(params);
     // setData(Buffer.from(JSON.stringify(params)).toString('base64'));
     return str_to_sign(
-      params.private_key + data + process.env.LIQPAY_SECRET_KEY
+      params.private_key + data + process.env.LIQPAY_SECRET_KEY,
     );
   };
   useEffect(() => {
     setSignature(cnb_signature(paymentParams));
     setData(Buffer.from(JSON.stringify(paymentParams)).toString("base64"));
   }, [cnb_signature, paymentParams]);
-
 
   const cnb_params = (params) => {
     if (!params.version) {
@@ -97,7 +95,6 @@ const PaymentButton = ({ setIsPaid, totalAfterDiscount }) => {
           // src="https://res.cloudinary.com/dzctqbi3o/image/upload/v1684344202/product%20images/pmuawzivq3xzqzgp8s8a.png"
           src="https://res.cloudinary.com/dzctqbi3o/image/upload/v1684344203/product%20images/tzwuwactikeyarmubdxg.png"
         />
-
       </button>
       <LiqPayResponse html={html} show={isOpen} onHide={setIsOpen} />
     </div>

@@ -1,9 +1,8 @@
-import Button from 'react-bootstrap/Button';
-import { faArrowUp } from '@fortawesome/free-solid-svg-icons';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { useEffect, useState } from 'react';
+import Button from "react-bootstrap/Button";
+import { faArrowUp } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { useEffect, useState } from "react";
 import styles from "./styles.module.scss";
-
 
 export default function FloatingButton() {
   const [showButton, setShowButton] = useState(false);
@@ -17,14 +16,14 @@ export default function FloatingButton() {
   };
 
   useEffect(() => {
-    window.addEventListener('scroll', handleScroll);
+    window.addEventListener("scroll", handleScroll);
     return () => {
-      window.removeEventListener('scroll', handleScroll);
+      window.removeEventListener("scroll", handleScroll);
     };
   }, []);
 
   const handleClick = () => {
-    window.scrollTo({ top: 0, behavior: 'smooth' });
+    window.scrollTo({ top: 0, behavior: "smooth" });
   };
 
   return (
@@ -32,9 +31,9 @@ export default function FloatingButton() {
       variant="primary"
       className={styles.floating_button}
       onClick={handleClick}
-      style={{ display: showButton ? 'flex' : 'none' }}
+      style={{ display: showButton ? "flex" : "none" }}
     >
       <FontAwesomeIcon icon={faArrowUp} />
     </Button>
   );
-};
+}

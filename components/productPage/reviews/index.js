@@ -60,7 +60,8 @@ export default function Reviews({ product, productReview, setProductReview }) {
             style={{
               overflowY: productReview?.length > 1 ? "scroll" : "hidden",
             }}
-            className={styles.reviews__scrollFrame}>
+            className={styles.reviews__scrollFrame}
+          >
             {productReview?.length > 0 ? (
               productReview.map((review, i) => (
                 <Row className={styles.reviews__scrollFrame_review} key={i}>
@@ -123,7 +124,7 @@ export default function Reviews({ product, productReview, setProductReview }) {
                               width={24}
                               stroke="#220F4B"
                             />
-                          )
+                          ),
                         )}
                     </div>
                     <div className={styles.starsLikes_likes}>
@@ -147,7 +148,13 @@ export default function Reviews({ product, productReview, setProductReview }) {
               ))
             ) : (
               <Row>
-                <Col style={{ display: "flex", alignItems: "center", justifyContent: "center" }}>
+                <Col
+                  style={{
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "center",
+                  }}
+                >
                   <span>Тут ще немає відгуків. Ви можете бути першим.</span>
                 </Col>
               </Row>

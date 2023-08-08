@@ -1,122 +1,118 @@
 .info {
-    display: grid;
-    align-items: center;
-    gap: 20px;
-    background: $light-wheet-color;
-    padding: 50px 60px 60px 60px;
-    background-color: $light-wheet-color;
+  display: grid;
+  align-items: center;
+  gap: 20px;
+  background: $light-wheet-color;
+  padding: 50px 60px 60px 60px;
+  background-color: $light-wheet-color;
 
-    &__row {
-        margin: 0;
-        display: flex;
-        flex-direction: row;
-        align-items: flex-start;
-        gap: 21px;
+  &__row {
+    margin: 0;
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+    gap: 21px;
 
-        &_col {
-            display: flex;
-            flex-direction: row;
-            align-items: flex-start;
-            padding: 30px 0 19px 0;
-            gap: 10px;
-            background: #F0EBFB;
+    &_col {
+      display: flex;
+      flex-direction: row;
+      align-items: flex-start;
+      padding: 30px 0 19px 0;
+      gap: 10px;
+      background: #f0ebfb;
 
-            .title {
-                padding: 10px 24px;
-                width: 65%;
-                height: 54px;
-                background: linear-gradient(90deg, #71C064 0%, #8AE37C 100%);
-                border-radius: 0px 23px 23px 0px;
-                font-family: 'Noto Sans';
-                font-style: normal;
-                font-weight: 500;
-                font-size: 24px;
-                line-height: 33px;
-                color: #FFFFFF;
-            }
+      .title {
+        padding: 10px 24px;
+        width: 65%;
+        height: 54px;
+        background: linear-gradient(90deg, #71c064 0%, #8ae37c 100%);
+        border-radius: 0px 23px 23px 0px;
+        font-family: "Noto Sans";
+        font-style: normal;
+        font-weight: 500;
+        font-size: 24px;
+        line-height: 33px;
+        color: #ffffff;
+      }
 
-            .list {
-                display: grid;
-                flex-direction: column;
-                gap: 20px;
-                align-items: start;
-                padding-right: 25px;
+      .list {
+        display: grid;
+        flex-direction: column;
+        gap: 20px;
+        align-items: start;
+        padding-right: 25px;
 
-
-                ul {
-                    list-style-type: disc;
-                    display: flex;
-                    flex-direction: column;
-                    gap: 20px;
-                    font-family: 'Noto Sans';
-                    font-style: normal;
-                    font-weight: 500;
-                    font-size: 18px;
-                    line-height: 25px;
-                    color: $plum-dark-color;
-
-                }
-            }
-
-            .creditvariant {
-                padding: 0;
-                display: flex;
-                flex-direction: column;
-                gap: 50px;
-
-                button {
-                    width: fit-content;
-                    height: 53px;
-                    display: flex;
-                    flex-direction: column;
-                    justify-content: center;
-                    align-items: center;
-                    padding: 10px 35px;
-                    gap: 10px;
-                    background: $plum-dark-color;
-                    border-radius: 30px;
-
-                    font-family: 'Noto Sans';
-                    font-style: normal;
-                    font-weight: 600;
-                    font-size: 24px;
-                    line-height: 33px;
-                    color: #E7DBEA;
-
-                }
-
-                &__credit {
-                    margin: 0;
-                    padding: 0;
-                    display: flex;
-                    justify-content: space-between !important;
-                    padding-right: 15px;
-                }
-
-                &__banks {
-                    display: flex;
-                    flex-direction: row;
-                    justify-content: center;
-                    align-items: center;
-                    padding-bottom: 23px;
-
-                    span {
-                        font-family: 'Noto Sans';
-                        font-style: normal;
-                        font-weight: 600;
-                        font-size: 20px;
-                        line-height: 27px;
-                        color: $plum-dark-color;
-                    }
-
-                    .img {
-                        width: 33px;
-                        height: 33px;
-                        margin-right: 20px;
-                    }
-                }
-            }
-
+        ul {
+          list-style-type: disc;
+          display: flex;
+          flex-direction: column;
+          gap: 20px;
+          font-family: "Noto Sans";
+          font-style: normal;
+          font-weight: 500;
+          font-size: 18px;
+          line-height: 25px;
+          color: $plum-dark-color;
         }
+      }
+
+      .creditvariant {
+        padding: 0;
+        display: flex;
+        flex-direction: column;
+        gap: 50px;
+
+        button {
+          width: fit-content;
+          height: 53px;
+          display: flex;
+          flex-direction: column;
+          justify-content: center;
+          align-items: center;
+          padding: 10px 35px;
+          gap: 10px;
+          background: $plum-dark-color;
+          border-radius: 30px;
+
+          font-family: "Noto Sans";
+          font-style: normal;
+          font-weight: 600;
+          font-size: 24px;
+          line-height: 33px;
+          color: #e7dbea;
+        }
+
+        &__credit {
+          margin: 0;
+          padding: 0;
+          display: flex;
+          justify-content: space-between !important;
+          padding-right: 15px;
+        }
+
+        &__banks {
+          display: flex;
+          flex-direction: row;
+          justify-content: center;
+          align-items: center;
+          padding-bottom: 23px;
+
+          span {
+            font-family: "Noto Sans";
+            font-style: normal;
+            font-weight: 600;
+            font-size: 20px;
+            line-height: 27px;
+            color: $plum-dark-color;
+          }
+
+          .img {
+            width: 33px;
+            height: 33px;
+            margin-right: 20px;
+          }
+        }
+      }
     }
+  }
 }

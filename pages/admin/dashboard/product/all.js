@@ -11,7 +11,7 @@ import FloatingButton from "../../../../components/FloatingButton";
 export default function All({ products }) {
   return (
     <Layout>
-       <FloatingButton />
+      <FloatingButton />
       <div className={styles.header}>Всі продукти</div>
       {products.map((p, i) => (
         <ProductCard product={p} key={`${p._id}_${i}`} />

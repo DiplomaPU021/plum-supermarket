@@ -64,14 +64,14 @@ export default function DeleteProduct({
   const getGroupSub = async () => {
     setLoading(true);
     setGroupSub(
-      groupSubCategories.filter((c) => c.parent == productToEdit.category)
+      groupSubCategories.filter((c) => c.parent == productToEdit.category),
     );
     setLoading(false);
   };
   const getSubs = async () => {
     setLoading(true);
     setSubs(
-      subCategories.filter((c) => c.parent == productToEdit.groupSubCategory)
+      subCategories.filter((c) => c.parent == productToEdit.groupSubCategory),
     );
     changeSelectedOptions();
     setLoading(false);
@@ -99,7 +99,7 @@ export default function DeleteProduct({
             value,
             isFixed: false,
           };
-        })
+        }),
       );
     } else {
       setDataSelectedOptions([]);
@@ -114,7 +114,7 @@ export default function DeleteProduct({
           value,
           isFixed: false,
         };
-      })
+      }),
     );
   };
   useEffect(() => {
@@ -194,8 +194,9 @@ export default function DeleteProduct({
                 disabled={true}
                 placeholder="Виберіть субкатегорії"
                 components={animatedComponents}
-                className={`${styles.select} ${formik.touched && formik.errors && styles.error_select
-                  }`}
+                className={`${styles.select} ${
+                  formik.touched && formik.errors && styles.error_select
+                }`}
                 classNamePrefix="Виберіть субкатегорії"
                 options={dataOptions}
                 isClearable={true}
@@ -289,7 +290,7 @@ export async function getServerSideProps(context) {
     })
     .lean();
   let groupSubCategoryProduct = await GroupSubCategory.findById(
-    product.subCategories[0].parent
+    product.subCategories[0].parent,
   )
     .select("name parent")
     .lean();
@@ -320,7 +321,7 @@ export async function getServerSideProps(context) {
       product: JSON.parse(JSON.stringify(product)),
       categoryProduct: JSON.parse(JSON.stringify(categoryProduct)),
       groupSubCategoryProduct: JSON.parse(
-        JSON.stringify(groupSubCategoryProduct)
+        JSON.stringify(groupSubCategoryProduct),
       ),
       subCategoriesProduct: JSON.parse(JSON.stringify(subCategoriesProduct)),
       categories: JSON.parse(JSON.stringify(categories)),

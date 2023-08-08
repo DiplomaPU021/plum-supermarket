@@ -3,11 +3,7 @@
     "browser": true,
     "es2021": true
   },
-  "plugins": [
-    "react",
-    "prettier",
-    "import"
-  ],
+  "plugins": ["react", "prettier", "import"],
   "extends": [
     "next/core-web-vitals",
     "prettier",
@@ -26,7 +22,16 @@
     "import/order": [
       1,
       {
-        "groups": ["builtin", "external", "internal", "parent", "sibling", "index", "object", "type"],
+        "groups": [
+          "builtin",
+          "external",
+          "internal",
+          "parent",
+          "sibling",
+          "index",
+          "object",
+          "type"
+        ],
         "newlines-between": "always",
         "alphabetize": {
           "order": "asc",
@@ -39,7 +44,16 @@
             "position": "after"
           }
         ],
-        "pathGroupsExcludedImportTypes": ["builtin", "external", "internal", "parent", "sibling", "index", "object", "type"]
+        "pathGroupsExcludedImportTypes": [
+          "builtin",
+          "external",
+          "internal",
+          "parent",
+          "sibling",
+          "index",
+          "object",
+          "type"
+        ]
       }
     ]
   }

@@ -15,7 +15,7 @@ const findByIdAndUpdateAddress = async (id, address) => {
   const result = await User.updateOne(
     { _id: id },
     { $set: { address } },
-    { new: true }
+    { new: true },
   );
   return result;
 };
@@ -26,13 +26,13 @@ const findByIdAndUpdateProfile = async (
   phoneNumber,
   email,
   gender,
-  birthday
+  birthday,
 ) => {
   try {
     const user = await User.findOneAndUpdate(
       { _id: id, email },
       { firstName, lastName, phoneNumber, gender, birthday },
-      { new: true }
+      { new: true },
     );
     return user;
   } catch (err) {
@@ -44,13 +44,13 @@ const findByIdAndUpdateProfileFromCheckout = async (
   firstName,
   lastName,
   phoneNumber,
-  email
+  email,
 ) => {
   try {
     const user = await User.findOneAndUpdate(
       { _id: id, email },
       { firstName, lastName, phoneNumber },
-      { new: true }
+      { new: true },
     );
     return user;
   } catch (err) {
@@ -81,7 +81,7 @@ const findByUniqueStringAndConfirm = async (uniqueString) => {
       {
         emailVerified: true,
       },
-      { new: true }
+      { new: true },
     );
     return user;
   }
@@ -95,12 +95,12 @@ const addToWishList = async (
   color,
   code,
   style,
-  mode
+  mode,
 ) => {
   const user = await User.findById(userId);
   const product = await Product.findById(productId);
   const existWishItem = user.wishlist.findIndex(
-    (x) => x.product?.toString() == productId && x.code?.toString() == code
+    (x) => x.product?.toString() == productId && x.code?.toString() == code,
   );
 
   let wishItem = {
@@ -131,7 +131,7 @@ const findByWishlistAndUpdate = async (
   size,
   image,
   color,
-  code
+  code,
 ) => {
   const user = await User.findById(userId);
   try {
@@ -150,7 +150,7 @@ const findByWishlistAndUpdate = async (
       {
         new: true,
         // upsert: true // додаємо опцію upsert
-      }
+      },
     );
     return updateResult;
   } catch (error) {
@@ -162,7 +162,7 @@ const removeFromWishlist = async (userId, productId, code) => {
   try {
     const result = await User.updateOne(
       { _id: userId },
-      { $pull: { wishlist: { product: productId, code: code } } }
+      { $pull: { wishlist: { product: productId, code: code } } },
     );
     return result;
   } catch (error) {
@@ -250,7 +250,7 @@ const addCreditCard = async (userId, name, number, expiry, cvc) => {
   try {
     const user = await User.findById(userId);
     const existCreditCardItem = user.creditCards?.findIndex(
-      (x) => x.name?.toString() == name && x.number?.toString() == number
+      (x) => x.name?.toString() == name && x.number?.toString() == number,
     );
     let creditCardItem = { name, number, expiry, cvc, isDefault: true };
     let user_creditCards = user.creditCards;
@@ -276,7 +276,7 @@ const addCreditCard = async (userId, name, number, expiry, cvc) => {
       {
         creditCards: creditCards,
       },
-      { new: true }
+      { new: true },
     );
     const result = await User.findById(userId);
     return result;
@@ -288,11 +288,11 @@ const removeFromCreditCards = async (userId, creditCardId) => {
   const user = await User.findById(userId);
   if (user) {
     user.creditCards = user.creditCards.filter(
-      (item) => item._id.toString() !== creditCardId
+      (item) => item._id.toString() !== creditCardId,
     );
     if (user.creditCards.length > 0) {
       let creditCardDefaultExist = user.creditCards.find(
-        (item) => item.isDefault == true
+        (item) => item.isDefault == true,
       );
       if (creditCardDefaultExist) {
         const result = await user.save({ validateBeforeSave: false });
@@ -340,7 +340,7 @@ const addAdmirations = async (userId, admiration) => {
     const user = await User.findOneAndUpdate(
       { _id: userId },
       { admiration },
-      { new: true }
+      { new: true },
     );
     return user;
   } catch (err) {
@@ -364,7 +364,7 @@ const addPets = async (userId, pets) => {
     const user = await User.findOneAndUpdate(
       { _id: userId },
       { pets },
-      { new: true }
+      { new: true },
     );
     return user;
   } catch (err) {

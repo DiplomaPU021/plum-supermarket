@@ -1,82 +1,81 @@
-.cont{
-    padding: 0 !important;
-    background: $light-wheet-color;
-    height: 100%;
+.cont {
+  padding: 0 !important;
+  background: $light-wheet-color;
+  height: 100%;
 }
-     
+
 .group {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding-top: 60px;
 
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    padding-top: 60px;
-
-    h5 {
-        font-weight: 500;
-        font-size: 35px;
-        line-height: 48px;
-        width: 428px;
-        text-align: center;
-        padding-top: 20px;
-        color: #220F4B;
-    }
+  h5 {
+    font-weight: 500;
+    font-size: 35px;
+    line-height: 48px;
+    width: 428px;
+    text-align: center;
+    padding-top: 20px;
+    color: #220f4b;
+  }
 }
 
 .repete {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    justify-content: center;
-    padding: 0px;
-    gap: 20px;
-    width: 718px;
-    height: 70px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  padding: 0px;
+  gap: 20px;
+  width: 718px;
+  height: 70px;
 
-    .dark_button {
-        width: 349px;
-        height: 46px;
-        font-weight: 600;
-        font-size: 18px;
-        line-height: 25px;
-        border-radius: 30px;
-        color: #FAF8FF;
-        background-color: #220F4B;
-        border: none;
+  .dark_button {
+    width: 349px;
+    height: 46px;
+    font-weight: 600;
+    font-size: 18px;
+    line-height: 25px;
+    border-radius: 30px;
+    color: #faf8ff;
+    background-color: #220f4b;
+    border: none;
 
-        &:hover {
-            box-shadow: 0px 0px 5px 0px #220F4B;
-            background-color: #220F4B;
-        }
+    &:hover {
+      box-shadow: 0px 0px 5px 0px #220f4b;
+      background-color: #220f4b;
     }
+  }
 
-    .light_button {
-        width: 349px;
-        height: 46px;
-        font-weight: 600;
-        font-size: 18px;
-        line-height: 25px;
-        border-radius: 30px;
-        color: #220F4B;
-        background-color: #FAF8FF;
-        border: 2px solid #220F4B;
-        border-radius: 23px;
-        text-align: center;
+  .light_button {
+    width: 349px;
+    height: 46px;
+    font-weight: 600;
+    font-size: 18px;
+    line-height: 25px;
+    border-radius: 30px;
+    color: #220f4b;
+    background-color: #faf8ff;
+    border: 2px solid #220f4b;
+    border-radius: 23px;
+    text-align: center;
 
-        &:hover {
-            box-shadow: 0px 0px 5px 0px #220F4B;
-            background-color: #FAF8FF;
-        }
+    &:hover {
+      box-shadow: 0px 0px 5px 0px #220f4b;
+      background-color: #faf8ff;
     }
+  }
 
-    a{
-        text-decoration: none;
-        padding-top: 8px;
-    }
+  a {
+    text-decoration: none;
+    padding-top: 8px;
+  }
 }
 
-.row{
-   justify-content: center;
-    padding-bottom: 25px;
-    margin: 0 !important;
+.row {
+  justify-content: center;
+  padding-bottom: 25px;
+  margin: 0 !important;
 }

@@ -1,47 +1,47 @@
 @import "../components/admin/base";
 
 .header {
-    margin-bottom: 1rem;
-    color: $plum-dark-color;
+  margin-bottom: 1rem;
+  color: $plum-dark-color;
 }
 
 .form {
-    display: flex;
-    flex-direction: column;
-    gap: 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
 }
 
 .color_span {
-    width: 70px;
-    height: 70px;
-    border-radius: 50%;
-    box-shadow: $shadow-1;
+  width: 70px;
+  height: 70px;
+  border-radius: 50%;
+  box-shadow: $shadow-1;
 }
 
 .image_span {
-    height: 150px;
-    width: 100px;
-    object-fit: cover;
-    margin-right: 1rem;
-    box-shadow: $shadow-1;
+  height: 150px;
+  width: 100px;
+  object-fit: cover;
+  margin-right: 1rem;
+  box-shadow: $shadow-1;
 }
 
 .btn {
-    background: $plum-dark-color;
-    color: $light-wheet-color;
+  background: $plum-dark-color;
+  color: $light-wheet-color;
 
-    &:hover {
-        box-shadow: 0px 0px 5px 0px #220F4B;
-    }
+  &:hover {
+    box-shadow: 0px 0px 5px 0px #220f4b;
+  }
 }
 .error_msg {
-    color: red;
-    font-size: 13px;
+  color: red;
+  font-size: 13px;
 }
-.color_set{
-    color: $plum-dark-color;
+.color_set {
+  color: $plum-dark-color;
 }
 
-.color_set2{
-    color: $plum-violet-color;
+.color_set2 {
+  color: $plum-violet-color;
 }

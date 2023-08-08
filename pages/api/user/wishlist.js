@@ -17,7 +17,7 @@ handler.post(async (req, res) => {
       color,
       code,
       style,
-      mode
+      mode,
     );
     await db.disconnectDb();
     return res
@@ -46,7 +46,7 @@ handler.get(async (req, res) => {
 
     await db.disconnectDb();
     if (wishList) {
-        wishList = wishList.filter(element => element != null);
+      wishList = wishList.filter((element) => element != null);
       return res.status(200).json({ wishList });
     } else {
       throw new Error("Список вподобань не знайдено");

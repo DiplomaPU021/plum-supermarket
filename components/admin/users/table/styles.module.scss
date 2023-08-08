@@ -1,87 +1,87 @@
-$plum-violet-color: #81528C;
-$plum-dark-color: #220F4B;
-$light-wheet-color: #FAF8FF;
-$green-color: #70BF63;
+$plum-violet-color: #81528c;
+$plum-dark-color: #220f4b;
+$light-wheet-color: #faf8ff;
+$green-color: #70bf63;
 
 .header {
-    font-weight: 700;
-    font-size: 20px;
-    border-bottom: 1px solid $green-color;
-    padding-bottom: 5px;
-    margin-top: 1rem;
-    display: flex;
-    flex-direction: column;
-    color: $plum-dark-color;
+  font-weight: 700;
+  font-size: 20px;
+  border-bottom: 1px solid $green-color;
+  padding-bottom: 5px;
+  margin-top: 1rem;
+  display: flex;
+  flex-direction: column;
+  color: $plum-dark-color;
 }
 
 .users_table {
-    padding: 0px 20px 0px 20px;
-    color: $plum-dark-color;
+  padding: 0px 20px 0px 20px;
+  color: $plum-dark-color;
 
-    table {
-        width: 100%;
-        border-collapse: collapse;
+  table {
+    width: 100%;
+    border-collapse: collapse;
 
-        thead {
-            th {
-                text-align: start;
-                padding: 12px 0px 10px 10px;
-            }
-        }
-
-        tbody {
-            font-size: 15px;
-
-            tr {
-                border-bottom: 1px solid $green-color;
-
-                svg {
-                    width: 23px;
-                    height: 23px;
-                    cursor: pointer;
-                    fill: $plum-dark-color;
-                }
-
-                &:hover {
-                    background: $plum-violet-color;
-                    color: $light-wheet-color;
-
-                    svg {
-                        fill: $light-wheet-color;
-                    }
-                }
-
-                button {
-                    background: transparent;
-                }
-
-                &:last-child {
-                    border-bottom: none;
-                }
-
-                td {
-                    padding: 8px 3px 8px 12px;
-
-                    img {
-                        width: 40px;
-                        height: 40px;
-                        border-radius: 50%;
-                        object-fit: cover;
-                        box-shadow: $shadow-1;
-                        background: $plum-violet-color;
-                    }
-                }
-            }
-        }
-
-        tr {
-            td {
-                padding: 20px 5px;
-
-                &:last-child {
-                    text-align: center;
-                }
-            }
-        }
+    thead {
+      th {
+        text-align: start;
+        padding: 12px 0px 10px 10px;
+      }
     }
+
+    tbody {
+      font-size: 15px;
+
+      tr {
+        border-bottom: 1px solid $green-color;
+
+        svg {
+          width: 23px;
+          height: 23px;
+          cursor: pointer;
+          fill: $plum-dark-color;
+        }
+
+        &:hover {
+          background: $plum-violet-color;
+          color: $light-wheet-color;
+
+          svg {
+            fill: $light-wheet-color;
+          }
+        }
+
+        button {
+          background: transparent;
+        }
+
+        &:last-child {
+          border-bottom: none;
+        }
+
+        td {
+          padding: 8px 3px 8px 12px;
+
+          img {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            object-fit: cover;
+            box-shadow: $shadow-1;
+            background: $plum-violet-color;
+          }
+        }
+      }
+    }
+
+    tr {
+      td {
+        padding: 20px 5px;
+
+        &:last-child {
+          text-align: center;
+        }
+      }
+    }
+  }
 }

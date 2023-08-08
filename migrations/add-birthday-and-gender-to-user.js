@@ -27,7 +27,7 @@ export default async (req, res) => {
         const user = await User.findByIdAndUpdate(
           userId,
           { style, mode },
-          { new: true }
+          { new: true },
         );
 
         if (!user) {

@@ -1,60 +1,59 @@
 @import "../../base";
 
 .colors {
-    color: $plum-dark-color;
+  color: $plum-dark-color;
 
-    button {
-        background: $blue-color;
-        color: #fff;
-    }
+  button {
+    background: $blue-color;
+    color: #fff;
+  }
 }
 
 .square_color {
-    padding: 1rem;
-    font-weight: 700;
+  padding: 1rem;
+  font-weight: 700;
+  cursor: pointer;
+  color: #fff;
+  overflow: hidden;
+}
+
+.picker_color {
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+
+  .label_t {
+    padding-right: 1rem;
+  }
+
+  .label_t2 {
+    padding-right: 1rem;
+  }
+
+  .control_inp2 {
+    height: 40px;
+    border: 1px solid $plum-violet-color;
+  }
+
+  .click_btn {
+    background: $plum-violet-color;
+    width: 250px;
+    font-weight: 600;
+    color: $light-wheet-color;
+    height: 50px;
     cursor: pointer;
-    color: #fff;
-    overflow: hidden;
+    margin: 5px 0;
+
+    &:hover {
+      box-shadow: 0px 0px 5px 0px $plum-violet-color;
+    }
+  }
 }
-
-.picker_color{
-    margin-top: 1rem;
-    margin-bottom: 1rem;
-
-    .label_t {
-        padding-right: 1rem;
-    }
-
-    .label_t2 {
-        padding-right: 1rem;
-    }
-
-    .control_inp2 {
-        height: 40px;
-        border: 1px solid $plum-violet-color;
-    }
-
-    .click_btn {
-        background: $plum-violet-color;
-        width: 250px;
-        font-weight: 600;
-        color: $light-wheet-color;
-        height: 50px;
-        cursor: pointer;
-        margin: 5px 0;
-
-        &:hover {
-            box-shadow: 0px 0px 5px 0px $plum-violet-color;
-        }
-    }
-}
-
 
 .error_msg {
-    color: red;
-    font-size: 13px;
+  color: red;
+  font-size: 13px;
 }
 
 .header__error {
-    color: red;
+  color: red;
 }

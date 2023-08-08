@@ -86,7 +86,7 @@ export default function Register({
       .email("Введіть коректний адрес email.")
       .trim()
       .required(
-        "Email буде потрібний для входу в персональний кабінет та для скидання пароля."
+        "Email буде потрібний для входу в персональний кабінет та для скидання пароля.",
       ),
     password: yup
       .string()
@@ -153,7 +153,7 @@ export default function Register({
                   }}
                   className={styles.reg_forms}
                 >
-                   <input
+                  <input
                     type="hidden"
                     readOnly
                     name="csrfToken"

@@ -21,21 +21,31 @@ import Reviews from "../../components/productPage/reviews";
 import { getCountryData } from "../../utils/country";
 import User from "../../models/User";
 import { useDispatch } from "react-redux";
-import { updateNumberReviews, updateReviewRating } from "../../store/reviewSlice";
+import {
+  updateNumberReviews,
+  updateReviewRating,
+} from "../../store/reviewSlice";
 import GroupSubCategory from "../../models/GroupSubCategory";
-import FloatingButton from '../../components/FloatingButton';
+import FloatingButton from "../../components/FloatingButton";
 
-export default function ProductSlug({ product, popular, country, style, mode }) {
+export default function ProductSlug({
+  product,
+  popular,
+  country,
+  style,
+  mode,
+}) {
   const [active, setActive] = useState({ style: style, mode: mode });
-  const [productReview, setProductReview] = useState(product?.reviews?.reverse());
+  const [productReview, setProductReview] = useState(
+    product?.reviews?.reverse(),
+  );
   const [productError, setProductError] = useState("");
   const dispatch = useDispatch();
   // const [, forceUpdate] = useReducer(x => x + 1, 0);
   useEffect(() => {
-    dispatch(updateReviewRating(product.rating))
-    dispatch(updateNumberReviews(product.numReviews))
+    dispatch(updateReviewRating(product.rating));
+    dispatch(updateNumberReviews(product.numReviews));
   }, [product, dispatch]);
-
 
   return (
     <Container fluid style={{ padding: "0" }}>
@@ -84,19 +94,39 @@ export default function ProductSlug({ product, popular, country, style, mode }) 
               />
             </Col>
             <Col style={{ padding: "0", width: "50%" }}>
-              <Infos product={product} setActive={setActive} productError={productError} setProductError={setProductError} />
+              <Infos
+                product={product}
+                setActive={setActive}
+                productError={productError}
+                setProductError={setProductError}
+              />
             </Col>
           </Row>
         </Container>
       </Container>
       <CustomerInfo />
-      {product.productsPlus.length>0 ? (
-        <CheaperTogether product={product} productsPlus={product.productsPlus} active={active} setActive={setActive} />
+      {product.productsPlus.length > 0 ? (
+        <CheaperTogether
+          product={product}
+          productsPlus={product.productsPlus}
+          active={active}
+          setActive={setActive}
+        />
       ) : null}
       <ProductDescription product={product} />
       <FloatingButton />
-      <Reviews product={product} productReview={productReview} setProductReview={setProductReview} active={active} setActive={setActive} />
-      <Popular title={"Популярне з категорії"} products={popular} category={product.category.name} />
+      <Reviews
+        product={product}
+        productReview={productReview}
+        setProductReview={setProductReview}
+        active={active}
+        setActive={setActive}
+      />
+      <Popular
+        title={"Популярне з категорії"}
+        products={popular}
+        category={product.category.name}
+      />
       <Footer country={country} />
     </Container>
   );
@@ -104,7 +134,8 @@ export default function ProductSlug({ product, popular, country, style, mode }) 
 export async function getServerSideProps(context) {
   const { query, req } = context;
   const slug = query.slug;
-  const style = query.style == null || query.style == "undefined" ? 0 : query.style;
+  const style =
+    query.style == null || query.style == "undefined" ? 0 : query.style;
   const mode = query.code || 0;
 
   const pageSize = query.pageSize || 8;
@@ -116,7 +147,11 @@ export async function getServerSideProps(context) {
   //from db
   let product = await Product.findOne({ slug })
     .populate({ path: "category", model: Category })
-    .populate({ path: "subCategories", model: SubCategory, populate: { path: "parent", model: GroupSubCategory } })
+    .populate({
+      path: "subCategories",
+      model: SubCategory,
+      populate: { path: "parent", model: GroupSubCategory },
+    })
     .populate({ path: "reviews.reviewBy", model: User })
     .populate({ path: "reviews.replies.replyBy", model: User })
     .lean();
@@ -126,8 +161,8 @@ export async function getServerSideProps(context) {
     return {
       redirect: {
         destination: "/",
-      }
-    }
+      },
+    };
   }
   let subProduct = product.subProducts[style];
   let price = subProduct.sizes[mode].price.toFixed();
@@ -140,15 +175,20 @@ export async function getServerSideProps(context) {
   //   .populate({ path: "reviews.replies.replyBy", model: User })
   //   .sort({ createdAt: -1 }).lean();
 
-
   let onlyFromCategory = await Product.find({ category: product.category._id })
     .limit(pageSize)
     .lean();
 
   let newProductPlus = [];
-  let accesoriesCategory = await Category.findOne({ slug: "smartphones_tv_and_electronics" });
+  let accesoriesCategory = await Category.findOne({
+    slug: "smartphones_tv_and_electronics",
+  });
   if (accesoriesCategory) {
-    let productPlusCategory = await Product.find({ category: accesoriesCategory._id }).limit(5).lean();
+    let productPlusCategory = await Product.find({
+      category: accesoriesCategory._id,
+    })
+      .limit(5)
+      .lean();
     newProductPlus = productPlusCategory.map((product) => {
       let style = -1;
       let mode = -1;
@@ -166,10 +206,16 @@ export async function getServerSideProps(context) {
           break;
         }
       }
-      let color = product.subProducts[style] ? product.subProducts[style].color?.color : '';
+      let color = product.subProducts[style]
+        ? product.subProducts[style].color?.color
+        : "";
       let size = product.subProducts[style].sizes[mode].size;
       let sold = product.subProducts[style].sold;
-      let priceAfter = ((100 - product.subProducts[style].discount) * product.subProducts[style].sizes[mode].price / 100).toFixed();
+      let priceAfter = (
+        ((100 - product.subProducts[style].discount) *
+          product.subProducts[style].sizes[mode].price) /
+        100
+      ).toFixed();
       return {
         ...product,
         style,
@@ -177,13 +223,12 @@ export async function getServerSideProps(context) {
         color,
         size,
         sold,
-        priceAfter
+        priceAfter,
       };
     });
   } else {
     console.log("Категорія не знайдена.");
   }
-
 
   let newFromCategory = onlyFromCategory.map((product) => {
     let style = -1;
@@ -203,10 +248,16 @@ export async function getServerSideProps(context) {
       }
     }
 
-    let color = product.subProducts[style] ? product.subProducts[style].color?.color : '';
+    let color = product.subProducts[style]
+      ? product.subProducts[style].color?.color
+      : "";
     let size = product.subProducts[style].sizes[mode].size;
     let sold = product.subProducts[style].sold;
-    let priceAfter = ((100 - product.subProducts[style].discount) * product.subProducts[style].sizes[mode].price / 100).toFixed();
+    let priceAfter = (
+      ((100 - product.subProducts[style].discount) *
+        product.subProducts[style].sizes[mode].price) /
+      100
+    ).toFixed();
     return {
       ...product,
       style,
@@ -214,10 +265,12 @@ export async function getServerSideProps(context) {
       color,
       size,
       sold,
-      priceAfter
+      priceAfter,
     };
   });
-  let popularFromCategory = [...newFromCategory].sort((a, b) => b.sold - a.sold);
+  let popularFromCategory = [...newFromCategory].sort(
+    (a, b) => b.sold - a.sold,
+  );
 
   let newProduct = {
     ...product,
@@ -229,14 +282,14 @@ export async function getServerSideProps(context) {
     discount: subProduct.discount,
     color: subProduct.color?.color,
     price,
-    priceAfter: ((100 - subProduct.discount) * price / 100).toFixed(),
+    priceAfter: (((100 - subProduct.discount) * price) / 100).toFixed(),
     price_unit: subProduct.sizes[mode].price_unit,
     code: subProduct.sizes[mode].code,
     sold: subProduct.sold,
     quantity: subProduct.sizes[mode].qty,
     productsPlus: newProductPlus,
     reviews: product.reviews.reverse(),
-    rating: product.rating
+    rating: product.rating,
   };
   await db.disconnectDb();
 

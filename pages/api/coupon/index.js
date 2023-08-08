@@ -10,7 +10,7 @@ const handler = nc().use(auth).use(admin);
 handler.post(async (req, res) => {
   try {
     await db.connectDb();
-    const {  discount, startDate, endDate } = req.body;
+    const { discount, startDate, endDate } = req.body;
     const promocode = generatePromoCode(6);
     const test = await Coupon.findOne({ promocode });
     if (test) {

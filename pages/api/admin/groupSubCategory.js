@@ -28,9 +28,11 @@ handler.post(async (req, res) => {
     // await db.disconnectDb();
     return res.json({
       message: `Група підкатегорій ${name} створена успішно`,
-      groupSubCategories: await GroupSubCategory.find({}).populate({ path: "parent", model: Category }).sort({
-        name: 1,
-      }),
+      groupSubCategories: await GroupSubCategory.find({})
+        .populate({ path: "parent", model: Category })
+        .sort({
+          name: 1,
+        }),
     });
   } catch (error) {
     return res.status(500).json({ message: error.message });
@@ -42,7 +44,7 @@ handler.delete(async (req, res) => {
     const { id } = req.body;
     await db.connectDb();
     const subCategoriesToDelete = await SubCategory.find({ parent: id });
-  
+
     let productsToDeleteGroup = [];
     for (const element of subCategoriesToDelete) {
       let productsToDelete = await Product.find({
@@ -64,7 +66,7 @@ handler.delete(async (req, res) => {
       });
     } else {
       throw new Error(
-        `Група підкатегорій містить ${subCategoriesToDelete?.length} підкатегорю(-ій) та ${productsToDeleteGroup?.length} продукт(-ів)`
+        `Група підкатегорій містить ${subCategoriesToDelete?.length} підкатегорю(-ій) та ${productsToDeleteGroup?.length} продукт(-ів)`,
       );
     }
   } catch (error) {
@@ -84,9 +86,11 @@ handler.put(async (req, res) => {
     // await db.disconnectDb();
     return res.json({
       message: "Група підкатегорій оновлена успішно",
-      groupSubCategories: await GroupSubCategory.find({}).populate({ path: "parent", model: Category }).sort({
-        name: 1,
-      }),
+      groupSubCategories: await GroupSubCategory.find({})
+        .populate({ path: "parent", model: Category })
+        .sort({
+          name: 1,
+        }),
     });
   } catch (error) {
     return res.status(500).json({ message: error.message });

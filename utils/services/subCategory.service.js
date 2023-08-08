@@ -1,17 +1,17 @@
 import SubCategory from "../../models/SubCategory";
 
 const getOneById = async (id) => {
-    const subCategory = await SubCategory.findById(id);
-    return subCategory;
+  const subCategory = await SubCategory.findById(id);
+  return subCategory;
 };
 const getAll = async () => {
-    const result = await SubCategory.find();
-    return result;
-}
+  const result = await SubCategory.find();
+  return result;
+};
 
 const subCategoryService = {
-    getOneById,
-    getAll,
+  getOneById,
+  getAll,
 };
 
 export default subCategoryService;

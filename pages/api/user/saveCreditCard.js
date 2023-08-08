@@ -14,17 +14,15 @@ handler.post(async (req, res) => {
       name,
       number,
       expiry,
-      cvc
+      cvc,
     );
     await db.disconnectDb();
     // console.log("resultApi", result);
     if (result != null && result != "undefined") {
-      return res
-        .status(200)
-        .json({
-          message: "Карту додано успішно!",
-          creditCards: result.creditCards,
-        });
+      return res.status(200).json({
+        message: "Карту додано успішно!",
+        creditCards: result.creditCards,
+      });
     } else {
       return res.status(400).json({ error: "Помилка додавання картки!" });
     }
@@ -86,7 +84,5 @@ handler.put(async (req, res) => {
     await db.disconnectDb();
     return res.status(500).json({ error: error.message });
   }
-
-
 });
 export default handler;

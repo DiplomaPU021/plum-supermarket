@@ -13,11 +13,11 @@ export default function MyOrders(props) {
     showDirection == "desc"
       ? (setShowDirection("asc"),
         setOrders(
-          orders.sort((a, b) => a.costAfterDiscount - b.costAfterDiscount)
+          orders.sort((a, b) => a.costAfterDiscount - b.costAfterDiscount),
         ))
       : (setShowDirection("desc"),
         setOrders(
-          orders.sort((a, b) => b.costAfterDiscount - a.costAfterDiscount)
+          orders.sort((a, b) => b.costAfterDiscount - a.costAfterDiscount),
         ));
   };
 
@@ -31,16 +31,16 @@ export default function MyOrders(props) {
           (order) =>
             order.status === "Нове замовлення" ||
             order.status === "В обробці" ||
-            order.status === "Надіслано"
+            order.status === "Надіслано",
         );
       } else {
         filteredOrders = props.orders.filter(
-          (order) => order.status === status
+          (order) => order.status === status,
         );
       }
       setOrders(filteredOrders);
     }
-  }
+  };
 
   const [searchOrder, setSearchOrder] = useState("");
 
@@ -48,8 +48,8 @@ export default function MyOrders(props) {
     if (searchOrder.length > 0) {
       setOrders(
         props.orders.filter(
-          (order) => order._id.substring(0, 6) === searchOrder
-        )
+          (order) => order._id.substring(0, 6) === searchOrder,
+        ),
       );
     } else {
       setOrders(props.orders);
@@ -157,9 +157,7 @@ export default function MyOrders(props) {
             <OrderItem order={order} key={order._id} />
           ))}
           <div>
-            <Pagination
-              className={styles.pagination}
-            >
+            <Pagination className={styles.pagination}>
               <Pagination.Prev
                 onClick={() => setActivePage(activePage - 1)}
                 disabled={activePage === 1}
