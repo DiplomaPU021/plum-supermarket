@@ -1,13 +1,11 @@
+import React, { Component } from "react";
 import {
-  SplitButton,
-  MenuItem,
   DropdownButton,
   Dropdown,
   ButtonGroup,
 } from "react-bootstrap";
-import React, { Component } from "react";
-
 class ThemeSwitcher extends Component {
+
   state = { theme: null };
 
   chooseTheme = (theme, evt) => {

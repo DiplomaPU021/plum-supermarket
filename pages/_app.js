@@ -26,14 +26,18 @@ function MyApp({ Component, pageProps: { session, ...pageProps } }) {
         <link rel="icon" href="/favicon.ico" />
         <script
           async
-          src="https://www.googletagmanager.com/gtag/js?id=G-V23MRBFTTD"
+          src="https://www.googletagmanager.com/gtag/js?id=G-6P8Q7LWLSR"
         ></script>
-        <script>
-          window.dataLayer = window.dataLayer || []; function gtag()
-          {dataLayer.push(arguments)}
-          gtag('js', new Date()); gtag('config', 'G-V23MRBFTTD');
-        </script>
-        <script dangerouslySetInnerHTML={{ __html: googleAnalyticsScript }} />
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `
+              window.dataLayer = window.dataLayer || [];
+              function gtag(){dataLayer.push(arguments);}
+              gtag('js', new Date());
+              gtag('config', 'G-6P8Q7LWLSR');
+            `,
+          }}
+        />
       </Head>
 
       <SessionProvider session={session}>
