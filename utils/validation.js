@@ -21,7 +21,7 @@ export const validateCreateProduct = (product, images) => {
     });
   } else {
     checks.push({
-      msg: `${images, length} зображень успішно вибрано`,
+      msg: `${(images, length)} зображень успішно вибрано`,
       type: "success",
     });
   }
@@ -138,7 +138,6 @@ export const validateEditProduct = (product, images) => {
       type: "success",
     },
   ];
-
 
   // -------- Розкоментувати якщо потрібно заборонити створення продукту без кольору!
   if (!product.color.color && product.color.image !== "#ffffff00") {

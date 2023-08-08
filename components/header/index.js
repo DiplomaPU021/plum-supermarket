@@ -50,7 +50,7 @@ export default function Header({ country }) {
   const getScaleItemsCount = () => {
     return scaleList.scaleListItems.reduce(
       (acc, cur) => acc + cur.items.length,
-      0
+      0,
     );
   };
 
@@ -65,7 +65,7 @@ export default function Header({ country }) {
   const getItemsCount = () => {
     return cart.cartItems.reduce(
       (accumulator, item) => accumulator + item.qty,
-      0
+      0,
     );
   };
   const handleWishShow = async () => {
@@ -86,18 +86,18 @@ export default function Header({ country }) {
   };
   const handlerUserProfile = async () => {
     if (session) {
-    try {
-      const res1 = await axios.get("/api/user/manageProfile");
-      const data1 = res1.data;
-      setUser(data1.user);
-      const res2 = await axios.get("/api/user/manageOrders");
-      const data2 = res2.data;
-      setOrders(data2.orders);
-      setMyCabinetOpen(true);
-    } catch (error) {
-      console.log(error);
+      try {
+        const res1 = await axios.get("/api/user/manageProfile");
+        const data1 = res1.data;
+        setUser(data1.user);
+        const res2 = await axios.get("/api/user/manageOrders");
+        const data2 = res2.data;
+        setOrders(data2.orders);
+        setMyCabinetOpen(true);
+      } catch (error) {
+        console.log(error);
+      }
     }
-  }
   };
   const handleBtn1Click = () => {
     setLanguage1(true);
@@ -117,7 +117,7 @@ export default function Header({ country }) {
     } else {
       setDivVisible(true);
     }
-  },[]);
+  }, []);
   const setShowWishListHandler = () => {
     if (session) {
       setWishShow(true);
@@ -125,7 +125,6 @@ export default function Header({ country }) {
       alert("Залогінтесь");
     }
   };
-
 
   const [options, setOptions] = useState(searchedList.searchedListItems);
   const [searchV, setSearchV] = useState("");
@@ -135,18 +134,18 @@ export default function Header({ country }) {
 
   const handleSearchChange = (e) => {
     setSearchV(e.target.value);
-    const filteredOptions = searchedList.searchedListItems.filter(
-      (option) => option.value.includes(e.target.value.toLowerCase().trim())
+    const filteredOptions = searchedList.searchedListItems.filter((option) =>
+      option.value.includes(e.target.value.toLowerCase().trim()),
     );
     setOptions(filteredOptions);
     setUlVisible(true);
   };
- 
+
   const handleSelectSearch = (search) => {
     selectRef.current.focus();
     setTimeout(() => {
       const selectedOption = searchedList.searchedListItems.find(
-        (option) => option.value === search.toLowerCase().trim()
+        (option) => option.value === search.toLowerCase().trim(),
       );
       if (!selectedOption) {
         const newOption = {
@@ -179,8 +178,7 @@ export default function Header({ country }) {
   }, [searchedList.searchedListItems]);
 
   useEffect(() => {
-   if(searchV.length == 0)
-   setUlVisible(false);
+    if (searchV.length == 0) setUlVisible(false);
   }, [searchV]);
 
   return (

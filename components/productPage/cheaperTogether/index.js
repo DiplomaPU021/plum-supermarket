@@ -10,11 +10,18 @@ import styles from "./styles.module.scss";
 import "swiper/css";
 import "swiper/css/pagination";
 
-export default function CheaperTogether({ product, productsPlus, active, setActive }) {
+export default function CheaperTogether({
+  product,
+  productsPlus,
+  active,
+  setActive,
+}) {
   const handleSumCheaperTogether = (product1, product2) => {
-    const result = Math.round((Number(product1.priceAfter) + Number(product2.priceAfter)) * 0.95).toLocaleString("uk-UA");
+    const result = Math.round(
+      (Number(product1.priceAfter) + Number(product2.priceAfter)) * 0.95,
+    ).toLocaleString("uk-UA");
     return result;
-  }
+  };
   return (
     <Container fluid className={styles.cheapTwo}>
       <div className={styles.cheapTwo__title}>
@@ -37,7 +44,7 @@ export default function CheaperTogether({ product, productsPlus, active, setActi
           modules={[Navigation]}
           loop={true}
           style={{
-            padding: "10px 0 10px 0"
+            padding: "10px 0 10px 0",
           }}
         >
           {productsPlus.map((prod, i) => (
@@ -46,7 +53,11 @@ export default function CheaperTogether({ product, productsPlus, active, setActi
               key={i}
             >
               <div style={{ maxWidth: "335px" }}>
-                <ProductCard product={product} style={product.style} mode={product.mode} />
+                <ProductCard
+                  product={product}
+                  style={product.style}
+                  mode={product.mode}
+                />
               </div>
               <Image
                 className={styles.cheapTwo__signPlus}
@@ -54,7 +65,11 @@ export default function CheaperTogether({ product, productsPlus, active, setActi
                 alt="dark plus"
               />
               <div style={{ maxWidth: "335px" }}>
-                <ProductCard product={prod} style={prod.style} mode={prod.mode} />
+                <ProductCard
+                  product={prod}
+                  style={prod.style}
+                  mode={prod.mode}
+                />
               </div>
               <Image
                 className={styles.cheapTwo__signEqual}
@@ -66,10 +81,13 @@ export default function CheaperTogether({ product, productsPlus, active, setActi
               </div>
               <Col className={styles.cheapTwo__simillarswiper_summary}>
                 <div className={styles.cheapTwo__simillarswiper_summary_price}>
-                  <span>{handleSumCheaperTogether(product,prod)} {product.price_unit}</span>
+                  <span>
+                    {handleSumCheaperTogether(product, prod)}{" "}
+                    {product.price_unit}
+                  </span>
                 </div>
                 <div className={styles.cheapTwo__simillarswiper_summary_buy}>
-                 <button>
+                  <button>
                     <CartIcon fillColor="#FAF8FF" />
                     <span>Купити комплект</span>
                   </button>

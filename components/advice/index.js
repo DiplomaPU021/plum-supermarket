@@ -12,7 +12,10 @@ export default function Advice({ advice }) {
           <p>{advice.text}</p>
         </Col>
         <Col>
-          <Image alt="" src={`../../images/group_subCategories/${advice.photo}`} />
+          <Image
+            alt=""
+            src={`../../images/group_subCategories/${advice.photo}`}
+          />
         </Col>
       </Row>
     </Container>

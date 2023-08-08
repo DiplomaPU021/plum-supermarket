@@ -1,13 +1,13 @@
 .modal {
-    background: rgba(87, 60, 145, 0.5);
-    backdrop-filter: blur(2.5px);
+  background: rgba(87, 60, 145, 0.5);
+  backdrop-filter: blur(2.5px);
 
-    &_main {
-        background: $light-wheet-color;
-        border-radius: 10px;
-    }
+  &_main {
+    background: $light-wheet-color;
+    border-radius: 10px;
+  }
 }
 
 .modalbody {
-    margin-left: 10px;
+  margin-left: 10px;
 }

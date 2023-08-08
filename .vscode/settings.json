@@ -1,8 +1,4 @@
 {
-    "json.schemas": [
-    
-    ],
-    "tabnine.disableFileRegex": [
-    
-    ],
+  "json.schemas": [],
+  "tabnine.disableFileRegex": []
 }

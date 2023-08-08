@@ -22,7 +22,7 @@ const {
 const oauth2Client = new OAuth2(
   MAILING_SERVICE_CLIENT_ID,
   MAILING_SERVICE_CLIENT_SECRET,
-  OAUTH_PLAYGROUND
+  OAUTH_PLAYGROUND,
 );
 //send email
 oauth2Client.setCredentials({

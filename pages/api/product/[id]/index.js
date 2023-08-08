@@ -21,7 +21,7 @@ handler.get(async (req, res) => {
       let price = product.subProducts[style].sizes[mode].price;
       let priceAfter = discount ? ((100 - discount) * price) / 100 : price;
       let groupSubCategory = await GroupSubCategory.findById(
-        product.subCategories[0].parent
+        product.subCategories[0].parent,
       );
       await db.disconnectDb();
       return res.status(200).json({

@@ -12,7 +12,7 @@ const handler = nc().get(async (req, res) => {
         {
           email_verified: true,
         },
-        { new: true }
+        { new: true },
       );
       await db.disconnectDb();
       res.status(200).setHeader("Content-Type", "text/html; charset=utf-8");

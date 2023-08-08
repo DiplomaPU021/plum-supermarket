@@ -21,7 +21,6 @@ import FloatingButton from "../components/FloatingButton";
 const inter = Inter({ subsets: ["latin"] });
 
 export default function Home({ country, products, categories }) {
-
   return (
     <div className={styles.container}>
       <Header country={country} />
@@ -72,7 +71,9 @@ export async function getServerSideProps(context) {
       }
     });
 
-    let color = product.subProducts[style] ? product.subProducts[style].color?.color : '';
+    let color = product.subProducts[style]
+      ? product.subProducts[style].color?.color
+      : "";
     let size = mode !== -1 ? product.subProducts[style].sizes[mode].size : "";
 
     return {

@@ -20,7 +20,6 @@ import { useSession } from "next-auth/react";
 import { Tooltip } from "react-tooltip";
 import "react-tooltip/dist/react-tooltip.css";
 
-
 export default function ComparisonCard({ product, style, mode }) {
   const { data: session, status } = useSession();
   const router = useRouter();
@@ -66,7 +65,7 @@ export default function ComparisonCard({ product, style, mode }) {
 
   const addToCartHandler = async () => {
     const { data } = await axios.get(
-      `/api/product/${product._id}?style=${product.style}&code=${product.mode}`
+      `/api/product/${product._id}?style=${product.style}&code=${product.mode}`,
     );
 
     if (qty > data.quantity) {
@@ -102,10 +101,16 @@ export default function ComparisonCard({ product, style, mode }) {
         setIsOpenInWish(true);
       } else {
         const { data } = await axios.get(
-          `/api/product/${product._id}?style=${style}&code=${mode}`
+          `/api/product/${product._id}?style=${style}&code=${mode}`,
         );
         dispatch(
-          addToWishList({ ...data, qty, size: data.size, _uid, mode: product.mode })
+          addToWishList({
+            ...data,
+            qty,
+            size: data.size,
+            _uid,
+            mode: product.mode,
+          }),
         );
         saveWishList({
           productId: product._id,
@@ -114,7 +119,7 @@ export default function ComparisonCard({ product, style, mode }) {
           color: product.color?.color,
           code: product.code,
           mode: product.mode,
-          style: product.style
+          style: product.style,
         });
       }
     } else {
@@ -133,15 +138,22 @@ export default function ComparisonCard({ product, style, mode }) {
         id="wish-tooltip"
         content={wishError}
         isOpen={isOpenInWish}
-        style={{ backgroundColor: "#70BF63", color: "#fff", borderRadius: "30px", zIndex: "999" }}
-
+        style={{
+          backgroundColor: "#70BF63",
+          color: "#fff",
+          borderRadius: "30px",
+          zIndex: "999",
+        }}
       />
       <div className={styles.product__container}>
         <div className={styles.product__container_photobox}>
-          <Link href={`/product/${product.slug}?style=${product.style}&code=${product.mode}`}>
+          <Link
+            href={`/product/${product.slug}?style=${product.style}&code=${product.mode}`}
+          >
             <ProductSwiper images={product.images} />
           </Link>
-          <button className={styles.btnclose}
+          <button
+            className={styles.btnclose}
             onClick={() => deleteProductHadler(product)}
           >
             <img src="../../icons/close_btn.png" alt="" />
@@ -164,10 +176,10 @@ export default function ComparisonCard({ product, style, mode }) {
                   ).length > 55
                     ? `${product.name.substring(0, 55)}...`
                     : product.name.substring(0, 45) +
-                    " " +
-                    (product.color ? product.color.color : "") +
-                    " " +
-                    product.size}
+                      " " +
+                      (product.color ? product.color.color : "") +
+                      " " +
+                      product.size}
                 </Link>
               </Card.Title>
             </Col>
@@ -182,11 +194,12 @@ export default function ComparisonCard({ product, style, mode }) {
               <Col className={styles.product__container_infos_pricebtn_price}>
                 <span
                   className={styles.pricediscount}
-                >{`${product.price.toLocaleString("uk-UA")} ${product.price_unit
-                  }`}</span>
+                >{`${product.price.toLocaleString("uk-UA")} ${
+                  product.price_unit
+                }`}</span>
                 <span className={styles.priceregular}>
                   {`${Math.round(
-                    (product.price * (100 - product.discount)) / 100
+                    (product.price * (100 - product.discount)) / 100,
                   ).toLocaleString("uk-UA")}`}{" "}
                   {product.price_unit}
                 </span>
@@ -195,10 +208,15 @@ export default function ComparisonCard({ product, style, mode }) {
               <Col className={styles.product__container_infos_pricebtn_price}>
                 <span
                   className={styles.priceregular}
-                >{`${product.price.toLocaleString("uk-UA")} ${product.price_unit}`}</span>
+                >{`${product.price.toLocaleString("uk-UA")} ${
+                  product.price_unit
+                }`}</span>
               </Col>
             )}
-            <Button onClick={addToWishHandler} className={styles.btnscales} data-tooltip-id="wish-tooltip"
+            <Button
+              onClick={addToWishHandler}
+              className={styles.btnscales}
+              data-tooltip-id="wish-tooltip"
               onMouseLeave={() => setIsOpenInWish(false)}
               onBlur={() => setIsOpenInWish(false)}
               style={{ backgroundColor: wishChosen ? "#220F4B" : "#FAF8FF" }}
@@ -210,7 +228,7 @@ export default function ComparisonCard({ product, style, mode }) {
               disabled={product.quantity < 1}
               style={{
                 cursor: `${product.quantity < 1 ? "not-allowed" : ""}`,
-                backgroundColor: cartChosen ? "#220F4B" : "#FAF8FF"
+                backgroundColor: cartChosen ? "#220F4B" : "#FAF8FF",
               }}
               onClick={() => addToCartHandler()}
             >

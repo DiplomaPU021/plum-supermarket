@@ -16,7 +16,7 @@ import DotLoaderSpinner from "../../../components/loaders/dotLoader";
 export default function Profile({ country, ...props }) {
   const [isInEdit, setIsInEdit] = useState(false);
   const [showAddressSelector, setShowAddressSelector] = useState(
-    props.user?.address?.length > 0 ? "block" : "none"
+    props.user?.address?.length > 0 ? "block" : "none",
   );
   const [showAddress, setShowAddress] = useState("none");
   const [showCard, setShowCard] = useState("none");
@@ -26,7 +26,7 @@ export default function Profile({ country, ...props }) {
 
   const [admiration, setAdmiration] = useState(props.user?.admiration || {});
   const [additionalInfo, setAdditionalInfo] = useState(
-    props.user?.additionalInfo || {}
+    props.user?.additionalInfo || {},
   );
   const [pets, setPets] = useState(props.user?.pets || {});
   const selectRef = useRef();
@@ -35,7 +35,7 @@ export default function Profile({ country, ...props }) {
   const [selectedCity, setSelectedCity] = useState();
   const [userAddresses, setUserAddresses] = useState(props.user?.address || []);
   const [activeAddress, setActiveAddress] = useState(
-    userAddresses?.find((address) => address.active === true) || null
+    userAddresses?.find((address) => address.active === true) || null,
   );
   const [filteredStreets, setFilteredStreets] = useState([]);
   const [searchStreet, setSearchStreet] = useState("");
@@ -48,15 +48,16 @@ export default function Profile({ country, ...props }) {
     elevator: "Відсутній",
   });
   const [selectedAddress, setSelectedAddress] = useState(
-    `${activeAddress?.cityType} ${activeAddress?.city}, ${activeAddress?.address}`
+    `${activeAddress?.cityType} ${activeAddress?.city}, ${activeAddress?.address}`,
   );
   const [isSavedAddress, setIsSavedAddress] = useState(false);
   const [userCreditCards, setUserCreditCards] = useState(
-    props.user?.creditCards || []
+    props.user?.creditCards || [],
   );
   const [selectedCard, setSelectedCard] = useState(
-    userCreditCards && userCreditCards.length > 0 ? userCreditCards.find((creditCard) => creditCard.isDefault === true)._id :
-      ""
+    userCreditCards && userCreditCards.length > 0
+      ? userCreditCards.find((creditCard) => creditCard.isDefault === true)._id
+      : "",
   );
   const today = new Date();
   const cutoffYear = today.getFullYear() - 12;
@@ -69,7 +70,7 @@ export default function Profile({ country, ...props }) {
       .max(20, "Ім'я має бути максимум 20 символів")
       .matches(
         /^[А-Яа-яЇїІі'-]*[^\s][А-Яа-яЇїІі' -]*$/,
-        "Цифри та спец.символи заборонено"
+        "Цифри та спец.символи заборонено",
       )
       .required("Ім'я обов'язково"),
     lastName: yup
@@ -78,7 +79,7 @@ export default function Profile({ country, ...props }) {
       .max(20, "Прізвище має бути максиFмум 20 символів")
       .matches(
         /^[А-Яа-яЇїІі'-]*[^\s][А-Яа-яЇїІі' -]*$/,
-        "Цифри та спец.символи заборонено"
+        "Цифри та спец.символи заборонено",
       )
       .required("Прізвище обов'язково"),
     phoneNumber: yup
@@ -96,10 +97,11 @@ export default function Profile({ country, ...props }) {
       .string()
       .matches(
         new RegExp(
-          `^(19[89][0-9]|20[01][0-${cutoffYear % 100}]|${cutoffYear + 1
-          })-(0[1-9]|1[012])-(0[1-9]|[12][0-9]|3[01])$`
+          `^(19[89][0-9]|20[01][0-${cutoffYear % 100}]|${
+            cutoffYear + 1
+          })-(0[1-9]|1[012])-(0[1-9]|[12][0-9]|3[01])$`,
         ),
-        "Користувач має бути старшим 12 років"
+        "Користувач має бути старшим 12 років",
       ),
   });
 
@@ -123,8 +125,10 @@ export default function Profile({ country, ...props }) {
 
   useEffect(() => {
     setSelectedCard(
-      userCreditCards && userCreditCards.length > 0 ? userCreditCards.find((creditCard) => creditCard.isDefault === true)._id :
-        ""
+      userCreditCards && userCreditCards.length > 0
+        ? userCreditCards.find((creditCard) => creditCard.isDefault === true)
+            ._id
+        : "",
     );
   }, [userCreditCards]);
 
@@ -153,7 +157,7 @@ export default function Profile({ country, ...props }) {
       {
         keepErrors: false,
         keepDirty: true,
-      }
+      },
     );
   };
 
@@ -161,7 +165,7 @@ export default function Profile({ country, ...props }) {
     if (selectedAddress && selectedAddress != "") {
       const selectedOption = userAddresses.find(
         (item) =>
-          `${item.cityType} ${item.city}, ${item.address}` == selectedAddress
+          `${item.cityType} ${item.city}, ${item.address}` == selectedAddress,
       );
       if (selectedOption) {
         setActiveAddress(selectedOption);
@@ -269,10 +273,10 @@ export default function Profile({ country, ...props }) {
         addresses.push(newAddress);
         setUserAddresses(addresses);
         setSelectedAddress(
-          `${newAddress.cityType} ${newAddress.city}, ${newAddress.address}`
+          `${newAddress.cityType} ${newAddress.city}, ${newAddress.address}`,
         );
       }
-      setShowAddressSelector("block")
+      setShowAddressSelector("block");
       setShowAddress("none");
       setShowAddAddressBlock("none");
       setAddressValues({
@@ -317,7 +321,7 @@ export default function Profile({ country, ...props }) {
       const updatedAddresses = userAddresses.map((item) =>
         `${item.cityType} ${item.city}, ${item.address}` == e.target.value
           ? { ...item, active: true }
-          : { ...item, active: false }
+          : { ...item, active: false },
       );
       setUserAddresses(updatedAddresses);
     }
@@ -352,7 +356,7 @@ export default function Profile({ country, ...props }) {
               }
             }, 500);
           },
-        }
+        },
       );
       setTimeout(() => {
         toast.update(toastId, {
@@ -414,8 +418,9 @@ export default function Profile({ country, ...props }) {
                     Прізвище
                   </Form.Label>
                   <Form.Control
-                    className={`${styles.form_input} ${errors.lastName ? "is-invalid" : ""
-                      }`}
+                    className={`${styles.form_input} ${
+                      errors.lastName ? "is-invalid" : ""
+                    }`}
                     type="text"
                     name="lastName"
                     {...register("lastName")}
@@ -430,8 +435,9 @@ export default function Profile({ country, ...props }) {
                     Номер телефону
                   </Form.Label>
                   <Form.Control
-                    className={`${styles.form_input} ${errors.phoneNumber ? "is-invalid" : ""
-                      }`}
+                    className={`${styles.form_input} ${
+                      errors.phoneNumber ? "is-invalid" : ""
+                    }`}
                     name="phoneNumber"
                     {...register("phoneNumber")}
                     readOnly={!isInEdit}
@@ -443,10 +449,13 @@ export default function Profile({ country, ...props }) {
               </Col>
               <Col className={styles.col_contacts}>
                 <Form.Group as={Col} controlId="groupName">
-                  <Form.Label className={styles.form_label}>Ім&apos;я</Form.Label>
+                  <Form.Label className={styles.form_label}>
+                    Ім&apos;я
+                  </Form.Label>
                   <Form.Control
-                    className={`${styles.form_input} ${errors.firstName ? "is-invalid" : ""
-                      }`}
+                    className={`${styles.form_input} ${
+                      errors.firstName ? "is-invalid" : ""
+                    }`}
                     type="text"
                     name="firstName"
                     {...register("firstName")}
@@ -475,8 +484,9 @@ export default function Profile({ country, ...props }) {
                     Дата народження
                   </Form.Label>
                   <Form.Control
-                    className={`${styles.form_input} ${errors.birthday ? "is-invalid" : ""
-                      }`}
+                    className={`${styles.form_input} ${
+                      errors.birthday ? "is-invalid" : ""
+                    }`}
                     type="date"
                     name="birthday"
                     {...register("birthday")}
@@ -496,8 +506,9 @@ export default function Profile({ country, ...props }) {
                     {...register("gender")}
                     disabled={!isInEdit}
                     name="gender"
-                    className={`${styles.form_input} ${errors.gender ? "is-invalid" : ""
-                      }`}
+                    className={`${styles.form_input} ${
+                      errors.gender ? "is-invalid" : ""
+                    }`}
                   >
                     <option value="Стать" disabled={true}>
                       Стать
@@ -552,22 +563,21 @@ export default function Profile({ country, ...props }) {
           <span>Мої адреси</span>
         </Accordion.Header>
         <Accordion.Body className={styles.accordion__item_body}>
-        
-            <div
-              className={styles.flex_row}
-              style={{ display: showAddressSelector }}
+          <div
+            className={styles.flex_row}
+            style={{ display: showAddressSelector }}
+          >
+            <select
+              className={styles.flex_selector}
+              name="selectPostmanDelivery"
+              id="selectPostmanDelivery"
+              onChange={(e) => handleSelectPostman(e)}
+              ref={postmanRef}
+              value={selectedAddress}
             >
-              <select
-                className={styles.flex_selector}
-                name="selectPostmanDelivery"
-                id="selectPostmanDelivery"
-                onChange={(e) => handleSelectPostman(e)}
-                ref={postmanRef}
-                value={selectedAddress}
-              >
-                {userAddresses != null &&
-                  userAddresses.filter((c) => c.address != "")
-                  ? userAddresses.map((item, index) => (
+              {userAddresses != null &&
+              userAddresses.filter((c) => c.address != "")
+                ? userAddresses.map((item, index) => (
                     <option
                       key={`${item.address}-${index}`}
                       value={`${item.cityType} ${item.city}, ${item.address}`}
@@ -575,20 +585,20 @@ export default function Profile({ country, ...props }) {
                       {item.cityType} {item.city}, {item.address}
                     </option>
                   ))
-                  : null}
-              </select>
-              <button
-                onClick={handleSaveAdress}
-                id="btnSaveAddress"
-                disabled={isSavedAddress}
-              >
-                Зберегти
-              </button>
-            </div>
-         
-          <Row  className={styles.flex_row}>
+                : null}
+            </select>
             <button
-            className={styles.light_button}
+              onClick={handleSaveAdress}
+              id="btnSaveAddress"
+              disabled={isSavedAddress}
+            >
+              Зберегти
+            </button>
+          </div>
+
+          <Row className={styles.flex_row}>
+            <button
+              className={styles.light_button}
               style={{ display: showAddress !== "block" ? "block" : "none" }}
               onClick={() => setShowAddress("block")}
             >
@@ -686,36 +696,39 @@ export default function Profile({ country, ...props }) {
           <Row className={styles.mark_border}>
             {showCard ? (
               <div>
-                <div 
-                 style={{ display: userCreditCards && userCreditCards.length>0?"block":"none" }}
-                 className={styles.flex_row}
-                 >
-                    <select
-                      name="creditselect"
-                      className={styles.flex_selector}
-                      value={selectedCard}
-                      onChange={(e) => setSelectedCard(e.target.value)}
+                <div
+                  style={{
+                    display:
+                      userCreditCards && userCreditCards.length > 0
+                        ? "block"
+                        : "none",
+                  }}
+                  className={styles.flex_row}
+                >
+                  <select
+                    name="creditselect"
+                    className={styles.flex_selector}
+                    value={selectedCard}
+                    onChange={(e) => setSelectedCard(e.target.value)}
+                  >
+                    <option
+                      value="Вибрати карту"
+                      disabled={true}
+                      id="optcred1"
+                      key="optcred1"
                     >
-                      <option
-                        value="Вибрати карту"
-                        disabled={true}
-                        id="optcred1"
-                        key="optcred1"
-                      >
-                        Вибрати карту...
-                      </option>
-                      {userCreditCards && userCreditCards.length>0? userCreditCards.map((cc) => (
-                        <option
-                          key={`${cc._id}`}
-                          value={cc._id}
-                        >{`**** **** **** ${cc.number.slice(-4)}`}</option>
-                      )):null}
-                    </select>
-                    <button
-                      onClick={handleDeleteCard}
-                    >
-                      Видалити карту
-                    </button> 
+                      Вибрати карту...
+                    </option>
+                    {userCreditCards && userCreditCards.length > 0
+                      ? userCreditCards.map((cc) => (
+                          <option
+                            key={`${cc._id}`}
+                            value={cc._id}
+                          >{`**** **** **** ${cc.number.slice(-4)}`}</option>
+                        ))
+                      : null}
+                  </select>
+                  <button onClick={handleDeleteCard}>Видалити карту</button>
                 </div>
                 <Row className={styles.flex_row}>
                   <button
@@ -735,7 +748,7 @@ export default function Profile({ country, ...props }) {
                 setUserCreditCards={setUserCreditCards}
                 setShowAddCard={setShowAddCard}
                 setShowCard={setShowCard}
-              // setSelectedCard={setSelectedCard}
+                // setSelectedCard={setSelectedCard}
               />
             )}
           </Row>

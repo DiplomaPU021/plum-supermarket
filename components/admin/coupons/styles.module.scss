@@ -1,93 +1,93 @@
 @import "../base";
 
 .list {
-    margin-top: 1rem;
+  margin-top: 1rem;
 
-    &__item {
-        padding: 12px;
-        background: $light-wheet-color;
-        border: 3px solid $plum-violet-color;
-        margin-top: 10px;
-        color: $plum-violet-color;
-        font-weight: 600;
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
+  &__item {
+    padding: 12px;
+    background: $light-wheet-color;
+    border: 3px solid $plum-violet-color;
+    margin-top: 10px;
+    color: $plum-violet-color;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
 
-        @media(max-width:800px) {
-            flex-direction: column;
-            gap: 10px;
-        }
-
-        svg {
-            width: 22px;
-            height: 22px;
-            cursor: pointer;
-            margin-left: 1rem;
-        }
-
-        input {
-            padding: 12px;
-            border: 1px solid $plum-violet-color;
-            outline: none;
-            color: $plum-violet-color;
-            background: transparent;
-            width: 200px;
-        }
-
-        &_expand {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-
-            button:hover {
-                color: $light-wheet-color;
-                border-color: $light-wheet-color;
-            }
-
-            .input_discount {
-                width: 40px;
-                height: 46px;
-                padding: 4px;
-                text-align: center;
-                border: 1px solid $plum-violet-color;
-                outline: none;
-                color: $plum-violet-color;
-                background: #fff;
-                margin-right: 20px;
-            }
-        }
+    @media (max-width: 800px) {
+      flex-direction: column;
+      gap: 10px;
     }
+
+    svg {
+      width: 22px;
+      height: 22px;
+      cursor: pointer;
+      margin-left: 1rem;
+    }
+
+    input {
+      padding: 12px;
+      border: 1px solid $plum-violet-color;
+      outline: none;
+      color: $plum-violet-color;
+      background: transparent;
+      width: 200px;
+    }
+
+    &_expand {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+
+      button:hover {
+        color: $light-wheet-color;
+        border-color: $light-wheet-color;
+      }
+
+      .input_discount {
+        width: 40px;
+        height: 46px;
+        padding: 4px;
+        text-align: center;
+        border: 1px solid $plum-violet-color;
+        outline: none;
+        color: $plum-violet-color;
+        background: #fff;
+        margin-right: 20px;
+      }
+    }
+  }
 }
 
 .open {
-    background: #fff !important;
-    color: $plum-dark-color !important;
+  background: #fff !important;
+  color: $plum-dark-color !important;
 }
 
 .date_picker {
-    display: flex;
-    flex-direction: row;
-    justify-content: flex-start;
-    align-items: center;
-    width: 100%;
-    gap: 10px;
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: center;
+  width: 100%;
+  gap: 10px;
 }
 
 .form_control {
-    border: 2px solid $plum-violet-color;
-    padding: 5px;
-    height: 46px;
+  border: 2px solid $plum-violet-color;
+  padding: 5px;
+  height: 46px;
 }
 
 .form_label {
-    color: $plum-dark-color;
-    padding-left: 10px;
-    padding-right: 10px;
+  color: $plum-dark-color;
+  padding-left: 10px;
+  padding-right: 10px;
 }
 
 .form_label2 {
-    color: $plum-violet-color;
-    padding-left: 10px;
-    padding-right: 10px;
+  color: $plum-violet-color;
+  padding-left: 10px;
+  padding-right: 10px;
 }

@@ -29,7 +29,7 @@ export default async (req, res) => {
         const user = await User.findByIdAndUpdate(
           userId,
           { birthday, gender },
-          { new: true }
+          { new: true },
         );
 
         if (!user) {

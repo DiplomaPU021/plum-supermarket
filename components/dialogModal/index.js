@@ -31,7 +31,8 @@ export default function DialogModal() {
           {dialog.msgs &&
             dialog.msgs.map((msg, i) => (
               <div key={i} className={styles.msg}>
-                <img className={styles.msg}
+                <img
+                  className={styles.msg}
                   src={
                     msg.type == "error"
                       ? "https://www.freeiconspng.com/uploads/orange-error-icon-0.png"

@@ -1,63 +1,63 @@
 .categorypage {
-    background: $light-wheet-color;
+  background: $light-wheet-color;
+  padding: 0;
+
+  &__link {
+    font-family: "Noto Sans";
+    font-style: normal;
+    font-weight: 500;
+    font-size: 16px;
+    line-height: 22px;
+    color: $plum-dark-color;
+    text-decoration: none;
+
+    &:hover {
+      color: $green-color;
+    }
+  }
+
+  &__banner {
+    margin: 50px 0 50px 0;
     padding: 0;
+    height: 420px;
+    background-image: url("../public/images/bannerCategory.png");
+    background-size: cover;
+    font-family: "Noto Sans";
+    font-style: normal;
+    font-weight: 500;
+    font-size: 24px;
+    line-height: 33px;
+    color: $plum-dark-color;
 
-    &__link {
-        font-family: 'Noto Sans';
-        font-style: normal;
-        font-weight: 500;
-        font-size: 16px;
-        line-height: 22px;
-        color: $plum-dark-color;
-        text-decoration: none;
+    &_col1 {
+      padding: 50px 50px;
 
-        &:hover {
-            color: $green-color;
+      div {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 20px;
+        width: 60%;
+
+        img {
+          height: 37.1px;
         }
+      }
     }
 
-    &__banner {
-        margin: 50px 0 50px 0;
-        padding: 0;
-        height: 420px;
-        background-image: url("../public/images/bannerCategory.png");
-        background-size: cover;
-        font-family: 'Noto Sans';
-        font-style: normal;
-        font-weight: 500;
-        font-size: 24px;
-        line-height: 33px;
-        color: $plum-dark-color;
+    &_col2 {
+      padding: 50px 60px;
+      display: flex;
+      flex-direction: column;
+      align-items: flex-end;
 
-        &_col1 {
-            padding: 50px 50px;
-
-            div {
-                display: flex;
-                flex-direction: column;
-                align-items: center;
-                gap: 20px;
-                width: 60%;
-
-                img {
-                    height: 37.1px;
-                }
-            }
-        }
-
-        &_col2 {
-            padding: 50px 60px;
-            display: flex;
-            flex-direction: column;
-            align-items: flex-end;
-
-            div {
-                display: flex;
-                flex-direction: column;
-                align-items: center;
-                gap: 20px;
-                width: 40%;
-            }
-        }
+      div {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 20px;
+        width: 40%;
+      }
     }
+  }
 }

@@ -88,9 +88,12 @@ export default function ProductCard({ product, style, mode }) {
     let exist = null;
     if (scaleList.scaleListItems) {
       exist = scaleList.scaleListItems.some((item) => {
-        return item.items.some((p) =>
-          p._id == product._id && p.style == product.style && p.mode == product.mode
-        )
+        return item.items.some(
+          (p) =>
+            p._id == product._id &&
+            p.style == product.style &&
+            p.mode == product.mode,
+        );
       });
     }
     if (exist) {
@@ -104,7 +107,7 @@ export default function ProductCard({ product, style, mode }) {
 
   const addToCartHandler = async () => {
     const { data } = await axios.get(
-      `/api/product/${product._id}?style=${style}&code=${mode}`
+      `/api/product/${product._id}?style=${style}&code=${mode}`,
     );
     if (qty > data.quantity) {
       setErrorInProductCard("The quantity is bigger than in stock.");
@@ -139,10 +142,10 @@ export default function ProductCard({ product, style, mode }) {
         setIsOpenInWish(true);
       } else {
         const { data } = await axios.get(
-          `/api/product/${product._id}?style=${style}&code=${mode}`
+          `/api/product/${product._id}?style=${style}&code=${mode}`,
         );
         dispatch(
-          addToWishList({ ...data, qty, size: data.size, _uid, mode: mode })
+          addToWishList({ ...data, qty, size: data.size, _uid, mode: mode }),
         );
         saveWishList({
           productId: product._id,
@@ -151,7 +154,7 @@ export default function ProductCard({ product, style, mode }) {
           color: product.subProducts[style].color?.color,
           code: product.subProducts[style].sizes[mode].code,
           mode: mode,
-          style: style
+          style: style,
         });
       }
     } else {
@@ -162,16 +165,19 @@ export default function ProductCard({ product, style, mode }) {
 
   const addToScaleHandler = async () => {
     const { data } = await axios.get(
-      `/api/product/${product._id}?style=${style}&code=${mode}`
+      `/api/product/${product._id}?style=${style}&code=${mode}`,
     );
     let existSub = null;
     let existItem = null;
     if (scaleList.scaleListItems) {
       existSub = scaleList.scaleListItems.find(
-        (item) => item.subCategory_id === data.subCategory_id
+        (item) => item.subCategory_id === data.subCategory_id,
       );
       if (existSub) {
-        existItem = existSub.items.find((p) => p._id == data._id && p.style == data.style && p.mode == data.mode);
+        existItem = existSub.items.find(
+          (p) =>
+            p._id == data._id && p.style == data.style && p.mode == data.mode,
+        );
         if (existItem) {
           if (existSub.items.length === 1) {
             dispatch(removeFromScaleList({ ...existSub }));
@@ -193,7 +199,7 @@ export default function ProductCard({ product, style, mode }) {
 
   const addToViewedHandler = async () => {
     const { data } = await axios.get(
-      `/api/product/${product._id}?style=${style}&code=${mode}`
+      `/api/product/${product._id}?style=${style}&code=${mode}`,
     );
 
     if (viewedList.viewedListItems) {
@@ -201,7 +207,7 @@ export default function ProductCard({ product, style, mode }) {
         (item) =>
           item._id == data._id &&
           item.style == data.style &&
-          item.mode == data.mode
+          item.mode == data.mode,
       );
 
       if (!existItem) {
@@ -216,8 +222,12 @@ export default function ProductCard({ product, style, mode }) {
         id="wish-tooltip"
         content={wishError}
         isOpen={isOpenInWish}
-        style={{ backgroundColor: "#70BF63", color: "#fff", borderRadius: "30px", zIndex: "999" }}
-
+        style={{
+          backgroundColor: "#70BF63",
+          color: "#fff",
+          borderRadius: "30px",
+          zIndex: "999",
+        }}
       />
       <div className={styles.product__container}>
         <div className={styles.product__container_photobox}>
@@ -271,12 +281,12 @@ export default function ProductCard({ product, style, mode }) {
                   ).length > 55
                     ? `${product.name.substring(0, 55)}...`
                     : product.name +
-                    " " +
-                    (product.subProducts[style]?.color
-                      ? product.subProducts[style]?.color.color
-                      : "") +
-                    " " +
-                    product.subProducts[style]?.sizes[mode].size}
+                      " " +
+                      (product.subProducts[style]?.color
+                        ? product.subProducts[style]?.color.color
+                        : "") +
+                      " " +
+                      product.subProducts[style]?.sizes[mode].size}
                 </Link>
               </Card.Title>
             </Col>
@@ -296,10 +306,20 @@ export default function ProductCard({ product, style, mode }) {
                 className={styles.product__container_infos_pricebtn_price}
               >
                 <span className={styles.pricediscount}>
-                  {new Intl.NumberFormat("uk-UA").format(product.subProducts[style].sizes[mode].price)} {product.subProducts[style]?.sizes[mode].price_unit}
+                  {new Intl.NumberFormat("uk-UA").format(
+                    product.subProducts[style].sizes[mode].price,
+                  )}{" "}
+                  {product.subProducts[style]?.sizes[mode].price_unit}
                 </span>
                 <span className={styles.priceregular}>
-                  {new Intl.NumberFormat("uk-UA").format(Math.round((product.subProducts[style].sizes[mode].price * (100 - product.subProducts[style]?.discount)) / 100))} {product.subProducts[style]?.sizes[mode].price_unit}
+                  {new Intl.NumberFormat("uk-UA").format(
+                    Math.round(
+                      (product.subProducts[style].sizes[mode].price *
+                        (100 - product.subProducts[style]?.discount)) /
+                        100,
+                    ),
+                  )}{" "}
+                  {product.subProducts[style]?.sizes[mode].price_unit}
                 </span>
               </Col>
             ) : (
@@ -309,8 +329,9 @@ export default function ProductCard({ product, style, mode }) {
               >
                 <span className={styles.priceregular}>{`${product.subProducts[
                   style
-                ]?.sizes[mode].price.toLocaleString("uk-UA")} ${product.subProducts[style]?.sizes[mode].price_unit
-                  }`}</span>
+                ]?.sizes[mode].price.toLocaleString("uk-UA")} ${
+                  product.subProducts[style]?.sizes[mode].price_unit
+                }`}</span>
               </Col>
             )}
             <button

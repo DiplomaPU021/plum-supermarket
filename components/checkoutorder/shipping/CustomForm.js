@@ -1,16 +1,19 @@
-import { useState } from 'react';
-import { Form } from 'react-bootstrap';
+import { useState } from "react";
+import { Form } from "react-bootstrap";
 import styles from "../styles.module.scss";
 
 const nextDay = new Date();
 nextDay.setDate(new Date().getDate() + 1);
-const nextDayFormatted = nextDay.toLocaleDateString('uk-UA', { day: 'numeric', month: 'long' });
+const nextDayFormatted = nextDay.toLocaleDateString("uk-UA", {
+  day: "numeric",
+  month: "long",
+});
 
 const timeOptions = [
-  { label: '10:00-12:00', value: '10:00-12:00' },
-  { label: '12:00-14:00', value: '12:00-14:00' },
-  { label: '14:00-16:00', value: '14:00-16:00' },
-  { label: '16:00-18:00', value: '16:00-18:00' },
+  { label: "10:00-12:00", value: "10:00-12:00" },
+  { label: "12:00-14:00", value: "12:00-14:00" },
+  { label: "14:00-16:00", value: "14:00-16:00" },
+  { label: "16:00-18:00", value: "16:00-18:00" },
 ];
 
 const CustomForm = () => {
@@ -27,15 +30,17 @@ const CustomForm = () => {
 
   return (
     <>
-
       <Form.Group className={styles.status}>
         {[...Array(4)].map((_, index) => {
           const nextDayValue = new Date();
           nextDayValue.setDate(new Date().getDate() + index + 2);
-          const nextDayFormattedValue = nextDayValue.toLocaleDateString('uk-UA', {
-            day: 'numeric',
-            month: 'long',
-          });
+          const nextDayFormattedValue = nextDayValue.toLocaleDateString(
+            "uk-UA",
+            {
+              day: "numeric",
+              month: "long",
+            },
+          );
           return (
             <Form.Check
               key={`dayOption-${index}`}

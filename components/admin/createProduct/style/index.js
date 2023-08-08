@@ -32,7 +32,7 @@ export default function Style({
               type: "error",
             },
           ],
-        })
+        }),
       );
       files = files.filter((item) => item !== img.name);
       return;
@@ -46,7 +46,7 @@ export default function Style({
               type: "error",
             },
           ],
-        })
+        }),
       );
       return;
     } else {

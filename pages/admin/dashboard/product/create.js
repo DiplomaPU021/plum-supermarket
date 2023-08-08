@@ -25,7 +25,6 @@ import { uploadImages } from "../../../../requests/upload";
 import dataURItoBlob from "../../../../utils/dataURItoBlob";
 import { useRouter } from "next/router";
 
-
 const animatedComponents = makeAnimated();
 const createUniqueCode = () => {
   const len = 8;
@@ -79,7 +78,6 @@ export default function Create({ parents, categories }) {
   const [loading, setLoading] = useState(false);
   const [dataOptions, setDataOptions] = useState([]);
   const [dataSelectedOptions, setDataSelectedOptions] = useState([]);
-
 
   const getParentData = async () => {
     setDataOptions([]);
@@ -160,7 +158,7 @@ export default function Create({ parents, categories }) {
             value,
             isFixed: false,
           };
-        })
+        }),
       );
     } else {
       setDataSelectedOptions([]);
@@ -175,7 +173,7 @@ export default function Create({ parents, categories }) {
           value,
           isFixed: false,
         };
-      })
+      }),
     );
   };
   useEffect(() => {
@@ -204,7 +202,7 @@ export default function Create({ parents, categories }) {
     category: Yup.string().required("Будь-ласка виберіть категорію"),
     dataSelectedOptions: Yup.array().min(
       1,
-      "Будь-ласка виберіть хоча б одну підкатегорію"
+      "Будь-ласка виберіть хоча б одну підкатегорію",
     ),
     groupSubCategory: Yup.string()
       .transform((value) => {
@@ -236,10 +234,10 @@ export default function Create({ parents, categories }) {
                   value: Yup.string().required(),
                   isMain: Yup.boolean(),
                 })
-                .nullable()
+                .nullable(),
             )
             .min(1, "Please add at least one field"),
-        })
+        }),
       )
       .min(1, "Please add at least one detail")
       .required("Please add details"),
@@ -254,9 +252,9 @@ export default function Create({ parents, categories }) {
       dispatch(
         showDialog({
           header: "Будь ласка дотримуйтесь інструкцій",
-          show:true,
-          msgs:test
-        })
+          show: true,
+          msgs: test,
+        }),
       );
     }
   };
@@ -366,8 +364,9 @@ export default function Create({ parents, categories }) {
                 onChange={handleChangeSubCategory}
                 placeholder="Виберіть субкатегорії"
                 components={animatedComponents}
-                className={`${styles.select} ${formik.touched && formik.errors && styles.error_select
-                  }`}
+                className={`${styles.select} ${
+                  formik.touched && formik.errors && styles.error_select
+                }`}
                 classNamePrefix="Виберіть субкатегорії"
                 options={dataOptions}
                 isClearable={true}

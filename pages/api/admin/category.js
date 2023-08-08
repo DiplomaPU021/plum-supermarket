@@ -35,7 +35,9 @@ handler.delete(async (req, res) => {
   try {
     const { id } = req.body;
     await db.connectDb();
-    const groupSubCategoriesToDelete = await GroupSubCategory.find({ parent: id });
+    const groupSubCategoriesToDelete = await GroupSubCategory.find({
+      parent: id,
+    });
     const subCategoriesToDelete = await SubCategory.find({ top_parent: id });
     let productsToDeleteGroup = [];
     for (const element of subCategoriesToDelete) {
@@ -59,7 +61,7 @@ handler.delete(async (req, res) => {
       });
     } else {
       throw new Error(
-        `Категорія містить  ${groupSubCategoriesToDelete?.length} груп(-у) підкатегорій, ${subCategoriesToDelete?.length} підкатегорію(-ій) та ${productsToDeleteGroup?.length} продукт(-ів)`
+        `Категорія містить  ${groupSubCategoriesToDelete?.length} груп(-у) підкатегорій, ${subCategoriesToDelete?.length} підкатегорію(-ій) та ${productsToDeleteGroup?.length} продукт(-ів)`,
       );
     }
   } catch (error) {

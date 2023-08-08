@@ -10,7 +10,7 @@ const registerUser = async (email, password) => {
   const oldUser = await userService.findEmail(email);
   if (oldUser) {
     throw new Error(
-      `Такий ${email} вже зареєстровано! Будь ласка залогіньтесь!`
+      `Такий ${email} вже зареєстровано! Будь ласка залогіньтесь!`,
     );
   }
   // Encrypt user password
@@ -20,13 +20,13 @@ const registerUser = async (email, password) => {
   const user = await userService.createUser(
     email,
     encryptedPassword,
-    uniqueString
+    uniqueString,
   );
   await emailService.sendEmail(
     email,
     uniqueString,
     "Активуйте вашу електронну адресу",
-    activateEmailTemplate
+    activateEmailTemplate,
   );
   return user;
 };

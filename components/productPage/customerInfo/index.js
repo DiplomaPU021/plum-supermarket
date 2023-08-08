@@ -3,7 +3,6 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import styles from "./styles.module.scss";
 
 export default function CustomerInteraction() {
-
   return (
     <Container fluid className={styles.info}>
       <Row className={styles.info__row}>
@@ -69,9 +68,7 @@ export default function CustomerInteraction() {
                 Оплата під час отримання товару, Google Pay, Apple Pay, Картою
                 онлайн
               </li>
-              <li>
-               Безготівковими для фізичних та юридичних осіб
-              </li>
+              <li>Безготівковими для фізичних та юридичних осіб</li>
             </ul>
           </Col>
         </Col>

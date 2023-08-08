@@ -52,7 +52,7 @@ export default function Images({
                 type: "error",
               },
             ],
-          })
+          }),
         );
         return;
       } else if (
@@ -70,7 +70,7 @@ export default function Images({
                 type: "error",
               },
             ],
-          })
+          }),
         );
         files = files.filter((item) => item !== img.name);
         return;
@@ -84,7 +84,7 @@ export default function Images({
                 type: "error",
               },
             ],
-          })
+          }),
         );
         return;
       } else {

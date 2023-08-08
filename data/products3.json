@@ -1,506 +1,504 @@
-[{
-  "name": "Капсули для прання Tide Все-в-1 Color",
-  "description": "Tide Все в 1 Color — це приголомшлива ефективність усього в одній капсулі. Кришталева чистота та жодних слідів. Спробуйте інноваційний засіб для прання від Tide — Tide Все в 1 Pods. Кожна капсула складається з 3 секцій — у такий спосіб її інгредієнти не змішуються до початку прання. Під час контакту з водою спеціальна інноваційна плівка розчиняється, і капсула починає свою дію: очищає, видаляє плями, надає яскравості й освіжає; вона ефективна вже за 20 °C. Однієї капсули вистачає, щоб повністю випрати повний барабан брудних речей. Tide Все в 1 Pods — це надійний вибір для напрочуд ефективного прання. Використовуйте разом із кондиціонерами Lenor, які надають білизні ще більше м'якості та свіжості. УВАГА. Продукт може бути небезпечний. Бережіть капсули Tide від дітей.",
-  "brand": "Tide",
-  "slug": "tide_8001841582160",
-  "category": {
-    "$oid": "63e39c465ba7e472e6726ce6"
-  },
-  "subCategories": [
-    {
-      "$oid": "63e373195ba7e472e6726ca8"
+[
+  {
+    "name": "Капсули для прання Tide Все-в-1 Color",
+    "description": "Tide Все в 1 Color — це приголомшлива ефективність усього в одній капсулі. Кришталева чистота та жодних слідів. Спробуйте інноваційний засіб для прання від Tide — Tide Все в 1 Pods. Кожна капсула складається з 3 секцій — у такий спосіб її інгредієнти не змішуються до початку прання. Під час контакту з водою спеціальна інноваційна плівка розчиняється, і капсула починає свою дію: очищає, видаляє плями, надає яскравості й освіжає; вона ефективна вже за 20 °C. Однієї капсули вистачає, щоб повністю випрати повний барабан брудних речей. Tide Все в 1 Pods — це надійний вибір для напрочуд ефективного прання. Використовуйте разом із кондиціонерами Lenor, які надають білизні ще більше м'якості та свіжості. УВАГА. Продукт може бути небезпечний. Бережіть капсули Tide від дітей.",
+    "brand": "Tide",
+    "slug": "tide_8001841582160",
+    "category": {
+      "$oid": "63e39c465ba7e472e6726ce6"
     },
-    {
-      "$oid": "63e3a0b95ba7e472e6726d04"
-    }
-  ],
-  "details": [
-    {
-      "name": "Вид прання",
-      "value": "Автоматичне"
-    },
-    {
-      "name": "Призначення типу білизни",
-      "value": "Всі види білизни"
-    },
-    {
-      "name": "Тип засобу",
-      "value": "Капсули"
-    }
-  ],
-  "reviews": [],
-  "refundPolicy": "30 днів",
-  "rating": 0,
-  "subProducts": [
-    {
-      "images": [
-        {
-          "url": "https://res.cloudinary.com/dzctqbi3o/image/upload/v1675872588/Diploma/detergents/298412218_gsbbnl.webp",
-          "public_url": "/Diploma/detergents/298412218_gsbbnl.webp"
-        },
-        {
-          "url": "https://res.cloudinary.com/dzctqbi3o/image/upload/v1675872588/Diploma/detergents/298412236_lbmklj.webp",
-          "public_url": "/Diploma/detergents/298412236_lbmklj.webp"
-        },
-        {
-          "url": "https://res.cloudinary.com/dzctqbi3o/image/upload/v1675872588/Diploma/detergents/298412230_efjh7c.webp",
-          "public_url": "/Diploma/detergents/298412230_efjh7c.webp"
-        }
-      ],
-      "description_images": [],
-      "color": null,
-      "sizes": [
-        {
-          "size": "30",
-          "qty": 10,
-          "price": 999,
-          "price_unit": "₴",
-          "code": 45101200
-        },
-        {
-          "size": "45",
-          "qty": 12,
-          "price": 1140,
-          "price_unit": "₴",
-          "code": 200300509
-        },
-        {
-          "size": "60",
-          "qty": 2,
-          "price": 1799,
-          "price_unit": "₴",
-          "code": 200326921
-        }
-      ],
-      "discount": 0,
-      "sold": 0
-    }
-  ],
-  "created_at": {
-    "$date": "2023-01-20T08:27:58.251Z"
-  },
-  "updated_at": {
-    "$date": "2023-01-20T08:27:58.251Z"
-  }
-},{
-
-  "name": "Пральний порошок Persil автомат Колор",
-  "description": "Новітня сучасна формула порошку Persil для кольорових речей проникає глибоко у волокна, виводячи молекули плям для бездоганного результату, яскравості та приємної тривалої свіжості вашого одягу.",
-  "brand": "Persil",
-  "slug": "persil_9000101428797",
-  "category": {
-    "$oid": "63e39c465ba7e472e6726ce6"
-  },
-  "subCategories": [
-    {
-      "$oid": "63e373195ba7e472e6726ca8"
-    },
-    {
-      "$oid": "63e3a0b95ba7e472e6726d04"
-    }
-  ],
-  "details": [
-    {
-      "name": "Вид прання",
-      "value": "Автоматичне"
-    },
-    {
-      "name": "Призначення типу білизни",
-      "value": "Всі види білизни"
-    },
-    {
-      "name": "Тип засобу",
-      "value": "Порошок"
-    }
-  ],
-  "reviews": [],
-  "refundPolicy": "30 днів",
-  "rating": 0,
-  "subProducts": [
-    {
-      "images": [
-        {
-          "url": "https://res.cloudinary.com/dzctqbi3o/image/upload/v1678662580/Diploma/detergents/242977776_iwl3jh.png",
-          "public_url": "/Diploma/detergents/242977776_iwl3jh.png"
-        },
-        {
-          "url": "https://res.cloudinary.com/dzctqbi3o/image/upload/v1678662538/Diploma/detergents/242977781_ch8oei.png",
-          "public_url": "/Diploma/detergents/242977781_ch8oei.png"
-        },
-        {
-          "url": "https://res.cloudinary.com/dzctqbi3o/image/upload/v1678662538/Diploma/detergents/242977778_mcqmlz.png",
-          "public_url": "/Diploma/detergents/242977778_mcqmlz.png"
-        },
-        {
-          "url": "https://res.cloudinary.com/dzctqbi3o/image/upload/v1678662538/Diploma/detergents/242977777_z33xbc.png",
-          "public_url": "/Diploma/detergents/242977777_z33xbc.png"
-        }
-      ],
-      "description_images": [],
-      "color": null,
-      "sizes": [
-        {
-          "size": "1 кг",
-          "qty": 12,
-          "price": 540,
-          "price_unit": "₴",
-          "code": 500300509
-        },
-        {
-          "size": "2 кг",
-          "qty": 2,
-          "price": 799,
-          "price_unit": "₴",
-          "code": 300326921
-        },
-        {
-          "size": "3 кг",
-          "qty": 10,
-          "price": 1500,
-          "price_unit": "₴",
-          "code": 35101200
-        }
-      ],
-      "discount": 10,
-      "sold": 0
-    }   
-    
-  ],
-  "created_at": {
-    "$date": "2023-01-20T08:27:58.251Z"
-  },
-  "updated_at": {
-    "$date": "2023-01-20T08:27:58.251Z"
-  }
-},
-{
-  
-  "name": "Кросівки ICEBERG",
-  "description": "кросівки виробництва Італії",
-  "brand": "ICEBERG",
-  "slug": "sneakers_iceberg",
-  "category": {
-    "$oid": "63e7c985d77191b2d8a70f03"
-  },
-  "subCategories": [
-    {
-      "$oid": "640e4a24a919746cc46cbe90"
-    }
-  ],
-  "details": [
-    {
-      "name": "Призначення",
-      "value": "Для повсякденного носіння"
-    },
-    {
-      "name": "Сезон",
-      "value": "Літній"
-    },
-    {
-      "name": "Матеріал верху",
-      "value": "Текстиль"
-    },
-    {
-      "name": "Матеріал Підошви",
-      "value": "Поліуритан"
-    },
-    {
-      "name": "Країна реєстрації бренду",
-      "value": "Італія"
-    },
-    {
-      "name": "Країна виробник",
-      "value": "Італія"
-    }
-  ],
-  "reviews": [],
-  "refundPolicy": "14 днів",
-  "rating": 3,
-  "subProducts": [
-    {
-      "images": [
-        {
-          "url": "https://res.cloudinary.com/dzctqbi3o/image/upload/v1678660411/Diploma/shoes/165664250_btsmgo.png",
-          "public_url": "/Diploma/shoes/165664250_btsmgo.png"
-        },
-        {
-          "url": "https://res.cloudinary.com/dzctqbi3o/image/upload/v1678660411/Diploma/shoes/165664252_zbcp8w.png",
-          "public_url": "/Diploma/shoes/165664252_zbcp8w.png"
-        },
-        {
-          "url": "https://res.cloudinary.com/dzctqbi3o/image/upload/v1678660411/Diploma/shoes/165664254_prpupu.png",
-          "public_url": "/Diploma/shoes/165664254_prpupu.png"
-        },
-        {
-          "url": "https://res.cloudinary.com/dzctqbi3o/image/upload/v1678660411/Diploma/shoes/165664256_qwprjr.png",
-          "public_url": "/Diploma/shoes/165664256_qwprjr.png"
-        },
-        {
-          "url": "https://res.cloudinary.com/dzctqbi3o/image/upload/v1678660411/Diploma/shoes/165664259_a7km8r.png",
-          "public_url": "/Diploma/shoes/165664259_a7km8r.png"
-        }
-      ],
-      "description_images": [],
-      "color": {
-        "color": "білі з малиновим",
-        "image": "#FE72A0"
+    "subCategories": [
+      {
+        "$oid": "63e373195ba7e472e6726ca8"
       },
-      "sizes": [
-        {
-          "size": "35",
-          "qty": 12,
-          "price": 11920,
-          "price_unit": "₴",
-          "code": 821812207
-        },
-        {
-          "size": "36",
-          "qty": 5,
-          "price": 11920,
-          "price_unit": "₴",
-          "code": 860050714
-        },
-        {
-          "size": "37",
-          "qty": 1,
-          "price": 11920,
-          "price_unit": "₴",
-          "code": 124316894
-        },
-        {
-          "size": "38",
-          "qty": 1,
-          "price": 11920,
-          "price_unit": "₴",
-          "code": 386728643
-        },
-        {
-          "size": "39",
-          "qty": 2,
-          "price": 11920,
-          "price_unit": "₴",
-          "code": 234991781
-        },
-        {
-          "size": "40",
-          "qty": 10,
-          "price": 11920,
-          "price_unit": "₴",
-          "code": 448503962
-        },
-        {
-          "size": "41",
-          "qty": 4,
-          "price": 11920,
-          "price_unit": "₴",
-          "code": 763782665
-        }
-       
-      ],
-      "discount": 20,
-      "sold": 0
-    },
-    {
-      "images": [
-        {
-          "url": "https://res.cloudinary.com/dzctqbi3o/image/upload/v1678660411/Diploma/shoes/276603961_nvv0ve.png",
-          "public_url": "/Diploma/shoes/276603961_nvv0ve.png"
-        },
-        {
-          "url": "https://res.cloudinary.com/dzctqbi3o/image/upload/v1678660411/Diploma/shoes/276603977_oktlrq.png",
-          "public_url": "/Diploma/shoes/276603977_oktlrq.png"
-        }
-      ],
-      "description_images": [],
-      "color": {
-        "color": "білі",
-        "image": "#FFFFFF"
+      {
+        "$oid": "63e3a0b95ba7e472e6726d04"
+      }
+    ],
+    "details": [
+      {
+        "name": "Вид прання",
+        "value": "Автоматичне"
       },
-      "sizes": [
-        {
-          "size": "37",
-          "qty": 4,
-          "price": 16350,
-          "price_unit": "₴",
-          "code": 209438209
-        },
-        {
-          "size": "38",
-          "qty": 2,
-          "price": 16350,
-          "price_unit": "₴",
-          "code": 255886484
-        },
-        {
-          "size": "40",
-          "qty": 5,
-          "price": 16350,
-          "price_unit": "₴",
-          "code": 876475321
-        },
-        {
-          "size": "41",
-          "qty": 5,
-          "price": 16350,
-          "price_unit": "₴",
-          "code": 293859631
-        }
-      ],
-      "discount": 30,
-      "sold": 0
-    }
-    
-  ],
-  "created_at": {
-    "$date": {
-      "$numberLong": "1674203278251"
+      {
+        "name": "Призначення типу білизни",
+        "value": "Всі види білизни"
+      },
+      {
+        "name": "Тип засобу",
+        "value": "Капсули"
+      }
+    ],
+    "reviews": [],
+    "refundPolicy": "30 днів",
+    "rating": 0,
+    "subProducts": [
+      {
+        "images": [
+          {
+            "url": "https://res.cloudinary.com/dzctqbi3o/image/upload/v1675872588/Diploma/detergents/298412218_gsbbnl.webp",
+            "public_url": "/Diploma/detergents/298412218_gsbbnl.webp"
+          },
+          {
+            "url": "https://res.cloudinary.com/dzctqbi3o/image/upload/v1675872588/Diploma/detergents/298412236_lbmklj.webp",
+            "public_url": "/Diploma/detergents/298412236_lbmklj.webp"
+          },
+          {
+            "url": "https://res.cloudinary.com/dzctqbi3o/image/upload/v1675872588/Diploma/detergents/298412230_efjh7c.webp",
+            "public_url": "/Diploma/detergents/298412230_efjh7c.webp"
+          }
+        ],
+        "description_images": [],
+        "color": null,
+        "sizes": [
+          {
+            "size": "30",
+            "qty": 10,
+            "price": 999,
+            "price_unit": "₴",
+            "code": 45101200
+          },
+          {
+            "size": "45",
+            "qty": 12,
+            "price": 1140,
+            "price_unit": "₴",
+            "code": 200300509
+          },
+          {
+            "size": "60",
+            "qty": 2,
+            "price": 1799,
+            "price_unit": "₴",
+            "code": 200326921
+          }
+        ],
+        "discount": 0,
+        "sold": 0
+      }
+    ],
+    "created_at": {
+      "$date": "2023-01-20T08:27:58.251Z"
+    },
+    "updated_at": {
+      "$date": "2023-01-20T08:27:58.251Z"
     }
   },
-  "updated_at": {
-    "$date": {
-      "$numberLong": "1674203278251"
-    }
-  }
-},
-{
-  "_id": {
-    "$oid": "63e16c622c2a6482d698d972"
-  },
-  "name": "Ноутбук Apple MacBook Air 13\" M1 256GB 2020",
-  "description": "Найтонший і найлегший ноутбук від Apple стає надпотужним завдяки чипу Apple M1.\nЛегко виконуйте будь-які завдання завдяки надшвидкісному 8-ядерному центральному процесору. Графічний процесор із щонайбільше 8 ядрами забезпечує відмінне зображення в додатках та іграх зі складною графікою. 16-ядерна система Neural Engine прискорює виконання всіх операцій, у яких використовується машинне навчання. Конструкція без вентилятора гарантує безшумну роботу. А ще новий MacBook Air побив власний рекорд роботи від акумулятора — тепер він працює без підзарядки до 18 годин. Досі ідеально портативний. А тепер ще й набагато потужніший.",
-  "brand": "Apple",
-  "slug": "apple_macbook_air_13_m1_256gb_20",
-  "category": {
-    "$oid": "63e370145ba7e472e6726ca2"
-  },
-  "subCategories": [
-    {
-      "$oid": "63e3a0b95ba7e472e6726cfe"
-    }
-  ],
-  "details": [
-    {
-      "name": "Серія",
-      "value": "Apple MacBook"
+  {
+    "name": "Пральний порошок Persil автомат Колор",
+    "description": "Новітня сучасна формула порошку Persil для кольорових речей проникає глибоко у волокна, виводячи молекули плям для бездоганного результату, яскравості та приємної тривалої свіжості вашого одягу.",
+    "brand": "Persil",
+    "slug": "persil_9000101428797",
+    "category": {
+      "$oid": "63e39c465ba7e472e6726ce6"
     },
-    {
-      "name": "Діагональ",
-      "value": "13.3\" (2560x1600) WQXGA"
-    },
-    {
-      "name": "Тип екрану",
-      "value": "Retina"
-    }
-  ],
-  "reviews": [],
-  "refundPolicy": "30 днів",
-  "rating": 0,
-  "subProducts": [
-    {
-      "images": [
-        {
-          "url": "https://res.cloudinary.com/dzctqbi3o/image/upload/v1675855901/Diploma/Notebooks/gdlhuigfbwqdgd0gx8g5.png",
-          "public_url": "/Diploma/Notebooks/gdlhuigfbwqdgd0gx8g5.png"
-        },
-        {
-          "url": "https://res.cloudinary.com/dzctqbi3o/image/upload/v1675856380/Diploma/Notebooks/macbook_air_2_qxlofa.png",
-          "public_url": "/Diploma/Notebooks/macbook_air_2_qxlofa.png"
-        },
-        {
-          "url": "https://res.cloudinary.com/dzctqbi3o/image/upload/v1675856381/Diploma/Notebooks/macbook_air_12_tekzbn.png",
-          "public_url": "/Diploma/Notebooks/macbook_air_12_tekzbn.png"
-        }
-      ],
-      "description_images": [],
-      "color": {
-        "color": "Срібний",
-        "image": "#C0C0C0"
+    "subCategories": [
+      {
+        "$oid": "63e373195ba7e472e6726ca8"
       },
-      "sizes": [
-        {
-          "size": "",
-          "qty": 12,
-          "price": 44499,
-          "price_unit": "₴",
-          "code": 245161903
-        }
-      ],
-      "discount": 10,
-      "sold": 0
-    },
-    {
-      "images": [
-        {
-          "url": "https://res.cloudinary.com/dzctqbi3o/image/upload/v1675855901/Diploma/Notebooks/gdlhuigfbwqdgd0gx8g5.png",
-          "public_url": "/Diploma/Notebooks/gdlhuigfbwqdgd0gx8g5.png"
-        },
-        {
-          "url": "https://res.cloudinary.com/dzctqbi3o/image/upload/v1675856380/Diploma/Notebooks/macbook_air_2_qxlofa.png",
-          "public_url": "/Diploma/Notebooks/macbook_air_2_qxlofa.png"
-        },
-        {
-          "url": "https://res.cloudinary.com/dzctqbi3o/image/upload/v1675856381/Diploma/Notebooks/macbook_air_12_tekzbn.png",
-          "public_url": "/Diploma/Notebooks/macbook_air_12_tekzbn.png"
-        }
-      ],
-      "description_images": [],
-      "color": {
-        "color": "Золотий",
-        "image": "#FFD700"
+      {
+        "$oid": "63e3a0b95ba7e472e6726d04"
+      }
+    ],
+    "details": [
+      {
+        "name": "Вид прання",
+        "value": "Автоматичне"
       },
-      "sizes": [
-        {
-          "size": "",
-          "qty": 12,
-          "price": 44499,
-          "price_unit": "₴",
-          "code": 245161897
-        }
-      ],
-      "discount": 5,
-      "sold": 0
-    },
-    {
-      "images": [
-        {
-          "url": "https://res.cloudinary.com/dzctqbi3o/image/upload/v1675855901/Diploma/Notebooks/gdlhuigfbwqdgd0gx8g5.png",
-          "public_url": "/Diploma/Notebooks/gdlhuigfbwqdgd0gx8g5.png"
-        },
-        {
-          "url": "https://res.cloudinary.com/dzctqbi3o/image/upload/v1675856380/Diploma/Notebooks/macbook_air_2_qxlofa.png",
-          "public_url": "/Diploma/Notebooks/macbook_air_2_qxlofa.png"
-        },
-        {
-          "url": "https://res.cloudinary.com/dzctqbi3o/image/upload/v1675856381/Diploma/Notebooks/macbook_air_12_tekzbn.png",
-          "public_url": "/Diploma/Notebooks/macbook_air_12_tekzbn.png"
-        }
-      ],
-      "description_images": [],
-      "color": {
-        "color": "Сірий",
-        "image": "#808080"
+      {
+        "name": "Призначення типу білизни",
+        "value": "Всі види білизни"
       },
-      "sizes": [
-        {
-          "size": "",
-          "qty": 12,
-          "price": 44499,
-          "price_unit": "₴",
-          "code": 245161909
-        }
-      ],
-      "discount": 15,
-      "sold": 0
-    }
-  ],
-  "created_at": {
-    "$date": {
-      "$numberLong": "1674203278251"
+      {
+        "name": "Тип засобу",
+        "value": "Порошок"
+      }
+    ],
+    "reviews": [],
+    "refundPolicy": "30 днів",
+    "rating": 0,
+    "subProducts": [
+      {
+        "images": [
+          {
+            "url": "https://res.cloudinary.com/dzctqbi3o/image/upload/v1678662580/Diploma/detergents/242977776_iwl3jh.png",
+            "public_url": "/Diploma/detergents/242977776_iwl3jh.png"
+          },
+          {
+            "url": "https://res.cloudinary.com/dzctqbi3o/image/upload/v1678662538/Diploma/detergents/242977781_ch8oei.png",
+            "public_url": "/Diploma/detergents/242977781_ch8oei.png"
+          },
+          {
+            "url": "https://res.cloudinary.com/dzctqbi3o/image/upload/v1678662538/Diploma/detergents/242977778_mcqmlz.png",
+            "public_url": "/Diploma/detergents/242977778_mcqmlz.png"
+          },
+          {
+            "url": "https://res.cloudinary.com/dzctqbi3o/image/upload/v1678662538/Diploma/detergents/242977777_z33xbc.png",
+            "public_url": "/Diploma/detergents/242977777_z33xbc.png"
+          }
+        ],
+        "description_images": [],
+        "color": null,
+        "sizes": [
+          {
+            "size": "1 кг",
+            "qty": 12,
+            "price": 540,
+            "price_unit": "₴",
+            "code": 500300509
+          },
+          {
+            "size": "2 кг",
+            "qty": 2,
+            "price": 799,
+            "price_unit": "₴",
+            "code": 300326921
+          },
+          {
+            "size": "3 кг",
+            "qty": 10,
+            "price": 1500,
+            "price_unit": "₴",
+            "code": 35101200
+          }
+        ],
+        "discount": 10,
+        "sold": 0
+      }
+    ],
+    "created_at": {
+      "$date": "2023-01-20T08:27:58.251Z"
+    },
+    "updated_at": {
+      "$date": "2023-01-20T08:27:58.251Z"
     }
   },
-  "updated_at": {
-    "$date": {
-      "$numberLong": "1674203278251"
+  {
+    "name": "Кросівки ICEBERG",
+    "description": "кросівки виробництва Італії",
+    "brand": "ICEBERG",
+    "slug": "sneakers_iceberg",
+    "category": {
+      "$oid": "63e7c985d77191b2d8a70f03"
+    },
+    "subCategories": [
+      {
+        "$oid": "640e4a24a919746cc46cbe90"
+      }
+    ],
+    "details": [
+      {
+        "name": "Призначення",
+        "value": "Для повсякденного носіння"
+      },
+      {
+        "name": "Сезон",
+        "value": "Літній"
+      },
+      {
+        "name": "Матеріал верху",
+        "value": "Текстиль"
+      },
+      {
+        "name": "Матеріал Підошви",
+        "value": "Поліуритан"
+      },
+      {
+        "name": "Країна реєстрації бренду",
+        "value": "Італія"
+      },
+      {
+        "name": "Країна виробник",
+        "value": "Італія"
+      }
+    ],
+    "reviews": [],
+    "refundPolicy": "14 днів",
+    "rating": 3,
+    "subProducts": [
+      {
+        "images": [
+          {
+            "url": "https://res.cloudinary.com/dzctqbi3o/image/upload/v1678660411/Diploma/shoes/165664250_btsmgo.png",
+            "public_url": "/Diploma/shoes/165664250_btsmgo.png"
+          },
+          {
+            "url": "https://res.cloudinary.com/dzctqbi3o/image/upload/v1678660411/Diploma/shoes/165664252_zbcp8w.png",
+            "public_url": "/Diploma/shoes/165664252_zbcp8w.png"
+          },
+          {
+            "url": "https://res.cloudinary.com/dzctqbi3o/image/upload/v1678660411/Diploma/shoes/165664254_prpupu.png",
+            "public_url": "/Diploma/shoes/165664254_prpupu.png"
+          },
+          {
+            "url": "https://res.cloudinary.com/dzctqbi3o/image/upload/v1678660411/Diploma/shoes/165664256_qwprjr.png",
+            "public_url": "/Diploma/shoes/165664256_qwprjr.png"
+          },
+          {
+            "url": "https://res.cloudinary.com/dzctqbi3o/image/upload/v1678660411/Diploma/shoes/165664259_a7km8r.png",
+            "public_url": "/Diploma/shoes/165664259_a7km8r.png"
+          }
+        ],
+        "description_images": [],
+        "color": {
+          "color": "білі з малиновим",
+          "image": "#FE72A0"
+        },
+        "sizes": [
+          {
+            "size": "35",
+            "qty": 12,
+            "price": 11920,
+            "price_unit": "₴",
+            "code": 821812207
+          },
+          {
+            "size": "36",
+            "qty": 5,
+            "price": 11920,
+            "price_unit": "₴",
+            "code": 860050714
+          },
+          {
+            "size": "37",
+            "qty": 1,
+            "price": 11920,
+            "price_unit": "₴",
+            "code": 124316894
+          },
+          {
+            "size": "38",
+            "qty": 1,
+            "price": 11920,
+            "price_unit": "₴",
+            "code": 386728643
+          },
+          {
+            "size": "39",
+            "qty": 2,
+            "price": 11920,
+            "price_unit": "₴",
+            "code": 234991781
+          },
+          {
+            "size": "40",
+            "qty": 10,
+            "price": 11920,
+            "price_unit": "₴",
+            "code": 448503962
+          },
+          {
+            "size": "41",
+            "qty": 4,
+            "price": 11920,
+            "price_unit": "₴",
+            "code": 763782665
+          }
+        ],
+        "discount": 20,
+        "sold": 0
+      },
+      {
+        "images": [
+          {
+            "url": "https://res.cloudinary.com/dzctqbi3o/image/upload/v1678660411/Diploma/shoes/276603961_nvv0ve.png",
+            "public_url": "/Diploma/shoes/276603961_nvv0ve.png"
+          },
+          {
+            "url": "https://res.cloudinary.com/dzctqbi3o/image/upload/v1678660411/Diploma/shoes/276603977_oktlrq.png",
+            "public_url": "/Diploma/shoes/276603977_oktlrq.png"
+          }
+        ],
+        "description_images": [],
+        "color": {
+          "color": "білі",
+          "image": "#FFFFFF"
+        },
+        "sizes": [
+          {
+            "size": "37",
+            "qty": 4,
+            "price": 16350,
+            "price_unit": "₴",
+            "code": 209438209
+          },
+          {
+            "size": "38",
+            "qty": 2,
+            "price": 16350,
+            "price_unit": "₴",
+            "code": 255886484
+          },
+          {
+            "size": "40",
+            "qty": 5,
+            "price": 16350,
+            "price_unit": "₴",
+            "code": 876475321
+          },
+          {
+            "size": "41",
+            "qty": 5,
+            "price": 16350,
+            "price_unit": "₴",
+            "code": 293859631
+          }
+        ],
+        "discount": 30,
+        "sold": 0
+      }
+    ],
+    "created_at": {
+      "$date": {
+        "$numberLong": "1674203278251"
+      }
+    },
+    "updated_at": {
+      "$date": {
+        "$numberLong": "1674203278251"
+      }
+    }
+  },
+  {
+    "_id": {
+      "$oid": "63e16c622c2a6482d698d972"
+    },
+    "name": "Ноутбук Apple MacBook Air 13\" M1 256GB 2020",
+    "description": "Найтонший і найлегший ноутбук від Apple стає надпотужним завдяки чипу Apple M1.\nЛегко виконуйте будь-які завдання завдяки надшвидкісному 8-ядерному центральному процесору. Графічний процесор із щонайбільше 8 ядрами забезпечує відмінне зображення в додатках та іграх зі складною графікою. 16-ядерна система Neural Engine прискорює виконання всіх операцій, у яких використовується машинне навчання. Конструкція без вентилятора гарантує безшумну роботу. А ще новий MacBook Air побив власний рекорд роботи від акумулятора — тепер він працює без підзарядки до 18 годин. Досі ідеально портативний. А тепер ще й набагато потужніший.",
+    "brand": "Apple",
+    "slug": "apple_macbook_air_13_m1_256gb_20",
+    "category": {
+      "$oid": "63e370145ba7e472e6726ca2"
+    },
+    "subCategories": [
+      {
+        "$oid": "63e3a0b95ba7e472e6726cfe"
+      }
+    ],
+    "details": [
+      {
+        "name": "Серія",
+        "value": "Apple MacBook"
+      },
+      {
+        "name": "Діагональ",
+        "value": "13.3\" (2560x1600) WQXGA"
+      },
+      {
+        "name": "Тип екрану",
+        "value": "Retina"
+      }
+    ],
+    "reviews": [],
+    "refundPolicy": "30 днів",
+    "rating": 0,
+    "subProducts": [
+      {
+        "images": [
+          {
+            "url": "https://res.cloudinary.com/dzctqbi3o/image/upload/v1675855901/Diploma/Notebooks/gdlhuigfbwqdgd0gx8g5.png",
+            "public_url": "/Diploma/Notebooks/gdlhuigfbwqdgd0gx8g5.png"
+          },
+          {
+            "url": "https://res.cloudinary.com/dzctqbi3o/image/upload/v1675856380/Diploma/Notebooks/macbook_air_2_qxlofa.png",
+            "public_url": "/Diploma/Notebooks/macbook_air_2_qxlofa.png"
+          },
+          {
+            "url": "https://res.cloudinary.com/dzctqbi3o/image/upload/v1675856381/Diploma/Notebooks/macbook_air_12_tekzbn.png",
+            "public_url": "/Diploma/Notebooks/macbook_air_12_tekzbn.png"
+          }
+        ],
+        "description_images": [],
+        "color": {
+          "color": "Срібний",
+          "image": "#C0C0C0"
+        },
+        "sizes": [
+          {
+            "size": "",
+            "qty": 12,
+            "price": 44499,
+            "price_unit": "₴",
+            "code": 245161903
+          }
+        ],
+        "discount": 10,
+        "sold": 0
+      },
+      {
+        "images": [
+          {
+            "url": "https://res.cloudinary.com/dzctqbi3o/image/upload/v1675855901/Diploma/Notebooks/gdlhuigfbwqdgd0gx8g5.png",
+            "public_url": "/Diploma/Notebooks/gdlhuigfbwqdgd0gx8g5.png"
+          },
+          {
+            "url": "https://res.cloudinary.com/dzctqbi3o/image/upload/v1675856380/Diploma/Notebooks/macbook_air_2_qxlofa.png",
+            "public_url": "/Diploma/Notebooks/macbook_air_2_qxlofa.png"
+          },
+          {
+            "url": "https://res.cloudinary.com/dzctqbi3o/image/upload/v1675856381/Diploma/Notebooks/macbook_air_12_tekzbn.png",
+            "public_url": "/Diploma/Notebooks/macbook_air_12_tekzbn.png"
+          }
+        ],
+        "description_images": [],
+        "color": {
+          "color": "Золотий",
+          "image": "#FFD700"
+        },
+        "sizes": [
+          {
+            "size": "",
+            "qty": 12,
+            "price": 44499,
+            "price_unit": "₴",
+            "code": 245161897
+          }
+        ],
+        "discount": 5,
+        "sold": 0
+      },
+      {
+        "images": [
+          {
+            "url": "https://res.cloudinary.com/dzctqbi3o/image/upload/v1675855901/Diploma/Notebooks/gdlhuigfbwqdgd0gx8g5.png",
+            "public_url": "/Diploma/Notebooks/gdlhuigfbwqdgd0gx8g5.png"
+          },
+          {
+            "url": "https://res.cloudinary.com/dzctqbi3o/image/upload/v1675856380/Diploma/Notebooks/macbook_air_2_qxlofa.png",
+            "public_url": "/Diploma/Notebooks/macbook_air_2_qxlofa.png"
+          },
+          {
+            "url": "https://res.cloudinary.com/dzctqbi3o/image/upload/v1675856381/Diploma/Notebooks/macbook_air_12_tekzbn.png",
+            "public_url": "/Diploma/Notebooks/macbook_air_12_tekzbn.png"
+          }
+        ],
+        "description_images": [],
+        "color": {
+          "color": "Сірий",
+          "image": "#808080"
+        },
+        "sizes": [
+          {
+            "size": "",
+            "qty": 12,
+            "price": 44499,
+            "price_unit": "₴",
+            "code": 245161909
+          }
+        ],
+        "discount": 15,
+        "sold": 0
+      }
+    ],
+    "created_at": {
+      "$date": {
+        "$numberLong": "1674203278251"
+      }
+    },
+    "updated_at": {
+      "$date": {
+        "$numberLong": "1674203278251"
+      }
     }
   }
-}]
+]

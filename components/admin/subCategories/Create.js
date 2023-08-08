@@ -24,7 +24,7 @@ export default function Create({
       .max(30, "Назва підкатегорії має бути між 2 та 30 символами.")
       .matches(
         /^[абвгдеєжзиіїйклмнопрстуфхцчшщьюяАБВГДЕЄЖЗИЇІКЛМНОПРСТУФХЦЧШЩЬЮЯa-zA-Z\s]*$/,
-        "Цифри та розділові знаки не допускаються."
+        "Цифри та розділові знаки не допускаються.",
       ),
     parent: Yup.string().required("Будь-ласка виберіть группу"),
     topParent: Yup.string().required("Будь-ласка виберіть категорію"),
@@ -35,7 +35,7 @@ export default function Create({
   useEffect(() => {
     if (topParent) {
       setFilteredGroupSubCategories(
-        groupSubCategories?.filter((item) => topParent === item.parent._id)
+        groupSubCategories?.filter((item) => topParent === item.parent._id),
       );
     }
   }, [topParent]);

@@ -387,58 +387,58 @@ export default function Search({
                 ) : (
                   <></>
                 )}
-                {
-                  products.length ? 
-                <Accordion.Item
-                  eventKey={"prices"}
-                  className={styles.accordion__item}
-                >
-                  <Accordion.Header className={styles.accordion__item_header}>
-                    <span>Ціна</span>
-                  </Accordion.Header>
-                  <Accordion.Body className={styles.accordion__item_body}>
-                    <RangeSlider
-                      min={minPrice}
-                      max={maxPrice}
-                      step={1}
-                      value={valuePrice}
-                      onChange={setValuePrice}
-                      setPriceChecked={setPriceChecked}
-                    />
-                    <div className={styles.prices}>
-                      <div>
-                        Від{" "}
-                        <span>
-                          {Number(valuePrice.min).toLocaleString("uk-UA")}
-                        </span>{" "}
-                        &#8372;
-                      </div>
-                      <span style={{ color: "#220F4B", fontWeight: "bold" }}>
-                        &#8211;
-                      </span>
-                      <div>
-                        До{" "}
-                        <span>
-                          {Number(valuePrice.max).toLocaleString("uk-UA")}
-                        </span>{" "}
-                        &#8372;
-                      </div>
-                      <Form.Check.Input
-                        className={styles.checkbox_box}
-                        type="checkbox"
-                        checked={priceChacked}
-                        onChange={(e) => {
-                          e.preventDefault();
-                          setPriceChecked(e.target.checked ? true : false),
-                          // priceHandler(e.target.checked);
-                          priceHandler(e);
-                        }}
+                {products.length ? (
+                  <Accordion.Item
+                    eventKey={"prices"}
+                    className={styles.accordion__item}
+                  >
+                    <Accordion.Header className={styles.accordion__item_header}>
+                      <span>Ціна</span>
+                    </Accordion.Header>
+                    <Accordion.Body className={styles.accordion__item_body}>
+                      <RangeSlider
+                        min={minPrice}
+                        max={maxPrice}
+                        step={1}
+                        value={valuePrice}
+                        onChange={setValuePrice}
+                        setPriceChecked={setPriceChecked}
                       />
-                    </div>
-                  </Accordion.Body>
-                </Accordion.Item>
-                : <></>
-                }
+                      <div className={styles.prices}>
+                        <div>
+                          Від{" "}
+                          <span>
+                            {Number(valuePrice.min).toLocaleString("uk-UA")}
+                          </span>{" "}
+                          &#8372;
+                        </div>
+                        <span style={{ color: "#220F4B", fontWeight: "bold" }}>
+                          &#8211;
+                        </span>
+                        <div>
+                          До{" "}
+                          <span>
+                            {Number(valuePrice.max).toLocaleString("uk-UA")}
+                          </span>{" "}
+                          &#8372;
+                        </div>
+                        <Form.Check.Input
+                          className={styles.checkbox_box}
+                          type="checkbox"
+                          checked={priceChacked}
+                          onChange={(e) => {
+                            e.preventDefault();
+                            setPriceChecked(e.target.checked ? true : false),
+                              // priceHandler(e.target.checked);
+                              priceHandler(e);
+                          }}
+                        />
+                      </div>
+                    </Accordion.Body>
+                  </Accordion.Item>
+                ) : (
+                  <></>
+                )}
                 {colors.length ? (
                   <Accordion.Item
                     eventKey={"colors"}
@@ -733,73 +733,79 @@ export async function getServerSideProps({ query }) {
     });
   });
 
-  let newProducts = []
-  if(colorQuery.length  > 0 || sizeQuery.length > 0){
+  let newProducts = [];
+  if (colorQuery.length > 0 || sizeQuery.length > 0) {
     if (colorQuery.length > 0) {
       let filteredProducts = [];
-  
+
       products.forEach((product) => {
         let matchingSubProducts = product.subProducts.filter((subProduct) => {
           return colorQuery.includes(subProduct.color?.color);
         });
-  
+
         if (matchingSubProducts.length > 0) {
           matchingSubProducts.forEach((subProduct) => {
             let newProduct = { ...product };
             let style = product.subProducts.indexOf(subProduct);
-            let sizeIndex = subProduct.sizes.findIndex(s => sizeQuery.includes(s.size));
+            let sizeIndex = subProduct.sizes.findIndex((s) =>
+              sizeQuery.includes(s.size),
+            );
             let mode = sizeIndex !== -1 ? sizeIndex : 0;
-  
+
             newProduct.quantity = subProduct.sizes[mode].qty;
             newProduct.style = style;
             newProduct.mode = mode;
             newProduct.color = subProduct.color?.color ?? "";
             newProduct.size = subProduct.sizes[mode]?.size ?? "";
-  
+
             filteredProducts.push(newProduct);
           });
         }
       });
-  
+
       newProducts = filteredProducts;
     }
-  
+
     if (sizeQuery.length > 0) {
       let filteredProducts = [];
-  
+
       products.forEach((product) => {
         let matchingSubProducts = product.subProducts.filter((subProduct) =>
           subProduct.sizes.some(
-            (s) => sizeQuery.includes(s.size) && (colorQuery.length === 0 
-              || colorQuery.includes(subProduct.color.color))
-          )
+            (s) =>
+              sizeQuery.includes(s.size) &&
+              (colorQuery.length === 0 ||
+                colorQuery.includes(subProduct.color.color)),
+          ),
         );
-  
+
         if (matchingSubProducts.length > 0) {
           matchingSubProducts.forEach((subProduct) => {
-            sizeQuery.forEach((size) =>{
-              let sizeIndex = subProduct.sizes.findIndex(s => s.size === size);
-              if(sizeIndex >= 0){
+            sizeQuery.forEach((size) => {
+              let sizeIndex = subProduct.sizes.findIndex(
+                (s) => s.size === size,
+              );
+              if (sizeIndex >= 0) {
                 let newProduct = { ...product };
                 let style = product.subProducts.indexOf(subProduct);
                 let mode = sizeIndex !== -1 ? sizeIndex : 0;
-      
+
                 newProduct.quantity = subProduct.sizes[mode].qty;
                 newProduct.style = style;
                 newProduct.mode = mode;
                 newProduct.color = subProduct.color?.color ?? "";
                 newProduct.size = subProduct.sizes[mode]?.size ?? "";
-      
+
                 filteredProducts.push(newProduct);
               }
-            })
+            });
           });
         }
       });
-  
+
       newProducts = filteredProducts;
     }
-  }else{
+  } else {
     newProducts = products.map((product) => {
       let style = -1;
       let mode = -1;
@@ -817,12 +823,12 @@ export async function getServerSideProps({ query }) {
           break;
         }
       }
-  
+
       let color = product.subProducts[style]
         ? product.subProducts[style].color?.color
         : "";
       let size = product.subProducts[style].sizes[mode].size;
-  
+
       return {
         ...product,
         style,
@@ -832,7 +838,6 @@ export async function getServerSideProps({ query }) {
       };
     });
   }
-
 
   await db.disconnectDb();
   return {

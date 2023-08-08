@@ -19,6 +19,7 @@ export const searchedListItems = createSlice({
   },
 });
 
-export const { addToSearchedList, emptySearchedList } = searchedListItems.actions;
+export const { addToSearchedList, emptySearchedList } =
+  searchedListItems.actions;
 
 export default searchedListItems.reducer;

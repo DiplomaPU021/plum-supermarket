@@ -21,7 +21,7 @@ export default function ListItem({
   const handleChangeTopParent = (e) => {
     setTopParent(e.target.value);
     setFilteredGroupSubCategories(
-      groupSubCategories?.filter((item) => e.target.value === item.parent._id)
+      groupSubCategories?.filter((item) => e.target.value === item.parent._id),
     );
   };
   const handleRemove = async (id) => {

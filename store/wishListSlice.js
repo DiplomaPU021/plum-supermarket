@@ -2,7 +2,7 @@ import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
   wishListItems: [],
-  wishListTotal:0,
+  wishListTotal: 0,
 };
 export const wishListSlice = createSlice({
   name: "wishList",
@@ -10,11 +10,11 @@ export const wishListSlice = createSlice({
   reducers: {
     addToWishList: (state, action) => {
       state.wishListItems.push(action.payload);
-      state.wishListTotal += 1.
+      state.wishListTotal += 1;
     },
     updateWishList: (state, action) => {
       state.wishListItems = action.payload;
-      state.wishListTotal=state.wishListItems.length;
+      state.wishListTotal = state.wishListItems.length;
     },
     emptyWishList: (state, action) => {
       state.wishListItems = [];

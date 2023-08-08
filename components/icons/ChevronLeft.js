@@ -1,6 +1,6 @@
 import * as React from "react";
 
-export default function ChevronLeft({fillColor, w, h}) {
+export default function ChevronLeft({ fillColor, w, h }) {
   return (
     <svg
       width={w}

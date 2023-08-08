@@ -20,7 +20,6 @@
 
 // };
 
-
 // const googlePayBaseConfiguration = {
 
 //   apiVersion: 2,
@@ -31,11 +30,9 @@
 
 // };
 
-
 // export default function GooglePayItem() {
 
 //   const [gPayBtn, setGPayBtn] = useState(null);
-
 
 //   function createAndAddButton() {
 
@@ -45,21 +42,17 @@
 
 //         buttonColor: "default",
 
-
 //         buttonType: "long",
-
 
 //         onClick: processPayment
 
 //       });
-
 
 //       setGPayBtn(googlePayButton);
 
 //     }
 
 //   }
-
 
 //   function processPayment() {
 
@@ -80,7 +73,6 @@
 //       }
 
 //     };
-
 
 //     const cardPaymentMethod = {
 
@@ -108,7 +100,6 @@
 
 //     };
 
-
 //     const transactionInfo = {
 
 //       totalPriceStatus: "FINAL",
@@ -119,7 +110,6 @@
 
 //     };
 
-
 //     const merchantInfo = {
 
 //       // merchantId: '01234567890123456789', Only in PRODUCTION
@@ -127,7 +117,6 @@
 //       merchantName: "PLUM LTD"
 
 //     };
-
 
 //     const paymentDataRequest = {
 
@@ -144,7 +133,6 @@
 //       }
 
 //     };
-
 
 //     googlePayClient
 
@@ -163,7 +151,6 @@
 //       });
 
 //   }
-
 
 //   useEffect(() => {
 
@@ -192,7 +179,6 @@
 //       });
 
 //   }, []);
-
 
 //   return (
 

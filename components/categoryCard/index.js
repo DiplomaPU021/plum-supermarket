@@ -3,7 +3,6 @@ import styles from "./styles.module.scss";
 import { Card } from "react-bootstrap";
 
 export default function CategoryCard({ group }) {
-
   return (
     <Card className={styles.categorycard}>
       <Card.Img
@@ -15,7 +14,10 @@ export default function CategoryCard({ group }) {
       <Card.Body className={styles.categorycard__body}>
         <div>
           {group.group_subcategory.map((sub, i) => (
-            <span key={i}>{sub.name}{(i < (group.group_subcategory.length - 1)) ? ", " : ""}</span>
+            <span key={i}>
+              {sub.name}
+              {i < group.group_subcategory.length - 1 ? ", " : ""}
+            </span>
           ))}
         </div>
       </Card.Body>

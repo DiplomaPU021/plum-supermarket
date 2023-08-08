@@ -65,7 +65,7 @@ export default function EditProduct({
   const [groupSub, setGroupSub] = useState(groupSubCategories);
   const [images, setImages] = useState([]);
   const [viewImages, setViewImages] = useState(
-    product.subProducts[style].images.map((img) => img.url).slice(0, 5)
+    product.subProducts[style].images.map((img) => img.url).slice(0, 5),
   );
   const [loading, setLoading] = useState(false);
   const [dataOptions, setDataOptions] = useState([]);
@@ -83,7 +83,7 @@ export default function EditProduct({
             value,
             isFixed: false,
           };
-        })
+        }),
       );
     } else {
       setDataSelectedOptions([]);
@@ -98,13 +98,13 @@ export default function EditProduct({
           value,
           isFixed: false,
         };
-      })
+      }),
     );
   };
   const getSubs = async () => {
     setLoading(true);
     setSubs(
-      subCategories.filter((c) => c.parent == productToEdit.groupSubCategory)
+      subCategories.filter((c) => c.parent == productToEdit.groupSubCategory),
     );
     changeSelectedOptions();
     setLoading(false);
@@ -113,7 +113,7 @@ export default function EditProduct({
     const getGroupSub = async () => {
       setLoading(true);
       setGroupSub(
-        groupSubCategories.filter((c) => c.parent == productToEdit.category)
+        groupSubCategories.filter((c) => c.parent == productToEdit.category),
       );
       setLoading(false);
     };
@@ -154,7 +154,7 @@ export default function EditProduct({
     description: Yup.string().required("Please write the description"),
     dataSelectedOptions: Yup.array().min(
       1,
-      "Please select at least 1 subCategory"
+      "Please select at least 1 subCategory",
     ),
     groupSubCategory: Yup.string()
       .transform((value) => {
@@ -186,10 +186,10 @@ export default function EditProduct({
                   value: Yup.string().required(),
                   isMain: Yup.boolean(),
                 })
-                .nullable()
+                .nullable(),
             )
             .min(1, "Please add at least one field"),
-        })
+        }),
       )
       .min(1, "Please add at least one detail")
       .required("Please add details"),
@@ -205,7 +205,7 @@ export default function EditProduct({
           header: "Будь ласка дотримуйтесь інструкцій",
           show: true,
           msgs: test,
-        })
+        }),
       );
     }
   };
@@ -400,7 +400,7 @@ export async function getServerSideProps(context) {
     })
     .lean();
   let groupSubCategoryProduct = await GroupSubCategory.findById(
-    product.subCategories[0].parent
+    product.subCategories[0].parent,
   )
     .select("name parent")
     .lean();
@@ -431,7 +431,7 @@ export async function getServerSideProps(context) {
       product: JSON.parse(JSON.stringify(product)),
       categoryProduct: JSON.parse(JSON.stringify(categoryProduct)),
       groupSubCategoryProduct: JSON.parse(
-        JSON.stringify(groupSubCategoryProduct)
+        JSON.stringify(groupSubCategoryProduct),
       ),
       subCategoriesProduct: JSON.parse(JSON.stringify(subCategoriesProduct)),
       categories: JSON.parse(JSON.stringify(categories)),

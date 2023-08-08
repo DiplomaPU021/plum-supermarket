@@ -10,7 +10,6 @@ import clientPromise from "./lib/mongodb";
 import db from "../../../utils/db";
 import emailService from "../../../utils/services/email.service";
 
-
 db.connectDb();
 const SingnInUser = async ({ password, user }) => {
   if (!user.password) {
@@ -42,7 +41,7 @@ export default NextAuth({
             return SingnInUser({ password, user });
           } else {
             throw new Error(
-              "Email не верифіковано, будь ласка пройдіть валідацію"
+              "Email не верифіковано, будь ласка пройдіть валідацію",
             );
           }
         } else {
@@ -70,7 +69,6 @@ export default NextAuth({
       },
     }),
     FacebookProvider({
-
       clientId: process.env.FACEBOOK_CLIENT_ID,
       clientSecret: process.env.FACEBOOK_CLIENT_SECRET,
       async profile(profile, options) {
@@ -87,7 +85,7 @@ export default NextAuth({
           uniqueString: await emailService.createUniqueString(),
         };
         if (options.fields && options.fields.length > 0) {
-          options.fields.forEach(field => {
+          options.fields.forEach((field) => {
             userProfile[field] = profile[field];
           });
         }
@@ -97,7 +95,7 @@ export default NextAuth({
     Auth0Provider({
       clientId: process.env.AUTH0_CLIENT_ID,
       clientSecret: process.env.AUTH0_CLIENT_SECRET,
-      issuer: process.env.AUTH0_ISSUER
+      issuer: process.env.AUTH0_ISSUER,
     }),
   ],
   callbacks: {

@@ -34,7 +34,7 @@ export default function MainSwiper({
 
   const addToViewedHandler = async () => {
     const { data } = await axios.get(
-      `/api/product/${product._id}?style=${product.style}&code=${product.mode}`
+      `/api/product/${product._id}?style=${product.style}&code=${product.mode}`,
     );
 
     if (viewedList.viewedListItems) {
@@ -42,9 +42,9 @@ export default function MainSwiper({
         (item) =>
           item._id == data._id &&
           item.style == data.style &&
-          item.mod == data.mod
+          item.mod == data.mod,
       );
-      
+
       if (!existItem) {
         dispatch(addToViewedList({ ...data }));
       }

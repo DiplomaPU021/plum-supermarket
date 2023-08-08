@@ -1,101 +1,101 @@
 [
-    {
-        "_id": {
-            "$oid": "63fffd0450fc81079dcb179c"
-        },
-        "parent": {
-            "$oid": "63e370145ba7e472e6726ca2"
-        },
-        "slug": "laptop"
+  {
+    "_id": {
+      "$oid": "63fffd0450fc81079dcb179c"
     },
-    {
-        "_id": {
-            "$oid": "640006db50fc81079dcb17a1"
-        },
-        "parent": {
-            "$oid": "63e370145ba7e472e6726ca2"
-        },
-        "slug": "system_blocks"
+    "parent": {
+      "$oid": "63e370145ba7e472e6726ca2"
     },
-    {
-        "_id": {
-            "$oid": "640007c150fc81079dcb17a2"
-        },
-        "parent": {
-            "$oid": "63e370145ba7e472e6726ca2"
-        },
-        "slug": "monitor"
+    "slug": "laptop"
+  },
+  {
+    "_id": {
+      "$oid": "640006db50fc81079dcb17a1"
     },
-    {
-        "_id": {
-            "$oid": "640007f150fc81079dcb17a3"
-        },
-        "parent": {
-            "$oid": "63e370145ba7e472e6726ca2"
-        },
-        "slug": "tablet"
+    "parent": {
+      "$oid": "63e370145ba7e472e6726ca2"
     },
-    {
-        "_id": {
-            "$oid": "6400080650fc81079dcb17a4"
-        },
-        "parent": {
-            "$oid": "63e370145ba7e472e6726ca2"
-        },
-        "slug": "server"
+    "slug": "system_blocks"
+  },
+  {
+    "_id": {
+      "$oid": "640007c150fc81079dcb17a2"
     },
-    {
-        "_id": {
-            "$oid": "6400082f50fc81079dcb17a5"
-        },
-        "parent": {
-            "$oid": "63e370145ba7e472e6726ca2"
-        },
-        "slug": "accessories"
+    "parent": {
+      "$oid": "63e370145ba7e472e6726ca2"
     },
-    {
-        "_id": {
-            "$oid": "6400086550fc81079dcb17a6"
-        },
-        "parent": {
-            "$oid": "63e370145ba7e472e6726ca2"
-        },
-        "slug": "office_equipment"
+    "slug": "monitor"
+  },
+  {
+    "_id": {
+      "$oid": "640007f150fc81079dcb17a3"
     },
-    {
-        "_id": {
-            "$oid": "640009c450fc81079dcb17a7"
-        },
-        "parent": {
-            "$oid": "63e39c465ba7e472e6726ce5"
-        },
-        "slug": "phone"
+    "parent": {
+      "$oid": "63e370145ba7e472e6726ca2"
     },
-    {
-        "_id": {
-            "$oid": "64000a1350fc81079dcb17a8"
-        },
-        "parent": {
-            "$oid": "63e39c465ba7e472e6726ce5"
-        },
-        "slug": "tv"
+    "slug": "tablet"
+  },
+  {
+    "_id": {
+      "$oid": "6400080650fc81079dcb17a4"
     },
-    {
-        "_id": {
-            "$oid": "64000ab050fc81079dcb17a9"
-        },
-        "parent": {
-            "$oid": "63e39c465ba7e472e6726ce6"
-        },
-        "slug": "laundry"
+    "parent": {
+      "$oid": "63e370145ba7e472e6726ca2"
     },
-    {
-        "_id": {
-            "$oid": "64000bc050fc81079dcb17aa"
-        },
-        "parent": {
-            "$oid": "63e39c465ba7e472e6726ce6"
-        },
-        "slug": "household_cleaners"
-    }
+    "slug": "server"
+  },
+  {
+    "_id": {
+      "$oid": "6400082f50fc81079dcb17a5"
+    },
+    "parent": {
+      "$oid": "63e370145ba7e472e6726ca2"
+    },
+    "slug": "accessories"
+  },
+  {
+    "_id": {
+      "$oid": "6400086550fc81079dcb17a6"
+    },
+    "parent": {
+      "$oid": "63e370145ba7e472e6726ca2"
+    },
+    "slug": "office_equipment"
+  },
+  {
+    "_id": {
+      "$oid": "640009c450fc81079dcb17a7"
+    },
+    "parent": {
+      "$oid": "63e39c465ba7e472e6726ce5"
+    },
+    "slug": "phone"
+  },
+  {
+    "_id": {
+      "$oid": "64000a1350fc81079dcb17a8"
+    },
+    "parent": {
+      "$oid": "63e39c465ba7e472e6726ce5"
+    },
+    "slug": "tv"
+  },
+  {
+    "_id": {
+      "$oid": "64000ab050fc81079dcb17a9"
+    },
+    "parent": {
+      "$oid": "63e39c465ba7e472e6726ce6"
+    },
+    "slug": "laundry"
+  },
+  {
+    "_id": {
+      "$oid": "64000bc050fc81079dcb17aa"
+    },
+    "parent": {
+      "$oid": "63e39c465ba7e472e6726ce6"
+    },
+    "slug": "household_cleaners"
+  }
 ]

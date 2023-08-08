@@ -1,125 +1,131 @@
 .description {
-    background: #F0EBFB;
+  background: #f0ebfb;
 
-    &__title{
-        display: flex;
-        flex-direction: row;
-        align-items: center;
-        padding-bottom: 20px;
+  &__title {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    padding-bottom: 20px;
 
-        span {
-            display: flex;
-            flex-direction: row;
-            align-items: center;
-            padding: 10px 24px 10px 60px;
-            gap: 10px;
-            width: 261px;
-            height: 64px;
-            gap: 10px;
-            background: linear-gradient(90deg, #71C064 0%, #8AE37C 100%);
-            border-radius: 0px 23px 23px 0px;
-            font-family: 'Noto Sans';
-            font-style: normal;
-            font-weight: 600;
-            font-size: 25px;
-            line-height: 34px;
-            color: #FFFFFF;
-        }
+    span {
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      padding: 10px 24px 10px 60px;
+      gap: 10px;
+      width: 261px;
+      height: 64px;
+      gap: 10px;
+      background: linear-gradient(90deg, #71c064 0%, #8ae37c 100%);
+      border-radius: 0px 23px 23px 0px;
+      font-family: "Noto Sans";
+      font-style: normal;
+      font-weight: 600;
+      font-size: 25px;
+      line-height: 34px;
+      color: #ffffff;
     }
-    &__row {
-        margin: 0;
+  }
+  &__row {
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 30px;
+    h1,
+    h2,
+    h3,
+    h4,
+    h5 {
+      font-family: "Noto Sans";
+      font-style: normal;
+      color: $plum-dark-color !important;
+      font-weight: inherit;
+      font-weight: 600;
+      font-size: 30px;
+      align-self: center;
+    }
+    p,
+    span,
+    div,
+    tbody {
+      font-family: "Noto Sans";
+      font-style: normal;
+      color: $plum-dark-color !important;
+      font-weight: inherit;
+      font-weight: 600;
+      font-size: 20px;
+      align-self: center;
+      align-items: center;
+      align-content: center;
+    }
+
+    &_col {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      gap: 20px;
+
+      span {
+        width: 80%;
+        font-family: "Noto Sans";
+        font-style: normal;
+        text-align: center;
+        color: $plum-dark-color;
+
+        &:first-of-type {
+          font-weight: 600;
+          font-size: 30px;
+          line-height: 44px;
+        }
+
+        &:last-of-type {
+          font-weight: 600;
+          font-size: 24px;
+          line-height: 33px;
+        }
+      }
+
+      &_image {
+        padding: 20px;
+        max-height: 608px;
+        object-fit: contain;
+      }
+
+      ul {
+        width: 80%;
+        list-style-type: disc;
         display: flex;
         flex-direction: column;
-        justify-content: center;
-        align-items: center;
-        padding: 30px;
-        h1, h2, h3, h4, h5{
-            font-family: 'Noto Sans';
-            font-style: normal;
-            color: $plum-dark-color !important;
-            font-weight: inherit;
-            font-weight: 600;
-            font-size: 30px;
-            align-self: center;
-        }
-        p, span,  div, tbody{
-            font-family: 'Noto Sans';
-            font-style: normal;
-            color: $plum-dark-color !important;
-            font-weight: inherit;
-            font-weight: 600;
-            font-size: 20px;
-            align-self: center;
-            align-items: center;
-            align-content: center;
-        }
-
-        &_col {
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            gap: 20px;
-
-            span {
-                width: 80%;
-                font-family: 'Noto Sans';
-                font-style: normal;
-                text-align: center;
-                color: $plum-dark-color;
-
-                &:first-of-type {
-                    font-weight: 600;
-                    font-size: 30px;
-                    line-height: 44px;
-                }
-
-                &:last-of-type {
-                    font-weight: 600;
-                    font-size: 24px;
-                    line-height: 33px;
-                }
-            }
-
-            &_image {
-                padding: 20px;
-                max-height: 608px;
-                object-fit: contain;
-            }
-
-            ul {
-                width: 80%;
-                list-style-type: disc;
-                display: flex;
-                flex-direction: column;
-                gap: 20px;
-                font-family: 'Noto Sans';
-                font-style: normal;
-                font-weight: 600;
-                font-size: 20px;
-                line-height: 27px;
-                color: $plum-dark-color;
-                list-style: inside;
-                align-self: center;
-
-            }
-        }
+        gap: 20px;
+        font-family: "Noto Sans";
+        font-style: normal;
+        font-weight: 600;
+        font-size: 20px;
+        line-height: 27px;
+        color: $plum-dark-color;
+        list-style: inside;
+        align-self: center;
+      }
     }
+  }
 
-    &__more {
-        display: flex;
-        flex-direction: row;
-        justify-content: flex-end;
-        padding: 0 54px 27px 0;
+  &__more {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+    padding: 0 54px 27px 0;
 
-        button {
-            font-family: 'Noto Sans';
-            font-style: normal;
-            font-weight: 400;
-            font-size: 16px;
-            line-height: 22px;
-            color: $green-color;
-            background: transparent;
-        }
+    button {
+      font-family: "Noto Sans";
+      font-style: normal;
+      font-weight: 400;
+      font-size: 16px;
+      line-height: 22px;
+      color: $green-color;
+      background: transparent;
     }
+  }
 }

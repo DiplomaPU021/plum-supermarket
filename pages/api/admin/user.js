@@ -10,14 +10,14 @@ handler.delete(async (req, res) => {
   try {
     const { id } = req.body;
     await db.connectDb();
-    const result=await User.findByIdAndRemove(id);
-  //  await  db.disconnectDb();
+    const result = await User.findByIdAndRemove(id);
+    //  await  db.disconnectDb();
     return res.json({
       message: `Користувача ${result.email} видалено!`,
       users: await User.find({}).sort({ updateAt: -1 }),
     });
   } catch (error) {
-   return res.status(500).json({ message: error.message });
+    return res.status(500).json({ message: error.message });
   }
 });
 

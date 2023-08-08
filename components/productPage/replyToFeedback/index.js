@@ -6,7 +6,9 @@ import styles from "./styles.module.scss";
 
 export default function ReplyToFeedback({ show, onHide, review }) {
   const { data: session } = useSession();
-  const [replierName, setReplierName] = useState(session ? session.user?.name : "");
+  const [replierName, setReplierName] = useState(
+    session ? session.user?.name : "",
+  );
 
   return (
     <Modal
@@ -23,9 +25,7 @@ export default function ReplyToFeedback({ show, onHide, review }) {
           </Modal.Header>
           <Form className={styles.form}>
             <Form.Group className="mb-3" controlId="formBasicName">
-              <Form.Label style={{ paddingLeft: "23px" }}>
-                Ім’я
-              </Form.Label>
+              <Form.Label style={{ paddingLeft: "23px" }}>Ім’я</Form.Label>
               <Form.Control
                 className={styles.form_input}
                 type="name"
@@ -68,13 +68,12 @@ export default function ReplyToFeedback({ show, onHide, review }) {
               </button>
             </div>
 
-            <Form.Group
-              controlId="formBasicCheckbox"
-            >
-              <Form.Check type="checkbox"
-                className={styles.form_checkbox}>
+            <Form.Group controlId="formBasicCheckbox">
+              <Form.Check type="checkbox" className={styles.form_checkbox}>
                 <Form.Check.Input
-                  className={styles.form_checkbox_box} type="checkbox" />
+                  className={styles.form_checkbox_box}
+                  type="checkbox"
+                />
                 <Form.Check.Label className={styles.form_checkbox_label}>
                   Повідомляти про відповіді по електорнній пошті
                 </Form.Check.Label>

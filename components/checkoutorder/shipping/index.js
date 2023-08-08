@@ -23,14 +23,16 @@ export default function Shipping({
   const [showPostmanDeliveryAll, setShowPostmanDeliveryAll] = useState("none");
   const [showNovaPoshtaDelivery, setShowNovaPoshtaDelivery] = useState("block");
   const [showAddAddressBlock, setShowAddAddressBlock] = useState("none");
-  const [userAddresses, setUserAddresses] = useState(user?.address != "" ? user?.address : []);
+  const [userAddresses, setUserAddresses] = useState(
+    user?.address != "" ? user?.address : [],
+  );
   const [filteredUserAdresses, setFilteredUserAdresses] = useState(
     userAddresses?.filter((address) =>
       address.zipCode
         ? address.zipCode === selectedCity?.object_code
         : address.city === selectedCity.object_name &&
-        address.region === selectedCity.region
-    )
+          address.region === selectedCity.region,
+    ),
   );
 
   const [filteredStreets, setFilteredStreets] = useState([]);
@@ -51,18 +53,20 @@ export default function Shipping({
   const selfRef = useRef();
   const [deliveryAddressSelected, setDeliveryAddressSelected] =
     useState("відділення №1");
-  const hasActiveAddress = filteredUserAdresses.some((item) => item.active === true);
+  const hasActiveAddress = filteredUserAdresses.some(
+    (item) => item.active === true,
+  );
 
   const [selectedAddress, setSelectedAddress] = useState(
     hasActiveAddress
       ? filteredUserAdresses.find((item) => item.active === true).address
-      : ""
+      : "",
   );
 
   useEffect(() => {
     if (selectedAddress && selectedAddress != "") {
       const selectedOption = filteredUserAdresses.find(
-        (item) => item.address == selectedAddress
+        (item) => item.address == selectedAddress,
       );
       if (selectedOption) {
         setActiveAddress(selectedOption);
@@ -72,7 +76,6 @@ export default function Shipping({
         });
       }
     }
-
   }, [selectedAddress]);
 
   useEffect(() => {
@@ -105,35 +108,35 @@ export default function Shipping({
     setSelectedCity(
       activeAddress
         ? {
-          value: `${activeAddress.cityType} ${activeAddress.city}, ${activeAddress.region}`,
-          object_category: activeAddress.cityType,
-          object_name: activeAddress.city,
-          object_code: activeAddress.zipCode,
-          region: activeAddress.region,
-        }
+            value: `${activeAddress.cityType} ${activeAddress.city}, ${activeAddress.region}`,
+            object_category: activeAddress.cityType,
+            object_name: activeAddress.city,
+            object_code: activeAddress.zipCode,
+            region: activeAddress.region,
+          }
         : {
-          community: "Київ",
-          level_1: "3200000000",
-          level_2: "8000000000",
-          object_category: "м.",
-          object_code: "8000000000",
-          object_name: "Київ",
-          region: "Київська Область",
-          _id: "63fd04b68cbfb5572cac4442",
-          value: "м. Київ, Київська Область",
-          label: "м. Київ, Київська Область",
-        }
+            community: "Київ",
+            level_1: "3200000000",
+            level_2: "8000000000",
+            object_category: "м.",
+            object_code: "8000000000",
+            object_name: "Київ",
+            region: "Київська Область",
+            _id: "63fd04b68cbfb5572cac4442",
+            value: "м. Київ, Київська Область",
+            label: "м. Київ, Київська Область",
+          },
     );
     setSelectedStreet(
       activeAddress
         ? {
-          value: activeAddress?.address,
-          name: activeAddress?.street,
-          street_type: activeAddress?.streetType,
-          city_name: activeAddress?.city,
-          city_code: activeAddress?.zipCode,
-        }
-        : null
+            value: activeAddress?.address,
+            name: activeAddress?.street,
+            street_type: activeAddress?.streetType,
+            city_name: activeAddress?.city,
+            city_code: activeAddress?.zipCode,
+          }
+        : null,
     );
   }, []);
   const handleSearchCity = (e) => {
@@ -192,7 +195,9 @@ export default function Shipping({
   }, [addressValues]);
 
   useDeepCompareEffect(() => {
-    const hasActiveAddress = filteredUserAdresses.some((item) => item.active === true);
+    const hasActiveAddress = filteredUserAdresses.some(
+      (item) => item.active === true,
+    );
     if (
       filteredUserAdresses.length > 0 &&
       delivery.deliveryId == "postmanDelivery" &&
@@ -202,7 +207,7 @@ export default function Shipping({
       setShowPostmanDeliveryAll("block");
       setVisibleAddressField(true);
       setSelectedAddress(
-        filteredUserAdresses.find((item) => item.active === true).address || ""
+        filteredUserAdresses.find((item) => item.active === true).address || "",
       );
     } else {
       setShowAddAddressBlock("block");
@@ -216,10 +221,12 @@ export default function Shipping({
       setFilteredUserAdresses(
         userAddresses?.filter((address) =>
           address.zipCode
-            ? address.zipCode === selectedCity?.object_code && address.address != ""
+            ? address.zipCode === selectedCity?.object_code &&
+              address.address != ""
             : address.city === selectedCity.object_name &&
-            address.region === selectedCity.region && address.address != ""
-        )
+              address.region === selectedCity.region &&
+              address.address != "",
+        ),
       );
       setDeliveryAddressSelected("відділення №1");
       if (filteredUserAdresses && filteredUserAdresses.length > 0) {
@@ -272,10 +279,12 @@ export default function Shipping({
       setFilteredUserAdresses(
         userAddresses?.filter((address) =>
           address.zipCode
-            ? address.zipCode === selectedCity?.object_code && address.address != ""
+            ? address.zipCode === selectedCity?.object_code &&
+              address.address != ""
             : address.city === selectedCity.object_name &&
-            address.region === selectedCity.region && address.address != ""
-        )
+              address.region === selectedCity.region &&
+              address.address != "",
+        ),
       );
     }
   }, [userAddresses]);
@@ -300,7 +309,7 @@ export default function Shipping({
       const updatedAddresses = filteredUserAdresses.map((item) =>
         item.address == e.target.value
           ? { ...item, active: true }
-          : { ...item, active: false }
+          : { ...item, active: false },
       );
       setFilteredUserAdresses(updatedAddresses);
     }
@@ -310,12 +319,12 @@ export default function Shipping({
   const handleChangeDelivery = (e) => {
     setAddressValues({
       ...addressValues,
-      ground:"",
+      ground: "",
       elevator: "Відсутній",
     });
     if (e.target.name === "selfPickup") {
       const addressDefault = deliveryTypes[0].adresses.find(
-        (item) => item.city === selectedCity?.object_name
+        (item) => item.city === selectedCity?.object_name,
       );
       setDelivery((prevState) => ({
         ...prevState,
@@ -343,11 +352,11 @@ export default function Shipping({
     }
     if (e.target.name === "postmanDelivery") {
       const defaultAddress = filteredUserAdresses.filter(
-        (c) => c.city == selectedCity?.object_name
+        (c) => c.city == selectedCity?.object_name,
       );
       if (defaultAddress && defaultAddress.length > 0) {
         const selectedAddressActive = defaultAddress.find(
-          (c) => c.active === true
+          (c) => c.active === true,
         );
         if (selectedAddressActive) {
           setSelectedAddress(selectedAddressActive?.address);
@@ -485,12 +494,10 @@ export default function Shipping({
       ...addressValues,
       ground: e.target.value,
     });
-        setDelivery({
-          ...delivery,
-          deliveryAddress: `${selectedCity?.value}, ${activeAddress.address}, ${e.target.value} поверх, ліфт ${addressValues.elevator}`,
-        });
-      
-    
+    setDelivery({
+      ...delivery,
+      deliveryAddress: `${selectedCity?.value}, ${activeAddress.address}, ${e.target.value} поверх, ліфт ${addressValues.elevator}`,
+    });
   };
   const handleSelectElevator = (e) => {
     const options = e.target.options;
@@ -502,10 +509,10 @@ export default function Shipping({
       elevator: e.target.value,
     });
     if (selectedAddress && selectedAddress != "") {
-        setDelivery({
-          ...delivery,
-          deliveryAddress: `${selectedCity?.value}, ${activeAddress.address}, ${addressValues.ground} поверх, ліфт ${e.target.value}`,
-      })
+      setDelivery({
+        ...delivery,
+        deliveryAddress: `${selectedCity?.value}, ${activeAddress.address}, ${addressValues.ground} поверх, ліфт ${e.target.value}`,
+      });
     }
   };
   const handleCancelAddAdress = () => {
@@ -557,61 +564,61 @@ export default function Shipping({
             />
             <CityModal show={cityModalShow} onClose={handleCityModalClose} />
             {deliveryTypes[0].adresses.some(
-              (item) => item.city === selectedCity?.object_name
+              (item) => item.city === selectedCity?.object_name,
             ) && (
-                <Row>
-                  <Col>
-                    <Form.Check
+              <Row>
+                <Col>
+                  <Form.Check
+                    type="radio"
+                    className={styles.radio}
+                    aria-label="radio 9"
+                  >
+                    <Form.Check.Input
+                      id="selfPickup"
+                      name="selfPickup"
                       type="radio"
-                      className={styles.radio}
-                      aria-label="radio 9"
+                      className={styles.rrr}
+                      value={deliveryTypes[0].name}
+                      onChange={handleChangeDelivery}
+                      checked={
+                        delivery.deliveryType === `${deliveryTypes[0].name}`
+                      }
+                    />
+                    <Form.Check.Label
+                      htmlFor="selfPickup"
+                      className={styles.labeltext}
                     >
-                      <Form.Check.Input
-                        id="selfPickup"
-                        name="selfPickup"
-                        type="radio"
-                        className={styles.rrr}
-                        value={deliveryTypes[0].name}
-                        onChange={handleChangeDelivery}
-                        checked={
-                          delivery.deliveryType === `${deliveryTypes[0].name}`
-                        }
-                      />
-                      <Form.Check.Label
-                        htmlFor="selfPickup"
-                        className={styles.labeltext}
-                      >
-                        {deliveryTypes[0].name}
-                      </Form.Check.Label>
-                    </Form.Check>
-                  </Col>
-                  <Col className={styles.text_span}>{deliveryTypes[0].price}</Col>
-                  <Row style={{ display: showSelfPickup }}>
-                    <Form.Select
-                      className={styles.form_input2}
-                      onChange={(e) => handleSelectPickup(e)}
-                      ref={selfRef}
+                      {deliveryTypes[0].name}
+                    </Form.Check.Label>
+                  </Form.Check>
+                </Col>
+                <Col className={styles.text_span}>{deliveryTypes[0].price}</Col>
+                <Row style={{ display: showSelfPickup }}>
+                  <Form.Select
+                    className={styles.form_input2}
+                    onChange={(e) => handleSelectPickup(e)}
+                    ref={selfRef}
+                  >
+                    <option
+                      value="Вибрати адресу відділення..."
+                      disabled={true}
+                      key="selfpick1"
                     >
-                      <option
-                        value="Вибрати адресу відділення..."
-                        disabled={true}
-                        key="selfpick1"
-                      >
-                        Вибрати адресу відділення...
-                      </option>
-                      {deliveryTypes[0].adresses.map(
-                        (item, i) =>
-                          item.city === selectedCity?.object_name && (
-                            <option key={item.id}>
-                              {item.cityType}
-                              {item.city}, {item.street}
-                            </option>
-                          )
-                      )}
-                    </Form.Select>
-                  </Row>
+                      Вибрати адресу відділення...
+                    </option>
+                    {deliveryTypes[0].adresses.map(
+                      (item, i) =>
+                        item.city === selectedCity?.object_name && (
+                          <option key={item.id}>
+                            {item.cityType}
+                            {item.city}, {item.street}
+                          </option>
+                        ),
+                    )}
+                  </Form.Select>
                 </Row>
-              )}
+              </Row>
+            )}
 
             <Row>
               <Col>
@@ -656,17 +663,17 @@ export default function Shipping({
                     defaultValue={selectedAddress}
                   >
                     {filteredUserAdresses != null &&
-                      filteredUserAdresses.filter(
-                        (c) => c.city == selectedCity?.object_name
-                      )
+                    filteredUserAdresses.filter(
+                      (c) => c.city == selectedCity?.object_name,
+                    )
                       ? filteredUserAdresses.map((item, index) => (
-                        <option
-                          key={`${item.address}-${index}`}
-                          value={item.address}
-                        >
-                          {item.address}
-                        </option>
-                      ))
+                          <option
+                            key={`${item.address}-${index}`}
+                            value={item.address}
+                          >
+                            {item.address}
+                          </option>
+                        ))
                       : null}
                   </Form.Select>
                   <Col>
@@ -679,9 +686,7 @@ export default function Shipping({
                   </Col>
                 </div>
               ) : null}
-              <div
-                style={{ display: showAddAddressBlock }}
-              >
+              <div style={{ display: showAddAddressBlock }}>
                 <Form.Group>
                   <Form.Label className={styles.form_label} htmlFor="street">
                     Вулиця
@@ -712,47 +717,48 @@ export default function Shipping({
                 </Form.Group>
                 <div className={styles.flex_row}>
                   <Col>
-                  <Form.Group controlId="buildingGroup">
-                    <Form.Label className={styles.form_label}>
-                      Будинок
-                    </Form.Label>
-                    <Form.Control
-                      className={styles.form_floor}
-                      name="building"
-                      value={addressValues.building}
-                      onChange={(e) => handleChangeAdress(e)}
-                    />
-                  </Form.Group>
+                    <Form.Group controlId="buildingGroup">
+                      <Form.Label className={styles.form_label}>
+                        Будинок
+                      </Form.Label>
+                      <Form.Control
+                        className={styles.form_floor}
+                        name="building"
+                        value={addressValues.building}
+                        onChange={(e) => handleChangeAdress(e)}
+                      />
+                    </Form.Group>
                   </Col>
                   <Col>
-                  <Form.Group controlId="flatGroup">
-                    <Form.Label className={styles.form_label}>
-                      Квартира
-                    </Form.Label>
-                    <Form.Control
-                      className={styles.form_floor}
-                      name="flat"
-                      value={addressValues.flat}
-                      onChange={(e) => handleChangeAdress(e)}
-                    />
-                  </Form.Group>
+                    <Form.Group controlId="flatGroup">
+                      <Form.Label className={styles.form_label}>
+                        Квартира
+                      </Form.Label>
+                      <Form.Control
+                        className={styles.form_floor}
+                        name="flat"
+                        value={addressValues.flat}
+                        onChange={(e) => handleChangeAdress(e)}
+                      />
+                    </Form.Group>
                   </Col>
                   <Col>
-                  <button
-                    onClick={handleAddAdress}
-                    id="btnAddAddress"
-                    disabled={isButtonDisabled}
-                  >
-                    Додати
-                  </button>
+                    <button
+                      onClick={handleAddAdress}
+                      id="btnAddAddress"
+                      disabled={isButtonDisabled}
+                    >
+                      Додати
+                    </button>
                   </Col>
                   <Col>
-                  <button
-                    onClick={handleCancelAddAdress}
-                    id="btnCancelAddAddress"
-                  >
-                    Скасувати
-                  </button></Col>
+                    <button
+                      onClick={handleCancelAddAdress}
+                      id="btnCancelAddAddress"
+                    >
+                      Скасувати
+                    </button>
+                  </Col>
                 </div>
               </div>
               <div className={styles.group_floor}>
@@ -811,7 +817,7 @@ export default function Shipping({
                 <Row className={styles.deltime_text}>
                   Вкажіть зручний день та час для доставки
                 </Row>
-                <CustomForm/>
+                <CustomForm />
                 {/* <Form.Group className={styles.status}>
                   <Form.Check
                     className={styles.status__radiobtn}

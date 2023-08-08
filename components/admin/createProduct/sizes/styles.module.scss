@@ -1,58 +1,57 @@
 @import "../../base";
 
 .container_size {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 5px;
-    margin-top: 10px;
-    margin-bottom: 10px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 5px;
+  margin-top: 10px;
+  margin-bottom: 10px;
 
-    select,
-    input {
-        outline: none;
-        border: 1px solid $plum-violet-color;
-        width: 200px;
-        height: 40px;
-        border-radius: 5px;
-        padding: 8px;
-        color: $plum-dark-color;
+  select,
+  input {
+    outline: none;
+    border: 1px solid $plum-violet-color;
+    width: 200px;
+    height: 40px;
+    border-radius: 5px;
+    padding: 8px;
+    color: $plum-dark-color;
+  }
+
+  svg {
+    width: 30px;
+    height: 30px;
+    fill: $plum-dark-color;
+    cursor: pointer;
+    margin-top: 5px;
+
+    &:hover {
+      fill: $plum-violet-color;
     }
-
-    svg {
-        width: 30px;
-        height: 30px;
-        fill: $plum-dark-color;
-        cursor: pointer;
-        margin-top: 5px;
-
-        &:hover {
-            fill: $plum-violet-color;
-        }
-    }
+  }
 }
 
 .click_btn {
-    background: $plum-violet-color;
-    width: fit-content;
-    font-weight: 600;
-    color: $light-wheet-color;
-    height: 50px;
-    cursor: pointer;
-    margin: 10px 0;
-    padding-left: 15px;
-    padding-right: 15px;
+  background: $plum-violet-color;
+  width: fit-content;
+  font-weight: 600;
+  color: $light-wheet-color;
+  height: 50px;
+  cursor: pointer;
+  margin: 10px 0;
+  padding-left: 15px;
+  padding-right: 15px;
 
-    &:hover {
-        box-shadow: 0px 0px 5px 0px $plum-violet-color;
-    }
-
+  &:hover {
+    box-shadow: 0px 0px 5px 0px $plum-violet-color;
+  }
 }
 
-.size_headers{
-    display: flex;
-    flex-direction: row;
-    gap: 130px;
-    padding-left: 60px;
-    color: $plum-dark-color;
-    font-size: 20px;
+.size_headers {
+  display: flex;
+  flex-direction: row;
+  gap: 130px;
+  padding-left: 60px;
+  color: $plum-dark-color;
+  font-size: 20px;
 }

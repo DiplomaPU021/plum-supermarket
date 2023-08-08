@@ -30,7 +30,7 @@ handler.post(async (req, res) => {
           },
           {
             new: true,
-          }
+          },
         );
         return res.status(200).json({ message: "Продукт оновлено успішно!" });
       }
@@ -57,7 +57,6 @@ handler.post(async (req, res) => {
       await db.disconnectDb();
       return res.status(200).json({ message: "Продукт створено успішно!" });
     }
-
   } catch (error) {
     return res.status(500).json({ message: error.message });
   }
@@ -116,10 +115,12 @@ handler.put(async (req, res) => {
         },
         {
           new: true,
-        }
+        },
       );
       await db.disconnectDb();
-      return res.status(200).json({ message: "Продукт відредаговано успішно!" });
+      return res
+        .status(200)
+        .json({ message: "Продукт відредаговано успішно!" });
     }
   } catch (error) {
     return res.status(500).json({ message: error.message });
@@ -150,7 +151,7 @@ handler.delete(async (req, res) => {
         },
         {
           new: true,
-        }
+        },
       );
       await db.disconnectDb();
       return res.status(200).json({ message: "Cубпродукт видалено успішно!" });

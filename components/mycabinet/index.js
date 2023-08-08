@@ -25,7 +25,7 @@ export default function MyCabinet({
   const [regShow, setRegShow] = useState(false);
   const [congratsShow, setCongratsShow] = useState(false);
   const [userProfileShow, setUserProfileShow] = useState(
-    session?.user ? true : false
+    session?.user ? true : false,
   );
   useEffect(() => {
     if (session && (status == "authenticated" || status == "loading")) {

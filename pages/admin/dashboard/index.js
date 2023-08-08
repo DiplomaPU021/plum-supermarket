@@ -64,17 +64,18 @@ export default function Dashboard({ users, products, orders }) {
             <div className={styles.card_infos}>
               <h4>
                 +
-                {Math.round(orders
-                  .reduce((a, val) => a + val.costAfterDiscount, 0))
-                  .toLocaleString("uk-UA")}{" "}
+                {Math.round(
+                  orders.reduce((a, val) => a + val.costAfterDiscount, 0),
+                ).toLocaleString("uk-UA")}{" "}
                 ₴
               </h4>
               <h5>
                 -
-                {Math.round(orders
-                  .filter((o) => !o.isPaid)
-                  .reduce((a, val) => a + val.costAfterDiscount, 0))
-                  .toLocaleString("uk-UA")}{" "}
+                {Math.round(
+                  orders
+                    .filter((o) => !o.isPaid)
+                    .reduce((a, val) => a + val.costAfterDiscount, 0),
+                ).toLocaleString("uk-UA")}{" "}
                 ₴ Не оплачено
               </h5>
               <span>Загальний дохід</span>
@@ -113,7 +114,12 @@ export default function Dashboard({ users, products, orders }) {
                       )}
                     </td>
                     <td>{order.status}</td>
-                    <td>{Math.round(order.costAfterDiscount).toLocaleString("uk-UA")} ₴</td>
+                    <td>
+                      {Math.round(order.costAfterDiscount).toLocaleString(
+                        "uk-UA",
+                      )}{" "}
+                      ₴
+                    </td>
                   </tr>
                 ))}
               </tbody>
@@ -171,7 +177,7 @@ export async function getServerSideProps(context) {
     .lean();
   const orders = await Order.find()
     .select(
-      "paymentMethod status isPaid totalPrice createdAt costAfterDiscount"
+      "paymentMethod status isPaid totalPrice createdAt costAfterDiscount",
     )
     .lean();
   orders.reverse();

@@ -7,7 +7,6 @@ import ProductCard from "../productCard";
 import { useState } from "react";
 
 export default function Products({ products }) {
-
   const [pageSize, setPageSize] = useState(8);
 
   return (
@@ -17,23 +16,25 @@ export default function Products({ products }) {
           <ProductCard product={p} style={p.style} mode={p.mode} />
         </Col>
       ))}
-      {pageSize < products.length ? 
-      <Col className={styles.col}>
-        <Card className={styles.morevideo}>
-          <Card.Body className={styles.lastcardbody}>
-            <h6 className={styles.textcard}>Більше товарів далі</h6>
-            <Button
-              className={styles.ytbtn}
-              onClick={() => {
-                setPageSize(pageSize + 8)
-              }}
-            >
-              Показати ще
-            </Button>
-          </Card.Body>
-        </Card>
-      </Col>
-      : <></>}
+      {pageSize < products.length ? (
+        <Col className={styles.col}>
+          <Card className={styles.morevideo}>
+            <Card.Body className={styles.lastcardbody}>
+              <h6 className={styles.textcard}>Більше товарів далі</h6>
+              <Button
+                className={styles.ytbtn}
+                onClick={() => {
+                  setPageSize(pageSize + 8);
+                }}
+              >
+                Показати ще
+              </Button>
+            </Card.Body>
+          </Card>
+        </Col>
+      ) : (
+        <></>
+      )}
     </Row>
   );
 }

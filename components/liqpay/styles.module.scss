@@ -1,22 +1,22 @@
 .modalfoot {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    text-align: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
 }
 .addbtn {
-    width: 426px;
-    height: 52px;
-    color: $light-wheet-color;
-    background: #220F4B;
-    border-radius: 30px;
-    border: none;
-    margin-top: 5px;
-    font-size: 25px;
-    font-weight: 480;
-    margin-bottom: 10px;
-    &:hover {
-        box-shadow: 0px 0px 5px 0px #220F4B;
-    }
+  width: 426px;
+  height: 52px;
+  color: $light-wheet-color;
+  background: #220f4b;
+  border-radius: 30px;
+  border: none;
+  margin-top: 5px;
+  font-size: 25px;
+  font-weight: 480;
+  margin-bottom: 10px;
+  &:hover {
+    box-shadow: 0px 0px 5px 0px #220f4b;
+  }
 }

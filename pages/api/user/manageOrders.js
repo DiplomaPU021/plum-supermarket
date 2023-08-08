@@ -6,15 +6,14 @@ import orderService from "../../../utils/services/order.service";
 const handler = nc().use(auth);
 
 handler.get(async (req, res) => {
-    try {
-        await db.connectDb();
-        let orders = await orderService.findByUserId(req.user);
-        await db.disconnectDb();
-            return res.status(200).json({ orders });
-    } catch (error) {
-        return res.status(500).json({ error: error.message });
-
-    }
+  try {
+    await db.connectDb();
+    let orders = await orderService.findByUserId(req.user);
+    await db.disconnectDb();
+    return res.status(200).json({ orders });
+  } catch (error) {
+    return res.status(500).json({ error: error.message });
+  }
 });
 // handler.put(async (req, res) => {
 //     try {

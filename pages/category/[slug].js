@@ -20,7 +20,7 @@ export default function CategorySlug({ country, category, advice, brands }) {
     <Container fluid className={styles.categorypage}>
       <Header country={country} />
       <Row style={{ padding: "15px  0 0 60px", margin: "0" }}>
-        <Col style={{padding: "0"}}>
+        <Col style={{ padding: "0" }}>
           <Link href="/">
             <LightPlumIcon />
             <GreenChevronRight fillColor="#70BF63" w="30px" h="30px" />
@@ -31,7 +31,7 @@ export default function CategorySlug({ country, category, advice, brands }) {
         </Col>
       </Row>
       <CategoryPage category={category} />
-      <Brands brands={brands}/>
+      <Brands brands={brands} />
       <Row className={styles.categorypage__banner}>
         <Col className={styles.categorypage__banner_col1}>
           <div>
