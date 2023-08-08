@@ -2,15 +2,13 @@ import { Table } from "react-bootstrap";
 import styles from "./styles.module.scss";
 import "bootstrap/dist/css/bootstrap.min.css";
 
-
 import TableItem from "./TableItem";
 
 export default function OrdersTable({ orders }) {
-
   return (
     <>
       <div className={styles.header}>Замовлення</div>
-     
+
       <Table className={styles.ordertable} striped>
         <thead>
           <tr>
