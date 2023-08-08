@@ -8,8 +8,6 @@ import Head from "next/head";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
-
-
 let persistor = persistStore(store);
 
 function MyApp({ Component, pageProps: { session, ...pageProps } }) {
@@ -26,14 +24,16 @@ function MyApp({ Component, pageProps: { session, ...pageProps } }) {
         />
         {/* <meta httpEquiv="Permissions-Policy" content="interest-cohort=()"></meta> */}
         <link rel="icon" href="/favicon.ico" />
-            <script async src="https://www.googletagmanager.com/gtag/js?id=G-V23MRBFTTD"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments)}
-  gtag('js', new Date());
-  gtag('config', 'G-V23MRBFTTD');
-</script>
-<script dangerouslySetInnerHTML={{ __html: googleAnalyticsScript }} />
+        <script
+          async
+          src="https://www.googletagmanager.com/gtag/js?id=G-V23MRBFTTD"
+        ></script>
+        <script>
+          window.dataLayer = window.dataLayer || []; function gtag()
+          {dataLayer.push(arguments)}
+          gtag('js', new Date()); gtag('config', 'G-V23MRBFTTD');
+        </script>
+        <script dangerouslySetInnerHTML={{ __html: googleAnalyticsScript }} />
       </Head>
 
       <SessionProvider session={session}>

@@ -24,9 +24,9 @@ export default function Create({ setCoupons }) {
 
   const validate = Yup.object({
     discount: Yup.number()
-      .required('Вкажіть знижку')
+      .required("Вкажіть знижку")
       .min(1, "Знижка має бути не менше 1%")
-      .max(99, "Знижка має бути не більше 99%")
+      .max(99, "Знижка має бути не більше 99%"),
   });
   const submitHandler = async () => {
     try {
@@ -55,7 +55,7 @@ export default function Create({ setCoupons }) {
         }}
       >
         {(formik) => (
-          <Form 
+          <Form
             onSubmit={(e) => {
               e.preventDefault();
             }}
@@ -70,9 +70,7 @@ export default function Create({ setCoupons }) {
             />
             <div className={styles.date_picker}>
               <FormGroup controlId="groupStartDate">
-                <FormLabel className={styles.form_label}>
-                  Початок дії
-                </FormLabel>
+                <FormLabel className={styles.form_label}>Початок дії</FormLabel>
                 <FormControl
                   type="date"
                   name="startDate"
@@ -85,9 +83,7 @@ export default function Create({ setCoupons }) {
                 />
               </FormGroup>
               <FormGroup controlId="groupEndDate">
-                <FormLabel className={styles.form_label}>
-                  Кінець дії
-                </FormLabel>
+                <FormLabel className={styles.form_label}>Кінець дії</FormLabel>
                 <FormControl
                   type="date"
                   name="endDate"
@@ -101,7 +97,10 @@ export default function Create({ setCoupons }) {
               </FormGroup>
             </div>
             <div className={styles.btnWrap}>
-              <button onClick={() => submitHandler()} className={`${styles.btn}`}>
+              <button
+                onClick={() => submitHandler()}
+                className={`${styles.btn}`}
+              >
                 <span>Додати купон</span>
               </button>
             </div>
