@@ -7,6 +7,7 @@ import { SessionProvider } from "next-auth/react";
 import Head from "next/head";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { Analytics } from '@vercel/analytics/react';
 
 let persistor = persistStore(store);
 
@@ -56,6 +57,7 @@ function MyApp({ Component, pageProps: { session, ...pageProps } }) {
               theme="light"
             />
             <Component {...pageProps} />
+            <Analytics />
           </PersistGate>
         </Provider>
       </SessionProvider>
