@@ -9,7 +9,18 @@ module.exports = {
     prependData: '@import "./base.scss";',
   },
   images: {
-    domains: ["lh3.googleusercontent.com", "platform-lookaside.fbsbx.com"],
+    remotePatterns: [
+        {
+          protocol: 'https',
+          hostname: 'lh3.googleusercontent.com',
+          pathname: '**',
+        },
+        {
+          protocol: 'https',
+          hostname: 'platform-lookaside.fbsbx.com',
+          pathname: '**',
+        },
+    ],
   },
   webpack(config) {
     config.resolve.alias["@"] = path.resolve(__dirname);
