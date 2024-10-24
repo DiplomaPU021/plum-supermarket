@@ -6,7 +6,7 @@
   flex-direction: column;
   top: 0;
   z-index: 99;
-  background-color: $light-wheet-color;
+  background-color: $light-wheat-color;
   box-shadow: 0px 1px 3px $plum-dark-color;
 
   &_container {
@@ -36,7 +36,7 @@
     &_content {
       display: none;
       position: absolute;
-      background-color: $light-wheet-color;
+      background-color: $light-wheat-color;
       width: 45%;
       padding: 15px;
       border-radius: 23px;
@@ -59,8 +59,8 @@
 
         &::-webkit-scrollbar-track {
           background: #70bf6380;
-          border-left: 1px solid $light-wheet-color;
-          border-right: 1px solid $light-wheet-color;
+          border-left: 1px solid $light-wheat-color;
+          border-right: 1px solid $light-wheat-color;
         }
 
         &::-webkit-scrollbar-thumb {
@@ -69,7 +69,7 @@
         }
 
         li {
-          background: $light-wheet-color;
+          background: $light-wheat-color;
           border-radius: 23px;
           padding: 8px 17px;
           cursor: pointer;
@@ -95,7 +95,7 @@
 
       border-radius: 25px;
       padding: 0 0 0 32px;
-      background: $light-wheet-color;
+      background: $light-wheat-color;
       border: 2px solid $plum-dark-color;
 
       font-family: "Noto Sans";
@@ -418,19 +418,19 @@
 
         tbody {
           background: #e6e1f1;
-          border: 1px solid $light-wheet-color;
+          border: 1px solid $light-wheat-color;
 
           tr {
             height: 44px;
             color: $plum-dark-color;
-            border: 1px solid $light-wheet-color;
+            border: 1px solid $light-wheat-color;
 
             td {
               padding: 10px;
               font-weight: 500;
               font-size: 18px;
               line-height: 25px;
-              border: 1px solid $light-wheet-color;
+              border: 1px solid $light-wheat-color;
 
               span {
                 font-family: "Noto Sans";
@@ -467,7 +467,7 @@
                   flex-direction: column;
                   justify-content: center;
                   align-items: center;
-                  background: $light-wheet-color;
+                  background: $light-wheat-color;
                   border: 2px solid $plum-dark-color;
                   border-radius: 23px;
 

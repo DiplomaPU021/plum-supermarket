@@ -1,6 +1,6 @@
 $plum-violet-color: #81528c;
 $plum-dark-color: #220f4b;
-$light-wheet-color: #faf8ff;
+$light-wheat-color: #faf8ff;
 $green-color: #70bf63;
 
 .header {
@@ -13,7 +13,7 @@ $green-color: #70bf63;
   box-shadow: $shadow-1;
   padding: 0 20px;
   border-radius: 10px;
-  background-color: $light-wheet-color;
+  background-color: $light-wheat-color;
 
   &_search {
     position: relative;
@@ -31,7 +31,7 @@ $green-color: #70bf63;
         padding: 5px 20px;
         outline: none;
         border: 1px solid $plum-dark-color;
-        background-color: $light-wheet-color;
+        background-color: $light-wheat-color;
 
         &:hover {
           border: 2px solid $plum-dark-color;
@@ -74,7 +74,7 @@ $green-color: #70bf63;
     padding: 12px;
     display: flex;
     align-items: center;
-    background-color: $light-wheet-color;
+    background-color: $light-wheat-color;
     box-shadow: $shadow-1;
     overflow: hidden;
     border-radius: 10px;
@@ -111,7 +111,7 @@ $green-color: #70bf63;
       border-radius: 50%;
       background-image: linear-gradient(
         to top right,
-        $light-wheet-color,
+        $light-wheat-color,
         $plum-violet-color
       );
       position: absolute;
@@ -122,7 +122,7 @@ $green-color: #70bf63;
     }
 
     &:hover {
-      color: $light-wheet-color;
+      color: $light-wheat-color;
 
       &::before {
         transform: scale(3);
@@ -146,7 +146,7 @@ $green-color: #70bf63;
   .orders {
     position: relative;
     display: grid;
-    background: $light-wheet-color;
+    background: $light-wheat-color;
     padding: 15px 20px 0px 20px;
     margin-top: 20px;
     box-shadow: $shadow-1;
@@ -174,11 +174,11 @@ $green-color: #70bf63;
 
           &:hover {
             background: $plum-violet-color;
-            color: $light-wheet-color;
+            color: $light-wheat-color;
 
             &:nth-last-of-type(5) {
               svg {
-                fill: $light-wheet-color;
+                fill: $light-wheat-color;
               }
             }
           }
@@ -231,7 +231,7 @@ $green-color: #70bf63;
       position: relative;
       padding: 5px 10px;
       background: $plum-dark-color;
-      color: $light-wheet-color;
+      color: $light-wheat-color;
       border-radius: 4px;
 
       &:hover {
@@ -262,7 +262,7 @@ $green-color: #70bf63;
 
   .users {
     position: relative;
-    background: $light-wheet-color;
+    background: $light-wheat-color;
     margin-top: 20px;
     border-radius: 10px;
     padding: 15px;
@@ -317,10 +317,10 @@ $green-color: #70bf63;
       tr {
         &:hover {
           background: $plum-violet-color;
-          color: $light-wheet-color;
+          color: $light-wheat-color;
 
           span {
-            color: $light-wheet-color;
+            color: $light-wheat-color;
           }
         }
       }

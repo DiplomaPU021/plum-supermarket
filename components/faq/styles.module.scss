@@ -3,7 +3,7 @@
   flex-direction: column;
   gap: 60px;
   padding: 60px 60px 60px 60px;
-  background-color: $light-wheet-color;
+  background-color: $light-wheat-color;
 
   &__titleCentr {
     display: flex;
@@ -22,7 +22,7 @@
       gap: 10px;
       width: 70px;
       height: 70px;
-      background: $light-wheet-color;
+      background: $light-wheat-color;
       border: 2px solid $plum-dark-color;
       border-radius: 50px;
     }
@@ -88,7 +88,7 @@
         font-weight: 500;
         font-size: 28px;
         line-height: 38px;
-        color: $light-wheet-color;
+        color: $light-wheat-color;
       }
 
       span {
@@ -132,7 +132,7 @@
       background: $plum-dark-color;
       border-radius: 30px;
       line-height: 34px;
-      color: $light-wheet-color;
+      color: $light-wheat-color;
 
       &:hover {
         box-shadow: 0px 0px 5px 0px #220f4b;

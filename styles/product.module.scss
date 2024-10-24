@@ -1,7 +1,7 @@
 .links {
   margin: 0;
   padding: 15px 0 0 60px;
-  background: $light-wheet-color;
+  background: $light-wheat-color;
 
   &__link {
     font-family: "Noto Sans";
@@ -24,7 +24,7 @@
   flex-direction: column;
   align-items: center;
   padding: 20px 60px 38px 0;
-  background: $light-wheet-color;
+  background: $light-wheat-color;
 
   span {
     font-family: "Noto Sans";
@@ -38,7 +38,7 @@
     background: linear-gradient(90deg, #220f4b 0%, #573c91 100%);
     border-radius: 0px 23px 23px 0px;
     font-size: 32px;
-    color: $light-wheet-color;
+    color: $light-wheat-color;
   }
 
   &_code {
@@ -53,12 +53,12 @@
 }
 
 .productpage {
-  background: $light-wheet-color;
+  background: $light-wheat-color;
   padding: 0 60px 0 60px;
 
   &__main {
     padding: 0;
-    background: linear-gradient(90deg, $light-wheet-color 0%, #f0ebfb 40%);
+    background: linear-gradient(90deg, $light-wheat-color 0%, #f0ebfb 40%);
   }
 
   &__title {

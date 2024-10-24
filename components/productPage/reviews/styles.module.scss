@@ -1,5 +1,5 @@
 .reviews {
-  background-color: $light-wheet-color;
+  background-color: $light-wheat-color;
   padding-bottom: 30px;
   &__title {
     display: flex;
@@ -39,7 +39,7 @@
       font-style: normal;
       font-weight: 600;
       font-size: 25px;
-      color: $light-wheet-color;
+      color: $light-wheat-color;
       &:hover {
         box-shadow: 0px 0px 5px 0px #220f4b;
       }
@@ -81,8 +81,8 @@
 
     &::-webkit-scrollbar-track {
       background: #70bf6380;
-      border-left: 2px solid $light-wheet-color;
-      border-right: 2px solid $light-wheet-color;
+      border-left: 2px solid $light-wheat-color;
+      border-right: 2px solid $light-wheat-color;
     }
 
     &::-webkit-scrollbar-thumb {

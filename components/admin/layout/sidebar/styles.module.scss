@@ -1,13 +1,13 @@
 $plum-violet-color: #81528c;
 $plum-dark-color: #220f4b;
-$light-wheet-color: #faf8ff;
+$light-wheat-color: #faf8ff;
 $green-color: #70bf63;
 
 .sidebar {
   position: fixed;
   top: 0;
   left: 0;
-  background: $light-wheet-color;
+  background: $light-wheat-color;
   height: 100%;
   width: 80px;
   transition: all 0.1s ease;
@@ -19,7 +19,7 @@ $green-color: #70bf63;
     top: 50px;
     height: 50px;
     width: 20px;
-    background: $light-wheet-color;
+    background: $light-wheat-color;
     cursor: pointer;
     border-top-right-radius: 10px;
     border-bottom-right-radius: 10px;
@@ -70,7 +70,7 @@ $green-color: #70bf63;
       height: 60px;
       border-radius: 50%;
       object-fit: cover;
-      border: 5px solid $light-wheet-color;
+      border: 5px solid $light-wheat-color;
       background-color: $plum-dark-color;
     }
   }
@@ -89,16 +89,16 @@ $green-color: #70bf63;
 
       &:hover {
         background: $plum-dark-color;
-        color: $light-wheet-color;
+        color: $light-wheat-color;
         font-weight: 600;
         box-shadow: 0px 0px 5px 0px #220f4b;
 
         svg {
-          fill: $light-wheet-color;
+          fill: $light-wheat-color;
         }
 
         .show {
-          color: $light-wheet-color !important;
+          color: $light-wheat-color !important;
         }
       }
 
@@ -157,7 +157,7 @@ $green-color: #70bf63;
         display: flex;
 
         svg {
-          fill: $light-wheet-color;
+          fill: $light-wheat-color;
         }
       }
     }
@@ -168,12 +168,12 @@ $green-color: #70bf63;
   background: $plum-dark-color !important;
 
   a span {
-    color: $light-wheet-color !important;
+    color: $light-wheat-color !important;
     font-weight: 600 !important;
   }
 
   svg {
-    fill: $light-wheet-color !important;
+    fill: $light-wheat-color !important;
   }
 }
 

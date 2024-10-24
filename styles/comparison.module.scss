@@ -1,6 +1,6 @@
 .comparison {
   padding: 0 !important;
-  background: $light-wheet-color;
+  background: $light-wheat-color;
 
   &__title {
     margin: 0 !important;
@@ -8,7 +8,7 @@
     flex-direction: column;
     align-items: center;
     padding: 30px 60px 40px 0;
-    background: $light-wheet-color;
+    background: $light-wheat-color;
 
     &_name {
       position: relative;
@@ -16,7 +16,7 @@
       background: linear-gradient(90deg, #220f4b 0%, #573c91 100%);
       border-radius: 0px 23px 23px 0px;
       font-size: 32px;
-      color: $light-wheet-color;
+      color: $light-wheat-color;
 
       span {
         font-family: "Noto Sans";
@@ -109,7 +109,7 @@
           height: 60px;
           border-radius: 50%;
           border: 2px solid $plum-dark-color;
-          background-color: $light-wheet-color;
+          background-color: $light-wheat-color;
 
           &:hover {
             box-shadow: 0px 0px 5px 0px #220f4b;
@@ -149,7 +149,7 @@
             height: 46px;
             border-radius: 23px;
             border: 2px solid $plum-dark-color;
-            background-color: $light-wheet-color;
+            background-color: $light-wheat-color;
           }
 
           span {
@@ -270,7 +270,7 @@
 
           tbody {
             background: linear-gradient(90deg, #e6e1f1 50.52%, #e6e1f1 97.92%);
-            border: 1px solid $light-wheet-color;
+            border: 1px solid $light-wheat-color;
 
             tr {
               height: 44px;
@@ -281,14 +281,14 @@
                 background-color: #846fb2;
               }
 
-              border: 1px solid $light-wheet-color;
+              border: 1px solid $light-wheat-color;
 
               td {
                 padding: 10px;
                 font-weight: 400;
                 font-size: 16px;
                 line-height: 22px;
-                border: 1px solid $light-wheet-color;
+                border: 1px solid $light-wheat-color;
 
                 &:first-of-type {
                   font-weight: 500;
@@ -378,8 +378,8 @@
 
         &::-webkit-scrollbar-track {
           background: #70bf6380;
-          border-left: 1.5px solid $light-wheet-color;
-          border-right: 1.5px solid $light-wheet-color;
+          border-left: 1.5px solid $light-wheat-color;
+          border-right: 1.5px solid $light-wheat-color;
         }
 
         &::-webkit-scrollbar-thumb {

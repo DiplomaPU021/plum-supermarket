@@ -240,7 +240,7 @@
 
 .profilebtn {
   border: 2px solid #220f4b;
-  background-color: $light-wheet-color;
+  background-color: $light-wheat-color;
   color: $plum-dark-color;
   font-weight: 500;
   font-size: 18px;
@@ -251,7 +251,7 @@
   &:hover {
     box-shadow: 0px 0px 5px 0px #220f4b;
     background-color: $plum-dark-color;
-    color: $light-wheet-color;
+    color: $light-wheat-color;
   }
 }
 
@@ -268,7 +268,7 @@
 
   button {
     border: 2px solid #220f4b;
-    background-color: $light-wheet-color;
+    background-color: $light-wheat-color;
     color: $plum-dark-color;
     font-weight: 500;
     font-size: 16px;
@@ -358,7 +358,7 @@
       align-items: center;
       justify-content: space-between;
       padding-left: 20px;
-      background: $light-wheet-color;
+      background: $light-wheat-color;
       border: 2px solid $plum-dark-color;
       border-radius: 23px;
 
@@ -620,13 +620,13 @@
 
   a {
     &:active {
-      color: $light-wheet-color;
+      color: $light-wheat-color;
       z-index: 3;
       box-shadow: 0px 0px 5px 0px #220f4b;
     }
 
     &:focus {
-      color: $light-wheet-color;
+      color: $light-wheat-color;
       z-index: 3;
       box-shadow: 0px 0px 5px 0px #220f4b;
     }
@@ -746,7 +746,7 @@
   line-height: 25px;
   border-radius: 30px;
   color: #220f4b;
-  background-color: $light-wheet-color;
+  background-color: $light-wheat-color;
   border: 2px solid #220f4b;
   margin: 16px 10px 0px 10px;
   max-width: 730px;

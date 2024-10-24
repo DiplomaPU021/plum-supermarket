@@ -82,8 +82,8 @@
 
   &::-webkit-scrollbar-track {
     background: #70bf6380;
-    border-left: 2px solid $light-wheet-color;
-    border-right: 2px solid $light-wheet-color;
+    border-left: 2px solid $light-wheat-color;
+    border-right: 2px solid $light-wheat-color;
   }
 
   &::-webkit-scrollbar-thumb {
@@ -107,7 +107,7 @@
 .addbtn {
   width: 426px;
   height: 52px;
-  color: $light-wheet-color;
+  color: $light-wheat-color;
   background: #220f4b;
   border-radius: 30px;
   border: none;
@@ -263,7 +263,7 @@
   backdrop-filter: blur(2.5px);
 
   &_main {
-    background: $light-wheet-color;
+    background: $light-wheat-color;
     border-radius: 10px;
   }
 }
